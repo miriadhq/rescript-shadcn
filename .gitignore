@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+#rescript
+**/lib/bs/* 
+**/lib/ocaml/* 
+
+*.res.jsx
+*.res.mjs
+*.jsx
+
+rescript.lock

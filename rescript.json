@@ -1,0 +1,34 @@
+{
+  "name": "rescript-shadcn",
+  "namespace": true,
+  "sources": [
+    {
+      "dir": "app",
+      "subdirs": true
+    },
+    {
+      "dir": "registry",
+      "subdirs": true
+    },
+    {
+      "dir": "bindings",
+      "subdirs": true
+    },
+    {
+      "dir": "components"
+    }
+  ],
+  "jsx": {
+    "version": 4,
+    "preserve": true
+  },
+  "package-specs": {
+    "module": "esmodule",
+    "in-source": true
+  },
+  "suffix": ".jsx",
+  "dependencies": [
+    "@rescript/react",
+    "@rescript-shadcn/base-ui"
+  ]
+}

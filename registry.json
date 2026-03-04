@@ -1,78 +1,7977 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "acme",
-  "homepage": "https://acme.com",
+  "name": "rescript-shadcn",
+  "homepage": "https://github.com/miriadhq/rescript-shadcn",
   "items": [
     {
-      "name": "hello-world",
-      "type": "registry:component",
-      "title": "Hello World",
-      "description": "A simple hello world component",
-      "registryDependencies": ["button"],
+      "name": "accordion",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
-          "path": "registry/new-york/blocks/hello-world/hello-world.tsx",
-          "type": "registry:component"
+          "path": "registry/base/ui/Accordion.res",
+          "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "example-form",
-      "type": "registry:component",
-      "title": "Example Form",
-      "description": "A contact form with Zod validation.",
-      "dependencies": ["zod"],
-      "registryDependencies": ["button", "input", "label", "textarea", "card"],
+      "name": "alert",
+      "type": "registry:ui",
       "files": [
         {
-          "path": "registry/new-york/blocks/example-form/example-form.tsx",
-          "type": "registry:component"
+          "path": "registry/base/ui/Alert.res",
+          "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "complex-component",
-      "type": "registry:component",
-      "title": "Complex Component",
-      "description": "A complex component showing hooks, libs and components.",
-      "registryDependencies": ["card"],
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
-          "path": "registry/new-york/blocks/complex-component/page.tsx",
-          "type": "registry:page",
-          "target": "app/pokemon/page.tsx"
-        },
-        {
-          "path": "registry/new-york/blocks/complex-component/components/pokemon-card.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/complex-component/components/pokemon-image.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/complex-component/lib/pokemon.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/new-york/blocks/complex-component/hooks/use-pokemon.ts",
-          "type": "registry:hook"
+          "path": "registry/base/ui/AlertDialog.res",
+          "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "example-with-css",
-      "type": "registry:component",
-      "title": "Example with CSS",
-      "description": "A login form with a CSS file.",
+      "name": "aspect-ratio",
+      "type": "registry:ui",
       "files": [
         {
-          "path": "registry/new-york/blocks/example-with-css/example-card.tsx",
-          "type": "registry:component"
-        },
+          "path": "registry/base/ui/AspectRatio.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
         {
-          "path": "registry/new-york/blocks/example-with-css/example-card.css",
-          "type": "registry:component"
+          "path": "registry/base/ui/Avatar.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Badge.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Breadcrumb.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Button.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/ButtonGroup.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Calendar.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui/Card.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "dependencies": [
+        "embla-carousel-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Carousel.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Chart.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Checkbox.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Collapsible.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Combobox.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "cmdk",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Command.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/ContextMenu.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Dialog.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "direction",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Direction.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "dependencies": [
+        "vaul"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Drawer.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/DropdownMenu.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui/Empty.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Field.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/HoverCard.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icons",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui/Icons.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Input.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/InputGroup.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "dependencies": [
+        "input-otp",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/InputOtp.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Item.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui/Kbd.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui/Label.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Menubar.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/NativeSelect.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/NavigationMenu.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Pagination.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Popover.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Progress.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/RadioGroup.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-resizable-panels"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Resizable.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/ScrollArea.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Select.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Separator.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Sheet.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "sheet",
+        "skeleton",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Sidebar.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui/Skeleton.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Slider.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "next-themes",
+        "sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Sonner.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Spinner.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Switch.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui/Table.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Tabs.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui/Textarea.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Toggle.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/ToggleGroup.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui/Tooltip.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-accordion",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlAccordion.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-alert",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlAlert.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-alert-dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlAlertDialog.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-aspect-ratio",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "aspect-ratio"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlAspectRatio.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-avatar",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlAvatar.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-badge",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlBadge.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-breadcrumb",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlBreadcrumb.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-button",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlButton.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-button-group",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlButtonGroup.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-calendar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlCalendar.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-card",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlCard.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-carousel",
+      "type": "registry:ui",
+      "dependencies": [
+        "embla-carousel-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlCarousel.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-chart",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "chart"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlChart.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-checkbox",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "checkbox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlCheckbox.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-collapsible",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "collapsible"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlCollapsible.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-combobox",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlCombobox.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-command",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "cmdk",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlCommand.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-context-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlContextMenu.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-data-table",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlDataTable.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlDialog.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-direction",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "direction"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlDirection.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-drawer",
+      "type": "registry:ui",
+      "dependencies": [
+        "vaul"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlDrawer.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-dropdown-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlDropdownMenu.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-empty",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlEmpty.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-field",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlField.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-hover-card",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "hover-card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlHoverCard.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-input",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlInput.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-input-group",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlInputGroup.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-input-otp",
+      "type": "registry:ui",
+      "dependencies": [
+        "input-otp",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlInputOtp.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-item",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlItem.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-kbd",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlKbd.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-label",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlLabel.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-menubar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlMenubar.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-native-select",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlNativeSelect.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-navigation-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "navigation-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlNavigationMenu.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-pagination",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlPagination.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-popover",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlPopover.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-progress",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlProgress.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-radio-group",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlRadioGroup.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-resizable",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-resizable-panels"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlResizable.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-scroll-area",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlScrollArea.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-select",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSelect.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-separator",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSeparator.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-sheet",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSheet.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-sidebar",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSidebar.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-skeleton",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSkeleton.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-slider",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSlider.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-sonner",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSonner.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-spinner",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSpinner.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-switch",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlSwitch.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-table",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlTable.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-tabs",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlTabs.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-textarea",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlTextarea.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-toggle",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlToggle.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-toggle-group",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlToggleGroup.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rtl-tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/ui-rtl/RtlTooltip.res",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "accordion-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AccordionBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "accordion-borders",
+      "type": "registry:example",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AccordionBorders.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "accordion-card",
+      "type": "registry:example",
+      "registryDependencies": [
+        "accordion",
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AccordionCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "accordion-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AccordionDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "accordion-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AccordionDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "accordion-multiple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AccordionMultiple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "accordion-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "rtl-accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AccordionRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-action",
+      "type": "registry:example",
+      "registryDependencies": [
+        "alert",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertAction.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-basic",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "alert"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-colors",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "alert"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertColors.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "alert"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-destructive",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "alert"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDialogBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDialogDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-destructive",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDialogDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-media",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDialogMedia.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "rtl-alert-dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDialogRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-small",
+      "type": "registry:example",
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDialogSmall.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-small-media",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertDialogSmallMedia.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "alert-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "rtl-alert"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AlertRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "aspect-ratio"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AspectRatioDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio-portrait",
+      "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "aspect-ratio"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AspectRatioPortrait.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "aspect-ratio"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AspectRatioRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio-square",
+      "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "aspect-ratio"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AspectRatioSquare.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-badge",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarBadge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-badge-icon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarBadgeIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-dropdown",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-group",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-group-count",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarGroupCount.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-group-count-icon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarGroupCountIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar",
+        "rtl-avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "avatar-size",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/AvatarSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "badge-colors",
+      "type": "registry:example",
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BadgeColors.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "badge-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BadgeDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "badge-icon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BadgeIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "badge-link",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BadgeLink.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "badge-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "rtl-badge"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BadgeRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "badge-spinner",
+      "type": "registry:example",
+      "registryDependencies": [
+        "badge",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BadgeSpinner.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "badge-variants",
+      "type": "registry:example",
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BadgeVariants.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BreadcrumbBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "breadcrumb",
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BreadcrumbDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-dropdown",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "breadcrumb",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BreadcrumbDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-ellipsis",
+      "type": "registry:example",
+      "registryDependencies": [
+        "breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BreadcrumbEllipsis.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-link",
+      "type": "registry:example",
+      "registryDependencies": [
+        "breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BreadcrumbLink.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "breadcrumb",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BreadcrumbRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-separator",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/BreadcrumbSeparator.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-default",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonDefault.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-destructive",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-ghost",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGhost.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-dropdown",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-input",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupInput.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-input-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "input-group",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-nested",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "input-group",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupNested.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-orientation",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupOrientation.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-popover",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "field",
+        "popover",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupPopover.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-select",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "input",
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupSelect.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-separator",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "button-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupSeparator.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-size",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-group-split",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonGroupSplit.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-icon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-link",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonLink.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-outline",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonOutline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-render",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonRender.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-rounded",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonRounded.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "rtl-button",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-secondary",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonSecondary.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-size",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-spinner",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonSpinner.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "button-with-icon",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ButtonWithIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-booked-dates",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar",
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarBookedDates.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-caption",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarCaption.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-custom-days",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar",
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarCustomDays.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-hijri",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "next",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarHijri.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-multiple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar",
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarMultiple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-presets",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarPresets.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-range",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarRange.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-time",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "card",
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarTime.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "calendar-week-numbers",
+      "type": "registry:example",
+      "registryDependencies": [
+        "calendar",
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CalendarWeekNumbers.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "card-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CardDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "card-image",
+      "type": "registry:example",
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CardImage.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "card-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CardRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "card-small",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CardSmall.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "carousel-api",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CarouselApi.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "carousel-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CarouselDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "carousel-multiple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CarouselMultiple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "carousel-orientation",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CarouselOrientation.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "carousel-plugin",
+      "type": "registry:example",
+      "dependencies": [
+        "embla-carousel-autoplay"
+      ],
+      "registryDependencies": [
+        "card",
+        "carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CarouselPlugin.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "carousel-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CarouselRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "carousel-size",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CarouselSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "carousel-spacing",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CarouselSpacing.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "chart-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ChartDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "chart-example",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ChartExample.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "chart-example-axis",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ChartExampleAxis.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "chart-example-grid",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ChartExampleGrid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "chart-example-legend",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ChartExampleLegend.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "chart-example-tooltip",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ChartExampleTooltip.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "chart-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "chart"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ChartRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "chart-tooltip",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/ChartTooltip.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CheckboxBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CheckboxDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-description",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CheckboxDescription.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CheckboxDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-group",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CheckboxGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CheckboxInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CheckboxRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-table",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "table"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CheckboxTable.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "collapsible-basic",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "collapsible"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CollapsibleBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "collapsible-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "collapsible"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CollapsibleDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "collapsible-file-tree",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "collapsible",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CollapsibleFileTree.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "collapsible-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "collapsible"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CollapsibleRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "collapsible-settings",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "collapsible",
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CollapsibleSettings.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-auto-highlight",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxAutoHighlight.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-clear",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxClear.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-custom",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox",
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxCustom.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-groups",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-input-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "combobox",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-multiple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxMultiple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-popup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxPopup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "combobox-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "combobox",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ComboboxRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "command-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "command"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CommandBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "command-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "command"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CommandDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "command-dialog",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "command"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CommandDialog.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "command-groups",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "command"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CommandGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "command-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "command"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CommandRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "command-scrollable",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "command"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CommandScrollable.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "command-shortcuts",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "command"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/CommandShortcuts.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-checkboxes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuCheckboxes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-destructive",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-groups",
+      "type": "registry:example",
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-icons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-radio",
+      "type": "registry:example",
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuRadio.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-shortcuts",
+      "type": "registry:example",
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuShortcuts.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-sides",
+      "type": "registry:example",
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuSides.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "context-menu-submenu",
+      "type": "registry:example",
+      "registryDependencies": [
+        "context-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ContextMenuSubmenu.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "data-picker-with-dropdowns",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "field",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DataPickerWithDropdowns.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "data-table-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@tanstack/react-table",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "dropdown-menu",
+        "input",
+        "table"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DataTableDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "data-table-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "@tanstack/react-table",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "dropdown-menu",
+        "input",
+        "table"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DataTableRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-basic",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "field",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DatePickerBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DatePickerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-dob",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "field",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DatePickerDob.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-input",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "field",
+        "input-group",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DatePickerInput.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-natural-language",
+      "type": "registry:example",
+      "dependencies": [
+        "chrono-node",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "field",
+        "input-group",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DatePickerNaturalLanguage.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-range",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "field",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DatePickerRange.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DatePickerRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-time",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "field",
+        "input",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DatePickerTime.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dialog-close-button",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DialogCloseButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dialog-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "field",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DialogDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dialog-no-close-button",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DialogNoCloseButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dialog-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "field",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DialogRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dialog-scrollable-content",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DialogScrollableContent.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dialog-sticky-footer",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DialogStickyFooter.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "direction-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "direction"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DirectionDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "drawer-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "recharts"
+      ],
+      "registryDependencies": [
+        "button",
+        "drawer"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DrawerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "drawer-dialog",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "drawer",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DrawerDialog.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "drawer-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "recharts"
+      ],
+      "registryDependencies": [
+        "button",
+        "drawer"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DrawerRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "drawer-scrollable-content",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "drawer"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DrawerScrollableContent.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "drawer-sides",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "drawer"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DrawerSides.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-avatar",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-checkboxes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuCheckboxes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-checkboxes-icons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuCheckboxesIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-complex",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuComplex.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-destructive",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-icons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-radio-group",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuRadioGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-radio-icons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuRadioIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-shortcuts",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuShortcuts.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-submenu",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/DropdownMenuSubmenu.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "empty-avatar",
+      "type": "registry:example",
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/EmptyAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "empty-avatar-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/EmptyAvatarGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "empty-background",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/EmptyBackground.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "empty-card",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/EmptyCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "empty-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/EmptyDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "empty-input-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "empty",
+        "input-group",
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/EmptyInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "empty-outline",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/EmptyOutline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "empty-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/EmptyRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-checkbox",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldCheckbox.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-choice-card",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldChoiceCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "field",
+        "input",
+        "select",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-fieldset",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldFieldset.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-group",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-input",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldInput.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-radio",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldRadio.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-responsive",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldResponsive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "field",
+        "input",
+        "select",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-select",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldSelect.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-slider",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldSlider.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-switch",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldSwitch.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "field-textarea",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FieldTextarea.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "file-upload-list",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "item",
+        "progress"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/FileUploadList.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "hover-card-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "hover-card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/HoverCardDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "hover-card-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "hover-card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/HoverCardRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "hover-card-sides",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "hover-card"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/HoverCardSides.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-badge",
+      "type": "registry:example",
+      "registryDependencies": [
+        "badge",
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputBadge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-button-group",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputButtonGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-field",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputField.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-fieldgroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputFieldgroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-file",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputFile.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-form",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "field",
+        "input",
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputForm.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-grid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGrid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-block-end",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupBlockEnd.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-block-start",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupBlockStart.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-button",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-button-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button-group",
+        "input-group",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupButtonGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-custom",
+      "type": "registry:example",
+      "registryDependencies": [
+        "input-group",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupCustom.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-dropdown",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "dropdown-menu",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-icon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-in-card",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupInCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-inline-end",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupInlineEnd.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-inline-start",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupInlineStart.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-kbd",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group",
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupKbd.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-label",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group",
+        "label",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupLabel.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-spinner",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupSpinner.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-text",
+      "type": "registry:example",
+      "registryDependencies": [
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupText.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-textarea",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupTextarea.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-textarea-examples",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupTextareaExamples.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-tooltip",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupTooltip.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-with-addons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupWithAddons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-with-buttons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupWithButtons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-with-kbd",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group",
+        "kbd",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupWithKbd.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-group-with-tooltip",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button-group",
+        "dropdown-menu",
+        "field",
+        "input-group",
+        "popover",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputGroupWithTooltip.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-inline",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputInline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-input-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-alphanumeric",
+      "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpAlphanumeric.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-controlled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpControlled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-form",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "field",
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpForm.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-four-digits",
+      "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpFourDigits.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-pattern",
+      "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "field",
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpPattern.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-otp-separator",
+      "type": "registry:example",
+      "registryDependencies": [
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputOtpSeparator.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-required",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputRequired.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "input-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-avatar",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-dropdown",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "dropdown-menu",
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-header",
+      "type": "registry:example",
+      "registryDependencies": [
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemHeader.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-icon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-image",
+      "type": "registry:example",
+      "registryDependencies": [
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemImage.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-link",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemLink.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-size",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "item-variant",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ItemVariant.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "kbd-button",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/KbdButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "kbd-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/KbdDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "kbd-group",
+      "type": "registry:example",
+      "registryDependencies": [
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/KbdGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "kbd-input-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group",
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/KbdInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "kbd-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/KbdRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "kbd-tooltip",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "kbd",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/KbdTooltip.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "label-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/LabelDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "label-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "checkbox",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/LabelRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menubar-checkbox",
+      "type": "registry:example",
+      "registryDependencies": [
+        "menubar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/MenubarCheckbox.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menubar-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "menubar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/MenubarDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menubar-icons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "menubar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/MenubarIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menubar-radio",
+      "type": "registry:example",
+      "registryDependencies": [
+        "menubar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/MenubarRadio.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menubar-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "menubar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/MenubarRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "menubar-submenu",
+      "type": "registry:example",
+      "registryDependencies": [
+        "menubar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/MenubarSubmenu.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "muted-item-group",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/MutedItemGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "native-select-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "native-select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/NativeSelectDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "native-select-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "native-select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/NativeSelectDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "native-select-groups",
+      "type": "registry:example",
+      "registryDependencies": [
+        "native-select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/NativeSelectGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "native-select-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "native-select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/NativeSelectInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "native-select-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "native-select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/NativeSelectRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "next"
+      ],
+      "registryDependencies": [
+        "navigation-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/NavigationMenuDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "next"
+      ],
+      "registryDependencies": [
+        "navigation-menu",
+        "rtl-navigation-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/NavigationMenuRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "outline-item-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "item"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/OutlineItemGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "pagination-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "pagination"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PaginationDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "pagination-icons-only",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "pagination",
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PaginationIconsOnly.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "pagination-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "pagination"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PaginationRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "pagination-simple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "pagination"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PaginationSimple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "popover-alignments",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PopoverAlignments.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "popover-basic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PopoverBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "popover-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PopoverDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "popover-form",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "field",
+        "input",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PopoverForm.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "popover-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/PopoverRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "progress-controlled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "progress",
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ProgressControlled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "progress-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "progress"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ProgressDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "progress-label",
+      "type": "registry:example",
+      "registryDependencies": [
+        "progress"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ProgressLabel.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "progress-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "progress"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ProgressRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-fields",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/RadioFields.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-group-choice-card",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/RadioGroupChoiceCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-group-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "label",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/RadioGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-group-description",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/RadioGroupDescription.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-group-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/RadioGroupDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-group-fieldset",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/RadioGroupFieldset.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-group-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/RadioGroupInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "radio-group-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/RadioGroupRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "resizable-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "resizable"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ResizableDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "resizable-handle",
+      "type": "registry:example",
+      "registryDependencies": [
+        "resizable"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ResizableHandle.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "resizable-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "resizable"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ResizableRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "resizable-vertical",
+      "type": "registry:example",
+      "registryDependencies": [
+        "resizable"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ResizableVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "scroll-area",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ScrollAreaDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area-horizontal-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "scroll-area"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ScrollAreaHorizontalDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "scroll-area",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ScrollAreaRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "select-align-item",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "select",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SelectAlignItem.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "select-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SelectDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "select-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SelectDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "select-groups",
+      "type": "registry:example",
+      "registryDependencies": [
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SelectGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "select-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SelectInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "select-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SelectRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "select-scrollable",
+      "type": "registry:example",
+      "registryDependencies": [
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SelectScrollable.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "separator-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SeparatorDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "separator-list",
+      "type": "registry:example",
+      "registryDependencies": [
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SeparatorList.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "separator-menu",
+      "type": "registry:example",
+      "registryDependencies": [
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SeparatorMenu.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "separator-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SeparatorRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "separator-vertical",
+      "type": "registry:example",
+      "registryDependencies": [
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SeparatorVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sheet-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "sheet"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SheetDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sheet-no-close-button",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "sheet"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SheetNoCloseButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sheet-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "field",
+        "input",
+        "sheet"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SheetRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sheet-side",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "sheet"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SheetSide.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-controlled",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarControlled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "collapsible",
+        "dropdown-menu",
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-footer",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "dropdown-menu",
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarFooter.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-group-action",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "sonner"
+      ],
+      "registryDependencies": [
+        "sidebar",
+        "sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarGroupAction.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-group-collapsible",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "collapsible",
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarGroupCollapsible.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-header",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "dropdown-menu",
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarHeader.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-menu",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarMenu.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-menu-action",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "dropdown-menu",
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarMenuAction.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-menu-badge",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarMenuBadge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-menu-collapsible",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "collapsible",
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarMenuCollapsible.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-menu-sub",
+      "type": "registry:example",
+      "registryDependencies": [
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarMenuSub.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-rsc",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarRsc.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "collapsible",
+        "dropdown-menu",
+        "sidebar",
+        "sidebar-demo"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SidebarRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-avatar",
+      "type": "registry:example",
+      "registryDependencies": [
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SkeletonAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-card",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SkeletonCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SkeletonDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-form",
+      "type": "registry:example",
+      "registryDependencies": [
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SkeletonForm.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SkeletonRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-table",
+      "type": "registry:example",
+      "registryDependencies": [
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SkeletonTable.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-text",
+      "type": "registry:example",
+      "registryDependencies": [
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SkeletonText.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "slider-controlled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "label",
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SliderControlled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "slider-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SliderDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "slider-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SliderDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "slider-multiple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SliderMultiple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "slider-range",
+      "type": "registry:example",
+      "registryDependencies": [
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SliderRange.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "slider-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SliderRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "slider-vertical",
+      "type": "registry:example",
+      "registryDependencies": [
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SliderVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sonner-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SonnerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sonner-description",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SonnerDescription.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sonner-position",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SonnerPosition.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "sonner-types",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SonnerTypes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "spinner-badge",
+      "type": "registry:example",
+      "registryDependencies": [
+        "badge",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SpinnerBadge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "spinner-button",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SpinnerButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "spinner-custom",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SpinnerCustom.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "spinner-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "item",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SpinnerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "spinner-empty",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "empty",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SpinnerEmpty.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "spinner-input-group",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input-group",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SpinnerInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "spinner-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "item",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SpinnerRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "spinner-size",
+      "type": "registry:example",
+      "registryDependencies": [
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SpinnerSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "switch-choice-card",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SwitchChoiceCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "switch-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "label",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SwitchDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "switch-description",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SwitchDescription.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "switch-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SwitchDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "switch-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SwitchInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "switch-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SwitchRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "switch-sizes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/SwitchSizes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "table-actions",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "table"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TableActions.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "table-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "table"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TableDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "table-footer",
+      "type": "registry:example",
+      "registryDependencies": [
+        "table"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TableFooter.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "table-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "table"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TableRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tabs-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TabsDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tabs-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TabsDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tabs-icons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TabsIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tabs-line",
+      "type": "registry:example",
+      "registryDependencies": [
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TabsLine.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tabs-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "card",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TabsRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tabs-vertical",
+      "type": "registry:example",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TabsVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "textarea-button",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TextareaButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "textarea-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TextareaDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "textarea-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TextareaDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "textarea-field",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TextareaField.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "textarea-invalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TextareaInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "textarea-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TextareaRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-demo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-disabled",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleGroupDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-font-weight-selector",
+      "type": "registry:example",
+      "registryDependencies": [
+        "field",
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleGroupFontWeightSelector.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-outline",
+      "type": "registry:example",
+      "registryDependencies": [
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleGroupOutline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleGroupRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-sizes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleGroupSizes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-spacing",
+      "type": "registry:example",
+      "registryDependencies": [
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleGroupSpacing.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-vertical",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toggle-group"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleGroupVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-outline",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleOutline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-rtl",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-sizes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleSizes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "toggle-text",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/ToggleText.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-demo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TooltipDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-disabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TooltipDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-keyboard",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "kbd",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TooltipKeyboard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-rtl",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TooltipRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-sides",
+      "type": "registry:example",
+      "registryDependencies": [
+        "button",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/TooltipSides.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-blockquote",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyBlockquote.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-demo",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-h1",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyH1.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-h2",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyH2.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-h3",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyH3.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-h4",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyH4.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-inline-code",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyInlineCode.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-large",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyLarge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-lead",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyLead.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-list",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyList.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-muted",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyMuted.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-p",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyP.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-rtl",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyRtl.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-small",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographySmall.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "typography-table",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/base/examples/TypographyTable.res",
+          "type": "registry:example"
         }
       ]
     }

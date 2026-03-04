@@ -1,0 +1,26 @@
+@react.component
+let make = () =>
+  <Field.Group className="w-full max-w-sm">
+    <Field.Label htmlFor="switch-share">
+      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+        <Field.Content>
+          <Field.Title> {"Share across devices"->React.string} </Field.Title>
+          <Field.Description>
+            {"Focus is shared across devices, and turns off when you leave the app."->React.string}
+          </Field.Description>
+        </Field.Content>
+        <Switch id="switch-share" />
+      </Field>
+    </Field.Label>
+    <Field.Label htmlFor="switch-notifications">
+      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+        <Field.Content>
+          <Field.Title> {"Enable notifications"->React.string} </Field.Title>
+          <Field.Description>
+            {"Receive notifications when focus mode is enabled or disabled."->React.string}
+          </Field.Description>
+        </Field.Content>
+        <Switch id="switch-notifications" defaultChecked={true} />
+      </Field>
+    </Field.Label>
+  </Field.Group>
