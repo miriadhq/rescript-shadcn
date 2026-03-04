@@ -50,3 +50,5 @@ next-env.d.ts
 *.jsx
 
 rescript.lock
+
+test/artifacts
