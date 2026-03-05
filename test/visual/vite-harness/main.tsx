@@ -25,13 +25,13 @@ const tsxModules: Record<string, ModuleLoader> = {
 
 const rescriptModules: Record<string, ModuleLoader> = {
   ...(import.meta.glob(
-    "../../../registry/base/examples/*.jsx"
+    "../../../registry/base/examples/*.{jsx,res.mjs}"
   ) as Record<string, ModuleLoader>),
-  ...(import.meta.glob("../../../registry/base/ui/*.jsx") as Record<
+  ...(import.meta.glob("../../../registry/base/ui/*.{jsx,res.mjs}") as Record<
     string,
     ModuleLoader
   >),
-  ...(import.meta.glob("../../../registry/base/ui-rtl/*.jsx") as Record<
+  ...(import.meta.glob("../../../registry/base/ui-rtl/*.{jsx,res.mjs}") as Record<
     string,
     ModuleLoader
   >),

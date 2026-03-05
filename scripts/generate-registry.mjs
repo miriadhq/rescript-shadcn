@@ -2,6 +2,9 @@
 
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs"
 import path from "node:path"
+import rescriptJson from "../rescript.json" with { type: "json" }
+
+const suffix = rescriptJson.suffix
 
 const packageRoot = new URL("..", import.meta.url).pathname
 const baseDir = path.join(packageRoot, "registry", "base")
@@ -90,11 +93,11 @@ for (const mod of exampleModules) {
 }
 
 /** Resolve a local import to a registry item name.
- *  importPath: the raw import string, e.g. "../ui/Button.jsx" or "./Foo.jsx"
+ *  importPath: the raw import string, e.g. "../ui/Button.res.mjs" or "./Foo.res.mjs"
  *  fromDir: the directory of the importing file, e.g. "ui", "ui-rtl", "examples"
  */
 function resolveLocalImport(importPath, fromDir) {
-  const toResPath = importPath.replace(/\.jsx$/, ".res")
+  const toResPath = importPath.replace(suffix, ".res")
   // Resolve relative to fromDir
   const resolved = path.normalize(path.join(fromDir, toResPath))
   return pathToName.get(resolved) ?? null
@@ -107,7 +110,7 @@ function resolveLocalImport(importPath, fromDir) {
 /** Build a registry item from a .res file */
 function buildItem(mod, dir, type) {
   const resPath = `${dir}/${mod}.res`
-  const jsPath = path.join(baseDir, `${dir}/${mod}.jsx`)
+  const jsPath = path.join(baseDir, `${dir}/${mod}${suffix}`)
   const name = mod
 
   const { npmPackages, localImports } = parseImports(jsPath)

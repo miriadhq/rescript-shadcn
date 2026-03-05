@@ -11,11 +11,7 @@
       "subdirs": true
     },
     {
-      "dir": "bindings",
-      "subdirs": true
-    },
-    {
-      "dir": "components"
+      "dir": "src"
     }
   ],
   "jsx": {
@@ -26,7 +22,7 @@
     "module": "esmodule",
     "in-source": true
   },
-  "suffix": ".jsx",
+  "suffix": ".res.mjs",
   "dependencies": [
     "@rescript/react",
     "@rescript-shadcn/base-ui"

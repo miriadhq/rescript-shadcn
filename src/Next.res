@@ -28,6 +28,10 @@ module Layout = {
   }
 }
 
+module Navigation = {
+  @module("next/navigation") external usePathname: unit => string = "usePathname"
+}
+
 module Link = {
   type props = {
     href: string,

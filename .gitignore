@@ -47,7 +47,6 @@ next-env.d.ts
 
 *.res.jsx
 *.res.mjs
-*.jsx
 
 rescript.lock
 
