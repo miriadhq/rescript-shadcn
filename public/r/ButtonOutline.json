@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonOutline",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonOutline.res",
+      "content": "@react.component\nlet make = () => <Button variant=Button.Variant.Outline> {\"Outline\"->React.string} </Button>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

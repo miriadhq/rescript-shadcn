@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SidebarControlled",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SidebarControlled.res",
+      "content": "@@directive(\"'use client'\")\n\ntype icon =\n  | IconFrame\n  | IconLifeBuoy\n  | IconMap\n  | IconPieChart\n  | IconSend\n\nlet renderIcon = (~icon) =>\n  switch icon {\n  | IconFrame => <Icons.Frame />\n  | IconLifeBuoy => <Icons.LifeBuoy />\n  | IconMap => <Icons.Map />\n  | IconPieChart => <Icons.PieChart />\n  | IconSend => <Icons.Send />\n  }\n\ntype project = {\n  name: string,\n  url: string,\n  icon: icon,\n}\n\nlet projects: array<project> = [\n  {name: \"Design Engineering\", url: \"#\", icon: IconFrame},\n  {name: \"Sales & Marketing\", url: \"#\", icon: IconPieChart},\n  {name: \"Travel\", url: \"#\", icon: IconMap},\n  {name: \"Support\", url: \"#\", icon: IconLifeBuoy},\n  {name: \"Feedback\", url: \"#\", icon: IconSend},\n]\n\n@react.component\nlet make = () => {\n  let (open_, setOpen) = React.useState(() => true)\n\n  <Sidebar.Provider open_={open_} onOpenChange={v => setOpen(_ => v)}>\n    <Sidebar>\n      <Sidebar.Content>\n        <Sidebar.Group>\n          <Sidebar.GroupLabel> {\"Projects\"->React.string} </Sidebar.GroupLabel>\n          <Sidebar.GroupContent>\n            <Sidebar.Menu>\n              {projects\n              ->Array.map(project =>\n                <Sidebar.MenuItem key={project.name}>\n                  <Sidebar.MenuButton render={<a href={project.url} />}>\n                    {renderIcon(~icon=project.icon)}\n                    <span> {project.name->React.string} </span>\n                  </Sidebar.MenuButton>\n                </Sidebar.MenuItem>\n              )\n              ->React.array}\n            </Sidebar.Menu>\n          </Sidebar.GroupContent>\n        </Sidebar.Group>\n      </Sidebar.Content>\n    </Sidebar>\n    <Sidebar.Inset>\n      <header className=\"flex h-12 items-center justify-between px-4\">\n        <Button\n          onClick={_ => setOpen(prev => !prev)} size=Button.Size.Sm variant=Button.Variant.Ghost\n        >\n          {open_ ? <Icons.PanelLeftClose /> : <Icons.PanelLeftOpen />}\n          <span>\n            {(if open_ {\n              \"Close\"\n            } else {\n              \"Open\"\n            } ++ \" Sidebar\")->React.string}\n          </span>\n        </Button>\n      </header>\n    </Sidebar.Inset>\n  </Sidebar.Provider>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

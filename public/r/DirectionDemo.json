@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DirectionDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DirectionDemo.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Direction.DirectionProvider>\n    <div className=\"rounded-md border px-3 py-2\"> {\"Direction context\"->React.string} </div>\n  </Direction.DirectionProvider>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

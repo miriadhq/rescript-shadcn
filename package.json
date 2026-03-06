@@ -12,7 +12,9 @@
     "lint": "next lint",
     "registry:build": "shadcn build",
     "registry:generate": "node scripts/generate-registry.mjs",
-    "test": "node test/visual/run-pixel-perfect.mjs"
+    "test:docs": "vitest run test/mdx-links.test.ts",
+    "test:visual": "node test/visual/run-pixel-perfect.mjs",
+    "test": "test:docs && test:visual"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -48,6 +50,7 @@
     "remark-mdx-frontmatter": "^5.2.0",
     "rescript": "^12.2.0",
     "shadcn": "^3.0.0",
+    "shiki": "^4.0.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
     "tw-animate-css": "^1.3.6",

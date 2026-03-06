@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DropdownMenuCheckboxes",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DropdownMenuCheckboxes.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => {\n  let (showStatusBar, setShowStatusBar) = React.useState(() => true)\n  let (showActivityBar, setShowActivityBar) = React.useState(() => false)\n  let (showPanel, setShowPanel) = React.useState(() => false)\n\n  <DropdownMenu>\n    <DropdownMenu.Trigger\n      render={<Button variant=Button.Variant.Outline dataSlot=\"dropdown-menu-trigger\" />}\n    >\n      {\"Open\"->React.string}\n    </DropdownMenu.Trigger>\n    <DropdownMenu.Content className=\"w-40\">\n      <DropdownMenu.Group>\n        <DropdownMenu.Label> {\"Appearance\"->React.string} </DropdownMenu.Label>\n        <DropdownMenu.CheckboxItem\n          checked={showStatusBar} onCheckedChange={(v, _) => setShowStatusBar(_ => v)}\n        >\n          {\"Status Bar\"->React.string}\n        </DropdownMenu.CheckboxItem>\n        <DropdownMenu.CheckboxItem\n          checked={showActivityBar}\n          onCheckedChange={(v, _) => setShowActivityBar(_ => v)}\n          disabled={true}\n        >\n          {\"Activity Bar\"->React.string}\n        </DropdownMenu.CheckboxItem>\n        <DropdownMenu.CheckboxItem\n          checked={showPanel} onCheckedChange={(v, _) => setShowPanel(_ => v)}\n        >\n          {\"Panel\"->React.string}\n        </DropdownMenu.CheckboxItem>\n      </DropdownMenu.Group>\n    </DropdownMenu.Content>\n  </DropdownMenu>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

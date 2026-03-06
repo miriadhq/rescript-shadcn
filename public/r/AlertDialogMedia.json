@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AlertDialogMedia",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AlertDialogMedia.res",
+      "content": "@react.component\nlet make = () =>\n  <AlertDialog>\n    <AlertDialog.Trigger\n      render={<Button variant=Outline> {\"Share Project\"->React.string} </Button>}\n    />\n    <AlertDialog.Content>\n      <AlertDialog.Header>\n        <AlertDialog.Media>\n          <Icons.CircleFadingPlus />\n        </AlertDialog.Media>\n        <AlertDialog.Title> {\"Share this project?\"->React.string} </AlertDialog.Title>\n        <AlertDialog.Description>\n          {\"Anyone with the link will be able to view and edit this project.\"->React.string}\n        </AlertDialog.Description>\n      </AlertDialog.Header>\n      <AlertDialog.Footer>\n        <AlertDialog.Cancel> {\"Cancel\"->React.string} </AlertDialog.Cancel>\n        <AlertDialog.Action> {\"Share\"->React.string} </AlertDialog.Action>\n      </AlertDialog.Footer>\n    </AlertDialog.Content>\n  </AlertDialog>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

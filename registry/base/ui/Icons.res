@@ -528,6 +528,26 @@ module Filter = {
   external make: React.component<props> = "FilterIcon"
 }
 
+module ArrowDown = {
+  @module("lucide-react")
+  external make: React.component<props> = "ArrowDownIcon"
+}
+
+module EyeOff = {
+  @module("lucide-react")
+  external make: React.component<props> = "EyeOffIcon"
+}
+
+module ChevronsLeft = {
+  @module("lucide-react")
+  external make: React.component<props> = "ChevronsLeftIcon"
+}
+
+module ChevronsRight = {
+  @module("lucide-react")
+  external make: React.component<props> = "ChevronsRightIcon"
+}
+
 module SortAsc = {
   @module("lucide-react")
   external make: React.component<props> = "ArrowUpDownIcon"

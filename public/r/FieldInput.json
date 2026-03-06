@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "FieldInput",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/FieldInput.res",
+      "content": "@react.component\nlet make = () =>\n  <Field.Set className=\"w-full max-w-xs\">\n    <Field.Group>\n      <Field>\n        <Field.Label htmlFor=\"username\"> {\"Username\"->React.string} </Field.Label>\n        <Input id=\"username\" type_=\"text\" placeholder=\"Max Leiter\" />\n        <Field.Description>\n          {\"Choose a unique username for your account.\"->React.string}\n        </Field.Description>\n      </Field>\n      <Field>\n        <Field.Label htmlFor=\"password\"> {\"Password\"->React.string} </Field.Label>\n        <Field.Description>\n          {\"Must be at least 8 characters long.\"->React.string}\n        </Field.Description>\n        <Input id=\"password\" type_=\"password\" placeholder=\"••••••••\" />\n      </Field>\n    </Field.Group>\n  </Field.Set>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

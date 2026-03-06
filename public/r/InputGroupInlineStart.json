@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupInlineStart",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupInlineStart.res",
+      "content": "@react.component\nlet make = () =>\n  <Field className=\"max-w-sm\">\n    <Field.Label htmlFor=\"inline-start-input\"> {\"Input\"->React.string} </Field.Label>\n    <InputGroup>\n      <InputGroup.Input id=\"inline-start-input\" placeholder=\"Search...\" />\n      <InputGroup.Addon align=InlineStart>\n        <Icons.Search className=\"text-muted-foreground\" />\n      </InputGroup.Addon>\n    </InputGroup>\n    <Field.Description> {\"Icon positioned at the start.\"->React.string} </Field.Description>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

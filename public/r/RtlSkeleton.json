@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlSkeleton",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlSkeleton.res",
+      "content": "// RTL version - same as regular component\ninclude Skeleton\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

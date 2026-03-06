@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DialogDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DialogDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <Dialog>\n    <form>\n      <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-trigger\" />}>\n        {\"Open Dialog\"->React.string}\n      </Dialog.Trigger>\n      <Dialog.Content className=\"sm:max-w-sm\">\n        <Dialog.Header>\n          <Dialog.Title> {\"Edit profile\"->React.string} </Dialog.Title>\n          <Dialog.Description>\n            {\"Make changes to your profile here. Click save when you're done.\"->React.string}\n          </Dialog.Description>\n        </Dialog.Header>\n        <Field.Group>\n          <Field>\n            <Label htmlFor=\"name-1\"> {\"Name\"->React.string} </Label>\n            <Input id=\"name-1\" name=\"name\" defaultValue=\"Pedro Duarte\" />\n          </Field>\n          <Field>\n            <Label htmlFor=\"username-1\"> {\"Username\"->React.string} </Label>\n            <Input id=\"username-1\" name=\"username\" defaultValue=\"@peduarte\" />\n          </Field>\n        </Field.Group>\n        <Dialog.Footer>\n          <Dialog.Close render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-close\" />}>\n            {\"Cancel\"->React.string}\n          </Dialog.Close>\n          <Button type_=\"submit\"> {\"Save changes\"->React.string} </Button>\n        </Dialog.Footer>\n      </Dialog.Content>\n    </form>\n  </Dialog>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

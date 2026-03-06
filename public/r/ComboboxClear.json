@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ComboboxClear",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ComboboxClear.res",
+      "content": "@@directive(\"'use client'\")\n\nlet frameworks = [\"Next.js\", \"SvelteKit\", \"Nuxt.js\", \"Remix\", \"Astro\"]\n\n@react.component\nlet make = () =>\n  <Combobox items={frameworks} defaultValue={\"Next.js\"}>\n    <Combobox.Input placeholder=\"Select a framework\" showClear={true} />\n    <Combobox.Content>\n      <Combobox.Empty> {\"No items found.\"->React.string} </Combobox.Empty>\n      <Combobox.List>\n        {frameworks\n        ->Array.map(item =>\n          <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>\n        )\n        ->React.array}\n      </Combobox.List>\n    </Combobox.Content>\n  </Combobox>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

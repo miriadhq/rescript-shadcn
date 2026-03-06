@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SonnerDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SonnerDemo.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Button variant=Button.Variant.Outline onClick={_ => ()}> {\"Show Toast\"->React.string} </Button>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

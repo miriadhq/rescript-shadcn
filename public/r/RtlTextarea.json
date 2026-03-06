@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlTextarea",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlTextarea.res",
+      "content": "// RTL version - same as regular component\ninclude Textarea\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlInput",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlInput.res",
+      "content": "// RTL version - same as regular component\ninclude Input\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

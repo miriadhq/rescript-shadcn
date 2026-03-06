@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "Sonner",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui/Sonner.res",
+      "content": "@@directive(\"'use client'\")\n\nmodule NextThemes = {\n  type theme =\n    | @as(\"system\") System\n    | @as(\"light\") Light\n    | @as(\"dark\") Dark\n  type themeState = {theme: option<theme>}\n\n  @module(\"next-themes\")\n  external useTheme: unit => themeState = \"useTheme\"\n}\n\ntype toasterIcons = {\n  success: React.element,\n  info: React.element,\n  warning: React.element,\n  error: React.element,\n  loading: React.element,\n}\n\ntype toastClassNames = {toast: string}\ntype toastOptions = {classNames: toastClassNames}\n\ntype toasterProps = {\n  theme?: NextThemes.theme,\n  className?: string,\n  style?: ReactDOM.Style.t,\n  icons?: toasterIcons,\n  toastOptions?: toastOptions,\n}\n\nmodule SonnerPrimitive = {\n  @module(\"sonner\")\n  external make: React.component<toasterProps> = \"Toaster\"\n}\n\n@react.component\nlet make = (\n  ~theme=?,\n  ~className=\"toaster group\",\n  ~style=ReactDOM.Style._dictToStyle(\n    dict{\n      \"--normal-bg\": \"var(--popover)\",\n      \"--normal-text\": \"var(--popover-foreground)\",\n      \"--normal-border\": \"var(--border)\",\n      \"--border-radius\": \"var(--radius)\",\n    },\n  ),\n  ~icons={\n    success: <Icons.CircleCheck className=\"size-4\" />,\n    info: <Icons.Info className=\"size-4\" />,\n    warning: <Icons.TriangleAlert className=\"size-4\" />,\n    error: <Icons.OctagonX className=\"size-4\" />,\n    loading: <Icons.Loader2 className=\"size-4 animate-spin\" />,\n  },\n  ~toastOptions={classNames: {toast: \"cn-toast\"}},\n) => {\n  let {theme: defaultTheme} = NextThemes.useTheme()\n  let theme = theme->Option.getOr(defaultTheme)->Option.getOr(System)\n\n  <SonnerPrimitive theme className style icons toastOptions />\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

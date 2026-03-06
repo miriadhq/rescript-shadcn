@@ -90,13 +90,12 @@ module Close = {
 
 module Overlay = {
   @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~keepMounted=?) =>
+  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
     <BaseUi.Dialog.Backdrop
       ?id
       ?style
       ?onClick
       ?onKeyDown
-      ?keepMounted
       dataSlot="dialog-overlay"
       className={cn(
         "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 isolate z-50 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
@@ -117,7 +116,6 @@ module Content = {
     ~onClick=?,
     ~onKeyDown=?,
     ~showCloseButton=true,
-    ~keepMounted=?,
   ) =>
     <Portal>
       <Overlay />
@@ -128,7 +126,6 @@ module Content = {
         ?style
         ?onClick
         ?onKeyDown
-        ?keepMounted
         dataSlot="dialog-content"
         className={cn(
           "bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 start-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 duration-100 outline-none sm:max-w-sm",

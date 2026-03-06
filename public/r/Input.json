@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "Input",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui/Input.res",
+      "content": "open BaseUi.Types\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (\n  ~className=?,\n  ~children=?,\n  ~id=?,\n  ~name=?,\n  ~value=?,\n  ~defaultValue=?,\n  ~disabled=?,\n  ~readOnly=?,\n  ~required=?,\n  ~placeholder=?,\n  ~pattern=?,\n  ~onValueChange=?,\n  ~onClick=?,\n  ~onKeyDown=?,\n  ~type_=?,\n  ~ariaLabel=?,\n  ~maxLength=?,\n  ~step=?,\n  ~tabIndex=?,\n  ~spellCheck=?,\n  ~ariaInvalid=?,\n  ~style=?,\n  ~render=?,\n) =>\n  <BaseUi.Input\n    ?id\n    ?name\n    ?value\n    ?defaultValue\n    ?disabled\n    ?readOnly\n    ?required\n    ?placeholder\n    ?pattern\n    ?onValueChange\n    ?onClick\n    ?onKeyDown\n    ?type_\n    ?ariaLabel\n    ?ariaInvalid\n    ?maxLength\n    ?step\n    ?tabIndex\n    ?spellCheck\n    ?style\n    ?render\n    ?children\n    dataSlot=\"input\"\n    className={cn(\n      \"dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 file:text-foreground placeholder:text-muted-foreground h-8 w-full min-w-0 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 md:text-sm\",\n      className,\n    )}\n  />\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

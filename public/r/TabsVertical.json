@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TabsVertical",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/TabsVertical.res",
+      "content": "@react.component\nlet make = () =>\n  <BaseUi.Tabs.Root\n    defaultValue=\"account\"\n    orientation=BaseUi.Types.Orientation.Horizontal\n    dataSlot=\"tabs\"\n    dataOrientation=\"vertical\"\n    className=\"group/tabs flex gap-2 data-horizontal:flex-col\"\n  >\n    <Tabs.List>\n      <Tabs.Trigger value=\"account\"> {\"Account\"->React.string} </Tabs.Trigger>\n      <Tabs.Trigger value=\"password\"> {\"Password\"->React.string} </Tabs.Trigger>\n      <Tabs.Trigger value=\"notifications\"> {\"Notifications\"->React.string} </Tabs.Trigger>\n    </Tabs.List>\n  </BaseUi.Tabs.Root>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

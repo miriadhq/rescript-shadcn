@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AccordionBorders",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AccordionBorders.res",
+      "content": "type item = {\n  value: string,\n  trigger: string,\n  content: string,\n}\n\nlet items: array<item> = [\n  {\n    value: \"billing\",\n    trigger: \"How does billing work?\",\n    content: \"We offer monthly and annual subscription plans. Billing is charged at the beginning of each cycle, and you can cancel anytime. All plans include automatic backups, 24/7 support, and unlimited team members.\",\n  },\n  {\n    value: \"security\",\n    trigger: \"Is my data secure?\",\n    content: \"Yes. We use end-to-end encryption, SOC 2 Type II compliance, and regular third-party security audits. All data is encrypted at rest and in transit using industry-standard protocols.\",\n  },\n  {\n    value: \"integration\",\n    trigger: \"What integrations do you support?\",\n    content: \"We integrate with 500+ popular tools including Slack, Zapier, Salesforce, HubSpot, and more. You can also build custom integrations using our REST API and webhooks.\",\n  },\n]\n\n@react.component\nlet make = () =>\n  <Accordion defaultValue=[\"billing\"] className=\"max-w-lg rounded-lg border\">\n    {items\n    ->Array.map(item =>\n      <Accordion.Item key={item.value} value={item.value} className=\"border-b px-4 last:border-b-0\">\n        <Accordion.Trigger> {item.trigger->React.string} </Accordion.Trigger>\n        <Accordion.Content> {item.content->React.string} </Accordion.Content>\n      </Accordion.Item>\n    )\n    ->React.array}\n  </Accordion>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

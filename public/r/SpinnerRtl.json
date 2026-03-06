@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SpinnerRtl",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SpinnerRtl.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <div className=\"flex w-full max-w-xs flex-col gap-4 [--radius:1rem]\" dir=\"rtl\">\n    <Item variant=Item.Variant.Muted dir=\"rtl\">\n      <Item.Media>\n        <Spinner />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title className=\"line-clamp-1\">\n          {\"جاري معالجة الدفع...\"->React.string}\n        </Item.Title>\n      </Item.Content>\n      <Item.Content className=\"flex-none justify-end\">\n        <span className=\"text-sm tabular-nums\"> {\"١٠٠.٠٠ دولار\"->React.string} </span>\n      </Item.Content>\n    </Item>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

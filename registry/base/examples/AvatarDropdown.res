@@ -3,9 +3,7 @@ let make = () => {
   <DropdownMenu>
     <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="rounded-full" />}>
       <Avatar>
-        <Avatar.Image
-          src="https://github.com/shadcn.png" alt="shadcn" renderBeforeHydration={true}
-        />
+        <Avatar.Image src="https://github.com/shadcn.png" alt="shadcn" />
         <Avatar.Fallback> {"CN"->React.string} </Avatar.Fallback>
       </Avatar>
     </DropdownMenu.Trigger>

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <InputGroup className=\"max-w-xs\">\n    <InputGroup.Input placeholder=\"Search...\" />\n    <InputGroup.Addon>\n      <Icons.Search />\n    </InputGroup.Addon>\n    <InputGroup.Addon align=InlineEnd> {\"12 results\"->React.string} </InputGroup.Addon>\n  </InputGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

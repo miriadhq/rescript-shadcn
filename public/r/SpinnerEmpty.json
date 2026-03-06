@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SpinnerEmpty",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SpinnerEmpty.res",
+      "content": "@react.component\nlet make = () =>\n  <Empty className=\"w-full\">\n    <Empty.Header>\n      <Empty.Media variant=Empty.Variant.Icon>\n        <Spinner />\n      </Empty.Media>\n      <Empty.Title> {\"Processing your request\"->React.string} </Empty.Title>\n      <Empty.Description>\n        {\"Please wait while we process your request. Do not refresh the page.\"->React.string}\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Content>\n      <Button variant=Button.Variant.Outline size=Button.Size.Sm> {\"Cancel\"->React.string} </Button>\n    </Empty.Content>\n  </Empty>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

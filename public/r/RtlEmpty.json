@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlEmpty",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlEmpty.res",
+      "content": "// RTL version - same as regular component\ninclude Empty\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TypographyMuted",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/TypographyMuted.res",
+      "content": "@react.component\nlet make = () =>\n  <p className=\"text-muted-foreground text-sm\"> {\"Enter your email address.\"->React.string} </p>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputRtl",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputRtl.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Field dir=\"rtl\">\n    <Field.Label htmlFor=\"input-rtl-api-key\"> {\"مفتاح API\"->React.string} </Field.Label>\n    <Input id=\"input-rtl-api-key\" type_=\"password\" placeholder=\"sk-...\" />\n    <Field.Description>\n      {\"مفتاح API الخاص بك مشفر ومخزن بأمان.\"->React.string}\n    </Field.Description>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

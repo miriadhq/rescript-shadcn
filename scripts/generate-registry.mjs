@@ -81,15 +81,16 @@ const exampleModules = listResFiles(path.join(baseDir, "examples"))
 
 // Build a map: relative .res path (from rescript/) → registry item name
 // e.g. "ui/Accordion.res" → "accordion"
+const base = "registry/base"
 const pathToName = new Map()
 for (const mod of uiModules) {
-  pathToName.set(`ui/${mod}.res`, mod)
+  pathToName.set(`${base}/ui/${mod}.res`, mod)
 }
 for (const mod of rtlModules) {
-  pathToName.set(`ui-rtl/${mod}.res`, mod)
+  pathToName.set(`${base}/ui-rtl/${mod}.res`, mod)
 }
 for (const mod of exampleModules) {
-  pathToName.set(`examples/${mod}.res`, mod)
+  pathToName.set(`${base}/examples/${mod}.res`, mod)
 }
 
 /** Resolve a local import to a registry item name.
@@ -136,10 +137,10 @@ function buildItem(mod, dir, type) {
 
 // Build all items
 const items = [
-  ...uiModules.map((mod) => buildItem(mod, "ui", "registry:ui")),
-  ...rtlModules.map((mod) => buildItem(mod, "ui-rtl", "registry:ui")),
+  ...uiModules.map((mod) => buildItem(mod, `${base}/ui`, "registry:ui")),
+  ...rtlModules.map((mod) => buildItem(mod, `${base}/ui-rtl`, "registry:ui")),
   ...exampleModules.map((mod) =>
-    buildItem(mod, "examples", "registry:example")
+    buildItem(mod, `${base}/examples`, "registry:example")
   ),
 ]
 

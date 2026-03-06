@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "BreadcrumbEllipsis",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/BreadcrumbEllipsis.res",
+      "content": "@react.component\nlet make = () =>\n  <Breadcrumb>\n    <Breadcrumb.List>\n      <Breadcrumb.Item>\n        <Breadcrumb.Link render={<a href=\"/\" />}> {\"Home\"->React.string} </Breadcrumb.Link>\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator />\n      <Breadcrumb.Item>\n        <Breadcrumb.Ellipsis />\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator />\n      <Breadcrumb.Item>\n        <Breadcrumb.Link render={<a href=\"/docs/components\" />}>\n          {\"Components\"->React.string}\n        </Breadcrumb.Link>\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator />\n      <Breadcrumb.Item>\n        <Breadcrumb.Page> {\"Breadcrumb\"->React.string} </Breadcrumb.Page>\n      </Breadcrumb.Item>\n    </Breadcrumb.List>\n  </Breadcrumb>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

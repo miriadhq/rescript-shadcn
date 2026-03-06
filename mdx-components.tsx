@@ -1,18 +1,6 @@
 import type { MDXComponents } from "mdx/types";
-
-function Placeholder({ children }: any) {
-  return <div >{children}</div>;
-}
+import MdxComponents from "@/src/MdxComponents.res.mjs";
 
 export function useMDXComponents(): MDXComponents {
-  return {
-    ComponentPreview: Placeholder,
-    ComponentSource: Placeholder,
-    TabsList: Placeholder,
-    TabsTrigger: Placeholder,
-    TabsContent: Placeholder,
-    CodeTabs: Placeholder,
-    Steps: Placeholder,
-    Step: Placeholder,
-  };
+  return MdxComponents;
 }

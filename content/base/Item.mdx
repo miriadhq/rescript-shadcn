@@ -5,7 +5,7 @@ base: base
 component: true
 ---
 
-<ComponentPreview styleName="base-nova" name="item-demo" />
+<ComponentPreview styleName="base-nova" name="ItemDemo" />
 
 The `Item` component is a straightforward flex container that can house nearly any type of content. Use it to display a title, description, and actions. Group it with the `ItemGroup` component to create a list of items.
 
@@ -85,7 +85,7 @@ Use the `variant` prop to change the visual style of the item.
 
 <ComponentPreview
   styleName="base-nova"
-  name="item-variant"
+  name="ItemVariant"
   previewClassName="h-96"
 />
 
@@ -95,7 +95,7 @@ Use the `size` prop to change the size of the item. Available sizes are `default
 
 <ComponentPreview
   styleName="base-nova"
-  name="item-size"
+  name="ItemSize"
   previewClassName="h-96"
 />
 
@@ -105,19 +105,19 @@ Use the `size` prop to change the size of the item. Available sizes are `default
 
 Use `ItemMedia` with `variant="icon"` to display an icon.
 
-<ComponentPreview styleName="base-nova" name="item-icon" />
+<ComponentPreview styleName="base-nova" name="ItemIcon" />
 
 ### Avatar
 
 You can use `ItemMedia` with `variant="avatar"` to display an avatar.
 
-<ComponentPreview styleName="base-nova" name="item-avatar" />
+<ComponentPreview styleName="base-nova" name="ItemAvatar" />
 
 ### Image
 
 Use `ItemMedia` with `variant="image"` to display an image.
 
-<ComponentPreview styleName="base-nova" name="item-image" />
+<ComponentPreview styleName="base-nova" name="ItemImage" />
 
 ### Group
 
@@ -125,7 +125,7 @@ Use `ItemGroup` to group related items together.
 
 <ComponentPreview
   styleName="base-nova"
-  name="item-group"
+  name="ItemGroup"
   previewClassName="h-96"
 />
 
@@ -135,7 +135,7 @@ Use `ItemHeader` to add a header above the item content.
 
 <ComponentPreview
   styleName="base-nova"
-  name="item-header"
+  name="ItemHeader"
   previewClassName="h-96"
 />
 
@@ -143,7 +143,7 @@ Use `ItemHeader` to add a header above the item content.
 
 Use the `render` prop to render the item as a link. The hover and focus states will be applied to the anchor element.
 
-<ComponentPreview styleName="base-nova" name="item-link" />
+<ComponentPreview styleName="base-nova" name="ItemLink" />
 
 ```tsx showLineNumbers
 <Item render={<a href="/dashboard" />}>
@@ -159,13 +159,13 @@ Use the `render` prop to render the item as a link. The hover and focus states w
 
 ### Dropdown
 
-<ComponentPreview styleName="base-nova" name="item-dropdown" />
+<ComponentPreview styleName="base-nova" name="ItemDropdown" />
 
 ## RTL
 
 To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
 
-<ComponentPreview styleName="base-nova" name="item-rtl" direction="rtl" />
+<ComponentPreview styleName="base-nova" name="ItemRtl" direction="rtl" />
 
 ## API Reference
 

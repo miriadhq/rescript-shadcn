@@ -1,6 +1,4 @@
 import meta from "@/content/base/meta.json"
-import { useMDXComponents } from "@/mdx-components"
-
 export const generateStaticParams = () => meta.pages.map(slug => ({ "slug": slug }))
 export const dynamicParams = false;
 

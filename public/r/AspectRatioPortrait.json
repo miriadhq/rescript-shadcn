@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AspectRatioPortrait",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AspectRatioPortrait.res",
+      "content": "module NextImage = {\n  type props = {\n    src: string,\n    alt: string,\n    fill: bool,\n    className?: string,\n  }\n\n  @module(\"next/image\")\n  external make: React.component<props> = \"default\"\n}\n\n@react.component\nlet make = () =>\n  <AspectRatio ratio={9. /. 16.} className=\"bg-muted w-full max-w-[10rem] rounded-lg\">\n    <NextImage\n      src=\"https://avatar.vercel.sh/shadcn1\"\n      alt=\"Photo\"\n      fill={true}\n      className=\"rounded-lg object-cover grayscale dark:brightness-20\"\n    />\n  </AspectRatio>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

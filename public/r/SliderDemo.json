@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SliderDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SliderDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <Slider defaultValue={[75.]} max={100.} step={1.} className=\"mx-auto w-full max-w-xs\">\n    {React.null}\n  </Slider>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

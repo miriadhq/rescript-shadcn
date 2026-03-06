@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AccordionBasic",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AccordionBasic.res",
+      "content": "type item = {\n  value: string,\n  trigger: string,\n  content: string,\n}\n\nlet items: array<item> = [\n  {\n    value: \"item-1\",\n    trigger: \"How do I reset my password?\",\n    content: \"Click on 'Forgot Password' on the login page, enter your email address, and we'll send you a link to reset your password. The link will expire in 24 hours.\",\n  },\n  {\n    value: \"item-2\",\n    trigger: \"Can I change my subscription plan?\",\n    content: \"Yes, you can upgrade or downgrade your plan at any time from your account settings. Changes will be reflected in your next billing cycle.\",\n  },\n  {\n    value: \"item-3\",\n    trigger: \"What payment methods do you accept?\",\n    content: \"We accept all major credit cards, PayPal, and bank transfers. All payments are processed securely through our payment partners.\",\n  },\n]\n\n@react.component\nlet make = () =>\n  <Accordion defaultValue=[\"item-1\"] className=\"max-w-lg\">\n    {items\n    ->Array.map(item =>\n      <Accordion.Item key={item.value} value={item.value}>\n        <Accordion.Trigger> {item.trigger->React.string} </Accordion.Trigger>\n        <Accordion.Content> {item.content->React.string} </Accordion.Content>\n      </Accordion.Item>\n    )\n    ->React.array}\n  </Accordion>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

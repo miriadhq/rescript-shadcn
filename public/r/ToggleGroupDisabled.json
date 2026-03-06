@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ToggleGroupDisabled",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ToggleGroupDisabled.res",
+      "content": "@react.component\nlet make = () =>\n  <ToggleGroup disabled={true}>\n    <ToggleGroup.Item value=\"bold\" ariaLabel=\"Toggle bold\">\n      <Icons.Bold />\n    </ToggleGroup.Item>\n    <ToggleGroup.Item value=\"italic\" ariaLabel=\"Toggle italic\">\n      <Icons.Italic />\n    </ToggleGroup.Item>\n    <ToggleGroup.Item value=\"strikethrough\" ariaLabel=\"Toggle strikethrough\">\n      <Icons.Underline />\n    </ToggleGroup.Item>\n  </ToggleGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

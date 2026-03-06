@@ -36,9 +36,8 @@ module Portal = {
 
 module Overlay = {
   @react.component
-  let make = (~className="", ~keepMounted=?) =>
+  let make = (~className="") =>
     <BaseUi.AlertDialog.Backdrop
-      ?keepMounted
       dataSlot="alert-dialog-overlay"
       className={`data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 isolate z-50 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs ${className}`}
     />
@@ -51,7 +50,6 @@ module Content = {
     ~className="",
     ~dir=?,
     ~dataLang=?,
-    ~keepMounted=?,
     ~size=Button.Size.Default,
   ) => {
     <Portal>
@@ -59,7 +57,6 @@ module Content = {
       <BaseUi.AlertDialog.Popup
         ?dir
         ?dataLang
-        ?keepMounted
         dataSlot="alert-dialog-content"
         dataSize={(size :> string)}
         className={`data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-background ring-foreground/10 group/alert-dialog-content fixed start-1/2 top-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none data-[size=default]:max-w-xs data-[size=default]:sm:max-w-sm data-[size=sm]:max-w-xs rtl:translate-x-1/2 ${className}`}

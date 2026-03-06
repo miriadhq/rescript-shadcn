@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonSecondary",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonSecondary.res",
+      "content": "@react.component\nlet make = () => <Button variant=Button.Variant.Secondary> {\"Secondary\"->React.string} </Button>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

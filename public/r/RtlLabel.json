@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlLabel",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlLabel.res",
+      "content": "// RTL version - same as regular component\ninclude Label\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

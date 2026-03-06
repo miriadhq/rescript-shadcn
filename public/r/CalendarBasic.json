@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CalendarBasic",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CalendarBasic.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => <Calendar mode=\"single\" className=\"rounded-lg border\" />\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

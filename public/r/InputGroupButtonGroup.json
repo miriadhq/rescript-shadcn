@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupButtonGroup",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupButtonGroup.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"grid w-full max-w-sm gap-6\">\n    <ButtonGroup>\n      <ButtonGroup.Text render={<Label htmlFor=\"url\" />}>\n        {\"https://\"->React.string}\n      </ButtonGroup.Text>\n      <InputGroup>\n        <InputGroup.Input id=\"url\" />\n        <InputGroup.Addon align=InlineEnd>\n          <Icons.ExternalLink />\n        </InputGroup.Addon>\n      </InputGroup>\n      <ButtonGroup.Text> {\".com\"->React.string} </ButtonGroup.Text>\n    </ButtonGroup>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

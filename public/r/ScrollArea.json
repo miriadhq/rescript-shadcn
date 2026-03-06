@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ScrollArea",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui/ScrollArea.res",
+      "content": "@@directive(\"'use client'\")\n\nopen BaseUi.Types\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (\n  ~className=?,\n  ~children=?,\n  ~id=?,\n  ~style=?,\n  ~onClick=?,\n  ~onKeyDown=?,\n  ~tabIndex=?,\n  ~ariaLabel=?,\n  ~dir=?,\n  ~orientation=?,\n) =>\n  <BaseUi.ScrollArea.Root\n    ?id\n    ?style\n    ?onClick\n    ?onKeyDown\n    ?tabIndex\n    ?ariaLabel\n    ?dir\n    ?orientation\n    dataSlot=\"scroll-area\"\n    className={cn(\"relative\", className)}\n  >\n    <BaseUi.ScrollArea.Viewport\n      dataSlot=\"scroll-area-viewport\"\n      className=\"focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1\"\n      ?children\n    />\n    <BaseUi.ScrollArea.Scrollbar\n      dataSlot=\"scroll-area-scrollbar\"\n      orientation={Orientation.Vertical}\n      className=\"flex touch-none p-px transition-colors select-none data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent\"\n    >\n      <BaseUi.ScrollArea.Thumb\n        dataSlot=\"scroll-area-thumb\" className=\"bg-border relative flex-1 rounded-full\"\n      />\n    </BaseUi.ScrollArea.Scrollbar>\n    <BaseUi.ScrollArea.Corner />\n  </BaseUi.ScrollArea.Root>\n\nmodule ScrollBar = {\n  @react.component\n  let make = (\n    ~className=?,\n    ~children=React.null,\n    ~id=?,\n    ~style=?,\n    ~onClick=?,\n    ~onKeyDown=?,\n    ~orientation=Orientation.Vertical,\n  ) =>\n    <BaseUi.ScrollArea.Scrollbar\n      ?id\n      ?style\n      ?onClick\n      ?onKeyDown\n      dataSlot=\"scroll-area-scrollbar\"\n      orientation\n      className={cn(\n        \"flex touch-none p-px transition-colors select-none data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent\",\n        className,\n      )}\n    >\n      <BaseUi.ScrollArea.Thumb\n        dataSlot=\"scroll-area-thumb\" className=\"bg-border relative flex-1 rounded-full\"\n      />\n      {children}\n    </BaseUi.ScrollArea.Scrollbar>\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

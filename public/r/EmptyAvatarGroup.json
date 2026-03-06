@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "EmptyAvatarGroup",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/EmptyAvatarGroup.res",
+      "content": "@react.component\nlet make = () =>\n  <Empty>\n    <Empty.Header>\n      <Empty.Media>\n        <div\n          className=\"*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:size-12 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale\"\n        >\n          <Avatar>\n            <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n            <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n          </Avatar>\n          <Avatar>\n            <Avatar.Image src=\"https://github.com/maxleiter.png\" alt=\"@maxleiter\" />\n            <Avatar.Fallback> {\"LR\"->React.string} </Avatar.Fallback>\n          </Avatar>\n          <Avatar>\n            <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"@evilrabbit\" />\n            <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n          </Avatar>\n        </div>\n      </Empty.Media>\n      <Empty.Title> {\"No Team Members\"->React.string} </Empty.Title>\n      <Empty.Description>\n        {\"Invite your team to collaborate on this project.\"->React.string}\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Content>\n      <Button size=Button.Size.Sm>\n        <Icons.Plus />\n        {\"Invite Members\"->React.string}\n      </Button>\n    </Empty.Content>\n  </Empty>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

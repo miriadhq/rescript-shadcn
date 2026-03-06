@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonIcon",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonIcon.res",
+      "content": "module LucideIcons = {\n  type props = {className?: string, @as(\"data-icon\") dataIcon?: string}\n\n  module CircleFadingArrowUp = {\n    @module(\"lucide-react\")\n    external make: React.component<props> = \"CircleFadingArrowUpIcon\"\n  }\n}\n\n@react.component\nlet make = () =>\n  <Button variant=Button.Variant.Outline size=Button.Size.Icon>\n    <LucideIcons.CircleFadingArrowUp />\n  </Button>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

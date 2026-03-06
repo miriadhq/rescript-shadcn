@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonGroupSplit",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonGroupSplit.res",
+      "content": "module TablerIcons = {\n  type props = {className?: string}\n\n  module Plus = {\n    @module(\"@tabler/icons-react\")\n    external make: React.component<props> = \"IconPlus\"\n  }\n}\n\n@react.component\nlet make = () =>\n  <ButtonGroup>\n    <Button variant=Button.Variant.Secondary> {\"Button\"->React.string} </Button>\n    <ButtonGroup.Separator />\n    <Button size=Button.Size.Icon variant=Button.Variant.Secondary>\n      <TablerIcons.Plus />\n    </Button>\n  </ButtonGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

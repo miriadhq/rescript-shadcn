@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlRadioGroup",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlRadioGroup.res",
+      "content": "@@directive(\"'use client'\")\n\nopen BaseUi.Types\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (\n  ~className=?,\n  ~children=?,\n  ~id=?,\n  ~name=?,\n  ~value=?,\n  ~defaultValue=?,\n  ~onValueChange=?,\n  ~disabled=?,\n  ~required=?,\n  ~readOnly=?,\n  ~onClick=?,\n  ~onKeyDown=?,\n  ~ariaLabel=?,\n  ~dir=?,\n  ~style=?,\n) =>\n  <BaseUi.RadioGroup\n    ?id\n    ?name\n    ?value\n    ?defaultValue\n    ?onValueChange\n    ?disabled\n    ?required\n    ?readOnly\n    ?onClick\n    ?onKeyDown\n    ?ariaLabel\n    ?dir\n    ?style\n    ?children\n    dataSlot=\"radio-group\"\n    className={cn(\"grid w-full gap-2\", className)}\n  />\n\nmodule Item = {\n  @react.component\n  let make = (\n    ~className=?,\n    ~children=React.null,\n    ~id=?,\n    ~name=?,\n    ~value=?,\n    ~defaultValue=?,\n    ~onValueChange=?,\n    ~disabled=?,\n    ~required=?,\n    ~readOnly=?,\n    ~onClick=?,\n    ~onKeyDown=?,\n    ~tabIndex=?,\n    ~role=?,\n    ~ariaLabel=?,\n    ~ariaInvalid=?,\n    ~dir=?,\n    ~style=?,\n  ) =>\n    <BaseUi.Radio.Root\n      ?id\n      ?name\n      ?value\n      ?defaultValue\n      ?onValueChange\n      ?disabled\n      ?required\n      ?readOnly\n      ?onClick\n      ?onKeyDown\n      ?tabIndex\n      ?role\n      ?ariaLabel\n      ?ariaInvalid\n      ?dir\n      ?style\n      dataSlot=\"radio-group-item\"\n      className={cn(\n        \"border-input text-primary dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 group/radio-group-item peer relative flex aspect-square size-4 shrink-0 rounded-full border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3\",\n        className,\n      )}\n    >\n      <BaseUi.Radio.Indicator\n        dataSlot=\"radio-group-indicator\"\n        className=\"group-aria-invalid/radio-group-item:text-destructive text-primary flex size-4 items-center justify-center\"\n      >\n        <Icons.Circle\n          className=\"absolute top-1/2 start-1/2 size-2 -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 fill-current\"\n        />\n      </BaseUi.Radio.Indicator>\n      {children}\n    </BaseUi.Radio.Root>\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CheckboxInvalid",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CheckboxInvalid.res",
+      "content": "@react.component\nlet make = () =>\n  <Field.Group className=\"mx-auto w-56\">\n    <Field orientation=BaseUi.Types.Orientation.Horizontal dataInvalid={true}>\n      <Checkbox id=\"terms-checkbox-invalid\" name=\"terms-checkbox-invalid\" ariaInvalid={true} />\n      <Field.Label htmlFor=\"terms-checkbox-invalid\">\n        {\"Accept terms and conditions\"->React.string}\n      </Field.Label>\n    </Field>\n  </Field.Group>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

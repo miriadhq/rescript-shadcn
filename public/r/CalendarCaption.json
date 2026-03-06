@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CalendarCaption",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CalendarCaption.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Calendar\n    mode=\"single\" captionLayout=Calendar.CaptionLayout.Dropdown className=\"rounded-lg border\"\n  />\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

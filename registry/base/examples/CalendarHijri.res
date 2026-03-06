@@ -7,14 +7,13 @@
 @module("tailwind-merge")
 external twMerge: string => string = "twMerge"
 
-module NextFontGoogle = {
-  type t = {className: string}
+%%raw(`
+import { Vazirmatn } from "next/font/google"
+const vazirmatn = Vazirmatn({ subsets: ["arabic"] }).className
+`)
 
-  @module("next/font/google")
-  external vazirmatn: (~subsets: array<string>) => t = "Vazirmatn"
-}
-
-let vazirmatn = NextFontGoogle.vazirmatn(~subsets=["arabic"])
+@val
+external vazirmatn: string = "vazirmatn"
 
 module PersianDayPicker = {
   @react.component @module("react-day-picker/persian")
@@ -309,7 +308,7 @@ module HijriCalendar = {
 let make = () => {
   let (date, setDate) = React.useState(() => Some(Date.makeWithYMD(~year=2025, ~month=5, ~day=12)))
 
-  <div className={vazirmatn.className}>
+  <div className={vazirmatn}>
     <HijriCalendar
       mode="single"
       defaultMonth=?date

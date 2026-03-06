@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SkeletonAvatar",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SkeletonAvatar.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"flex w-fit items-center gap-4\">\n    <Skeleton className=\"size-10 shrink-0 rounded-full\" />\n    <div className=\"grid gap-2\">\n      <Skeleton className=\"h-4 w-[150px]\" />\n      <Skeleton className=\"h-4 w-[100px]\" />\n    </div>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

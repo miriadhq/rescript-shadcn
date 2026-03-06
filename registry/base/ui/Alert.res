@@ -30,6 +30,7 @@ let make = (
   ~onClick=?,
   ~onKeyDown=?,
   ~variant=Variant.Default,
+  ~dataVariant=?,
 ) => {
   <div
     ?id
@@ -37,6 +38,7 @@ let make = (
     ?onClick
     ?onKeyDown
     ?children
+    ?dataVariant
     role="alert"
     dataSlot="alert"
     className={cn(alertVariants(~variant), className)}

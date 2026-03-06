@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ToggleGroupFontWeightSelector",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ToggleGroupFontWeightSelector.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => {\n  let (fontWeight, setFontWeight) = React.useState(() => \"normal\")\n\n  <Field>\n    <Field.Label> {\"Font Weight\"->React.string} </Field.Label>\n    <ToggleGroup\n      value={[fontWeight]}\n      onValueChange={(value, _) => setFontWeight(_ => value->Array.get(0)->Option.getOr(\"normal\"))}\n      variant=ToggleGroup.Variant.Outline\n    >\n      <ToggleGroup.Item\n        value=\"light\"\n        ariaLabel=\"Light\"\n        className=\"flex size-16 flex-col items-center justify-center rounded-xl\"\n      >\n        <span className=\"text-2xl leading-none font-light\"> {\"Aa\"->React.string} </span>\n        <span className=\"text-muted-foreground text-xs\"> {\"Light\"->React.string} </span>\n      </ToggleGroup.Item>\n      <ToggleGroup.Item\n        value=\"normal\"\n        ariaLabel=\"Normal\"\n        className=\"flex size-16 flex-col items-center justify-center rounded-xl\"\n      >\n        <span className=\"text-2xl leading-none font-normal\"> {\"Aa\"->React.string} </span>\n        <span className=\"text-muted-foreground text-xs\"> {\"Normal\"->React.string} </span>\n      </ToggleGroup.Item>\n      <ToggleGroup.Item\n        value=\"medium\"\n        ariaLabel=\"Medium\"\n        className=\"flex size-16 flex-col items-center justify-center rounded-xl\"\n      >\n        <span className=\"text-2xl leading-none font-medium\"> {\"Aa\"->React.string} </span>\n        <span className=\"text-muted-foreground text-xs\"> {\"Medium\"->React.string} </span>\n      </ToggleGroup.Item>\n      <ToggleGroup.Item\n        value=\"bold\"\n        ariaLabel=\"Bold\"\n        className=\"flex size-16 flex-col items-center justify-center rounded-xl\"\n      >\n        <span className=\"text-2xl leading-none font-bold\"> {\"Aa\"->React.string} </span>\n        <span className=\"text-muted-foreground text-xs\"> {\"Bold\"->React.string} </span>\n      </ToggleGroup.Item>\n    </ToggleGroup>\n    <Field.Description>\n      {\"Use \"->React.string}\n      <code className=\"bg-muted rounded-md px-1 py-0.5 font-mono\">\n        {`font-${fontWeight}`->React.string}\n      </code>\n      {\" to set the font weight.\"->React.string}\n    </Field.Description>\n  </Field>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

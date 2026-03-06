@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlDirection",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlDirection.res",
+      "content": "// RTL version - same as regular component\ninclude Direction\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

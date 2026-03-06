@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ScrollAreaRtl",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ScrollAreaRtl.res",
+      "content": "@@directive(\"'use client'\")\n\nlet tags = Array.fromInitializer(~length=50, i => `v1.2.0-beta.${Int.toString(50 - i)}`)\n\n@react.component\nlet make = () =>\n  <ScrollArea className=\"h-72 w-48 rounded-md border\" dir=\"rtl\">\n    <div className=\"p-4\">\n      <h4 className=\"mb-4 text-sm leading-none font-medium\">\n        {\"العلامات\"->React.string}\n      </h4>\n      {tags\n      ->Array.map(tag =>\n        <React.Fragment key={tag}>\n          <div className=\"text-sm\"> {tag->React.string} </div>\n          <Separator className=\"my-2\" />\n        </React.Fragment>\n      )\n      ->React.array}\n    </div>\n  </ScrollArea>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

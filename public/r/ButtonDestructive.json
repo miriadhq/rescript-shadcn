@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonDestructive",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonDestructive.res",
+      "content": "@react.component\nlet make = () => <Button variant=Button.Variant.Destructive> {\"Destructive\"->React.string} </Button>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

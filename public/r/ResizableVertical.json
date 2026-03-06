@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ResizableVertical",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ResizableVertical.res",
+      "content": "@react.component\nlet make = () =>\n  <Resizable\n    orientation=BaseUi.Types.Orientation.Vertical\n    className=\"min-h-[200px] max-w-sm rounded-lg border\"\n  >\n    <Resizable.Panel defaultSize=\"25%\">\n      <div className=\"flex h-full items-center justify-center p-6\">\n        <span className=\"font-semibold\"> {\"Header\"->React.string} </span>\n      </div>\n    </Resizable.Panel>\n    <Resizable.Handle />\n    <Resizable.Panel defaultSize=\"75%\">\n      <div className=\"flex h-full items-center justify-center p-6\">\n        <span className=\"font-semibold\"> {\"Content\"->React.string} </span>\n      </div>\n    </Resizable.Panel>\n  </Resizable>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

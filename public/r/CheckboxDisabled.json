@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CheckboxDisabled",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CheckboxDisabled.res",
+      "content": "@react.component\nlet make = () =>\n  <Field.Group className=\"mx-auto w-56\">\n    <Field orientation=BaseUi.Types.Orientation.Horizontal dataDisabled={true}>\n      <Checkbox id=\"toggle-checkbox-disabled\" name=\"toggle-checkbox-disabled\" disabled={true} />\n      <Field.Label htmlFor=\"toggle-checkbox-disabled\">\n        {\"Enable notifications\"->React.string}\n      </Field.Label>\n    </Field>\n  </Field.Group>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

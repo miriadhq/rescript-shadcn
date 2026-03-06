@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SwitchDisabled",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SwitchDisabled.res",
+      "content": "@react.component\nlet make = () =>\n  <Field orientation=BaseUi.Types.Orientation.Horizontal dataDisabled={true} className=\"w-fit\">\n    <Switch id=\"switch-disabled-unchecked\" disabled={true} />\n    <Field.Label htmlFor=\"switch-disabled-unchecked\"> {\"Disabled\"->React.string} </Field.Label>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

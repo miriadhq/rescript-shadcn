@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <Field>\n    <Field.Label htmlFor=\"input-demo-api-key\"> {\"API Key\"->React.string} </Field.Label>\n    <Input id=\"input-demo-api-key\" type_=\"password\" placeholder=\"sk-...\" />\n    <Field.Description>\n      {\"Your API key is encrypted and stored securely.\"->React.string}\n    </Field.Description>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

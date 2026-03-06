@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SelectInvalid",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SelectInvalid.res",
+      "content": "type item = {\n  label: string,\n  value: Nullable.t<string>,\n}\n\nlet items: array<item> = [\n  {label: \"Select a fruit\", value: Nullable.null},\n  {label: \"Apple\", value: Nullable.make(\"apple\")},\n  {label: \"Banana\", value: Nullable.make(\"banana\")},\n  {label: \"Blueberry\", value: Nullable.make(\"blueberry\")},\n]\n\n@react.component\nlet make = () =>\n  <Field dataInvalid={true} className=\"w-full max-w-48\">\n    <Field.Label> {\"Fruit\"->React.string} </Field.Label>\n    <Select items>\n      <Select.Trigger render={<button type_=\"button\" ariaInvalid=#\"true\" />}>\n        <Select.Value />\n      </Select.Trigger>\n      <Select.Content>\n        <Select.Group>\n          {items\n          ->Array.map(item =>\n            <Select.Item key={item.label} value={item.value}>\n              {item.label->React.string}\n            </Select.Item>\n          )\n          ->React.array}\n        </Select.Group>\n      </Select.Content>\n    </Select>\n    <Field.Error> {\"Please select a fruit.\"->React.string} </Field.Error>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

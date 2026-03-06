@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-wrap items-center gap-2 md:flex-row\">\n    <Button variant=Button.Variant.Outline> {\"Button\"->React.string} </Button>\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon ariaLabel=\"Submit\">\n      <Icons.ArrowUp />\n    </Button>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

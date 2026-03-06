@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AlertDialogSmall",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AlertDialogSmall.res",
+      "content": "@react.component\nlet make = () =>\n  <AlertDialog>\n    <AlertDialog.Trigger\n      render={<Button variant=Outline> {\"Show Dialog\"->React.string} </Button>}\n    />\n    <AlertDialog.Content size=Sm>\n      <AlertDialog.Header>\n        <AlertDialog.Title> {\"Allow accessory to connect?\"->React.string} </AlertDialog.Title>\n        <AlertDialog.Description>\n          {\"Do you want to allow the USB accessory to connect to this device?\"->React.string}\n        </AlertDialog.Description>\n      </AlertDialog.Header>\n      <AlertDialog.Footer>\n        <AlertDialog.Cancel> {\"Don't allow\"->React.string} </AlertDialog.Cancel>\n        <AlertDialog.Action> {\"Allow\"->React.string} </AlertDialog.Action>\n      </AlertDialog.Footer>\n    </AlertDialog.Content>\n  </AlertDialog>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

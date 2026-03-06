@@ -1,1 +1,1 @@
-export { default } from "./DocsLayout.jsx";
+export { default } from "./DocsLayout.res.mjs";

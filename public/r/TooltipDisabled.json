@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TooltipDisabled",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/TooltipDisabled.res",
+      "content": "@react.component\nlet make = () =>\n  <Tooltip>\n    <Tooltip.Trigger render={<span className=\"inline-block w-fit\" />}>\n      <Button variant=Button.Variant.Outline disabled={true}> {\"Disabled\"->React.string} </Button>\n    </Tooltip.Trigger>\n    <Tooltip.Content>\n      <p> {\"This feature is currently unavailable\"->React.string} </p>\n    </Tooltip.Content>\n  </Tooltip>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

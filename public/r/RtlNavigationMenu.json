@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlNavigationMenu",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlNavigationMenu.res",
+      "content": "@@jsxConfig({version: 4, mode: \"automatic\", module_: \"BaseUi.BaseUiJsxDOM\"})\n\n@@directive(\"'use client'\")\n\nmodule ListItem = {\n  @react.component\n  let make = (\n    ~title: string,\n    ~href: string,\n    ~children: React.element,\n    ~id=?,\n    ~style=?,\n    ~className=?,\n    ~onClick=?,\n    ~onKeyDown=?,\n  ) =>\n    <li ?id ?style ?className ?onClick ?onKeyDown>\n      <NavigationMenu.Link render={<Next.Link href />}>\n        <div className=\"flex flex-col gap-1 text-sm\">\n          <div className=\"leading-none font-medium\"> {title->React.string} </div>\n          <div className=\"text-muted-foreground line-clamp-2\"> {children} </div>\n        </div>\n      </NavigationMenu.Link>\n    </li>\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

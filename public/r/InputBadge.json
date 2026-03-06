@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputBadge",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputBadge.res",
+      "content": "@react.component\nlet make = () =>\n  <Field>\n    <Field.Label htmlFor=\"input-badge\">\n      {\"Webhook URL \"->React.string}\n      <Badge variant=Badge.Variant.Secondary className=\"ml-auto\"> {\"Beta\"->React.string} </Badge>\n    </Field.Label>\n    <Input id=\"input-badge\" type_=\"url\" placeholder=\"https://api.example.com/webhook\" />\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

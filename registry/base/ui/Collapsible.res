@@ -61,19 +61,12 @@ module Content = {
     ~className=?,
     ~children=?,
     ~id=?,
-    ~keepMounted=?,
     ~style=?,
     ~onClick=?,
     ~onKeyDown=?,
+    ~forceMount=?,
   ) =>
     <BaseUi.Collapsible.Panel
-      ?className
-      ?children
-      ?id
-      ?keepMounted
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="collapsible-content"
+      ?className ?children ?id ?style ?onClick ?onKeyDown ?forceMount dataSlot="collapsible-content"
     />
 }

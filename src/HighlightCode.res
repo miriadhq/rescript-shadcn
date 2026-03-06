@@ -83,8 +83,8 @@ module Shiki = {
   external codeToHtml: (highlighter, string, CodeToHtmlOptions.t) => string = "codeToHtml"
 }
 
-@module("../grammars")
-external rescriptTmLanguage: Shiki.LanguageRegistration.t = "rescript.tmLanguage.json"
+@module("../grammars/rescript.tmLanguage.json")
+external rescriptTmLanguage: Shiki.LanguageRegistration.t = "default"
 
 let rescriptLanguage = {
   ...rescriptTmLanguage,

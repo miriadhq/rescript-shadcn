@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "Kbd",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui/Kbd.res",
+      "content": "@@jsxConfig({version: 4, mode: \"automatic\", module_: \"BaseUi.BaseUiJsxDOM\"})\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~dataIcon=?) => {\n  <kbd\n    ?id\n    ?style\n    ?onClick\n    ?onKeyDown\n    ?children\n    ?dataIcon\n    dataSlot=\"kbd\"\n    className={cn(\n      \"bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 pointer-events-none inline-flex h-5 w-fit min-w-5 items-center justify-center gap-1 rounded-sm px-1 font-sans text-xs font-medium select-none [&_svg:not([class*='size-'])]:size-3\",\n      className,\n    )}\n  />\n}\n\nmodule Group = {\n  @react.component\n  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>\n    <kbd\n      ?id\n      ?style\n      ?onClick\n      ?onKeyDown\n      ?children\n      dataSlot=\"kbd-group\"\n      className={cn(\"inline-flex items-center gap-1\", className)}\n    />\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

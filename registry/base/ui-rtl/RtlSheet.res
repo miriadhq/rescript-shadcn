@@ -107,13 +107,12 @@ module Portal = {
 
 module Overlay = {
   @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~keepMounted=?) =>
+  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
     <BaseUi.Dialog.Backdrop
       ?id
       ?style
       ?onClick
       ?onKeyDown
-      ?keepMounted
       dataSlot="sheet-overlay"
       className={cn(
         "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 z-50 bg-black/10 duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-xs",
@@ -147,7 +146,6 @@ module Content = {
     ~onKeyDown=?,
     ~side=Side.Right,
     ~showCloseButton=true,
-    ~keepMounted=?,
   ) => {
     let style = switch (style, dir) {
     | (Some(style), Some(dir)) => Some(style->ReactDOM.Style.unsafeAddProp("direction", dir))
@@ -162,7 +160,6 @@ module Content = {
         style=?style
         ?onClick
         ?onKeyDown
-        ?keepMounted
         dataSlot
         ?dataSidebar
         ?dataMobile

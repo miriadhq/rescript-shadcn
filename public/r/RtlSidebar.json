@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlSidebar",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlSidebar.res",
+      "content": "// RTL sidebar UI component - re-exports the regular Sidebar module\n// (ui-rtl/sidebar.tsx is functionally equivalent to ui/sidebar.tsx)\ninclude Sidebar\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

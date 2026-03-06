@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "PopoverRtl",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/PopoverRtl.res",
+      "content": "@@directive(\"'use client'\")\n\nlet physicalSides = [\n  (BaseUi.Types.Side.Left, \"يسار\"),\n  (BaseUi.Types.Side.Top, \"أعلى\"),\n  (BaseUi.Types.Side.Bottom, \"أسفل\"),\n  (BaseUi.Types.Side.Right, \"يمين\"),\n]\n\nlet logicalSides = [\n  (BaseUi.Types.Side.InlineStart, \"بداية السطر\"),\n  (BaseUi.Types.Side.InlineEnd, \"نهاية السطر\"),\n]\n\n@react.component\nlet make = () =>\n  <div className=\"grid gap-4\">\n    <div className=\"flex flex-wrap justify-center gap-2\">\n      {physicalSides\n      ->Array.map(((side, label)) =>\n        <Popover key=label>\n          <Popover.Trigger render={<Button variant=Button.Variant.Outline />}>\n            {label->React.string}\n          </Popover.Trigger>\n          <Popover.Content side dir=\"rtl\">\n            <Popover.Header>\n              <Popover.Title> {\"الأبعاد\"->React.string} </Popover.Title>\n              <Popover.Description>\n                {\"تعيين الأبعاد للطبقة.\"->React.string}\n              </Popover.Description>\n            </Popover.Header>\n          </Popover.Content>\n        </Popover>\n      )\n      ->React.array}\n    </div>\n    <div className=\"flex flex-wrap justify-center gap-2\">\n      {logicalSides\n      ->Array.map(((side, label)) =>\n        <Popover key=label>\n          <Popover.Trigger render={<Button variant=Button.Variant.Outline />}>\n            {label->React.string}\n          </Popover.Trigger>\n          <Popover.Content side dir=\"rtl\">\n            <Popover.Header>\n              <Popover.Title> {\"الأبعاد\"->React.string} </Popover.Title>\n              <Popover.Description>\n                {\"تعيين الأبعاد للطبقة.\"->React.string}\n              </Popover.Description>\n            </Popover.Header>\n          </Popover.Content>\n        </Popover>\n      )\n      ->React.array}\n    </div>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

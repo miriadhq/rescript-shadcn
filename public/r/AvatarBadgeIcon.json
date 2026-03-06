@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AvatarBadgeIcon",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AvatarBadgeIcon.res",
+      "content": "@react.component\nlet make = () =>\n  <Avatar className=\"grayscale\">\n    <Avatar.Image\n      src=\"https://github.com/pranathip.png\" alt=\"@pranathip\" renderBeforeHydration={true}\n    />\n    <Avatar.Fallback> {\"PP\"->React.string} </Avatar.Fallback>\n    <Avatar.Badge>\n      <Icons.Plus />\n    </Avatar.Badge>\n  </Avatar>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

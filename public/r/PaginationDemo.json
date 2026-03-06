@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "PaginationDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/PaginationDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <Pagination>\n    <Pagination.Content>\n      <Pagination.Item>\n        <Pagination.Previous href=\"#\" />\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"1\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\" isActive={true}> {\"2\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"3\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Ellipsis />\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Next href=\"#\" />\n      </Pagination.Item>\n    </Pagination.Content>\n  </Pagination>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

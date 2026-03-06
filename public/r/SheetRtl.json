@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SheetRtl",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SheetRtl.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Sheet>\n    <Sheet.Trigger render={<Button variant=Button.Variant.Outline />}>\n      {\"فتح\"->React.string}\n    </Sheet.Trigger>\n    <Sheet.Content dir=\"rtl\" side=BaseUi.Types.Side.Left>\n      <Sheet.Header>\n        <Sheet.Title> {\"تعديل الملف الشخصي\"->React.string} </Sheet.Title>\n        <Sheet.Description>\n          {\"قم بإجراء تغييرات على ملفك الشخصي هنا. انقر حفظ عند الانتهاء.\"->React.string}\n        </Sheet.Description>\n      </Sheet.Header>\n      <Field.Group className=\"px-4\">\n        <Field>\n          <Field.Label htmlFor=\"sheet-rtl-name\"> {\"الاسم\"->React.string} </Field.Label>\n          <Input id=\"sheet-rtl-name\" defaultValue=\"Pedro Duarte\" />\n        </Field>\n        <Field>\n          <Field.Label htmlFor=\"sheet-rtl-username\">\n            {\"اسم المستخدم\"->React.string}\n          </Field.Label>\n          <Input id=\"sheet-rtl-username\" defaultValue=\"peduarte\" />\n        </Field>\n      </Field.Group>\n      <Sheet.Footer>\n        <Button type_=\"submit\"> {\"حفظ التغييرات\"->React.string} </Button>\n        <Sheet.Close render={<Button variant=Button.Variant.Outline />}>\n          {\"إغلاق\"->React.string}\n        </Sheet.Close>\n      </Sheet.Footer>\n    </Sheet.Content>\n  </Sheet>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

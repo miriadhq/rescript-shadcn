@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AlertBasic",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AlertBasic.res",
+      "content": "@react.component\nlet make = () =>\n  <Alert className=\"max-w-md\">\n    <Icons.CheckCircle2 />\n    <Alert.Title> {\"Account updated successfully\"->React.string} </Alert.Title>\n    <Alert.Description>\n      {\"Your profile information has been saved. Changes will be reflected immediately.\"->React.string}\n    </Alert.Description>\n  </Alert>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

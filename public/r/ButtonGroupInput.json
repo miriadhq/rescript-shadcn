@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonGroupInput",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonGroupInput.res",
+      "content": "@react.component\nlet make = () =>\n  <ButtonGroup>\n    <Input placeholder=\"Search...\" />\n    <Button variant=Button.Variant.Outline ariaLabel=\"Search\">\n      <Icons.Search />\n    </Button>\n  </ButtonGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

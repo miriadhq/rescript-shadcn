@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlSeparator",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlSeparator.res",
+      "content": "// RTL version - same as regular component\ninclude Separator\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

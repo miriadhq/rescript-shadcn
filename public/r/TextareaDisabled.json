@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TextareaDisabled",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/TextareaDisabled.res",
+      "content": "@react.component\nlet make = () =>\n  <Field dataDisabled=true>\n    <Field.Label htmlFor=\"textarea-disabled\"> {\"Message\"->React.string} </Field.Label>\n    <Textarea id=\"textarea-disabled\" placeholder=\"Type your message here.\" disabled=true>\n      {React.null}\n    </Textarea>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

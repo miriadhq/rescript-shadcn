@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonGroupOrientation",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonGroupOrientation.res",
+      "content": "@react.component\nlet make = () =>\n  <ButtonGroup\n    orientation=ButtonGroup.DataOrientation.Vertical ariaLabel=\"Media controls\" className=\"h-fit\"\n  >\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon>\n      <Icons.Plus />\n    </Button>\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon>\n      <Icons.Minus />\n    </Button>\n  </ButtonGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

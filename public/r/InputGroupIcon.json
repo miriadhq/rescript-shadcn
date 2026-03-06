@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupIcon",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupIcon.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"grid w-full max-w-sm gap-6\">\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Search...\" />\n      <InputGroup.Addon>\n        <Icons.Search />\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input type_=\"email\" placeholder=\"Enter your email\" />\n      <InputGroup.Addon>\n        <Icons.Mail />\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Card number\" />\n      <InputGroup.Addon>\n        <Icons.CreditCard />\n      </InputGroup.Addon>\n      <InputGroup.Addon align=InlineEnd>\n        <Icons.Check />\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Card number\" />\n      <InputGroup.Addon align=InlineEnd>\n        <Icons.Info />\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

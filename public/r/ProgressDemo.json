@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ProgressDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ProgressDemo.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => {\n  let (progress, setProgress) = React.useState(() => 13.)\n\n  React.useEffect0(() => {\n    let timer = setTimeout(() => setProgress(_ => 66.), 500)\n    Some(() => clearTimeout(timer))\n  })\n\n  <Progress value=progress className=\"w-[60%]\" />\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

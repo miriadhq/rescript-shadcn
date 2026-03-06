@@ -157,7 +157,6 @@ module Content = {
     ~style=?,
     ~onClick=?,
     ~onKeyDown=?,
-    ~keepMounted=?,
   ) =>
     <BaseUi.NavigationMenu.Content
       ?id
@@ -166,7 +165,6 @@ module Content = {
       ?style
       ?onClick
       ?onKeyDown
-      ?keepMounted
       ?children
       dataSlot="navigation-menu-content"
       className={cn(

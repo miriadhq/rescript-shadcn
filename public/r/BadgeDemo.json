@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "BadgeDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/BadgeDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"flex w-full flex-wrap justify-center gap-2\">\n    <Badge> {\"Badge\"->React.string} </Badge>\n    <Badge variant=Badge.Variant.Secondary> {\"Secondary\"->React.string} </Badge>\n    <Badge variant=Badge.Variant.Destructive> {\"Destructive\"->React.string} </Badge>\n    <Badge variant=Badge.Variant.Outline> {\"Outline\"->React.string} </Badge>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

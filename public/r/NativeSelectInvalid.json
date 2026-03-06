@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "NativeSelectInvalid",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/NativeSelectInvalid.res",
+      "content": "@react.component\nlet make = () =>\n  <NativeSelect invalid={true}>\n    <NativeSelect.Option value=\"\"> {\"Error state\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"apple\"> {\"Apple\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"banana\"> {\"Banana\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"blueberry\"> {\"Blueberry\"->React.string} </NativeSelect.Option>\n  </NativeSelect>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

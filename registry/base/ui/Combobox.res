@@ -227,7 +227,6 @@ module Content = {
     ~alignOffset=0.,
     ~anchor=?,
     ~positionMethod=?,
-    ~keepMounted=?,
     ~dir=?,
     ~dataLang=?,
   ) => {
@@ -241,7 +240,6 @@ module Content = {
           ?style
           ?onClick
           ?onKeyDown
-          ?keepMounted
           ?anchor
           ?dir
           ?dataLang

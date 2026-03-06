@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AccordionRtl",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AccordionRtl.res",
+      "content": "type item = {\n  value: string,\n  question: string,\n  answer: string,\n}\n\nlet items: array<item> = [\n  {\n    value: \"item-1\",\n    question: \"كيف يمكنني إعادة تعيين كلمة المرور؟\",\n    answer: \"انقر على 'نسيت كلمة المرور' في صفحة تسجيل الدخول، أدخل عنوان بريدك الإلكتروني، وسنرسل لك رابطًا لإعادة تعيين كلمة المرور. سينتهي صلاحية الرابط خلال 24 ساعة.\",\n  },\n  {\n    value: \"item-2\",\n    question: \"هل يمكنني تغيير خطة الاشتراك الخاصة بي؟\",\n    answer: \"نعم، يمكنك ترقية أو تخفيض خطتك في أي وقت من إعدادات حسابك. ستظهر التغييرات في دورة الفوترة التالية.\",\n  },\n  {\n    value: \"item-3\",\n    question: \"ما هي طرق الدفع التي تقبلونها؟\",\n    answer: \"نقبل جميع بطاقات الائتمان الرئيسية و PayPal والتحويلات المصرفية. تتم معالجة جميع المدفوعات بأمان من خلال شركاء الدفع لدينا.\",\n  },\n]\n\n@react.component\nlet make = () =>\n  <RtlAccordion defaultValue=[\"item-1\"] className=\"max-w-md\">\n    {items\n    ->Array.map(item =>\n      <RtlAccordion.Item key={item.value} value={item.value}>\n        <RtlAccordion.Trigger> {item.question->React.string} </RtlAccordion.Trigger>\n        <RtlAccordion.Content> {item.answer->React.string} </RtlAccordion.Content>\n      </RtlAccordion.Item>\n    )\n    ->React.array}\n  </RtlAccordion>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

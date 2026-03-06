@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CardImage",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CardImage.res",
+      "content": "@react.component\nlet make = () =>\n  <Card className=\"relative mx-auto w-full max-w-sm pt-0\">\n    <div className=\"absolute inset-0 z-30 aspect-video bg-black/35\" />\n    <img\n      src=\"https://avatar.vercel.sh/shadcn1\"\n      alt=\"Event cover\"\n      className=\"relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40\"\n    />\n    <Card.Header>\n      <Card.Action>\n        <Badge variant=Badge.Variant.Secondary> {\"Featured\"->React.string} </Badge>\n      </Card.Action>\n      <Card.Title> {\"Design systems meetup\"->React.string} </Card.Title>\n      <Card.Description>\n        {\"A practical talk on component APIs, accessibility, and shipping faster.\"->React.string}\n      </Card.Description>\n    </Card.Header>\n    <Card.Footer>\n      <Button className=\"w-full\"> {\"View Event\"->React.string} </Button>\n    </Card.Footer>\n  </Card>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

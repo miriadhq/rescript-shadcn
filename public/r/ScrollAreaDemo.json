@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ScrollAreaDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ScrollAreaDemo.res",
+      "content": "let tags =\n  Array.make(~length=50, 0)->Array.mapWithIndex((_, index) =>\n    `v1.2.0-beta.${Int.toString(50 - index)}`\n  )\n\n@react.component\nlet make = () =>\n  <ScrollArea className=\"h-72 w-48 rounded-md border\">\n    <div className=\"p-4\">\n      <h4 className=\"mb-4 text-sm leading-none font-medium\"> {\"Tags\"->React.string} </h4>\n      {tags\n      ->Array.map(tag =>\n        <React.Fragment key=tag>\n          <div className=\"text-sm\"> {tag->React.string} </div>\n          <Separator className=\"my-2\" />\n        </React.Fragment>\n      )\n      ->React.array}\n    </div>\n  </ScrollArea>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CarouselDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CarouselDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <Carousel className=\"w-full max-w-[12rem] sm:max-w-xs\">\n    <Carousel.Content>\n      {Array.fromInitializer(~length=5, index =>\n        <Carousel.Item key={Int.toString(index)}>\n          <div className=\"p-1\">\n            <Card>\n              <Card.Content className=\"flex aspect-square items-center justify-center p-6\">\n                <span className=\"text-4xl font-semibold\">\n                  {Int.toString(index + 1)->React.string}\n                </span>\n              </Card.Content>\n            </Card>\n          </div>\n        </Carousel.Item>\n      )->React.array}\n    </Carousel.Content>\n    <Carousel.Previous />\n    <Carousel.Next />\n  </Carousel>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

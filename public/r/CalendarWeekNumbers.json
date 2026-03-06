@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CalendarWeekNumbers",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CalendarWeekNumbers.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => {\n  let year = Date.make()->Date.getFullYear\n  let initialDate = Date.makeWithYMD(~year, ~month=0, ~day=12)\n  let (date, setDate) = React.useState(() => Some(initialDate))\n\n  <Card className=\"mx-auto w-fit p-0\">\n    <Card.Content className=\"p-0\">\n      <Calendar\n        mode=\"single\"\n        defaultMonth=?date\n        selected=date\n        onSelect={(value: option<Date.t>) => setDate(_ => value)}\n        showWeekNumber={true}\n      />\n    </Card.Content>\n  </Card>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

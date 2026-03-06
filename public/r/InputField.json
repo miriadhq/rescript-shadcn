@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputField",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputField.res",
+      "content": "@react.component\nlet make = () =>\n  <Field>\n    <Field.Label htmlFor=\"input-field-username\"> {\"Username\"->React.string} </Field.Label>\n    <Input id=\"input-field-username\" type_=\"text\" placeholder=\"Enter your username\" />\n    <Field.Description>\n      {\"Choose a unique username for your account.\"->React.string}\n    </Field.Description>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

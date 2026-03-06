@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DataPickerWithDropdowns",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DataPickerWithDropdowns.res",
+      "content": "@@directive(\"'use client'\")\n\n@module(\"date-fns\")\nexternal formatDate: (Date.t, string) => string = \"format\"\n\n@react.component\nlet make = () => {\n  let (date, setDate) = React.useState(() => None)\n  let (isOpen, setOpen) = React.useState(() => false)\n\n  <Field className=\"mx-auto w-72\">\n    <Popover open_=isOpen onOpenChange={(nextOpen, _) => setOpen(_ => nextOpen)}>\n      <Field.Label htmlFor=\"date-picker-with-dropdowns-desktop\">\n        {\"Date\"->React.string}\n      </Field.Label>\n      <Popover.Trigger\n        render={<Button\n          variant=Button.Variant.Outline\n          id=\"date-picker-with-dropdowns-desktop\"\n          className=\"justify-start px-2.5 font-normal\"\n          dataSlot=\"popover-trigger\"\n        />}\n      >\n        <Icons.ChevronDown className=\"ml-auto\" />\n        {switch date {\n        | Some(value) => formatDate(value, \"PPP\")->React.string\n        | None => <span> {\"Pick a date\"->React.string} </span>\n        }}\n      </Popover.Trigger>\n      <Popover.Content className=\"w-auto p-0\" align=BaseUi.Types.Align.Start>\n        <Calendar\n          mode=\"single\"\n          selected=date\n          onSelect={(value: option<Date.t>) => setDate(_ => value)}\n          captionLayout=Calendar.CaptionLayout.Dropdown\n        />\n        <div className=\"flex gap-2 border-t p-2\">\n          <Button\n            variant=Button.Variant.Outline\n            size=Button.Size.Sm\n            className=\"w-full\"\n            onClick={_ => setOpen(_ => false)}\n          >\n            {\"Done\"->React.string}\n          </Button>\n        </div>\n      </Popover.Content>\n    </Popover>\n  </Field>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

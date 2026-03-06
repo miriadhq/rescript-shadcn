@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "KbdGroup",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/KbdGroup.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-col items-center gap-4\">\n    <p className=\"text-muted-foreground text-sm\">\n      {\"Use \"->React.string}\n      <Kbd.Group>\n        <Kbd> {\"Ctrl + B\"->React.string} </Kbd>\n        <Kbd> {\"Ctrl + K\"->React.string} </Kbd>\n      </Kbd.Group>\n      {\" to open the command palette\"->React.string}\n    </p>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

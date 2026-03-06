@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "Spinner",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui/Spinner.res",
+      "content": "@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (\n  ~className=?,\n  ~role=\"status\",\n  ~ariaLabel=\"Loading\",\n  ~dataIcon=?,\n  ~dataSlot=?,\n  ~children=?,\n) => {\n  let _ignoredChildren = children\n  <Icons.Loader2\n    ?dataIcon ?dataSlot role ariaLabel className={cn(\"size-4 animate-spin\", className)}\n  />\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

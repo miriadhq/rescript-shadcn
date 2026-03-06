@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SpinnerButton",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SpinnerButton.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-col items-center gap-4\">\n    <Button disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=\"inline-start\" />\n      {\"Loading...\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Outline disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=\"inline-start\" />\n      {\"Please wait\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Secondary disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=\"inline-start\" />\n      {\"Processing\"->React.string}\n    </Button>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

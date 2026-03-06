@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "BadgeLink",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/BadgeLink.res",
+      "content": "@react.component\nlet make = () =>\n  <Badge render={<a href=\"#link\" />}>\n    {\"Open Link \"->React.string}\n    <Icons.ArrowUpRight dataIcon=\"inline-end\" />\n  </Badge>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

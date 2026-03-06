@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TypographyH2",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/TypographyH2.res",
+      "content": "@react.component\nlet make = () =>\n  <h2 className=\"scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0\">\n    {\"The People of the Kingdom\"->React.string}\n  </h2>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

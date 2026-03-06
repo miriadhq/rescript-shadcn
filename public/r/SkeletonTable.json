@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SkeletonTable",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SkeletonTable.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"flex w-full max-w-sm flex-col gap-2\">\n    {Array.make(~length=5, ())\n    ->Array.mapWithIndex((_, index) =>\n      <div className=\"flex gap-4\" key={Int.toString(index)}>\n        <Skeleton className=\"h-4 flex-1\" />\n        <Skeleton className=\"h-4 w-24\" />\n        <Skeleton className=\"h-4 w-20\" />\n      </div>\n    )\n    ->React.array}\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

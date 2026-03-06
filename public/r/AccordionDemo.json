@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AccordionDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AccordionDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <Accordion defaultValue=[\"shipping\"] className=\"max-w-lg\">\n    <Accordion.Item value=\"shipping\">\n      <Accordion.Trigger> {\"What are your shipping options?\"->React.string} </Accordion.Trigger>\n      <Accordion.Content>\n        {\"We offer standard (5-7 days), express (2-3 days), and overnight shipping. Free shipping on international orders.\"->React.string}\n      </Accordion.Content>\n    </Accordion.Item>\n    <Accordion.Item value=\"returns\">\n      <Accordion.Trigger> {\"What is your return policy?\"->React.string} </Accordion.Trigger>\n      <Accordion.Content>\n        {\"Returns accepted within 30 days. Items must be unused and in original packaging. Refunds processed within 5-7 business days.\"->React.string}\n      </Accordion.Content>\n    </Accordion.Item>\n    <Accordion.Item value=\"support\">\n      <Accordion.Trigger> {\"How can I contact customer support?\"->React.string} </Accordion.Trigger>\n      <Accordion.Content>\n        {\"Reach us via email, live chat, or phone. We respond within 24 hours during business days.\"->React.string}\n      </Accordion.Content>\n    </Accordion.Item>\n  </Accordion>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

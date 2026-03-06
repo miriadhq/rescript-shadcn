@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AlertDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/AlertDemo.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"grid w-full max-w-md items-start gap-4\">\n    <Alert>\n      <Icons.CheckCircle2 />\n      <Alert.Title> {\"Payment successful\"->React.string} </Alert.Title>\n      <Alert.Description>\n        {\"Your payment of $29.99 has been processed. A receipt has been sent to your email address.\"->React.string}\n      </Alert.Description>\n    </Alert>\n    <Alert>\n      <Icons.Info />\n      <Alert.Title> {\"New feature available\"->React.string} </Alert.Title>\n      <Alert.Description>\n        {\"We've added dark mode support. You can enable it in your account settings.\"->React.string}\n      </Alert.Description>\n    </Alert>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

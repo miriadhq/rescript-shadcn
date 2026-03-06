@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "FieldSwitch",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/FieldSwitch.res",
+      "content": "@react.component\nlet make = () =>\n  <Field orientation=BaseUi.Types.Orientation.Horizontal className=\"w-fit\">\n    <Field.Label htmlFor=\"2fa\"> {\"Multi-factor authentication\"->React.string} </Field.Label>\n    <Switch id=\"2fa\" />\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

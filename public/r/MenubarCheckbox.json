@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "MenubarCheckbox",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/MenubarCheckbox.res",
+      "content": "@react.component\nlet make = () =>\n  <Menubar className=\"w-72\">\n    <Menubar.Menu>\n      <Menubar.Trigger> {\"View\"->React.string} </Menubar.Trigger>\n      <Menubar.Content className=\"w-64\">\n        <Menubar.CheckboxItem> {\"Always Show Bookmarks Bar\"->React.string} </Menubar.CheckboxItem>\n        <Menubar.CheckboxItem checked=true>\n          {\"Always Show Full URLs\"->React.string}\n        </Menubar.CheckboxItem>\n        <Menubar.Separator />\n        <Menubar.Item inset=true>\n          {\"Reload\"->React.string}\n          <Menubar.Shortcut> {\"⌘R\"->React.string} </Menubar.Shortcut>\n        </Menubar.Item>\n        <Menubar.Item disabled=true inset=true>\n          {\"Force Reload\"->React.string}\n          <Menubar.Shortcut> {\"⇧⌘R\"->React.string} </Menubar.Shortcut>\n        </Menubar.Item>\n      </Menubar.Content>\n    </Menubar.Menu>\n    <Menubar.Menu>\n      <Menubar.Trigger> {\"Format\"->React.string} </Menubar.Trigger>\n      <Menubar.Content>\n        <Menubar.CheckboxItem checked=true> {\"Strikethrough\"->React.string} </Menubar.CheckboxItem>\n        <Menubar.CheckboxItem> {\"Code\"->React.string} </Menubar.CheckboxItem>\n        <Menubar.CheckboxItem> {\"Superscript\"->React.string} </Menubar.CheckboxItem>\n      </Menubar.Content>\n    </Menubar.Menu>\n  </Menubar>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

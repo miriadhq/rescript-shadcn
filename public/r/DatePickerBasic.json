@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DatePickerBasic",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DatePickerBasic.res",
+      "content": "@@directive(\"'use client'\")\n\n@module(\"date-fns\") external format: (Date.t, string) => string = \"format\"\n\n@react.component\nlet make = () => {\n  let (date, setDate) = React.useState(() => None)\n\n  <Field className=\"mx-auto w-44\">\n    <Field.Label htmlFor=\"date-picker-simple\"> {\"Date\"->React.string} </Field.Label>\n    <Popover>\n      <Popover.Trigger\n        render={<Button\n          variant=Button.Variant.Outline\n          id=\"date-picker-simple\"\n          className=\"justify-start font-normal\"\n        />}\n      >\n        {switch date {\n        | Some(d) => d->format(\"PPP\")->React.string\n        | None => <span> {\"Pick a date\"->React.string} </span>\n        }}\n      </Popover.Trigger>\n      <Popover.Content className=\"w-auto p-0\" align=BaseUi.Types.Align.Start>\n        <Calendar\n          mode=\"single\"\n          selected={date}\n          onSelect={(value: option<Date.t>) => setDate(_ => value)}\n          defaultMonth=?{date}\n        />\n      </Popover.Content>\n    </Popover>\n  </Field>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

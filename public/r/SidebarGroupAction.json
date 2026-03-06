@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SidebarGroupAction",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/SidebarGroupAction.res",
+      "content": "@@directive(\"'use client'\")\n\n@module(\"sonner\") external toast: string => unit = \"toast\"\n\n@react.component\nlet make = () =>\n  <Sidebar.Provider>\n    <Sonner />\n    <Sidebar>\n      <Sidebar.Content>\n        <Sidebar.Group>\n          <Sidebar.GroupLabel> {\"Projects\"->React.string} </Sidebar.GroupLabel>\n          <Sidebar.GroupAction onClick={_ => toast(\"You clicked the group action!\")}>\n            <Icons.Plus />\n            <span className=\"sr-only\"> {\"Add Project\"->React.string} </span>\n          </Sidebar.GroupAction>\n          <Sidebar.GroupContent>\n            <Sidebar.Menu>\n              <Sidebar.MenuItem>\n                <Sidebar.MenuButton render={<a href=\"#\" />}>\n                  <Icons.Frame />\n                  <span> {\"Design Engineering\"->React.string} </span>\n                </Sidebar.MenuButton>\n              </Sidebar.MenuItem>\n              <Sidebar.MenuItem>\n                <Sidebar.MenuButton render={<a href=\"#\" />}>\n                  <Icons.PieChart />\n                  <span> {\"Sales & Marketing\"->React.string} </span>\n                </Sidebar.MenuButton>\n              </Sidebar.MenuItem>\n              <Sidebar.MenuItem>\n                <Sidebar.MenuButton render={<a href=\"#\" />}>\n                  <Icons.Map />\n                  <span> {\"Travel\"->React.string} </span>\n                </Sidebar.MenuButton>\n              </Sidebar.MenuItem>\n            </Sidebar.Menu>\n          </Sidebar.GroupContent>\n        </Sidebar.Group>\n      </Sidebar.Content>\n    </Sidebar>\n  </Sidebar.Provider>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

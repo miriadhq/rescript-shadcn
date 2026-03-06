@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupBlockStart",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupBlockStart.res",
+      "content": "@react.component\nlet make = () =>\n  <Field.Group className=\"max-w-sm\">\n    <Field>\n      <Field.Label htmlFor=\"block-start-input\"> {\"Input\"->React.string} </Field.Label>\n      <InputGroup className=\"h-auto\">\n        <InputGroup.Input id=\"block-start-input\" placeholder=\"Enter your name\" />\n        <InputGroup.Addon align=BlockStart>\n          <InputGroup.Text> {\"Full Name\"->React.string} </InputGroup.Text>\n        </InputGroup.Addon>\n      </InputGroup>\n      <Field.Description> {\"Header positioned above the input.\"->React.string} </Field.Description>\n    </Field>\n    <Field>\n      <Field.Label htmlFor=\"block-start-textarea\"> {\"Textarea\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Textarea\n          id=\"block-start-textarea\"\n          placeholder=\"console.log('Hello, world!');\"\n          className=\"font-mono text-sm\"\n        />\n        <InputGroup.Addon align=BlockStart>\n          <Icons.FileCode className=\"text-muted-foreground\" />\n          <InputGroup.Text className=\"font-mono\"> {\"script.js\"->React.string} </InputGroup.Text>\n          <InputGroup.Button size=IconXs className=\"ml-auto\">\n            <Icons.Download />\n            <span className=\"sr-only\"> {\"Copy\"->React.string} </span>\n          </InputGroup.Button>\n        </InputGroup.Addon>\n      </InputGroup>\n      <Field.Description>\n        {\"Header positioned above the textarea.\"->React.string}\n      </Field.Description>\n    </Field>\n  </Field.Group>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

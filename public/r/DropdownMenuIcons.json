@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DropdownMenuIcons",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DropdownMenuIcons.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <DropdownMenu>\n    <DropdownMenu.Trigger\n      render={<Button variant=Button.Variant.Outline dataSlot=\"dropdown-menu-trigger\" />}\n    >\n      {\"Open\"->React.string}\n    </DropdownMenu.Trigger>\n    <DropdownMenu.Content>\n      <DropdownMenu.Item>\n        <Icons.User />\n        {\"Profile\"->React.string}\n      </DropdownMenu.Item>\n      <DropdownMenu.Item>\n        <Icons.CreditCard />\n        {\"Billing\"->React.string}\n      </DropdownMenu.Item>\n      <DropdownMenu.Item>\n        <Icons.Settings />\n        {\"Settings\"->React.string}\n      </DropdownMenu.Item>\n      <DropdownMenu.Separator />\n      <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>\n        <Icons.LogOut />\n        {\"Log out\"->React.string}\n      </DropdownMenu.Item>\n    </DropdownMenu.Content>\n  </DropdownMenu>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

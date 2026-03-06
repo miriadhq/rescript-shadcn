@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlBadge",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlBadge.res",
+      "content": "@@jsxConfig({version: 4, mode: \"automatic\", module_: \"BaseUi.BaseUiJsxDOM\"})\n\n@@directive(\"'use client'\")\n\n@module(\"tailwind-merge\")\nexternal twMerge: string => string = \"twMerge\"\n\nlet badgeVariantClass = (~variant: Badge.Variant.t) =>\n  switch variant {\n  | Secondary => \"bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80\"\n  | Destructive => \"bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20\"\n  | Outline => \"border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground\"\n  | Ghost => \"hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50\"\n  | Link => \"text-primary underline-offset-4 hover:underline\"\n  | Default => \"bg-primary text-primary-foreground [a]:hover:bg-primary/80\"\n  }\n\nlet badgeVariants = (~variant=Badge.Variant.Default) => {\n  let base = \"h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&>svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive overflow-hidden group/badge\"\n  `${base} ${badgeVariantClass(~variant)}`\n}\n\n@react.component\nlet make = (\n  ~className=\"\",\n  ~children=?,\n  ~variant=Badge.Variant.Default,\n  ~id=?,\n  ~onClick=?,\n  ~onKeyDown=?,\n  ~style=?,\n  ~render=?,\n) => {\n  let resolvedClassName = twMerge(`${badgeVariants(~variant)} ${className}`)\n  let props: BaseUi.Types.props<string, bool> = {\n    ?id,\n    ?style,\n    ?onClick,\n    ?onKeyDown,\n    ?children,\n    dataSlot: \"badge\",\n    dataVariant: (variant :> string),\n    className: resolvedClassName,\n  }\n  BaseUi.Render.use({defaultTagName: \"span\", props, ?render})\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

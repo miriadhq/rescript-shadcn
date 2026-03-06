@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CalendarMultiple",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CalendarMultiple.res",
+      "content": "@react.component\nlet make = () =>\n  <Card className=\"mx-auto w-fit p-0\">\n    <Card.Content className=\"p-0\">\n      <Calendar mode=\"multiple\" />\n    </Card.Content>\n  </Card>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

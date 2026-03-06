@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ToggleGroupOutline",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ToggleGroupOutline.res",
+      "content": "@react.component\nlet make = () =>\n  <ToggleGroup variant=ToggleGroup.Variant.Outline defaultValue={[\"all\"]}>\n    <ToggleGroup.Item value=\"all\" ariaLabel=\"Toggle all\"> {\"All\"->React.string} </ToggleGroup.Item>\n    <ToggleGroup.Item value=\"missed\" ariaLabel=\"Toggle missed\">\n      {\"Missed\"->React.string}\n    </ToggleGroup.Item>\n  </ToggleGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

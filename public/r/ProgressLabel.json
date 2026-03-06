@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ProgressLabel",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ProgressLabel.res",
+      "content": "@react.component\nlet make = () =>\n  <Progress value={56.} className=\"w-full max-w-sm\">\n    <Progress.Label> {\"Upload progress\"->React.string} </Progress.Label>\n    <Progress.Value />\n  </Progress>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

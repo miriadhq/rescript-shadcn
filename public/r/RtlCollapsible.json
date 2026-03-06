@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlCollapsible",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlCollapsible.res",
+      "content": "// RTL version - same as regular component\ninclude Collapsible\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

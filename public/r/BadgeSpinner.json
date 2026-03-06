@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "BadgeSpinner",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/BadgeSpinner.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-wrap gap-2\">\n    <Badge variant=Badge.Variant.Destructive>\n      <Spinner dataIcon=\"inline-start\" />\n      {\"Deleting\"->React.string}\n    </Badge>\n    <Badge variant=Badge.Variant.Secondary>\n      {\"Generating\"->React.string}\n      <Spinner dataIcon=\"inline-end\" />\n    </Badge>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

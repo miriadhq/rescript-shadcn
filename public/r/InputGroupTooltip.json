@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupTooltip",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupTooltip.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"grid w-full max-w-sm gap-4\">\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Enter password\" type_=\"password\" />\n      <InputGroup.Addon align=InlineEnd>\n        <Tooltip>\n          <Tooltip.Trigger\n            render={<InputGroup.Button\n              variant=InputGroup.Variant.Ghost ariaLabel=\"Info\" size=InputGroup.Size.IconXs\n            />}\n          >\n            <Icons.Info />\n          </Tooltip.Trigger>\n          <Tooltip.Content>\n            <p> {\"Password must be at least 8 characters\"->React.string} </p>\n          </Tooltip.Content>\n        </Tooltip>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Your email address\" />\n      <InputGroup.Addon align=InlineEnd>\n        <Tooltip>\n          <Tooltip.Trigger\n            render={<InputGroup.Button\n              variant=InputGroup.Variant.Ghost ariaLabel=\"Help\" size=InputGroup.Size.IconXs\n            />}\n          >\n            <Icons.HelpCircle />\n          </Tooltip.Trigger>\n          <Tooltip.Content>\n            <p> {\"We'll use this to send you notifications\"->React.string} </p>\n          </Tooltip.Content>\n        </Tooltip>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

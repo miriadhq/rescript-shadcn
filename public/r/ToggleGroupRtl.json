@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ToggleGroupRtl",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/ToggleGroupRtl.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <ToggleGroup variant=ToggleGroup.Variant.Outline defaultValue={[\"list\"]} dir=\"rtl\">\n    <ToggleGroup.Item value=\"list\" ariaLabel=\"قائمة\">\n      {\"قائمة\"->React.string}\n    </ToggleGroup.Item>\n    <ToggleGroup.Item value=\"grid\" ariaLabel=\"شبكة\">\n      {\"شبكة\"->React.string}\n    </ToggleGroup.Item>\n    <ToggleGroup.Item value=\"cards\" ariaLabel=\"بطاقات\">\n      {\"بطاقات\"->React.string}\n    </ToggleGroup.Item>\n  </ToggleGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

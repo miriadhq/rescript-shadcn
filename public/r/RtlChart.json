@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlChart",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlChart.res",
+      "content": "// RTL version - same as regular component\ninclude Chart\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

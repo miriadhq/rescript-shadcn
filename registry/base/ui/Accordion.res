@@ -104,21 +104,12 @@ module Trigger = {
 
 module Content = {
   @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~keepMounted=?,
-  ) =>
+  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
     <BaseUi.Accordion.Panel
       ?id
       ?style
       ?onClick
       ?onKeyDown
-      ?keepMounted
       dataSlot="accordion-content"
       className="data-open:animate-accordion-down data-closed:animate-accordion-up overflow-hidden text-sm"
     >

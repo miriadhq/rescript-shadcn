@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DatePickerDob",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DatePickerDob.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => {\n  let (open_, setOpen) = React.useState(() => false)\n  let (date, setDate) = React.useState(() => None)\n\n  <Field className=\"mx-auto w-44\">\n    <Field.Label htmlFor=\"date\"> {\"Date of birth\"->React.string} </Field.Label>\n    <Popover open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>\n      <Popover.Trigger\n        render={<Button\n          variant=Button.Variant.Outline id=\"date\" className=\"justify-start font-normal\"\n        />}\n      >\n        {switch date {\n        | Some(d) => d->Date.toLocaleDateString->React.string\n        | None => \"Select date\"->React.string\n        }}\n      </Popover.Trigger>\n      <Popover.Content className=\"w-auto overflow-hidden p-0\" align=BaseUi.Types.Align.Start>\n        <Calendar\n          mode=\"single\"\n          selected={date}\n          defaultMonth=?{date}\n          captionLayout={Calendar.CaptionLayout.Dropdown}\n          onSelect={(value: option<Date.t>) => {\n            setDate(_ => value)\n            setOpen(_ => false)\n          }}\n        />\n      </Popover.Content>\n    </Popover>\n  </Field>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

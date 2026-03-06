@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DatePickerInput",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DatePickerInput.res",
+      "content": "@@directive(\"'use client'\")\n\nlet formatDate = (date: option<Date.t>) =>\n  switch date {\n  | None => \"\"\n  | Some(d) =>\n    d->Date.toLocaleDateStringWithLocaleAndOptions(\n      \"en-US\",\n      {day: #\"2-digit\", month: #long, year: #numeric},\n    )\n  }\n\nlet isValidDate = (d: Date.t) => {\n  let t = d->Date.getTime\n  !Float.isNaN(t)\n}\n\n@react.component\nlet make = () => {\n  let (open_, setOpen) = React.useState(() => false)\n  let initialDate = Some(Date.fromString(\"2025-06-01\"))\n  let (date, setDate) = React.useState(() => initialDate)\n  let (month, setMonth) = React.useState(() => initialDate->Option.getOr(Date.make()))\n  let (value, setValue) = React.useState(() => formatDate(initialDate))\n\n  <Field className=\"mx-auto w-48\">\n    <Field.Label htmlFor=\"date-required\"> {\"Subscription Date\"->React.string} </Field.Label>\n    <InputGroup>\n      <InputGroup.Input\n        id=\"date-required\"\n        value={value}\n        placeholder=\"June 01, 2025\"\n        onValueChange={(v, _) => {\n          let parsed = Date.fromString(v)\n          setValue(_ => v)\n          if parsed->isValidDate {\n            setDate(_ => Some(parsed))\n            setMonth(_ => parsed)\n          }\n        }}\n      />\n      <InputGroup.Addon align=InlineEnd>\n        <Popover open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>\n          <Popover.Trigger\n            render={<InputGroup.Button\n              id=\"date-picker\" ariaLabel=\"Select date\" variant=Ghost size=IconXs\n            />}\n          >\n            <Icons.Calendar />\n            <span className=\"sr-only\"> {\"Select date\"->React.string} </span>\n          </Popover.Trigger>\n          <Popover.Content\n            className=\"w-auto overflow-hidden p-0\"\n            align=BaseUi.Types.Align.End\n            alignOffset={-8.}\n            sideOffset={10.}\n          >\n            <Calendar\n              mode=\"single\"\n              selected={date}\n              month={month}\n              onMonthChange={(d: Date.t) => setMonth(_ => d)}\n              onSelect={(value: option<Date.t>) => {\n                setDate(_ => value)\n                setValue(_ => formatDate(value))\n                setOpen(_ => false)\n              }}\n            />\n          </Popover.Content>\n        </Popover>\n      </InputGroup.Addon>\n    </InputGroup>\n  </Field>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

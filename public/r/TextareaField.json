@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TextareaField",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/TextareaField.res",
+      "content": "@react.component\nlet make = () =>\n  <Field>\n    <Field.Label htmlFor=\"textarea-message\"> {\"Message\"->React.string} </Field.Label>\n    <Field.Description> {\"Enter your message below.\"->React.string} </Field.Description>\n    <Textarea id=\"textarea-message\" placeholder=\"Type your message here.\" />\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

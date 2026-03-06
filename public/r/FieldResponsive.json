@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "FieldResponsive",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/FieldResponsive.res",
+      "content": "@react.component\nlet make = () =>\n  <div className=\"w-full max-w-lg\">\n    <form>\n      <Field.Set>\n        <Field.Legend> {\"Profile\"->React.string} </Field.Legend>\n        <Field.Description> {\"Fill in your profile information.\"->React.string} </Field.Description>\n        <Field.Group>\n          <Field dataOrientation=Field.DataOrientation.Responsive>\n            <Field.Content>\n              <Field.Label htmlFor=\"name\"> {\"Name\"->React.string} </Field.Label>\n              <Field.Description>\n                {\"Provide your full name for identification\"->React.string}\n              </Field.Description>\n            </Field.Content>\n            <Input id=\"name\" placeholder=\"Evil Rabbit\" required={true} />\n          </Field>\n          <Field dataOrientation=Field.DataOrientation.Responsive>\n            <Button type_=\"submit\"> {\"Submit\"->React.string} </Button>\n            <Button type_=\"button\" variant=Button.Variant.Outline>\n              {\"Cancel\"->React.string}\n            </Button>\n          </Field>\n        </Field.Group>\n      </Field.Set>\n    </form>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

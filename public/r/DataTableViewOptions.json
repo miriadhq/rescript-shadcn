@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DataTableViewOptions",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DataTableViewOptions.res",
+      "content": "@@directive(\"'use client'\")\n\nmodule RT = DataTableDemo.RT\n\n@react.component\nlet make = (~table: RT.t<'data>) => {\n  <DropdownMenu>\n    <DropdownMenu.Trigger\n      render={<Button\n        variant=Button.Variant.Outline size=Button.Size.Sm className=\"ml-auto hidden h-8 lg:flex\"\n      />}\n    >\n      <Icons.Settings2 />\n      {\"View\"->React.string}\n    </DropdownMenu.Trigger>\n    <DropdownMenu.Content align=BaseUi.Types.Align.End className=\"w-[150px]\">\n      <DropdownMenu.Label> {\"Toggle columns\"->React.string} </DropdownMenu.Label>\n      <DropdownMenu.Separator />\n      <DropdownMenu.Group>\n        {table\n        ->RT.getAllColumns\n        ->Array.filter(col => col->RT.colGetCanHide)\n        ->Array.map(col =>\n          <DropdownMenu.CheckboxItem\n            key={col->RT.colId}\n            className=\"capitalize\"\n            checked={col->RT.colGetIsVisible}\n            onCheckedChange={(v, _) => col->RT.colToggleVisibility(v)}\n          >\n            {col->RT.colId->React.string}\n          </DropdownMenu.CheckboxItem>\n        )\n        ->React.array}\n      </DropdownMenu.Group>\n    </DropdownMenu.Content>\n  </DropdownMenu>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

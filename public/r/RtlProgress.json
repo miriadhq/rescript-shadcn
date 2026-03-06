@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RtlProgress",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/ui-rtl/RtlProgress.res",
+      "content": "@@directive(\"'use client'\")\n\nopen BaseUi.Types\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (\n  ~className=?,\n  ~children=React.null,\n  ~id=?,\n  ~value=?,\n  ~max=?,\n  ~min=?,\n  ~dir=?,\n  ~style=?,\n  ~onClick=?,\n  ~onKeyDown=?,\n) =>\n  <BaseUi.Progress.Root\n    ?id\n    ?value\n    ?max\n    ?min\n    ?dir\n    ?style\n    ?onClick\n    ?onKeyDown\n    dataSlot=\"progress\"\n    className={cn(\"flex flex-wrap gap-3\", className)}\n  >\n    {children}\n    <BaseUi.Progress.Track\n      dataSlot=\"progress-track\"\n      className=\"bg-muted relative flex h-1 w-full items-center overflow-x-hidden rounded-full\"\n    >\n      <BaseUi.Progress.Indicator\n        dataSlot=\"progress-indicator\" className=\"bg-primary h-full transition-all\"\n      />\n    </BaseUi.Progress.Track>\n  </BaseUi.Progress.Root>\n\nmodule Track = {\n  @react.component\n  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>\n    <BaseUi.Progress.Track\n      ?id\n      ?style\n      ?onClick\n      ?onKeyDown\n      dataSlot=\"progress-track\"\n      className={cn(\n        \"bg-muted relative flex h-1 w-full items-center overflow-x-hidden rounded-full\",\n        className,\n      )}\n      ?children\n    />\n}\n\nmodule Indicator = {\n  @react.component\n  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>\n    <BaseUi.Progress.Indicator\n      ?id\n      ?style\n      ?onClick\n      ?onKeyDown\n      ?children\n      dataSlot=\"progress-indicator\"\n      className={cn(\"bg-primary h-full transition-all\", className)}\n    />\n}\n\nmodule Label = {\n  @react.component\n  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>\n    <BaseUi.Progress.Label\n      ?id\n      ?style\n      ?onClick\n      ?onKeyDown\n      ?children\n      dataSlot=\"progress-label\"\n      className={cn(\"text-sm font-medium\", className)}\n    />\n}\n\nmodule Value = {\n  @react.component\n  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>\n    <BaseUi.Progress.Value\n      ?id\n      ?style\n      ?onClick\n      ?onKeyDown\n      ?children\n      dataSlot=\"progress-value\"\n      className={cn(\"text-muted-foreground ms-auto text-sm tabular-nums\", className)}\n    />\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

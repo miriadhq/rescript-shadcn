@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CalendarDemo",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/CalendarDemo.res",
+      "content": "@@directive(\"'use client'\")\n\n@module(\"react-day-picker/locale\")\nexternal enUS: Calendar.Locale.t = \"enUS\"\n\n@react.component\nlet make = () => {\n  let date = Date.make()\n\n  <Calendar\n    mode=\"single\" selected=date locale=enUS className=\"rounded-lg border\" captionLayout=Dropdown\n  />\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

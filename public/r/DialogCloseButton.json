@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DialogCloseButton",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/base/examples/DialogCloseButton.res",
+      "content": "@react.component\nlet make = () =>\n  <Dialog>\n    <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-trigger\" />}>\n      {\"Share\"->React.string}\n    </Dialog.Trigger>\n    <Dialog.Content className=\"sm:max-w-md\">\n      <Dialog.Header>\n        <Dialog.Title> {\"Share link\"->React.string} </Dialog.Title>\n        <Dialog.Description>\n          {\"Anyone who has this link will be able to view this.\"->React.string}\n        </Dialog.Description>\n      </Dialog.Header>\n      <div className=\"flex items-center gap-2\">\n        <div className=\"grid flex-1 gap-2\">\n          <Label htmlFor=\"link\" className=\"sr-only\"> {\"Link\"->React.string} </Label>\n          <Input id=\"link\" defaultValue=\"https://ui.shadcn.com/docs/installation\" readOnly=true />\n        </div>\n      </div>\n      <Dialog.Footer className=\"sm:justify-start\">\n        <Dialog.Close render={<Button type_=\"button\" />}> {\"Close\"->React.string} </Dialog.Close>\n      </Dialog.Footer>\n    </Dialog.Content>\n  </Dialog>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}
