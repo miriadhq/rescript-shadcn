@@ -5,7 +5,7 @@ let make = () => {
   let (value, setValue) = React.useState(() => "")
 
   <div className="space-y-2">
-    <InputOtp maxLength={6} value={value} onValueChange={(v, _) => setValue(_ => v)}>
+    <InputOtp maxLength={6} value={value} onChange={v => setValue(_ => v)}>
       <InputOtp.Group>
         <InputOtp.Slot index={0} />
         <InputOtp.Slot index={1} />

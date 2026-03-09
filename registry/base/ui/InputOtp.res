@@ -2,14 +2,20 @@
 
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
 module InputOtpPrimitive = {
+  module Props = {
+    type t = {
+      ...JsxDOM.domProps,
+      containerClassName?: string,
+      @as("data-slot")
+      dataSlot?: string,
+    }
+  }
   @module("input-otp")
-  external make: React.component<props<'value, 'checked>> = "OTPInput"
+  external make: React.component<Props.t> = "OTPInput"
 
   type slot = {
     isActive: bool,
@@ -40,7 +46,7 @@ let make = (
   ~disabled=?,
   ~required=?,
   ~readOnly=?,
-  ~onValueChange=?,
+  ~onChange=?,
   ~onClick=?,
   ~onKeyDown=?,
   ~tabIndex=?,
@@ -58,8 +64,8 @@ let make = (
     ?disabled
     ?required
     ?readOnly
-    ?onValueChange
     ?onClick
+    onChange=?{onChange->Option.map(onChange => v => onChange(JsxEvent.Form.target(v)["value"]))}
     ?onKeyDown
     ?tabIndex
     ?ariaLabel
