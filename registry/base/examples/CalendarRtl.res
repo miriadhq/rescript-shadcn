@@ -8,7 +8,7 @@ let make = () => {
   let (date, setDate) = React.useState(() => Some(Date.make()))
 
   <Calendar
-    mode="single"
+    mode=Single
     selected=?date
     onSelect={d => setDate(_ => Some(d))}
     className="rounded-lg border [--cell-size:--spacing(9)]"

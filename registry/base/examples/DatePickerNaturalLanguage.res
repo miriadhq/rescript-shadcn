@@ -48,7 +48,7 @@ let make = () => {
             className="w-auto overflow-hidden p-0" align=BaseUi.Types.Align.End sideOffset={8.}
           >
             <Calendar
-              mode="single"
+              mode=Single
               selected={date}
               captionLayout={Calendar.CaptionLayout.Dropdown}
               defaultMonth=?{date}

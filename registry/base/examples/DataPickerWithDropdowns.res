@@ -29,7 +29,7 @@ let make = () => {
       </Popover.Trigger>
       <Popover.Content className="w-auto p-0" align=BaseUi.Types.Align.Start>
         <Calendar
-          mode="single"
+          mode=Single
           selected=date
           onSelect={(value: option<Date.t>) => setDate(_ => value)}
           captionLayout=Calendar.CaptionLayout.Dropdown

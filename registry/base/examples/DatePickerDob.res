@@ -20,7 +20,7 @@ let make = () => {
       </Popover.Trigger>
       <Popover.Content className="w-auto overflow-hidden p-0" align=BaseUi.Types.Align.Start>
         <Calendar
-          mode="single"
+          mode=Single
           selected={date}
           defaultMonth=?{date}
           captionLayout={Calendar.CaptionLayout.Dropdown}

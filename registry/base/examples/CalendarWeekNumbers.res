@@ -2,14 +2,16 @@
 
 @react.component
 let make = () => {
-  let year = Date.make()->Date.getFullYear
-  let initialDate = Date.makeWithYMD(~year, ~month=0, ~day=12)
-  let (date, setDate) = React.useState(() => Some(initialDate))
+  let (date, setDate) = React.useState(() => {
+    let year = Date.make()->Date.getFullYear
+    let initialDate = Date.makeWithYMD(~year, ~month=0, ~day=12)
+    Some(initialDate)
+  })
 
   <Card className="mx-auto w-fit p-0">
     <Card.Content className="p-0">
       <Calendar
-        mode="single"
+        mode=Single
         defaultMonth=?date
         selected=date
         onSelect={(value: option<Date.t>) => setDate(_ => value)}

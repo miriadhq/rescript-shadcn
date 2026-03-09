@@ -15,7 +15,7 @@ let make = () => {
   <Card className="mx-auto w-fit p-0">
     <Card.Content className="p-0">
       <Calendar
-        mode="single"
+        mode=Single
         defaultMonth=?date
         selected=date
         onSelect={(value: option<Date.t>) => setDate(_ => value)}

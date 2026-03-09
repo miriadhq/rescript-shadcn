@@ -2,19 +2,16 @@
 
 @react.component
 let make = () => {
-  let now = Date.make()
-  let year = now->Date.getFullYear
-  let month = now->Date.getMonth
-  let (date, setDate) = React.useState(() => Some(Date.makeWithYMD(~year, ~month, ~day=12)))
+  let (date, setDate) = React.useState(() => {
+    let now = Date.make()
+    let year = now->Date.getFullYear
+    let month = now->Date.getMonth
+    Some(Date.makeWithYMD(~year, ~month, ~day=12))
+  })
 
   <Card size=Sm className="mx-auto w-fit">
     <Card.Content>
-      <Calendar
-        mode="single"
-        selected=date
-        onSelect={(value: option<Date.t>) => setDate(_ => value)}
-        className="p-0"
-      />
+      <Calendar mode=Single selected=date onSelect={value => setDate(_ => value)} className="p-0" />
     </Card.Content>
     <Card.Footer className="bg-card border-t">
       <Field.Group>

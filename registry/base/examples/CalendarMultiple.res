@@ -2,6 +2,6 @@
 let make = () =>
   <Card className="mx-auto w-fit p-0">
     <Card.Content className="p-0">
-      <Calendar mode="multiple" />
+      <Calendar mode=Multiple />
     </Card.Content>
   </Card>

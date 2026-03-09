@@ -2,18 +2,18 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
 @send external focusElement: Dom.element => unit = "focus"
-@get external getDayDate: Calendar.Day.t => Date.t = "date"
 
 @module("tailwind-merge")
-external twMerge: string => string = "twMerge"
+external cn: (string, option<string>, ~additional: option<string>=?) => string = "twMerge"
 
 %%raw(`
 import { Vazirmatn } from "next/font/google"
-const vazirmatn = Vazirmatn({ subsets: ["arabic"] }).className
+const vazirmatn = Vazirmatn({ subsets: ["arabic"] })
+const vazirmatnClassName = vazirmatn.className
 `)
 
 @val
-external vazirmatn: string = "vazirmatn"
+external vazirmatnClassName: string = "vazirmatnClassName"
 
 module PersianDayPicker = {
   @react.component @module("react-day-picker/persian")
@@ -21,24 +21,26 @@ module PersianDayPicker = {
     ~showOutsideDays: bool=?,
     ~className: string=?,
     ~captionLayout: Calendar.CaptionLayout.t=?,
-    ~formatters: Calendar.DayPickerFormattersOverride.t=?,
+    ~formatters: Calendar.DayPickerFormatters.t=?,
     ~classNames: Calendar.DayPickerClassNames.t=?,
     ~mode: string=?,
     ~selected: 'selected=?,
     ~onSelect: 'selected => unit=?,
     ~defaultMonth: Date.t=?,
-    ~components: Calendar.DayPickerComponentsOverride.t=?,
+    ~components: Calendar.DayPickerComponents.t=?,
   ) => React.element = "DayPicker"
 }
+
+@scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
 
 module CalendarDayButton = {
   @react.componentWithProps
   let make = ({
     Calendar.DayButtonProps.className: ?className,
-    ?children,
+    children,
     day,
     modifiers,
-    locale: _locale,
+    locale,
     ?id,
     ?style,
     ?disabled,
@@ -49,7 +51,6 @@ module CalendarDayButton = {
     ?onFocus,
     ?onMouseEnter,
     ?onMouseLeave,
-    ?type_,
     ?ariaLabel,
   }) => {
     let defaultClassNames = Calendar.getDefaultClassNames()
@@ -83,39 +84,40 @@ module CalendarDayButton = {
       ?onFocus
       ?onMouseEnter
       ?onMouseLeave
-      type_=?{switch type_ {
-      | Some(value) => Some(value)
-      | None => Some("button")
-      }}
       ?ariaLabel
       ref={buttonRef->ReactDOM.Ref.domRef}
-      dataDay={day->getDayDate->Date.toLocaleDateString}
+      dataDay={switch locale {
+      | Some({code}) => Date.toLocaleDateStringWithLocale(day.Calendar.Day.date, code)
+      | None => Date.toLocaleDateString(day.Calendar.Day.date)
+      }}
       dataSelectedSingle=?selectedSingle
       dataRangeStart=?{modifiers.rangeStart}
       dataRangeEnd=?{modifiers.rangeEnd}
       dataRangeMiddle=?{modifiers.rangeMiddle}
-      variant=Button.Variant.Ghost
-      size=Button.Size.Icon
-      className={twMerge(
-        `data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 dark:hover:text-accent-foreground flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md [&>span]:text-xs [&>span]:opacity-70 ${defaultClassNames.day} ${className->Option.getOr(
-            "",
-          )}`,
+      variant=Ghost
+      size=Icon
+      className={cn(
+        "data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 dark:hover:text-accent-foreground flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md [&>span]:text-xs [&>span]:opacity-70",
+        defaultClassNames.day,
+        ~additional=className,
       )}
-      ?children
-    />
+      suppressHydrationWarning=true
+    >
+      {children}
+    </Button>
   }
 }
 
 module HijriCalendar = {
   @react.component
   let make = (
-    ~className="",
-    ~classNames: Calendar.DayPickerClassNamesOverride.t={},
+    ~className=?,
+    ~classNames: Calendar.DayPickerClassNames.t={},
     ~showOutsideDays=true,
     ~captionLayout=Calendar.CaptionLayout.Label,
     ~buttonVariant=Button.Variant.Ghost,
-    ~formatters: Calendar.DayPickerFormattersOverride.t={},
-    ~components: Calendar.DayPickerComponentsOverride.t={},
+    ~formatters: Calendar.DayPickerFormatters.t={},
+    ~components: Calendar.DayPickerComponents.t={},
     ~mode=?,
     ~selected: option<'selected>=?,
     ~onSelect: option<'selected => unit>=?,
@@ -131,171 +133,136 @@ module HijriCalendar = {
 
     <PersianDayPicker
       showOutsideDays
-      className={twMerge(
-        `bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent ${className}`,
+      className={cn(
+        "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
+        className,
       )}
       captionLayout
-      formatters={{
-        formatMonthDropdown: formatters.formatMonthDropdown->Option.getOr(date =>
-          date->Date.toLocaleDateStringWithLocaleAndOptions("default", {month: #short})
-        ),
-        formatCaption: ?formatters.formatCaption,
-        formatDay: ?formatters.formatDay,
-        formatWeekdayName: ?formatters.formatWeekdayName,
-        formatWeekNumber: ?formatters.formatWeekNumber,
-        formatYearDropdown: ?formatters.formatYearDropdown,
-        formatMonthCaption: ?formatters.formatMonthCaption,
-      }}
-      classNames={{
-        root: classNames.root->Option.getOr(twMerge(`w-fit ${defaultClassNames.root}`)),
-        months: classNames.months->Option.getOr(
-          twMerge(`flex gap-4 flex-col md:flex-row relative ${defaultClassNames.months}`),
-        ),
-        month: classNames.month->Option.getOr(
-          twMerge(`flex flex-col w-full gap-4 ${defaultClassNames.month}`),
-        ),
-        nav: classNames.nav->Option.getOr(
-          twMerge(
-            `flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between ${defaultClassNames.nav}`,
+      formatters={merge(
+        ~defaults={
+          Calendar.DayPickerFormatters.formatMonthDropdown: date =>
+            date->Date.toLocaleDateStringWithLocaleAndOptions("default", {month: #short}),
+        },
+        formatters,
+      )}
+      classNames={merge(
+        ~defaults={
+          Calendar.DayPickerClassNames.root: cn("w-fit", defaultClassNames.root),
+          months: cn("flex gap-4 flex-col md:flex-row relative", defaultClassNames.months),
+          month: cn("flex flex-col w-full gap-4", defaultClassNames.month),
+          nav: cn(
+            "flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between",
+            defaultClassNames.nav,
           ),
-        ),
-        button_previous: classNames.button_previous->Option.getOr(
-          twMerge(
-            `${Button.buttonVariants(
-                ~variant=buttonVariant,
-              )} size-(--cell-size) aria-disabled:opacity-50 p-0 select-none ${defaultClassNames.button_previous}`,
+          buttonPrevious: cn(
+            Button.buttonVariants(~variant=buttonVariant),
+            "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none"->Some,
+            ~additional=defaultClassNames.buttonPrevious,
           ),
-        ),
-        button_next: classNames.button_next->Option.getOr(
-          twMerge(
-            `${Button.buttonVariants(
-                ~variant=buttonVariant,
-              )} size-(--cell-size) aria-disabled:opacity-50 p-0 select-none ${defaultClassNames.button_next}`,
+          buttonNext: cn(
+            Button.buttonVariants(~variant=buttonVariant),
+            "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none"->Some,
+            ~additional=defaultClassNames.buttonNext,
           ),
-        ),
-        month_caption: classNames.month_caption->Option.getOr(
-          twMerge(
-            `flex items-center justify-center h-(--cell-size) w-full px-(--cell-size) ${defaultClassNames.month_caption}`,
+          monthCaption: cn(
+            "flex items-center justify-center h-(--cell-size) w-full px-(--cell-size)",
+            defaultClassNames.monthCaption,
           ),
-        ),
-        dropdowns: classNames.dropdowns->Option.getOr(
-          twMerge(
-            `w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5 ${defaultClassNames.dropdowns}`,
+          dropdowns: cn(
+            "w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5",
+            defaultClassNames.dropdowns,
           ),
-        ),
-        dropdown_root: classNames.dropdown_root->Option.getOr(
-          twMerge(
-            `relative has-focus:border-ring border border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] rounded-md ${defaultClassNames.dropdown_root}`,
+          dropdownRoot: cn(
+            "relative has-focus:border-ring border border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] rounded-md",
+            defaultClassNames.dropdownRoot,
           ),
-        ),
-        dropdown: classNames.dropdown->Option.getOr(
-          twMerge(`absolute inset-0 opacity-0 ${defaultClassNames.dropdown}`),
-        ),
-        caption_label: classNames.caption_label->Option.getOr(
-          twMerge(
-            `select-none font-medium ${captionLabelClassName} ${defaultClassNames.caption_label}`,
+          dropdown: cn("absolute inset-0 opacity-0", defaultClassNames.dropdown),
+          captionLabel: cn(
+            "select-none font-medium",
+            captionLabelClassName->Some,
+            ~additional=defaultClassNames.captionLabel,
           ),
-        ),
-        table: classNames.table->Option.getOr("w-full border-collapse"),
-        weekdays: classNames.weekdays->Option.getOr(twMerge(`flex ${defaultClassNames.weekdays}`)),
-        weekday: classNames.weekday->Option.getOr(
-          twMerge(
-            `text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none ${defaultClassNames.weekday}`,
+          table: "w-full border-collapse",
+          weekdays: cn("flex", defaultClassNames.weekdays),
+          weekday: cn(
+            "text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none",
+            defaultClassNames.weekday,
           ),
-        ),
-        week: classNames.week->Option.getOr(twMerge(`flex w-full mt-2 ${defaultClassNames.week}`)),
-        week_number_header: classNames.week_number_header->Option.getOr(
-          twMerge(`select-none w-(--cell-size) ${defaultClassNames.week_number_header}`),
-        ),
-        week_number: classNames.week_number->Option.getOr(
-          twMerge(
-            `text-[0.8rem] select-none text-muted-foreground ${defaultClassNames.week_number}`,
+          week: cn("flex w-full mt-2", defaultClassNames.week),
+          weekNumberHeader: cn("select-none w-(--cell-size)", defaultClassNames.weekNumberHeader),
+          weekNumber: cn(
+            "text-[0.8rem] select-none text-muted-foreground",
+            defaultClassNames.weekNumber,
           ),
-        ),
-        day: classNames.day->Option.getOr(
-          twMerge(
-            `relative w-full h-full p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none ${defaultClassNames.day}`,
+          day: cn(
+            "relative w-full h-full p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none",
+            defaultClassNames.day,
           ),
-        ),
-        range_start: classNames.range_start->Option.getOr(
-          twMerge(`rounded-l-md bg-accent ${defaultClassNames.range_start}`),
-        ),
-        range_middle: classNames.range_middle->Option.getOr(
-          twMerge(`rounded-none ${defaultClassNames.range_middle}`),
-        ),
-        range_end: classNames.range_end->Option.getOr(
-          twMerge(`rounded-r-md bg-accent ${defaultClassNames.range_end}`),
-        ),
-        today: classNames.today->Option.getOr(
-          twMerge(
-            `bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none ${defaultClassNames.today}`,
+          rangeStart: cn("rounded-l-md bg-accent", defaultClassNames.rangeStart),
+          rangeMiddle: cn("rounded-none", defaultClassNames.rangeMiddle),
+          rangeEnd: cn("rounded-r-md bg-accent", defaultClassNames.rangeEnd),
+          today: cn(
+            "bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none",
+            defaultClassNames.today,
           ),
-        ),
-        outside: classNames.outside->Option.getOr(
-          twMerge(
-            `text-muted-foreground aria-selected:text-muted-foreground ${defaultClassNames.outside}`,
+          outside: cn(
+            "text-muted-foreground aria-selected:text-muted-foreground",
+            defaultClassNames.outside,
           ),
-        ),
-        disabled: classNames.disabled->Option.getOr(
-          twMerge(`text-muted-foreground opacity-50 ${defaultClassNames.disabled}`),
-        ),
-        hidden: classNames.hidden->Option.getOr(twMerge(`invisible ${defaultClassNames.hidden}`)),
-      }}
-      components={{
-        root: components.root->Option.getOr(({
-          ?className,
-          ?children,
-          ?rootRef,
-          ?id,
-          ?style,
-          ?onClick,
-          ?onKeyDown,
-          ?dataMode,
-          ?dataWeekNumbers,
-          ?dataMultipleMonths,
-        }) =>
-          <div
-            dataSlot="calendar"
-            ref=?rootRef
-            ?className
-            ?children
-            ?id
-            ?style
-            ?onClick
-            ?onKeyDown
-            ?dataMode
-            ?dataWeekNumbers
-            ?dataMultipleMonths
-          />
-        ),
-        chevron: components.chevron->Option.getOr((props: Calendar.ChevronProps.t) => {
-          let className = props.className->Option.getOr("")
-          let orientation = props.orientation
-          let iconProps = ({...props, orientation: ?None} :> Icons.props)
-          switch orientation {
-          | Some(Left) => <Icons.ChevronLeft {...iconProps} className={`size-4 ${className}`} />
-          | Some(Right) => <Icons.ChevronRight {...iconProps} className={`size-4 ${className}`} />
-          | Some(Up | Down) | None =>
-            <Icons.ChevronDown {...iconProps} className={`size-4 ${className}`} />
-          }
-        }),
-        dayButton: components.dayButton->Option.getOr((props: Calendar.DayButtonProps.t) =>
-          <CalendarDayButton {...props} />
-        ),
-        weekNumber: components.weekNumber->Option.getOr(({
-          ?children,
-          ?className,
-          ?ariaLabel,
-          ?role,
-          ?scope,
-        }) =>
-          <td ?className ?ariaLabel ?role ?scope>
+          disabled: cn("text-muted-foreground opacity-50", defaultClassNames.disabled),
+          hidden: cn("invisible", defaultClassNames.hidden),
+        },
+        classNames,
+      )}
+      components={merge(
+        ~defaults={
+          Calendar.DayPickerComponents.root: ({
+            ?className,
+            ?children,
+            ?rootRef,
+            ?id,
+            ?style,
+            ?onClick,
+            ?onKeyDown,
+            ?dataMode,
+            ?dataWeekNumbers,
+            ?dataMultipleMonths,
+          }) =>
             <div
-              className="flex size-(--cell-size) items-center justify-center text-center" ?children
-            />
-          </td>
-        ),
-      }}
+              dataSlot="calendar"
+              ref=?rootRef
+              ?className
+              ?children
+              ?id
+              ?style
+              ?onClick
+              ?onKeyDown
+              ?dataMode
+              ?dataWeekNumbers
+              ?dataMultipleMonths
+            />,
+          chevron: (props: Calendar.ChevronProps.t) => {
+            let className = props.className->Option.getOr("")
+            let orientation = props.orientation
+            let iconProps = ({...props, orientation: ?None} :> Icons.props)
+            switch orientation {
+            | Some(Left) => <Icons.ChevronLeft {...iconProps} className={`size-4 ${className}`} />
+            | Some(Right) => <Icons.ChevronRight {...iconProps} className={`size-4 ${className}`} />
+            | Some(Up | Down) | None =>
+              <Icons.ChevronDown {...iconProps} className={`size-4 ${className}`} />
+            }
+          },
+          dayButton: (props: Calendar.DayButtonProps.t) => <CalendarDayButton {...props} />,
+          weekNumber: ({?children, ?className, ?ariaLabel, ?role, ?scope}) =>
+            <td ?className ?ariaLabel ?role ?scope>
+              <div
+                className="flex size-(--cell-size) items-center justify-center text-center"
+                ?children
+              />
+            </td>,
+        },
+        components,
+      )}
       ?mode
       ?selected
       ?onSelect
@@ -308,7 +275,7 @@ module HijriCalendar = {
 let make = () => {
   let (date, setDate) = React.useState(() => Some(Date.makeWithYMD(~year=2025, ~month=5, ~day=12)))
 
-  <div className={vazirmatn}>
+  <div className={vazirmatnClassName}>
     <HijriCalendar
       mode="single"
       defaultMonth=?date

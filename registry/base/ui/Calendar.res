@@ -2,43 +2,7 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
-
 @send external focusElement: Dom.element => unit = "focus"
-
-module DayPickerClassNames = {
-  type t = {
-    root: string,
-    months: string,
-    month: string,
-    nav: string,
-    button_previous: string,
-    button_next: string,
-    month_caption: string,
-    dropdowns: string,
-    dropdown_root: string,
-    dropdown: string,
-    caption_label: string,
-    table: string,
-    weekdays: string,
-    weekday: string,
-    week: string,
-    week_number_header: string,
-    week_number: string,
-    day: string,
-    range_start: string,
-    range_middle: string,
-    range_end: string,
-    today: string,
-    outside: string,
-    disabled: string,
-    hidden: string,
-  }
-}
-
-@module("react-day-picker")
-external getDefaultClassNames: unit => DayPickerClassNames.t = "getDefaultClassNames"
 
 module Locale = {
   type t = private {
@@ -113,7 +77,7 @@ module Modifiers = {
 module DayButtonProps = {
   type t = {
     className?: string,
-    children?: React.element,
+    children: React.element,
     day: Day.t,
     modifiers: DayModifiers.t,
     locale: option<Locale.t>,
@@ -127,10 +91,42 @@ module DayButtonProps = {
     onFocus?: ReactEvent.Focus.t => unit,
     onMouseEnter?: ReactEvent.Mouse.t => unit,
     onMouseLeave?: ReactEvent.Mouse.t => unit,
-    @as("type") type_?: string,
     @as("aria-label") ariaLabel?: string,
   }
 }
+
+module DayPickerClassNames = {
+  type t = {
+    root?: string,
+    months?: string,
+    month?: string,
+    nav?: string,
+    @as("button_previous") buttonPrevious?: string,
+    @as("button_next") buttonNext?: string,
+    @as("month_caption") monthCaption?: string,
+    dropdowns?: string,
+    @as("dropdown_root") dropdownRoot?: string,
+    dropdown?: string,
+    @as("caption_label") captionLabel?: string,
+    table?: string,
+    weekdays?: string,
+    weekday?: string,
+    week?: string,
+    @as("week_number_header") weekNumberHeader?: string,
+    @as("week_number") weekNumber?: string,
+    day?: string,
+    @as("range_start") rangeStart?: string,
+    @as("range_middle") rangeMiddle?: string,
+    @as("range_end") rangeEnd?: string,
+    today?: string,
+    outside?: string,
+    disabled?: string,
+    hidden?: string,
+  }
+}
+
+@module("react-day-picker")
+external getDefaultClassNames: unit => DayPickerClassNames.t = "getDefaultClassNames"
 
 module Props = {
   type t = {
@@ -139,11 +135,22 @@ module Props = {
   }
 }
 
+@module("tailwind-merge")
+external cn: (string, option<string>) => string = "twMerge"
+
+@module("tailwind-merge")
+external cn4: (
+  string,
+  string,
+  ~additional: option<string>=?,
+  ~additional2: option<string>=?,
+) => string = "twMerge"
+
 module DayButton = {
   @react.componentWithProps
   let make = ({
     DayButtonProps.className: ?className,
-    ?children,
+    children,
     day,
     modifiers,
     locale,
@@ -157,7 +164,6 @@ module DayButton = {
     ?onFocus,
     ?onMouseEnter,
     ?onMouseLeave,
-    ?type_,
     ?ariaLabel,
   }) => {
     let defaultClassNames = getDefaultClassNames()
@@ -168,16 +174,7 @@ module DayButton = {
       }
       None
     }, [modifiers.focused])
-    let selectedSingle = switch modifiers.selected {
-    | Some(true) =>
-      Some(
-        !(modifiers.rangeStart->Option.getOr(false)) &&
-        !(modifiers.rangeEnd->Option.getOr(false)) &&
-        !(modifiers.rangeMiddle->Option.getOr(false)),
-      )
-    | _ => None
-    }
-    <BaseUi.Button
+    <Button
       ?id
       ?style
       ?disabled
@@ -188,87 +185,56 @@ module DayButton = {
       ?onFocus
       ?onMouseEnter
       ?onMouseLeave
-      type_=?{switch type_ {
-      | Some(value) => Some(value)
-      | None => Some("button")
-      }}
       ?ariaLabel
+      variant=Ghost
+      size=Icon
       ref={buttonRef->ReactDOM.Ref.domRef}
       dataSlot="button"
+      suppressHydrationWarning=true
       dataDay={switch locale {
       | Some({code}) => Date.toLocaleDateStringWithLocale(day.Day.date, code)
       | None => Date.toLocaleDateString(day.Day.date)
       }}
-      dataSelectedSingle=?selectedSingle
+      dataSelectedSingle={modifiers.selected->Option.getOr(false) &&
+      !(modifiers.rangeStart->Option.getOr(false)) &&
+      !(modifiers.rangeEnd->Option.getOr(false)) &&
+      !(modifiers.rangeMiddle->Option.getOr(false))}
       dataRangeStart=?{modifiers.rangeStart}
       dataRangeEnd=?{modifiers.rangeEnd}
       dataRangeMiddle=?{modifiers.rangeMiddle}
-      className={`${Button.buttonVariants(
-          ~variant=Button.Variant.Ghost,
-          ~size=Button.Size.Icon,
-        )} data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground 
-          data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground 
-          data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground 
-          data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground
-          group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 
-          dark:hover:text-foreground relative isolate z-10 flex aspect-square size-auto w-full 
-          min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal 
-          group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 
-          group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-(--cell-radius) 
-          data-[range-end=true]:rounded-r-(--cell-radius) data-[range-middle=true]:rounded-none 
-          data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) 
-          [&>span]:text-xs [&>span]:opacity-70 ${defaultClassNames.day} ${className->Option.getOr(
-          "",
-        )}`}
-      ?children
-    />
+      className={cn4(
+        "relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
+        defaultClassNames.day->Option.getOr(""),
+        ~additional=className,
+      )}
+    >
+      {children}
+    </Button>
   }
 }
 
 type componentRenderer = Props.t => React.element
 
-module DayPickerClassNamesOverride = {
-  type t = {
-    root?: string,
-    months?: string,
-    month?: string,
-    nav?: string,
-    button_previous?: string,
-    button_next?: string,
-    month_caption?: string,
-    dropdowns?: string,
-    dropdown_root?: string,
-    dropdown?: string,
-    caption_label?: string,
-    table?: string,
-    weekdays?: string,
-    weekday?: string,
-    week?: string,
-    week_number_header?: string,
-    week_number?: string,
-    day?: string,
-    range_start?: string,
-    range_middle?: string,
-    range_end?: string,
-    today?: string,
-    outside?: string,
-    disabled?: string,
-    hidden?: string,
+module DayPickerFormatters = {
+  module DateLibOptions = {
+    type t = {
+      locale?: Locale.t,
+      timeZone?: string,
+      numerals?: string,
+    }
   }
-}
-module DayPickerFormattersOverride = {
   type t = {
     formatMonthDropdown?: Date.t => string,
-    formatCaption?: (Date.t, Locale.t) => string,
-    formatDay?: (Date.t, Locale.t) => string,
-    formatWeekdayName?: (Date.t, Locale.t) => string,
+    formatCaption?: (Date.t, ~options: DateLibOptions.t=?) => string,
+    formatDay?: (Date.t, ~options: DateLibOptions.t) => string,
+    formatWeekdayName?: (Date.t, ~options: DateLibOptions.t=?) => string,
     formatWeekNumber?: int => string,
     formatYearDropdown?: int => string,
-    formatMonthCaption?: (Date.t, Locale.t) => string,
+    formatMonthCaption?: (Date.t, ~options: DateLibOptions.t=?) => string,
   }
 }
 
-module DayPickerComponentsOverride = {
+module DayPickerComponents = {
   type t = {
     @as("Root") root?: RootProps.t => React.element,
     @as("Chevron") chevron?: ChevronProps.t => React.element,
@@ -324,6 +290,14 @@ module Labels = {
 }
 
 module DayPicker = {
+  module SelectionMode = {
+    type t =
+      | @as("single") Single
+      | @as("multiple") Multiple
+      | @as("range") Range
+      | @as("none") None
+  }
+
   @react.component @module("react-day-picker")
   external make: (
     ~showOutsideDays: bool=?,
@@ -331,10 +305,10 @@ module DayPicker = {
     ~captionLayout: CaptionLayout.t=?,
     ~dir: string=?,
     ~locale: Locale.t=?,
-    ~formatters: DayPickerFormattersOverride.t=?,
+    ~formatters: DayPickerFormatters.t=?,
     ~classNames: DayPickerClassNames.t=?,
     ~required: bool=?,
-    ~mode: string=?,
+    ~mode: SelectionMode.t=?,
     ~selected: 'selected=?,
     ~onSelect: 'selected => unit=?,
     ~defaultMonth: Date.t=?,
@@ -372,9 +346,11 @@ module DayPicker = {
     ~disabled: Date.t => bool=?,
     ~modifiers: dict<Date.t => bool>=?,
     ~modifiersClassNames: dict<string>=?,
-    ~components: DayPickerComponentsOverride.t=?,
+    ~components: DayPickerComponents.t=?,
   ) => React.element = "DayPicker"
 }
+
+@scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
 
 @react.component
 let make = (
@@ -423,9 +399,9 @@ let make = (
   ~disabled=?,
   ~modifiers=?,
   ~modifiersClassNames=?,
-  ~classNames: DayPickerClassNamesOverride.t={},
-  ~formatters: DayPickerFormattersOverride.t={},
-  ~components: DayPickerComponentsOverride.t={},
+  ~classNames: DayPickerClassNames.t={},
+  ~formatters: DayPickerFormatters.t={},
+  ~components: DayPickerComponents.t={},
 ) => {
   let defaultClassNames = getDefaultClassNames()
 
@@ -438,106 +414,101 @@ let make = (
     captionLayout
     ?dir
     ?locale
-    formatters={{
-      ...formatters,
-      formatMonthDropdown: formatters.formatMonthDropdown->Option.getOr(date =>
-        switch locale {
-        | Some({code}) => date->Date.toLocaleDateStringWithLocaleAndOptions(code, {month: #short})
-        | None => date->Date.toLocaleDateStringWithLocaleAndOptions("default", {month: #short})
-        }
-      ),
-    }}
-    classNames={{
-      root: classNames.root->Option.getOr(`w-fit ${defaultClassNames.root}`),
-      months: classNames.months->Option.getOr(
-        `flex gap-4 flex-col md:flex-row relative ${defaultClassNames.months}`,
-      ),
-      month: classNames.month->Option.getOr(
-        `flex flex-col w-full gap-4 ${defaultClassNames.month}`,
-      ),
-      nav: classNames.nav->Option.getOr(
-        `flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between ${defaultClassNames.nav}`,
-      ),
-      button_previous: classNames.button_previous->Option.getOr(
-        cn(
-          `${Button.buttonVariants(
-              ~variant=buttonVariant,
-            )} size-(--cell-size) aria-disabled:opacity-50 p-0 select-none`,
-          Some(defaultClassNames.button_previous),
+    formatters={merge(
+      ~defaults={
+        DayPickerFormatters.formatMonthDropdown: date =>
+          date->Date.toLocaleDateStringWithLocaleAndOptions(
+            switch locale {
+            | Some({code}) => code
+            | None => "default"
+            },
+            {month: #short},
+          ),
+      },
+      formatters,
+    )}
+    classNames={merge(
+      ~defaults={
+        DayPickerClassNames.root: cn("w-fit", defaultClassNames.root),
+        months: cn("flex gap-4 flex-col md:flex-row relative", defaultClassNames.months),
+        month: cn("flex flex-col w-full gap-4", defaultClassNames.month),
+        nav: cn(
+          "flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between",
+          defaultClassNames.nav,
         ),
-      ),
-      button_next: classNames.button_next->Option.getOr(
-        cn(
-          `${Button.buttonVariants(
-              ~variant=buttonVariant,
-            )} size-(--cell-size) aria-disabled:opacity-50 p-0 select-none`,
-          Some(defaultClassNames.button_next),
+        buttonPrevious: cn4(
+          Button.buttonVariants(~variant=buttonVariant),
+          "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none",
+          ~additional=defaultClassNames.buttonPrevious,
         ),
-      ),
-      month_caption: classNames.month_caption->Option.getOr(
-        `flex items-center justify-center h-(--cell-size) w-full px-(--cell-size) ${defaultClassNames.month_caption}`,
-      ),
-      dropdowns: classNames.dropdowns->Option.getOr(
-        `w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5 ${defaultClassNames.dropdowns}`,
-      ),
-      dropdown_root: classNames.dropdown_root->Option.getOr(
-        `relative cn-calendar-dropdown-root rounded-(--cell-radius) ${defaultClassNames.dropdown_root}`,
-      ),
-      dropdown: classNames.dropdown->Option.getOr(
-        `absolute bg-popover inset-0 opacity-0 ${defaultClassNames.dropdown}`,
-      ),
-      caption_label: classNames.caption_label->Option.getOr(
-        `select-none font-medium ${switch captionLayout {
+        buttonNext: cn4(
+          Button.buttonVariants(~variant=buttonVariant),
+          "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none",
+          ~additional=defaultClassNames.buttonNext,
+        ),
+        monthCaption: cn(
+          "flex items-center justify-center h-(--cell-size) w-full px-(--cell-size)",
+          defaultClassNames.monthCaption,
+        ),
+        dropdowns: cn(
+          "w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5",
+          defaultClassNames.dropdowns,
+        ),
+        dropdownRoot: cn(
+          "relative cn-calendar-dropdown-root rounded-(--cell-radius)",
+          defaultClassNames.dropdownRoot,
+        ),
+        dropdown: cn("absolute bg-popover inset-0 opacity-0", defaultClassNames.dropdown),
+        captionLabel: cn4(
+          "select-none font-medium",
+          switch captionLayout {
           | CaptionLayout.Label => "text-sm"
-          | Dropdown
-          | DropdownMonths
+          | Dropdown => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
+          | DropdownMonths => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
           | DropdownYears => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
-          }} ${defaultClassNames.caption_label}`,
-      ),
-      table: classNames.table->Option.getOr(`w-full border-collapse ${defaultClassNames.table}`),
-      weekdays: classNames.weekdays->Option.getOr(`flex ${defaultClassNames.weekdays}`),
-      weekday: classNames.weekday->Option.getOr(
-        `text-muted-foreground rounded-(--cell-radius) flex-1 font-normal text-[0.8rem] select-none ${defaultClassNames.weekday}`,
-      ),
-      week: classNames.week->Option.getOr(`flex w-full mt-2 ${defaultClassNames.week}`),
-      week_number_header: classNames.week_number_header->Option.getOr(
-        `select-none w-(--cell-size) ${defaultClassNames.week_number_header}`,
-      ),
-      week_number: classNames.week_number->Option.getOr(
-        `text-[0.8rem] select-none text-muted-foreground ${defaultClassNames.week_number}`,
-      ),
-      day: classNames.day->Option.getOr(
-        cn(
-          `relative w-full rounded-(--cell-radius) h-full p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius) group/day aspect-square select-none ${if (
-              showWeekNumber
-            ) {
-              "[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)"
-            } else {
-              "[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)"
-            }}`,
-          Some(defaultClassNames.day),
+          },
+          ~additional=defaultClassNames.captionLabel,
         ),
-      ),
-      range_start: classNames.range_start->Option.getOr(
-        `rounded-l-(--cell-radius) bg-muted relative after:bg-muted after:absolute after:inset-y-0 after:w-4 after:right-0 z-0 isolate ${defaultClassNames.range_start}`,
-      ),
-      range_middle: classNames.range_middle->Option.getOr(
-        `rounded-none ${defaultClassNames.range_middle}`,
-      ),
-      range_end: classNames.range_end->Option.getOr(
-        `rounded-r-(--cell-radius) bg-muted relative after:bg-muted after:absolute after:inset-y-0 after:w-4 after:left-0 z-0 isolate ${defaultClassNames.range_end}`,
-      ),
-      today: classNames.today->Option.getOr(
-        `bg-muted text-foreground rounded-(--cell-radius) data-[selected=true]:rounded-none ${defaultClassNames.today}`,
-      ),
-      outside: classNames.outside->Option.getOr(
-        `text-muted-foreground aria-selected:text-muted-foreground ${defaultClassNames.outside}`,
-      ),
-      disabled: classNames.disabled->Option.getOr(
-        `text-muted-foreground opacity-50 ${defaultClassNames.disabled}`,
-      ),
-      hidden: classNames.hidden->Option.getOr(`invisible ${defaultClassNames.hidden}`),
-    }}
+        table: cn("w-full border-collapse", defaultClassNames.table),
+        weekdays: cn("flex", defaultClassNames.weekdays),
+        weekday: cn(
+          "text-muted-foreground rounded-(--cell-radius) flex-1 font-normal text-[0.8rem] select-none",
+          defaultClassNames.weekday,
+        ),
+        week: cn("flex w-full mt-2", defaultClassNames.week),
+        weekNumberHeader: cn("select-none w-(--cell-size)", defaultClassNames.weekNumberHeader),
+        weekNumber: cn(
+          "text-[0.8rem] select-none text-muted-foreground",
+          defaultClassNames.weekNumber,
+        ),
+        day: cn4(
+          "relative w-full rounded-(--cell-radius) h-full p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius) group/day aspect-square select-none",
+          showWeekNumber
+            ? "[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)"
+            : "[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)",
+          ~additional=defaultClassNames.day,
+        ),
+        rangeStart: cn(
+          "rounded-l-(--cell-radius) bg-muted relative after:bg-muted after:absolute after:inset-y-0 after:w-4 after:right-0 z-0 isolate",
+          defaultClassNames.rangeStart,
+        ),
+        rangeMiddle: cn("rounded-none", defaultClassNames.rangeMiddle),
+        rangeEnd: cn(
+          "rounded-r-(--cell-radius) bg-muted relative after:bg-muted after:absolute after:inset-y-0 after:w-4 after:left-0 z-0 isolate",
+          defaultClassNames.rangeEnd,
+        ),
+        today: cn(
+          "bg-muted text-foreground rounded-(--cell-radius) data-[selected=true]:rounded-none",
+          defaultClassNames.today,
+        ),
+        outside: cn(
+          "text-muted-foreground aria-selected:text-muted-foreground",
+          defaultClassNames.outside,
+        ),
+        disabled: cn("text-muted-foreground opacity-50", defaultClassNames.disabled),
+      },
+      classNames,
+    )}
     ?required
     ?mode
     ?selected
@@ -577,63 +548,55 @@ let make = (
     ?disabled
     ?modifiers
     ?modifiersClassNames
-    components={{
-      ...components,
-      root: components.root->Option.getOr(({
-        ?className,
-        ?children,
-        ?rootRef,
-        ?id,
-        ?style,
-        ?onClick,
-        ?onKeyDown,
-        ?dataMode,
-        ?dataWeekNumbers,
-        ?dataMultipleMonths,
-      }) =>
-        <div
-          dataSlot="calendar"
-          ref=?rootRef
-          ?className
-          ?children
-          ?id
-          ?style
-          ?onClick
-          ?onKeyDown
-          ?dataMode
-          ?dataWeekNumbers
-          ?dataMultipleMonths
-        />
-      ),
-      chevron: components.chevron->Option.getOr((props: ChevronProps.t) => {
-        let className = props.className->Option.getOr("")
-        let orientation = props.orientation
-        let props = ({...props, orientation: ?None} :> Icons.props)
-        switch orientation {
-        | Some(Left) =>
-          <Icons.ChevronLeft {...props} className={cn("cn-rtl-flip size-4", Some(className))} />
-        | Some(Right) =>
-          <Icons.ChevronRight {...props} className={cn("cn-rtl-flip size-4", Some(className))} />
-        | Some(Up | Down) | None =>
-          <Icons.ChevronDown {...props} className={cn("size-4", Some(className))} />
-        }
-      }),
-      dayButton: components.dayButton->Option.getOr((props: DayButtonProps.t) =>
-        <DayButton {...props} />
-      ),
-      weekNumber: components.weekNumber->Option.getOr(({
-        ?children,
-        ?className,
-        ?ariaLabel,
-        ?role,
-        ?scope,
-      }) =>
-        <td ?className ?ariaLabel ?role ?scope>
+    components={merge(
+      ~defaults={
+        DayPickerComponents.root: ({
+          ?className,
+          ?children,
+          ?rootRef,
+          ?id,
+          ?style,
+          ?onClick,
+          ?onKeyDown,
+          ?dataMode,
+          ?dataWeekNumbers,
+          ?dataMultipleMonths,
+        }) =>
           <div
-            className="flex size-(--cell-size) items-center justify-center text-center" ?children
-          />
-        </td>
-      ),
-    }}
+            dataSlot="calendar"
+            ref=?rootRef
+            ?className
+            ?children
+            ?id
+            ?style
+            ?onClick
+            ?onKeyDown
+            ?dataMode
+            ?dataWeekNumbers
+            ?dataMultipleMonths
+          />,
+        chevron: (props: ChevronProps.t) => {
+          let className = props.className
+          let orientation = props.orientation
+          let props = ({...props, orientation: ?None} :> Icons.props)
+          switch orientation {
+          | Some(Left) =>
+            <Icons.ChevronLeft {...props} className={cn("cn-rtl-flip size-4", className)} />
+          | Some(Right) =>
+            <Icons.ChevronRight {...props} className={cn("cn-rtl-flip size-4", className)} />
+          | Some(Up | Down) | None =>
+            <Icons.ChevronDown {...props} className={cn("size-4", className)} />
+          }
+        },
+        dayButton: (props: DayButtonProps.t) => <DayButton {...props} locale />,
+        weekNumber: ({?children, ?className, ?ariaLabel, ?role, ?scope}) =>
+          <td ?className ?ariaLabel ?role ?scope>
+            <div
+              className="flex size-(--cell-size) items-center justify-center text-center" ?children
+            />
+          </td>,
+      },
+      components,
+    )}
   />
 }

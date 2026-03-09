@@ -56,7 +56,7 @@ let make = () => {
             sideOffset={10.}
           >
             <Calendar
-              mode="single"
+              mode=Single
               selected={date}
               month={month}
               onMonthChange={(d: Date.t) => setMonth(_ => d)}

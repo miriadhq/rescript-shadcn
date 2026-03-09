@@ -5,17 +5,19 @@
 
 type dateRange = {
   from?: Date.t,
-  @as("to") to_?: Date.t,
+  to?: Date.t,
 }
 
 @react.component
 let make = () => {
-  let now = Date.make()
-  let fromDate = Date.makeWithYMD(~year=Date.getFullYear(now), ~month=0, ~day=20)
-  let (dateRange, setDateRange) = React.useState(() => Some({
-    from: fromDate,
-    to_: addDays(fromDate, 20),
-  }))
+  let (dateRange, setDateRange) = React.useState(() => {
+    let now = Date.make()
+    let fromDate = Date.makeWithYMD(~year=Date.getFullYear(now), ~month=0, ~day=20)
+    Some({
+      from: fromDate,
+      to: addDays(fromDate, 20),
+    })
+  })
 
   <Field className="mx-auto w-60">
     <Field.Label htmlFor="date-picker-range"> {"Date Picker Range"->React.string} </Field.Label>
@@ -29,15 +31,15 @@ let make = () => {
       >
         <Icons.Calendar dataIcon="inline-start" />
         {switch dateRange {
-        | Some({from: ?Some(from), to_: ?Some(to_)}) =>
-          React.string(`${from->format("LLL dd, y")} - ${to_->format("LLL dd, y")}`)
+        | Some({from: ?Some(from), to}) =>
+          React.string(`${from->format("LLL dd, y")} - ${to->format("LLL dd, y")}`)
         | Some({from: ?Some(from)}) => from->format("LLL dd, y")->React.string
         | _ => <span> {"Pick a date"->React.string} </span>
         }}
       </Popover.Trigger>
       <Popover.Content className="w-auto p-0" align=BaseUi.Types.Align.Start>
         <Calendar
-          mode="range"
+          mode=Range
           defaultMonth=?{dateRange->Option.flatMap(r => r.from)}
           selected={dateRange}
           onSelect={(value: option<dateRange>) => setDateRange(_ => value)}

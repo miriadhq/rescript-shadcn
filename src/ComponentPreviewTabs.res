@@ -10,7 +10,7 @@ let make = (
   ~hideCode=false,
   ~component: React.element,
   ~source: React.element,
-  ~sourcePreview: option<React.element>=?,
+  ~sourcePreview,
 ) => {
   let (codeVisible, setCodeVisible) = React.useState(() => false)
 
@@ -31,7 +31,7 @@ let make = (
       source
     } else {
       <div className="relative">
-        {sourcePreview->Option.getOr(React.null)}
+        {sourcePreview}
         <div className="absolute inset-0 flex items-center justify-center pb-4">
           <div
             className="absolute inset-0"

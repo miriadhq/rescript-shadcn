@@ -5,7 +5,7 @@ type variant =
   | @as("warning") Warning
 
 @react.component
-let make = (~title=?, ~children=?, ~icon=?, ~className=?, ~variant=Default) => {
+let make = (~title=?, ~children, ~icon, ~className=?, ~variant=Default) => {
   <Alert
     dataVariant={(variant :> string)}
     className={Commons.cn(
@@ -13,13 +13,11 @@ let make = (~title=?, ~children=?, ~icon=?, ~className=?, ~variant=Default) => {
       className,
     )}
   >
-    {icon->Option.getOr(React.null)}
+    {icon}
     {switch title {
     | Some(t) => <Alert.Title> {t} </Alert.Title>
     | None => React.null
     }}
-    <Alert.Description className="text-card-foreground/80">
-      {children->Option.getOr(React.null)}
-    </Alert.Description>
+    <Alert.Description className="text-card-foreground/80"> {children} </Alert.Description>
   </Alert>
 }

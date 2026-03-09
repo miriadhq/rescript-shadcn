@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
 @react.component
-let make = (~className=?, ~children=?, ~value=?) =>
+let make = (~className=?, ~children, ~value=?) =>
   <Tabs.Content
     ?value
     className={Commons.cn(
@@ -9,5 +9,5 @@ let make = (~className=?, ~children=?, ~value=?) =>
       className,
     )}
   >
-    {children->Option.getOr(React.null)}
+    {children}
   </Tabs.Content>

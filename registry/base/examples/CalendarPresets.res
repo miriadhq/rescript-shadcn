@@ -15,18 +15,22 @@ let presets: array<preset> = [
 
 @react.component
 let make = () => {
-  let now = Date.make()
-  let year = now->Date.getFullYear
-  let month = now->Date.getMonth
-  let (date, setDate) = React.useState(() => Some(Date.makeWithYMD(~year, ~month=1, ~day=12)))
-  let (currentMonth, setCurrentMonth) = React.useState(() =>
+  let (date, setDate) = React.useState(() => {
+    let now = Date.make()
+    let year = now->Date.getFullYear
+    Some(Date.makeWithYMD(~year, ~month=1, ~day=12))
+  })
+  let (currentMonth, setCurrentMonth) = React.useState(() => {
+    let now = Date.make()
+    let year = now->Date.getFullYear
+    let month = now->Date.getMonth
     Date.makeWithYMD(~year, ~month, ~day=1)
-  )
+  })
 
   <Card className="mx-auto w-fit max-w-[300px]" size=Sm>
     <Card.Content>
       <Calendar
-        mode="single"
+        mode=Single
         selected=date
         onSelect={(value: option<Date.t>) => setDate(_ => value)}
         month=currentMonth

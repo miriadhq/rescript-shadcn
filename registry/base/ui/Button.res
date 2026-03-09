@@ -99,6 +99,7 @@ let make = (
   ~dataState=?,
   ~dataEmpty=?,
   ~dir=?,
+  ~suppressHydrationWarning=?,
 ) => {
   <BaseUi.Button
     dataSlot={dataSlot->Option.getOr("button")}
@@ -138,5 +139,6 @@ let make = (
     ?dataEmpty
     ?dir
     ?render
+    ?suppressHydrationWarning
   />
 }

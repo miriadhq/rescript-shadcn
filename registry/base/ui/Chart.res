@@ -48,8 +48,6 @@ let getString = (dict: dict<JSON.t>, key: string) =>
   | _ => None
   }
 
-let jsonToDisplayString = (value: float) => value->Float.toLocaleString
-
 let themeColor = (~itemConfig: chartConfigItem, ~themeName: string) =>
   switch itemConfig.theme {
   | Some(theme) =>
@@ -283,7 +281,7 @@ module TooltipContent = {
             | _ => None
             }
             let rawItemValue = item.value
-            let itemValue = rawItemValue->Option.map(jsonToDisplayString)
+            let itemValue = rawItemValue->Option.map(Float.toLocaleString)
             let shouldShowValue = rawItemValue->Option.isSome
             let itemLabel =
               itemConfig
@@ -329,7 +327,10 @@ module TooltipContent = {
                           )
                           <div
                             style=?indicatorStyle
-                            className={`shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg) ${indicatorClass}`}
+                            className={cn(
+                              "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
+                              indicatorClass->Some,
+                            )}
                           />
                         }
                   }}
