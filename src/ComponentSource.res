@@ -1,43 +1,4 @@
-// For elements with custom data-* attributes not in JsxDOM
-@module("react") external jsxs: (string, {..}) => React.element = "createElement"
-@module("react") @variadic
-external jsxc: (string, {..}, array<React.element>) => React.element = "createElement"
-
-let getMonorepoRoot = () => {
-  let dir = Node.cwd()
-  if dir->String.endsWith("apps/v4") || dir->String.endsWith("apps\\v4") {
-    Node.Path.join([dir, "..", ".."])
-  } else {
-    dir
-  }
-}
-
-let rescriptRoot = Node.Path.join([getMonorepoRoot(), "packages/shadcn/rescript"])
-let rescriptDemosRoot = Node.Path.join([rescriptRoot, "demo"])
-let rescriptSourcePathCache: Map.t<string, Nullable.t<string>> = Map.make()
-
-let toPascalCase = (name: string) =>
-  name
-  ->String.split("-")
-  ->Array.filter(s => s !== "")
-  ->Array.map(part => {
-    let first = part->String.slice(~start=0, ~end=1)->String.toUpperCase
-    let rest = part->String.slice(~start=1)
-    first ++ rest
-  })
-  ->Array.join("")
-
-let getBaseFromStyleName = (styleName: string) => styleName->String.split("-")->Array.getUnsafe(0)
-
-let getDemoStem = (name: string) => {
-  if name->String.endsWith("-demo") {
-    Some(name->String.slice(~start=0, ~end=name->String.length - 5))
-  } else if name->String.endsWith("-example") {
-    Some(name->String.slice(~start=0, ~end=name->String.length - 8))
-  } else {
-    None
-  }
-}
+let registryRoot = Node.Path.join([Node.cwd(), "registry/base"])
 
 let fileExists = async (filePath: string) => {
   try {
@@ -48,115 +9,73 @@ let fileExists = async (filePath: string) => {
   }
 }
 
-let validNameRe = /^[a-z0-9-]+$/
-
-let resolveReScriptSourcePath = async (name: string, styleName: string) => {
-  let cacheKey = `${styleName}:${name}`
-  if Map.has(rescriptSourcePathCache, cacheKey) {
-    Map.get(rescriptSourcePathCache, cacheKey)->Option.flatMap(Nullable.toOption)
+let resolveSourcePath = async (name: string) => {
+  // Try examples first (e.g., "ButtonDemo" -> registry/base/examples/ButtonDemo.res)
+  let examplePath = Node.Path.join([registryRoot, "examples", `${name}.res`])
+  if await fileExists(examplePath) {
+    Some(examplePath)
   } else {
-    let base = getBaseFromStyleName(styleName)
-    if base != "base" || !RegExp.test(validNameRe, name) {
-      Map.set(rescriptSourcePathCache, cacheKey, Nullable.null)
-      None
+    // Try UI component (e.g., "Button" -> registry/base/ui/Button.res)
+    let uiPath = Node.Path.join([registryRoot, "ui", `${name}.res`])
+    if await fileExists(uiPath) {
+      Some(uiPath)
     } else {
-      let componentPath = Node.Path.join([rescriptRoot, `${toPascalCase(name)}.res`])
-      if await fileExists(componentPath) {
-        Map.set(rescriptSourcePathCache, cacheKey, Nullable.Value(componentPath))
-        Some(componentPath)
-      } else {
-        let found = ref(None)
-
-        switch getDemoStem(name) {
-        | Some(stem) =>
-          let demoPath = Node.Path.join([rescriptDemosRoot, `${toPascalCase(stem)}Demo.res`])
-          if await fileExists(demoPath) {
-            Map.set(rescriptSourcePathCache, cacheKey, Nullable.Value(demoPath))
-            found := Some(demoPath)
-          }
-        | None => ()
-        }
-
-        if found.contents->Option.isNone {
-          let demoPathFromName = Node.Path.join([
-            rescriptDemosRoot,
-            `${toPascalCase(name)}Demo.res`,
-          ])
-          if await fileExists(demoPathFromName) {
-            Map.set(rescriptSourcePathCache, cacheKey, Nullable.Value(demoPathFromName))
-            found := Some(demoPathFromName)
-          }
-        }
-
-        if found.contents->Option.isNone {
-          Map.set(rescriptSourcePathCache, cacheKey, Nullable.null)
-        }
-
-        found.contents
-      }
+      None
     }
   }
 }
 
-let getDisplayLanguage = (~language=?, ~sourcePath=?, ~title=?) => {
+let getLanguage = (~language=?, ~sourcePath=?, ~title=?) => {
   switch language {
   | Some(l) => l
   | None =>
-    let extensionFromPath =
-      sourcePath->Option.map(p => Node.Path.extname(p)->String.slice(~start=1))
-    let extensionFromTitle = title->Option.flatMap(t => {
-      let parts = t->String.split(".")
-      parts->Array.get(parts->Array.length - 1)
-    })
-    let extension = switch extensionFromPath {
-    | Some(e) if e !== "" => Some(e)
-    | _ => extensionFromTitle
+    let ext = switch sourcePath {
+    | Some(p) =>
+      let e = Node.Path.extname(p)->String.slice(~start=1)
+      if e !== "" {
+        Some(e)
+      } else {
+        None
+      }
+    | None =>
+      title->Option.flatMap(t => {
+        let parts = t->String.split(".")
+        parts->Array.get(parts->Array.length - 1)
+      })
     }
-    switch extension {
-    | Some("res") => "rescript"
+    switch ext {
+    | Some("res") | None => "rescript"
     | Some(e) => e
-    | None => "rescript"
     }
   }
 }
 
-module ComponentCode = {
-  @react.component
-  let make = (~code, ~highlightedCode, ~language, ~title=?) => {
-    let titleEl = switch title {
-    | Some(t) =>
-      jsxc(
-        "figcaption",
-        {
+// Raw JSX helper for elements with custom data-* attributes not in JsxDOM
+let componentCode: (
+  ~code: string,
+  ~highlightedCode: string,
+  ~language: string,
+  ~title: string=?,
+) => React.element = %raw(`function componentCode(code, highlightedCode, language, title) {
+  var React = require("react")
+  var CopyButton = require("./CopyButton.res.mjs")
+  var BrandIcons = require("./BrandIcons.res.mjs")
+
+  return React.createElement("figure", {
+    "data-rehype-pretty-code-figure": "",
+    className: "[&>pre]:max-h-96"
+  },
+    title
+      ? React.createElement("figcaption", {
           "data-rehype-pretty-code-title": "",
-          "className": "text-code-foreground [&_svg]:text-code-foreground flex items-center gap-2 [&_svg]:size-4 [&_svg]:opacity-70",
-          "data-language": language,
-        },
-        [BrandIcons.getIconForLanguageExtension(language), t->React.string],
-      )
-    | None => React.null
-    }
-
-    let codeDiv = jsxs(
-      "div",
-      {
-        "className": "[&_pre]:!bg-[var(--color-code)] [&_pre]:!text-[var(--color-code-foreground)] [&_pre[data-theme='github-dark']]:!block dark:[&_pre[data-theme='github-dark']]:!block [&_pre[data-theme='github-light']]:!hidden dark:[&_pre[data-theme='github-light']]:!hidden",
-        "suppressHydrationWarning": true,
-        "dangerouslySetInnerHTML": {"__html": highlightedCode},
-      },
-    )
-
-    jsxc(
-      "figure",
-      {
-        "data-rehype-pretty-code-figure": "",
-        "className": "[&>pre]:max-h-96",
-        "suppressHydrationWarning": true,
-      },
-      [titleEl, <CopyButton value=code />, codeDiv],
-    )
-  }
-}
+          className: "flex items-center gap-2 text-code-foreground [&_svg]:size-4 [&_svg]:text-code-foreground [&_svg]:opacity-70",
+          "data-language": language
+        }, BrandIcons.getIconForLanguageExtension(language), title)
+      : null,
+    React.createElement(CopyButton.make, { value: code }),
+    React.createElement("div", { dangerouslySetInnerHTML: { __html: highlightedCode } })
+  )
+}`)
 
 type props = {
   name?: string,
@@ -174,20 +93,13 @@ let make = async (props: props) => {
     React.null
   } else {
     let collapsible = props.collapsible->Option.getOr(true)
-    let styleName = props.styleName->Option.getOr("new-york-v4")
 
     let codeAndPath: option<(string, option<string>)> = switch props.name {
     | Some(name) =>
-      switch await resolveReScriptSourcePath(name, styleName) {
-      | Some(rescriptPath) =>
-        try {
-          let fileCode = await Node.Fs.readFile(rescriptPath, "utf-8")
-          Some((fileCode, Some(rescriptPath)))
-        } catch {
-        | exn =>
-          Console.error2(`Error reading ReScript file ${rescriptPath}:`, exn)
-          None
-        }
+      switch await resolveSourcePath(name) {
+      | Some(sourcePath) =>
+        let fileCode = await Node.Fs.readFile(sourcePath, "utf-8")
+        Some((fileCode, Some(sourcePath)))
       | None => None
       }
     | None =>
@@ -203,32 +115,25 @@ let make = async (props: props) => {
     switch codeAndPath {
     | None => React.null
     | Some((rawCode, sourcePath)) =>
-      let displayLanguage = getDisplayLanguage(
-        ~language=?props.language,
-        ~sourcePath?,
-        ~title=?props.title,
-      )
-      let code = rawCode->String.replaceAll("/* eslint-disable react/no-children-prop */\n", "")
+      let lang = getLanguage(~language=?props.language, ~sourcePath?, ~title=?props.title)
+
       let code = switch props.maxLines {
-      | Some(ml) => code->String.split("\n")->Array.slice(~start=0, ~end=ml)->Array.join("\n")
-      | None => code
+      | Some(ml) => rawCode->String.split("\n")->Array.slice(~start=0, ~end=ml)->Array.join("\n")
+      | None => rawCode
       }
 
       let highlightedCode = try {
-        await HighlightCode.highlightCode(code, ~language=displayLanguage)
+        await HighlightCode.highlightCode(code, ~language=lang)
       } catch {
       | _ => await HighlightCode.highlightCode(code, ~language="text")
       }
 
-      let componentCodeEl =
-        <ComponentCode code highlightedCode language=displayLanguage title=?props.title />
+      let codeEl = componentCode(~code, ~highlightedCode, ~language=lang, ~title=?props.title)
 
       if !collapsible {
-        <div className={Commons.cn("relative", props.className)}> componentCodeEl </div>
+        <div className={Commons.cn("relative", props.className)}> codeEl </div>
       } else {
-        <CodeCollapsibleWrapper className=?props.className>
-          componentCodeEl
-        </CodeCollapsibleWrapper>
+        <CodeCollapsibleWrapper className=?props.className> codeEl </CodeCollapsibleWrapper>
       }
     }
   }
