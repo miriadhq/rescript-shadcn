@@ -12,6 +12,7 @@
     "lint": "next lint",
     "registry:build": "shadcn build",
     "registry:generate": "node scripts/generate-registry.mjs",
+    "loader:generate": "node scripts/generate-demo-loader.mjs",
     "test:docs": "vitest run test/mdx-links.test.ts",
     "test:visual": "node test/visual/run-pixel-perfect.mjs",
     "test": "test:docs && test:visual"
