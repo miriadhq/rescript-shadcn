@@ -15,8 +15,8 @@ module TablerIcons = {
   }
 }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex gap-2">
     <Button variant=Button.Variant.Outline>
       <TablerIcons.GitBranch dataIcon="inline-start" />

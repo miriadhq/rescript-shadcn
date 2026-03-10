@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex w-fit items-center gap-4">
     <Skeleton className="size-10 shrink-0 rounded-full" />
     <div className="grid gap-2">

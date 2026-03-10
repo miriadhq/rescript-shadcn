@@ -5,8 +5,8 @@ type dateRange = {
   to?: Date.t,
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (range, setRange) = React.useState(() => {
     let year = Date.make()->Date.getFullYear
     let startDate = Date.makeWithYMD(~year, ~month=11, ~day=8)

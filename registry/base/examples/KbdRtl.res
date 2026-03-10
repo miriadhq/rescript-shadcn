@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-col items-center gap-4" dir="rtl">
     <Kbd.Group>
       <Kbd> {"⌘"->React.string} </Kbd>

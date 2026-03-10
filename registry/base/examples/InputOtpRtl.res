@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field className="mx-auto max-w-xs">
     <Field.Label htmlFor="input-otp-rtl"> {"رمز التحقق"->React.string} </Field.Label>
     <InputOtp maxLength={6} defaultValue="123456" dir="rtl" id="input-otp-rtl">

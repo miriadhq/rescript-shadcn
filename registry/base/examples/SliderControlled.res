@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (value, setValue) = React.useState(() => [0.3, 0.7])
 
   <div className="mx-auto grid w-full max-w-xs gap-3">
@@ -18,8 +18,6 @@ let make = () => {
       min={0.}
       max={1.}
       step={0.1}
-    >
-      {React.null}
-    </Slider>
+    />
   </div>
 }

@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="w-full max-w-lg">
     <form>
       <Field.Set>

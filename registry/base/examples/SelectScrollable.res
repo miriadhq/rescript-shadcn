@@ -76,8 +76,8 @@ let items: array<item> = [
   {label: "Chile Standard Time", value: Nullable.make("clt")},
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Select items>
     <Select.Trigger className="w-full max-w-64">
       <Select.Value />

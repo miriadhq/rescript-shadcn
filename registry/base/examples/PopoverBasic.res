@@ -1,5 +1,5 @@
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   <Popover>
     <Popover.Trigger render={<Button variant=Outline className="w-fit" />}>
       {"Open Popover"->React.string}

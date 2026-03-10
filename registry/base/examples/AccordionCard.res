@@ -22,8 +22,8 @@ let items: array<item> = [
   },
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Card className="w-full max-w-sm">
     <Card.Header>
       <Card.Title> {"Subscription & Billing"->React.string} </Card.Title>

@@ -67,8 +67,8 @@ let data: array<drawerDatum> = [
   {goal: 349},
 ]
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (goal, setGoal) = React.useState(() => 350)
 
   let onClick = adjustment =>

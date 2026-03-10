@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (value, setValue) = React.useState(() => "000000")
 
   <InputOtp maxLength={6} value={value} onChange={v => setValue(_ => v)}>

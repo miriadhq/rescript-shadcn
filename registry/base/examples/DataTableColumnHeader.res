@@ -15,7 +15,7 @@ let make = (~column: RT.col, ~title: string, ~className="") => {
       <DropdownMenu>
         <DropdownMenu.Trigger
           render={<Button
-            variant=Button.Variant.Ghost size=Button.Size.Sm className="-ml-3 h-8 data-[state=open]:bg-accent"
+            variant=Ghost size=Sm className="-ml-3 h-8 data-[state=open]:bg-accent"
           />}
         >
           <span> {title->React.string} </span>

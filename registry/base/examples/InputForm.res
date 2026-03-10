@@ -1,7 +1,7 @@
 type country = {label: string, value: string}
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let countries = [
     {label: "United States", value: "us"},
     {label: "United Kingdom", value: "uk"},

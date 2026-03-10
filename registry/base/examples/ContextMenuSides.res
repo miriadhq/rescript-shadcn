@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="grid w-full max-w-sm grid-cols-2 gap-4">
     <ContextMenu>
       <ContextMenu.Trigger

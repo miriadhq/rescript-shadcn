@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Avatar.Group className="grayscale">
     <Avatar>
       <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />

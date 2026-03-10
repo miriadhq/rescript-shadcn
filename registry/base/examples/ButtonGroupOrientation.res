@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <ButtonGroup
     orientation=ButtonGroup.DataOrientation.Vertical ariaLabel="Media controls" className="h-fit"
   >

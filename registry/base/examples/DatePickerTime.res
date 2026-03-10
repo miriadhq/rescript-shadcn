@@ -2,8 +2,8 @@
 
 @module("date-fns") external format: (Date.t, string) => string = "format"
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
   let (date, setDate) = React.useState(() => None)
 

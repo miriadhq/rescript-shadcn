@@ -51,8 +51,8 @@ let data: array<drawerDatum> = [
   {goal: 349},
 ]
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let goal = 350
   <Drawer>
     <Drawer.Trigger asChild={true}>

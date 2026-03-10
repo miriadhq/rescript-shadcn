@@ -61,8 +61,8 @@ module ListItem = {
     </li>
 }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <NavigationMenu>
     <NavigationMenu.List>
       <NavigationMenu.Item>

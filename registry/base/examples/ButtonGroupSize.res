@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-col items-start gap-8">
     <ButtonGroup>
       <Button variant=Button.Variant.Outline size=Button.Size.Sm> {"Small"->React.string} </Button>

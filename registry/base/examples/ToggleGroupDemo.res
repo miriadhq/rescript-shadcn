@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <ToggleGroup variant=ToggleGroup.Variant.Outline multiple=true>
     <ToggleGroup.Item value="bold" ariaLabel="Toggle bold">
       <Icons.Bold />

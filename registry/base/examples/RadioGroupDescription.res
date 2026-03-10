@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <RadioGroup defaultValue="comfortable" className="w-fit">
     <Field orientation=BaseUi.Types.Orientation.Horizontal>
       <RadioGroup.Item value="default" id="desc-r1" />

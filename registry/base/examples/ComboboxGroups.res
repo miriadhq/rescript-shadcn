@@ -43,8 +43,8 @@ let timezones = [
 
 let allItems = timezones->Array.flatMap(g => g.items)
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Combobox items={allItems}>
     <Combobox.Input placeholder="Select a timezone" />
     <Combobox.Content>

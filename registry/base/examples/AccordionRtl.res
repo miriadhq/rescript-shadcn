@@ -22,8 +22,8 @@ let items: array<item> = [
   },
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <RtlAccordion defaultValue=["item-1"] className="max-w-md">
     {items
     ->Array.map(item =>

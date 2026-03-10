@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <InputOtp id="disabled" maxLength={6} disabled={true} value="123456">
     <InputOtp.Group>
       <InputOtp.Slot index={0} />

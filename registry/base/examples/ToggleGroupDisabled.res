@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <ToggleGroup disabled={true}>
     <ToggleGroup.Item value="bold" ariaLabel="Toggle bold">
       <Icons.Bold />

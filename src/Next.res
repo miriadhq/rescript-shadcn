@@ -33,12 +33,22 @@ module Navigation = {
 }
 
 module Link = {
-  type props = {
-    href: string,
-    className?: string,
-    children?: React.element,
-  }
+  @module("next/link") @react.component
+  external make: (
+    ~href: string,
+    ~className: string=?,
+    ~children: React.element=?,
+  ) => React.element = "default"
+}
 
-  @module("next/link")
-  external make: React.component<props> = "default"
+module Image = {
+  @module("next/image") @react.component
+  external make: (
+    ~src: string,
+    ~alt: string,
+    ~width: int=?,
+    ~height: int=?,
+    ~className: string=?,
+    ~children: React.element=?,
+  ) => React.element = "default"
 }

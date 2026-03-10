@@ -20,8 +20,8 @@ let people = [
   },
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <DropdownMenu>
     <DropdownMenu.Trigger render={<Button variant=Button.Variant.Outline />}>
       {"Select "->React.string}

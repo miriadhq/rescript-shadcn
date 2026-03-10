@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field.Group>
     <Field>
       <Field.Label htmlFor="input-button-13"> {"Button"->React.string} </Field.Label>

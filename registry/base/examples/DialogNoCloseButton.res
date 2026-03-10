@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Dialog>
     <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot="dialog-trigger" />}>
       {"No Close Button"->React.string}

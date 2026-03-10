@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (isFavorite, setIsFavorite) = React.useState(() => false)
 
   <div className="grid w-full max-w-sm gap-6">

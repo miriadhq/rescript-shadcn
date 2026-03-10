@@ -11,8 +11,8 @@ let categoryLabelsAr = Dict.fromArray([
   ("health", "الصحة"),
 ])
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   <Field className="mx-auto w-full max-w-xs">
     <Field.Label> {"الفئات"->React.string} </Field.Label>
     <Combobox

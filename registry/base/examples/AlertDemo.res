@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="grid w-full max-w-md items-start gap-4">
     <Alert>
       <Icons.CheckCircle2 />

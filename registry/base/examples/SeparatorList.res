@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex w-full max-w-sm flex-col gap-2 text-sm">
     <dl className="flex items-center justify-between">
       <dt> {"Item 1"->React.string} </dt>

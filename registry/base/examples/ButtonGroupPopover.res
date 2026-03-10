@@ -1,5 +1,5 @@
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   <ButtonGroup>
     <Button variant=Button.Variant.Outline>
       <Icons.Bot />

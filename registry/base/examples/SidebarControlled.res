@@ -30,8 +30,8 @@ let projects: array<project> = [
   {name: "Feedback", url: "#", icon: IconSend},
 ]
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => true)
 
   <Sidebar.Provider open_={open_} onOpenChange={v => setOpen(_ => v)}>

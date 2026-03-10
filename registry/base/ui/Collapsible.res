@@ -33,23 +33,27 @@ module Trigger = {
     ~className=?,
     ~children=?,
     ~id=?,
-    ~disabled=false,
+    ~disabled=?,
     ~onClick=?,
     ~onKeyDown=?,
     ~ariaLabel=?,
     ~render=?,
     ~style=?,
+    ~type_=?,
+    ~nativeButton=?,
   ) => {
     <BaseUi.Collapsible.Trigger
       ?className
       ?children
       ?id
-      disabled
+      ?disabled
       ?onClick
       ?onKeyDown
       ?ariaLabel
       ?render
       ?style
+      ?type_
+      ?nativeButton
       dataSlot="collapsible-trigger"
     />
   }
@@ -57,16 +61,8 @@ module Trigger = {
 
 module Content = {
   @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~forceMount=?,
-  ) =>
+  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
     <BaseUi.Collapsible.Panel
-      ?className ?children ?id ?style ?onClick ?onKeyDown ?forceMount dataSlot="collapsible-content"
+      ?className ?children ?id ?style ?onClick ?onKeyDown dataSlot="collapsible-content"
     />
 }

@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <NativeSelect dir="rtl">
     <NativeSelect.Option value=""> {"اختر الحالة"->React.string} </NativeSelect.Option>
     <NativeSelect.Option value="todo"> {"مهام"->React.string} </NativeSelect.Option>

@@ -41,8 +41,8 @@ let components: array<componentInfo> = [
 
 module ListItem = RtlNavigationMenu.ListItem
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <NavigationMenu dir="rtl" align=BaseUi.Types.Align.End>
     <NavigationMenu.List>
       <NavigationMenu.Item>

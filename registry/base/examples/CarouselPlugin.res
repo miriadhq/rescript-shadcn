@@ -8,8 +8,8 @@ external autoplay: autoplayOptions => Carousel.emblaPlugin = "default"
 @send external stopAutoplay: Carousel.emblaPlugin => unit = "stop"
 @send external resetAutoplay: Carousel.emblaPlugin => unit = "reset"
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let plugin = React.useRef(autoplay({delay: 2000, stopOnInteraction: true}))
 
   <Carousel

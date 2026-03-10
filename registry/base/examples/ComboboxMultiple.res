@@ -2,8 +2,8 @@
 
 let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Combobox multiple={true} items={frameworks}>
     <Combobox.Chips className="w-full max-w-xs">
       <Combobox.Chip> {"Next.js"->React.string} </Combobox.Chip>

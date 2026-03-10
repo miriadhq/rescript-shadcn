@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex gap-2">
     <Button variant=Button.Variant.Outline disabled=true>
       <Spinner dataIcon="inline-start" />

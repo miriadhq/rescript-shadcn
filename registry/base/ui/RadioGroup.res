@@ -50,35 +50,27 @@ module Item = {
     ~id=?,
     ~name=?,
     ~value=?,
-    ~defaultValue=?,
-    ~onValueChange=?,
     ~disabled=?,
     ~required=?,
     ~readOnly=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~tabIndex=?,
-    ~role=?,
     ~ariaLabel=?,
     ~ariaInvalid=?,
     ~dir=?,
     ~style=?,
+    ~render=?,
+    ~nativeButton=?,
   ) =>
     <BaseUi.Radio.Root
       ?id
       ?name
       ?value
-      ?defaultValue
-      ?onValueChange
       ?disabled
       ?required
       ?readOnly
-      ?onClick
-      ?onKeyDown
-      ?tabIndex
-      ?role
       ?ariaLabel
       ?ariaInvalid
+      ?render
+      ?nativeButton
       ?dir
       ?style
       dataSlot="radio-group-item"

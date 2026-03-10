@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="grid w-full max-w-sm gap-6">
     <InputGroup>
       <InputGroup.Input placeholder="Search..." />

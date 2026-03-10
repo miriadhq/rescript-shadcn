@@ -10,8 +10,8 @@ module NextImage = {
   external make: React.component<props> = "default"
 }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <figure className="w-full max-w-sm" dir="rtl">
     <AspectRatio ratio={16. /. 9.} className="bg-muted rounded-lg">
       <NextImage

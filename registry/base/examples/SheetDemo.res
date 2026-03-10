@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Sheet>
     <Sheet.Trigger render={<Button variant=Button.Variant.Outline dataSlot="sheet-trigger" />}>
       {"Open"->React.string}

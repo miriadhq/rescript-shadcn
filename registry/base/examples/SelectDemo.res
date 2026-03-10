@@ -12,8 +12,8 @@ let items: array<item> = [
   {label: "Pineapple", value: Nullable.make("pineapple")},
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Select items>
     <Select.Trigger className="w-full max-w-48">
       <Select.Value />

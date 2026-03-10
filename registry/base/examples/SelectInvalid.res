@@ -10,8 +10,8 @@ let items: array<item> = [
   {label: "Blueberry", value: Nullable.make("blueberry")},
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field dataInvalid={true} className="w-full max-w-48">
     <Field.Label> {"Fruit"->React.string} </Field.Label>
     <Select items>

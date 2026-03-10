@@ -271,8 +271,8 @@ module HijriCalendar = {
   }
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (date, setDate) = React.useState(() => Some(Date.makeWithYMD(~year=2025, ~month=5, ~day=12)))
 
   <div className={vazirmatnClassName}>

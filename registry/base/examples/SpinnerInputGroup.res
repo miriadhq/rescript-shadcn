@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex w-full max-w-md flex-col gap-4">
     <InputGroup>
       <InputGroup.Input placeholder="Send a message..." disabled={true} />

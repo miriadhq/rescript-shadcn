@@ -40,8 +40,8 @@ let chartConfig: Chart.chartConfig = Dict.fromArray([
   ("mobile", ({color: "#60a5fa"}: Chart.chartConfigItem)),
 ])
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Chart config={chartConfig} className="min-h-[200px] w-full">
     <Recharts.BarChart accessibilityLayer={true} data={chartData}>
       <Recharts.Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />

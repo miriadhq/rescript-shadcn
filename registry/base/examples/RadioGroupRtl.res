@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <RadioGroup defaultValue="comfortable" className="w-fit" dir="rtl">
     <Field orientation=BaseUi.Types.Orientation.Horizontal>
       <RadioGroup.Item value="default" id="r1-rtl" dir="rtl" />

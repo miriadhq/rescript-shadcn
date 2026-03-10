@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field.Group className="grid max-w-sm grid-cols-2">
     <Field>
       <Field.Label htmlFor="first-name"> {"First Name"->React.string} </Field.Label>

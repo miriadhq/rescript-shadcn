@@ -96,11 +96,9 @@ module Item = {
     ~id=?,
     ~name=?,
     ~value=?,
-    ~defaultValue=?,
-    ~onValueChange=?,
-    ~checked=?,
-    ~defaultChecked=?,
-    ~onCheckedChange=?,
+    ~pressed=?,
+    ~defaultPressed=?,
+    ~onPressedChange=?,
     ~disabled=?,
     ~required=?,
     ~readOnly=?,
@@ -130,11 +128,9 @@ module Item = {
       ?id
       ?name
       ?value
-      ?defaultValue
-      ?onValueChange
-      ?checked
-      ?defaultChecked
-      ?onCheckedChange
+      ?pressed
+      ?defaultPressed
+      ?onPressedChange
       ?disabled
       ?required
       ?readOnly

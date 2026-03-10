@@ -14,8 +14,8 @@ let items: array<item> = [
   {label: "Pineapple", value: Nullable.make("pineapple")},
 ]
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (alignItemWithTrigger, setAlignItemWithTrigger) = React.useState(() => true)
   let defaultItem =
     items->Array.get(2)->Option.getOr({label: "Banana", value: Nullable.make("banana")})

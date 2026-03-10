@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Card className="w-full max-w-xs">
     <Card.Header>
       <Skeleton className="h-4 w-2/3" />

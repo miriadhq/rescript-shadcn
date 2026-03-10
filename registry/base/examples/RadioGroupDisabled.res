@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <RadioGroup defaultValue="option2" className="w-fit">
     <Field orientation=BaseUi.Types.Orientation.Horizontal dataDisabled={true}>
       <RadioGroup.Item value="option1" id="disabled-1" disabled={true} />

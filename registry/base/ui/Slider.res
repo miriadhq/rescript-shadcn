@@ -17,14 +17,13 @@ let lengthIfArray = value =>
 @react.component
 let make = (
   ~className=?,
-  ~children=React.null,
   ~id=?,
   ~name=?,
   ~value=?,
   ~defaultValue=?,
   ~onValueChange=?,
-  ~min=?,
-  ~max=?,
+  ~min=0.0,
+  ~max=100.0,
   ~step=?,
   ~largeStep=?,
   ~disabled=?,
@@ -39,14 +38,8 @@ let make = (
   ~render=?,
   ~orientation=?,
 ) => {
-  let valuesLength = switch value {
-  | Some(value) => value->lengthIfArray->Option.getOr(2)
-  | None =>
-    switch defaultValue {
-    | Some(defaultValue) => defaultValue->lengthIfArray->Option.getOr(2)
-    | None => 2
-    }
-  }
+  let valuesLength =
+    value->lengthIfArray->Option.orElse(defaultValue->lengthIfArray)->Option.getOr(2)
 
   <BaseUi.Slider.Root
     ?id
@@ -54,8 +47,8 @@ let make = (
     ?value
     ?defaultValue
     ?onValueChange
-    ?min
-    ?max
+    min
+    max
     ?step
     ?largeStep
     ?disabled
@@ -70,7 +63,7 @@ let make = (
     ?render
     ?orientation
     dataSlot="slider"
-    thumbAlignment={ThumbAlignment.Edge}
+    thumbAlignment=Edge
     className={cn("data-horizontal:w-full data-vertical:h-full", className)}
   >
     <BaseUi.Slider.Control
@@ -78,7 +71,7 @@ let make = (
     >
       <BaseUi.Slider.Track
         dataSlot="slider-track"
-        className="bg-muted relative grow overflow-hidden rounded-full select-none data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
+        className="relative grow overflow-hidden rounded-full bg-muted select-none data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
       >
         <BaseUi.Slider.Indicator
           dataSlot="slider-range"
@@ -87,12 +80,11 @@ let make = (
       </BaseUi.Slider.Track>
       {Array.fromInitializer(~length=valuesLength, index =>
         <BaseUi.Slider.Thumb
-          key={Int.toString(index)}
           dataSlot="slider-thumb"
-          className="border-ring ring-ring/50 relative block size-3 shrink-0 rounded-full border bg-white transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 disabled:pointer-events-none disabled:opacity-50"
+          key={Int.toString(index)}
+          className="relative block size-3 shrink-0 rounded-full border border-ring bg-white ring-ring/50 transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 disabled:pointer-events-none disabled:opacity-50"
         />
       )->React.array}
     </BaseUi.Slider.Control>
-    {children}
   </BaseUi.Slider.Root>
 }

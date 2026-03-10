@@ -29,8 +29,8 @@ let countries = [
   {code: "us", value: "united-states", label: "United States", continent: "North America"},
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Combobox items={countries} itemToStringValue={(c: country) => c.label}>
     <Combobox.Input placeholder="Search countries..." />
     <Combobox.Content>

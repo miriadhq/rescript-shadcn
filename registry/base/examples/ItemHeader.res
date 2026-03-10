@@ -26,8 +26,8 @@ let models = [
   },
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex w-full max-w-xl flex-col gap-6">
     <Item.Group className="grid grid-cols-3 gap-4">
       {models

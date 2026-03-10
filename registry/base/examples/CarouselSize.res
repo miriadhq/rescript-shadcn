@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Carousel opts={align: "start"} className="w-full max-w-[12rem] sm:max-w-xs md:max-w-sm">
     <Carousel.Content>
       {Array.fromInitializer(~length=5, index =>

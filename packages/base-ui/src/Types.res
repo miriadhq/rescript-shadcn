@@ -89,7 +89,10 @@ module ExtraDomProps = {
     @as("data-icon") dataIcon?: string,
     @as("data-mobile") dataMobile?: string,
     @as("data-chips") dataChips?: bool,
+    @as("data-chromeless") dataChromeless?: bool,
     @as("data-collapsible") dataCollapsible?: string,
+    @as("data-mobile-code-visible")
+    dataMobileCodeVisible?: bool,
     @as("data-content") dataContent?: bool,
     @as("data-disabled") dataDisabled?: bool,
     @as("data-invalid") dataInvalid?: bool,
@@ -112,6 +115,9 @@ module ExtraDomProps = {
     @as("data-spacing") dataSpacing?: float,
     @as("data-inset") dataInset?: bool,
     @as("data-lang") dataLang?: string,
+    @as("data-rehype-pretty-code-figure") dataRehypePrettyCodeFigure?: string,
+    @as("data-rehype-pretty-code-title") dataRehypePrettyCodeTitle?: string,
+    @as("data-language") dataLanguage?: string,
   }
 }
 
@@ -162,6 +168,9 @@ type props<'value, 'checked> = {
   onValueChange?: ('value, eventDetails) => unit,
   checked?: 'checked,
   defaultChecked?: 'checked,
+  defaultPressed?: bool,
+  pressed?: bool,
+  onPressedChange?: (bool, eventDetails) => unit,
   onCheckedChange?: ('checked, eventDetails) => unit,
   selected?: Date.t,
   onSelect?: Date.t => unit,
@@ -181,7 +190,6 @@ type props<'value, 'checked> = {
   loopFocus?: bool,
   delay?: float,
   closeDelay?: float,
-  forceMount?: bool,
   keepmounted?: bool,
   forceRender?: bool,
   closeOnClick?: bool,

@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Table dir="rtl">
     <Table.Caption> {"قائمة بفواتيرك الأخيرة."->React.string} </Table.Caption>
     <Table.Header>

@@ -7,8 +7,8 @@ module LucideIcons = {
   }
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   <Tooltip>
     <Tooltip.Trigger render={<Button variant=Outline size=IconSm />}>
       <LucideIcons.Save />

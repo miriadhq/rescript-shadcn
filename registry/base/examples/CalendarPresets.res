@@ -13,8 +13,8 @@ let presets: array<preset> = [
   {label: "In 2 weeks", value: 14},
 ]
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (date, setDate) = React.useState(() => {
     let now = Date.make()
     let year = now->Date.getFullYear

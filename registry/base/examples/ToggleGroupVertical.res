@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <ToggleGroup
     multiple=true
     orientation=ToggleGroup.Orientation.Vertical

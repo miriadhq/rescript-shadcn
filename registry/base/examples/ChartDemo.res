@@ -110,8 +110,8 @@ module TooltipContent = {
   let make = () => React.null
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let chartId = `chart-${React.useId()->String.replaceAll(":", "")}`
   let activeChart = "desktop"
   let desktopTotal = 7324

@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field>
     <Field.Label htmlFor="input-group-url"> {"Website URL"->React.string} </Field.Label>
     <InputGroup>

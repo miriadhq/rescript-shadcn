@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field.Group className="mx-auto w-56">
     <Field orientation=BaseUi.Types.Orientation.Horizontal dataDisabled={true}>
       <Checkbox id="toggle-checkbox-disabled" name="toggle-checkbox-disabled" disabled={true} />

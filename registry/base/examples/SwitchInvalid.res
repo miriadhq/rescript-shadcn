@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field orientation=BaseUi.Types.Orientation.Horizontal className="max-w-sm" dataInvalid={true}>
     <Field.Content>
       <Field.Label htmlFor="switch-terms">

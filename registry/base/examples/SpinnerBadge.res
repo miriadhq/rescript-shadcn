@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex items-center gap-4 [--radius:1.2rem]">
     <Badge>
       <Spinner dataIcon="inline-start" />

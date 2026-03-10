@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-col gap-4">
     <ToggleGroup
       size=ToggleGroup.Size.Sm defaultValue={["top"]} variant=ToggleGroup.Variant.Outline

@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field dataInvalid=true>
     <Field.Label htmlFor="textarea-invalid"> {"Message"->React.string} </Field.Label>
     <textarea

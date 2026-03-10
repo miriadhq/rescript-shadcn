@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Card className="mx-auto w-full max-w-sm">
     <Card.Content>
       <Collapsible className="data-open:bg-muted rounded-md">

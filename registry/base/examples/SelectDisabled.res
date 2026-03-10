@@ -4,8 +4,8 @@ type item = {
   disabled: bool,
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let items: array<item> = [
     {label: "Select a fruit", value: Nullable.null, disabled: false},
     {label: "Apple", value: Nullable.make("apple"), disabled: false},

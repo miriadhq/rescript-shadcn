@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <ContextMenu>
     <ContextMenu.Trigger
       className="flex aspect-video w-full max-w-xs items-center justify-center rounded-xl border border-dashed text-sm"

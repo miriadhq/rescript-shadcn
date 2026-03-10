@@ -10,8 +10,8 @@ module NextImage = {
   external make: React.component<props> = "default"
 }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <AspectRatio ratio={1. /. 1.} className="bg-muted w-full max-w-[12rem] rounded-lg">
     <NextImage
       src="https://avatar.vercel.sh/shadcn1"

@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Alert className="max-w-md">
     <Icons.CheckCircle2 />
     <Alert.Title> {"Account updated successfully"->React.string} </Alert.Title>

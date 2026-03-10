@@ -12,8 +12,8 @@ let logicalSides = [
   (BaseUi.Types.Side.InlineEnd, "نهاية السطر"),
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="grid gap-4">
     <div className="flex flex-wrap justify-center gap-2">
       {physicalSides

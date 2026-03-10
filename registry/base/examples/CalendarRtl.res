@@ -3,8 +3,8 @@
 @module("react-day-picker/locale")
 external arSA: Calendar.Locale.t = "arSA"
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (date, setDate) = React.useState(() => Some(Date.make()))
 
   <Calendar

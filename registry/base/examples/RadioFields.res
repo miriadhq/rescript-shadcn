@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field.Group>
     <Field.Set>
       <Field.Legend variant=Field.Variant.Label> {"Subscription Plan"->React.string} </Field.Legend>

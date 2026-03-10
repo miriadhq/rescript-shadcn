@@ -8,8 +8,8 @@ let sheetSides = [
   (BaseUi.Types.Side.Left, "left"),
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap gap-2">
     {sheetSides
     ->Array.map(((side, label)) =>

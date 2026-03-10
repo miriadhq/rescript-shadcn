@@ -90,7 +90,7 @@ let rescriptLanguage = {
   ...rescriptTmLanguage,
   name: "rescript",
   displayName: "ReScript",
-  aliases: ["rescript", "res"],
+  aliases: ["res"],
   embeddedLangs: ["javascript"],
 }
 
@@ -194,7 +194,7 @@ let renderTransformers = [
   },
 ]
 
-let highlightCode = async (code: string, ~language: string="tsx") => {
+let highlightCode = async (code, ~language="rescript") => {
   let normalizedLanguage = normalizeLanguage(language)
 
   let cacheKey =
@@ -218,7 +218,8 @@ let highlightCode = async (code: string, ~language: string="tsx") => {
         },
       )
     } catch {
-    | _ =>
+    | JsExn(error) =>
+      Console.error2("Error highlighting code", error->JsExn.message)
       Shiki.codeToHtml(
         highlighter,
         code,

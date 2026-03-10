@@ -61,8 +61,8 @@ module NavProjects = {
     </Sidebar.Menu>
 }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Sidebar.Provider>
     <Sidebar>
       <Sidebar.Content>

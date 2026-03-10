@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Resizable
     orientation=BaseUi.Types.Orientation.Horizontal
     className="min-h-[200px] max-w-sm rounded-lg border"

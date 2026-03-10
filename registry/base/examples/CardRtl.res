@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Card className="w-full max-w-sm" dir="rtl">
     <Card.Header>
       <Card.Title> {"تسجيل الدخول إلى حسابك"->React.string} </Card.Title>

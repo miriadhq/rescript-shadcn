@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Menubar className="w-72">
     <Menubar.Menu>
       <Menubar.Trigger> {"View"->React.string} </Menubar.Trigger>

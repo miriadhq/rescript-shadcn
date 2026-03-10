@@ -14,7 +14,7 @@ let make = () => {
     </header>
 
     <main className="flex flex-col flex-1 gap-8">
-      <Demo />
+      <HomeDemo />
     </main>
   </div>
 }

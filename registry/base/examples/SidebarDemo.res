@@ -405,8 +405,8 @@ module NavUserSection = {
   }
 }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Sidebar.Provider>
     <Sidebar collapsible=Icon>
       <Sidebar.Header>

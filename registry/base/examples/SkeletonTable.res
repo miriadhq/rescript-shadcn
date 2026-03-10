@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex w-full max-w-sm flex-col gap-2">
     {Array.make(~length=5, ())
     ->Array.mapWithIndex((_, index) =>

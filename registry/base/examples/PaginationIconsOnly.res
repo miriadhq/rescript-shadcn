@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex items-center justify-between gap-4">
     <Field orientation=BaseUi.Types.Orientation.Horizontal className="w-fit">
       <Field.Label htmlFor="select-rows-per-page"> {"Rows per page"->React.string} </Field.Label>

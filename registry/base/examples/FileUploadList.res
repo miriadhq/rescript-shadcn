@@ -7,8 +7,8 @@ type fileItem = {
   timeRemaining: string,
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let files = [
     {id: "1", name: "document.pdf", progress: 45., timeRemaining: "2m 30s"},
     {id: "2", name: "presentation.pptx", progress: 78., timeRemaining: "45s"},

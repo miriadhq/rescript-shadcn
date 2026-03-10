@@ -225,8 +225,8 @@ let columns: array<RT.colDef<payment>> = [
   },
 ]
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (sorting, setSorting) = React.useState((): RT.sorting => [])
   let (colFilters, setColFilters) = React.useState((): RT.colFilters => Obj.magic([]))
   let (colVisibility, setColVisibility) = React.useState((): RT.colVisibility =>

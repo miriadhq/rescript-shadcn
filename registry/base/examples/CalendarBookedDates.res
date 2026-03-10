@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let year = Date.make()->Date.getFullYear
   let initialDate = Date.makeWithYMD(~year, ~month=0, ~day=6)
   let (date, setDate) = React.useState(() => Some(initialDate))

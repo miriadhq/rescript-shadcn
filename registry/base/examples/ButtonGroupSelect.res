@@ -11,8 +11,8 @@ let currencies: array<currency> = [
   {label: "British Pound", value: "£"},
 ]
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (currency, setCurrency) = React.useState(() => "$")
   let items = currencies->Array.map(item => item.value)
 

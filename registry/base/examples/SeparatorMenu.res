@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex items-center gap-2 text-sm md:gap-4">
     <div className="flex flex-col gap-1">
       <span className="font-medium"> {"Settings"->React.string} </span>

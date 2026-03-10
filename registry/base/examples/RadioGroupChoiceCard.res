@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <RadioGroup defaultValue="plus" className="max-w-sm">
     <Field.Label htmlFor="plus-plan">
       <Field orientation=BaseUi.Types.Orientation.Horizontal>

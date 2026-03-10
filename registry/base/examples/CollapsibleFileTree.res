@@ -81,8 +81,8 @@ let rec renderItem = (fileItem: fileTreeItem) =>
     </Button>
   }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Card className="mx-auto w-full max-w-[16rem] gap-2" size=Sm>
     <Card.Header>
       <Tabs defaultValue="explorer">

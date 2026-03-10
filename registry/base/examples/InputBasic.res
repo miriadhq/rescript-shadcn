@@ -1,2 +1,2 @@
-@react.component
-let make = () => <Input placeholder="Enter text" />
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => <Input placeholder="Enter text" />

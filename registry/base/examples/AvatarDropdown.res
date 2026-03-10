@@ -1,5 +1,5 @@
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   <DropdownMenu>
     <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="rounded-full" />}>
       <Avatar>

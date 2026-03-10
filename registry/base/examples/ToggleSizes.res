@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap items-center gap-2">
     <Toggle variant=Toggle.Variant.Outline ariaLabel="Toggle small" size=Toggle.Size.Sm>
       {"Small"->React.string}

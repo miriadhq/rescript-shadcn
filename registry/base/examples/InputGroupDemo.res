@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <InputGroup className="max-w-xs">
     <InputGroup.Input placeholder="Search..." />
     <InputGroup.Addon>

@@ -6,8 +6,8 @@ type notifications = {
   push: bool,
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (notifications, setNotifications) = React.useState(() => {
     email: true,
     sms: false,

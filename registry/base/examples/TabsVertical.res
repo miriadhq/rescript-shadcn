@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <BaseUi.Tabs.Root
     defaultValue="account"
     orientation=BaseUi.Types.Orientation.Horizontal

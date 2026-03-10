@@ -27,7 +27,6 @@
     "DropdownMenu",
     "Empty",
     "Field",
-    "Form",
     "HoverCard",
     "Input",
     "InputGroup",
@@ -60,7 +59,6 @@
     "Toggle",
     "ToggleGroup",
     "Tooltip",
-    "Typography",
-    "Test"
+    "Typography"
   ]
 }

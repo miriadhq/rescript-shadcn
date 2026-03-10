@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Accordion defaultValue=["shipping"] className="max-w-lg">
     <Accordion.Item value="shipping">
       <Accordion.Trigger> {"What are your shipping options?"->React.string} </Accordion.Trigger>

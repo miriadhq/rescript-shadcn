@@ -2,8 +2,8 @@
 
 let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Combobox items={frameworks} defaultValue={"Next.js"}>
     <Combobox.Input placeholder="Select a framework" showClear={true} />
     <Combobox.Content>

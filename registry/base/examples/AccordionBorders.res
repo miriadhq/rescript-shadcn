@@ -22,8 +22,8 @@ let items: array<item> = [
   },
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Accordion defaultValue=["billing"] className="max-w-lg rounded-lg border">
     {items
     ->Array.map(item =>

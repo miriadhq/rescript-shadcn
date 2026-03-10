@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Alert className="max-w-md">
     <Alert.Title> {"Dark mode is now available"->React.string} </Alert.Title>
     <Alert.Description>

@@ -1,4 +1,4 @@
 @@directive("'use client'")
 
-@react.component
-let make = () => <Calendar mode=Single className="rounded-lg border" />
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => <Calendar mode=Single className="rounded-lg border" />

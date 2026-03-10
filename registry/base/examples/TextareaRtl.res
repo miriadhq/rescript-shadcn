@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field className="w-full max-w-xs" dir="rtl">
     <Field.Label htmlFor="feedback" dir="rtl"> {"التعليقات"->React.string} </Field.Label>
     <Textarea

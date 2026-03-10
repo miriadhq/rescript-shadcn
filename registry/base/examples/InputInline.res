@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field orientation=BaseUi.Types.Orientation.Horizontal>
     <Input type_="search" placeholder="Search..." />
     <Button> {"Search"->React.string} </Button>

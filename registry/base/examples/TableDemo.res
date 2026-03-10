@@ -50,8 +50,8 @@ let invoices: array<invoice> = [
   },
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Table>
     <Table.Caption> {"A list of your recent invoices."->React.string} </Table.Caption>
     <Table.Header>

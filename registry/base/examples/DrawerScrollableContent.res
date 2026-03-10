@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Drawer direction="right">
     <Drawer.Trigger asChild={true}>
       <Button variant=Button.Variant.Outline dataSlot="drawer-trigger">

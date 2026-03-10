@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field.Group className="max-w-sm">
     <Field orientation=BaseUi.Types.Orientation.Horizontal>
       <Checkbox id="terms-checkbox" name="terms-checkbox" />

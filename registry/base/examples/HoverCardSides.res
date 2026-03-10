@@ -5,8 +5,8 @@ let hoverCardSides = [
   (BaseUi.Types.Side.Right, "Right"),
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap justify-center gap-2">
     {hoverCardSides
     ->Array.map(((side, label)) =>

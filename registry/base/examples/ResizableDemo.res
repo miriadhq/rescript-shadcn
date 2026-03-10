@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Resizable orientation=BaseUi.Types.Orientation.Horizontal className="max-w-sm rounded-lg border">
     <Resizable.Panel defaultSize="50%">
       <div className="flex h-[200px] items-center justify-center p-6">

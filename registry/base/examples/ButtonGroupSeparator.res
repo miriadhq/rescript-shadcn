@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <ButtonGroup>
     <Button variant=Button.Variant.Secondary size=Button.Size.Sm> {"Copy"->React.string} </Button>
     <ButtonGroup.Separator />

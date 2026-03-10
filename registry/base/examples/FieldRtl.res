@@ -31,8 +31,8 @@ let years: array<item> = [
   {label: "2029", value: "2029"},
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="w-full max-w-md py-6" dir="rtl">
     <form>
       <Field.Group>

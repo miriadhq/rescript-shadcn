@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div dir="rtl">
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
       {"فرض الضرائب على الضحك: سجلات ضريبة النكتة"->React.string}

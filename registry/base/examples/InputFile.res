@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field>
     <Field.Label htmlFor="picture"> {"Picture"->React.string} </Field.Label>
     <Input id="picture" type_="file" />

@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <AlertDialog>
     <AlertDialog.Trigger
       render={<Button variant=Outline> {"Share Project"->React.string} </Button>}

@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Card className="mx-auto max-w-md">
     <Card.Header>
       <Card.Title> {"Verify your login"->React.string} </Card.Title>

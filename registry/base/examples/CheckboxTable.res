@@ -34,8 +34,8 @@ let tableData: array<row> = [
   },
 ]
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   <Table>
     <Table.Header>
       <Table.Row>

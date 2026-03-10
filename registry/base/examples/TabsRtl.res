@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Tabs defaultValue="overview" className="w-full max-w-sm" dir="rtl">
     <Tabs.List dir="rtl">
       <Tabs.Trigger value="overview"> {"نظرة عامة"->React.string} </Tabs.Trigger>

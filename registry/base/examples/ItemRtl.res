@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex w-full max-w-md flex-col gap-6" dir="rtl">
     <Item variant=Item.Variant.Outline dir="rtl">
       <Item.Content>

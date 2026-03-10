@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Alert variant=Alert.Variant.Destructive className="max-w-md">
     <Icons.AlertCircle />
     <Alert.Title> {"Payment failed"->React.string} </Alert.Title>

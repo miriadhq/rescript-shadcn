@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <NativeSelect invalid={true}>
     <NativeSelect.Option value=""> {"Error state"->React.string} </NativeSelect.Option>
     <NativeSelect.Option value="apple"> {"Apple"->React.string} </NativeSelect.Option>

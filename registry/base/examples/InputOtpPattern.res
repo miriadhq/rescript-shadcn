@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field className="w-fit">
     <Field.Label htmlFor="digits-only"> {"Digits Only"->React.string} </Field.Label>
     <InputOtp id="digits-only" maxLength={6} pattern={InputOtp.regexpOnlyDigits}>

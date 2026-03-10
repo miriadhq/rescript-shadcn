@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <InputOtp maxLength={4} pattern={InputOtp.regexpOnlyDigits}>
     <InputOtp.Group>
       <InputOtp.Slot index={0} />

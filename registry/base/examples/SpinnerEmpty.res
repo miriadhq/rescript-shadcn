@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Empty className="w-full">
     <Empty.Header>
       <Empty.Media variant=Empty.Variant.Icon>

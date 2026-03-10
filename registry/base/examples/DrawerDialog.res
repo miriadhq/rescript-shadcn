@@ -48,8 +48,8 @@ module ProfileForm = {
   }
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
   let isDesktop = useMediaQuery("(min-width: 768px)")
 

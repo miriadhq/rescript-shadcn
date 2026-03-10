@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (emblaApi, setEmblaApi) = React.useState(() => None)
   let (current, setCurrent) = React.useState(() => 0)
   let (count, setCount) = React.useState(() => 0)

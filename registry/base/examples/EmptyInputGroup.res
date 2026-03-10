@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Empty>
     <Empty.Header>
       <Empty.Title> {"404 - Not Found"->React.string} </Empty.Title>

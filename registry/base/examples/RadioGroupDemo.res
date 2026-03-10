@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <RadioGroup defaultValue="comfortable" className="w-fit">
     <div className="flex items-center gap-3">
       <RadioGroup.Item value="default" id="r1" />

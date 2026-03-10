@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   <InputOtp maxLength={6} defaultValue="123456">
     <InputOtp.Group>
       <InputOtp.Slot index={0} />
@@ -10,3 +10,4 @@ let make = () =>
       <InputOtp.Slot index={5} />
     </InputOtp.Group>
   </InputOtp>
+}

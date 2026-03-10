@@ -15,8 +15,8 @@ let items = [
   {label: "Operations", value: "operations"},
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field className="w-full max-w-xs">
     <Field.Label> {"Department"->React.string} </Field.Label>
     <Select items>

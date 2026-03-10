@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="my-6 w-full overflow-y-auto">
     <table className="w-full">
       <thead>

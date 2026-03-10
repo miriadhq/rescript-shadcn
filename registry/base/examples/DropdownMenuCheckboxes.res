@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (showStatusBar, setShowStatusBar) = React.useState(() => true)
   let (showActivityBar, setShowActivityBar) = React.useState(() => false)
   let (showPanel, setShowPanel) = React.useState(() => false)

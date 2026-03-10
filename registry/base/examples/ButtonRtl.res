@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap items-center gap-2 md:flex-row" dir="rtl">
     <RtlButton variant=Button.Variant.Outline> {"زر"->React.string} </RtlButton>
     <RtlButton variant=Button.Variant.Destructive> {"حذف"->React.string} </RtlButton>

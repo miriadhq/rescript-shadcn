@@ -1,5 +1,5 @@
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let featureName = "Scheduled reports"
 
   <Card size=Sm className="mx-auto w-full max-w-xs">

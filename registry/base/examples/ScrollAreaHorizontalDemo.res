@@ -18,8 +18,8 @@ let works: array<artwork> = [
   },
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <ScrollArea className="w-96 rounded-md border whitespace-nowrap">
     <div className="flex w-max space-x-4 p-4">
       {works

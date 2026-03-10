@@ -12,8 +12,8 @@ module LucideIcons = {
   }
 }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Tabs defaultValue="preview">
     <Tabs.List>
       <Tabs.Trigger value="preview">

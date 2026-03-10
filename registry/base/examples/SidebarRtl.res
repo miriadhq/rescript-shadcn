@@ -304,8 +304,8 @@ module SidebarContentInner = {
   }
 }
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="relative" dir="rtl">
     <Sidebar.Provider>
       <SidebarContentInner />

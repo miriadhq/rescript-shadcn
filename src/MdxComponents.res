@@ -1,11 +1,3 @@
-let isStringChild: React.element => bool = %raw(`function(x) { return typeof x === "string" }`)
-
-let childrenToString: React.element => option<string> = %raw(`function(x) {
-  if (typeof x === "string") return x;
-  if (x != null && typeof x.toString === "function") return x.toString();
-  return undefined;
-}`)
-
 let slugify = (text: string) =>
   text
   ->String.replaceAll(" ", "-")
@@ -42,7 +34,11 @@ module H2 = {
   let make = (~className=?, ~children, ~id=?) => {
     let autoId = switch id {
     | Some(_) => id
-    | None => children->childrenToString->Option.map(slugify)
+    | None =>
+      switch children->Type.Classify.classify {
+      | String(value) => Some(slugify(value))
+      | _ => None
+      }
     }
     <h2
       id=?autoId
@@ -175,6 +171,15 @@ module Img = {
   }
 }
 
+module Image = {
+  @react.component
+  let make = (~className=?, ~alt="", ~src="", ~width=?, ~height=?) => {
+    <Next.Image
+      src alt ?width ?height className={Commons.cn("mt-6 rounded-md border", className)}
+    />
+  }
+}
+
 module Hr = {
   @react.component
   let make = () => {
@@ -284,7 +289,8 @@ module Code = {
 
   let make = ({?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun, _}: props) => {
     // Inline code
-    if isStringChild(children) {
+    switch children->Type.Classify.classify {
+    | String(_) =>
       <code
         className={Commons.cn(
           "relative rounded-md bg-muted px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] break-words outline-none",
@@ -293,7 +299,7 @@ module Code = {
       >
         {children}
       </code>
-    } else {
+    | _ =>
       // npm command
       let isNpmCommand =
         npm->Option.isSome && yarn->Option.isSome && pnpm->Option.isSome && bun->Option.isSome
@@ -410,6 +416,7 @@ let default = Components({
   "figcaption": Figcaption.make,
   "code": Code.make,
   // Custom MDX components
+  "Image": Image.make,
   "Step": Step.make,
   "Steps": Steps.make,
   "Tabs": MdxTabs.make,

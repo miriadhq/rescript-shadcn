@@ -1,5 +1,5 @@
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   <div className="flex gap-6">
     <Popover>
       <Popover.Trigger render={<Button variant=Outline size=Sm />}>

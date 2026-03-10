@@ -30,8 +30,8 @@ let countries = [
   {code: "us", value: "united-states", label: "United States", continent: "North America"},
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Combobox
     items={countries}
     defaultValue={countries

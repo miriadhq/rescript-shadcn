@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field.Group className="w-full max-w-sm">
     <Field.Label htmlFor="switch-share">
       <Field orientation=BaseUi.Types.Orientation.Horizontal>

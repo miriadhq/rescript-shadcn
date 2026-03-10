@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field className="max-w-sm">
     <Field.Label htmlFor="inline-start-input"> {"Input"->React.string} </Field.Label>
     <InputGroup>

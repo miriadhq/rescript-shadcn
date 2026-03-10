@@ -33,6 +33,8 @@ module InputOtpPrimitive = {
   external context: React.Context.t<renderProps> = "OTPInputContext"
 }
 
+external getValue: JsxEvent.Form.t => string = "%identity"
+
 @react.component
 let make = (
   ~className=?,
@@ -65,7 +67,7 @@ let make = (
     ?required
     ?readOnly
     ?onClick
-    onChange=?{onChange->Option.map(onChange => v => onChange(JsxEvent.Form.target(v)["value"]))}
+    onChange=?{onChange->Option.map(onChange => v => onChange(getValue(v)))}
     ?onKeyDown
     ?tabIndex
     ?ariaLabel

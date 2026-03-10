@@ -18,8 +18,8 @@ let people = [
   },
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Item.Group className="max-w-sm">
     {people
     ->Array.map(person =>

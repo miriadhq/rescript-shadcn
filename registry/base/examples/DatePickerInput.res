@@ -15,8 +15,8 @@ let isValidDate = (d: Date.t) => {
   !Float.isNaN(t)
 }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
   let initialDate = Some(Date.fromString("2025-06-01"))
   let (date, setDate) = React.useState(() => initialDate)

@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap gap-2">
     <Badge className="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
       {"Blue"->React.string}

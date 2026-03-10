@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Tabs defaultValue="overview" className="w-[400px]">
     <Tabs.List>
       <Tabs.Trigger value="overview"> {"Overview"->React.string} </Tabs.Trigger>

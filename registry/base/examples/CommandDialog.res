@@ -13,8 +13,8 @@ external removeKeyDownListener: (Dom.document, string, keyboardEvent => unit) =>
 @get external eventCtrlKey: keyboardEvent => bool = "ctrlKey"
 @send external eventPreventDefault: keyboardEvent => unit = "preventDefault"
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
 
   React.useEffect(() => {

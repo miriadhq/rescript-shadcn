@@ -1,7 +1,5 @@
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @react.component
 let make = (~className=?, ~children) => {
   let (isOpened, setIsOpened) = React.useState(() => false)
@@ -12,15 +10,15 @@ let make = (~className=?, ~children) => {
     className={Commons.cn("group/collapsible relative md:-mx-1", className)}
   >
     <Collapsible.Trigger
+      nativeButton=false
       render={<div className="absolute top-1.5 right-9 z-10 flex items-center" />}
     >
       <Button variant=Ghost size=Sm className="text-muted-foreground h-7 rounded-md px-2">
         {(isOpened ? "Collapse" : "Expand")->React.string}
       </Button>
-      <Separator orientation=Orientation.Vertical className="mx-1.5 !h-4" />
+      <Separator orientation=Vertical className="mx-1.5 !h-4" />
     </Collapsible.Trigger>
     <Collapsible.Content
-      forceMount=true
       className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 data-[state=closed]:[content-visibility:auto] [&>figure]:mt-0 [&>figure]:md:!mx-0"
     >
       {children}

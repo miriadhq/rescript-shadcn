@@ -2,8 +2,8 @@
 
 @module("sonner") external toast: string => unit = "toast"
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Sidebar.Provider>
     <Sonner />
     <Sidebar>

@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field.Group className="w-full max-w-xs">
     <Field.Set>
       <Field.Legend variant=Label> {"Compute Environment"->React.string} </Field.Legend>

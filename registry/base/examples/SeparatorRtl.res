@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex max-w-sm flex-col gap-4 text-sm" dir="rtl">
     <div className="flex flex-col gap-1.5">
       <div className="leading-none font-medium"> {"shadcn/ui"->React.string} </div>

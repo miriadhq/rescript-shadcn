@@ -2,8 +2,8 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <div className="flex flex-row flex-wrap items-center gap-6 md:gap-12" dir="rtl">
     <Avatar>
       <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" className="grayscale" />

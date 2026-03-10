@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Accordion className="w-full">
     <Accordion.Item value="item-1">
       <Accordion.Trigger> {"Can I access my account history?"->React.string} </Accordion.Trigger>

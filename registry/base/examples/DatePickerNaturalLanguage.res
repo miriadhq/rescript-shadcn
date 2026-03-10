@@ -12,8 +12,8 @@ let formatDate = (date: option<Date.t>) =>
     )
   }
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
   let (value, setValue) = React.useState(() => "In 2 days")
   let (date, setDate) = React.useState(() => parseDate("In 2 days")->Nullable.toOption)

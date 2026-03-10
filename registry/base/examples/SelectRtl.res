@@ -24,8 +24,8 @@ let allItems = Array.concat(
   Array.concat(fruits, vegetables),
 )
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Select items={allItems}>
     <Select.Trigger className="w-32">
       <Select.Value />

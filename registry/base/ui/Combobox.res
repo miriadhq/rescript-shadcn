@@ -136,17 +136,7 @@ module Input = {
     ~style=?,
     ~name=?,
     ~placeholder=?,
-    ~value="",
-    ~defaultValue=?,
-    ~onValueChange=?,
     ~disabled=false,
-    ~readOnly=?,
-    ~required=?,
-    ~type_="text",
-    ~maxLength=?,
-    ~spellCheck=false,
-    ~onClick=?,
-    ~onKeyDown=?,
     ~ariaLabel=?,
     ~ariaRoledescription=?,
     ~ariaInvalid=?,
@@ -166,17 +156,7 @@ module Input = {
         ?style
         ?name
         ?placeholder
-        value
-        ?defaultValue
-        ?onValueChange
         disabled
-        ?readOnly
-        ?required
-        type_
-        ?maxLength
-        spellCheck
-        ?onClick
-        ?onKeyDown
         ?ariaLabel
         ?ariaRoledescription
         ?ariaInvalid
@@ -427,17 +407,7 @@ module ChipsInput = {
     ~style=?,
     ~name=?,
     ~placeholder=?,
-    ~value=?,
-    ~defaultValue=?,
-    ~onValueChange=?,
     ~disabled=?,
-    ~readOnly=?,
-    ~required=?,
-    ~type_=?,
-    ~maxLength=?,
-    ~spellCheck=?,
-    ~onClick=?,
-    ~onKeyDown=?,
     ~ariaLabel=?,
     ~ariaRoledescription=?,
   ) =>
@@ -446,17 +416,7 @@ module ChipsInput = {
       ?style
       ?name
       ?placeholder
-      ?value
-      ?defaultValue
-      ?onValueChange
       ?disabled
-      ?readOnly
-      ?required
-      ?type_
-      ?maxLength
-      ?spellCheck
-      ?onClick
-      ?onKeyDown
       ?ariaLabel
       ?ariaRoledescription
       ?children

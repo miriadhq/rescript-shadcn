@@ -33,53 +33,43 @@ let getComponentName = (name: string) => {
   result.contents
 }
 
-type props = {
-  name?: string,
-  className?: string,
-  previewClassName?: string,
-  align?: string,
-  hideCode?: bool,
-  styleName?: string,
-  caption?: string,
-}
-
-let make = async (props: props) => {
-  let name = props.name->Option.getOr("")
-  if name === "" {
-    React.null
-  } else {
-    let align = props.align->Option.getOr("center")
-    let hideCode = props.hideCode->Option.getOr(false)
-    let styleName = props.styleName->Option.getOr("base-v0")
-
+@react.component
+let make = async (
+  ~name=?,
+  ~className=?,
+  ~previewClassName=?,
+  ~align=ComponentPreviewTabs.Align.Center,
+  ~hideCode=false,
+  ~caption=?,
+  ~direction=?,
+) => {
+  switch name {
+  | None => React.null
+  | Some(name) =>
     // Render demo client-side via DemoRenderer (avoids RSC client reference issues
     // with nested submodule access like Accordion.Item.make)
-    let componentElement = <DemoRenderer name />
+    let componentElement = <DemoLoader name />
 
     // Get component name for source lookup
     let componentName = getComponentName(name)
 
     // Get source code (full and preview)
-    let source = await ComponentSource.make({name: componentName, collapsible: false, styleName})
-    let sourcePreview = await ComponentSource.make({
-      name: componentName,
-      collapsible: false,
-      styleName,
-      maxLines: 3,
-    })
+    let source = <ComponentSource name={componentName} collapsible=false />
+    let sourcePreview = <ComponentSource name={componentName} collapsible=false maxLines=3 />
 
     let content =
       <ComponentPreviewTabs
-        className=?{props.className}
-        previewClassName=?{props.previewClassName}
+        ?className
+        ?previewClassName
         align
         hideCode
         component={componentElement}
         source
         sourcePreview
+        direction
       />
 
-    switch props.caption {
+    switch caption {
     | Some(caption) =>
       <figure className="flex flex-col gap-4">
         content

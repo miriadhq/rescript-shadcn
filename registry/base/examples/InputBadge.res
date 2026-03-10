@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Field>
     <Field.Label htmlFor="input-badge">
       {"Webhook URL "->React.string}

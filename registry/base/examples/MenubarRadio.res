@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () => {
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) => {
   let (user, setUser) = React.useState(() => "benoit")
   let (theme, setTheme) = React.useState(() => "system")
 

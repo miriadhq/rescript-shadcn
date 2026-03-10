@@ -30,8 +30,8 @@ let projects: array<project> = [
   {name: "Feedback", url: "#", icon: IconSend},
 ]
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Sidebar.Provider>
     <Sidebar>
       <Sidebar.Content>

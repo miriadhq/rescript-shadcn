@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Command className="max-w-sm rounded-lg border" dir="rtl">
     <Command.Input placeholder="اكتب أمرًا أو ابحث..." dir="rtl" />
     <Command.List>

@@ -1,5 +1,5 @@
-@react.component
-let make = () =>
+@react.componentWithProps(Demo.Props.t)
+let make = ({}: Demo.Props.t) =>
   <Card className="w-full">
     <Card.Header>
       <Card.Title> {"Card with Input Group"->React.string} </Card.Title>
