@@ -15,7 +15,9 @@ let make = () => {
     </Sidebar.Header>
     <Sidebar.Content>
       <Sidebar.Group>
-        <Sidebar.GroupLabel> {"Components"->React.string} </Sidebar.GroupLabel>
+        <Sidebar.GroupLabel>
+          <Next.Link href="/components"> {"Components"->React.string} </Next.Link>
+        </Sidebar.GroupLabel>
         <Sidebar.GroupContent>
           <Sidebar.Menu>
             {meta.pages

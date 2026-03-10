@@ -1,1 +1,1 @@
-export { default } from "./ComponentLayout.res.mjs";
+export { default } from "./ComponentsLayout.res.mjs";
