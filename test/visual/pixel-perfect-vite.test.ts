@@ -357,6 +357,7 @@ function normalizeDomSnapshotClasses(value: unknown): unknown {
     delete attributes["aria-controls"]
     delete attributes["data-state"]
     delete attributes["data-unchecked"]
+    delete attributes["data-panel-open"]
     // Strip role - Base UI composite components set role internally (e.g. "radio",
     // "menuitem") but ReScript's explicit undefined overrides them
     delete attributes.role

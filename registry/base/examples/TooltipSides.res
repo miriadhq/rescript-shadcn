@@ -1,18 +1,18 @@
 let tooltipSides = [
-  (BaseUi.Types.Side.Left, "left"),
-  (BaseUi.Types.Side.Top, "top"),
-  (BaseUi.Types.Side.Bottom, "bottom"),
-  (BaseUi.Types.Side.Right, "right"),
+  BaseUi.Types.Side.Left,
+  BaseUi.Types.Side.Top,
+  BaseUi.Types.Side.Bottom,
+  BaseUi.Types.Side.Right,
 ]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   <div className="flex flex-wrap gap-2">
     {tooltipSides
-    ->Array.map(((side, label)) =>
-      <Tooltip key=label>
+    ->Array.map(side =>
+      <Tooltip key={(side :> string)}>
         <Tooltip.Trigger render={<Button variant=Outline className="w-fit capitalize" />}>
-          {label->React.string}
+          {(side :> string)->React.string}
         </Tooltip.Trigger>
         <Tooltip.Content side>
           <p> {"Add to library"->React.string} </p>

@@ -150,9 +150,8 @@ module TeamSwitcher = {
     switch teams->Array.get(activeTeamIndex) {
     | None => React.null
     | Some(activeTeam) =>
-      <Sidebar.Group>
-        <Sidebar.Menu>
-          <Sidebar.MenuItem>
+      <Sidebar.Menu>
+        <Sidebar.MenuItem>
             <DropdownMenu>
               <DropdownMenu.Trigger
                 render={<Sidebar.MenuButton
@@ -217,7 +216,6 @@ module TeamSwitcher = {
             </DropdownMenu>
           </Sidebar.MenuItem>
         </Sidebar.Menu>
-      </Sidebar.Group>
     }
   }
 }
@@ -325,83 +323,81 @@ module NavUserSection = {
     let sidebar = Sidebar.useSidebar()
     let isMobile = sidebar.isMobile
 
-    <Sidebar.Group>
-      <Sidebar.Menu>
-        <Sidebar.MenuItem>
-          <DropdownMenu>
-            <DropdownMenu.Trigger
-              render={<Sidebar.MenuButton
-                size=Sidebar.MenuButton.Size.Lg
-                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                dataSlot="dropdown-menu-trigger"
-              />}
-            >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <Avatar.Image src={user.avatar} alt={user.name} />
-                <Avatar.Fallback className="rounded-lg"> {"CN"->React.string} </Avatar.Fallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium"> {user.name->React.string} </span>
-                <span className="truncate text-xs"> {user.email->React.string} </span>
-              </div>
-              <Icons.ChevronsUpDown className="ml-auto size-4" />
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content
-              className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-              side={isMobile ? BaseUi.Types.Side.Bottom : BaseUi.Types.Side.Right}
-              align=BaseUi.Types.Align.End
-              sideOffset={4.}
-            >
-              <DropdownMenu.Group>
-                <DropdownMenu.Label className="p-0 font-normal">
-                  <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <Avatar className="h-8 w-8 rounded-lg">
-                      <Avatar.Image src={user.avatar} alt={user.name} />
-                      <Avatar.Fallback className="rounded-lg">
-                        {"CN"->React.string}
-                      </Avatar.Fallback>
-                    </Avatar>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-medium"> {user.name->React.string} </span>
-                      <span className="truncate text-xs"> {user.email->React.string} </span>
-                    </div>
+    <Sidebar.Menu>
+      <Sidebar.MenuItem>
+        <DropdownMenu>
+          <DropdownMenu.Trigger
+            render={<Sidebar.MenuButton
+              size=Sidebar.MenuButton.Size.Lg
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              dataSlot="dropdown-menu-trigger"
+            />}
+          >
+            <Avatar className="h-8 w-8 rounded-lg">
+              <Avatar.Image src={user.avatar} alt={user.name} />
+              <Avatar.Fallback className="rounded-lg"> {"CN"->React.string} </Avatar.Fallback>
+            </Avatar>
+            <div className="grid flex-1 text-left text-sm leading-tight">
+              <span className="truncate font-medium"> {user.name->React.string} </span>
+              <span className="truncate text-xs"> {user.email->React.string} </span>
+            </div>
+            <Icons.ChevronsUpDown className="ml-auto size-4" />
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            side={isMobile ? BaseUi.Types.Side.Bottom : BaseUi.Types.Side.Right}
+            align=BaseUi.Types.Align.End
+            sideOffset={4.}
+          >
+            <DropdownMenu.Group>
+              <DropdownMenu.Label className="p-0 font-normal">
+                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                  <Avatar className="h-8 w-8 rounded-lg">
+                    <Avatar.Image src={user.avatar} alt={user.name} />
+                    <Avatar.Fallback className="rounded-lg">
+                      {"CN"->React.string}
+                    </Avatar.Fallback>
+                  </Avatar>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-medium"> {user.name->React.string} </span>
+                    <span className="truncate text-xs"> {user.email->React.string} </span>
                   </div>
-                </DropdownMenu.Label>
-              </DropdownMenu.Group>
-              <DropdownMenu.Separator />
-              <DropdownMenu.Group>
-                <DropdownMenu.Item>
-                  {renderIcon(~icon=IconSparkles)}
-                  {"Upgrade to Pro"->React.string}
-                </DropdownMenu.Item>
-              </DropdownMenu.Group>
-              <DropdownMenu.Separator />
-              <DropdownMenu.Group>
-                <DropdownMenu.Item>
-                  {renderIcon(~icon=IconBadgeCheck)}
-                  {"Account"->React.string}
-                </DropdownMenu.Item>
-                <DropdownMenu.Item>
-                  <Icons.CreditCard />
-                  {"Billing"->React.string}
-                </DropdownMenu.Item>
-                <DropdownMenu.Item>
-                  {renderIcon(~icon=IconBell)}
-                  {"Notifications"->React.string}
-                </DropdownMenu.Item>
-              </DropdownMenu.Group>
-              <DropdownMenu.Separator />
-              <DropdownMenu.Group>
-                <DropdownMenu.Item>
-                  <Icons.LogOut />
-                  {"Log out"->React.string}
-                </DropdownMenu.Item>
-              </DropdownMenu.Group>
-            </DropdownMenu.Content>
-          </DropdownMenu>
-        </Sidebar.MenuItem>
-      </Sidebar.Menu>
-    </Sidebar.Group>
+                </div>
+              </DropdownMenu.Label>
+            </DropdownMenu.Group>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Group>
+              <DropdownMenu.Item>
+                {renderIcon(~icon=IconSparkles)}
+                {"Upgrade to Pro"->React.string}
+              </DropdownMenu.Item>
+            </DropdownMenu.Group>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Group>
+              <DropdownMenu.Item>
+                {renderIcon(~icon=IconBadgeCheck)}
+                {"Account"->React.string}
+              </DropdownMenu.Item>
+              <DropdownMenu.Item>
+                <Icons.CreditCard />
+                {"Billing"->React.string}
+              </DropdownMenu.Item>
+              <DropdownMenu.Item>
+                {renderIcon(~icon=IconBell)}
+                {"Notifications"->React.string}
+              </DropdownMenu.Item>
+            </DropdownMenu.Group>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Group>
+              <DropdownMenu.Item>
+                <Icons.LogOut />
+                {"Log out"->React.string}
+              </DropdownMenu.Item>
+            </DropdownMenu.Group>
+          </DropdownMenu.Content>
+        </DropdownMenu>
+      </Sidebar.MenuItem>
+    </Sidebar.Menu>
   }
 }
 

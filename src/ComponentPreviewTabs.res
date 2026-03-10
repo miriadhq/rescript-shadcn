@@ -12,8 +12,14 @@ module Align = {
 
 module PreviewWrapper = {
   @react.component
-  let make = (~align: Align.t, ~chromeLessOnMobile, ~previewClassName, ~children) => {
-    <div dataSlot="preview">
+  let make = (
+    ~align: Align.t,
+    ~chromeLessOnMobile,
+    ~previewClassName,
+    ~dir: option<BaseUi.Types.TextDirection.t>=?,
+    ~children,
+  ) => {
+    <div dataSlot="preview" dir=?{(dir :> option<string>)}>
       <div
         dataAlign={(align :> string)}
         dataChromeless={chromeLessOnMobile}
@@ -51,17 +57,22 @@ let make = (
   ~component: React.element,
   ~source: React.element,
   ~sourcePreview: React.element,
-  ~direction as _=?,
+  ~direction: option<BaseUi.Types.TextDirection.t>=Ltr,
 ) => {
   let (codeVisible, setCodeVisible) = React.useState(() => false)
 
   <div
+    dataSlot="component-preview"
     className={Commons.cn(
       "group relative mt-4 mb-12 flex flex-col overflow-hidden rounded-xl border",
       className,
     )}
   >
-    <PreviewWrapper align chromeLessOnMobile previewClassName> {component} </PreviewWrapper>
+    <Direction.DirectionProvider>
+      <PreviewWrapper align chromeLessOnMobile previewClassName dir=direction>
+        {component}
+      </PreviewWrapper>
+    </Direction.DirectionProvider>
     {if !hideCode {
       <CodeWrapper codeVisible>
         {if codeVisible {

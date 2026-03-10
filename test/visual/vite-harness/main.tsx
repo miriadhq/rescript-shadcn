@@ -74,7 +74,7 @@ function getRescriptModuleLoader(component: string) {
     : component.startsWith("ui-rtl/")
     ? `Rtl${toPascalCase(component.replace(/^ui-rtl\//, ""))}`
     : toPascalCase(component)
-  return findModuleLoader(rescriptModules, `${moduleName}.jsx`)
+  return findModuleLoader(rescriptModules, `${moduleName}.res.mjs`)
 }
 
 function getExpectedRescriptPath(component: string) {

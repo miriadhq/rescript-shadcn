@@ -118,6 +118,7 @@ module ExtraDomProps = {
     @as("data-rehype-pretty-code-figure") dataRehypePrettyCodeFigure?: string,
     @as("data-rehype-pretty-code-title") dataRehypePrettyCodeTitle?: string,
     @as("data-language") dataLanguage?: string,
+    @as("data-hide-code") dataHideCode?: bool,
   }
 }
 

@@ -19,7 +19,7 @@ let make = ({}: Demo.Props.t) =>
       {physicalSides
       ->Array.map(((side, label)) =>
         <Tooltip key=label>
-          <Tooltip.Trigger render={<Button variant=Button.Variant.Outline />}>
+          <Tooltip.Trigger render={<Button variant=Outline />}>
             {label->React.string}
           </Tooltip.Trigger>
           <Tooltip.Content side dir="rtl">
@@ -33,7 +33,7 @@ let make = ({}: Demo.Props.t) =>
       {logicalSides
       ->Array.map(((side, label)) =>
         <Tooltip key=label>
-          <Tooltip.Trigger render={<Button variant=Button.Variant.Outline />}>
+          <Tooltip.Trigger render={<Button variant=Outline />}>
             {label->React.string}
           </Tooltip.Trigger>
           <Tooltip.Content side dir="rtl">

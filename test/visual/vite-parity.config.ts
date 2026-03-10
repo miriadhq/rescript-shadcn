@@ -2,16 +2,26 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 
 import tailwindcss from "@tailwindcss/postcss"
-import { defineConfig } from "vite"
+import { type Plugin, defineConfig, transformWithEsbuild } from "vite"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, "../../")
 const appRoot = path.resolve(repoRoot, "shadcn-ui/apps/v4")
 const harnessRoot = path.resolve(__dirname, "vite-harness")
 
+function rescriptJsx(): Plugin {
+  return {
+    name: "rescript-jsx",
+    async transform(code, id) {
+      if (!id.endsWith(".res.mjs")) return
+      return transformWithEsbuild(code, id, { loader: "jsx", jsx: "automatic" })
+    },
+  }
+}
+
 export default defineConfig({
   root: harnessRoot,
-  plugins: [],
+  plugins: [rescriptJsx()],
   esbuild: {
     jsx: "automatic",
   },

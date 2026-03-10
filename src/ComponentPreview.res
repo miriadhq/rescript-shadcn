@@ -1,3 +1,5 @@
+@@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
+
 // ComponentPreview: async server component that renders a demo with source code tabs.
 // Names in MDX are PascalCase matching the ReScript module name (e.g. "ButtonDemo").
 
@@ -33,15 +35,25 @@ let getComponentName = (name: string) => {
   result.contents
 }
 
+module Type = {
+  type t =
+    | @as("block") Block
+    | @as("component") Component
+    | @as("example") Example
+}
+
 @react.component
 let make = async (
-  ~name=?,
+  ~name,
+  ~type_ as _: option<Type.t>=?,
   ~className=?,
   ~previewClassName=?,
   ~align=ComponentPreviewTabs.Align.Center,
   ~hideCode=false,
+  ~chromeLessOnMobile=false,
+  ~styleName="new-york-v4",
+  ~direction=BaseUi.Types.TextDirection.Ltr,
   ~caption=?,
-  ~direction=?,
 ) => {
   switch name {
   | None => React.null
@@ -63,6 +75,7 @@ let make = async (
         ?previewClassName
         align
         hideCode
+        chromeLessOnMobile
         component={componentElement}
         source
         sourcePreview
@@ -71,9 +84,11 @@ let make = async (
 
     switch caption {
     | Some(caption) =>
-      <figure className="flex flex-col gap-4">
+      <figure dataHideCode={hideCode} className="flex flex-col data-[hide-code=true]:gap-4">
         content
-        <figcaption className="text-muted-foreground text-center text-sm">
+        <figcaption
+          className="-mt-8 text-center text-sm text-muted-foreground data-[hide-code=true]:mt-0"
+        >
           {caption->React.string}
         </figcaption>
       </figure>
