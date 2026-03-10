@@ -93,6 +93,55 @@ for (const mod of exampleModules) {
   pathToName.set(`${base}/examples/${mod}.res`, mod)
 }
 
+const astDir = path.join(packageRoot, "lib", "ocaml")
+
+/** Modules to ignore in .ast dependency lists */
+const IGNORED_AST_DEPS = new Set([
+  "BaseUi",
+  "React",
+  "ReactDOM",
+])
+
+/** Build a set of all known registry module names for matching .ast deps */
+const registryModules = new Set([...uiModules, ...rtlModules, ...exampleModules])
+
+/** Parse compile-time dependencies from a .ast file in lib/ocaml/.
+ *  Format: 4-byte header, then \n-separated module names, then \n followed
+ *  by the absolute .res path, then \n followed by binary AST data.
+ */
+function parseAstDeps(mod) {
+  const astPath = path.join(astDir, `${mod}.ast`)
+  if (!existsSync(astPath)) {
+    console.error(
+      `Missing ${astPath}\nRun the ReScript compiler first: yarn rescript`
+    )
+    process.exit(1)
+  }
+
+  const buf = readFileSync(astPath)
+  // Skip the 4-byte header, deps start after first \n
+  const start = buf.indexOf(0x0a, 0)
+  if (start === -1) return []
+
+  // Find where the .res path starts (begins with /)
+  // All dep names are between start and the path line
+  const deps = []
+  let pos = start + 1
+  while (pos < buf.length) {
+    const nextNewline = buf.indexOf(0x0a, pos)
+    if (nextNewline === -1) break
+    const token = buf.subarray(pos, nextNewline).toString("utf8")
+    // The .res file path starts with / — that marks the end of deps
+    if (token.startsWith("/")) break
+    deps.push(token)
+    pos = nextNewline + 1
+  }
+
+  return deps.filter(
+    (dep) => !IGNORED_AST_DEPS.has(dep) && registryModules.has(dep)
+  )
+}
+
 /** Resolve a local import to a registry item name.
  *  importPath: the raw import string, e.g. "../ui/Button.res.mjs" or "./Foo.res.mjs"
  *  fromDir: the directory of the importing file, e.g. "ui", "ui-rtl", "examples"
@@ -117,11 +166,18 @@ function buildItem(mod, dir, type) {
   const { npmPackages, localImports } = parseImports(jsPath)
 
   // Resolve local imports to registry dependency names
-  const registryDeps = []
-  for (const imp of [...localImports].sort()) {
+  const registryDepsSet = new Set()
+  for (const imp of localImports) {
     const depName = resolveLocalImport(imp, dir)
-    if (depName) registryDeps.push(depName)
+    if (depName) registryDepsSet.add(depName)
   }
+
+  // Also add compile-time deps from .ast (catches type-only dependencies)
+  for (const dep of parseAstDeps(mod)) {
+    registryDepsSet.add(dep)
+  }
+
+  const registryDeps = [...registryDepsSet].sort()
 
   const item = { name, type }
 

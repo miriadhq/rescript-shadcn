@@ -9,6 +9,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Accordion.res",
@@ -85,6 +88,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Breadcrumb.res",
@@ -126,7 +132,8 @@
         "react-day-picker"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -153,7 +160,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -181,6 +189,9 @@
       "dependencies": [
         "@base-ui/react",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "Icons"
       ],
       "files": [
         {
@@ -210,7 +221,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons",
+        "InputGroup"
       ],
       "files": [
         {
@@ -229,6 +242,7 @@
       ],
       "registryDependencies": [
         "Button",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -245,6 +259,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/ContextMenu.res",
@@ -260,7 +277,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -301,6 +319,9 @@
       "dependencies": [
         "@base-ui/react",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "Icons"
       ],
       "files": [
         {
@@ -395,6 +416,9 @@
         "input-otp",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/InputOtp.res",
@@ -442,6 +466,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Menubar.res",
@@ -454,6 +481,9 @@
       "type": "registry:ui",
       "dependencies": [
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "Icons"
       ],
       "files": [
         {
@@ -469,6 +499,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/NavigationMenu.res",
@@ -483,7 +516,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -525,6 +559,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/RadioGroup.res",
@@ -565,6 +602,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Select.res",
@@ -593,7 +633,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -611,6 +652,7 @@
       ],
       "registryDependencies": [
         "Button",
+        "Icons",
         "Sheet",
         "Skeleton",
         "Tooltip"
@@ -653,6 +695,9 @@
         "next-themes",
         "sonner"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Sonner.res",
@@ -665,6 +710,9 @@
       "type": "registry:ui",
       "dependencies": [
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "Icons"
       ],
       "files": [
         {
@@ -768,6 +816,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlAccordion.res",
@@ -830,6 +881,9 @@
       "dependencies": [
         "@base-ui/react"
       ],
+      "registryDependencies": [
+        "Badge"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlBadge.res",
@@ -844,6 +898,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlBreadcrumb.res",
@@ -856,6 +913,9 @@
       "type": "registry:ui",
       "dependencies": [
         "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Button"
       ],
       "files": [
         {
@@ -886,7 +946,8 @@
         "react-day-picker"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -916,7 +977,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -972,7 +1034,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons",
+        "InputGroup"
       ],
       "files": [
         {
@@ -991,6 +1055,7 @@
       ],
       "registryDependencies": [
         "Button",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -1006,6 +1071,9 @@
       "dependencies": [
         "@base-ui/react",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "Icons"
       ],
       "files": [
         {
@@ -1032,7 +1100,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -1073,6 +1142,9 @@
       "dependencies": [
         "@base-ui/react",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "Icons"
       ],
       "files": [
         {
@@ -1160,6 +1232,9 @@
         "input-otp",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlInputOtp.res",
@@ -1213,6 +1288,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlMenubar.res",
@@ -1225,6 +1303,9 @@
       "type": "registry:ui",
       "dependencies": [
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "Icons"
       ],
       "files": [
         {
@@ -1256,7 +1337,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -1298,6 +1380,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlRadioGroup.res",
@@ -1338,6 +1423,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "Icons"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSelect.res",
@@ -1366,7 +1454,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -1644,7 +1733,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Alert"
+        "Alert",
+        "Icons"
       ],
       "files": [
         {
@@ -1660,7 +1750,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Alert"
+        "Alert",
+        "Icons"
       ],
       "files": [
         {
@@ -1676,7 +1767,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Alert"
+        "Alert",
+        "Icons"
       ],
       "files": [
         {
@@ -1692,7 +1784,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Alert"
+        "Alert",
+        "Icons"
       ],
       "files": [
         {
@@ -1737,7 +1830,8 @@
       ],
       "registryDependencies": [
         "AlertDialog",
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -1754,7 +1848,8 @@
       ],
       "registryDependencies": [
         "AlertDialog",
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -1770,6 +1865,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "RtlAlertDialog"
       ],
       "files": [
@@ -1801,7 +1897,8 @@
       ],
       "registryDependencies": [
         "AlertDialog",
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -1817,6 +1914,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "RtlAlert"
       ],
       "files": [
@@ -1910,7 +2008,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Avatar"
+        "Avatar",
+        "Icons"
       ],
       "files": [
         {
@@ -1993,7 +2092,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Avatar"
+        "Avatar",
+        "Icons"
       ],
       "files": [
         {
@@ -2062,7 +2162,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Badge"
+        "Badge",
+        "Icons"
       ],
       "files": [
         {
@@ -2078,7 +2179,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Badge"
+        "Badge",
+        "Icons"
       ],
       "files": [
         {
@@ -2094,6 +2196,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Badge",
+        "Icons",
         "RtlBadge"
       ],
       "files": [
@@ -2166,7 +2270,8 @@
       ],
       "registryDependencies": [
         "Breadcrumb",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -2209,7 +2314,8 @@
       ],
       "registryDependencies": [
         "Breadcrumb",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -2225,7 +2331,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Breadcrumb"
+        "Breadcrumb",
+        "Icons"
       ],
       "files": [
         {
@@ -2254,7 +2361,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -2298,7 +2406,8 @@
       "registryDependencies": [
         "Button",
         "ButtonGroup",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -2316,7 +2425,8 @@
       "registryDependencies": [
         "Button",
         "ButtonGroup",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -2334,6 +2444,7 @@
       "registryDependencies": [
         "Button",
         "ButtonGroup",
+        "Icons",
         "Input"
       ],
       "files": [
@@ -2352,6 +2463,7 @@
       "registryDependencies": [
         "Button",
         "ButtonGroup",
+        "Icons",
         "InputGroup",
         "Tooltip"
       ],
@@ -2371,6 +2483,7 @@
       "registryDependencies": [
         "Button",
         "ButtonGroup",
+        "Icons",
         "InputGroup",
         "Tooltip"
       ],
@@ -2389,7 +2502,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "ButtonGroup"
+        "ButtonGroup",
+        "Icons"
       ],
       "files": [
         {
@@ -2408,6 +2522,7 @@
         "Button",
         "ButtonGroup",
         "Field",
+        "Icons",
         "Popover",
         "Textarea"
       ],
@@ -2427,7 +2542,8 @@
       "registryDependencies": [
         "Button",
         "ButtonGroup",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -2445,6 +2561,7 @@
       "registryDependencies": [
         "Button",
         "ButtonGroup",
+        "Icons",
         "Input",
         "Select"
       ],
@@ -2477,7 +2594,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "ButtonGroup"
+        "ButtonGroup",
+        "Icons"
       ],
       "files": [
         {
@@ -2565,7 +2683,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -2581,6 +2700,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Button",
+        "Icons",
         "RtlButton",
         "Spinner"
       ],
@@ -2611,7 +2732,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Icons"
       ],
       "files": [
         {
@@ -2726,7 +2848,9 @@
         "react-day-picker"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Calendar",
+        "Icons"
       ],
       "files": [
         {
@@ -2803,6 +2927,7 @@
         "Calendar",
         "Card",
         "Field",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -2881,7 +3006,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Card"
+        "Card",
+        "Icons"
       ],
       "files": [
         {
@@ -3250,7 +3376,8 @@
       "registryDependencies": [
         "Button",
         "Card",
-        "Collapsible"
+        "Collapsible",
+        "Icons"
       ],
       "files": [
         {
@@ -3267,7 +3394,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Collapsible"
+        "Collapsible",
+        "Icons"
       ],
       "files": [
         {
@@ -3286,6 +3414,7 @@
         "Button",
         "Card",
         "Collapsible",
+        "Icons",
         "Tabs"
       ],
       "files": [
@@ -3303,7 +3432,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Collapsible"
+        "Collapsible",
+        "Icons"
       ],
       "files": [
         {
@@ -3323,6 +3453,7 @@
         "Card",
         "Collapsible",
         "Field",
+        "Icons",
         "Input"
       ],
       "files": [
@@ -3432,6 +3563,7 @@
       ],
       "registryDependencies": [
         "Combobox",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -3516,7 +3648,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Command"
+        "Command",
+        "Icons"
       ],
       "files": [
         {
@@ -3532,7 +3665,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Command"
+        "Command",
+        "Icons"
       ],
       "files": [
         {
@@ -3549,7 +3683,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Command"
+        "Command",
+        "Icons"
       ],
       "files": [
         {
@@ -3565,7 +3700,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "Command"
+        "Command",
+        "Icons"
       ],
       "files": [
         {
@@ -3582,7 +3718,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Command"
+        "Command",
+        "Icons"
       ],
       "files": [
         {
@@ -3599,7 +3736,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Command"
+        "Command",
+        "Icons"
       ],
       "files": [
         {
@@ -3654,7 +3792,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "ContextMenu"
+        "ContextMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -3683,7 +3822,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "ContextMenu"
+        "ContextMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -3712,7 +3852,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "ContextMenu"
+        "ContextMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -3771,6 +3912,7 @@
         "Button",
         "Calendar",
         "Field",
+        "Icons",
         "Popover"
       ],
       "files": [
@@ -3788,7 +3930,9 @@
       ],
       "registryDependencies": [
         "Button",
-        "DropdownMenu"
+        "DataTableDemo",
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -3808,6 +3952,7 @@
         "Button",
         "Checkbox",
         "DropdownMenu",
+        "Icons",
         "Input",
         "Table"
       ],
@@ -3826,6 +3971,8 @@
       ],
       "registryDependencies": [
         "Button",
+        "DataTableDemo",
+        "Icons",
         "Select"
       ],
       "files": [
@@ -3846,7 +3993,9 @@
         "Button",
         "Checkbox",
         "DropdownMenu",
+        "Icons",
         "Input",
+        "RtlDataTable",
         "Table"
       ],
       "files": [
@@ -3864,7 +4013,9 @@
       ],
       "registryDependencies": [
         "Button",
-        "DropdownMenu"
+        "DataTableDemo",
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -3902,6 +4053,7 @@
       "registryDependencies": [
         "Button",
         "Calendar",
+        "Icons",
         "Popover"
       ],
       "files": [
@@ -3936,6 +4088,7 @@
       "registryDependencies": [
         "Calendar",
         "Field",
+        "Icons",
         "InputGroup",
         "Popover"
       ],
@@ -3956,6 +4109,7 @@
       "registryDependencies": [
         "Calendar",
         "Field",
+        "Icons",
         "InputGroup",
         "Popover"
       ],
@@ -3977,6 +4131,7 @@
         "Button",
         "Calendar",
         "Field",
+        "Icons",
         "Popover"
       ],
       "files": [
@@ -3997,6 +4152,7 @@
       "registryDependencies": [
         "Button",
         "Calendar",
+        "Icons",
         "Popover"
       ],
       "files": [
@@ -4017,6 +4173,7 @@
         "Button",
         "Calendar",
         "Field",
+        "Icons",
         "Input",
         "Popover"
       ],
@@ -4141,7 +4298,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Drawer"
+        "Drawer",
+        "Icons"
       ],
       "files": [
         {
@@ -4176,7 +4334,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Drawer"
+        "Drawer",
+        "Icons"
       ],
       "files": [
         {
@@ -4222,7 +4381,8 @@
       "registryDependencies": [
         "Avatar",
         "Button",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -4267,7 +4427,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -4284,7 +4445,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -4315,7 +4477,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -4332,7 +4495,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -4363,7 +4527,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -4380,7 +4545,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "DropdownMenu"
+        "DropdownMenu",
+        "Icons"
       ],
       "files": [
         {
@@ -4441,7 +4607,8 @@
       "registryDependencies": [
         "Avatar",
         "Button",
-        "Empty"
+        "Empty",
+        "Icons"
       ],
       "files": [
         {
@@ -4458,7 +4625,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Empty"
+        "Empty",
+        "Icons"
       ],
       "files": [
         {
@@ -4475,7 +4643,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Empty"
+        "Empty",
+        "Icons"
       ],
       "files": [
         {
@@ -4493,7 +4662,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Empty"
+        "Empty",
+        "Icons"
       ],
       "files": [
         {
@@ -4510,6 +4680,7 @@
       ],
       "registryDependencies": [
         "Empty",
+        "Icons",
         "InputGroup",
         "Kbd"
       ],
@@ -4528,7 +4699,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Empty"
+        "Empty",
+        "Icons"
       ],
       "files": [
         {
@@ -4546,7 +4718,8 @@
       ],
       "registryDependencies": [
         "Button",
-        "Empty"
+        "Empty",
+        "Icons"
       ],
       "files": [
         {
@@ -4753,6 +4926,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Item",
         "Progress"
       ],
@@ -4987,6 +5161,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5003,6 +5178,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5020,6 +5196,7 @@
       ],
       "registryDependencies": [
         "ButtonGroup",
+        "Icons",
         "InputGroup",
         "Label"
       ],
@@ -5051,6 +5228,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5068,6 +5246,7 @@
       ],
       "registryDependencies": [
         "DropdownMenu",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5084,6 +5263,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5103,6 +5283,7 @@
         "Button",
         "Card",
         "Field",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5120,6 +5301,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5137,6 +5319,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5153,6 +5336,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup",
         "Kbd"
       ],
@@ -5170,6 +5354,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup",
         "Label",
         "Tooltip"
@@ -5189,6 +5374,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup",
         "Spinner"
       ],
@@ -5206,6 +5392,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup",
         "Spinner"
       ],
@@ -5236,6 +5423,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5253,6 +5441,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup",
         "Textarea"
       ],
@@ -5270,6 +5459,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup",
         "Tooltip"
       ],
@@ -5288,6 +5478,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5305,6 +5496,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5322,6 +5514,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup",
         "Kbd",
         "Spinner"
@@ -5343,6 +5536,7 @@
         "ButtonGroup",
         "DropdownMenu",
         "Field",
+        "Icons",
         "InputGroup",
         "Popover",
         "Tooltip"
@@ -5377,6 +5571,7 @@
       ],
       "registryDependencies": [
         "Field",
+        "Icons",
         "InputGroup"
       ],
       "files": [
@@ -5465,6 +5660,7 @@
         "Button",
         "Card",
         "Field",
+        "Icons",
         "InputOtp"
       ],
       "files": [
@@ -5584,6 +5780,7 @@
       "registryDependencies": [
         "Avatar",
         "Button",
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5601,6 +5798,7 @@
       ],
       "registryDependencies": [
         "Button",
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5620,6 +5818,7 @@
         "Avatar",
         "Button",
         "DropdownMenu",
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5638,6 +5837,7 @@
       "registryDependencies": [
         "Avatar",
         "Button",
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5668,6 +5868,7 @@
       ],
       "registryDependencies": [
         "Button",
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5697,6 +5898,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5714,6 +5916,7 @@
       ],
       "registryDependencies": [
         "Button",
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5730,6 +5933,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5746,6 +5950,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Item"
       ],
       "files": [
@@ -5802,6 +6007,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup",
         "Kbd"
       ],
@@ -5902,6 +6108,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Menubar"
       ],
       "files": [
@@ -6037,6 +6244,7 @@
         "next"
       ],
       "registryDependencies": [
+        "Icons",
         "NavigationMenu"
       ],
       "files": [
@@ -6054,6 +6262,7 @@
         "next"
       ],
       "registryDependencies": [
+        "Icons",
         "NavigationMenu",
         "RtlNavigationMenu"
       ],
@@ -6071,6 +6280,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Item"
       ],
       "files": [
@@ -6693,6 +6903,7 @@
       ],
       "registryDependencies": [
         "Button",
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6712,6 +6923,7 @@
         "Avatar",
         "Collapsible",
         "DropdownMenu",
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6729,6 +6941,7 @@
       ],
       "registryDependencies": [
         "DropdownMenu",
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6745,6 +6958,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6762,6 +6976,7 @@
         "sonner"
       ],
       "registryDependencies": [
+        "Icons",
         "Sidebar",
         "Sonner"
       ],
@@ -6780,6 +6995,7 @@
       ],
       "registryDependencies": [
         "Collapsible",
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6797,6 +7013,7 @@
       ],
       "registryDependencies": [
         "DropdownMenu",
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6813,6 +7030,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6830,6 +7048,7 @@
       ],
       "registryDependencies": [
         "DropdownMenu",
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6846,6 +7065,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6863,6 +7083,7 @@
       ],
       "registryDependencies": [
         "Collapsible",
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6892,6 +7113,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Sidebar"
       ],
       "files": [
@@ -6911,6 +7133,7 @@
         "Avatar",
         "Collapsible",
         "DropdownMenu",
+        "Icons",
         "Sidebar",
         "SidebarDemo"
       ],
@@ -7112,7 +7335,8 @@
         "sonner"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Sonner"
       ],
       "files": [
         {
@@ -7128,7 +7352,8 @@
         "sonner"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Sonner"
       ],
       "files": [
         {
@@ -7144,7 +7369,8 @@
         "sonner"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Sonner"
       ],
       "files": [
         {
@@ -7160,7 +7386,8 @@
         "sonner"
       ],
       "registryDependencies": [
-        "Button"
+        "Button",
+        "Sonner"
       ],
       "files": [
         {
@@ -7202,6 +7429,9 @@
       "type": "registry:example",
       "dependencies": [
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "Icons"
       ],
       "files": [
         {
@@ -7246,6 +7476,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "InputGroup",
         "Spinner"
       ],
@@ -7390,6 +7621,7 @@
       "registryDependencies": [
         "Button",
         "DropdownMenu",
+        "Icons",
         "Table"
       ],
       "files": [
@@ -7613,6 +7845,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Toggle"
       ],
       "files": [
@@ -7642,6 +7875,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "ToggleGroup"
       ],
       "files": [
@@ -7658,6 +7892,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "ToggleGroup"
       ],
       "files": [
@@ -7740,6 +7975,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "ToggleGroup"
       ],
       "files": [
@@ -7756,6 +7992,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Toggle"
       ],
       "files": [
@@ -7772,6 +8009,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Toggle"
       ],
       "files": [
@@ -7801,6 +8039,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "Icons",
         "Toggle"
       ],
       "files": [
