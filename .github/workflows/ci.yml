@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Generate DemoLoader
+        run: yarn loader:generate
+
+      - name: Compile ReScript
+        run: yarn rescript
+
+      - name: Generate registry
+        run: yarn registry:generate
+
+      - name: Build public registry
+        run: yarn registry:build
+
+      - name: Check git status is clean
+        run: |
+          git diff --exit-code
+          git diff --cached --exit-code
+          if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            echo "Untracked files found:"
+            git ls-files --others --exclude-standard
+            exit 1
+          fi
+
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Generate DemoLoader
+        run: yarn loader:generate
+
+      - name: Compile ReScript
+        run: yarn rescript
+
+      - name: Run visual tests
+        run: yarn test:visual
