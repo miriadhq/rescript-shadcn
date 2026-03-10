@@ -60,26 +60,17 @@ let make = async (
     // Block type: render images + iframe instead of inline component
     switch type_ {
     | Some(Type.Block) =>
+      // Render block components inline in a contained wrapper.
+      // `transform: scale(1)` creates a new containing block so that
+      // position:fixed children (e.g. Sidebar) are trapped inside.
+      let componentElement = <DemoLoader name />
       let content =
         <div
-          className="relative mt-6 aspect-[4/2.5] w-full overflow-hidden rounded-xl border md:-mx-1"
+          className="relative mt-6 aspect-[4/2.5] w-full overflow-hidden rounded-xl border"
+          style={{transform: "scale(1)"}}
         >
-          <Next.Image
-            src={`/r/styles/new-york-v4/${name}-light.png`}
-            alt={name}
-            width=1440
-            height=900
-            className="absolute top-0 left-0 z-20 w-[970px] max-w-none bg-background sm:w-[1280px] md:hidden dark:hidden md:dark:hidden"
-          />
-          <Next.Image
-            src={`/r/styles/new-york-v4/${name}-dark.png`}
-            alt={name}
-            width=1440
-            height=900
-            className="absolute top-0 left-0 z-20 hidden w-[970px] max-w-none bg-background sm:w-[1280px] md:hidden dark:block md:dark:hidden"
-          />
-          <div className="absolute inset-0 hidden w-[1600px] bg-background md:block">
-            <iframe src={`/view/${name}`} className="size-full" />
+          <div className="absolute inset-0 bg-background">
+            {componentElement}
           </div>
         </div>
 
