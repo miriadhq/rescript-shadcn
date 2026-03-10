@@ -5,6 +5,10 @@
     {
       "name": "Accordion",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Accordion.res",
@@ -25,6 +29,12 @@
     {
       "name": "AlertDialog",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui/AlertDialog.res",
@@ -45,6 +55,9 @@
     {
       "name": "Avatar",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Avatar.res",
@@ -55,6 +68,9 @@
     {
       "name": "Badge",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Badge.res",
@@ -65,6 +81,10 @@
     {
       "name": "Breadcrumb",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Breadcrumb.res",
@@ -75,6 +95,9 @@
     {
       "name": "Button",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Button.res",
@@ -85,6 +108,9 @@
     {
       "name": "ButtonGroup",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/ButtonGroup.res",
@@ -95,6 +121,13 @@
     {
       "name": "Calendar",
       "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Calendar.res",
@@ -115,6 +148,13 @@
     {
       "name": "Carousel",
       "type": "registry:ui",
+      "dependencies": [
+        "embla-carousel-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Carousel.res",
@@ -125,6 +165,9 @@
     {
       "name": "Chart",
       "type": "registry:ui",
+      "dependencies": [
+        "recharts"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Chart.res",
@@ -135,6 +178,10 @@
     {
       "name": "Checkbox",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Checkbox.res",
@@ -145,6 +192,9 @@
     {
       "name": "Collapsible",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Collapsible.res",
@@ -155,6 +205,13 @@
     {
       "name": "Combobox",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Combobox.res",
@@ -165,6 +222,15 @@
     {
       "name": "Command",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "cmdk",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Command.res",
@@ -175,6 +241,10 @@
     {
       "name": "ContextMenu",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/ContextMenu.res",
@@ -185,6 +255,13 @@
     {
       "name": "Dialog",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Dialog.res",
@@ -195,6 +272,9 @@
     {
       "name": "Direction",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Direction.res",
@@ -205,6 +285,9 @@
     {
       "name": "Drawer",
       "type": "registry:ui",
+      "dependencies": [
+        "vaul"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Drawer.res",
@@ -215,6 +298,10 @@
     {
       "name": "DropdownMenu",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/DropdownMenu.res",
@@ -235,6 +322,12 @@
     {
       "name": "Field",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Field.res",
@@ -245,6 +338,9 @@
     {
       "name": "HoverCard",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/HoverCard.res",
@@ -265,6 +361,9 @@
     {
       "name": "Input",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Input.res",
@@ -275,6 +374,13 @@
     {
       "name": "InputGroup",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/ui/InputGroup.res",
@@ -285,6 +391,10 @@
     {
       "name": "InputOtp",
       "type": "registry:ui",
+      "dependencies": [
+        "input-otp",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/InputOtp.res",
@@ -295,6 +405,9 @@
     {
       "name": "Item",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Item.res",
@@ -325,6 +438,10 @@
     {
       "name": "Menubar",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Menubar.res",
@@ -335,6 +452,9 @@
     {
       "name": "NativeSelect",
       "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/NativeSelect.res",
@@ -345,6 +465,10 @@
     {
       "name": "NavigationMenu",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/NavigationMenu.res",
@@ -355,6 +479,12 @@
     {
       "name": "Pagination",
       "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Pagination.res",
@@ -365,6 +495,9 @@
     {
       "name": "Popover",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Popover.res",
@@ -375,6 +508,9 @@
     {
       "name": "Progress",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Progress.res",
@@ -385,6 +521,10 @@
     {
       "name": "RadioGroup",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/RadioGroup.res",
@@ -395,6 +535,9 @@
     {
       "name": "Resizable",
       "type": "registry:ui",
+      "dependencies": [
+        "react-resizable-panels"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Resizable.res",
@@ -405,6 +548,9 @@
     {
       "name": "ScrollArea",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/ScrollArea.res",
@@ -415,6 +561,10 @@
     {
       "name": "Select",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Select.res",
@@ -425,6 +575,9 @@
     {
       "name": "Separator",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Separator.res",
@@ -435,6 +588,13 @@
     {
       "name": "Sheet",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Sheet.res",
@@ -445,6 +605,16 @@
     {
       "name": "Sidebar",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Sheet",
+        "Skeleton",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Sidebar.res",
@@ -465,6 +635,9 @@
     {
       "name": "Slider",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Slider.res",
@@ -475,6 +648,11 @@
     {
       "name": "Sonner",
       "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "next-themes",
+        "sonner"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Sonner.res",
@@ -485,6 +663,9 @@
     {
       "name": "Spinner",
       "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Spinner.res",
@@ -495,6 +676,9 @@
     {
       "name": "Switch",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Switch.res",
@@ -515,6 +699,9 @@
     {
       "name": "Tabs",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Tabs.res",
@@ -535,6 +722,9 @@
     {
       "name": "Toggle",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Toggle.res",
@@ -545,6 +735,12 @@
     {
       "name": "ToggleGroup",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/ui/ToggleGroup.res",
@@ -555,6 +751,9 @@
     {
       "name": "Tooltip",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui/Tooltip.res",
@@ -565,6 +764,10 @@
     {
       "name": "RtlAccordion",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlAccordion.res",
@@ -585,6 +788,12 @@
     {
       "name": "RtlAlertDialog",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlAlertDialog.res",
@@ -595,6 +804,9 @@
     {
       "name": "RtlAspectRatio",
       "type": "registry:ui",
+      "registryDependencies": [
+        "AspectRatio"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlAspectRatio.res",
@@ -615,6 +827,9 @@
     {
       "name": "RtlBadge",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlBadge.res",
@@ -625,6 +840,10 @@
     {
       "name": "RtlBreadcrumb",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlBreadcrumb.res",
@@ -635,6 +854,9 @@
     {
       "name": "RtlButton",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlButton.res",
@@ -645,6 +867,9 @@
     {
       "name": "RtlButtonGroup",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlButtonGroup.res",
@@ -655,6 +880,14 @@
     {
       "name": "RtlCalendar",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlCalendar.res",
@@ -665,6 +898,9 @@
     {
       "name": "RtlCard",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlCard.res",
@@ -675,6 +911,13 @@
     {
       "name": "RtlCarousel",
       "type": "registry:ui",
+      "dependencies": [
+        "embla-carousel-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlCarousel.res",
@@ -685,6 +928,9 @@
     {
       "name": "RtlChart",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Chart"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlChart.res",
@@ -695,6 +941,9 @@
     {
       "name": "RtlCheckbox",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Checkbox"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlCheckbox.res",
@@ -705,6 +954,9 @@
     {
       "name": "RtlCollapsible",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Collapsible"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlCollapsible.res",
@@ -715,6 +967,13 @@
     {
       "name": "RtlCombobox",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlCombobox.res",
@@ -725,6 +984,15 @@
     {
       "name": "RtlCommand",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "cmdk",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlCommand.res",
@@ -735,6 +1003,10 @@
     {
       "name": "RtlContextMenu",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlContextMenu.res",
@@ -755,6 +1027,13 @@
     {
       "name": "RtlDialog",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlDialog.res",
@@ -765,6 +1044,9 @@
     {
       "name": "RtlDirection",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Direction"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlDirection.res",
@@ -775,6 +1057,9 @@
     {
       "name": "RtlDrawer",
       "type": "registry:ui",
+      "dependencies": [
+        "vaul"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlDrawer.res",
@@ -785,6 +1070,10 @@
     {
       "name": "RtlDropdownMenu",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlDropdownMenu.res",
@@ -795,6 +1084,9 @@
     {
       "name": "RtlEmpty",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Empty"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlEmpty.res",
@@ -805,6 +1097,12 @@
     {
       "name": "RtlField",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlField.res",
@@ -815,6 +1113,9 @@
     {
       "name": "RtlHoverCard",
       "type": "registry:ui",
+      "registryDependencies": [
+        "HoverCard"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlHoverCard.res",
@@ -825,6 +1126,9 @@
     {
       "name": "RtlInput",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlInput.res",
@@ -835,6 +1139,13 @@
     {
       "name": "RtlInputGroup",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlInputGroup.res",
@@ -845,6 +1156,10 @@
     {
       "name": "RtlInputOtp",
       "type": "registry:ui",
+      "dependencies": [
+        "input-otp",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlInputOtp.res",
@@ -855,6 +1170,9 @@
     {
       "name": "RtlItem",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlItem.res",
@@ -865,6 +1183,9 @@
     {
       "name": "RtlKbd",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Kbd"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlKbd.res",
@@ -875,6 +1196,9 @@
     {
       "name": "RtlLabel",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlLabel.res",
@@ -885,6 +1209,10 @@
     {
       "name": "RtlMenubar",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlMenubar.res",
@@ -895,6 +1223,9 @@
     {
       "name": "RtlNativeSelect",
       "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlNativeSelect.res",
@@ -905,6 +1236,12 @@
     {
       "name": "RtlNavigationMenu",
       "type": "registry:ui",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "NavigationMenu"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlNavigationMenu.res",
@@ -915,6 +1252,12 @@
     {
       "name": "RtlPagination",
       "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlPagination.res",
@@ -925,6 +1268,9 @@
     {
       "name": "RtlPopover",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlPopover.res",
@@ -935,6 +1281,9 @@
     {
       "name": "RtlProgress",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlProgress.res",
@@ -945,6 +1294,10 @@
     {
       "name": "RtlRadioGroup",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlRadioGroup.res",
@@ -955,6 +1308,9 @@
     {
       "name": "RtlResizable",
       "type": "registry:ui",
+      "dependencies": [
+        "react-resizable-panels"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlResizable.res",
@@ -965,6 +1321,9 @@
     {
       "name": "RtlScrollArea",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlScrollArea.res",
@@ -975,6 +1334,10 @@
     {
       "name": "RtlSelect",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSelect.res",
@@ -985,6 +1348,9 @@
     {
       "name": "RtlSeparator",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Separator"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSeparator.res",
@@ -995,6 +1361,13 @@
     {
       "name": "RtlSheet",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSheet.res",
@@ -1005,6 +1378,9 @@
     {
       "name": "RtlSidebar",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSidebar.res",
@@ -1015,6 +1391,9 @@
     {
       "name": "RtlSkeleton",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Skeleton"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSkeleton.res",
@@ -1025,6 +1404,9 @@
     {
       "name": "RtlSlider",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSlider.res",
@@ -1035,6 +1417,9 @@
     {
       "name": "RtlSonner",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Sonner"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSonner.res",
@@ -1045,6 +1430,9 @@
     {
       "name": "RtlSpinner",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSpinner.res",
@@ -1055,6 +1443,9 @@
     {
       "name": "RtlSwitch",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlSwitch.res",
@@ -1075,6 +1466,9 @@
     {
       "name": "RtlTabs",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlTabs.res",
@@ -1085,6 +1479,9 @@
     {
       "name": "RtlTextarea",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlTextarea.res",
@@ -1095,6 +1492,9 @@
     {
       "name": "RtlToggle",
       "type": "registry:ui",
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlToggle.res",
@@ -1105,6 +1505,12 @@
     {
       "name": "RtlToggleGroup",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlToggleGroup.res",
@@ -1115,6 +1521,9 @@
     {
       "name": "RtlTooltip",
       "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "files": [
         {
           "path": "registry/base/ui-rtl/RtlTooltip.res",
@@ -1125,6 +1534,9 @@
     {
       "name": "AccordionBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Accordion"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AccordionBasic.res",
@@ -1135,6 +1547,9 @@
     {
       "name": "AccordionBorders",
       "type": "registry:example",
+      "registryDependencies": [
+        "Accordion"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AccordionBorders.res",
@@ -1145,6 +1560,10 @@
     {
       "name": "AccordionCard",
       "type": "registry:example",
+      "registryDependencies": [
+        "Accordion",
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AccordionCard.res",
@@ -1155,6 +1574,9 @@
     {
       "name": "AccordionDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Accordion"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AccordionDemo.res",
@@ -1165,6 +1587,9 @@
     {
       "name": "AccordionDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Accordion"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AccordionDisabled.res",
@@ -1175,6 +1600,9 @@
     {
       "name": "AccordionMultiple",
       "type": "registry:example",
+      "registryDependencies": [
+        "Accordion"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AccordionMultiple.res",
@@ -1185,6 +1613,9 @@
     {
       "name": "AccordionRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "RtlAccordion"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AccordionRtl.res",
@@ -1195,6 +1626,10 @@
     {
       "name": "AlertAction",
       "type": "registry:example",
+      "registryDependencies": [
+        "Alert",
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertAction.res",
@@ -1205,6 +1640,12 @@
     {
       "name": "AlertBasic",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Alert"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertBasic.res",
@@ -1215,6 +1656,12 @@
     {
       "name": "AlertColors",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Alert"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertColors.res",
@@ -1225,6 +1672,12 @@
     {
       "name": "AlertDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Alert"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDemo.res",
@@ -1235,6 +1688,12 @@
     {
       "name": "AlertDestructive",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Alert"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDestructive.res",
@@ -1245,6 +1704,10 @@
     {
       "name": "AlertDialogBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "AlertDialog",
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDialogBasic.res",
@@ -1255,6 +1718,10 @@
     {
       "name": "AlertDialogDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "AlertDialog",
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDialogDemo.res",
@@ -1265,6 +1732,13 @@
     {
       "name": "AlertDialogDestructive",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "AlertDialog",
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDialogDestructive.res",
@@ -1275,6 +1749,13 @@
     {
       "name": "AlertDialogMedia",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "AlertDialog",
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDialogMedia.res",
@@ -1285,6 +1766,12 @@
     {
       "name": "AlertDialogRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "RtlAlertDialog"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDialogRtl.res",
@@ -1295,6 +1782,10 @@
     {
       "name": "AlertDialogSmall",
       "type": "registry:example",
+      "registryDependencies": [
+        "AlertDialog",
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDialogSmall.res",
@@ -1305,6 +1796,13 @@
     {
       "name": "AlertDialogSmallMedia",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "AlertDialog",
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertDialogSmallMedia.res",
@@ -1315,6 +1813,12 @@
     {
       "name": "AlertRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "RtlAlert"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AlertRtl.res",
@@ -1325,6 +1829,12 @@
     {
       "name": "AspectRatioDemo",
       "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "AspectRatio"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AspectRatioDemo.res",
@@ -1335,6 +1845,12 @@
     {
       "name": "AspectRatioPortrait",
       "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "AspectRatio"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AspectRatioPortrait.res",
@@ -1345,6 +1861,12 @@
     {
       "name": "AspectRatioRtl",
       "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "AspectRatio"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AspectRatioRtl.res",
@@ -1355,6 +1877,12 @@
     {
       "name": "AspectRatioSquare",
       "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "AspectRatio"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AspectRatioSquare.res",
@@ -1365,6 +1893,9 @@
     {
       "name": "AvatarBadge",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarBadge.res",
@@ -1375,6 +1906,12 @@
     {
       "name": "AvatarBadgeIcon",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarBadgeIcon.res",
@@ -1385,6 +1922,9 @@
     {
       "name": "AvatarBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarBasic.res",
@@ -1395,6 +1935,9 @@
     {
       "name": "AvatarDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarDemo.res",
@@ -1405,6 +1948,11 @@
     {
       "name": "AvatarDropdown",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar",
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarDropdown.res",
@@ -1415,6 +1963,9 @@
     {
       "name": "AvatarGroup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarGroup.res",
@@ -1425,6 +1976,9 @@
     {
       "name": "AvatarGroupCount",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarGroupCount.res",
@@ -1435,6 +1989,12 @@
     {
       "name": "AvatarGroupCountIcon",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarGroupCountIcon.res",
@@ -1445,6 +2005,10 @@
     {
       "name": "AvatarRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar",
+        "RtlAvatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarRtl.res",
@@ -1455,6 +2019,9 @@
     {
       "name": "AvatarSize",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/AvatarSize.res",
@@ -1465,6 +2032,9 @@
     {
       "name": "BadgeColors",
       "type": "registry:example",
+      "registryDependencies": [
+        "Badge"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BadgeColors.res",
@@ -1475,6 +2045,9 @@
     {
       "name": "BadgeDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Badge"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BadgeDemo.res",
@@ -1485,6 +2058,12 @@
     {
       "name": "BadgeIcon",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Badge"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BadgeIcon.res",
@@ -1495,6 +2074,12 @@
     {
       "name": "BadgeLink",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Badge"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BadgeLink.res",
@@ -1505,6 +2090,12 @@
     {
       "name": "BadgeRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "RtlBadge"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BadgeRtl.res",
@@ -1515,6 +2106,10 @@
     {
       "name": "BadgeSpinner",
       "type": "registry:example",
+      "registryDependencies": [
+        "Badge",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BadgeSpinner.res",
@@ -1525,6 +2120,9 @@
     {
       "name": "BadgeVariants",
       "type": "registry:example",
+      "registryDependencies": [
+        "Badge"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BadgeVariants.res",
@@ -1535,6 +2133,9 @@
     {
       "name": "BreadcrumbBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BreadcrumbBasic.res",
@@ -1545,6 +2146,11 @@
     {
       "name": "BreadcrumbDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Breadcrumb",
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BreadcrumbDemo.res",
@@ -1555,6 +2161,13 @@
     {
       "name": "BreadcrumbDropdown",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Breadcrumb",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BreadcrumbDropdown.res",
@@ -1565,6 +2178,9 @@
     {
       "name": "BreadcrumbEllipsis",
       "type": "registry:example",
+      "registryDependencies": [
+        "Breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BreadcrumbEllipsis.res",
@@ -1575,6 +2191,9 @@
     {
       "name": "BreadcrumbLink",
       "type": "registry:example",
+      "registryDependencies": [
+        "Breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BreadcrumbLink.res",
@@ -1585,6 +2204,13 @@
     {
       "name": "BreadcrumbRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Breadcrumb",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BreadcrumbRtl.res",
@@ -1595,6 +2221,12 @@
     {
       "name": "BreadcrumbSeparator",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Breadcrumb"
+      ],
       "files": [
         {
           "path": "registry/base/examples/BreadcrumbSeparator.res",
@@ -1605,6 +2237,9 @@
     {
       "name": "ButtonDefault",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonDefault.res",
@@ -1615,6 +2250,12 @@
     {
       "name": "ButtonDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonDemo.res",
@@ -1625,6 +2266,9 @@
     {
       "name": "ButtonDestructive",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonDestructive.res",
@@ -1635,6 +2279,9 @@
     {
       "name": "ButtonGhost",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGhost.res",
@@ -1645,6 +2292,14 @@
     {
       "name": "ButtonGroupDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupDemo.res",
@@ -1655,6 +2310,14 @@
     {
       "name": "ButtonGroupDropdown",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupDropdown.res",
@@ -1665,6 +2328,14 @@
     {
       "name": "ButtonGroupInput",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupInput.res",
@@ -1675,6 +2346,15 @@
     {
       "name": "ButtonGroupInputGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "InputGroup",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupInputGroup.res",
@@ -1685,6 +2365,15 @@
     {
       "name": "ButtonGroupNested",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "InputGroup",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupNested.res",
@@ -1695,6 +2384,13 @@
     {
       "name": "ButtonGroupOrientation",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupOrientation.res",
@@ -1705,6 +2401,16 @@
     {
       "name": "ButtonGroupPopover",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "Field",
+        "Popover",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupPopover.res",
@@ -1715,6 +2421,14 @@
     {
       "name": "ButtonGroupRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupRtl.res",
@@ -1725,6 +2439,15 @@
     {
       "name": "ButtonGroupSelect",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "Input",
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupSelect.res",
@@ -1735,6 +2458,10 @@
     {
       "name": "ButtonGroupSeparator",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupSeparator.res",
@@ -1745,6 +2472,13 @@
     {
       "name": "ButtonGroupSize",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupSize.res",
@@ -1755,6 +2489,13 @@
     {
       "name": "ButtonGroupSplit",
       "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonGroupSplit.res",
@@ -1765,6 +2506,12 @@
     {
       "name": "ButtonIcon",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonIcon.res",
@@ -1775,6 +2522,9 @@
     {
       "name": "ButtonLink",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonLink.res",
@@ -1785,6 +2535,9 @@
     {
       "name": "ButtonOutline",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonOutline.res",
@@ -1795,6 +2548,9 @@
     {
       "name": "ButtonRender",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonRender.res",
@@ -1805,6 +2561,12 @@
     {
       "name": "ButtonRounded",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonRounded.res",
@@ -1815,6 +2577,13 @@
     {
       "name": "ButtonRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "RtlButton",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonRtl.res",
@@ -1825,6 +2594,9 @@
     {
       "name": "ButtonSecondary",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonSecondary.res",
@@ -1835,6 +2607,12 @@
     {
       "name": "ButtonSize",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonSize.res",
@@ -1845,6 +2623,10 @@
     {
       "name": "ButtonSpinner",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonSpinner.res",
@@ -1855,6 +2637,12 @@
     {
       "name": "ButtonWithIcon",
       "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ButtonWithIcon.res",
@@ -1865,6 +2653,9 @@
     {
       "name": "CalendarBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Calendar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarBasic.res",
@@ -1875,6 +2666,10 @@
     {
       "name": "CalendarBookedDates",
       "type": "registry:example",
+      "registryDependencies": [
+        "Calendar",
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarBookedDates.res",
@@ -1885,6 +2680,9 @@
     {
       "name": "CalendarCaption",
       "type": "registry:example",
+      "registryDependencies": [
+        "Calendar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarCaption.res",
@@ -1895,6 +2693,10 @@
     {
       "name": "CalendarCustomDays",
       "type": "registry:example",
+      "registryDependencies": [
+        "Calendar",
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarCustomDays.res",
@@ -1905,6 +2707,9 @@
     {
       "name": "CalendarDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Calendar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarDemo.res",
@@ -1915,6 +2720,14 @@
     {
       "name": "CalendarHijri",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "next",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarHijri.res",
@@ -1925,6 +2738,10 @@
     {
       "name": "CalendarMultiple",
       "type": "registry:example",
+      "registryDependencies": [
+        "Calendar",
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarMultiple.res",
@@ -1935,6 +2752,11 @@
     {
       "name": "CalendarPresets",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Calendar",
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarPresets.res",
@@ -1945,6 +2767,9 @@
     {
       "name": "CalendarRange",
       "type": "registry:example",
+      "registryDependencies": [
+        "Calendar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarRange.res",
@@ -1955,6 +2780,12 @@
     {
       "name": "CalendarRtl",
       "type": "registry:example",
+      "dependencies": [
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "Calendar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarRtl.res",
@@ -1965,6 +2796,15 @@
     {
       "name": "CalendarTime",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Calendar",
+        "Card",
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarTime.res",
@@ -1975,6 +2815,10 @@
     {
       "name": "CalendarWeekNumbers",
       "type": "registry:example",
+      "registryDependencies": [
+        "Calendar",
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CalendarWeekNumbers.res",
@@ -1985,6 +2829,12 @@
     {
       "name": "CardDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Card",
+        "Input",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CardDemo.res",
@@ -1995,6 +2845,11 @@
     {
       "name": "CardImage",
       "type": "registry:example",
+      "registryDependencies": [
+        "Badge",
+        "Button",
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CardImage.res",
@@ -2005,6 +2860,12 @@
     {
       "name": "CardRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Card",
+        "Input",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CardRtl.res",
@@ -2015,6 +2876,13 @@
     {
       "name": "CardSmall",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CardSmall.res",
@@ -2025,6 +2893,10 @@
     {
       "name": "CarouselApi",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Carousel"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CarouselApi.res",
@@ -2035,6 +2907,10 @@
     {
       "name": "CarouselDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Carousel"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CarouselDemo.res",
@@ -2045,6 +2921,10 @@
     {
       "name": "CarouselMultiple",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Carousel"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CarouselMultiple.res",
@@ -2055,6 +2935,10 @@
     {
       "name": "CarouselOrientation",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Carousel"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CarouselOrientation.res",
@@ -2065,6 +2949,13 @@
     {
       "name": "CarouselPlugin",
       "type": "registry:example",
+      "dependencies": [
+        "embla-carousel-autoplay"
+      ],
+      "registryDependencies": [
+        "Card",
+        "Carousel"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CarouselPlugin.res",
@@ -2075,6 +2966,10 @@
     {
       "name": "CarouselRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Carousel"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CarouselRtl.res",
@@ -2085,6 +2980,10 @@
     {
       "name": "CarouselSize",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Carousel"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CarouselSize.res",
@@ -2095,6 +2994,10 @@
     {
       "name": "CarouselSpacing",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Carousel"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CarouselSpacing.res",
@@ -2105,6 +3008,12 @@
     {
       "name": "ChartDemo",
       "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Card"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ChartDemo.res",
@@ -2115,6 +3024,12 @@
     {
       "name": "ChartExample",
       "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Chart"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ChartExample.res",
@@ -2125,6 +3040,12 @@
     {
       "name": "ChartExampleAxis",
       "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Chart"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ChartExampleAxis.res",
@@ -2135,6 +3056,12 @@
     {
       "name": "ChartExampleGrid",
       "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Chart"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ChartExampleGrid.res",
@@ -2145,6 +3072,12 @@
     {
       "name": "ChartExampleLegend",
       "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Chart"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ChartExampleLegend.res",
@@ -2155,6 +3088,12 @@
     {
       "name": "ChartExampleTooltip",
       "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Chart"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ChartExampleTooltip.res",
@@ -2165,6 +3104,12 @@
     {
       "name": "ChartRtl",
       "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Chart"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ChartRtl.res",
@@ -2185,6 +3130,10 @@
     {
       "name": "CheckboxBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CheckboxBasic.res",
@@ -2195,6 +3144,11 @@
     {
       "name": "CheckboxDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CheckboxDemo.res",
@@ -2205,6 +3159,10 @@
     {
       "name": "CheckboxDescription",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CheckboxDescription.res",
@@ -2215,6 +3173,10 @@
     {
       "name": "CheckboxDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CheckboxDisabled.res",
@@ -2225,6 +3187,10 @@
     {
       "name": "CheckboxGroup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CheckboxGroup.res",
@@ -2235,6 +3201,10 @@
     {
       "name": "CheckboxInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CheckboxInvalid.res",
@@ -2245,6 +3215,11 @@
     {
       "name": "CheckboxRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CheckboxRtl.res",
@@ -2255,6 +3230,10 @@
     {
       "name": "CheckboxTable",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Table"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CheckboxTable.res",
@@ -2265,6 +3244,14 @@
     {
       "name": "CollapsibleBasic",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Card",
+        "Collapsible"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CollapsibleBasic.res",
@@ -2275,6 +3262,13 @@
     {
       "name": "CollapsibleDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Collapsible"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CollapsibleDemo.res",
@@ -2285,6 +3279,15 @@
     {
       "name": "CollapsibleFileTree",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Card",
+        "Collapsible",
+        "Tabs"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CollapsibleFileTree.res",
@@ -2295,6 +3298,13 @@
     {
       "name": "CollapsibleRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Collapsible"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CollapsibleRtl.res",
@@ -2305,6 +3315,16 @@
     {
       "name": "CollapsibleSettings",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Card",
+        "Collapsible",
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CollapsibleSettings.res",
@@ -2315,6 +3335,9 @@
     {
       "name": "ComboboxAutoHighlight",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxAutoHighlight.res",
@@ -2325,6 +3348,9 @@
     {
       "name": "ComboboxBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxBasic.res",
@@ -2335,6 +3361,9 @@
     {
       "name": "ComboboxClear",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxClear.res",
@@ -2345,6 +3374,10 @@
     {
       "name": "ComboboxCustom",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox",
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxCustom.res",
@@ -2355,6 +3388,9 @@
     {
       "name": "ComboboxDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxDemo.res",
@@ -2365,6 +3401,9 @@
     {
       "name": "ComboboxDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxDisabled.res",
@@ -2375,6 +3414,9 @@
     {
       "name": "ComboboxGroups",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxGroups.res",
@@ -2385,6 +3427,13 @@
     {
       "name": "ComboboxInputGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Combobox",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxInputGroup.res",
@@ -2395,6 +3444,9 @@
     {
       "name": "ComboboxInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxInvalid.res",
@@ -2405,6 +3457,9 @@
     {
       "name": "ComboboxMultiple",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxMultiple.res",
@@ -2415,6 +3470,10 @@
     {
       "name": "ComboboxPopup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Combobox"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxPopup.res",
@@ -2425,6 +3484,10 @@
     {
       "name": "ComboboxRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Combobox",
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ComboboxRtl.res",
@@ -2435,6 +3498,10 @@
     {
       "name": "CommandBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Command"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CommandBasic.res",
@@ -2445,6 +3512,12 @@
     {
       "name": "CommandDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Command"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CommandDemo.res",
@@ -2455,6 +3528,12 @@
     {
       "name": "CommandDialog",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Command"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CommandDialog.res",
@@ -2465,6 +3544,13 @@
     {
       "name": "CommandGroups",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Command"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CommandGroups.res",
@@ -2475,6 +3561,12 @@
     {
       "name": "CommandRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Command"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CommandRtl.res",
@@ -2485,6 +3577,13 @@
     {
       "name": "CommandScrollable",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Command"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CommandScrollable.res",
@@ -2495,6 +3594,13 @@
     {
       "name": "CommandShortcuts",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Command"
+      ],
       "files": [
         {
           "path": "registry/base/examples/CommandShortcuts.res",
@@ -2505,6 +3611,9 @@
     {
       "name": "ContextMenuBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuBasic.res",
@@ -2515,6 +3624,9 @@
     {
       "name": "ContextMenuCheckboxes",
       "type": "registry:example",
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuCheckboxes.res",
@@ -2525,6 +3637,9 @@
     {
       "name": "ContextMenuDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuDemo.res",
@@ -2535,6 +3650,12 @@
     {
       "name": "ContextMenuDestructive",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuDestructive.res",
@@ -2545,6 +3666,9 @@
     {
       "name": "ContextMenuGroups",
       "type": "registry:example",
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuGroups.res",
@@ -2555,6 +3679,12 @@
     {
       "name": "ContextMenuIcons",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuIcons.res",
@@ -2565,6 +3695,9 @@
     {
       "name": "ContextMenuRadio",
       "type": "registry:example",
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuRadio.res",
@@ -2575,6 +3708,12 @@
     {
       "name": "ContextMenuRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuRtl.res",
@@ -2585,6 +3724,9 @@
     {
       "name": "ContextMenuShortcuts",
       "type": "registry:example",
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuShortcuts.res",
@@ -2595,6 +3737,9 @@
     {
       "name": "ContextMenuSides",
       "type": "registry:example",
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuSides.res",
@@ -2605,6 +3750,9 @@
     {
       "name": "ContextMenuSubmenu",
       "type": "registry:example",
+      "registryDependencies": [
+        "ContextMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ContextMenuSubmenu.res",
@@ -2615,6 +3763,16 @@
     {
       "name": "DataPickerWithDropdowns",
       "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Calendar",
+        "Field",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DataPickerWithDropdowns.res",
@@ -2625,6 +3783,13 @@
     {
       "name": "DataTableColumnHeader",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DataTableColumnHeader.res",
@@ -2635,6 +3800,17 @@
     {
       "name": "DataTableDemo",
       "type": "registry:example",
+      "dependencies": [
+        "@tanstack/react-table",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Checkbox",
+        "DropdownMenu",
+        "Input",
+        "Table"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DataTableDemo.res",
@@ -2645,6 +3821,13 @@
     {
       "name": "DataTablePagination",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DataTablePagination.res",
@@ -2655,6 +3838,17 @@
     {
       "name": "DataTableRtl",
       "type": "registry:example",
+      "dependencies": [
+        "@tanstack/react-table",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Checkbox",
+        "DropdownMenu",
+        "Input",
+        "Table"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DataTableRtl.res",
@@ -2665,6 +3859,13 @@
     {
       "name": "DataTableViewOptions",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DataTableViewOptions.res",
@@ -2675,6 +3876,15 @@
     {
       "name": "DatePickerBasic",
       "type": "registry:example",
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Calendar",
+        "Field",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DatePickerBasic.res",
@@ -2685,6 +3895,15 @@
     {
       "name": "DatePickerDemo",
       "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Calendar",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DatePickerDemo.res",
@@ -2695,6 +3914,12 @@
     {
       "name": "DatePickerDob",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Calendar",
+        "Field",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DatePickerDob.res",
@@ -2705,6 +3930,15 @@
     {
       "name": "DatePickerInput",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Calendar",
+        "Field",
+        "InputGroup",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DatePickerInput.res",
@@ -2715,6 +3949,16 @@
     {
       "name": "DatePickerNaturalLanguage",
       "type": "registry:example",
+      "dependencies": [
+        "chrono-node",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Calendar",
+        "Field",
+        "InputGroup",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DatePickerNaturalLanguage.res",
@@ -2725,6 +3969,16 @@
     {
       "name": "DatePickerRange",
       "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Calendar",
+        "Field",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DatePickerRange.res",
@@ -2735,6 +3989,16 @@
     {
       "name": "DatePickerRtl",
       "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Calendar",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DatePickerRtl.res",
@@ -2745,6 +4009,17 @@
     {
       "name": "DatePickerTime",
       "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Calendar",
+        "Field",
+        "Input",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DatePickerTime.res",
@@ -2755,6 +4030,12 @@
     {
       "name": "DialogCloseButton",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Dialog",
+        "Input",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DialogCloseButton.res",
@@ -2765,6 +4046,13 @@
     {
       "name": "DialogDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Dialog",
+        "Field",
+        "Input",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DialogDemo.res",
@@ -2775,6 +4063,10 @@
     {
       "name": "DialogNoCloseButton",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Dialog"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DialogNoCloseButton.res",
@@ -2785,6 +4077,13 @@
     {
       "name": "DialogRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Dialog",
+        "Field",
+        "Input",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DialogRtl.res",
@@ -2795,6 +4094,10 @@
     {
       "name": "DialogScrollableContent",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Dialog"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DialogScrollableContent.res",
@@ -2805,6 +4108,10 @@
     {
       "name": "DialogStickyFooter",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Dialog"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DialogStickyFooter.res",
@@ -2815,6 +4122,9 @@
     {
       "name": "DirectionDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Direction"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DirectionDemo.res",
@@ -2825,6 +4135,14 @@
     {
       "name": "DrawerDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Drawer"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DrawerDemo.res",
@@ -2835,6 +4153,13 @@
     {
       "name": "DrawerDialog",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Dialog",
+        "Drawer",
+        "Input",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DrawerDialog.res",
@@ -2845,6 +4170,14 @@
     {
       "name": "DrawerRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "recharts"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Drawer"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DrawerRtl.res",
@@ -2855,6 +4188,10 @@
     {
       "name": "DrawerScrollableContent",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Drawer"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DrawerScrollableContent.res",
@@ -2865,6 +4202,10 @@
     {
       "name": "DrawerSides",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Drawer"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DrawerSides.res",
@@ -2875,6 +4216,14 @@
     {
       "name": "DropdownMenuAvatar",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar",
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuAvatar.res",
@@ -2885,6 +4234,10 @@
     {
       "name": "DropdownMenuBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuBasic.res",
@@ -2895,6 +4248,10 @@
     {
       "name": "DropdownMenuCheckboxes",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuCheckboxes.res",
@@ -2905,6 +4262,13 @@
     {
       "name": "DropdownMenuCheckboxesIcons",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuCheckboxesIcons.res",
@@ -2915,6 +4279,13 @@
     {
       "name": "DropdownMenuComplex",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuComplex.res",
@@ -2925,6 +4296,10 @@
     {
       "name": "DropdownMenuDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuDemo.res",
@@ -2935,6 +4310,13 @@
     {
       "name": "DropdownMenuDestructive",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuDestructive.res",
@@ -2945,6 +4327,13 @@
     {
       "name": "DropdownMenuIcons",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuIcons.res",
@@ -2955,6 +4344,10 @@
     {
       "name": "DropdownMenuRadioGroup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuRadioGroup.res",
@@ -2965,6 +4358,13 @@
     {
       "name": "DropdownMenuRadioIcons",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuRadioIcons.res",
@@ -2975,6 +4375,13 @@
     {
       "name": "DropdownMenuRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuRtl.res",
@@ -2985,6 +4392,10 @@
     {
       "name": "DropdownMenuShortcuts",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuShortcuts.res",
@@ -2995,6 +4406,10 @@
     {
       "name": "DropdownMenuSubmenu",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/DropdownMenuSubmenu.res",
@@ -3005,6 +4420,11 @@
     {
       "name": "EmptyAvatar",
       "type": "registry:example",
+      "registryDependencies": [
+        "Avatar",
+        "Button",
+        "Empty"
+      ],
       "files": [
         {
           "path": "registry/base/examples/EmptyAvatar.res",
@@ -3015,6 +4435,14 @@
     {
       "name": "EmptyAvatarGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar",
+        "Button",
+        "Empty"
+      ],
       "files": [
         {
           "path": "registry/base/examples/EmptyAvatarGroup.res",
@@ -3025,6 +4453,13 @@
     {
       "name": "EmptyBackground",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Empty"
+      ],
       "files": [
         {
           "path": "registry/base/examples/EmptyBackground.res",
@@ -3035,6 +4470,13 @@
     {
       "name": "EmptyCard",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Empty"
+      ],
       "files": [
         {
           "path": "registry/base/examples/EmptyCard.res",
@@ -3045,6 +4487,14 @@
     {
       "name": "EmptyDemo",
       "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Empty"
+      ],
       "files": [
         {
           "path": "registry/base/examples/EmptyDemo.res",
@@ -3055,6 +4505,14 @@
     {
       "name": "EmptyInputGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Empty",
+        "InputGroup",
+        "Kbd"
+      ],
       "files": [
         {
           "path": "registry/base/examples/EmptyInputGroup.res",
@@ -3065,6 +4523,13 @@
     {
       "name": "EmptyOutline",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Empty"
+      ],
       "files": [
         {
           "path": "registry/base/examples/EmptyOutline.res",
@@ -3075,6 +4540,14 @@
     {
       "name": "EmptyRtl",
       "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Empty"
+      ],
       "files": [
         {
           "path": "registry/base/examples/EmptyRtl.res",
@@ -3085,6 +4558,10 @@
     {
       "name": "FieldCheckbox",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldCheckbox.res",
@@ -3095,6 +4572,10 @@
     {
       "name": "FieldChoiceCard",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldChoiceCard.res",
@@ -3105,6 +4586,14 @@
     {
       "name": "FieldDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Checkbox",
+        "Field",
+        "Input",
+        "Select",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldDemo.res",
@@ -3115,6 +4604,10 @@
     {
       "name": "FieldFieldset",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldFieldset.res",
@@ -3125,6 +4618,10 @@
     {
       "name": "FieldGroup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldGroup.res",
@@ -3135,6 +4632,10 @@
     {
       "name": "FieldInput",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldInput.res",
@@ -3145,6 +4646,10 @@
     {
       "name": "FieldRadio",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldRadio.res",
@@ -3155,6 +4660,11 @@
     {
       "name": "FieldResponsive",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldResponsive.res",
@@ -3165,6 +4675,14 @@
     {
       "name": "FieldRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Checkbox",
+        "Field",
+        "Input",
+        "Select",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldRtl.res",
@@ -3175,6 +4693,10 @@
     {
       "name": "FieldSelect",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldSelect.res",
@@ -3185,6 +4707,10 @@
     {
       "name": "FieldSlider",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldSlider.res",
@@ -3195,6 +4721,10 @@
     {
       "name": "FieldSwitch",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldSwitch.res",
@@ -3205,6 +4735,10 @@
     {
       "name": "FieldTextarea",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FieldTextarea.res",
@@ -3215,6 +4749,13 @@
     {
       "name": "FileUploadList",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Item",
+        "Progress"
+      ],
       "files": [
         {
           "path": "registry/base/examples/FileUploadList.res",
@@ -3225,6 +4766,10 @@
     {
       "name": "HoverCardDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "HoverCard"
+      ],
       "files": [
         {
           "path": "registry/base/examples/HoverCardDemo.res",
@@ -3235,6 +4780,10 @@
     {
       "name": "HoverCardRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "HoverCard"
+      ],
       "files": [
         {
           "path": "registry/base/examples/HoverCardRtl.res",
@@ -3245,6 +4794,10 @@
     {
       "name": "HoverCardSides",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "HoverCard"
+      ],
       "files": [
         {
           "path": "registry/base/examples/HoverCardSides.res",
@@ -3255,6 +4808,11 @@
     {
       "name": "InputBadge",
       "type": "registry:example",
+      "registryDependencies": [
+        "Badge",
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputBadge.res",
@@ -3265,6 +4823,9 @@
     {
       "name": "InputBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputBasic.res",
@@ -3275,6 +4836,12 @@
     {
       "name": "InputButtonGroup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputButtonGroup.res",
@@ -3285,6 +4852,10 @@
     {
       "name": "InputDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputDemo.res",
@@ -3295,6 +4866,10 @@
     {
       "name": "InputDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputDisabled.res",
@@ -3305,6 +4880,10 @@
     {
       "name": "InputField",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputField.res",
@@ -3315,6 +4894,11 @@
     {
       "name": "InputFieldgroup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputFieldgroup.res",
@@ -3325,6 +4909,10 @@
     {
       "name": "InputFile",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputFile.res",
@@ -3335,6 +4923,12 @@
     {
       "name": "InputForm",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Field",
+        "Input",
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputForm.res",
@@ -3345,6 +4939,10 @@
     {
       "name": "InputGrid",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGrid.res",
@@ -3355,6 +4953,11 @@
     {
       "name": "InputGroupBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupBasic.res",
@@ -3365,6 +4968,10 @@
     {
       "name": "InputGroupBlockEnd",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupBlockEnd.res",
@@ -3375,6 +4982,13 @@
     {
       "name": "InputGroupBlockStart",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupBlockStart.res",
@@ -3385,6 +4999,12 @@
     {
       "name": "InputGroupButton",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupButton.res",
@@ -3395,6 +5015,14 @@
     {
       "name": "InputGroupButtonGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "ButtonGroup",
+        "InputGroup",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupButtonGroup.res",
@@ -3405,6 +5033,10 @@
     {
       "name": "InputGroupCustom",
       "type": "registry:example",
+      "registryDependencies": [
+        "InputGroup",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupCustom.res",
@@ -3415,6 +5047,12 @@
     {
       "name": "InputGroupDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupDemo.res",
@@ -3425,6 +5063,13 @@
     {
       "name": "InputGroupDropdown",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "DropdownMenu",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupDropdown.res",
@@ -3435,6 +5080,12 @@
     {
       "name": "InputGroupIcon",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupIcon.res",
@@ -3445,6 +5096,15 @@
     {
       "name": "InputGroupInCard",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Card",
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupInCard.res",
@@ -3455,6 +5115,13 @@
     {
       "name": "InputGroupInlineEnd",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupInlineEnd.res",
@@ -3465,6 +5132,13 @@
     {
       "name": "InputGroupInlineStart",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupInlineStart.res",
@@ -3475,6 +5149,13 @@
     {
       "name": "InputGroupKbd",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup",
+        "Kbd"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupKbd.res",
@@ -3485,6 +5166,14 @@
     {
       "name": "InputGroupLabel",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup",
+        "Label",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupLabel.res",
@@ -3495,6 +5184,14 @@
     {
       "name": "InputGroupRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupRtl.res",
@@ -3505,6 +5202,13 @@
     {
       "name": "InputGroupSpinner",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupSpinner.res",
@@ -3515,6 +5219,9 @@
     {
       "name": "InputGroupText",
       "type": "registry:example",
+      "registryDependencies": [
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupText.res",
@@ -3525,6 +5232,12 @@
     {
       "name": "InputGroupTextarea",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupTextarea.res",
@@ -3535,6 +5248,14 @@
     {
       "name": "InputGroupTextareaExamples",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupTextareaExamples.res",
@@ -3545,6 +5266,13 @@
     {
       "name": "InputGroupTooltip",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupTooltip.res",
@@ -3555,6 +5283,13 @@
     {
       "name": "InputGroupWithAddons",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupWithAddons.res",
@@ -3565,6 +5300,13 @@
     {
       "name": "InputGroupWithButtons",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupWithButtons.res",
@@ -3575,6 +5317,15 @@
     {
       "name": "InputGroupWithKbd",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup",
+        "Kbd",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupWithKbd.res",
@@ -3585,6 +5336,17 @@
     {
       "name": "InputGroupWithTooltip",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "ButtonGroup",
+        "DropdownMenu",
+        "Field",
+        "InputGroup",
+        "Popover",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputGroupWithTooltip.res",
@@ -3595,6 +5357,11 @@
     {
       "name": "InputInline",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputInline.res",
@@ -3605,6 +5372,13 @@
     {
       "name": "InputInputGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputInputGroup.res",
@@ -3615,6 +5389,10 @@
     {
       "name": "InputInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputInvalid.res",
@@ -3625,6 +5403,12 @@
     {
       "name": "InputOtpAlphanumeric",
       "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpAlphanumeric.res",
@@ -3635,6 +5419,9 @@
     {
       "name": "InputOtpControlled",
       "type": "registry:example",
+      "registryDependencies": [
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpControlled.res",
@@ -3645,6 +5432,9 @@
     {
       "name": "InputOtpDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpDemo.res",
@@ -3655,6 +5445,9 @@
     {
       "name": "InputOtpDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpDisabled.res",
@@ -3665,6 +5458,15 @@
     {
       "name": "InputOtpForm",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Card",
+        "Field",
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpForm.res",
@@ -3675,6 +5477,12 @@
     {
       "name": "InputOtpFourDigits",
       "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpFourDigits.res",
@@ -3685,6 +5493,9 @@
     {
       "name": "InputOtpInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpInvalid.res",
@@ -3695,6 +5506,13 @@
     {
       "name": "InputOtpPattern",
       "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "Field",
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpPattern.res",
@@ -3705,6 +5523,10 @@
     {
       "name": "InputOtpRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpRtl.res",
@@ -3715,6 +5537,9 @@
     {
       "name": "InputOtpSeparator",
       "type": "registry:example",
+      "registryDependencies": [
+        "InputOtp"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputOtpSeparator.res",
@@ -3725,6 +5550,10 @@
     {
       "name": "InputRequired",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputRequired.res",
@@ -3735,6 +5564,10 @@
     {
       "name": "InputRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Input"
+      ],
       "files": [
         {
           "path": "registry/base/examples/InputRtl.res",
@@ -3745,6 +5578,14 @@
     {
       "name": "ItemAvatar",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar",
+        "Button",
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemAvatar.res",
@@ -3755,6 +5596,13 @@
     {
       "name": "ItemDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemDemo.res",
@@ -3765,6 +5613,15 @@
     {
       "name": "ItemDropdown",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar",
+        "Button",
+        "DropdownMenu",
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemDropdown.res",
@@ -3775,6 +5632,14 @@
     {
       "name": "ItemGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar",
+        "Button",
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemGroup.res",
@@ -3785,6 +5650,9 @@
     {
       "name": "ItemHeader",
       "type": "registry:example",
+      "registryDependencies": [
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemHeader.res",
@@ -3795,6 +5663,13 @@
     {
       "name": "ItemIcon",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemIcon.res",
@@ -3805,6 +5680,9 @@
     {
       "name": "ItemImage",
       "type": "registry:example",
+      "registryDependencies": [
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemImage.res",
@@ -3815,6 +5693,12 @@
     {
       "name": "ItemLink",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemLink.res",
@@ -3825,6 +5709,13 @@
     {
       "name": "ItemRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemRtl.res",
@@ -3835,6 +5726,12 @@
     {
       "name": "ItemSize",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemSize.res",
@@ -3845,6 +5742,12 @@
     {
       "name": "ItemVariant",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ItemVariant.res",
@@ -3855,6 +5758,10 @@
     {
       "name": "KbdButton",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Kbd"
+      ],
       "files": [
         {
           "path": "registry/base/examples/KbdButton.res",
@@ -3865,6 +5772,9 @@
     {
       "name": "KbdDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Kbd"
+      ],
       "files": [
         {
           "path": "registry/base/examples/KbdDemo.res",
@@ -3875,6 +5785,9 @@
     {
       "name": "KbdGroup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Kbd"
+      ],
       "files": [
         {
           "path": "registry/base/examples/KbdGroup.res",
@@ -3885,6 +5798,13 @@
     {
       "name": "KbdInputGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup",
+        "Kbd"
+      ],
       "files": [
         {
           "path": "registry/base/examples/KbdInputGroup.res",
@@ -3895,6 +5815,9 @@
     {
       "name": "KbdRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Kbd"
+      ],
       "files": [
         {
           "path": "registry/base/examples/KbdRtl.res",
@@ -3905,6 +5828,12 @@
     {
       "name": "KbdTooltip",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "ButtonGroup",
+        "Kbd",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/KbdTooltip.res",
@@ -3915,6 +5844,10 @@
     {
       "name": "LabelDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/LabelDemo.res",
@@ -3925,6 +5858,10 @@
     {
       "name": "LabelRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Checkbox",
+        "Label"
+      ],
       "files": [
         {
           "path": "registry/base/examples/LabelRtl.res",
@@ -3935,6 +5872,9 @@
     {
       "name": "MenubarCheckbox",
       "type": "registry:example",
+      "registryDependencies": [
+        "Menubar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/MenubarCheckbox.res",
@@ -3945,6 +5885,9 @@
     {
       "name": "MenubarDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Menubar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/MenubarDemo.res",
@@ -3955,6 +5898,12 @@
     {
       "name": "MenubarIcons",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Menubar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/MenubarIcons.res",
@@ -3965,6 +5914,9 @@
     {
       "name": "MenubarRadio",
       "type": "registry:example",
+      "registryDependencies": [
+        "Menubar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/MenubarRadio.res",
@@ -3975,6 +5927,9 @@
     {
       "name": "MenubarRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Menubar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/MenubarRtl.res",
@@ -3985,6 +5940,9 @@
     {
       "name": "MenubarSubmenu",
       "type": "registry:example",
+      "registryDependencies": [
+        "Menubar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/MenubarSubmenu.res",
@@ -3995,6 +5953,10 @@
     {
       "name": "MutedItemGroup",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/MutedItemGroup.res",
@@ -4005,6 +5967,9 @@
     {
       "name": "NativeSelectDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "NativeSelect"
+      ],
       "files": [
         {
           "path": "registry/base/examples/NativeSelectDemo.res",
@@ -4015,6 +5980,9 @@
     {
       "name": "NativeSelectDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "NativeSelect"
+      ],
       "files": [
         {
           "path": "registry/base/examples/NativeSelectDisabled.res",
@@ -4025,6 +5993,9 @@
     {
       "name": "NativeSelectGroups",
       "type": "registry:example",
+      "registryDependencies": [
+        "NativeSelect"
+      ],
       "files": [
         {
           "path": "registry/base/examples/NativeSelectGroups.res",
@@ -4035,6 +6006,9 @@
     {
       "name": "NativeSelectInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "NativeSelect"
+      ],
       "files": [
         {
           "path": "registry/base/examples/NativeSelectInvalid.res",
@@ -4045,6 +6019,9 @@
     {
       "name": "NativeSelectRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "NativeSelect"
+      ],
       "files": [
         {
           "path": "registry/base/examples/NativeSelectRtl.res",
@@ -4055,6 +6032,13 @@
     {
       "name": "NavigationMenuDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "next"
+      ],
+      "registryDependencies": [
+        "NavigationMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/NavigationMenuDemo.res",
@@ -4065,6 +6049,14 @@
     {
       "name": "NavigationMenuRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "next"
+      ],
+      "registryDependencies": [
+        "NavigationMenu",
+        "RtlNavigationMenu"
+      ],
       "files": [
         {
           "path": "registry/base/examples/NavigationMenuRtl.res",
@@ -4075,6 +6067,12 @@
     {
       "name": "OutlineItemGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Item"
+      ],
       "files": [
         {
           "path": "registry/base/examples/OutlineItemGroup.res",
@@ -4085,6 +6083,9 @@
     {
       "name": "PaginationDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Pagination"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PaginationDemo.res",
@@ -4095,6 +6096,11 @@
     {
       "name": "PaginationIconsOnly",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Pagination",
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PaginationIconsOnly.res",
@@ -4105,6 +6111,9 @@
     {
       "name": "PaginationRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Pagination"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PaginationRtl.res",
@@ -4115,6 +6124,9 @@
     {
       "name": "PaginationSimple",
       "type": "registry:example",
+      "registryDependencies": [
+        "Pagination"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PaginationSimple.res",
@@ -4125,6 +6137,10 @@
     {
       "name": "PopoverAlignments",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PopoverAlignments.res",
@@ -4135,6 +6151,10 @@
     {
       "name": "PopoverBasic",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PopoverBasic.res",
@@ -4145,6 +6165,12 @@
     {
       "name": "PopoverDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Input",
+        "Label",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PopoverDemo.res",
@@ -4155,6 +6181,12 @@
     {
       "name": "PopoverForm",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Field",
+        "Input",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PopoverForm.res",
@@ -4165,6 +6197,10 @@
     {
       "name": "PopoverRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Popover"
+      ],
       "files": [
         {
           "path": "registry/base/examples/PopoverRtl.res",
@@ -4175,6 +6211,10 @@
     {
       "name": "ProgressControlled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Progress",
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ProgressControlled.res",
@@ -4185,6 +6225,9 @@
     {
       "name": "ProgressDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Progress"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ProgressDemo.res",
@@ -4195,6 +6238,9 @@
     {
       "name": "ProgressLabel",
       "type": "registry:example",
+      "registryDependencies": [
+        "Progress"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ProgressLabel.res",
@@ -4205,6 +6251,9 @@
     {
       "name": "ProgressRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Progress"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ProgressRtl.res",
@@ -4215,6 +6264,10 @@
     {
       "name": "RadioFields",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/RadioFields.res",
@@ -4225,6 +6278,10 @@
     {
       "name": "RadioGroupChoiceCard",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/RadioGroupChoiceCard.res",
@@ -4235,6 +6292,10 @@
     {
       "name": "RadioGroupDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Label",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/RadioGroupDemo.res",
@@ -4245,6 +6306,10 @@
     {
       "name": "RadioGroupDescription",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/RadioGroupDescription.res",
@@ -4255,6 +6320,10 @@
     {
       "name": "RadioGroupDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/RadioGroupDisabled.res",
@@ -4265,6 +6334,10 @@
     {
       "name": "RadioGroupFieldset",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/RadioGroupFieldset.res",
@@ -4275,6 +6348,10 @@
     {
       "name": "RadioGroupInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/RadioGroupInvalid.res",
@@ -4285,6 +6362,10 @@
     {
       "name": "RadioGroupRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "RadioGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/RadioGroupRtl.res",
@@ -4295,6 +6376,9 @@
     {
       "name": "ResizableDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Resizable"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ResizableDemo.res",
@@ -4305,6 +6389,9 @@
     {
       "name": "ResizableHandle",
       "type": "registry:example",
+      "registryDependencies": [
+        "Resizable"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ResizableHandle.res",
@@ -4315,6 +6402,9 @@
     {
       "name": "ResizableRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Resizable"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ResizableRtl.res",
@@ -4325,6 +6415,9 @@
     {
       "name": "ResizableVertical",
       "type": "registry:example",
+      "registryDependencies": [
+        "Resizable"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ResizableVertical.res",
@@ -4335,6 +6428,10 @@
     {
       "name": "ScrollAreaDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "ScrollArea",
+        "Separator"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ScrollAreaDemo.res",
@@ -4345,6 +6442,9 @@
     {
       "name": "ScrollAreaHorizontalDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "ScrollArea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ScrollAreaHorizontalDemo.res",
@@ -4355,6 +6455,10 @@
     {
       "name": "ScrollAreaRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "ScrollArea",
+        "Separator"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ScrollAreaRtl.res",
@@ -4365,6 +6469,11 @@
     {
       "name": "SelectAlignItem",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Select",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SelectAlignItem.res",
@@ -4375,6 +6484,9 @@
     {
       "name": "SelectDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SelectDemo.res",
@@ -4385,6 +6497,9 @@
     {
       "name": "SelectDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SelectDisabled.res",
@@ -4395,6 +6510,9 @@
     {
       "name": "SelectGroups",
       "type": "registry:example",
+      "registryDependencies": [
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SelectGroups.res",
@@ -4405,6 +6523,10 @@
     {
       "name": "SelectInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SelectInvalid.res",
@@ -4415,6 +6537,9 @@
     {
       "name": "SelectRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SelectRtl.res",
@@ -4425,6 +6550,9 @@
     {
       "name": "SelectScrollable",
       "type": "registry:example",
+      "registryDependencies": [
+        "Select"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SelectScrollable.res",
@@ -4435,6 +6563,9 @@
     {
       "name": "SeparatorDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Separator"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SeparatorDemo.res",
@@ -4445,6 +6576,9 @@
     {
       "name": "SeparatorList",
       "type": "registry:example",
+      "registryDependencies": [
+        "Separator"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SeparatorList.res",
@@ -4455,6 +6589,9 @@
     {
       "name": "SeparatorMenu",
       "type": "registry:example",
+      "registryDependencies": [
+        "Separator"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SeparatorMenu.res",
@@ -4465,6 +6602,9 @@
     {
       "name": "SeparatorRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Separator"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SeparatorRtl.res",
@@ -4475,6 +6615,9 @@
     {
       "name": "SeparatorVertical",
       "type": "registry:example",
+      "registryDependencies": [
+        "Separator"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SeparatorVertical.res",
@@ -4485,6 +6628,12 @@
     {
       "name": "SheetDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Input",
+        "Label",
+        "Sheet"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SheetDemo.res",
@@ -4495,6 +6644,10 @@
     {
       "name": "SheetNoCloseButton",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Sheet"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SheetNoCloseButton.res",
@@ -4505,6 +6658,12 @@
     {
       "name": "SheetRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Field",
+        "Input",
+        "Sheet"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SheetRtl.res",
@@ -4515,6 +6674,10 @@
     {
       "name": "SheetSide",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Sheet"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SheetSide.res",
@@ -4525,6 +6688,13 @@
     {
       "name": "SidebarControlled",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarControlled.res",
@@ -4535,6 +6705,15 @@
     {
       "name": "SidebarDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar",
+        "Collapsible",
+        "DropdownMenu",
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarDemo.res",
@@ -4545,6 +6724,13 @@
     {
       "name": "SidebarFooter",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "DropdownMenu",
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarFooter.res",
@@ -4555,6 +6741,12 @@
     {
       "name": "SidebarGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarGroup.res",
@@ -4565,6 +6757,14 @@
     {
       "name": "SidebarGroupAction",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "sonner"
+      ],
+      "registryDependencies": [
+        "Sidebar",
+        "Sonner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarGroupAction.res",
@@ -4575,6 +6775,13 @@
     {
       "name": "SidebarGroupCollapsible",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Collapsible",
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarGroupCollapsible.res",
@@ -4585,6 +6792,13 @@
     {
       "name": "SidebarHeader",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "DropdownMenu",
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarHeader.res",
@@ -4595,6 +6809,12 @@
     {
       "name": "SidebarMenu",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarMenu.res",
@@ -4605,6 +6825,13 @@
     {
       "name": "SidebarMenuAction",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "DropdownMenu",
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarMenuAction.res",
@@ -4615,6 +6842,12 @@
     {
       "name": "SidebarMenuBadge",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarMenuBadge.res",
@@ -4625,6 +6858,13 @@
     {
       "name": "SidebarMenuCollapsible",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Collapsible",
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarMenuCollapsible.res",
@@ -4635,6 +6875,9 @@
     {
       "name": "SidebarMenuSub",
       "type": "registry:example",
+      "registryDependencies": [
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarMenuSub.res",
@@ -4645,6 +6888,12 @@
     {
       "name": "SidebarRsc",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Sidebar"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarRsc.res",
@@ -4655,6 +6904,16 @@
     {
       "name": "SidebarRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Avatar",
+        "Collapsible",
+        "DropdownMenu",
+        "Sidebar",
+        "SidebarDemo"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SidebarRtl.res",
@@ -4665,6 +6924,9 @@
     {
       "name": "SkeletonAvatar",
       "type": "registry:example",
+      "registryDependencies": [
+        "Skeleton"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SkeletonAvatar.res",
@@ -4675,6 +6937,10 @@
     {
       "name": "SkeletonCard",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Skeleton"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SkeletonCard.res",
@@ -4685,6 +6951,9 @@
     {
       "name": "SkeletonDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Skeleton"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SkeletonDemo.res",
@@ -4695,6 +6964,9 @@
     {
       "name": "SkeletonForm",
       "type": "registry:example",
+      "registryDependencies": [
+        "Skeleton"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SkeletonForm.res",
@@ -4705,6 +6977,9 @@
     {
       "name": "SkeletonRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Skeleton"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SkeletonRtl.res",
@@ -4715,6 +6990,9 @@
     {
       "name": "SkeletonTable",
       "type": "registry:example",
+      "registryDependencies": [
+        "Skeleton"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SkeletonTable.res",
@@ -4725,6 +7003,9 @@
     {
       "name": "SkeletonText",
       "type": "registry:example",
+      "registryDependencies": [
+        "Skeleton"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SkeletonText.res",
@@ -4735,6 +7016,10 @@
     {
       "name": "SliderControlled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Label",
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SliderControlled.res",
@@ -4745,6 +7030,9 @@
     {
       "name": "SliderDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SliderDemo.res",
@@ -4755,6 +7043,9 @@
     {
       "name": "SliderDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SliderDisabled.res",
@@ -4765,6 +7056,9 @@
     {
       "name": "SliderMultiple",
       "type": "registry:example",
+      "registryDependencies": [
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SliderMultiple.res",
@@ -4775,6 +7069,9 @@
     {
       "name": "SliderRange",
       "type": "registry:example",
+      "registryDependencies": [
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SliderRange.res",
@@ -4785,6 +7082,9 @@
     {
       "name": "SliderRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SliderRtl.res",
@@ -4795,6 +7095,9 @@
     {
       "name": "SliderVertical",
       "type": "registry:example",
+      "registryDependencies": [
+        "Slider"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SliderVertical.res",
@@ -4805,6 +7108,12 @@
     {
       "name": "SonnerDemo",
       "type": "registry:example",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SonnerDemo.res",
@@ -4815,6 +7124,12 @@
     {
       "name": "SonnerDescription",
       "type": "registry:example",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SonnerDescription.res",
@@ -4825,6 +7140,12 @@
     {
       "name": "SonnerPosition",
       "type": "registry:example",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SonnerPosition.res",
@@ -4835,6 +7156,12 @@
     {
       "name": "SonnerTypes",
       "type": "registry:example",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "Button"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SonnerTypes.res",
@@ -4845,6 +7172,10 @@
     {
       "name": "SpinnerBadge",
       "type": "registry:example",
+      "registryDependencies": [
+        "Badge",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SpinnerBadge.res",
@@ -4855,6 +7186,10 @@
     {
       "name": "SpinnerButton",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SpinnerButton.res",
@@ -4865,6 +7200,9 @@
     {
       "name": "SpinnerCustom",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SpinnerCustom.res",
@@ -4875,6 +7213,10 @@
     {
       "name": "SpinnerDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Item",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SpinnerDemo.res",
@@ -4885,6 +7227,11 @@
     {
       "name": "SpinnerEmpty",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Empty",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SpinnerEmpty.res",
@@ -4895,6 +7242,13 @@
     {
       "name": "SpinnerInputGroup",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "InputGroup",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SpinnerInputGroup.res",
@@ -4905,6 +7259,10 @@
     {
       "name": "SpinnerRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Item",
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SpinnerRtl.res",
@@ -4915,6 +7273,9 @@
     {
       "name": "SpinnerSize",
       "type": "registry:example",
+      "registryDependencies": [
+        "Spinner"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SpinnerSize.res",
@@ -4925,6 +7286,10 @@
     {
       "name": "SwitchChoiceCard",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SwitchChoiceCard.res",
@@ -4935,6 +7300,10 @@
     {
       "name": "SwitchDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Label",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SwitchDemo.res",
@@ -4945,6 +7314,10 @@
     {
       "name": "SwitchDescription",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SwitchDescription.res",
@@ -4955,6 +7328,10 @@
     {
       "name": "SwitchDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SwitchDisabled.res",
@@ -4965,6 +7342,10 @@
     {
       "name": "SwitchInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SwitchInvalid.res",
@@ -4975,6 +7356,10 @@
     {
       "name": "SwitchRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SwitchRtl.res",
@@ -4985,6 +7370,10 @@
     {
       "name": "SwitchSizes",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Switch"
+      ],
       "files": [
         {
           "path": "registry/base/examples/SwitchSizes.res",
@@ -4995,6 +7384,14 @@
     {
       "name": "TableActions",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "DropdownMenu",
+        "Table"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TableActions.res",
@@ -5005,6 +7402,9 @@
     {
       "name": "TableDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Table"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TableDemo.res",
@@ -5015,6 +7415,9 @@
     {
       "name": "TableFooter",
       "type": "registry:example",
+      "registryDependencies": [
+        "Table"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TableFooter.res",
@@ -5025,6 +7428,9 @@
     {
       "name": "TableRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Table"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TableRtl.res",
@@ -5035,6 +7441,10 @@
     {
       "name": "TabsDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Tabs"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TabsDemo.res",
@@ -5045,6 +7455,9 @@
     {
       "name": "TabsDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Tabs"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TabsDisabled.res",
@@ -5055,6 +7468,12 @@
     {
       "name": "TabsIcons",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Tabs"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TabsIcons.res",
@@ -5065,6 +7484,9 @@
     {
       "name": "TabsLine",
       "type": "registry:example",
+      "registryDependencies": [
+        "Tabs"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TabsLine.res",
@@ -5075,6 +7497,10 @@
     {
       "name": "TabsRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Card",
+        "Tabs"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TabsRtl.res",
@@ -5085,6 +7511,12 @@
     {
       "name": "TabsVertical",
       "type": "registry:example",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "Tabs"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TabsVertical.res",
@@ -5095,6 +7527,10 @@
     {
       "name": "TextareaButton",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TextareaButton.res",
@@ -5105,6 +7541,9 @@
     {
       "name": "TextareaDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TextareaDemo.res",
@@ -5115,6 +7554,10 @@
     {
       "name": "TextareaDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TextareaDisabled.res",
@@ -5125,6 +7568,10 @@
     {
       "name": "TextareaField",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TextareaField.res",
@@ -5135,6 +7582,9 @@
     {
       "name": "TextareaInvalid",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TextareaInvalid.res",
@@ -5145,6 +7595,10 @@
     {
       "name": "TextareaRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "Textarea"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TextareaRtl.res",
@@ -5155,6 +7609,12 @@
     {
       "name": "ToggleDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleDemo.res",
@@ -5165,6 +7625,9 @@
     {
       "name": "ToggleDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleDisabled.res",
@@ -5175,6 +7638,12 @@
     {
       "name": "ToggleGroupDemo",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "ToggleGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleGroupDemo.res",
@@ -5185,6 +7654,12 @@
     {
       "name": "ToggleGroupDisabled",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "ToggleGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleGroupDisabled.res",
@@ -5195,6 +7670,10 @@
     {
       "name": "ToggleGroupFontWeightSelector",
       "type": "registry:example",
+      "registryDependencies": [
+        "Field",
+        "ToggleGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleGroupFontWeightSelector.res",
@@ -5205,6 +7684,9 @@
     {
       "name": "ToggleGroupOutline",
       "type": "registry:example",
+      "registryDependencies": [
+        "ToggleGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleGroupOutline.res",
@@ -5215,6 +7697,9 @@
     {
       "name": "ToggleGroupRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "ToggleGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleGroupRtl.res",
@@ -5225,6 +7710,9 @@
     {
       "name": "ToggleGroupSizes",
       "type": "registry:example",
+      "registryDependencies": [
+        "ToggleGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleGroupSizes.res",
@@ -5235,6 +7723,9 @@
     {
       "name": "ToggleGroupSpacing",
       "type": "registry:example",
+      "registryDependencies": [
+        "ToggleGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleGroupSpacing.res",
@@ -5245,6 +7736,12 @@
     {
       "name": "ToggleGroupVertical",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "ToggleGroup"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleGroupVertical.res",
@@ -5255,6 +7752,12 @@
     {
       "name": "ToggleOutline",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleOutline.res",
@@ -5265,6 +7768,12 @@
     {
       "name": "ToggleRtl",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleRtl.res",
@@ -5275,6 +7784,9 @@
     {
       "name": "ToggleSizes",
       "type": "registry:example",
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleSizes.res",
@@ -5285,6 +7797,12 @@
     {
       "name": "ToggleText",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Toggle"
+      ],
       "files": [
         {
           "path": "registry/base/examples/ToggleText.res",
@@ -5295,6 +7813,10 @@
     {
       "name": "TooltipDemo",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TooltipDemo.res",
@@ -5305,6 +7827,10 @@
     {
       "name": "TooltipDisabled",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TooltipDisabled.res",
@@ -5315,6 +7841,14 @@
     {
       "name": "TooltipKeyboard",
       "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "Button",
+        "Kbd",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TooltipKeyboard.res",
@@ -5325,6 +7859,10 @@
     {
       "name": "TooltipRtl",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TooltipRtl.res",
@@ -5335,6 +7873,10 @@
     {
       "name": "TooltipSides",
       "type": "registry:example",
+      "registryDependencies": [
+        "Button",
+        "Tooltip"
+      ],
       "files": [
         {
           "path": "registry/base/examples/TooltipSides.res",

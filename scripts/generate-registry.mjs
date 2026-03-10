@@ -111,7 +111,7 @@ function resolveLocalImport(importPath, fromDir) {
 /** Build a registry item from a .res file */
 function buildItem(mod, dir, type) {
   const resPath = `${dir}/${mod}.res`
-  const jsPath = path.join(baseDir, `${dir}/${mod}${suffix}`)
+  const jsPath = path.join(packageRoot, `${dir}/${mod}${suffix}`)
   const name = mod
 
   const { npmPackages, localImports } = parseImports(jsPath)
