@@ -20,7 +20,7 @@ let make = () => {
           <Sidebar.Menu>
             {meta.pages
             ->Array.map(slug => {
-              let href = `/docs/${slug}`
+              let href = `/components/${slug}`
               let isActive = pathname === href
               <Sidebar.MenuItem key={slug}>
                 <Sidebar.MenuButton
