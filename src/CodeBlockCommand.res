@@ -36,18 +36,19 @@ let make = (~npm, ~yarn, ~pnpm, ~bun) => {
     }
   }, [hasCopied])
 
-  let tabs = [("npm", npm), ("yarn", yarn), ("pnpm", pnpm), ("bun", bun)]
+  let tabs = React.useMemo(
+    () => dict{"npm": npm, "yarn": yarn, "pnpm": pnpm, "bun": bun},
+    [npm, yarn, pnpm, bun],
+  )
 
-  let currentCommand =
+  let copyCommand = React.useCallback(_ => {
     tabs
-    ->Array.find(((key, _)) => key === packageManager)
-    ->Option.map(((_, v)) => v)
-    ->Option.getOr(npm)
-
-  let copyCommand = _ => {
-    writeText(currentCommand)->ignore
-    setHasCopied(_ => true)
-  }
+    ->Dict.get(packageManager)
+    ->Option.forEach(command => {
+      writeText(command)->ignore
+      setHasCopied(_ => true)
+    })
+  }, (packageManager, tabs))
 
   <div className="overflow-x-auto">
     <Tabs
@@ -63,11 +64,12 @@ let make = (~npm, ~yarn, ~pnpm, ~bun) => {
         </div>
         <Tabs.List className="rounded-none bg-transparent p-0">
           {tabs
+          ->Dict.toArray
           ->Array.map(((key, _)) =>
             <Tabs.Trigger
               key
               value=key
-              className="h-7 border border-transparent pt-0.5 shadow-none! data-[state=active]:border-input data-[state=active]:bg-background!"
+              className="h-7 border border-transparent pt-0.5 shadow-none! data-active:border-input data-active:bg-background!"
             >
               {key->React.string}
             </Tabs.Trigger>
@@ -77,6 +79,7 @@ let make = (~npm, ~yarn, ~pnpm, ~bun) => {
       </div>
       <div className="no-scrollbar overflow-x-auto">
         {tabs
+        ->Dict.toArray
         ->Array.map(((key, value)) =>
           <Tabs.Content key value=key className="mt-0 px-4 py-3.5">
             <pre>

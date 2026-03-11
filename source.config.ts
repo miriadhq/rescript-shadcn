@@ -1,7 +1,7 @@
 import { defineConfig, defineDocs } from "fumadocs-mdx/config"
 import rehypePrettyCode from "rehype-pretty-code"
 
-import { transformers } from "./src/HighlightCode.res.mjs"
+import { getHighlighter, transformers } from "./src/HighlightCode.res.mjs"
 
 export default defineConfig({
   mdxOptions: {
@@ -15,6 +15,7 @@ export default defineConfig({
             light: "github-light-default",
           },
           transformers,
+          getHighlighter
         },
       ])
 

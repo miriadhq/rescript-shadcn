@@ -98,10 +98,10 @@ let highlightCache = LRUCache.make({"max": 500, "ttl": 1000 * 60 * 60})
 
 let codeThemes = dict{
   "dark": "github-dark",
-  "light": "github-light",
+  "light": "github-light-default",
 }
 
-let highlighterPromise: ref<option<promise<Shiki.highlighter>>> = ref(None)
+let highlighterPromise = ref(None)
 
 let getHighlighter = () => {
   switch highlighterPromise.contents {
@@ -124,7 +124,7 @@ let getHighlighter = () => {
       LanguageRegistration(rescriptLanguage),
     ]
     let p = Shiki.createHighlighter({
-      themes: ["github-dark", "github-light"],
+      themes: ["github-dark", "github-light", "github-light-default"],
       langs,
     })
     highlighterPromise := Some(p)
