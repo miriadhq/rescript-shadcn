@@ -29,7 +29,6 @@ module Code = {
   type props = {
     className?: string,
     children: React.element,
-    style?: JsxDOM.style,
     @as("__raw__") raw?: string,
     @as("__src__") src?: string,
     @as("__npm__") npm?: string,
@@ -38,12 +37,16 @@ module Code = {
     @as("__bun__") bun?: string,
   }
 
+  external toDomProps: props => BaseUi.Types.DomProps.t = "%identity"
+
   @react.componentWithProps(props)
-  let make = ({?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun, ?style}: props) => {
+  let make = ({?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun} as props: props) => {
+    let props = toDomProps(props)
     // Inline code
     switch children->Type.Classify.classify {
     | String(_) =>
       <code
+        {...props}
         className={Commons.cn(
           "relative rounded-md bg-muted px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] wrap-break-word outline-none",
           className,
@@ -62,7 +65,7 @@ module Code = {
           | Some(value) => <CopyButton value />
           | None => React.null
           }}
-          <code ?className ?style> {children} </code>
+          <code {...props} ?className> {children} </code>
         </>
       }
     }
