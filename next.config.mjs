@@ -1,7 +1,7 @@
-import type { NextConfig } from "next";
-import createMDX from "@next/mdx";
+import { createMDX } from "fumadocs-mdx/next"
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   images: {
     remotePatterns: [
@@ -21,10 +21,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withMDX = createMDX({
-  options: {
-    remarkPlugins: ["remark-frontmatter", "remark-mdx-frontmatter"],
-  },
-});
+const withMDX = createMDX({});
 
 export default withMDX(nextConfig);

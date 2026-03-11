@@ -23,8 +23,8 @@ module TablerIcons = {
 external writeText: string => promise<unit> = "writeText"
 
 @react.component
-let make = (~npm: string, ~yarn: string, ~pnpm: string, ~bun: string) => {
-  let (packageManager, setPackageManager) = React.useState(() => "pnpm")
+let make = (~npm, ~yarn, ~pnpm, ~bun) => {
+  let (packageManager, setPackageManager) = React.useState(() => "npm")
   let (hasCopied, setHasCopied) = React.useState(() => false)
 
   React.useEffect(() => {
@@ -36,13 +36,13 @@ let make = (~npm: string, ~yarn: string, ~pnpm: string, ~bun: string) => {
     }
   }, [hasCopied])
 
-  let tabs = [("pnpm", pnpm), ("npm", npm), ("yarn", yarn), ("bun", bun)]
+  let tabs = [("npm", npm), ("yarn", yarn), ("pnpm", pnpm), ("bun", bun)]
 
   let currentCommand =
     tabs
     ->Array.find(((key, _)) => key === packageManager)
     ->Option.map(((_, v)) => v)
-    ->Option.getOr(pnpm)
+    ->Option.getOr(npm)
 
   let copyCommand = _ => {
     writeText(currentCommand)->ignore
@@ -50,7 +50,11 @@ let make = (~npm: string, ~yarn: string, ~pnpm: string, ~bun: string) => {
   }
 
   <div className="overflow-x-auto">
-    <Tabs value=packageManager className="gap-0" onValueChange={(value, _) => setPackageManager(_ => value)}>
+    <Tabs
+      value=packageManager
+      className="gap-0"
+      onValueChange={(value, _) => setPackageManager(_ => value)}
+    >
       <div className="flex items-center gap-2 border-b border-border/50 px-3 py-1">
         <div
           className="flex size-4 items-center justify-center rounded-[1px] bg-foreground opacity-70"

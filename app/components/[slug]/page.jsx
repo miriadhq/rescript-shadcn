@@ -1,4 +1,5 @@
 import meta from "@/content/base/meta.json"
+import MdxComponents from "@/src/MdxComponents.res.mjs";
 export const generateStaticParams = () => meta.pages.map(slug => ({ "slug": slug }))
 export const dynamicParams = false;
 
@@ -57,7 +58,7 @@ export default async function Page({ params }) {
           {doc.description}
         </p>
       )}
-      <ComponentDocs />
+      <ComponentDocs components={MdxComponents} />
     </div>
   </div>
 }

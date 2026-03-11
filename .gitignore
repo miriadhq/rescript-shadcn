@@ -51,3 +51,6 @@ next-env.d.ts
 rescript.lock
 
 test/artifacts
+
+# fumadocs
+.source

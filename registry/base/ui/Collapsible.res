@@ -61,8 +61,18 @@ module Trigger = {
 
 module Content = {
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  let make = (
+    ~className=?,
+    ~children,
+    ~id=?,
+    ~style=?,
+    ~render=?,
+    ~hiddenUntilFound=?,
+    ~keepMounted=?,
+  ) =>
     <BaseUi.Collapsible.Panel
-      ?className ?children ?id ?style ?onClick ?onKeyDown dataSlot="collapsible-content"
-    />
+      ?className ?id ?style ?hiddenUntilFound ?keepMounted ?render dataSlot="collapsible-content"
+    >
+      {children}
+    </BaseUi.Collapsible.Panel>
 }

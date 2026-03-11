@@ -11,20 +11,20 @@ let make = (~className=?, ~children) => {
   >
     <Collapsible.Trigger
       nativeButton=false
-      render={<div className="absolute top-1.5 right-9 z-10 flex items-center" />}
+      render={<div className="absolute top-1.5 right-9 z-10 flex flex-row items-center" />}
     >
-      <Button variant=Ghost size=Sm className="text-muted-foreground h-7 rounded-md px-2">
+      <Button variant=Ghost size=Sm className="h-7 rounded-md px-2 text-muted-foreground">
         {(isOpened ? "Collapse" : "Expand")->React.string}
       </Button>
-      <Separator orientation=Vertical className="mx-1.5 !h-4" />
+      <Separator orientation=Vertical className="mx-1.5 data-vertical:self-auto h-4" />
     </Collapsible.Trigger>
-    <Collapsible.Content
-      className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 data-[state=closed]:[content-visibility:auto] [&>figure]:mt-0 [&>figure]:md:!mx-0"
+    <div
+      className="relative mt-6 overflow-hidden group-data-closed/collapsible:max-h-64 group-data-closed/collapsible:[content-visibility:auto] [&>figure]:mt-0 [&>figure]:md:mx-0!"
     >
       {children}
-    </Collapsible.Content>
+    </div>
     <Collapsible.Trigger
-      className="from-code/70 to-code text-muted-foreground absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-gradient-to-b text-sm group-data-[state=open]/collapsible:hidden"
+      className="absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b from-code/70 to-code text-sm text-muted-foreground group-data-open/collapsible:hidden"
     >
       {(isOpened ? "Collapse" : "Expand")->React.string}
     </Collapsible.Trigger>

@@ -133,11 +133,9 @@ let getHighlighter = () => {
 }
 
 let normalizeLanguage = (language: string) => {
-  let normalized = language->String.toLowerCase
-  if normalized == "res" || normalized == "rescript" {
-    "rescript"
-  } else {
-    language
+  switch language->String.toLowerCase {
+  | "res" | "rescript" => "rescript"
+  | _ => language
   }
 }
 

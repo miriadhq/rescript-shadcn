@@ -279,6 +279,7 @@ module Code = {
   type props = {
     className?: string,
     children: React.element,
+    style?: JsxDOM.style,
     @as("__raw__") raw?: string,
     @as("__src__") src?: string,
     @as("__npm__") npm?: string,
@@ -287,7 +288,8 @@ module Code = {
     @as("__bun__") bun?: string,
   }
 
-  let make = ({?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun, _}: props) => {
+  @react.componentWithProps(props)
+  let make = ({?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun, ?style}: props) => {
     // Inline code
     switch children->Type.Classify.classify {
     | String(_) =>
@@ -301,23 +303,16 @@ module Code = {
       </code>
     | _ =>
       // npm command
-      let isNpmCommand =
-        npm->Option.isSome && yarn->Option.isSome && pnpm->Option.isSome && bun->Option.isSome
-      if isNpmCommand {
-        <CodeBlockCommand
-          npm={npm->Option.getOr("")}
-          yarn={yarn->Option.getOr("")}
-          pnpm={pnpm->Option.getOr("")}
-          bun={bun->Option.getOr("")}
-        />
-      } else {
+      switch (npm, yarn, pnpm, bun) {
+      | (Some(npm), Some(yarn), Some(pnpm), Some(bun)) => <CodeBlockCommand npm yarn pnpm bun />
+      | _ =>
         // Default code block
         <>
           {switch raw {
           | Some(value) => <CopyButton value />
           | None => React.null
           }}
-          <code ?className> {children} </code>
+          <code ?className ?style> {children} </code>
         </>
       }
     }
