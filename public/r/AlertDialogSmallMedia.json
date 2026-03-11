@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "AlertDialogSmallMedia",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "AlertDialog",
+    "Button",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/AlertDialogSmallMedia.res",
-      "content": "@react.component\nlet make = () =>\n  <AlertDialog>\n    <AlertDialog.Trigger\n      render={<Button variant=Outline> {\"Show Dialog\"->React.string} </Button>}\n    />\n\n    <AlertDialog.Content size=Sm>\n      <AlertDialog.Header>\n        <AlertDialog.Media>\n          <Icons.Bluetooth />\n        </AlertDialog.Media>\n        <AlertDialog.Title> {\"Allow accessory to connect?\"->React.string} </AlertDialog.Title>\n        <AlertDialog.Description>\n          {\"Do you want to allow the USB accessory to connect to this device?\"->React.string}\n        </AlertDialog.Description>\n      </AlertDialog.Header>\n      <AlertDialog.Footer>\n        <AlertDialog.Cancel> {\"Don't allow\"->React.string} </AlertDialog.Cancel>\n        <AlertDialog.Action> {\"Allow\"->React.string} </AlertDialog.Action>\n      </AlertDialog.Footer>\n    </AlertDialog.Content>\n  </AlertDialog>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <AlertDialog>\n    <AlertDialog.Trigger\n      render={<Button variant=Outline> {\"Show Dialog\"->React.string} </Button>}\n    />\n\n    <AlertDialog.Content size=Sm>\n      <AlertDialog.Header>\n        <AlertDialog.Media>\n          <Icons.Bluetooth />\n        </AlertDialog.Media>\n        <AlertDialog.Title> {\"Allow accessory to connect?\"->React.string} </AlertDialog.Title>\n        <AlertDialog.Description>\n          {\"Do you want to allow the USB accessory to connect to this device?\"->React.string}\n        </AlertDialog.Description>\n      </AlertDialog.Header>\n      <AlertDialog.Footer>\n        <AlertDialog.Cancel> {\"Don't allow\"->React.string} </AlertDialog.Cancel>\n        <AlertDialog.Action> {\"Allow\"->React.string} </AlertDialog.Action>\n      </AlertDialog.Footer>\n    </AlertDialog.Content>\n  </AlertDialog>\n",
       "type": "registry:example"
     }
   ],

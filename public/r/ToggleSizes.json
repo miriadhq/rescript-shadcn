@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ToggleSizes",
-  "dependencies": [],
+  "registryDependencies": [
+    "Toggle"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ToggleSizes.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-wrap items-center gap-2\">\n    <Toggle variant=Toggle.Variant.Outline ariaLabel=\"Toggle small\" size=Toggle.Size.Sm>\n      {\"Small\"->React.string}\n    </Toggle>\n    <Toggle variant=Toggle.Variant.Outline ariaLabel=\"Toggle default\" size=Toggle.Size.Default>\n      {\"Default\"->React.string}\n    </Toggle>\n    <Toggle variant=Toggle.Variant.Outline ariaLabel=\"Toggle large\" size=Toggle.Size.Lg>\n      {\"Large\"->React.string}\n    </Toggle>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap items-center gap-2\">\n    <Toggle variant=Toggle.Variant.Outline ariaLabel=\"Toggle small\" size=Toggle.Size.Sm>\n      {\"Small\"->React.string}\n    </Toggle>\n    <Toggle variant=Toggle.Variant.Outline ariaLabel=\"Toggle default\" size=Toggle.Size.Default>\n      {\"Default\"->React.string}\n    </Toggle>\n    <Toggle variant=Toggle.Variant.Outline ariaLabel=\"Toggle large\" size=Toggle.Size.Lg>\n      {\"Large\"->React.string}\n    </Toggle>\n  </div>\n",
       "type": "registry:example"
     }
   ],

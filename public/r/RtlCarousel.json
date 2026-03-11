@@ -1,7 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlCarousel",
-  "dependencies": [],
+  "dependencies": [
+    "embla-carousel-react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlCarousel.res",

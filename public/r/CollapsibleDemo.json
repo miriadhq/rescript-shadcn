@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "CollapsibleDemo",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Collapsible",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/CollapsibleDemo.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => {\n  let (isOpen, setIsOpen) = React.useState(() => false)\n\n  <Collapsible\n    open_=isOpen\n    onOpenChange={(nextOpen, _) => setIsOpen(_ => nextOpen)}\n    className=\"flex w-[350px] flex-col gap-2\"\n  >\n    <div className=\"flex items-center justify-between gap-4 px-4\">\n      <h4 className=\"text-sm font-semibold\"> {\"Order #4189\"->React.string} </h4>\n      <Collapsible.Trigger\n        render={<Button\n          variant=Button.Variant.Ghost\n          size=Button.Size.Icon\n          className=\"size-8\"\n          ariaDisabled={false}\n          dataSlot=\"collapsible-trigger\"\n        />}\n      >\n        <Icons.ChevronsUpDown />\n        <span className=\"sr-only\"> {\"Toggle details\"->React.string} </span>\n      </Collapsible.Trigger>\n    </div>\n    <div className=\"flex items-center justify-between rounded-md border px-4 py-2 text-sm\">\n      <span className=\"text-muted-foreground\"> {\"Status\"->React.string} </span>\n      <span className=\"font-medium\"> {\"Shipped\"->React.string} </span>\n    </div>\n    <Collapsible.Content className=\"flex flex-col gap-2\">\n      <div className=\"rounded-md border px-4 py-2 text-sm\">\n        <p className=\"font-medium\"> {\"Shipping address\"->React.string} </p>\n        <p className=\"text-muted-foreground\"> {\"100 Market St, San Francisco\"->React.string} </p>\n      </div>\n      <div className=\"rounded-md border px-4 py-2 text-sm\">\n        <p className=\"font-medium\"> {\"Items\"->React.string} </p>\n        <p className=\"text-muted-foreground\"> {\"2x Studio Headphones\"->React.string} </p>\n      </div>\n    </Collapsible.Content>\n  </Collapsible>\n}\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (isOpen, setIsOpen) = React.useState(() => false)\n\n  <Collapsible\n    open_=isOpen\n    onOpenChange={(nextOpen, _) => setIsOpen(_ => nextOpen)}\n    className=\"flex w-[350px] flex-col gap-2\"\n  >\n    <div className=\"flex items-center justify-between gap-4 px-4\">\n      <h4 className=\"text-sm font-semibold\"> {\"Order #4189\"->React.string} </h4>\n      <Collapsible.Trigger\n        render={<Button\n          variant=Button.Variant.Ghost\n          size=Button.Size.Icon\n          className=\"size-8\"\n          ariaDisabled={false}\n          dataSlot=\"collapsible-trigger\"\n        />}\n      >\n        <Icons.ChevronsUpDown />\n        <span className=\"sr-only\"> {\"Toggle details\"->React.string} </span>\n      </Collapsible.Trigger>\n    </div>\n    <div className=\"flex items-center justify-between rounded-md border px-4 py-2 text-sm\">\n      <span className=\"text-muted-foreground\"> {\"Status\"->React.string} </span>\n      <span className=\"font-medium\"> {\"Shipped\"->React.string} </span>\n    </div>\n    <Collapsible.Content className=\"flex flex-col gap-2\">\n      <div className=\"rounded-md border px-4 py-2 text-sm\">\n        <p className=\"font-medium\"> {\"Shipping address\"->React.string} </p>\n        <p className=\"text-muted-foreground\"> {\"100 Market St, San Francisco\"->React.string} </p>\n      </div>\n      <div className=\"rounded-md border px-4 py-2 text-sm\">\n        <p className=\"font-medium\"> {\"Items\"->React.string} </p>\n        <p className=\"text-muted-foreground\"> {\"2x Studio Headphones\"->React.string} </p>\n      </div>\n    </Collapsible.Content>\n  </Collapsible>\n}\n",
       "type": "registry:example"
     }
   ],

@@ -1,7 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "Select",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/ui/Select.res",

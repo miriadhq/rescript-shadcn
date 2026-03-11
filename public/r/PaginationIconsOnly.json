@@ -1,11 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "PaginationIconsOnly",
-  "dependencies": [],
+  "registryDependencies": [
+    "Field",
+    "Pagination",
+    "Select"
+  ],
   "files": [
     {
       "path": "registry/base/examples/PaginationIconsOnly.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex items-center justify-between gap-4\">\n    <Field orientation=BaseUi.Types.Orientation.Horizontal className=\"w-fit\">\n      <Field.Label htmlFor=\"select-rows-per-page\"> {\"Rows per page\"->React.string} </Field.Label>\n      <Select defaultValue=\"25\">\n        <Select.Trigger className=\"w-20\" id=\"select-rows-per-page\">\n          <Select.Value />\n        </Select.Trigger>\n        <Select.Content align=BaseUi.Types.Align.Start>\n          <Select.Group>\n            <Select.Item value=\"10\"> {\"10\"->React.string} </Select.Item>\n            <Select.Item value=\"25\"> {\"25\"->React.string} </Select.Item>\n            <Select.Item value=\"50\"> {\"50\"->React.string} </Select.Item>\n            <Select.Item value=\"100\"> {\"100\"->React.string} </Select.Item>\n          </Select.Group>\n        </Select.Content>\n      </Select>\n    </Field>\n    <Pagination className=\"mx-0 w-auto\">\n      <Pagination.Content>\n        <Pagination.Item>\n          <Pagination.Previous href=\"#\" />\n        </Pagination.Item>\n        <Pagination.Item>\n          <Pagination.Next href=\"#\" />\n        </Pagination.Item>\n      </Pagination.Content>\n    </Pagination>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex items-center justify-between gap-4\">\n    <Field orientation=BaseUi.Types.Orientation.Horizontal className=\"w-fit\">\n      <Field.Label htmlFor=\"select-rows-per-page\"> {\"Rows per page\"->React.string} </Field.Label>\n      <Select defaultValue=\"25\">\n        <Select.Trigger className=\"w-20\" id=\"select-rows-per-page\">\n          <Select.Value />\n        </Select.Trigger>\n        <Select.Content align=BaseUi.Types.Align.Start>\n          <Select.Group>\n            <Select.Item value=\"10\"> {\"10\"->React.string} </Select.Item>\n            <Select.Item value=\"25\"> {\"25\"->React.string} </Select.Item>\n            <Select.Item value=\"50\"> {\"50\"->React.string} </Select.Item>\n            <Select.Item value=\"100\"> {\"100\"->React.string} </Select.Item>\n          </Select.Group>\n        </Select.Content>\n      </Select>\n    </Field>\n    <Pagination className=\"mx-0 w-auto\">\n      <Pagination.Content>\n        <Pagination.Item>\n          <Pagination.Previous href=\"#\" />\n        </Pagination.Item>\n        <Pagination.Item>\n          <Pagination.Next href=\"#\" />\n        </Pagination.Item>\n      </Pagination.Content>\n    </Pagination>\n  </div>\n",
       "type": "registry:example"
     }
   ],

@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "CheckboxDescription",
-  "dependencies": [],
+  "registryDependencies": [
+    "Checkbox",
+    "Field"
+  ],
   "files": [
     {
       "path": "registry/base/examples/CheckboxDescription.res",
-      "content": "@react.component\nlet make = () =>\n  <Field.Group className=\"mx-auto w-72\">\n    <Field orientation=BaseUi.Types.Orientation.Horizontal>\n      <Checkbox\n        id=\"terms-checkbox-desc\"\n        name=\"terms-checkbox-desc\"\n        defaultChecked=BaseUi.Types.CheckedState.Checked(true)\n      />\n      <Field.Content>\n        <Field.Label htmlFor=\"terms-checkbox-desc\">\n          {\"Accept terms and conditions\"->React.string}\n        </Field.Label>\n        <Field.Description>\n          {\"By clicking this checkbox, you agree to the terms and conditions.\"->React.string}\n        </Field.Description>\n      </Field.Content>\n    </Field>\n  </Field.Group>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Group className=\"mx-auto w-72\">\n    <Field orientation=BaseUi.Types.Orientation.Horizontal>\n      <Checkbox\n        id=\"terms-checkbox-desc\"\n        name=\"terms-checkbox-desc\"\n        defaultChecked=BaseUi.Types.CheckedState.Checked(true)\n      />\n      <Field.Content>\n        <Field.Label htmlFor=\"terms-checkbox-desc\">\n          {\"Accept terms and conditions\"->React.string}\n        </Field.Label>\n        <Field.Description>\n          {\"By clicking this checkbox, you agree to the terms and conditions.\"->React.string}\n        </Field.Description>\n      </Field.Content>\n    </Field>\n  </Field.Group>\n",
       "type": "registry:example"
     }
   ],

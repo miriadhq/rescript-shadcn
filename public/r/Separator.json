@@ -1,7 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "Separator",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react"
+  ],
   "files": [
     {
       "path": "registry/base/ui/Separator.res",

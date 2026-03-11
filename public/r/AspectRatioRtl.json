@@ -1,11 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "AspectRatioRtl",
-  "dependencies": [],
+  "dependencies": [
+    "next"
+  ],
+  "registryDependencies": [
+    "AspectRatio"
+  ],
   "files": [
     {
       "path": "registry/base/examples/AspectRatioRtl.res",
-      "content": "module NextImage = {\n  type props = {\n    src: string,\n    alt: string,\n    fill: bool,\n    className?: string,\n  }\n\n  @module(\"next/image\")\n  external make: React.component<props> = \"default\"\n}\n\n@react.component\nlet make = () =>\n  <figure className=\"w-full max-w-sm\" dir=\"rtl\">\n    <AspectRatio ratio={16. /. 9.} className=\"bg-muted rounded-lg\">\n      <NextImage\n        src=\"https://avatar.vercel.sh/shadcn1\"\n        alt=\"Photo\"\n        fill={true}\n        className=\"rounded-lg object-cover grayscale dark:brightness-20\"\n      />\n    </AspectRatio>\n    <figcaption className=\"text-muted-foreground mt-2 text-center text-sm\">\n      {\"منظر طبيعي جميل\"->React.string}\n    </figcaption>\n  </figure>\n",
+      "content": "module NextImage = {\n  type props = {\n    src: string,\n    alt: string,\n    fill: bool,\n    className?: string,\n  }\n\n  @module(\"next/image\")\n  external make: React.component<props> = \"default\"\n}\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <figure className=\"w-full max-w-sm\" dir=\"rtl\">\n    <AspectRatio ratio={16. /. 9.} className=\"bg-muted rounded-lg\">\n      <NextImage\n        src=\"https://avatar.vercel.sh/shadcn1\"\n        alt=\"Photo\"\n        fill={true}\n        className=\"rounded-lg object-cover grayscale dark:brightness-20\"\n      />\n    </AspectRatio>\n    <figcaption className=\"text-muted-foreground mt-2 text-center text-sm\">\n      {\"منظر طبيعي جميل\"->React.string}\n    </figcaption>\n  </figure>\n",
       "type": "registry:example"
     }
   ],

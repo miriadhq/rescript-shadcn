@@ -1,11 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SheetDemo",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button",
+    "Input",
+    "Label",
+    "Sheet"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SheetDemo.res",
-      "content": "@react.component\nlet make = () =>\n  <Sheet>\n    <Sheet.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"sheet-trigger\" />}>\n      {\"Open\"->React.string}\n    </Sheet.Trigger>\n    <Sheet.Content>\n      <Sheet.Header>\n        <Sheet.Title> {\"Edit profile\"->React.string} </Sheet.Title>\n        <Sheet.Description>\n          {\"Make changes to your profile here. Click save when you're done.\"->React.string}\n        </Sheet.Description>\n      </Sheet.Header>\n      <div className=\"grid flex-1 auto-rows-min gap-6 px-4\">\n        <div className=\"grid gap-3\">\n          <Label htmlFor=\"sheet-demo-name\"> {\"Name\"->React.string} </Label>\n          <Input id=\"sheet-demo-name\" defaultValue=\"Pedro Duarte\" />\n        </div>\n        <div className=\"grid gap-3\">\n          <Label htmlFor=\"sheet-demo-username\"> {\"Username\"->React.string} </Label>\n          <Input id=\"sheet-demo-username\" defaultValue=\"@peduarte\" />\n        </div>\n      </div>\n      <Sheet.Footer>\n        <Button type_=\"submit\"> {\"Save changes\"->React.string} </Button>\n        <Sheet.Close render={<Button variant=Button.Variant.Outline dataSlot=\"sheet-close\" />}>\n          {\"Close\"->React.string}\n        </Sheet.Close>\n      </Sheet.Footer>\n    </Sheet.Content>\n  </Sheet>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Sheet>\n    <Sheet.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"sheet-trigger\" />}>\n      {\"Open\"->React.string}\n    </Sheet.Trigger>\n    <Sheet.Content>\n      <Sheet.Header>\n        <Sheet.Title> {\"Edit profile\"->React.string} </Sheet.Title>\n        <Sheet.Description>\n          {\"Make changes to your profile here. Click save when you're done.\"->React.string}\n        </Sheet.Description>\n      </Sheet.Header>\n      <div className=\"grid flex-1 auto-rows-min gap-6 px-4\">\n        <div className=\"grid gap-3\">\n          <Label htmlFor=\"sheet-demo-name\"> {\"Name\"->React.string} </Label>\n          <Input id=\"sheet-demo-name\" defaultValue=\"Pedro Duarte\" />\n        </div>\n        <div className=\"grid gap-3\">\n          <Label htmlFor=\"sheet-demo-username\"> {\"Username\"->React.string} </Label>\n          <Input id=\"sheet-demo-username\" defaultValue=\"@peduarte\" />\n        </div>\n      </div>\n      <Sheet.Footer>\n        <Button type_=\"submit\"> {\"Save changes\"->React.string} </Button>\n        <Sheet.Close render={<Button variant=Button.Variant.Outline dataSlot=\"sheet-close\" />}>\n          {\"Close\"->React.string}\n        </Sheet.Close>\n      </Sheet.Footer>\n    </Sheet.Content>\n  </Sheet>\n",
       "type": "registry:example"
     }
   ],

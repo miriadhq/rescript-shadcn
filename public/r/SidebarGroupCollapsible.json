@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SidebarGroupCollapsible",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Collapsible",
+    "Icons",
+    "Sidebar"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SidebarGroupCollapsible.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Sidebar.Provider>\n    <Sidebar>\n      <Sidebar.Content>\n        <Collapsible defaultOpen={true} className=\"group/collapsible\">\n          <Sidebar.Group>\n            <Sidebar.GroupLabel\n              render={<Collapsible.Trigger />}\n              className=\"hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm\"\n            >\n              {\"Help\"->React.string}\n              <Icons.ChevronDown\n                className=\"ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180\"\n              />\n            </Sidebar.GroupLabel>\n            <Collapsible.Content>\n              <Sidebar.GroupContent>\n                <Sidebar.Menu>\n                  <Sidebar.MenuItem>\n                    <Sidebar.MenuButton>\n                      <Icons.LifeBuoy />\n                      {\"Support\"->React.string}\n                    </Sidebar.MenuButton>\n                  </Sidebar.MenuItem>\n                  <Sidebar.MenuItem>\n                    <Sidebar.MenuButton>\n                      <Icons.Send />\n                      {\"Feedback\"->React.string}\n                    </Sidebar.MenuButton>\n                  </Sidebar.MenuItem>\n                </Sidebar.Menu>\n              </Sidebar.GroupContent>\n            </Collapsible.Content>\n          </Sidebar.Group>\n        </Collapsible>\n      </Sidebar.Content>\n    </Sidebar>\n  </Sidebar.Provider>\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Sidebar.Provider>\n    <Sidebar>\n      <Sidebar.Content>\n        <Collapsible defaultOpen={true} className=\"group/collapsible\">\n          <Sidebar.Group>\n            <Sidebar.GroupLabel\n              render={<Collapsible.Trigger />}\n              className=\"hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm\"\n            >\n              {\"Help\"->React.string}\n              <Icons.ChevronDown\n                className=\"ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180\"\n              />\n            </Sidebar.GroupLabel>\n            <Collapsible.Content>\n              <Sidebar.GroupContent>\n                <Sidebar.Menu>\n                  <Sidebar.MenuItem>\n                    <Sidebar.MenuButton>\n                      <Icons.LifeBuoy />\n                      {\"Support\"->React.string}\n                    </Sidebar.MenuButton>\n                  </Sidebar.MenuItem>\n                  <Sidebar.MenuItem>\n                    <Sidebar.MenuButton>\n                      <Icons.Send />\n                      {\"Feedback\"->React.string}\n                    </Sidebar.MenuButton>\n                  </Sidebar.MenuItem>\n                </Sidebar.Menu>\n              </Sidebar.GroupContent>\n            </Collapsible.Content>\n          </Sidebar.Group>\n        </Collapsible>\n      </Sidebar.Content>\n    </Sidebar>\n  </Sidebar.Provider>\n",
       "type": "registry:example"
     }
   ],

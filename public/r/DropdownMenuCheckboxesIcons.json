@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DropdownMenuCheckboxesIcons",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "DropdownMenu",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/DropdownMenuCheckboxesIcons.res",
-      "content": "@@directive(\"'use client'\")\n\ntype notifications = {\n  email: bool,\n  sms: bool,\n  push: bool,\n}\n\n@react.component\nlet make = () => {\n  let (notifications, setNotifications) = React.useState(() => {\n    email: true,\n    sms: false,\n    push: true,\n  })\n\n  <DropdownMenu>\n    <DropdownMenu.Trigger\n      render={<Button variant=Button.Variant.Outline dataSlot=\"dropdown-menu-trigger\" />}\n    >\n      {\"Notifications\"->React.string}\n    </DropdownMenu.Trigger>\n    <DropdownMenu.Content className=\"w-48\">\n      <DropdownMenu.Group>\n        <DropdownMenu.Label> {\"Notification Preferences\"->React.string} </DropdownMenu.Label>\n        <DropdownMenu.CheckboxItem\n          checked={notifications.email}\n          onCheckedChange={(v, _) => setNotifications(n => {...n, email: v})}\n        >\n          <Icons.Mail />\n          {\"Email notifications\"->React.string}\n        </DropdownMenu.CheckboxItem>\n        <DropdownMenu.CheckboxItem\n          checked={notifications.sms}\n          onCheckedChange={(v, _) => setNotifications(n => {...n, sms: v})}\n        >\n          <Icons.MessageSquare />\n          {\"SMS notifications\"->React.string}\n        </DropdownMenu.CheckboxItem>\n        <DropdownMenu.CheckboxItem\n          checked={notifications.push}\n          onCheckedChange={(v, _) => setNotifications(n => {...n, push: v})}\n        >\n          <Icons.Bell />\n          {\"Push notifications\"->React.string}\n        </DropdownMenu.CheckboxItem>\n      </DropdownMenu.Group>\n    </DropdownMenu.Content>\n  </DropdownMenu>\n}\n",
+      "content": "@@directive(\"'use client'\")\n\ntype notifications = {\n  email: bool,\n  sms: bool,\n  push: bool,\n}\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (notifications, setNotifications) = React.useState(() => {\n    email: true,\n    sms: false,\n    push: true,\n  })\n\n  <DropdownMenu>\n    <DropdownMenu.Trigger\n      render={<Button variant=Button.Variant.Outline dataSlot=\"dropdown-menu-trigger\" />}\n    >\n      {\"Notifications\"->React.string}\n    </DropdownMenu.Trigger>\n    <DropdownMenu.Content className=\"w-48\">\n      <DropdownMenu.Group>\n        <DropdownMenu.Label> {\"Notification Preferences\"->React.string} </DropdownMenu.Label>\n        <DropdownMenu.CheckboxItem\n          checked={notifications.email}\n          onCheckedChange={(v, _) => setNotifications(n => {...n, email: v})}\n        >\n          <Icons.Mail />\n          {\"Email notifications\"->React.string}\n        </DropdownMenu.CheckboxItem>\n        <DropdownMenu.CheckboxItem\n          checked={notifications.sms}\n          onCheckedChange={(v, _) => setNotifications(n => {...n, sms: v})}\n        >\n          <Icons.MessageSquare />\n          {\"SMS notifications\"->React.string}\n        </DropdownMenu.CheckboxItem>\n        <DropdownMenu.CheckboxItem\n          checked={notifications.push}\n          onCheckedChange={(v, _) => setNotifications(n => {...n, push: v})}\n        >\n          <Icons.Bell />\n          {\"Push notifications\"->React.string}\n        </DropdownMenu.CheckboxItem>\n      </DropdownMenu.Group>\n    </DropdownMenu.Content>\n  </DropdownMenu>\n}\n",
       "type": "registry:example"
     }
   ],

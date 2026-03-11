@@ -1,7 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "Tabs",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react"
+  ],
   "files": [
     {
       "path": "registry/base/ui/Tabs.res",

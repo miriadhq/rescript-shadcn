@@ -1,11 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "OutlineItemGroup",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "Item"
+  ],
   "files": [
     {
       "path": "registry/base/examples/OutlineItemGroup.res",
-      "content": "@react.component\nlet make = () =>\n  <Item.Group>\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Archive />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Item 1\"->React.string} </Item.Title>\n        <Item.Description> {\"First item with icon.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Archive />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Item 2\"->React.string} </Item.Title>\n        <Item.Description> {\"Second item with icon.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Archive />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Item 3\"->React.string} </Item.Title>\n        <Item.Description> {\"Third item with icon.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n  </Item.Group>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Item.Group>\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Archive />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Item 1\"->React.string} </Item.Title>\n        <Item.Description> {\"First item with icon.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Archive />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Item 2\"->React.string} </Item.Title>\n        <Item.Description> {\"Second item with icon.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Archive />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Item 3\"->React.string} </Item.Title>\n        <Item.Description> {\"Third item with icon.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n  </Item.Group>\n",
       "type": "registry:example"
     }
   ],

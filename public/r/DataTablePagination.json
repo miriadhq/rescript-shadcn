@@ -1,7 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DataTablePagination",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "DataTableDemo",
+    "Icons",
+    "Select"
+  ],
   "files": [
     {
       "path": "registry/base/examples/DataTablePagination.res",

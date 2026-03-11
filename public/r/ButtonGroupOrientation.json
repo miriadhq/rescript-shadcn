@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ButtonGroupOrientation",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "ButtonGroup",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ButtonGroupOrientation.res",
-      "content": "@react.component\nlet make = () =>\n  <ButtonGroup\n    orientation=ButtonGroup.DataOrientation.Vertical ariaLabel=\"Media controls\" className=\"h-fit\"\n  >\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon>\n      <Icons.Plus />\n    </Button>\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon>\n      <Icons.Minus />\n    </Button>\n  </ButtonGroup>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <ButtonGroup\n    orientation=ButtonGroup.DataOrientation.Vertical ariaLabel=\"Media controls\" className=\"h-fit\"\n  >\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon>\n      <Icons.Plus />\n    </Button>\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon>\n      <Icons.Minus />\n    </Button>\n  </ButtonGroup>\n",
       "type": "registry:example"
     }
   ],

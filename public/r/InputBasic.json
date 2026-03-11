@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputBasic",
-  "dependencies": [],
+  "registryDependencies": [
+    "Input"
+  ],
   "files": [
     {
       "path": "registry/base/examples/InputBasic.res",
-      "content": "@react.component\nlet make = () => <Input placeholder=\"Enter text\" />\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => <Input placeholder=\"Enter text\" />\n",
       "type": "registry:example"
     }
   ],

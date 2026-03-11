@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DialogNoCloseButton",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button",
+    "Dialog"
+  ],
   "files": [
     {
       "path": "registry/base/examples/DialogNoCloseButton.res",
-      "content": "@react.component\nlet make = () =>\n  <Dialog>\n    <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-trigger\" />}>\n      {\"No Close Button\"->React.string}\n    </Dialog.Trigger>\n    <Dialog.Content showCloseButton=false>\n      <Dialog.Header>\n        <Dialog.Title> {\"No Close Button\"->React.string} </Dialog.Title>\n        <Dialog.Description>\n          {\"This dialog doesn't have a close button in the top-right corner.\"->React.string}\n        </Dialog.Description>\n      </Dialog.Header>\n    </Dialog.Content>\n  </Dialog>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Dialog>\n    <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-trigger\" />}>\n      {\"No Close Button\"->React.string}\n    </Dialog.Trigger>\n    <Dialog.Content showCloseButton=false>\n      <Dialog.Header>\n        <Dialog.Title> {\"No Close Button\"->React.string} </Dialog.Title>\n        <Dialog.Description>\n          {\"This dialog doesn't have a close button in the top-right corner.\"->React.string}\n        </Dialog.Description>\n      </Dialog.Header>\n    </Dialog.Content>\n  </Dialog>\n",
       "type": "registry:example"
     }
   ],

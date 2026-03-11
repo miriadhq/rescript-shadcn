@@ -1,7 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlCommand",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react",
+    "cmdk",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons",
+    "InputGroup"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlCommand.res",

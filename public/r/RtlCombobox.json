@@ -1,7 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlCombobox",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons",
+    "InputGroup"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlCombobox.res",

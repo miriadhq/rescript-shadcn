@@ -1,7 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DataTableViewOptions",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "DataTableDemo",
+    "DropdownMenu",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/DataTableViewOptions.res",

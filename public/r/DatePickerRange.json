@@ -1,11 +1,21 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DatePickerRange",
-  "dependencies": [],
+  "dependencies": [
+    "date-fns",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Calendar",
+    "Field",
+    "Icons",
+    "Popover"
+  ],
   "files": [
     {
       "path": "registry/base/examples/DatePickerRange.res",
-      "content": "@@directive(\"'use client'\")\n\n@module(\"date-fns\") external format: (Date.t, string) => string = \"format\"\n@module(\"date-fns\") external addDays: (Date.t, int) => Date.t = \"addDays\"\n\ntype dateRange = {\n  from?: Date.t,\n  @as(\"to\") to_?: Date.t,\n}\n\n@react.component\nlet make = () => {\n  let now = Date.make()\n  let fromDate = Date.makeWithYMD(~year=Date.getFullYear(now), ~month=0, ~day=20)\n  let (dateRange, setDateRange) = React.useState(() => Some({\n    from: fromDate,\n    to_: addDays(fromDate, 20),\n  }))\n\n  <Field className=\"mx-auto w-60\">\n    <Field.Label htmlFor=\"date-picker-range\"> {\"Date Picker Range\"->React.string} </Field.Label>\n    <Popover>\n      <Popover.Trigger\n        render={<Button\n          variant=Button.Variant.Outline\n          id=\"date-picker-range\"\n          className=\"justify-start px-2.5 font-normal\"\n        />}\n      >\n        <Icons.Calendar dataIcon=\"inline-start\" />\n        {switch dateRange {\n        | Some({from: ?Some(from), to_: ?Some(to_)}) =>\n          React.string(`${from->format(\"LLL dd, y\")} - ${to_->format(\"LLL dd, y\")}`)\n        | Some({from: ?Some(from)}) => from->format(\"LLL dd, y\")->React.string\n        | _ => <span> {\"Pick a date\"->React.string} </span>\n        }}\n      </Popover.Trigger>\n      <Popover.Content className=\"w-auto p-0\" align=BaseUi.Types.Align.Start>\n        <Calendar\n          mode=\"range\"\n          defaultMonth=?{dateRange->Option.flatMap(r => r.from)}\n          selected={dateRange}\n          onSelect={(value: option<dateRange>) => setDateRange(_ => value)}\n          numberOfMonths={2}\n        />\n      </Popover.Content>\n    </Popover>\n  </Field>\n}\n",
+      "content": "@@directive(\"'use client'\")\n\n@module(\"date-fns\") external format: (Date.t, string) => string = \"format\"\n@module(\"date-fns\") external addDays: (Date.t, int) => Date.t = \"addDays\"\n\ntype dateRange = {\n  from?: Date.t,\n  to?: Date.t,\n}\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (dateRange, setDateRange) = React.useState(() => {\n    let now = Date.make()\n    let fromDate = Date.makeWithYMD(~year=Date.getFullYear(now), ~month=0, ~day=20)\n    Some({\n      from: fromDate,\n      to: addDays(fromDate, 20),\n    })\n  })\n\n  <Field className=\"mx-auto w-60\">\n    <Field.Label htmlFor=\"date-picker-range\"> {\"Date Picker Range\"->React.string} </Field.Label>\n    <Popover>\n      <Popover.Trigger\n        render={<Button\n          variant=Button.Variant.Outline\n          id=\"date-picker-range\"\n          className=\"justify-start px-2.5 font-normal\"\n        />}\n      >\n        <Icons.Calendar dataIcon=\"inline-start\" />\n        {switch dateRange {\n        | Some({from: ?Some(from), to}) =>\n          React.string(`${from->format(\"LLL dd, y\")} - ${to->format(\"LLL dd, y\")}`)\n        | Some({from: ?Some(from)}) => from->format(\"LLL dd, y\")->React.string\n        | _ => <span> {\"Pick a date\"->React.string} </span>\n        }}\n      </Popover.Trigger>\n      <Popover.Content className=\"w-auto p-0\" align=BaseUi.Types.Align.Start>\n        <Calendar\n          mode=Range\n          defaultMonth=?{dateRange->Option.flatMap(r => r.from)}\n          selected={dateRange}\n          onSelect={(value: option<dateRange>) => setDateRange(_ => value)}\n          numberOfMonths={2}\n        />\n      </Popover.Content>\n    </Popover>\n  </Field>\n}\n",
       "type": "registry:example"
     }
   ],

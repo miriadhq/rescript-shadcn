@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "TextareaRtl",
-  "dependencies": [],
+  "registryDependencies": [
+    "Field",
+    "Textarea"
+  ],
   "files": [
     {
       "path": "registry/base/examples/TextareaRtl.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Field className=\"w-full max-w-xs\" dir=\"rtl\">\n    <Field.Label htmlFor=\"feedback\" dir=\"rtl\"> {\"التعليقات\"->React.string} </Field.Label>\n    <Textarea\n      id=\"feedback\"\n      placeholder=\"تعليقاتك تساعدنا على التحسين...\"\n      dir=\"rtl\"\n      rows={4}\n    />\n    <Field.Description dir=\"rtl\">\n      {\"شاركنا أفكارك حول خدمتنا.\"->React.string}\n    </Field.Description>\n  </Field>\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field className=\"w-full max-w-xs\" dir=\"rtl\">\n    <Field.Label htmlFor=\"feedback\" dir=\"rtl\"> {\"التعليقات\"->React.string} </Field.Label>\n    <Textarea\n      id=\"feedback\"\n      placeholder=\"تعليقاتك تساعدنا على التحسين...\"\n      dir=\"rtl\"\n      rows={4}\n    />\n    <Field.Description dir=\"rtl\">\n      {\"شاركنا أفكارك حول خدمتنا.\"->React.string}\n    </Field.Description>\n  </Field>\n",
       "type": "registry:example"
     }
   ],

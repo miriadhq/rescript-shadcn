@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "TabsDisabled",
-  "dependencies": [],
+  "registryDependencies": [
+    "Tabs"
+  ],
   "files": [
     {
       "path": "registry/base/examples/TabsDisabled.res",
-      "content": "@react.component\nlet make = () =>\n  <Tabs defaultValue=\"home\">\n    <Tabs.List>\n      <Tabs.Trigger value=\"home\"> {\"Home\"->React.string} </Tabs.Trigger>\n      <Tabs.Trigger value=\"settings\" disabled={true}> {\"Disabled\"->React.string} </Tabs.Trigger>\n    </Tabs.List>\n  </Tabs>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Tabs defaultValue=\"home\">\n    <Tabs.List>\n      <Tabs.Trigger value=\"home\"> {\"Home\"->React.string} </Tabs.Trigger>\n      <Tabs.Trigger value=\"settings\" disabled={true}> {\"Disabled\"->React.string} </Tabs.Trigger>\n    </Tabs.List>\n  </Tabs>\n",
       "type": "registry:example"
     }
   ],

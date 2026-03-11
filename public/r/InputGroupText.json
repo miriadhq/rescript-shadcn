@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputGroupText",
-  "dependencies": [],
+  "registryDependencies": [
+    "InputGroup"
+  ],
   "files": [
     {
       "path": "registry/base/examples/InputGroupText.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"grid w-full max-w-sm gap-6\">\n    <InputGroup>\n      <InputGroup.Addon>\n        <InputGroup.Text> {\"$\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n      <InputGroup.Input placeholder=\"0.00\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Text> {\"USD\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Addon>\n        <InputGroup.Text> {\"https://\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n      <InputGroup.Input placeholder=\"example.com\" className=\"!pl-0.5\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Text> {\".com\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Enter your username\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Text> {\"@company.com\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Textarea placeholder=\"Enter your message\" />\n      <InputGroup.Addon align=BlockEnd>\n        <InputGroup.Text className=\"text-muted-foreground text-xs\">\n          {\"120 characters left\"->React.string}\n        </InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"grid w-full max-w-sm gap-6\">\n    <InputGroup>\n      <InputGroup.Addon>\n        <InputGroup.Text> {\"$\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n      <InputGroup.Input placeholder=\"0.00\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Text> {\"USD\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Addon>\n        <InputGroup.Text> {\"https://\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n      <InputGroup.Input placeholder=\"example.com\" className=\"!pl-0.5\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Text> {\".com\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Enter your username\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Text> {\"@company.com\"->React.string} </InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Textarea placeholder=\"Enter your message\" />\n      <InputGroup.Addon align=BlockEnd>\n        <InputGroup.Text className=\"text-muted-foreground text-xs\">\n          {\"120 characters left\"->React.string}\n        </InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
       "type": "registry:example"
     }
   ],

@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "BadgeRtl",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Badge",
+    "Icons",
+    "RtlBadge"
+  ],
   "files": [
     {
       "path": "registry/base/examples/BadgeRtl.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <div className=\"flex w-full flex-wrap justify-center gap-2\" dir=\"rtl\">\n    <RtlBadge> {\"شارة\"->React.string} </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Secondary> {\"ثانوي\"->React.string} </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Destructive> {\"مدمر\"->React.string} </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Outline> {\"مخطط\"->React.string} </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Secondary>\n      <Icons.BadgeCheck dataIcon=\"inline-start\" />\n      {\"متحقق\"->React.string}\n    </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Outline>\n      {\"إشارة مرجعية\"->React.string}\n      <Icons.Bookmark dataIcon=\"inline-end\" />\n    </RtlBadge>\n  </div>\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex w-full flex-wrap justify-center gap-2\" dir=\"rtl\">\n    <RtlBadge> {\"شارة\"->React.string} </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Secondary> {\"ثانوي\"->React.string} </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Destructive> {\"مدمر\"->React.string} </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Outline> {\"مخطط\"->React.string} </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Secondary>\n      <Icons.BadgeCheck dataIcon=\"inline-start\" />\n      {\"متحقق\"->React.string}\n    </RtlBadge>\n    <RtlBadge variant=Badge.Variant.Outline>\n      {\"إشارة مرجعية\"->React.string}\n      <Icons.Bookmark dataIcon=\"inline-end\" />\n    </RtlBadge>\n  </div>\n",
       "type": "registry:example"
     }
   ],

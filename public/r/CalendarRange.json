@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "CalendarRange",
-  "dependencies": [],
+  "registryDependencies": [
+    "Calendar"
+  ],
   "files": [
     {
       "path": "registry/base/examples/CalendarRange.res",
-      "content": "@@directive(\"'use client'\")\n\ntype dateRange = {\n  from: option<Date.t>,\n  to: option<Date.t>,\n}\n\n@react.component\nlet make = () => {\n  let year = Date.make()->Date.getFullYear\n  let startDate = Date.makeWithYMD(~year, ~month=0, ~day=12)\n  let initialRange: dateRange = {\n    from: Some(startDate),\n    to: Some(Date.makeWithYMD(~year, ~month=0, ~day=42)),\n  }\n  let (dateRange, setDateRange) = React.useState(() => Some(initialRange))\n\n  <Calendar\n    mode=\"range\"\n    defaultMonth=?{switch dateRange {\n    | Some(value) => value.from\n    | None => None\n    }}\n    selected=dateRange\n    onSelect={(value: option<dateRange>) => setDateRange(_ => value)}\n    numberOfMonths=2\n    className=\"rounded-lg border\"\n  />\n}\n",
+      "content": "@@directive(\"'use client'\")\n\ntype dateRange = {\n  from: Date.t,\n  to?: Date.t,\n}\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (dateRange, setDateRange) = React.useState(() => {\n    let year = Date.make()->Date.getFullYear\n    let startDate = Date.makeWithYMD(~year, ~month=0, ~day=12)\n    {\n      from: startDate,\n      to: Date.makeWithYMD(~year, ~month=0, ~day=42),\n    }\n  })\n\n  <Calendar\n    mode=Range\n    defaultMonth={dateRange.from}\n    selected=dateRange\n    onSelect={value => setDateRange(_ => value)}\n    numberOfMonths=2\n    className=\"rounded-lg border\"\n  />\n}\n",
       "type": "registry:example"
     }
   ],

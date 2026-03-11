@@ -1,7 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlSpinner",
-  "dependencies": [],
+  "registryDependencies": [
+    "Spinner"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlSpinner.res",

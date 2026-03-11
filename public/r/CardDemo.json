@@ -1,11 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "CardDemo",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button",
+    "Card",
+    "Input",
+    "Label"
+  ],
   "files": [
     {
       "path": "registry/base/examples/CardDemo.res",
-      "content": "@react.component\nlet make = () =>\n  <Card className=\"w-full max-w-sm\">\n    <Card.Header>\n      <Card.Title> {\"Login to your account\"->React.string} </Card.Title>\n      <Card.Description>\n        {\"Enter your email below to login to your account\"->React.string}\n      </Card.Description>\n      <Card.Action>\n        <Button variant=Button.Variant.Link> {\"Sign Up\"->React.string} </Button>\n      </Card.Action>\n    </Card.Header>\n    <Card.Content>\n      <form>\n        <div className=\"flex flex-col gap-6\">\n          <div className=\"grid gap-2\">\n            <Label htmlFor=\"email\"> {\"Email\"->React.string} </Label>\n            <Input id=\"email\" type_=\"email\" placeholder=\"m@example.com\" required={true}>\n              {React.null}\n            </Input>\n          </div>\n          <div className=\"grid gap-2\">\n            <div className=\"flex items-center\">\n              <Label htmlFor=\"password\"> {\"Password\"->React.string} </Label>\n              <a\n                href=\"#\" className=\"ml-auto inline-block text-sm underline-offset-4 hover:underline\"\n              >\n                {\"Forgot your password?\"->React.string}\n              </a>\n            </div>\n            <Input id=\"password\" type_=\"password\" required={true} />\n          </div>\n        </div>\n      </form>\n    </Card.Content>\n    <Card.Footer className=\"flex-col gap-2\">\n      <Button type_=\"submit\" className=\"w-full\"> {\"Login\"->React.string} </Button>\n      <Button variant=Button.Variant.Outline className=\"w-full\">\n        {\"Login with Google\"->React.string}\n      </Button>\n    </Card.Footer>\n  </Card>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Card className=\"w-full max-w-sm\">\n    <Card.Header>\n      <Card.Title> {\"Login to your account\"->React.string} </Card.Title>\n      <Card.Description>\n        {\"Enter your email below to login to your account\"->React.string}\n      </Card.Description>\n      <Card.Action>\n        <Button variant=Button.Variant.Link> {\"Sign Up\"->React.string} </Button>\n      </Card.Action>\n    </Card.Header>\n    <Card.Content>\n      <form>\n        <div className=\"flex flex-col gap-6\">\n          <div className=\"grid gap-2\">\n            <Label htmlFor=\"email\"> {\"Email\"->React.string} </Label>\n            <Input id=\"email\" type_=\"email\" placeholder=\"m@example.com\" required={true}>\n              {React.null}\n            </Input>\n          </div>\n          <div className=\"grid gap-2\">\n            <div className=\"flex items-center\">\n              <Label htmlFor=\"password\"> {\"Password\"->React.string} </Label>\n              <a\n                href=\"#\" className=\"ml-auto inline-block text-sm underline-offset-4 hover:underline\"\n              >\n                {\"Forgot your password?\"->React.string}\n              </a>\n            </div>\n            <Input id=\"password\" type_=\"password\" required={true} />\n          </div>\n        </div>\n      </form>\n    </Card.Content>\n    <Card.Footer className=\"flex-col gap-2\">\n      <Button type_=\"submit\" className=\"w-full\"> {\"Login\"->React.string} </Button>\n      <Button variant=Button.Variant.Outline className=\"w-full\">\n        {\"Login with Google\"->React.string}\n      </Button>\n    </Card.Footer>\n  </Card>\n",
       "type": "registry:example"
     }
   ],

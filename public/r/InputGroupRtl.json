@@ -1,11 +1,19 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputGroupRtl",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Field",
+    "Icons",
+    "InputGroup",
+    "Spinner"
+  ],
   "files": [
     {
       "path": "registry/base/examples/InputGroupRtl.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <div className=\"grid w-full max-w-sm gap-6\">\n    <InputGroup className=\"max-w-xs\">\n      <InputGroup.Input placeholder=\"بحث...\" />\n      <InputGroup.Addon>\n        <Icons.Search />\n      </InputGroup.Addon>\n      <InputGroup.Addon align=InlineEnd> {\"١٢ نتيجة\"->React.string} </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"جاري البحث...\" />\n      <InputGroup.Addon align=InlineEnd>\n        <Spinner />\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"جاري حفظ التغييرات...\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Text> {\"جاري الحفظ...\"->React.string} </InputGroup.Text>\n        <Spinner />\n      </InputGroup.Addon>\n    </InputGroup>\n    <Field.Group className=\"max-w-sm\">\n      <Field>\n        <Field.Label htmlFor=\"rtl-textarea\"> {\"منطقة النص\"->React.string} </Field.Label>\n        <InputGroup>\n          <InputGroup.Textarea id=\"rtl-textarea\" placeholder=\"اكتب تعليقًا...\" />\n          <InputGroup.Addon align=BlockEnd>\n            <InputGroup.Text> {\"٠/٢٨٠\"->React.string} </InputGroup.Text>\n            <InputGroup.Button variant=Default size=Sm className=\"ms-auto\">\n              {\"نشر\"->React.string}\n            </InputGroup.Button>\n          </InputGroup.Addon>\n        </InputGroup>\n        <Field.Description>\n          {\"تذييل موضع أسفل منطقة النص.\"->React.string}\n        </Field.Description>\n      </Field>\n    </Field.Group>\n  </div>\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"grid w-full max-w-sm gap-6\">\n    <InputGroup className=\"max-w-xs\">\n      <InputGroup.Input placeholder=\"بحث...\" />\n      <InputGroup.Addon>\n        <Icons.Search />\n      </InputGroup.Addon>\n      <InputGroup.Addon align=InlineEnd> {\"١٢ نتيجة\"->React.string} </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"جاري البحث...\" />\n      <InputGroup.Addon align=InlineEnd>\n        <Spinner />\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"جاري حفظ التغييرات...\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Text> {\"جاري الحفظ...\"->React.string} </InputGroup.Text>\n        <Spinner />\n      </InputGroup.Addon>\n    </InputGroup>\n    <Field.Group className=\"max-w-sm\">\n      <Field>\n        <Field.Label htmlFor=\"rtl-textarea\"> {\"منطقة النص\"->React.string} </Field.Label>\n        <InputGroup>\n          <InputGroup.Textarea id=\"rtl-textarea\" placeholder=\"اكتب تعليقًا...\" />\n          <InputGroup.Addon align=BlockEnd>\n            <InputGroup.Text> {\"٠/٢٨٠\"->React.string} </InputGroup.Text>\n            <InputGroup.Button variant=Default size=Sm className=\"ms-auto\">\n              {\"نشر\"->React.string}\n            </InputGroup.Button>\n          </InputGroup.Addon>\n        </InputGroup>\n        <Field.Description>\n          {\"تذييل موضع أسفل منطقة النص.\"->React.string}\n        </Field.Description>\n      </Field>\n    </Field.Group>\n  </div>\n",
       "type": "registry:example"
     }
   ],

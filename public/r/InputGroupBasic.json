@@ -1,11 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputGroupBasic",
-  "dependencies": [],
+  "registryDependencies": [
+    "Field",
+    "Input",
+    "InputGroup"
+  ],
   "files": [
     {
       "path": "registry/base/examples/InputGroupBasic.res",
-      "content": "@react.component\nlet make = () =>\n  <Field.Group>\n    <Field>\n      <Field.Label htmlFor=\"input-default-01\">\n        {\"Default (No Input Group)\"->React.string}\n      </Field.Label>\n      <Input placeholder=\"Placeholder\" id=\"input-default-01\" />\n    </Field>\n    <Field>\n      <Field.Label htmlFor=\"input-group-02\"> {\"Input Group\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Input id=\"input-group-02\" placeholder=\"Placeholder\" />\n      </InputGroup>\n    </Field>\n    <Field dataDisabled={true}>\n      <Field.Label htmlFor=\"input-disabled-03\"> {\"Disabled\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Input\n          id=\"input-disabled-03\" placeholder=\"This field is disabled\" disabled={true}\n        />\n      </InputGroup>\n    </Field>\n    <Field dataInvalid={true}>\n      <Field.Label htmlFor=\"input-invalid-04\"> {\"Invalid\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Input\n          id=\"input-invalid-04\" placeholder=\"This field is invalid\" ariaInvalid={true}\n        />\n      </InputGroup>\n    </Field>\n  </Field.Group>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Group>\n    <Field>\n      <Field.Label htmlFor=\"input-default-01\">\n        {\"Default (No Input Group)\"->React.string}\n      </Field.Label>\n      <Input placeholder=\"Placeholder\" id=\"input-default-01\" />\n    </Field>\n    <Field>\n      <Field.Label htmlFor=\"input-group-02\"> {\"Input Group\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Input id=\"input-group-02\" placeholder=\"Placeholder\" />\n      </InputGroup>\n    </Field>\n    <Field dataDisabled={true}>\n      <Field.Label htmlFor=\"input-disabled-03\"> {\"Disabled\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Input\n          id=\"input-disabled-03\" placeholder=\"This field is disabled\" disabled={true}\n        />\n      </InputGroup>\n    </Field>\n    <Field dataInvalid={true}>\n      <Field.Label htmlFor=\"input-invalid-04\"> {\"Invalid\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Input\n          id=\"input-invalid-04\" placeholder=\"This field is invalid\" ariaInvalid={true}\n        />\n      </InputGroup>\n    </Field>\n  </Field.Group>\n",
       "type": "registry:example"
     }
   ],

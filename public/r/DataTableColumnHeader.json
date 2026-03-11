@@ -1,11 +1,19 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DataTableColumnHeader",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "DataTableDemo",
+    "DropdownMenu",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/DataTableColumnHeader.res",
-      "content": "module RT = DataTableDemo.RT\n\n@send external colGetCanSort: RT.col => bool = \"getCanSort\"\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (~column: RT.col, ~title: string, ~className=\"\") => {\n  if !(column->colGetCanSort) {\n    <div className={cn(\"\", Some(className))}> {title->React.string} </div>\n  } else {\n    let sorted = column->RT.colGetIsSorted\n    <div className={cn(\"flex items-center gap-2\", Some(className))}>\n      <DropdownMenu>\n        <DropdownMenu.Trigger\n          render={<Button\n            variant=Button.Variant.Ghost size=Button.Size.Sm className=\"-ml-3 h-8 data-[state=open]:bg-accent\"\n          />}\n        >\n          <span> {title->React.string} </span>\n          {if sorted == \"desc\" {\n            <Icons.ArrowDown />\n          } else if sorted == \"asc\" {\n            <Icons.ArrowUp />\n          } else {\n            <Icons.ChevronsUpDown />\n          }}\n        </DropdownMenu.Trigger>\n        <DropdownMenu.Content align=BaseUi.Types.Align.Start>\n          <DropdownMenu.Item onClick={_ => column->RT.colToggleSorting(false)}>\n            <Icons.ArrowUp />\n            {\"Asc\"->React.string}\n          </DropdownMenu.Item>\n          <DropdownMenu.Item onClick={_ => column->RT.colToggleSorting(true)}>\n            <Icons.ArrowDown />\n            {\"Desc\"->React.string}\n          </DropdownMenu.Item>\n          <DropdownMenu.Separator />\n          <DropdownMenu.Item onClick={_ => column->RT.colToggleVisibility(false)}>\n            <Icons.EyeOff />\n            {\"Hide\"->React.string}\n          </DropdownMenu.Item>\n        </DropdownMenu.Content>\n      </DropdownMenu>\n    </div>\n  }\n}\n",
+      "content": "module RT = DataTableDemo.RT\n\n@send external colGetCanSort: RT.col => bool = \"getCanSort\"\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (~column: RT.col, ~title: string, ~className=\"\") => {\n  if !(column->colGetCanSort) {\n    <div className={cn(\"\", Some(className))}> {title->React.string} </div>\n  } else {\n    let sorted = column->RT.colGetIsSorted\n    <div className={cn(\"flex items-center gap-2\", Some(className))}>\n      <DropdownMenu>\n        <DropdownMenu.Trigger\n          render={<Button\n            variant=Ghost size=Sm className=\"-ml-3 h-8 data-[state=open]:bg-accent\"\n          />}\n        >\n          <span> {title->React.string} </span>\n          {if sorted == \"desc\" {\n            <Icons.ArrowDown />\n          } else if sorted == \"asc\" {\n            <Icons.ArrowUp />\n          } else {\n            <Icons.ChevronsUpDown />\n          }}\n        </DropdownMenu.Trigger>\n        <DropdownMenu.Content align=BaseUi.Types.Align.Start>\n          <DropdownMenu.Item onClick={_ => column->RT.colToggleSorting(false)}>\n            <Icons.ArrowUp />\n            {\"Asc\"->React.string}\n          </DropdownMenu.Item>\n          <DropdownMenu.Item onClick={_ => column->RT.colToggleSorting(true)}>\n            <Icons.ArrowDown />\n            {\"Desc\"->React.string}\n          </DropdownMenu.Item>\n          <DropdownMenu.Separator />\n          <DropdownMenu.Item onClick={_ => column->RT.colToggleVisibility(false)}>\n            <Icons.EyeOff />\n            {\"Hide\"->React.string}\n          </DropdownMenu.Item>\n        </DropdownMenu.Content>\n      </DropdownMenu>\n    </div>\n  }\n}\n",
       "type": "registry:example"
     }
   ],

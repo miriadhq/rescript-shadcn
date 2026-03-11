@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ResizableRtl",
-  "dependencies": [],
+  "registryDependencies": [
+    "Resizable"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ResizableRtl.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Resizable\n    orientation=BaseUi.Types.Orientation.Horizontal className=\"max-w-sm rounded-lg border\" dir=\"rtl\"\n  >\n    <Resizable.Panel defaultSize=\"50%\">\n      <div className=\"flex h-[200px] items-center justify-center p-6\">\n        <span className=\"font-semibold\"> {\"واحد\"->React.string} </span>\n      </div>\n    </Resizable.Panel>\n    <Resizable.Handle withHandle={true} />\n    <Resizable.Panel defaultSize=\"50%\">\n      <Resizable orientation=BaseUi.Types.Orientation.Vertical dir=\"rtl\">\n        <Resizable.Panel defaultSize=\"25%\">\n          <div className=\"flex h-full items-center justify-center p-6\">\n            <span className=\"font-semibold\"> {\"اثنان\"->React.string} </span>\n          </div>\n        </Resizable.Panel>\n        <Resizable.Handle withHandle={true} />\n        <Resizable.Panel defaultSize=\"75%\">\n          <div className=\"flex h-full items-center justify-center p-6\">\n            <span className=\"font-semibold\"> {\"ثلاثة\"->React.string} </span>\n          </div>\n        </Resizable.Panel>\n      </Resizable>\n    </Resizable.Panel>\n  </Resizable>\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Resizable\n    orientation=BaseUi.Types.Orientation.Horizontal className=\"max-w-sm rounded-lg border\" dir=\"rtl\"\n  >\n    <Resizable.Panel defaultSize=\"50%\">\n      <div className=\"flex h-[200px] items-center justify-center p-6\">\n        <span className=\"font-semibold\"> {\"واحد\"->React.string} </span>\n      </div>\n    </Resizable.Panel>\n    <Resizable.Handle withHandle={true} />\n    <Resizable.Panel defaultSize=\"50%\">\n      <Resizable orientation=BaseUi.Types.Orientation.Vertical dir=\"rtl\">\n        <Resizable.Panel defaultSize=\"25%\">\n          <div className=\"flex h-full items-center justify-center p-6\">\n            <span className=\"font-semibold\"> {\"اثنان\"->React.string} </span>\n          </div>\n        </Resizable.Panel>\n        <Resizable.Handle withHandle={true} />\n        <Resizable.Panel defaultSize=\"75%\">\n          <div className=\"flex h-full items-center justify-center p-6\">\n            <span className=\"font-semibold\"> {\"ثلاثة\"->React.string} </span>\n          </div>\n        </Resizable.Panel>\n      </Resizable>\n    </Resizable.Panel>\n  </Resizable>\n",
       "type": "registry:example"
     }
   ],

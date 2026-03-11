@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "FieldRadio",
-  "dependencies": [],
+  "registryDependencies": [
+    "Field",
+    "RadioGroup"
+  ],
   "files": [
     {
       "path": "registry/base/examples/FieldRadio.res",
-      "content": "@react.component\nlet make = () =>\n  <Field.Set className=\"w-full max-w-xs\">\n    <Field.Legend variant=Label> {\"Subscription Plan\"->React.string} </Field.Legend>\n    <Field.Description>\n      {\"Yearly and lifetime plans offer significant savings.\"->React.string}\n    </Field.Description>\n    <RadioGroup defaultValue=\"monthly\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <RadioGroup.Item value=\"monthly\" id=\"plan-monthly\" />\n        <Field.Label htmlFor=\"plan-monthly\" className=\"font-normal\">\n          {\"Monthly ($9.99/month)\"->React.string}\n        </Field.Label>\n      </Field>\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <RadioGroup.Item value=\"yearly\" id=\"plan-yearly\" />\n        <Field.Label htmlFor=\"plan-yearly\" className=\"font-normal\">\n          {\"Yearly ($99.99/year)\"->React.string}\n        </Field.Label>\n      </Field>\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <RadioGroup.Item value=\"lifetime\" id=\"plan-lifetime\" />\n        <Field.Label htmlFor=\"plan-lifetime\" className=\"font-normal\">\n          {\"Lifetime ($299.99)\"->React.string}\n        </Field.Label>\n      </Field>\n    </RadioGroup>\n  </Field.Set>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Set className=\"w-full max-w-xs\">\n    <Field.Legend variant=Label> {\"Subscription Plan\"->React.string} </Field.Legend>\n    <Field.Description>\n      {\"Yearly and lifetime plans offer significant savings.\"->React.string}\n    </Field.Description>\n    <RadioGroup defaultValue=\"monthly\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <RadioGroup.Item value=\"monthly\" id=\"plan-monthly\" />\n        <Field.Label htmlFor=\"plan-monthly\" className=\"font-normal\">\n          {\"Monthly ($9.99/month)\"->React.string}\n        </Field.Label>\n      </Field>\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <RadioGroup.Item value=\"yearly\" id=\"plan-yearly\" />\n        <Field.Label htmlFor=\"plan-yearly\" className=\"font-normal\">\n          {\"Yearly ($99.99/year)\"->React.string}\n        </Field.Label>\n      </Field>\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <RadioGroup.Item value=\"lifetime\" id=\"plan-lifetime\" />\n        <Field.Label htmlFor=\"plan-lifetime\" className=\"font-normal\">\n          {\"Lifetime ($299.99)\"->React.string}\n        </Field.Label>\n      </Field>\n    </RadioGroup>\n  </Field.Set>\n",
       "type": "registry:example"
     }
   ],

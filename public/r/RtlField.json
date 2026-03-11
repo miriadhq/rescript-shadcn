@@ -1,7 +1,12 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlField",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "Label"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlField.res",

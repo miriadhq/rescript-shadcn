@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SwitchChoiceCard",
-  "dependencies": [],
+  "registryDependencies": [
+    "Field",
+    "Switch"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SwitchChoiceCard.res",
-      "content": "@react.component\nlet make = () =>\n  <Field.Group className=\"w-full max-w-sm\">\n    <Field.Label htmlFor=\"switch-share\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <Field.Content>\n          <Field.Title> {\"Share across devices\"->React.string} </Field.Title>\n          <Field.Description>\n            {\"Focus is shared across devices, and turns off when you leave the app.\"->React.string}\n          </Field.Description>\n        </Field.Content>\n        <Switch id=\"switch-share\" />\n      </Field>\n    </Field.Label>\n    <Field.Label htmlFor=\"switch-notifications\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <Field.Content>\n          <Field.Title> {\"Enable notifications\"->React.string} </Field.Title>\n          <Field.Description>\n            {\"Receive notifications when focus mode is enabled or disabled.\"->React.string}\n          </Field.Description>\n        </Field.Content>\n        <Switch id=\"switch-notifications\" defaultChecked={true} />\n      </Field>\n    </Field.Label>\n  </Field.Group>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Group className=\"w-full max-w-sm\">\n    <Field.Label htmlFor=\"switch-share\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <Field.Content>\n          <Field.Title> {\"Share across devices\"->React.string} </Field.Title>\n          <Field.Description>\n            {\"Focus is shared across devices, and turns off when you leave the app.\"->React.string}\n          </Field.Description>\n        </Field.Content>\n        <Switch id=\"switch-share\" />\n      </Field>\n    </Field.Label>\n    <Field.Label htmlFor=\"switch-notifications\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <Field.Content>\n          <Field.Title> {\"Enable notifications\"->React.string} </Field.Title>\n          <Field.Description>\n            {\"Receive notifications when focus mode is enabled or disabled.\"->React.string}\n          </Field.Description>\n        </Field.Content>\n        <Switch id=\"switch-notifications\" defaultChecked={true} />\n      </Field>\n    </Field.Label>\n  </Field.Group>\n",
       "type": "registry:example"
     }
   ],

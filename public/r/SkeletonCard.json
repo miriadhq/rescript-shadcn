@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SkeletonCard",
-  "dependencies": [],
+  "registryDependencies": [
+    "Card",
+    "Skeleton"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SkeletonCard.res",
-      "content": "@react.component\nlet make = () =>\n  <Card className=\"w-full max-w-xs\">\n    <Card.Header>\n      <Skeleton className=\"h-4 w-2/3\" />\n      <Skeleton className=\"h-4 w-1/2\" />\n    </Card.Header>\n    <Card.Content>\n      <Skeleton className=\"aspect-video w-full\" />\n    </Card.Content>\n  </Card>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Card className=\"w-full max-w-xs\">\n    <Card.Header>\n      <Skeleton className=\"h-4 w-2/3\" />\n      <Skeleton className=\"h-4 w-1/2\" />\n    </Card.Header>\n    <Card.Content>\n      <Skeleton className=\"aspect-video w-full\" />\n    </Card.Content>\n  </Card>\n",
       "type": "registry:example"
     }
   ],

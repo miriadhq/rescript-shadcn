@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "BadgeColors",
-  "dependencies": [],
+  "registryDependencies": [
+    "Badge"
+  ],
   "files": [
     {
       "path": "registry/base/examples/BadgeColors.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-wrap gap-2\">\n    <Badge className=\"bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300\">\n      {\"Blue\"->React.string}\n    </Badge>\n    <Badge className=\"bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300\">\n      {\"Green\"->React.string}\n    </Badge>\n    <Badge className=\"bg-sky-50 text-sky-700 dark:bg-sky-950 dark:text-sky-300\">\n      {\"Sky\"->React.string}\n    </Badge>\n    <Badge className=\"bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300\">\n      {\"Purple\"->React.string}\n    </Badge>\n    <Badge className=\"bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300\">\n      {\"Red\"->React.string}\n    </Badge>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap gap-2\">\n    <Badge className=\"bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300\">\n      {\"Blue\"->React.string}\n    </Badge>\n    <Badge className=\"bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300\">\n      {\"Green\"->React.string}\n    </Badge>\n    <Badge className=\"bg-sky-50 text-sky-700 dark:bg-sky-950 dark:text-sky-300\">\n      {\"Sky\"->React.string}\n    </Badge>\n    <Badge className=\"bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300\">\n      {\"Purple\"->React.string}\n    </Badge>\n    <Badge className=\"bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300\">\n      {\"Red\"->React.string}\n    </Badge>\n  </div>\n",
       "type": "registry:example"
     }
   ],

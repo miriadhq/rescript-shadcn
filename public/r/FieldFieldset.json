@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "FieldFieldset",
-  "dependencies": [],
+  "registryDependencies": [
+    "Field",
+    "Input"
+  ],
   "files": [
     {
       "path": "registry/base/examples/FieldFieldset.res",
-      "content": "@react.component\nlet make = () =>\n  <Field.Set className=\"w-full max-w-sm\">\n    <Field.Legend> {\"Address Information\"->React.string} </Field.Legend>\n    <Field.Description>\n      {\"We need your address to deliver your order.\"->React.string}\n    </Field.Description>\n    <Field.Group>\n      <Field>\n        <Field.Label htmlFor=\"street\"> {\"Street Address\"->React.string} </Field.Label>\n        <Input id=\"street\" type_=\"text\" placeholder=\"123 Main St\" />\n      </Field>\n      <div className=\"grid grid-cols-2 gap-4\">\n        <Field>\n          <Field.Label htmlFor=\"city\"> {\"City\"->React.string} </Field.Label>\n          <Input id=\"city\" type_=\"text\" placeholder=\"New York\" />\n        </Field>\n        <Field>\n          <Field.Label htmlFor=\"zip\"> {\"Postal Code\"->React.string} </Field.Label>\n          <Input id=\"zip\" type_=\"text\" placeholder=\"90502\" />\n        </Field>\n      </div>\n    </Field.Group>\n  </Field.Set>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Set className=\"w-full max-w-sm\">\n    <Field.Legend> {\"Address Information\"->React.string} </Field.Legend>\n    <Field.Description>\n      {\"We need your address to deliver your order.\"->React.string}\n    </Field.Description>\n    <Field.Group>\n      <Field>\n        <Field.Label htmlFor=\"street\"> {\"Street Address\"->React.string} </Field.Label>\n        <Input id=\"street\" type_=\"text\" placeholder=\"123 Main St\" />\n      </Field>\n      <div className=\"grid grid-cols-2 gap-4\">\n        <Field>\n          <Field.Label htmlFor=\"city\"> {\"City\"->React.string} </Field.Label>\n          <Input id=\"city\" type_=\"text\" placeholder=\"New York\" />\n        </Field>\n        <Field>\n          <Field.Label htmlFor=\"zip\"> {\"Postal Code\"->React.string} </Field.Label>\n          <Input id=\"zip\" type_=\"text\" placeholder=\"90502\" />\n        </Field>\n      </div>\n    </Field.Group>\n  </Field.Set>\n",
       "type": "registry:example"
     }
   ],

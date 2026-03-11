@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SliderVertical",
-  "dependencies": [],
+  "registryDependencies": [
+    "Slider"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SliderVertical.res",
-      "content": "open BaseUi.Types\n\n@react.component\nlet make = () =>\n  <div className=\"mx-auto flex w-full max-w-xs items-center justify-center gap-6\">\n    <Slider\n      defaultValue={[50.]} max={100.} step={1.} orientation=Orientation.Vertical className=\"h-40\"\n    >\n      {React.null}\n    </Slider>\n    <Slider\n      defaultValue={[25.]} max={100.} step={1.} orientation=Orientation.Vertical className=\"h-40\"\n    >\n      {React.null}\n    </Slider>\n  </div>\n",
+      "content": "open BaseUi.Types\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"mx-auto flex w-full max-w-xs items-center justify-center gap-6\">\n    <Slider\n      defaultValue={[50.]} max={100.} step={1.} orientation=Orientation.Vertical className=\"h-40\"\n    />\n    <Slider\n      defaultValue={[25.]} max={100.} step={1.} orientation=Orientation.Vertical className=\"h-40\"\n    />\n  </div>\n",
       "type": "registry:example"
     }
   ],

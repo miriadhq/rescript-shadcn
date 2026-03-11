@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "AvatarDemo",
-  "dependencies": [],
+  "registryDependencies": [
+    "Avatar"
+  ],
   "files": [
     {
       "path": "registry/base/examples/AvatarDemo.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-row flex-wrap items-center gap-6 md:gap-12\">\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" className=\"grayscale\" />\n      <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"@evilrabbit\" />\n      <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n      <Avatar.Badge className=\"bg-green-600 dark:bg-green-800\" />\n    </Avatar>\n    <Avatar.Group className=\"grayscale\">\n      <Avatar>\n        <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n        <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n      </Avatar>\n      <Avatar>\n        <Avatar.Image src=\"https://github.com/maxleiter.png\" alt=\"@maxleiter\" />\n        <Avatar.Fallback> {\"LR\"->React.string} </Avatar.Fallback>\n      </Avatar>\n      <Avatar>\n        <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"@evilrabbit\" />\n        <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n      </Avatar>\n      <Avatar.GroupCount> {\"+3\"->React.string} </Avatar.GroupCount>\n    </Avatar.Group>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-row flex-wrap items-center gap-6 md:gap-12\">\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" className=\"grayscale\" />\n      <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"@evilrabbit\" />\n      <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n      <Avatar.Badge className=\"bg-green-600 dark:bg-green-800\" />\n    </Avatar>\n    <Avatar.Group className=\"grayscale\">\n      <Avatar>\n        <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n        <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n      </Avatar>\n      <Avatar>\n        <Avatar.Image src=\"https://github.com/maxleiter.png\" alt=\"@maxleiter\" />\n        <Avatar.Fallback> {\"LR\"->React.string} </Avatar.Fallback>\n      </Avatar>\n      <Avatar>\n        <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"@evilrabbit\" />\n        <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n      </Avatar>\n      <Avatar.GroupCount> {\"+3\"->React.string} </Avatar.GroupCount>\n    </Avatar.Group>\n  </div>\n",
       "type": "registry:example"
     }
   ],

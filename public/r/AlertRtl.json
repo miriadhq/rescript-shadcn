@@ -1,11 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "AlertRtl",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "RtlAlert"
+  ],
   "files": [
     {
       "path": "registry/base/examples/AlertRtl.res",
-      "content": "@@jsxConfig({version: 4, mode: \"automatic\", module_: \"BaseUi.BaseUiJsxDOM\"})\n\n@react.component\nlet make = () =>\n  <div className=\"grid w-full max-w-md items-start gap-4\" dir=\"rtl\">\n    <RtlAlert>\n      <Icons.CheckCircle2 />\n      <RtlAlert.Title> {\"تم الدفع بنجاح\"->React.string} </RtlAlert.Title>\n      <RtlAlert.Description>\n        {\"تمت معالجة دفعتك البالغة 29.99 دولارًا. تم إرسال إيصال إلى عنوان بريدك الإلكتروني.\"->React.string}\n      </RtlAlert.Description>\n    </RtlAlert>\n    <RtlAlert>\n      <Icons.Info />\n      <RtlAlert.Title> {\"ميزة جديدة متاحة\"->React.string} </RtlAlert.Title>\n      <RtlAlert.Description>\n        {\"لقد أضفنا دعم الوضع الداكن. يمكنك تفعيله في إعدادات حسابك.\"->React.string}\n      </RtlAlert.Description>\n    </RtlAlert>\n  </div>\n",
+      "content": "@@jsxConfig({version: 4, mode: \"automatic\", module_: \"BaseUi.BaseUiJsxDOM\"})\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"grid w-full max-w-md items-start gap-4\" dir=\"rtl\">\n    <RtlAlert>\n      <Icons.CheckCircle2 />\n      <RtlAlert.Title> {\"تم الدفع بنجاح\"->React.string} </RtlAlert.Title>\n      <RtlAlert.Description>\n        {\"تمت معالجة دفعتك البالغة 29.99 دولارًا. تم إرسال إيصال إلى عنوان بريدك الإلكتروني.\"->React.string}\n      </RtlAlert.Description>\n    </RtlAlert>\n    <RtlAlert>\n      <Icons.Info />\n      <RtlAlert.Title> {\"ميزة جديدة متاحة\"->React.string} </RtlAlert.Title>\n      <RtlAlert.Description>\n        {\"لقد أضفنا دعم الوضع الداكن. يمكنك تفعيله في إعدادات حسابك.\"->React.string}\n      </RtlAlert.Description>\n    </RtlAlert>\n  </div>\n",
       "type": "registry:example"
     }
   ],

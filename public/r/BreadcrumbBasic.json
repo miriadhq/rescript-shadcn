@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "BreadcrumbBasic",
-  "dependencies": [],
+  "registryDependencies": [
+    "Breadcrumb"
+  ],
   "files": [
     {
       "path": "registry/base/examples/BreadcrumbBasic.res",
-      "content": "@react.component\nlet make = () =>\n  <Breadcrumb>\n    <Breadcrumb.List>\n      <Breadcrumb.Item>\n        <Breadcrumb.Link href=\"#\"> {\"Home\"->React.string} </Breadcrumb.Link>\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator />\n      <Breadcrumb.Item>\n        <Breadcrumb.Link href=\"#\"> {\"Components\"->React.string} </Breadcrumb.Link>\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator />\n      <Breadcrumb.Item>\n        <Breadcrumb.Page> {\"Breadcrumb\"->React.string} </Breadcrumb.Page>\n      </Breadcrumb.Item>\n    </Breadcrumb.List>\n  </Breadcrumb>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Breadcrumb>\n    <Breadcrumb.List>\n      <Breadcrumb.Item>\n        <Breadcrumb.Link href=\"#\"> {\"Home\"->React.string} </Breadcrumb.Link>\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator />\n      <Breadcrumb.Item>\n        <Breadcrumb.Link href=\"#\"> {\"Components\"->React.string} </Breadcrumb.Link>\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator />\n      <Breadcrumb.Item>\n        <Breadcrumb.Page> {\"Breadcrumb\"->React.string} </Breadcrumb.Page>\n      </Breadcrumb.Item>\n    </Breadcrumb.List>\n  </Breadcrumb>\n",
       "type": "registry:example"
     }
   ],

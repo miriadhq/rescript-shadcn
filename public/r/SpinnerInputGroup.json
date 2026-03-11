@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SpinnerInputGroup",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "InputGroup",
+    "Spinner"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SpinnerInputGroup.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex w-full max-w-md flex-col gap-4\">\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Send a message...\" disabled={true} />\n      <InputGroup.Addon align=InlineEnd>\n        <Spinner />\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Textarea placeholder=\"Send a message...\" disabled={true} />\n      <InputGroup.Addon align=BlockEnd>\n        <Spinner />\n        {\"Validating...\"->React.string}\n        <InputGroup.Button className=\"ml-auto\">\n          <Icons.ArrowUp />\n          <span className=\"sr-only\"> {\"Send\"->React.string} </span>\n        </InputGroup.Button>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex w-full max-w-md flex-col gap-4\">\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Send a message...\" disabled={true} />\n      <InputGroup.Addon align=InlineEnd>\n        <Spinner />\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Textarea placeholder=\"Send a message...\" disabled={true} />\n      <InputGroup.Addon align=BlockEnd>\n        <Spinner />\n        {\"Validating...\"->React.string}\n        <InputGroup.Button className=\"ml-auto\">\n          <Icons.ArrowUp />\n          <span className=\"sr-only\"> {\"Send\"->React.string} </span>\n        </InputGroup.Button>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
       "type": "registry:example"
     }
   ],

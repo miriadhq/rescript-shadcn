@@ -1,7 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "Sidebar",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons",
+    "Sheet",
+    "Skeleton",
+    "Tooltip"
+  ],
   "files": [
     {
       "path": "registry/base/ui/Sidebar.res",

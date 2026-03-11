@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "HoverCardSides",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button",
+    "HoverCard"
+  ],
   "files": [
     {
       "path": "registry/base/examples/HoverCardSides.res",
-      "content": "let hoverCardSides = [\n  (BaseUi.Types.Side.Left, \"Left\"),\n  (BaseUi.Types.Side.Top, \"Top\"),\n  (BaseUi.Types.Side.Bottom, \"Bottom\"),\n  (BaseUi.Types.Side.Right, \"Right\"),\n]\n\n@react.component\nlet make = () =>\n  <div className=\"flex flex-wrap justify-center gap-2\">\n    {hoverCardSides\n    ->Array.map(((side, label)) =>\n      <HoverCard key=label>\n        <HoverCard.Trigger\n          delay={100.}\n          closeDelay={100.}\n          render={<Button variant=Button.Variant.Outline className=\"capitalize\" />}\n        >\n          {label->React.string}\n        </HoverCard.Trigger>\n        <HoverCard.Content side>\n          <div className=\"flex flex-col gap-1\">\n            <h4 className=\"font-medium\"> {\"Hover Card\"->React.string} </h4>\n            <p> {`This hover card appears on the ${label} side of the trigger.`->React.string} </p>\n          </div>\n        </HoverCard.Content>\n      </HoverCard>\n    )\n    ->React.array}\n  </div>\n",
+      "content": "let hoverCardSides = [\n  (BaseUi.Types.Side.Left, \"Left\"),\n  (BaseUi.Types.Side.Top, \"Top\"),\n  (BaseUi.Types.Side.Bottom, \"Bottom\"),\n  (BaseUi.Types.Side.Right, \"Right\"),\n]\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap justify-center gap-2\">\n    {hoverCardSides\n    ->Array.map(((side, label)) =>\n      <HoverCard key=label>\n        <HoverCard.Trigger\n          delay={100.}\n          closeDelay={100.}\n          render={<Button variant=Button.Variant.Outline className=\"capitalize\" />}\n        >\n          {label->React.string}\n        </HoverCard.Trigger>\n        <HoverCard.Content side>\n          <div className=\"flex flex-col gap-1\">\n            <h4 className=\"font-medium\"> {\"Hover Card\"->React.string} </h4>\n            <p> {`This hover card appears on the ${label} side of the trigger.`->React.string} </p>\n          </div>\n        </HoverCard.Content>\n      </HoverCard>\n    )\n    ->React.array}\n  </div>\n",
       "type": "registry:example"
     }
   ],

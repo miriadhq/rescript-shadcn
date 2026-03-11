@@ -1,11 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ButtonSize",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ButtonSize.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-col items-start gap-8 sm:flex-row\">\n    <div className=\"flex items-start gap-2\">\n      <Button size=Button.Size.Xs variant=Button.Variant.Outline>\n        {\"Extra Small\"->React.string}\n      </Button>\n      <Button size=Button.Size.IconXs ariaLabel=\"Submit\" variant=Button.Variant.Outline>\n        <Icons.ArrowUpRight />\n      </Button>\n    </div>\n    <div className=\"flex items-start gap-2\">\n      <Button size=Button.Size.Sm variant=Button.Variant.Outline> {\"Small\"->React.string} </Button>\n      <Button size=Button.Size.IconSm ariaLabel=\"Submit\" variant=Button.Variant.Outline>\n        <Icons.ArrowUpRight />\n      </Button>\n    </div>\n    <div className=\"flex items-start gap-2\">\n      <Button variant=Button.Variant.Outline> {\"Default\"->React.string} </Button>\n      <Button size=Button.Size.Icon ariaLabel=\"Submit\" variant=Button.Variant.Outline>\n        <Icons.ArrowUpRight />\n      </Button>\n    </div>\n    <div className=\"flex items-start gap-2\">\n      <Button variant=Button.Variant.Outline size=Button.Size.Lg> {\"Large\"->React.string} </Button>\n      <Button size=Button.Size.IconLg ariaLabel=\"Submit\" variant=Button.Variant.Outline>\n        <Icons.ArrowUpRight />\n      </Button>\n    </div>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-col items-start gap-8 sm:flex-row\">\n    <div className=\"flex items-start gap-2\">\n      <Button size=Button.Size.Xs variant=Button.Variant.Outline>\n        {\"Extra Small\"->React.string}\n      </Button>\n      <Button size=Button.Size.IconXs ariaLabel=\"Submit\" variant=Button.Variant.Outline>\n        <Icons.ArrowUpRight />\n      </Button>\n    </div>\n    <div className=\"flex items-start gap-2\">\n      <Button size=Button.Size.Sm variant=Button.Variant.Outline> {\"Small\"->React.string} </Button>\n      <Button size=Button.Size.IconSm ariaLabel=\"Submit\" variant=Button.Variant.Outline>\n        <Icons.ArrowUpRight />\n      </Button>\n    </div>\n    <div className=\"flex items-start gap-2\">\n      <Button variant=Button.Variant.Outline> {\"Default\"->React.string} </Button>\n      <Button size=Button.Size.Icon ariaLabel=\"Submit\" variant=Button.Variant.Outline>\n        <Icons.ArrowUpRight />\n      </Button>\n    </div>\n    <div className=\"flex items-start gap-2\">\n      <Button variant=Button.Variant.Outline size=Button.Size.Lg> {\"Large\"->React.string} </Button>\n      <Button size=Button.Size.IconLg ariaLabel=\"Submit\" variant=Button.Variant.Outline>\n        <Icons.ArrowUpRight />\n      </Button>\n    </div>\n  </div>\n",
       "type": "registry:example"
     }
   ],

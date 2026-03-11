@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "AvatarGroupCount",
-  "dependencies": [],
+  "registryDependencies": [
+    "Avatar"
+  ],
   "files": [
     {
       "path": "registry/base/examples/AvatarGroupCount.res",
-      "content": "@react.component\nlet make = () =>\n  <Avatar.Group className=\"grayscale\">\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n      <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/maxleiter.png\" alt=\"@maxleiter\" />\n      <Avatar.Fallback> {\"LR\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"@evilrabbit\" />\n      <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar.GroupCount> {\"+3\"->React.string} </Avatar.GroupCount>\n  </Avatar.Group>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Avatar.Group className=\"grayscale\">\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n      <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/maxleiter.png\" alt=\"@maxleiter\" />\n      <Avatar.Fallback> {\"LR\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"@evilrabbit\" />\n      <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar.GroupCount> {\"+3\"->React.string} </Avatar.GroupCount>\n  </Avatar.Group>\n",
       "type": "registry:example"
     }
   ],

@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ButtonRender",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ButtonRender.res",
-      "content": "@react.component\nlet make = () =>\n  <Button nativeButton={false} render={<a href=\"#\" />}> {\"Login\"->React.string} </Button>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Button nativeButton={false} render={<a href=\"#\" />}> {\"Login\"->React.string} </Button>\n",
       "type": "registry:example"
     }
   ],

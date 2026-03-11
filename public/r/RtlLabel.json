@@ -1,7 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlLabel",
-  "dependencies": [],
+  "registryDependencies": [
+    "Label"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlLabel.res",

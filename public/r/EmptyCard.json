@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "EmptyCard",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Empty",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/EmptyCard.res",
-      "content": "@react.component\nlet make = () =>\n  <Empty>\n    <Empty.Header>\n      <Empty.Media variant=Empty.Variant.Icon>\n        <Icons.Folder />\n      </Empty.Media>\n      <Empty.Title> {\"No projects yet\"->React.string} </Empty.Title>\n      <Empty.Description>\n        {\"You haven't created any projects yet. Get started by creating your first project.\"->React.string}\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Content>\n      <div className=\"flex gap-2\">\n        <Button render={<a href=\"#\" />} nativeButton={false}>\n          {\"Create project\"->React.string}\n        </Button>\n        <Button variant=Button.Variant.Outline> {\"Import project\"->React.string} </Button>\n      </div>\n      <Button\n        variant=Button.Variant.Link\n        render={<a href=\"#\" />}\n        className=\"text-muted-foreground\"\n        nativeButton={false}\n      >\n        {\"Learn more\"->React.string}\n        <Icons.ArrowUpRight />\n      </Button>\n    </Empty.Content>\n  </Empty>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Empty>\n    <Empty.Header>\n      <Empty.Media variant=Empty.Variant.Icon>\n        <Icons.Folder />\n      </Empty.Media>\n      <Empty.Title> {\"No projects yet\"->React.string} </Empty.Title>\n      <Empty.Description>\n        {\"You haven't created any projects yet. Get started by creating your first project.\"->React.string}\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Content>\n      <div className=\"flex gap-2\">\n        <Button render={<a href=\"#\" />} nativeButton={false}>\n          {\"Create project\"->React.string}\n        </Button>\n        <Button variant=Button.Variant.Outline> {\"Import project\"->React.string} </Button>\n      </div>\n      <Button\n        variant=Button.Variant.Link\n        render={<a href=\"#\" />}\n        className=\"text-muted-foreground\"\n        nativeButton={false}\n      >\n        {\"Learn more\"->React.string}\n        <Icons.ArrowUpRight />\n      </Button>\n    </Empty.Content>\n  </Empty>\n",
       "type": "registry:example"
     }
   ],

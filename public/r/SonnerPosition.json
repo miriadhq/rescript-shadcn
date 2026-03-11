@@ -1,11 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SonnerPosition",
-  "dependencies": [],
+  "dependencies": [
+    "sonner"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Sonner"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SonnerPosition.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <div className=\"flex flex-wrap justify-center gap-2\">\n    <Button variant=Button.Variant.Outline onClick={_ => ()}> {\"Top Left\"->React.string} </Button>\n    <Button variant=Button.Variant.Outline onClick={_ => ()}> {\"Top Center\"->React.string} </Button>\n    <Button variant=Button.Variant.Outline onClick={_ => ()}> {\"Top Right\"->React.string} </Button>\n    <Button variant=Button.Variant.Outline onClick={_ => ()}>\n      {\"Bottom Left\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Outline onClick={_ => ()}>\n      {\"Bottom Center\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Outline onClick={_ => ()}>\n      {\"Bottom Right\"->React.string}\n    </Button>\n  </div>\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap justify-center gap-2\">\n    <Button\n      variant=Outline\n      onClick={_ =>\n        Sonner.toast(\"Event has been created\"->React.string, ~options={position: TopLeft})}\n    >\n      {\"Top Left\"->React.string}\n    </Button>\n    <Button\n      variant=Outline\n      onClick={_ =>\n        Sonner.toast(\"Event has been created\"->React.string, ~options={position: TopCenter})}\n    >\n      {\"Top Center\"->React.string}\n    </Button>\n    <Button\n      variant=Outline\n      onClick={_ =>\n        Sonner.toast(\"Event has been created\"->React.string, ~options={position: TopRight})}\n    >\n      {\"Top Right\"->React.string}\n    </Button>\n    <Button\n      variant=Outline\n      onClick={_ =>\n        Sonner.toast(\"Event has been created\"->React.string, ~options={position: BottomLeft})}\n    >\n      {\"Bottom Left\"->React.string}\n    </Button>\n    <Button\n      variant=Outline\n      onClick={_ =>\n        Sonner.toast(\"Event has been created\"->React.string, ~options={position: BottomCenter})}\n    >\n      {\"Bottom Center\"->React.string}\n    </Button>\n    <Button\n      variant=Outline\n      onClick={_ =>\n        Sonner.toast(\"Event has been created\"->React.string, ~options={position: BottomRight})}\n    >\n      {\"Bottom Right\"->React.string}\n    </Button>\n  </div>\n",
       "type": "registry:example"
     }
   ],

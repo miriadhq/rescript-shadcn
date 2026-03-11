@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputOtpControlled",
-  "dependencies": [],
+  "registryDependencies": [
+    "InputOtp"
+  ],
   "files": [
     {
       "path": "registry/base/examples/InputOtpControlled.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => {\n  let (value, setValue) = React.useState(() => \"\")\n\n  <div className=\"space-y-2\">\n    <InputOtp maxLength={6} value={value} onValueChange={(v, _) => setValue(_ => v)}>\n      <InputOtp.Group>\n        <InputOtp.Slot index={0} />\n        <InputOtp.Slot index={1} />\n        <InputOtp.Slot index={2} />\n        <InputOtp.Slot index={3} />\n        <InputOtp.Slot index={4} />\n        <InputOtp.Slot index={5} />\n      </InputOtp.Group>\n    </InputOtp>\n    <div className=\"text-center text-sm\">\n      {if value === \"\" {\n        \"Enter your one-time password.\"->React.string\n      } else {\n        {`You entered: ${value}`->React.string}\n      }}\n    </div>\n  </div>\n}\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (value, setValue) = React.useState(() => \"\")\n\n  <div className=\"space-y-2\">\n    <InputOtp maxLength={6} value={value} onChange={v => setValue(_ => v)}>\n      <InputOtp.Group>\n        <InputOtp.Slot index={0} />\n        <InputOtp.Slot index={1} />\n        <InputOtp.Slot index={2} />\n        <InputOtp.Slot index={3} />\n        <InputOtp.Slot index={4} />\n        <InputOtp.Slot index={5} />\n      </InputOtp.Group>\n    </InputOtp>\n    <div className=\"text-center text-sm\">\n      {if value === \"\" {\n        \"Enter your one-time password.\"->React.string\n      } else {\n        {`You entered: ${value}`->React.string}\n      }}\n    </div>\n  </div>\n}\n",
       "type": "registry:example"
     }
   ],

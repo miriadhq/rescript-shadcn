@@ -1,11 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ToggleText",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "Toggle"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ToggleText.res",
-      "content": "@react.component\nlet make = () =>\n  <Toggle ariaLabel=\"Toggle italic\">\n    <Icons.Italic />\n    {\"Italic\"->React.string}\n  </Toggle>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Toggle ariaLabel=\"Toggle italic\">\n    <Icons.Italic />\n    {\"Italic\"->React.string}\n  </Toggle>\n",
       "type": "registry:example"
     }
   ],

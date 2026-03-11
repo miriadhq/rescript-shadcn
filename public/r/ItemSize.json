@@ -1,11 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ItemSize",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "Item"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ItemSize.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex w-full max-w-md flex-col gap-6\">\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Default Size\"->React.string} </Item.Title>\n        <Item.Description>\n          {\"The standard size for most use cases.\"->React.string}\n        </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline size=Item.Size.Sm>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Small Size\"->React.string} </Item.Title>\n        <Item.Description> {\"A compact size for dense layouts.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline size=Item.Size.Xs>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Extra Small Size\"->React.string} </Item.Title>\n        <Item.Description> {\"The most compact size available.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex w-full max-w-md flex-col gap-6\">\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Default Size\"->React.string} </Item.Title>\n        <Item.Description>\n          {\"The standard size for most use cases.\"->React.string}\n        </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline size=Item.Size.Sm>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Small Size\"->React.string} </Item.Title>\n        <Item.Description> {\"A compact size for dense layouts.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline size=Item.Size.Xs>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Extra Small Size\"->React.string} </Item.Title>\n        <Item.Description> {\"The most compact size available.\"->React.string} </Item.Description>\n      </Item.Content>\n    </Item>\n  </div>\n",
       "type": "registry:example"
     }
   ],

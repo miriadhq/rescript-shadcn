@@ -1,7 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlCalendar",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react",
+    "react-day-picker"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlCalendar.res",

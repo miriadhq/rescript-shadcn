@@ -1,11 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ButtonRounded",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ButtonRounded.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex gap-2\">\n    <Button className=\"rounded-full\"> {\"Get Started\"->React.string} </Button>\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon className=\"rounded-full\">\n      <Icons.ArrowUp />\n    </Button>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex gap-2\">\n    <Button className=\"rounded-full\"> {\"Get Started\"->React.string} </Button>\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon className=\"rounded-full\">\n      <Icons.ArrowUp />\n    </Button>\n  </div>\n",
       "type": "registry:example"
     }
   ],

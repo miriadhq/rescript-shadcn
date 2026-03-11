@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SeparatorVertical",
-  "dependencies": [],
+  "registryDependencies": [
+    "Separator"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SeparatorVertical.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex h-5 items-center gap-4 text-sm\">\n    <div> {\"Blog\"->React.string} </div>\n    <Separator orientation=BaseUi.Types.Orientation.Vertical />\n    <div> {\"Docs\"->React.string} </div>\n    <Separator orientation=BaseUi.Types.Orientation.Vertical />\n    <div> {\"Source\"->React.string} </div>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex h-5 items-center gap-4 text-sm\">\n    <div> {\"Blog\"->React.string} </div>\n    <Separator orientation=BaseUi.Types.Orientation.Vertical />\n    <div> {\"Docs\"->React.string} </div>\n    <Separator orientation=BaseUi.Types.Orientation.Vertical />\n    <div> {\"Source\"->React.string} </div>\n  </div>\n",
       "type": "registry:example"
     }
   ],

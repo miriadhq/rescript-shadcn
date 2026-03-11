@@ -1,7 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlResizable",
-  "dependencies": [],
+  "dependencies": [
+    "react-resizable-panels"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlResizable.res",

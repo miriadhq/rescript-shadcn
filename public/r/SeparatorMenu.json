@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SeparatorMenu",
-  "dependencies": [],
+  "registryDependencies": [
+    "Separator"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SeparatorMenu.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex items-center gap-2 text-sm md:gap-4\">\n    <div className=\"flex flex-col gap-1\">\n      <span className=\"font-medium\"> {\"Settings\"->React.string} </span>\n      <span className=\"text-muted-foreground text-xs\"> {\"Manage preferences\"->React.string} </span>\n    </div>\n    <Separator orientation=BaseUi.Types.Orientation.Vertical />\n    <div className=\"flex flex-col gap-1\">\n      <span className=\"font-medium\"> {\"Account\"->React.string} </span>\n      <span className=\"text-muted-foreground text-xs\"> {\"Profile & security\"->React.string} </span>\n    </div>\n    <Separator orientation=BaseUi.Types.Orientation.Vertical className=\"hidden md:block\" />\n    <div className=\"hidden flex-col gap-1 md:flex\">\n      <span className=\"font-medium\"> {\"Help\"->React.string} </span>\n      <span className=\"text-muted-foreground text-xs\"> {\"Support & docs\"->React.string} </span>\n    </div>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex items-center gap-2 text-sm md:gap-4\">\n    <div className=\"flex flex-col gap-1\">\n      <span className=\"font-medium\"> {\"Settings\"->React.string} </span>\n      <span className=\"text-muted-foreground text-xs\"> {\"Manage preferences\"->React.string} </span>\n    </div>\n    <Separator orientation=BaseUi.Types.Orientation.Vertical />\n    <div className=\"flex flex-col gap-1\">\n      <span className=\"font-medium\"> {\"Account\"->React.string} </span>\n      <span className=\"text-muted-foreground text-xs\"> {\"Profile & security\"->React.string} </span>\n    </div>\n    <Separator orientation=BaseUi.Types.Orientation.Vertical className=\"hidden md:block\" />\n    <div className=\"hidden flex-col gap-1 md:flex\">\n      <span className=\"font-medium\"> {\"Help\"->React.string} </span>\n      <span className=\"text-muted-foreground text-xs\"> {\"Support & docs\"->React.string} </span>\n    </div>\n  </div>\n",
       "type": "registry:example"
     }
   ],

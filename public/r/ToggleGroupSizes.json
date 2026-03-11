@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ToggleGroupSizes",
-  "dependencies": [],
+  "registryDependencies": [
+    "ToggleGroup"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ToggleGroupSizes.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex flex-col gap-4\">\n    <ToggleGroup\n      size=ToggleGroup.Size.Sm defaultValue={[\"top\"]} variant=ToggleGroup.Variant.Outline\n    >\n      <ToggleGroup.Item value=\"top\" ariaLabel=\"Toggle top\">\n        {\"Top\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"bottom\" ariaLabel=\"Toggle bottom\">\n        {\"Bottom\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"left\" ariaLabel=\"Toggle left\">\n        {\"Left\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"right\" ariaLabel=\"Toggle right\">\n        {\"Right\"->React.string}\n      </ToggleGroup.Item>\n    </ToggleGroup>\n    <ToggleGroup defaultValue={[\"top\"]} variant=ToggleGroup.Variant.Outline>\n      <ToggleGroup.Item value=\"top\" ariaLabel=\"Toggle top\">\n        {\"Top\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"bottom\" ariaLabel=\"Toggle bottom\">\n        {\"Bottom\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"left\" ariaLabel=\"Toggle left\">\n        {\"Left\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"right\" ariaLabel=\"Toggle right\">\n        {\"Right\"->React.string}\n      </ToggleGroup.Item>\n    </ToggleGroup>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-col gap-4\">\n    <ToggleGroup\n      size=ToggleGroup.Size.Sm defaultValue={[\"top\"]} variant=ToggleGroup.Variant.Outline\n    >\n      <ToggleGroup.Item value=\"top\" ariaLabel=\"Toggle top\">\n        {\"Top\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"bottom\" ariaLabel=\"Toggle bottom\">\n        {\"Bottom\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"left\" ariaLabel=\"Toggle left\">\n        {\"Left\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"right\" ariaLabel=\"Toggle right\">\n        {\"Right\"->React.string}\n      </ToggleGroup.Item>\n    </ToggleGroup>\n    <ToggleGroup defaultValue={[\"top\"]} variant=ToggleGroup.Variant.Outline>\n      <ToggleGroup.Item value=\"top\" ariaLabel=\"Toggle top\">\n        {\"Top\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"bottom\" ariaLabel=\"Toggle bottom\">\n        {\"Bottom\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"left\" ariaLabel=\"Toggle left\">\n        {\"Left\"->React.string}\n      </ToggleGroup.Item>\n      <ToggleGroup.Item value=\"right\" ariaLabel=\"Toggle right\">\n        {\"Right\"->React.string}\n      </ToggleGroup.Item>\n    </ToggleGroup>\n  </div>\n",
       "type": "registry:example"
     }
   ],

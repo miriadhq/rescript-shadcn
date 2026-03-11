@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputGroupBlockEnd",
-  "dependencies": [],
+  "registryDependencies": [
+    "Field",
+    "InputGroup"
+  ],
   "files": [
     {
       "path": "registry/base/examples/InputGroupBlockEnd.res",
-      "content": "@react.component\nlet make = () =>\n  <Field.Group className=\"max-w-sm\">\n    <Field>\n      <Field.Label htmlFor=\"block-end-input\"> {\"Input\"->React.string} </Field.Label>\n      <InputGroup className=\"h-auto\">\n        <InputGroup.Input id=\"block-end-input\" placeholder=\"Enter amount\" />\n        <InputGroup.Addon align=BlockEnd>\n          <InputGroup.Text> {\"USD\"->React.string} </InputGroup.Text>\n        </InputGroup.Addon>\n      </InputGroup>\n      <Field.Description> {\"Footer positioned below the input.\"->React.string} </Field.Description>\n    </Field>\n    <Field>\n      <Field.Label htmlFor=\"block-end-textarea\"> {\"Textarea\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Textarea id=\"block-end-textarea\" placeholder=\"Write a comment...\" />\n        <InputGroup.Addon align=BlockEnd>\n          <InputGroup.Text> {\"0/280\"->React.string} </InputGroup.Text>\n          <InputGroup.Button variant=Default size=Sm className=\"ml-auto\">\n            {\"Post\"->React.string}\n          </InputGroup.Button>\n        </InputGroup.Addon>\n      </InputGroup>\n      <Field.Description>\n        {\"Footer positioned below the textarea.\"->React.string}\n      </Field.Description>\n    </Field>\n  </Field.Group>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Group className=\"max-w-sm\">\n    <Field>\n      <Field.Label htmlFor=\"block-end-input\"> {\"Input\"->React.string} </Field.Label>\n      <InputGroup className=\"h-auto\">\n        <InputGroup.Input id=\"block-end-input\" placeholder=\"Enter amount\" />\n        <InputGroup.Addon align=BlockEnd>\n          <InputGroup.Text> {\"USD\"->React.string} </InputGroup.Text>\n        </InputGroup.Addon>\n      </InputGroup>\n      <Field.Description> {\"Footer positioned below the input.\"->React.string} </Field.Description>\n    </Field>\n    <Field>\n      <Field.Label htmlFor=\"block-end-textarea\"> {\"Textarea\"->React.string} </Field.Label>\n      <InputGroup>\n        <InputGroup.Textarea id=\"block-end-textarea\" placeholder=\"Write a comment...\" />\n        <InputGroup.Addon align=BlockEnd>\n          <InputGroup.Text> {\"0/280\"->React.string} </InputGroup.Text>\n          <InputGroup.Button variant=Default size=Sm className=\"ml-auto\">\n            {\"Post\"->React.string}\n          </InputGroup.Button>\n        </InputGroup.Addon>\n      </InputGroup>\n      <Field.Description>\n        {\"Footer positioned below the textarea.\"->React.string}\n      </Field.Description>\n    </Field>\n  </Field.Group>\n",
       "type": "registry:example"
     }
   ],

@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputOtpDisabled",
-  "dependencies": [],
+  "registryDependencies": [
+    "InputOtp"
+  ],
   "files": [
     {
       "path": "registry/base/examples/InputOtpDisabled.res",
-      "content": "@react.component\nlet make = () =>\n  <InputOtp id=\"disabled\" maxLength={6} disabled={true} value=\"123456\">\n    <InputOtp.Group>\n      <InputOtp.Slot index={0} />\n      <InputOtp.Slot index={1} />\n      <InputOtp.Slot index={2} />\n    </InputOtp.Group>\n    <InputOtp.Separator />\n    <InputOtp.Group>\n      <InputOtp.Slot index={3} />\n      <InputOtp.Slot index={4} />\n      <InputOtp.Slot index={5} />\n    </InputOtp.Group>\n  </InputOtp>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <InputOtp id=\"disabled\" maxLength={6} disabled={true} value=\"123456\">\n    <InputOtp.Group>\n      <InputOtp.Slot index={0} />\n      <InputOtp.Slot index={1} />\n      <InputOtp.Slot index={2} />\n    </InputOtp.Group>\n    <InputOtp.Separator />\n    <InputOtp.Group>\n      <InputOtp.Slot index={3} />\n      <InputOtp.Slot index={4} />\n      <InputOtp.Slot index={5} />\n    </InputOtp.Group>\n  </InputOtp>\n",
       "type": "registry:example"
     }
   ],

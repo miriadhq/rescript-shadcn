@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SeparatorList",
-  "dependencies": [],
+  "registryDependencies": [
+    "Separator"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SeparatorList.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex w-full max-w-sm flex-col gap-2 text-sm\">\n    <dl className=\"flex items-center justify-between\">\n      <dt> {\"Item 1\"->React.string} </dt>\n      <dd className=\"text-muted-foreground\"> {\"Value 1\"->React.string} </dd>\n    </dl>\n    <Separator />\n    <dl className=\"flex items-center justify-between\">\n      <dt> {\"Item 2\"->React.string} </dt>\n      <dd className=\"text-muted-foreground\"> {\"Value 2\"->React.string} </dd>\n    </dl>\n    <Separator />\n    <dl className=\"flex items-center justify-between\">\n      <dt> {\"Item 3\"->React.string} </dt>\n      <dd className=\"text-muted-foreground\"> {\"Value 3\"->React.string} </dd>\n    </dl>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex w-full max-w-sm flex-col gap-2 text-sm\">\n    <dl className=\"flex items-center justify-between\">\n      <dt> {\"Item 1\"->React.string} </dt>\n      <dd className=\"text-muted-foreground\"> {\"Value 1\"->React.string} </dd>\n    </dl>\n    <Separator />\n    <dl className=\"flex items-center justify-between\">\n      <dt> {\"Item 2\"->React.string} </dt>\n      <dd className=\"text-muted-foreground\"> {\"Value 2\"->React.string} </dd>\n    </dl>\n    <Separator />\n    <dl className=\"flex items-center justify-between\">\n      <dt> {\"Item 3\"->React.string} </dt>\n      <dd className=\"text-muted-foreground\"> {\"Value 3\"->React.string} </dd>\n    </dl>\n  </div>\n",
       "type": "registry:example"
     }
   ],

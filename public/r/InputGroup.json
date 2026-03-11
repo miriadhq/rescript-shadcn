@@ -1,7 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputGroup",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Textarea"
+  ],
   "files": [
     {
       "path": "registry/base/ui/InputGroup.res",

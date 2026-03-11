@@ -1,11 +1,20 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ItemDropdown",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Avatar",
+    "Button",
+    "DropdownMenu",
+    "Icons",
+    "Item"
+  ],
   "files": [
     {
       "path": "registry/base/examples/ItemDropdown.res",
-      "content": "@@directive(\"'use client'\")\n\ntype person = {\n  username: string,\n  avatar: string,\n  email: string,\n}\n\nlet people = [\n  {username: \"shadcn\", avatar: \"https://github.com/shadcn.png\", email: \"shadcn@vercel.com\"},\n  {\n    username: \"maxleiter\",\n    avatar: \"https://github.com/maxleiter.png\",\n    email: \"maxleiter@vercel.com\",\n  },\n  {\n    username: \"evilrabbit\",\n    avatar: \"https://github.com/evilrabbit.png\",\n    email: \"evilrabbit@vercel.com\",\n  },\n]\n\n@react.component\nlet make = () =>\n  <DropdownMenu>\n    <DropdownMenu.Trigger render={<Button variant=Button.Variant.Outline />}>\n      {\"Select \"->React.string}\n      <Icons.ChevronDown />\n    </DropdownMenu.Trigger>\n    <DropdownMenu.Content className=\"w-48\" align=BaseUi.Types.Align.End>\n      <DropdownMenu.Group>\n        {people\n        ->Array.map(person =>\n          <DropdownMenu.Item key={person.username}>\n            <Item size=Item.Size.Xs className=\"w-full p-2\">\n              <Item.Media>\n                <Avatar className=\"size-[--spacing(6.5)]\">\n                  <Avatar.Image src={person.avatar} className=\"grayscale\" />\n                  <Avatar.Fallback>\n                    {person.username->String.slice(~start=0, ~end=1)->React.string}\n                  </Avatar.Fallback>\n                </Avatar>\n              </Item.Media>\n              <Item.Content className=\"gap-0\">\n                <Item.Title> {person.username->React.string} </Item.Title>\n                <Item.Description className=\"leading-none\">\n                  {person.email->React.string}\n                </Item.Description>\n              </Item.Content>\n            </Item>\n          </DropdownMenu.Item>\n        )\n        ->React.array}\n      </DropdownMenu.Group>\n    </DropdownMenu.Content>\n  </DropdownMenu>\n",
+      "content": "@@directive(\"'use client'\")\n\ntype person = {\n  username: string,\n  avatar: string,\n  email: string,\n}\n\nlet people = [\n  {username: \"shadcn\", avatar: \"https://github.com/shadcn.png\", email: \"shadcn@vercel.com\"},\n  {\n    username: \"maxleiter\",\n    avatar: \"https://github.com/maxleiter.png\",\n    email: \"maxleiter@vercel.com\",\n  },\n  {\n    username: \"evilrabbit\",\n    avatar: \"https://github.com/evilrabbit.png\",\n    email: \"evilrabbit@vercel.com\",\n  },\n]\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <DropdownMenu>\n    <DropdownMenu.Trigger render={<Button variant=Button.Variant.Outline />}>\n      {\"Select \"->React.string}\n      <Icons.ChevronDown />\n    </DropdownMenu.Trigger>\n    <DropdownMenu.Content className=\"w-48\" align=BaseUi.Types.Align.End>\n      <DropdownMenu.Group>\n        {people\n        ->Array.map(person =>\n          <DropdownMenu.Item key={person.username}>\n            <Item size=Item.Size.Xs className=\"w-full p-2\">\n              <Item.Media>\n                <Avatar className=\"size-[--spacing(6.5)]\">\n                  <Avatar.Image src={person.avatar} className=\"grayscale\" />\n                  <Avatar.Fallback>\n                    {person.username->String.slice(~start=0, ~end=1)->React.string}\n                  </Avatar.Fallback>\n                </Avatar>\n              </Item.Media>\n              <Item.Content className=\"gap-0\">\n                <Item.Title> {person.username->React.string} </Item.Title>\n                <Item.Description className=\"leading-none\">\n                  {person.email->React.string}\n                </Item.Description>\n              </Item.Content>\n            </Item>\n          </DropdownMenu.Item>\n        )\n        ->React.array}\n      </DropdownMenu.Group>\n    </DropdownMenu.Content>\n  </DropdownMenu>\n",
       "type": "registry:example"
     }
   ],

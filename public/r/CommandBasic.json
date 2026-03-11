@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "CommandBasic",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button",
+    "Command"
+  ],
   "files": [
     {
       "path": "registry/base/examples/CommandBasic.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () => {\n  let (open_, setOpen) = React.useState(() => false)\n\n  <div className=\"flex flex-col gap-4\">\n    <Button onClick={_ => setOpen(_ => true)} variant=Button.Variant.Outline className=\"w-fit\">\n      {\"Open Menu\"->React.string}\n    </Button>\n    <Command.Dialog open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>\n      <Command>\n        <Command.Input placeholder=\"Type a command or search...\" />\n        <Command.List>\n          <Command.Empty> {\"No results found.\"->React.string} </Command.Empty>\n          <Command.Group heading=\"Suggestions\">\n            <Command.Item> {\"Calendar\"->React.string} </Command.Item>\n            <Command.Item> {\"Search Emoji\"->React.string} </Command.Item>\n            <Command.Item> {\"Calculator\"->React.string} </Command.Item>\n          </Command.Group>\n        </Command.List>\n      </Command>\n    </Command.Dialog>\n  </div>\n}\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (open_, setOpen) = React.useState(() => false)\n\n  <div className=\"flex flex-col gap-4\">\n    <Button onClick={_ => setOpen(_ => true)} variant=Button.Variant.Outline className=\"w-fit\">\n      {\"Open Menu\"->React.string}\n    </Button>\n    <Command.Dialog open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>\n      <Command>\n        <Command.Input placeholder=\"Type a command or search...\" />\n        <Command.List>\n          <Command.Empty> {\"No results found.\"->React.string} </Command.Empty>\n          <Command.Group heading=\"Suggestions\">\n            <Command.Item> {\"Calendar\"->React.string} </Command.Item>\n            <Command.Item> {\"Search Emoji\"->React.string} </Command.Item>\n            <Command.Item> {\"Calculator\"->React.string} </Command.Item>\n          </Command.Group>\n        </Command.List>\n      </Command>\n    </Command.Dialog>\n  </div>\n}\n",
       "type": "registry:example"
     }
   ],

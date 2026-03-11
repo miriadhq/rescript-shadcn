@@ -1,11 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "InputGroupInlineEnd",
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Field",
+    "Icons",
+    "InputGroup"
+  ],
   "files": [
     {
       "path": "registry/base/examples/InputGroupInlineEnd.res",
-      "content": "@react.component\nlet make = () =>\n  <Field className=\"max-w-sm\">\n    <Field.Label htmlFor=\"inline-end-input\"> {\"Input\"->React.string} </Field.Label>\n    <InputGroup>\n      <InputGroup.Input id=\"inline-end-input\" type_=\"password\" placeholder=\"Enter password\" />\n      <InputGroup.Addon align=InlineEnd>\n        <Icons.Eye />\n      </InputGroup.Addon>\n    </InputGroup>\n    <Field.Description> {\"Icon positioned at the end.\"->React.string} </Field.Description>\n  </Field>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field className=\"max-w-sm\">\n    <Field.Label htmlFor=\"inline-end-input\"> {\"Input\"->React.string} </Field.Label>\n    <InputGroup>\n      <InputGroup.Input id=\"inline-end-input\" type_=\"password\" placeholder=\"Enter password\" />\n      <InputGroup.Addon align=InlineEnd>\n        <Icons.Eye />\n      </InputGroup.Addon>\n    </InputGroup>\n    <Field.Description> {\"Icon positioned at the end.\"->React.string} </Field.Description>\n  </Field>\n",
       "type": "registry:example"
     }
   ],

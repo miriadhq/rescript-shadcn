@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "NativeSelectDisabled",
-  "dependencies": [],
+  "registryDependencies": [
+    "NativeSelect"
+  ],
   "files": [
     {
       "path": "registry/base/examples/NativeSelectDisabled.res",
-      "content": "@react.component\nlet make = () =>\n  <NativeSelect disabled={true}>\n    <NativeSelect.Option value=\"\"> {\"Disabled\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"apple\"> {\"Apple\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"banana\"> {\"Banana\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"blueberry\"> {\"Blueberry\"->React.string} </NativeSelect.Option>\n  </NativeSelect>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <NativeSelect disabled={true}>\n    <NativeSelect.Option value=\"\"> {\"Disabled\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"apple\"> {\"Apple\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"banana\"> {\"Banana\"->React.string} </NativeSelect.Option>\n    <NativeSelect.Option value=\"blueberry\"> {\"Blueberry\"->React.string} </NativeSelect.Option>\n  </NativeSelect>\n",
       "type": "registry:example"
     }
   ],

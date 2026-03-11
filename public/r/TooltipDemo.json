@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "TooltipDemo",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button",
+    "Tooltip"
+  ],
   "files": [
     {
       "path": "registry/base/examples/TooltipDemo.res",
-      "content": "@react.component\nlet make = () =>\n  <Tooltip>\n    <Tooltip.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"tooltip-trigger\" />}>\n      {\"Hover\"->React.string}\n    </Tooltip.Trigger>\n    <Tooltip.Content>\n      <p> {\"Add to library\"->React.string} </p>\n    </Tooltip.Content>\n  </Tooltip>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Tooltip>\n    <Tooltip.Trigger render={<Button variant=Outline dataSlot=\"tooltip-trigger\" />}>\n      {\"Hover\"->React.string}\n    </Tooltip.Trigger>\n    <Tooltip.Content>\n      <p> {\"Add to library\"->React.string} </p>\n    </Tooltip.Content>\n  </Tooltip>\n",
       "type": "registry:example"
     }
   ],

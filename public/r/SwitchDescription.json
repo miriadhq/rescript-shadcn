@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SwitchDescription",
-  "dependencies": [],
+  "registryDependencies": [
+    "Field",
+    "Switch"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SwitchDescription.res",
-      "content": "@react.component\nlet make = () =>\n  <Field orientation=BaseUi.Types.Orientation.Horizontal className=\"max-w-sm\">\n    <Field.Content>\n      <Field.Label htmlFor=\"switch-focus-mode\">\n        {\"Share across devices\"->React.string}\n      </Field.Label>\n      <Field.Description>\n        {\"Focus is shared across devices, and turns off when you leave the app.\"->React.string}\n      </Field.Description>\n    </Field.Content>\n    <Switch id=\"switch-focus-mode\" />\n  </Field>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field orientation=BaseUi.Types.Orientation.Horizontal className=\"max-w-sm\">\n    <Field.Content>\n      <Field.Label htmlFor=\"switch-focus-mode\">\n        {\"Share across devices\"->React.string}\n      </Field.Label>\n      <Field.Description>\n        {\"Focus is shared across devices, and turns off when you leave the app.\"->React.string}\n      </Field.Description>\n    </Field.Content>\n    <Switch id=\"switch-focus-mode\" />\n  </Field>\n",
       "type": "registry:example"
     }
   ],

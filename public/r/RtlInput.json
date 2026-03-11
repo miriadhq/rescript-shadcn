@@ -1,7 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlInput",
-  "dependencies": [],
+  "registryDependencies": [
+    "Input"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlInput.res",

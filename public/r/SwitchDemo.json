@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "SwitchDemo",
-  "dependencies": [],
+  "registryDependencies": [
+    "Label",
+    "Switch"
+  ],
   "files": [
     {
       "path": "registry/base/examples/SwitchDemo.res",
-      "content": "@react.component\nlet make = () =>\n  <div className=\"flex items-center space-x-2\">\n    <Switch id=\"airplane-mode\" />\n    <Label htmlFor=\"airplane-mode\"> {\"Airplane Mode\"->React.string} </Label>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex items-center space-x-2\">\n    <Switch id=\"airplane-mode\" />\n    <Label htmlFor=\"airplane-mode\"> {\"Airplane Mode\"->React.string} </Label>\n  </div>\n",
       "type": "registry:example"
     }
   ],

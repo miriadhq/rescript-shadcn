@@ -1,11 +1,10 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "TypographySmall",
-  "dependencies": [],
   "files": [
     {
       "path": "registry/base/examples/TypographySmall.res",
-      "content": "@react.component\nlet make = () =>\n  <small className=\"text-sm leading-none font-medium\"> {\"Email address\"->React.string} </small>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <small className=\"text-sm leading-none font-medium\"> {\"Email address\"->React.string} </small>\n",
       "type": "registry:example"
     }
   ],

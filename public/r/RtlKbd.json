@@ -1,7 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlKbd",
-  "dependencies": [],
+  "registryDependencies": [
+    "Kbd"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlKbd.res",

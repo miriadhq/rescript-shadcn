@@ -1,7 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlToggle",
-  "dependencies": [],
+  "registryDependencies": [
+    "Toggle"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlToggle.res",

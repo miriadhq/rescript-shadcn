@@ -1,11 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "CalendarMultiple",
-  "dependencies": [],
+  "registryDependencies": [
+    "Calendar",
+    "Card"
+  ],
   "files": [
     {
       "path": "registry/base/examples/CalendarMultiple.res",
-      "content": "@react.component\nlet make = () =>\n  <Card className=\"mx-auto w-fit p-0\">\n    <Card.Content className=\"p-0\">\n      <Calendar mode=\"multiple\" />\n    </Card.Content>\n  </Card>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Card className=\"mx-auto w-fit p-0\">\n    <Card.Content className=\"p-0\">\n      <Calendar mode=Multiple />\n    </Card.Content>\n  </Card>\n",
       "type": "registry:example"
     }
   ],

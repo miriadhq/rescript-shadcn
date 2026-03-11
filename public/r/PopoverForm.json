@@ -1,11 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "PopoverForm",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button",
+    "Field",
+    "Input",
+    "Popover"
+  ],
   "files": [
     {
       "path": "registry/base/examples/PopoverForm.res",
-      "content": "@react.component\nlet make = () => {\n  <Popover>\n    <Popover.Trigger render={<Button variant=Outline />}>\n      {\"Open Popover\"->React.string}\n    </Popover.Trigger>\n    <Popover.Content className=\"w-64\" align=BaseUi.Types.Align.Start>\n      <Popover.Header>\n        <Popover.Title> {\"Dimensions\"->React.string} </Popover.Title>\n        <Popover.Description>\n          {\"Set the dimensions for the layer.\"->React.string}\n        </Popover.Description>\n      </Popover.Header>\n      <Field.Group className=\"gap-4\">\n        <Field orientation=BaseUi.Types.Orientation.Horizontal>\n          <Field.Label htmlFor=\"width\" className=\"w-1/2\"> {\"Width\"->React.string} </Field.Label>\n          <Input id=\"width\" defaultValue=\"100%\" />\n        </Field>\n        <Field orientation=BaseUi.Types.Orientation.Horizontal>\n          <Field.Label htmlFor=\"height\" className=\"w-1/2\"> {\"Height\"->React.string} </Field.Label>\n          <Input id=\"height\" defaultValue=\"25px\" />\n        </Field>\n      </Field.Group>\n    </Popover.Content>\n  </Popover>\n}\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  <Popover>\n    <Popover.Trigger render={<Button variant=Outline />}>\n      {\"Open Popover\"->React.string}\n    </Popover.Trigger>\n    <Popover.Content className=\"w-64\" align=BaseUi.Types.Align.Start>\n      <Popover.Header>\n        <Popover.Title> {\"Dimensions\"->React.string} </Popover.Title>\n        <Popover.Description>\n          {\"Set the dimensions for the layer.\"->React.string}\n        </Popover.Description>\n      </Popover.Header>\n      <Field.Group className=\"gap-4\">\n        <Field orientation=BaseUi.Types.Orientation.Horizontal>\n          <Field.Label htmlFor=\"width\" className=\"w-1/2\"> {\"Width\"->React.string} </Field.Label>\n          <Input id=\"width\" defaultValue=\"100%\" />\n        </Field>\n        <Field orientation=BaseUi.Types.Orientation.Horizontal>\n          <Field.Label htmlFor=\"height\" className=\"w-1/2\"> {\"Height\"->React.string} </Field.Label>\n          <Input id=\"height\" defaultValue=\"25px\" />\n        </Field>\n      </Field.Group>\n    </Popover.Content>\n  </Popover>\n}\n",
       "type": "registry:example"
     }
   ],

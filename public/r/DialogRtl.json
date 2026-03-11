@@ -1,11 +1,17 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DialogRtl",
-  "dependencies": [],
+  "registryDependencies": [
+    "Button",
+    "Dialog",
+    "Field",
+    "Input",
+    "Label"
+  ],
   "files": [
     {
       "path": "registry/base/examples/DialogRtl.res",
-      "content": "@@directive(\"'use client'\")\n\n@react.component\nlet make = () =>\n  <Dialog>\n    <form>\n      <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-trigger\" />}>\n        {\"فتح الحوار\"->React.string}\n      </Dialog.Trigger>\n      <Dialog.Content className=\"sm:max-w-sm\" dir=\"rtl\" dataLang=\"ar\">\n        <Dialog.Header>\n          <Dialog.Title> {\"تعديل الملف الشخصي\"->React.string} </Dialog.Title>\n          <Dialog.Description>\n            {\"قم بإجراء تغييرات على ملفك الشخصي هنا. انقر فوق حفظ عند الانتهاء.\"->React.string}\n          </Dialog.Description>\n        </Dialog.Header>\n        <Field.Group>\n          <Field>\n            <Label htmlFor=\"name-1\"> {\"الاسم\"->React.string} </Label>\n            <Input id=\"name-1\" name=\"name\" defaultValue=\"Pedro Duarte\" />\n          </Field>\n          <Field>\n            <Label htmlFor=\"username-1\"> {\"اسم المستخدم\"->React.string} </Label>\n            <Input id=\"username-1\" name=\"username\" defaultValue=\"@peduarte\" />\n          </Field>\n        </Field.Group>\n        <Dialog.Footer>\n          <Dialog.Close render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-close\" />}>\n            {\"إلغاء\"->React.string}\n          </Dialog.Close>\n          <Button type_=\"submit\"> {\"حفظ التغييرات\"->React.string} </Button>\n        </Dialog.Footer>\n      </Dialog.Content>\n    </form>\n  </Dialog>\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Dialog>\n    <form>\n      <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-trigger\" />}>\n        {\"فتح الحوار\"->React.string}\n      </Dialog.Trigger>\n      <Dialog.Content className=\"sm:max-w-sm\" dir=\"rtl\" dataLang=\"ar\">\n        <Dialog.Header>\n          <Dialog.Title> {\"تعديل الملف الشخصي\"->React.string} </Dialog.Title>\n          <Dialog.Description>\n            {\"قم بإجراء تغييرات على ملفك الشخصي هنا. انقر فوق حفظ عند الانتهاء.\"->React.string}\n          </Dialog.Description>\n        </Dialog.Header>\n        <Field.Group>\n          <Field>\n            <Label htmlFor=\"name-1\"> {\"الاسم\"->React.string} </Label>\n            <Input id=\"name-1\" name=\"name\" defaultValue=\"Pedro Duarte\" />\n          </Field>\n          <Field>\n            <Label htmlFor=\"username-1\"> {\"اسم المستخدم\"->React.string} </Label>\n            <Input id=\"username-1\" name=\"username\" defaultValue=\"@peduarte\" />\n          </Field>\n        </Field.Group>\n        <Dialog.Footer>\n          <Dialog.Close render={<Button variant=Button.Variant.Outline dataSlot=\"dialog-close\" />}>\n            {\"إلغاء\"->React.string}\n          </Dialog.Close>\n          <Button type_=\"submit\"> {\"حفظ التغييرات\"->React.string} </Button>\n        </Dialog.Footer>\n      </Dialog.Content>\n    </form>\n  </Dialog>\n",
       "type": "registry:example"
     }
   ],

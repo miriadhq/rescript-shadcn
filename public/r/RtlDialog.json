@@ -1,7 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RtlDialog",
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons"
+  ],
   "files": [
     {
       "path": "registry/base/ui-rtl/RtlDialog.res",

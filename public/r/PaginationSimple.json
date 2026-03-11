@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "PaginationSimple",
-  "dependencies": [],
+  "registryDependencies": [
+    "Pagination"
+  ],
   "files": [
     {
       "path": "registry/base/examples/PaginationSimple.res",
-      "content": "@react.component\nlet make = () =>\n  <Pagination>\n    <Pagination.Content>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"1\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\" isActive={true}> {\"2\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"3\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"4\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"5\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n    </Pagination.Content>\n  </Pagination>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Pagination>\n    <Pagination.Content>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"1\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\" isActive={true}> {\"2\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"3\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"4\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n      <Pagination.Item>\n        <Pagination.Link href=\"#\"> {\"5\"->React.string} </Pagination.Link>\n      </Pagination.Item>\n    </Pagination.Content>\n  </Pagination>\n",
       "type": "registry:example"
     }
   ],
