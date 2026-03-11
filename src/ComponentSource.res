@@ -72,6 +72,9 @@ let make = async (
   switch code {
   | None => React.null
   | Some(rawCode) =>
+    let rawCode =
+      rawCode->String.replaceAll("@react.componentWithProps(Demo.Props.t)", "@react.component")
+    let rawCode = rawCode->String.replaceAll("({}: Demo.Props.t)", "()")
     let code = switch maxLines {
     | Some(ml) => rawCode->String.split("\n")->Array.slice(~start=0, ~end=ml)->Array.join("\n")
     | None => rawCode

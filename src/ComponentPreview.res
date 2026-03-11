@@ -3,38 +3,6 @@
 // ComponentPreview: async server component that renders a demo with source code tabs.
 // Names in MDX are PascalCase matching the ReScript module name (e.g. "ButtonDemo").
 
-// Extract base component name: "ButtonDemo" -> "Button", "ButtonSize" -> "Button"
-let getComponentName = (name: string) => {
-  // Common suffixes to strip
-  let suffixes = [
-    "Demo",
-    "Basic",
-    "Default",
-    "Size",
-    "Outline",
-    "Secondary",
-    "Ghost",
-    "Destructive",
-    "Link",
-    "Icon",
-    "WithIcon",
-    "Rounded",
-    "Spinner",
-    "Render",
-    "Rtl",
-  ]
-  let result = ref(name)
-  suffixes->Array.forEach(suffix => {
-    if name->String.endsWith(suffix) && name !== suffix {
-      let candidate = name->String.slice(~start=0, ~end=name->String.length - suffix->String.length)
-      if candidate->String.length > 0 {
-        result := candidate
-      }
-    }
-  })
-  result.contents
-}
-
 module Type = {
   type t =
     | @as("block") Block
@@ -69,9 +37,7 @@ let make = async (
           className="relative mt-6 aspect-[4/2.5] w-full overflow-hidden rounded-xl border"
           style={{transform: "scale(1)"}}
         >
-          <div className="absolute inset-0 bg-background">
-            {componentElement}
-          </div>
+          <div className="absolute inset-0 bg-background"> {componentElement} </div>
         </div>
 
       switch caption {
@@ -90,7 +56,7 @@ let make = async (
       let componentElement = <DemoLoader name />
 
       // Get component name for source lookup
-      let componentName = getComponentName(name)
+      let componentName = name
 
       // Get source code (full and preview)
       let source = <ComponentSource name={componentName} collapsible=false />
