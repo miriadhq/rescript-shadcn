@@ -6308,7 +6308,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^11.0.0, lru-cache@npm:^11.1.0, lru-cache@npm:^11.2.1":
+"lru-cache@npm:^11.0.0, lru-cache@npm:^11.1.0, lru-cache@npm:^11.2.1, lru-cache@npm:^11.2.6":
   version: 11.2.6
   resolution: "lru-cache@npm:11.2.6"
   checksum: 10c0/73bbffb298760e71b2bfe8ebc16a311c6a60ceddbba919cfedfd8635c2d125fbfb5a39b71818200e67973b11f8d59c5a9e31d6f90722e340e90393663a66e5cd
@@ -8514,6 +8514,7 @@ __metadata:
     fumadocs-mdx: "npm:^14.2.9"
     fumadocs-ui: "npm:^16.6.14"
     input-otp: "npm:^1.4.2"
+    lru-cache: "npm:^11.2.6"
     lucide-react: "npm:^0.487.0"
     next: "npm:16.1.6"
     next-themes: "npm:^0.4.6"
