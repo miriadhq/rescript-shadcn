@@ -21,6 +21,8 @@ const nextConfig = {
   },
 };
 
-const withMDX = createMDX({});
+const withMDX = createMDX({
+  configPath: "./source.config.mjs",
+});
 
 export default withMDX(nextConfig);

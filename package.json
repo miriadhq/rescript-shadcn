@@ -5,6 +5,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,7 +16,8 @@
     "loader:generate": "node scripts/generate-demo-loader.mjs",
     "test:docs": "vitest run test/mdx-links.test.ts",
     "test:visual": "node test/visual/run-pixel-perfect.mjs",
-    "test": "test:docs && test:visual"
+    "test": "test:docs && test:visual",
+    "postInstall": "fumadocs-mdx source.config.mjs .source"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
