@@ -11,7 +11,9 @@ let make = ({}: Demo.Props.t) => {
 
   <Card size=Sm className="mx-auto w-fit">
     <Card.Content>
-      <Calendar mode=Single selected=date onSelect={value => setDate(_ => value)} className="p-0" />
+      <Calendar
+        mode=Single selected=?date onSelect={value => setDate(_ => value)} className="p-0"
+      />
     </Card.Content>
     <Card.Footer className="bg-card border-t">
       <Field.Group>

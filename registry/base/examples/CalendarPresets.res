@@ -31,10 +31,10 @@ let make = ({}: Demo.Props.t) => {
     <Card.Content>
       <Calendar
         mode=Single
-        selected=date
-        onSelect={(value: option<Date.t>) => setDate(_ => value)}
+        selected=?date
+        onSelect={value => setDate(_ => value)}
         month=currentMonth
-        onMonthChange={(value: Date.t) => setCurrentMonth(_ => value)}
+        onMonthChange={value => setCurrentMonth(_ => value)}
         fixedWeeks={true}
         className="p-0 [--cell-size:--spacing(9.5)]"
       />

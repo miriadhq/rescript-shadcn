@@ -57,10 +57,10 @@ let make = ({}: Demo.Props.t) => {
           >
             <Calendar
               mode=Single
-              selected={date}
+              selected=?{date}
               month={month}
               onMonthChange={(d: Date.t) => setMonth(_ => d)}
-              onSelect={(value: option<Date.t>) => {
+              onSelect={value => {
                 setDate(_ => value)
                 setValue(_ => formatDate(value))
                 setOpen(_ => false)

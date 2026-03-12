@@ -27,10 +27,10 @@ let make = ({}: Demo.Props.t) => {
         <Popover.Content className="w-auto overflow-hidden p-0" align=BaseUi.Types.Align.Start>
           <Calendar
             mode=Single
-            selected={date}
+            selected=?date
             captionLayout={Calendar.CaptionLayout.Dropdown}
             defaultMonth=?{date}
-            onSelect={(value: option<Date.t>) => {
+            onSelect={value => {
               setDate(_ => value)
               setOpen(_ => false)
             }}

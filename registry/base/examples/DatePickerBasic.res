@@ -24,7 +24,7 @@ let make = ({}: Demo.Props.t) => {
       <Popover.Content className="w-auto p-0" align=BaseUi.Types.Align.Start>
         <Calendar
           mode=Single
-          selected={date}
+          selected=?{date}
           onSelect={(value: option<Date.t>) => setDate(_ => value)}
           defaultMonth=?{date}
         />

@@ -810,817 +810,6 @@
       ]
     },
     {
-      "name": "RtlAccordion",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlAccordion.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlAlert",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlAlert.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlAlertDialog",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "Button"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlAlertDialog.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlAspectRatio",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "AspectRatio"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlAspectRatio.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlAvatar",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlAvatar.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlBadge",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "Badge"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlBadge.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlBreadcrumb",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlBreadcrumb.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlButton",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "Button"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlButton.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlButtonGroup",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlButtonGroup.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlCalendar",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react",
-        "react-day-picker"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlCalendar.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlCard",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Card"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlCard.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlCarousel",
-      "type": "registry:ui",
-      "dependencies": [
-        "embla-carousel-react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlCarousel.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlChart",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Chart"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlChart.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlCheckbox",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Checkbox"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlCheckbox.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlCollapsible",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Collapsible"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlCollapsible.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlCombobox",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons",
-        "InputGroup"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlCombobox.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlCommand",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "cmdk",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons",
-        "InputGroup"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlCommand.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlContextMenu",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlContextMenu.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlDataTable",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlDataTable.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlDialog",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlDialog.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlDirection",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Direction"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlDirection.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlDrawer",
-      "type": "registry:ui",
-      "dependencies": [
-        "vaul"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlDrawer.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlDropdownMenu",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlDropdownMenu.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlEmpty",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Empty"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlEmpty.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlField",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "Label"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlField.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlHoverCard",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "HoverCard"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlHoverCard.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlInput",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Input"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlInput.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlInputGroup",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Textarea"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlInputGroup.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlInputOtp",
-      "type": "registry:ui",
-      "dependencies": [
-        "input-otp",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlInputOtp.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlItem",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlItem.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlKbd",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Kbd"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlKbd.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlLabel",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Label"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlLabel.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlMenubar",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlMenubar.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlNativeSelect",
-      "type": "registry:ui",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlNativeSelect.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlNavigationMenu",
-      "type": "registry:ui",
-      "dependencies": [
-        "next"
-      ],
-      "registryDependencies": [
-        "NavigationMenu"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlNavigationMenu.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlPagination",
-      "type": "registry:ui",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlPagination.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlPopover",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlPopover.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlProgress",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlProgress.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlRadioGroup",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlRadioGroup.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlResizable",
-      "type": "registry:ui",
-      "dependencies": [
-        "react-resizable-panels"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlResizable.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlScrollArea",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlScrollArea.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSelect",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSelect.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSeparator",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Separator"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSeparator.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSheet",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSheet.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSidebar",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Sidebar"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSidebar.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSkeleton",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Skeleton"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSkeleton.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSlider",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Slider"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSlider.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSonner",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Sonner"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSonner.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSpinner",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Spinner"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSpinner.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlSwitch",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlSwitch.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlTable",
-      "type": "registry:ui",
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlTable.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlTabs",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlTabs.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlTextarea",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Textarea"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlTextarea.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlToggle",
-      "type": "registry:ui",
-      "registryDependencies": [
-        "Toggle"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlToggle.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlToggleGroup",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "Toggle"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlToggleGroup.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "RtlTooltip",
-      "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "files": [
-        {
-          "path": "registry/base/ui-rtl/RtlTooltip.res",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "AccordionBasic",
       "type": "registry:example",
       "registryDependencies": [
@@ -1695,19 +884,6 @@
       "files": [
         {
           "path": "registry/base/examples/AccordionMultiple.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "AccordionRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "RtlAccordion"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/AccordionRtl.res",
           "type": "registry:example"
         }
       ]
@@ -1859,23 +1035,6 @@
       ]
     },
     {
-      "name": "AlertDialogRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons",
-        "RtlAlertDialog"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/AlertDialogRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "AlertDialogSmall",
       "type": "registry:example",
       "registryDependencies": [
@@ -1908,23 +1067,6 @@
       ]
     },
     {
-      "name": "AlertRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons",
-        "RtlAlert"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/AlertRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "AspectRatioDemo",
       "type": "registry:example",
       "dependencies": [
@@ -1952,22 +1094,6 @@
       "files": [
         {
           "path": "registry/base/examples/AspectRatioPortrait.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "AspectRatioRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "next"
-      ],
-      "registryDependencies": [
-        "AspectRatio"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/AspectRatioRtl.res",
           "type": "registry:example"
         }
       ]
@@ -2103,20 +1229,6 @@
       ]
     },
     {
-      "name": "AvatarRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Avatar",
-        "RtlAvatar"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/AvatarRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "AvatarSize",
       "type": "registry:example",
       "registryDependencies": [
@@ -2185,24 +1297,6 @@
       "files": [
         {
           "path": "registry/base/examples/BadgeLink.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "BadgeRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Badge",
-        "Icons",
-        "RtlBadge"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/BadgeRtl.res",
           "type": "registry:example"
         }
       ]
@@ -2302,24 +1396,6 @@
       "files": [
         {
           "path": "registry/base/examples/BreadcrumbLink.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "BreadcrumbRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Breadcrumb",
-        "DropdownMenu",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/BreadcrumbRtl.res",
           "type": "registry:example"
         }
       ]
@@ -2534,25 +1610,6 @@
       ]
     },
     {
-      "name": "ButtonGroupRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "ButtonGroup",
-        "DropdownMenu",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ButtonGroupRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "ButtonGroupSelect",
       "type": "registry:example",
       "dependencies": [
@@ -2689,25 +1746,6 @@
       "files": [
         {
           "path": "registry/base/examples/ButtonRounded.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "ButtonRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons",
-        "RtlButton",
-        "Spinner"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ButtonRtl.res",
           "type": "registry:example"
         }
       ]
@@ -2902,22 +1940,6 @@
       ]
     },
     {
-      "name": "CalendarRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "react-day-picker"
-      ],
-      "registryDependencies": [
-        "Calendar"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/CalendarRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "CalendarTime",
       "type": "registry:example",
       "dependencies": [
@@ -2978,22 +2000,6 @@
       "files": [
         {
           "path": "registry/base/examples/CardImage.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "CardRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Button",
-        "Card",
-        "Input",
-        "Label"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/CardRtl.res",
           "type": "registry:example"
         }
       ]
@@ -3085,20 +2091,6 @@
       "files": [
         {
           "path": "registry/base/examples/CarouselPlugin.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "CarouselRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Card",
-        "Carousel"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/CarouselRtl.res",
           "type": "registry:example"
         }
       ]
@@ -3228,22 +2220,6 @@
       ]
     },
     {
-      "name": "ChartRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "recharts"
-      ],
-      "registryDependencies": [
-        "Chart"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ChartRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "ChartTooltip",
       "type": "registry:example",
       "files": [
@@ -3339,21 +2315,6 @@
       ]
     },
     {
-      "name": "CheckboxRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Checkbox",
-        "Field",
-        "Label"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/CheckboxRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "CheckboxTable",
       "type": "registry:example",
       "registryDependencies": [
@@ -3420,24 +2381,6 @@
       "files": [
         {
           "path": "registry/base/examples/CollapsibleFileTree.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "CollapsibleRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Collapsible",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/CollapsibleRtl.res",
           "type": "registry:example"
         }
       ]
@@ -3614,20 +2557,6 @@
       ]
     },
     {
-      "name": "ComboboxRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Combobox",
-        "Field"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ComboboxRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "CommandBasic",
       "type": "registry:example",
       "registryDependencies": [
@@ -3689,23 +2618,6 @@
       "files": [
         {
           "path": "registry/base/examples/CommandGroups.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "CommandRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Command",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/CommandRtl.res",
           "type": "registry:example"
         }
       ]
@@ -3846,23 +2758,6 @@
       ]
     },
     {
-      "name": "ContextMenuRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "ContextMenu",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ContextMenuRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "ContextMenuShortcuts",
       "type": "registry:example",
       "registryDependencies": [
@@ -3978,29 +2873,6 @@
       "files": [
         {
           "path": "registry/base/examples/DataTablePagination.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "DataTableRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "@tanstack/react-table",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Checkbox",
-        "DropdownMenu",
-        "Icons",
-        "Input",
-        "RtlDataTable",
-        "Table"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/DataTableRtl.res",
           "type": "registry:example"
         }
       ]
@@ -4142,27 +3014,6 @@
       ]
     },
     {
-      "name": "DatePickerRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "date-fns",
-        "lucide-react",
-        "react-day-picker"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Calendar",
-        "Icons",
-        "Popover"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/DatePickerRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "DatePickerTime",
       "type": "registry:example",
       "dependencies": [
@@ -4227,23 +3078,6 @@
       "files": [
         {
           "path": "registry/base/examples/DialogNoCloseButton.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "DialogRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Button",
-        "Dialog",
-        "Field",
-        "Input",
-        "Label"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/DialogRtl.res",
           "type": "registry:example"
         }
       ]
@@ -4321,25 +3155,6 @@
       "files": [
         {
           "path": "registry/base/examples/DrawerDialog.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "DrawerRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react",
-        "recharts"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Drawer",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/DrawerRtl.res",
           "type": "registry:example"
         }
       ]
@@ -4538,24 +3353,6 @@
       ]
     },
     {
-      "name": "DropdownMenuRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "DropdownMenu",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/DropdownMenuRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "DropdownMenuShortcuts",
       "type": "registry:example",
       "registryDependencies": [
@@ -4710,25 +3507,6 @@
       ]
     },
     {
-      "name": "EmptyRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "@tabler/icons-react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Empty",
-        "Icons"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/EmptyRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "FieldCheckbox",
       "type": "registry:example",
       "registryDependencies": [
@@ -4846,24 +3624,6 @@
       ]
     },
     {
-      "name": "FieldRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Button",
-        "Checkbox",
-        "Field",
-        "Input",
-        "Select",
-        "Textarea"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/FieldRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "FieldSelect",
       "type": "registry:example",
       "registryDependencies": [
@@ -4947,20 +3707,6 @@
       "files": [
         {
           "path": "registry/base/examples/HoverCardDemo.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "HoverCardRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Button",
-        "HoverCard"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/HoverCardRtl.res",
           "type": "registry:example"
         }
       ]
@@ -5367,25 +4113,6 @@
       ]
     },
     {
-      "name": "InputGroupRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Field",
-        "Icons",
-        "InputGroup",
-        "Spinner"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/InputGroupRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "InputGroupSpinner",
       "type": "registry:example",
       "dependencies": [
@@ -5717,20 +4444,6 @@
       ]
     },
     {
-      "name": "InputOtpRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Field",
-        "InputOtp"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/InputOtpRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "InputOtpSeparator",
       "type": "registry:example",
       "registryDependencies": [
@@ -5753,20 +4466,6 @@
       "files": [
         {
           "path": "registry/base/examples/InputRequired.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "InputRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Field",
-        "Input"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/InputRtl.res",
           "type": "registry:example"
         }
       ]
@@ -5909,24 +4608,6 @@
       ]
     },
     {
-      "name": "ItemRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Button",
-        "Icons",
-        "Item"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ItemRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "ItemSize",
       "type": "registry:example",
       "dependencies": [
@@ -6019,19 +4700,6 @@
       ]
     },
     {
-      "name": "KbdRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Kbd"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/KbdRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "KbdTooltip",
       "type": "registry:example",
       "registryDependencies": [
@@ -6057,20 +4725,6 @@
       "files": [
         {
           "path": "registry/base/examples/LabelDemo.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "LabelRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Checkbox",
-        "Label"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/LabelRtl.res",
           "type": "registry:example"
         }
       ]
@@ -6127,19 +4781,6 @@
       "files": [
         {
           "path": "registry/base/examples/MenubarRadio.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "MenubarRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Menubar"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/MenubarRtl.res",
           "type": "registry:example"
         }
       ]
@@ -6224,19 +4865,6 @@
       ]
     },
     {
-      "name": "NativeSelectRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "NativeSelect"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/NativeSelectRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "NavigationMenuDemo",
       "type": "registry:example",
       "dependencies": [
@@ -6250,25 +4878,6 @@
       "files": [
         {
           "path": "registry/base/examples/NavigationMenuDemo.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "NavigationMenuRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react",
-        "next"
-      ],
-      "registryDependencies": [
-        "Icons",
-        "NavigationMenu",
-        "RtlNavigationMenu"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/NavigationMenuRtl.res",
           "type": "registry:example"
         }
       ]
@@ -6314,19 +4923,6 @@
       "files": [
         {
           "path": "registry/base/examples/PaginationIconsOnly.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "PaginationRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Pagination"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/PaginationRtl.res",
           "type": "registry:example"
         }
       ]
@@ -6405,20 +5001,6 @@
       ]
     },
     {
-      "name": "PopoverRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Button",
-        "Popover"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/PopoverRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "ProgressControlled",
       "type": "registry:example",
       "registryDependencies": [
@@ -6454,19 +5036,6 @@
       "files": [
         {
           "path": "registry/base/examples/ProgressLabel.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "ProgressRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Progress"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ProgressRtl.res",
           "type": "registry:example"
         }
       ]
@@ -6570,20 +5139,6 @@
       ]
     },
     {
-      "name": "RadioGroupRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Field",
-        "RadioGroup"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/RadioGroupRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "ResizableDemo",
       "type": "registry:example",
       "registryDependencies": [
@@ -6605,19 +5160,6 @@
       "files": [
         {
           "path": "registry/base/examples/ResizableHandle.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "ResizableRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Resizable"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ResizableRtl.res",
           "type": "registry:example"
         }
       ]
@@ -6658,20 +5200,6 @@
       "files": [
         {
           "path": "registry/base/examples/ScrollAreaHorizontalDemo.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "ScrollAreaRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "ScrollArea",
-        "Separator"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ScrollAreaRtl.res",
           "type": "registry:example"
         }
       ]
@@ -6745,19 +5273,6 @@
       ]
     },
     {
-      "name": "SelectRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Select"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/SelectRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "SelectScrollable",
       "type": "registry:example",
       "registryDependencies": [
@@ -6810,19 +5325,6 @@
       ]
     },
     {
-      "name": "SeparatorRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Separator"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/SeparatorRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "SeparatorVertical",
       "type": "registry:example",
       "registryDependencies": [
@@ -6861,22 +5363,6 @@
       "files": [
         {
           "path": "registry/base/examples/SheetNoCloseButton.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "SheetRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Button",
-        "Field",
-        "Input",
-        "Sheet"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/SheetRtl.res",
           "type": "registry:example"
         }
       ]
@@ -7124,27 +5610,6 @@
       ]
     },
     {
-      "name": "SidebarRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Avatar",
-        "Collapsible",
-        "DropdownMenu",
-        "Icons",
-        "Sidebar",
-        "SidebarDemo"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/SidebarRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "SkeletonAvatar",
       "type": "registry:example",
       "registryDependencies": [
@@ -7193,19 +5658,6 @@
       "files": [
         {
           "path": "registry/base/examples/SkeletonForm.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "SkeletonRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Skeleton"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/SkeletonRtl.res",
           "type": "registry:example"
         }
       ]
@@ -7298,19 +5750,6 @@
       "files": [
         {
           "path": "registry/base/examples/SliderRange.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "SliderRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Slider"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/SliderRtl.res",
           "type": "registry:example"
         }
       ]
@@ -7488,20 +5927,6 @@
       ]
     },
     {
-      "name": "SpinnerRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Item",
-        "Spinner"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/SpinnerRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "SpinnerSize",
       "type": "registry:example",
       "registryDependencies": [
@@ -7585,20 +6010,6 @@
       ]
     },
     {
-      "name": "SwitchRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Field",
-        "Switch"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/SwitchRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "SwitchSizes",
       "type": "registry:example",
       "registryDependencies": [
@@ -7658,19 +6069,6 @@
       ]
     },
     {
-      "name": "TableRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Table"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/TableRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "TabsDemo",
       "type": "registry:example",
       "registryDependencies": [
@@ -7722,20 +6120,6 @@
       "files": [
         {
           "path": "registry/base/examples/TabsLine.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "TabsRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Card",
-        "Tabs"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/TabsRtl.res",
           "type": "registry:example"
         }
       ]
@@ -7820,20 +6204,6 @@
       "files": [
         {
           "path": "registry/base/examples/TextareaInvalid.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "TextareaRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Field",
-        "Textarea"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/TextareaRtl.res",
           "type": "registry:example"
         }
       ]
@@ -7930,19 +6300,6 @@
       ]
     },
     {
-      "name": "ToggleGroupRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "ToggleGroup"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ToggleGroupRtl.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
       "name": "ToggleGroupSizes",
       "type": "registry:example",
       "registryDependencies": [
@@ -7998,23 +6355,6 @@
       "files": [
         {
           "path": "registry/base/examples/ToggleOutline.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "ToggleRtl",
-      "type": "registry:example",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons",
-        "Toggle"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/ToggleRtl.res",
           "type": "registry:example"
         }
       ]
@@ -8091,20 +6431,6 @@
       "files": [
         {
           "path": "registry/base/examples/TooltipKeyboard.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "TooltipRtl",
-      "type": "registry:example",
-      "registryDependencies": [
-        "Button",
-        "Tooltip"
-      ],
-      "files": [
-        {
-          "path": "registry/base/examples/TooltipRtl.res",
           "type": "registry:example"
         }
       ]
@@ -8239,16 +6565,6 @@
       "files": [
         {
           "path": "registry/base/examples/TypographyP.res",
-          "type": "registry:example"
-        }
-      ]
-    },
-    {
-      "name": "TypographyRtl",
-      "type": "registry:example",
-      "files": [
-        {
-          "path": "registry/base/examples/TypographyRtl.res",
           "type": "registry:example"
         }
       ]

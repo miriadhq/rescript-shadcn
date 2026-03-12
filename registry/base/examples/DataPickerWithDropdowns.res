@@ -30,8 +30,8 @@ let make = ({}: Demo.Props.t) => {
       <Popover.Content className="w-auto p-0" align=BaseUi.Types.Align.Start>
         <Calendar
           mode=Single
-          selected=date
-          onSelect={(value: option<Date.t>) => setDate(_ => value)}
+          selected=?date
+          onSelect={value => setDate(_ => value)}
           captionLayout=Calendar.CaptionLayout.Dropdown
         />
         <div className="flex gap-2 border-t p-2">

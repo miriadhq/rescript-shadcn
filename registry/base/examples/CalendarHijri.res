@@ -25,7 +25,7 @@ module PersianDayPicker = {
     ~classNames: Calendar.DayPickerClassNames.t=?,
     ~mode: string=?,
     ~selected: 'selected=?,
-    ~onSelect: 'selected => unit=?,
+    ~onSelect: option<'selected> => unit=?,
     ~defaultMonth: Date.t=?,
     ~components: Calendar.DayPickerComponents.t=?,
   ) => React.element = "DayPicker"
@@ -40,7 +40,7 @@ module CalendarDayButton = {
     children,
     day,
     modifiers,
-    locale,
+    ?locale,
     ?id,
     ?style,
     ?disabled,
@@ -120,7 +120,7 @@ module HijriCalendar = {
     ~components: Calendar.DayPickerComponents.t={},
     ~mode=?,
     ~selected: option<'selected>=?,
-    ~onSelect: option<'selected => unit>=?,
+    ~onSelect: option<option<'selected> => unit>=?,
     ~defaultMonth=?,
   ) => {
     let defaultClassNames = Calendar.getDefaultClassNames()
@@ -279,8 +279,8 @@ let make = ({}: Demo.Props.t) => {
     <HijriCalendar
       mode="single"
       defaultMonth=?date
-      selected=date
-      onSelect={(value: option<Date.t>) => setDate(_ => value)}
+      selected=?date
+      onSelect={value => setDate(_ => value)}
       className="rounded-lg border"
     />
   </div>

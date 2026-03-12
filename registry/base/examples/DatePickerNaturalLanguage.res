@@ -49,9 +49,9 @@ let make = ({}: Demo.Props.t) => {
           >
             <Calendar
               mode=Single
-              selected={date}
+              selected=?date
               captionLayout={Calendar.CaptionLayout.Dropdown}
-              defaultMonth=?{date}
+              defaultMonth=?date
               onSelect={(value: option<Date.t>) => {
                 setDate(_ => value)
                 setValue(_ => formatDate(value))

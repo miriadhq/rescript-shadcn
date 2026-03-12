@@ -18,10 +18,8 @@ const VITE_CONFIG_PATH = path.resolve(repoRoot, "test/visual/vite-parity.config.
 const ARTIFACTS_DIR = path.resolve(repoRoot, "test/artifacts/pixel-perfect")
 const EXAMPLES_BASE_DIR = path.resolve(repoRoot, "shadcn-ui/apps/v4/examples/base")
 const EXAMPLES_UI_DIR = path.resolve(repoRoot, "shadcn-ui/apps/v4/examples/base/ui")
-const EXAMPLES_UI_RTL_DIR = path.resolve(repoRoot, "shadcn-ui/apps/v4/examples/base/ui-rtl")
 const RESCRIPT_EXAMPLES_DIR = path.resolve(repoRoot, "registry/base/examples")
 const RESCRIPT_UI_DIR = path.resolve(repoRoot, "registry/base/ui")
-const RESCRIPT_UI_RTL_DIR = path.resolve(repoRoot, "registry/base/ui-rtl")
 const PAGE_LOAD_TIMEOUT_MS = Number(process.env.PARITY_PAGE_LOAD_TIMEOUT_MS ?? 20_000)
 const COMPONENT_TEST_TIMEOUT_MS = Number(process.env.PARITY_COMPONENT_TIMEOUT_MS ?? 900_000)
 const FONT_WAIT_TIMEOUT_MS = Number(process.env.PARITY_FONT_WAIT_TIMEOUT_MS ?? 2_000)
@@ -75,19 +73,7 @@ function readBaseUiExampleIds() {
     .sort()
 }
 
-function readBaseUiRtlExampleIds() {
-  return readdirSync(EXAMPLES_UI_RTL_DIR, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".tsx"))
-    .map((entry) => `ui-rtl/${entry.name.replace(/\.tsx$/, "")}`)
-    .sort()
-}
-
 function expectedRescriptPath(component: string) {
-  if (component.startsWith("ui-rtl/")) {
-    const rtlName = component.replace(/^ui-rtl\//, "")
-    return path.join(RESCRIPT_UI_RTL_DIR, `Rtl${toPascalCase(rtlName)}.res`)
-  }
-
   if (component.startsWith("ui/")) {
     const uiName = component.replace(/^ui\//, "")
     return path.join(RESCRIPT_UI_DIR, `${toPascalCase(uiName)}.res`)
@@ -103,7 +89,6 @@ function hasRescriptEquivalent(component: string) {
 const EXAMPLE_COMPONENT_IDS = [
   ...readBaseExampleIds(),
   ...readBaseUiExampleIds(),
-  ...readBaseUiRtlExampleIds(),
 ].sort((a, b) => a.localeCompare(b))
 const REQUESTED_COMPONENT_IDS = (process.env.PARITY_COMPONENTS ?? "")
   .split(",")
@@ -773,7 +758,6 @@ describe("tsx vs rescript parity (vite harness)", () => {
       `allow missing equivalent flag: ${ALLOW_MISSING_RESCRIPT_EQUIVALENT}`,
       `base examples dir: ${EXAMPLES_BASE_DIR}`,
       `base ui dir: ${EXAMPLES_UI_DIR}`,
-      `base ui-rtl dir: ${EXAMPLES_UI_RTL_DIR}`,
       ...MISSING_RESCRIPT_COMPONENT_IDS.map(
         (component) => `${component} -> expected ${path.relative(repoRoot, expectedRescriptPath(component))}`
       ),

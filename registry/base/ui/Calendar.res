@@ -80,7 +80,7 @@ module DayButtonProps = {
     children: React.element,
     day: Day.t,
     modifiers: DayModifiers.t,
-    locale: option<Locale.t>,
+    locale?: Locale.t,
     id?: string,
     style?: ReactDOM.Style.t,
     disabled?: bool,
@@ -128,13 +128,6 @@ module DayPickerClassNames = {
 @module("react-day-picker")
 external getDefaultClassNames: unit => DayPickerClassNames.t = "getDefaultClassNames"
 
-module Props = {
-  type t = {
-    modifiers?: Modifiers.t,
-    ...JsxDOM.domProps,
-  }
-}
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
@@ -153,7 +146,7 @@ module DayButton = {
     children,
     day,
     modifiers,
-    locale,
+    ?locale,
     ?id,
     ?style,
     ?disabled,
@@ -213,7 +206,14 @@ module DayButton = {
   }
 }
 
-type componentRenderer = Props.t => React.element
+module ComponentProps = {
+  type t = {
+    modifiers?: Modifiers.t,
+    ...JsxDOM.domProps,
+  }
+}
+
+type componentRenderer = ComponentProps.t => React.element
 
 module DayPickerFormatters = {
   module DateLibOptions = {
@@ -289,136 +289,129 @@ module Labels = {
   }
 }
 
+module Direction = {
+  @unboxed
+  type t =
+    | @as("ltr") Ltr
+    | @as("rtl") Rtl
+}
+
+module DateRange = {
+  type t = {
+    from: Date.t,
+    to?: Date.t,
+  }
+}
+
 module DayPicker = {
   module SelectionMode = {
-    type t =
-      | @as("single") Single
-      | @as("multiple") Multiple
-      | @as("range") Range
-      | @as("none") None
+    type rec t<_> =
+      | @as("single") Single: t<Date.t>
+      | @as("multiple") Multiple: t<array<Date.t>>
+      | @as("range") Range: t<DateRange.t>
+      | @as("none") NoSelection: t<unit>
   }
 
-  @react.component @module("react-day-picker")
-  external make: (
-    ~showOutsideDays: bool=?,
-    ~className: string=?,
-    ~captionLayout: CaptionLayout.t=?,
-    ~dir: string=?,
-    ~locale: Locale.t=?,
-    ~formatters: DayPickerFormatters.t=?,
-    ~classNames: DayPickerClassNames.t=?,
-    ~required: bool=?,
-    ~mode: SelectionMode.t=?,
-    ~selected: 'selected=?,
-    ~onSelect: 'selected => unit=?,
-    ~defaultMonth: Date.t=?,
-    ~month: Date.t=?,
-    ~onMonthChange: Date.t => unit=?,
-    ~startMonth: Date.t=?,
-    ~endMonth: Date.t=?,
-    ~numberOfMonths: int=?,
-    ~reverseMonths: bool=?,
-    ~pagedNavigation: bool=?,
-    ~navLayout: string=?,
-    ~hideNavigation: bool=?,
-    ~disableNavigation: bool=?,
-    ~showWeekNumber: bool=?,
-    ~fixedWeeks: bool=?,
-    ~weekStartsOn: int=?,
-    @as("ISOWeek") ~isoWeek: bool=?,
-    ~fromDate: Date.t=?,
-    ~toDate: Date.t=?,
-    ~fromMonth: Date.t=?,
-    ~toMonth: Date.t=?,
-    ~fromYear: int=?,
-    ~toYear: int=?,
-    ~broadcastCalendar: bool=?,
-    ~timeZone: string=?,
-    ~animate: bool=?,
-    ~autoFocus: bool=?,
-    ~onDayClick: (Date.t, Modifiers.t, JsxEvent.Mouse.t) => unit=?,
-    ~onNextClick: Date.t => unit=?,
-    ~onPrevClick: Date.t => unit=?,
-    ~styles: dict<ReactDOM.Style.t>=?,
-    ~labels: Labels.t=?,
-    ~hidden: Date.t => bool=?,
-    ~footer: React.element=?,
-    ~disabled: Date.t => bool=?,
-    ~modifiers: dict<Date.t => bool>=?,
-    ~modifiersClassNames: dict<string>=?,
-    ~components: DayPickerComponents.t=?,
-  ) => React.element = "DayPicker"
+  module Props = {
+    type t<'selected> = {
+      showOutsideDays?: bool,
+      className?: string,
+      captionLayout?: CaptionLayout.t,
+      dir?: Direction.t,
+      locale?: Locale.t,
+      formatters?: DayPickerFormatters.t,
+      classNames?: DayPickerClassNames.t,
+      required?: bool,
+      mode?: SelectionMode.t<'selected>,
+      selected?: 'selected,
+      onSelect?: option<'selected> => unit,
+      defaultMonth?: Date.t,
+      month?: Date.t,
+      onMonthChange?: Date.t => unit,
+      startMonth?: Date.t,
+      endMonth?: Date.t,
+      numberOfMonths?: int,
+      reverseMonths?: bool,
+      pagedNavigation?: bool,
+      navLayout?: string,
+      hideNavigation?: bool,
+      disableNavigation?: bool,
+      showWeekNumber?: bool,
+      fixedWeeks?: bool,
+      weekStartsOn?: int,
+      @as("ISOWeek") isoWeek?: bool,
+      fromDate?: Date.t,
+      toDate?: Date.t,
+      fromMonth?: Date.t,
+      toMonth?: Date.t,
+      fromYear?: int,
+      toYear?: int,
+      broadcastCalendar?: bool,
+      timeZone?: string,
+      animate?: bool,
+      autoFocus?: bool,
+      onDayClick?: (Date.t, Modifiers.t, JsxEvent.Mouse.t) => unit,
+      onNextClick?: Date.t => unit,
+      onPrevClick?: Date.t => unit,
+      styles?: dict<ReactDOM.Style.t>,
+      labels?: Labels.t,
+      hidden?: Date.t => bool,
+      footer?: React.element,
+      disabled?: Date.t => bool,
+      modifiers?: dict<Date.t => bool>,
+      modifiersClassNames?: dict<string>,
+      components?: DayPickerComponents.t,
+    }
+  }
+
+  @module("react-day-picker")
+  external make: Props.t<'selected> => React.element = "DayPicker"
+}
+
+module Props = {
+  type t<'selected> = {
+    ...DayPicker.Props.t<'selected>,
+    buttonVariant?: Button.Variant.t,
+  }
+}
+
+let toDayPickerProps = props => {
+  module Unsafe = {
+    external toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<'selected> = "%identity"
+    external toDict: Props.t<'selected> => dict<unknown> = "%identity"
+  }
+  let propsDict = props->Unsafe.toDict
+  Dict.delete(propsDict, "buttonVariant")
+  props->Unsafe.toDayPickerProps
 }
 
 @scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
 
-@react.component
-let make = (
-  ~className=?,
-  ~showOutsideDays=true,
-  ~captionLayout=CaptionLayout.Label,
-  ~dir=?,
-  ~buttonVariant=Button.Variant.Ghost,
-  ~required=?,
-  ~mode=?,
-  ~selected: option<'selected>=?,
-  ~onSelect: option<'selected => unit>=?,
-  ~defaultMonth=?,
-  ~month=?,
-  ~onMonthChange=?,
-  ~startMonth=?,
-  ~endMonth=?,
-  ~locale: option<Locale.t>=?,
-  ~showWeekNumber=false,
-  ~numberOfMonths=?,
-  ~reverseMonths=?,
-  ~pagedNavigation=?,
-  ~navLayout=?,
-  ~hideNavigation=?,
-  ~disableNavigation=?,
-  ~fixedWeeks=?,
-  ~weekStartsOn=?,
-  ~isoWeek=?,
-  ~fromDate=?,
-  ~toDate=?,
-  ~fromMonth=?,
-  ~toMonth=?,
-  ~fromYear=?,
-  ~toYear=?,
-  ~broadcastCalendar=?,
-  ~timeZone=?,
-  ~animate=?,
-  ~autoFocus=?,
-  ~onDayClick=?,
-  ~onNextClick=?,
-  ~onPrevClick=?,
-  ~styles=?,
-  ~labels=?,
-  ~hidden=?,
-  ~footer=?,
-  ~disabled=?,
-  ~modifiers=?,
-  ~modifiersClassNames=?,
-  ~classNames: DayPickerClassNames.t={},
-  ~formatters: DayPickerFormatters.t={},
-  ~components: DayPickerComponents.t={},
-) => {
+@react.componentWithProps(Props.t)
+let make = props => {
+  let showOutsideDays = props.Props.showOutsideDays->Option.getOr(true)
+  let captionLayout = props.captionLayout->Option.getOr(CaptionLayout.Label)
+  let buttonVariant = props.buttonVariant->Option.getOr(Button.Variant.Ghost)
+  let formatters = props.formatters->Option.getOr({})
+  let classNames = props.classNames->Option.getOr({})
+  let components = props.components->Option.getOr({})
+  let showWeekNumber = props.showWeekNumber->Option.getOr(false)
   let defaultClassNames = getDefaultClassNames()
+  let props = props->toDayPickerProps
 
   <DayPicker
+    {...props}
     showOutsideDays
     className={cn(
       "bg-background group/calendar p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
-      className,
+      props.className,
     )}
     captionLayout
-    ?dir
-    ?locale
     formatters={merge(
       ~defaults={
         DayPickerFormatters.formatMonthDropdown: date =>
           date->Date.toLocaleDateStringWithLocaleAndOptions(
-            switch locale {
+            switch props.locale {
             | Some({code}) => code
             | None => "default"
             },
@@ -509,45 +502,6 @@ let make = (
       },
       classNames,
     )}
-    ?required
-    ?mode
-    ?selected
-    ?onSelect
-    ?defaultMonth
-    ?month
-    ?onMonthChange
-    ?startMonth
-    ?endMonth
-    ?numberOfMonths
-    ?reverseMonths
-    ?pagedNavigation
-    ?navLayout
-    ?hideNavigation
-    ?disableNavigation
-    showWeekNumber
-    ?fixedWeeks
-    ?weekStartsOn
-    ?isoWeek
-    ?fromDate
-    ?toDate
-    ?fromMonth
-    ?toMonth
-    ?fromYear
-    ?toYear
-    ?broadcastCalendar
-    ?timeZone
-    ?animate
-    ?autoFocus
-    ?onDayClick
-    ?onNextClick
-    ?onPrevClick
-    ?styles
-    ?labels
-    ?hidden
-    ?footer
-    ?disabled
-    ?modifiers
-    ?modifiersClassNames
     components={merge(
       ~defaults={
         DayPickerComponents.root: ({
@@ -588,7 +542,7 @@ let make = (
             <Icons.ChevronDown {...props} className={cn("size-4", className)} />
           }
         },
-        dayButton: (props: DayButtonProps.t) => <DayButton {...props} locale />,
+        dayButton: (props: DayButtonProps.t) => <DayButton {...props} locale=?{props.locale} />,
         weekNumber: ({?children, ?className, ?ariaLabel, ?role, ?scope}) =>
           <td ?className ?ariaLabel ?role ?scope>
             <div

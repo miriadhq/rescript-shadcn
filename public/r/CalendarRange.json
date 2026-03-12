@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/base/examples/CalendarRange.res",
-      "content": "@@directive(\"'use client'\")\n\ntype dateRange = {\n  from: Date.t,\n  to?: Date.t,\n}\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (dateRange, setDateRange) = React.useState(() => {\n    let year = Date.make()->Date.getFullYear\n    let startDate = Date.makeWithYMD(~year, ~month=0, ~day=12)\n    {\n      from: startDate,\n      to: Date.makeWithYMD(~year, ~month=0, ~day=42),\n    }\n  })\n\n  <Calendar\n    mode=Range\n    defaultMonth={dateRange.from}\n    selected=dateRange\n    onSelect={value => setDateRange(_ => value)}\n    numberOfMonths=2\n    className=\"rounded-lg border\"\n  />\n}\n",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (dateRange, setDateRange) = React.useState(() => {\n    let year = Date.make()->Date.getFullYear\n    let startDate = Date.makeWithYMD(~year, ~month=0, ~day=12)\n    {\n      Calendar.DateRange.from: startDate,\n      to: Date.makeWithYMD(~year, ~month=0, ~day=42),\n    }->Some\n  })\n\n  <Calendar\n    mode=Range\n    defaultMonth=?{dateRange->Option.map(r => r.from)}\n    selected=?dateRange\n    onSelect={value => setDateRange(_ => value)}\n    numberOfMonths=2\n    className=\"rounded-lg border\"\n  />\n}\n",
       "type": "registry:example"
     }
   ],

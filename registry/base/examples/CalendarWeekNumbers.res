@@ -13,8 +13,8 @@ let make = ({}: Demo.Props.t) => {
       <Calendar
         mode=Single
         defaultMonth=?date
-        selected=date
-        onSelect={(value: option<Date.t>) => setDate(_ => value)}
+        selected=?date
+        onSelect={value => setDate(_ => value)}
         showWeekNumber={true}
       />
     </Card.Content>
