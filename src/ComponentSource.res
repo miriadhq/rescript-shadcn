@@ -1,6 +1,6 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-let registryRoot = Node.Path.join([Node.cwd(), "registry/base"])
+let registryRoot = Node.Path.join([Node.cwd(), "registry", "base"])
 
 let fileExists = async (filePath: string) => {
   try {
@@ -61,7 +61,11 @@ let make = async (
 ) => {
   let code = switch (name, src) {
   | (None, None) => None
-  | (_, Some(src)) => (await Node.Fs.readFile(Node.Path.join([Node.cwd(), src]), "utf-8"))->Some
+  | (_, Some(src)) => {
+      // src is always relative to registry/base (e.g., "/registry/base/examples/Foo.res")
+      let relativePath = src->String.replace("/registry/base/", "")
+      (await Node.Fs.readFile(Node.Path.join([registryRoot, relativePath]), "utf-8"))->Some
+    }
   | (Some(name), None) =>
     switch await resolveSourcePath(name) {
     | Some(path) => (await Node.Fs.readFile(path, "utf-8"))->Some
