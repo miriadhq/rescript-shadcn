@@ -5,7 +5,7 @@ let make = ({}: Demo.Props.t) => {
   let (progress, setProgress) = React.useState(() => 13.)
 
   React.useEffect0(() => {
-    let timer = setTimeout(() => setProgress(_ => 66.), 500)
+    let timer = setTimeout(~handler=() => setProgress(_ => 66.), ~timeout=500)
     Some(() => clearTimeout(timer))
   })
 

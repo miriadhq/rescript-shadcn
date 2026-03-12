@@ -15,8 +15,7 @@
     }
   ],
   "jsx": {
-    "version": 4,
-    "preserve": true
+    "version": 4
   },
   "package-specs": {
     "module": "esmodule",
@@ -25,6 +24,10 @@
   "suffix": ".res.mjs",
   "dependencies": [
     "@rescript/react",
-    "@rescript-shadcn/base-ui"
+    "@rescript-shadcn/base-ui",
+    "@rescript/webapi"
+  ],
+  "compiler-flags": [
+    "-open WebAPI.Global"
   ]
 }

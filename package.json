@@ -28,6 +28,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@rescript-shadcn/base-ui": "workspace:^",
     "@rescript/react": "^0.14.1",
+    "@rescript/webapi": "0.1.0-experimental-127e19a",
     "@tabler/icons-react": "^3.38.0",
     "@tanstack/react-table": "^8.21.3",
     "chrono-node": "^2.9.0",

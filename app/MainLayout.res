@@ -2,13 +2,15 @@
 
 @react.component
 let make = (~children) => {
-  <Sidebar.Provider>
-    <Tooltip.Provider>
-      <NavMenu />
-      <Sidebar.Inset> {children} </Sidebar.Inset>
-      <Sonner position=TopCenter />
-    </Tooltip.Provider>
-  </Sidebar.Provider>
+  <ThemeProvider>
+    <Sidebar.Provider>
+      <Tooltip.Provider>
+        <NavMenu />
+        <Sidebar.Inset> {children} </Sidebar.Inset>
+        <Sonner position=TopCenter />
+      </Tooltip.Provider>
+    </Sidebar.Provider>
+  </ThemeProvider>
 }
 
 let default = make

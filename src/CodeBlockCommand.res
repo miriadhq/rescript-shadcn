@@ -29,7 +29,7 @@ let make = (~npm, ~yarn, ~pnpm, ~bun) => {
 
   React.useEffect(() => {
     if hasCopied {
-      let timer = setTimeout(() => setHasCopied(_ => false), 2000)
+      let timer = setTimeout(~handler=() => setHasCopied(_ => false), ~timeout=2000)
       Some(() => clearTimeout(timer))
     } else {
       None

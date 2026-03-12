@@ -8,15 +8,18 @@ let make = () => {
   let pathname = Next.Navigation.usePathname()
 
   <Sidebar>
-    <Sidebar.Header>
+    <Sidebar.Header className="flex-row items-center gap-2">
       <Sidebar.MenuButton render={<Next.Link href="/" />}>
         {"ReScript Shadcn"->React.string}
       </Sidebar.MenuButton>
+      <ModeSwitcher />
+      <Separator orientation=Vertical />
+      <GithubLink />
     </Sidebar.Header>
     <Sidebar.Content>
       <Sidebar.Group>
-        <Sidebar.GroupLabel>
-          <Next.Link href="/components"> {"Components"->React.string} </Next.Link>
+        <Sidebar.GroupLabel render={<Next.Link href="/components" />}>
+          {"Components"->React.string}
         </Sidebar.GroupLabel>
         <Sidebar.GroupContent>
           <Sidebar.Menu>
