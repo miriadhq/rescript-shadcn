@@ -3,6 +3,9 @@ import { createMDX } from "fumadocs-mdx/next"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  outputFileTracingExcludes: {
+    "*": ["./shadcn-ui/**"],
+  },
   images: {
     remotePatterns: [
       {
