@@ -7,7 +7,7 @@ links:
   doc: https://input-otp.rodz.dev
 ---
 
-<ComponentPreview styleName="base-nova" name="InputOtpDemo" />
+<ComponentPreview name="InputOtpDemo" />
 
 ## About
 
@@ -24,7 +24,7 @@ Input OTP is built on top of [input-otp](https://github.com/guilhermerodz/input-
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add input-otp
+npx shadcn@latest add @rescript-shadcn/InputOtp
 ```
 
 </TabsContent>
@@ -43,11 +43,8 @@ npm install input-otp
 
 <ComponentSource
   name="input-otp"
-  title="components/ui/input-otp.tsx"
-  styleName="base-nova"
+  title="components/ui/InputOtp.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -57,36 +54,27 @@ npm install input-otp
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "@/components/ui/input-otp"
-```
-
-```tsx showLineNumbers
-<InputOTP maxLength={6}>
-  <InputOTPGroup>
-    <InputOTPSlot index={0} />
-    <InputOTPSlot index={1} />
-    <InputOTPSlot index={2} />
-  </InputOTPGroup>
-  <InputOTPSeparator />
-  <InputOTPGroup>
-    <InputOTPSlot index={3} />
-    <InputOTPSlot index={4} />
-    <InputOTPSlot index={5} />
-  </InputOTPGroup>
-</InputOTP>
+```res showLineNumbers
+<InputOtp maxLength={6}>
+  <InputOtp.Group>
+    <InputOtp.Slot index={0} />
+    <InputOtp.Slot index={1} />
+    <InputOtp.Slot index={2} />
+  </InputOtp.Group>
+  <InputOtp.Separator />
+  <InputOtp.Group>
+    <InputOtp.Slot index={3} />
+    <InputOtp.Slot index={4} />
+    <InputOtp.Slot index={5} />
+  </InputOtp.Group>
+</InputOtp>
 ```
 
 ## Pattern
 
 Use the `pattern` prop to define a custom pattern for the OTP input.
 
-```tsx showLineNumbers {1,5}
+```res {1,5}
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 
 ;<InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
@@ -94,7 +82,7 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 </InputOTP>
 ```
 
-<ComponentPreview styleName="base-nova" name="InputOtpPattern" />
+<ComponentPreview name="InputOtpPattern" />
 
 ## Examples
 
@@ -102,51 +90,45 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 
 Use the `<InputOTPSeparator />` component to add a separator between input groups.
 
-<ComponentPreview styleName="base-nova" name="InputOtpSeparator" />
+<ComponentPreview name="InputOtpSeparator" />
 
 ### Disabled
 
 Use the `disabled` prop to disable the input.
 
-<ComponentPreview styleName="base-nova" name="InputOtpDisabled" />
+<ComponentPreview name="InputOtpDisabled" />
 
 ### Controlled
 
 Use the `value` and `onChange` props to control the input value.
 
-<ComponentPreview styleName="base-nova" name="InputOtpControlled" />
+<ComponentPreview name="InputOtpControlled" />
 
 ### Invalid
 
 Use `aria-invalid` on the slots to show an error state.
 
-<ComponentPreview styleName="base-nova" name="InputOtpInvalid" />
+<ComponentPreview name="InputOtpInvalid" />
 
 ### Four Digits
 
 A common pattern for PIN codes. This uses the `pattern={REGEXP_ONLY_DIGITS}` prop.
 
-<ComponentPreview styleName="base-nova" name="InputOtpFourDigits" />
+<ComponentPreview name="InputOtpFourDigits" />
 
 ### Alphanumeric
 
 Use `REGEXP_ONLY_DIGITS_AND_CHARS` to accept both letters and numbers.
 
-<ComponentPreview styleName="base-nova" name="InputOtpAlphanumeric" />
+<ComponentPreview name="InputOtpAlphanumeric" />
 
 ### Form
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputOtpForm"
   previewClassName="h-[30rem]"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="InputOtpRtl" direction="rtl" />
 
 ## API Reference
 

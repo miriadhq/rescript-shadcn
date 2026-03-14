@@ -10,7 +10,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertDialogDemo"
   previewClassName="h-56"
 />
@@ -26,7 +25,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add alert-dialog
+npx shadcn@latest add @rescript-shadcn/AlertDialog
 ```
 
 </TabsContent>
@@ -38,18 +37,15 @@ npx shadcn@latest add alert-dialog
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="alert-dialog"
-  title="components/ui/alert-dialog.tsx"
-  styleName="base-nova"
+  title="components/ui/AlertDialog.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -59,38 +55,23 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <AlertDialog>
-  <AlertDialogTrigger render={<Button variant="outline" />}>
-    Show Dialog
-  </AlertDialogTrigger>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-      <AlertDialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        from our servers.
-      </AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction>Continue</AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
+  <AlertDialog.Trigger render={<Button variant=Outline />}>
+    {"Show Dialog"->React.string}
+  </AlertDialog.Trigger>
+  <AlertDialog.Content>
+    <AlertDialog.Header>
+      <AlertDialog.Title> {"Are you absolutely sure?"->React.string} </AlertDialog.Title>
+      <AlertDialog.Description>
+        {"This action cannot be undone."->React.string}
+      </AlertDialog.Description>
+    </AlertDialog.Header>
+    <AlertDialog.Footer>
+      <AlertDialog.Cancel> {"Cancel"->React.string} </AlertDialog.Cancel>
+      <AlertDialog.Action> {"Continue"->React.string} </AlertDialog.Action>
+    </AlertDialog.Footer>
+  </AlertDialog.Content>
 </AlertDialog>
 ```
 
@@ -101,7 +82,6 @@ import {
 A basic alert dialog with a title, description, and cancel and continue buttons.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertDialogBasic"
   previewClassName="h-56"
 />
@@ -111,7 +91,6 @@ A basic alert dialog with a title, description, and cancel and continue buttons.
 Use the `size="sm"` prop to make the alert dialog smaller.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertDialogSmall"
   previewClassName="h-56"
 />
@@ -121,7 +100,6 @@ Use the `size="sm"` prop to make the alert dialog smaller.
 Use the `AlertDialogMedia` component to add a media element such as an icon or image to the alert dialog.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertDialogMedia"
   previewClassName="h-56"
 />
@@ -131,7 +109,6 @@ Use the `AlertDialogMedia` component to add a media element such as an icon or i
 Use the `size="sm"` prop to make the alert dialog smaller and the `AlertDialogMedia` component to add a media element such as an icon or image to the alert dialog.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertDialogSmallMedia"
   previewClassName="h-56"
 />
@@ -141,21 +118,10 @@ Use the `size="sm"` prop to make the alert dialog smaller and the `AlertDialogMe
 Use the `AlertDialogAction` component to add a destructive action button to the alert dialog.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertDialogDestructive"
   previewClassName="h-56"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="AlertDialogRtl"
-  direction="rtl"
-  previewClassName="h-56"
-/>
 
 ## API Reference
 
@@ -165,6 +131,6 @@ Use the `size` props on the `AlertDialogContent` component to control the size o
 
 | Prop   | Type                | Default     |
 | ------ | ------------------- | ----------- |
-| `size` | `"default" \| "sm"` | `"default"` |
+| `size` | `Default \| Sm`     | `Default`   |
 
 For more information about the other components and their props, see the [Base UI documentation](https://base-ui.com/react/components/alert-dialog#api-reference).

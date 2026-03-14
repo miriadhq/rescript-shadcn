@@ -238,6 +238,7 @@ type props<'value, 'checked> = {
   thumbAlignment?: ThumbAlignment.t,
   thumbCollisionBehavior?: ThumbCollisionBehavior.t,
   suppressHydrationWarning?: bool,
+  hidden?: bool,
   @as("type") type_?: string,
   @as("aria-label") ariaLabel?: string,
   @as("aria-controls") ariaControls?: string,

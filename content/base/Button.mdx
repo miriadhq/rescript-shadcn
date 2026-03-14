@@ -6,7 +6,7 @@ base: base
 component: true
 ---
 
-<ComponentPreview styleName="base-nova" name="ButtonDemo" />
+<ComponentPreview name="ButtonDemo" />
 
 ## Installation
 
@@ -19,7 +19,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add button
+npx shadcn@latest add @rescript-shadcn/Button
 ```
 
 </TabsContent>
@@ -31,18 +31,15 @@ npx shadcn@latest add button
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="button"
-  title="components/ui/button.tsx"
-  styleName="base-nova"
+  title="components/ui/Button.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -52,12 +49,8 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx
-import { Button } from "@/components/ui/button"
-```
-
-```tsx
-<Button variant="outline">Button</Button>
+```res showLineNumbers
+<Button variant=Outline> {"Button"->React.string} </Button>
 ```
 
 ## Cursor
@@ -81,59 +74,59 @@ If you want to keep the `cursor: pointer` behavior, add the following code to yo
 
 Use the `size` prop to change the size of the button.
 
-<ComponentPreview styleName="base-nova" name="ButtonSize" />
+<ComponentPreview name="ButtonSize" />
 
 ### Default
 
-<ComponentPreview styleName="base-nova" name="ButtonDefault" />
+<ComponentPreview name="ButtonDefault" />
 
 ### Outline
 
-<ComponentPreview styleName="base-nova" name="ButtonOutline" />
+<ComponentPreview name="ButtonOutline" />
 
 ### Secondary
 
-<ComponentPreview styleName="base-nova" name="ButtonSecondary" />
+<ComponentPreview name="ButtonSecondary" />
 
 ### Ghost
 
-<ComponentPreview styleName="base-nova" name="ButtonGhost" />
+<ComponentPreview name="ButtonGhost" />
 
 ### Destructive
 
-<ComponentPreview styleName="base-nova" name="ButtonDestructive" />
+<ComponentPreview name="ButtonDestructive" />
 
 ### Link
 
-<ComponentPreview styleName="base-nova" name="ButtonLink" />
+<ComponentPreview name="ButtonLink" />
 
 ### Icon
 
-<ComponentPreview styleName="base-nova" name="ButtonIcon" />
+<ComponentPreview name="ButtonIcon" />
 
 ### With Icon
 
 Remember to add the `data-icon="inline-start"` or `data-icon="inline-end"` attribute to the icon for the correct spacing.
 
-<ComponentPreview styleName="base-nova" name="ButtonWithIcon" />
+<ComponentPreview name="ButtonWithIcon" />
 
 ### Rounded
 
 Use the `rounded-full` class to make the button rounded.
 
-<ComponentPreview styleName="base-nova" name="ButtonRounded" />
+<ComponentPreview name="ButtonRounded" />
 
 ### Spinner
 
 Render a `<Spinner />` component inside the button to show a loading state. Remember to add the `data-icon="inline-start"` or `data-icon="inline-end"` attribute to the spinner for the correct spacing.
 
-<ComponentPreview styleName="base-nova" name="ButtonSpinner" />
+<ComponentPreview name="ButtonSpinner" />
 
 ### Button Group
 
-To create a button group, use the `ButtonGroup` component. See the [Button Group](/docs/components/base/button-group) documentation for more details.
+To create a button group, use the `ButtonGroup` component. See the [Button Group](/components/base/ButtonGroup) documentation for more details.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupDemo" />
+<ComponentPreview name="ButtonGroupDemo" />
 
 ### Link
 
@@ -141,13 +134,8 @@ You can use the `render` prop on `<Button />` to make another component look lik
 
 Remember to set the `nativeButton` prop to `false` if you're returning an element that is not a button.
 
-<ComponentPreview styleName="base-nova" name="ButtonRender" />
+<ComponentPreview name="ButtonRender" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="ButtonRtl" direction="rtl" />
 
 ## API Reference
 
@@ -157,5 +145,5 @@ The `Button` component is a wrapper around the `button` element that adds a vari
 
 | Prop      | Type                                                                                 | Default     |
 | --------- | ------------------------------------------------------------------------------------ | ----------- |
-| `variant` | `"default" \| "outline" \| "ghost" \| "destructive" \| "secondary" \| "link"`        | `"default"` |
-| `size`    | `"default" \| "xs" \| "sm" \| "lg" \| "icon" \| "icon-xs" \| "icon-sm" \| "icon-lg"` | `"default"` |
+| `variant` | `Default \| Outline \| Ghost \| Destructive \| Secondary \| Link`                    | `Default`   |
+| `size`    | `Default \| Xs \| Sm \| Lg \| Icon \| IconXs \| IconSm \| IconLg`                    | `Default`   |

@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="NavigationMenuDemo"
   previewClassName="h-96"
 />
@@ -25,7 +24,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add navigation-menu
+npx shadcn@latest add @rescript-shadcn/NavigationMenu
 ```
 
 </TabsContent>
@@ -37,18 +36,15 @@ npx shadcn@latest add navigation-menu
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="navigation-menu"
-  title="components/ui/navigation-menu.tsx"
-  styleName="base-nova"
+  title="components/ui/NavigationMenu.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -58,27 +54,16 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <NavigationMenu>
-  <NavigationMenuList>
-    <NavigationMenuItem>
-      <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-      <NavigationMenuContent>
-        <NavigationMenuLink>Link</NavigationMenuLink>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-  </NavigationMenuList>
+  <NavigationMenu.List>
+    <NavigationMenu.Item>
+      <NavigationMenu.Trigger> {"Item One"->React.string} </NavigationMenu.Trigger>
+      <NavigationMenu.Content>
+        <NavigationMenu.Link> {"Link"->React.string} </NavigationMenu.Link>
+      </NavigationMenu.Content>
+    </NavigationMenu.Item>
+  </NavigationMenu.List>
 </NavigationMenu>
 ```
 
@@ -86,39 +71,22 @@ import {
 
 Use the `render` prop to compose a custom link component such as Next.js `Link`.
 
-```tsx showLineNumbers
-import Link from "next/link"
+```res showLineNumbers
 
-import {
-  NavigationMenuItem,
-  NavigationMenuLink,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-
-export function NavigationMenuDemo() {
-  return (
-    <NavigationMenuItem>
-      <NavigationMenuLink
-        render={<Link href="/docs" />}
-        className={navigationMenuTriggerStyle()}
+module NavigationMenuDemo = {
+  @react.component
+  let make = () =>
+    <NavigationMenu.Item>
+      <NavigationMenu.Link
+        render={<Next.Link href="/docs" />}
+        className={NavigationMenu.navigationMenuTriggerStyle()}
       >
         Documentation
       </NavigationMenuLink>
     </NavigationMenuItem>
-  )
 }
 ```
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="NavigationMenuRtl"
-  direction="rtl"
-  previewClassName="h-96"
-/>
 
 ## API Reference
 

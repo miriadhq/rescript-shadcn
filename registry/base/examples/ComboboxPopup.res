@@ -49,11 +49,8 @@ let make = ({}: Demo.Props.t) =>
       <Combobox.Input showTrigger={false} placeholder="Search" />
       <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
       <Combobox.List>
-        {countries
-        ->Array.map(item =>
-          <Combobox.Item key={item.code} value={item}> {item.label->React.string} </Combobox.Item>
-        )
-        ->React.array}
+        {(item, _index) =>
+          <Combobox.Item key={item.code} value={item}> {item.label->React.string} </Combobox.Item>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

@@ -36,8 +36,7 @@ let make = ({}: Demo.Props.t) =>
     <Combobox.Content>
       <Combobox.Empty> {"No countries found."->React.string} </Combobox.Empty>
       <Combobox.List>
-        {countries
-        ->Array.map(country =>
+        {(country, _index) =>
           <Combobox.Item key={country.code} value={country}>
             <Item size=Item.Size.Xs className="p-0">
               <Item.Content>
@@ -49,9 +48,7 @@ let make = ({}: Demo.Props.t) =>
                 </Item.Description>
               </Item.Content>
             </Item>
-          </Combobox.Item>
-        )
-        ->React.array}
+          </Combobox.Item>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

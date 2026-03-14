@@ -7,7 +7,6 @@ component: true
 
 <ComponentPreview
   name="CardDemo"
-  styleName="base-nova"
   previewClassName="h-[30rem]"
 />
 
@@ -22,7 +21,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add card
+npx shadcn@latest add @rescript-shadcn/Card
 ```
 
 </TabsContent>
@@ -35,11 +34,8 @@ npx shadcn@latest add card
 
 <ComponentSource
   name="card"
-  title="components/ui/card.tsx"
-  styleName="base-nova"
+  title="components/ui/Card.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -49,31 +45,19 @@ npx shadcn@latest add card
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Card>
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card Description</CardDescription>
-    <CardAction>Card Action</CardAction>
-  </CardHeader>
-  <CardContent>
-    <p>Card Content</p>
-  </CardContent>
-  <CardFooter>
-    <p>Card Footer</p>
-  </CardFooter>
+  <Card.Header>
+    <Card.Title> {"Card Title"->React.string} </Card.Title>
+    <Card.Description> {"Card Description"->React.string} </Card.Description>
+    <Card.Action> {"Card Action"->React.string} </Card.Action>
+  </Card.Header>
+  <Card.Content>
+    <p> {"Card Content"->React.string} </p>
+  </Card.Content>
+  <Card.Footer>
+    <p> {"Card Footer"->React.string} </p>
+  </Card.Footer>
 </Card>
 ```
 
@@ -84,7 +68,6 @@ import {
 Use the `size="sm"` prop to set the size of the card to small. The small size variant uses smaller spacing.
 
 <ComponentPreview
-  styleName="base-nova"
   name="CardSmall"
   previewClassName="h-96"
 />
@@ -94,21 +77,10 @@ Use the `size="sm"` prop to set the size of the card to small. The small size va
 Add an image before the card header to create a card with an image.
 
 <ComponentPreview
-  styleName="base-nova"
   name="CardImage"
   previewClassName="h-[32rem]"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="CardRtl"
-  direction="rtl"
-  previewClassName="h-[30rem]"
-/>
 
 ## API Reference
 
@@ -118,7 +90,7 @@ The `Card` component is the root container for card content.
 
 | Prop        | Type                | Default     |
 | ----------- | ------------------- | ----------- |
-| `size`      | `"default" \| "sm"` | `"default"` |
+| `size`      | `Default \| Sm`     | `Default` |
 | `className` | `string`            | -           |
 
 ### CardHeader

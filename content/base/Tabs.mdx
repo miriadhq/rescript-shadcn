@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="TabsDemo"
   previewClassName="h-96"
 />
@@ -25,7 +24,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add tabs
+npx shadcn@latest add @rescript-shadcn/Tabs
 ```
 
 </TabsContent>
@@ -37,18 +36,15 @@ npx shadcn@latest add tabs
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="tabs"
-  title="components/ui/tabs.tsx"
-  styleName="base-nova"
+  title="components/ui/Tabs.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -58,18 +54,14 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Tabs defaultValue="account" className="w-[400px]">
-  <TabsList>
-    <TabsTrigger value="account">Account</TabsTrigger>
-    <TabsTrigger value="password">Password</TabsTrigger>
-  </TabsList>
-  <TabsContent value="account">Make changes to your account here.</TabsContent>
-  <TabsContent value="password">Change your password here.</TabsContent>
+  <Tabs.List>
+    <Tabs.Trigger value="account"> {"Account"->React.string} </Tabs.Trigger>
+    <Tabs.Trigger value="password"> {"Password"->React.string} </Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="account"> {"Make changes to your account here."->React.string} </Tabs.Content>
+  <Tabs.Content value="password"> {"Change your password here."->React.string} </Tabs.Content>
 </Tabs>
 ```
 
@@ -79,27 +71,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 Use the `variant="line"` prop on `TabsList` for a line style.
 
-<ComponentPreview styleName="base-nova" name="TabsLine" />
+<ComponentPreview name="TabsLine" />
 
 ### Vertical
 
 Use `orientation="vertical"` for vertical tabs.
 
-<ComponentPreview styleName="base-nova" name="TabsVertical" />
+<ComponentPreview name="TabsVertical" />
 
 ### Disabled
 
-<ComponentPreview styleName="base-nova" name="TabsDisabled" />
+<ComponentPreview name="TabsDisabled" />
 
 ### Icons
 
-<ComponentPreview styleName="base-nova" name="TabsIcons" />
+<ComponentPreview name="TabsIcons" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="TabsRtl" direction="rtl" />
 
 ## API Reference
 

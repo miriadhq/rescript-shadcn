@@ -12,11 +12,8 @@ let make = ({}: Demo.Props.t) =>
     <Combobox.Content>
       <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
       <Combobox.List>
-        {frameworks
-        ->Array.map(item =>
-          <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>
-        )
-        ->React.array}
+        {(item, _index) =>
+          <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

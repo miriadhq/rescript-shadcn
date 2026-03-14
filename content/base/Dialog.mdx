@@ -10,7 +10,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="DialogDemo"
   description="A dialog for editing profile details."
 />
@@ -26,7 +25,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add dialog
+npx shadcn@latest add @rescript-shadcn/Dialog
 ```
 
 </TabsContent>
@@ -38,18 +37,15 @@ npx shadcn@latest add dialog
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="dialog"
-  title="components/ui/dialog.tsx"
-  styleName="base-nova"
+  title="components/ui/Dialog.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -59,29 +55,19 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Dialog>
-  <DialogTrigger>Open</DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you absolutely sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
+  <Dialog.Trigger render={<Button variant=Outline />}>
+    {"Open"->React.string}
+  </Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title> {"Are you absolutely sure?"->React.string} </Dialog.Title>
+      <Dialog.Description>
+        {"This action cannot be undone."->React.string}
+      </Dialog.Description>
+    </Dialog.Header>
+  </Dialog.Content>
 </Dialog>
 ```
 
@@ -91,31 +77,26 @@ import {
 
 Replace the default close control with your own button.
 
-<ComponentPreview styleName="base-nova" name="DialogCloseButton" />
+<ComponentPreview name="DialogCloseButton" />
 
 ### No Close Button
 
 Use `showCloseButton={false}` to hide the close button.
 
-<ComponentPreview styleName="base-nova" name="DialogNoCloseButton" />
+<ComponentPreview name="DialogNoCloseButton" />
 
 ### Sticky Footer
 
 Keep actions visible while the content scrolls.
 
-<ComponentPreview styleName="base-nova" name="DialogStickyFooter" />
+<ComponentPreview name="DialogStickyFooter" />
 
 ### Scrollable Content
 
 Long content can scroll while the header stays in view.
 
-<ComponentPreview styleName="base-nova" name="DialogScrollableContent" />
+<ComponentPreview name="DialogScrollableContent" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="DialogRtl" direction="rtl" />
 
 ## API Reference
 

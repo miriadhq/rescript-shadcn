@@ -54,8 +54,7 @@ let make = ({}: Demo.Props.t) =>
     <Combobox.Content alignOffset={-28.} className="w-60">
       <Combobox.Empty> {"No timezones found."->React.string} </Combobox.Empty>
       <Combobox.List>
-        {timezones
-        ->Array.map(group =>
+        {(group, _index) =>
           <Combobox.Group key={group.value}>
             <Combobox.Label> {group.value->React.string} </Combobox.Label>
             {group.items
@@ -63,9 +62,7 @@ let make = ({}: Demo.Props.t) =>
               <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>
             )
             ->React.array}
-          </Combobox.Group>
-        )
-        ->React.array}
+          </Combobox.Group>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

@@ -6,7 +6,6 @@ component: true
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="TableDemo"
   previewClassName="h-[30rem]"
 />
@@ -22,7 +21,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add table
+npx shadcn@latest add @rescript-shadcn/Table
 ```
 
 </TabsContent>
@@ -35,11 +34,8 @@ npx shadcn@latest add table
 
 <ComponentSource
   name="table"
-  title="components/ui/table.tsx"
-  styleName="base-nova"
+  title="components/ui/Table.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -49,37 +45,25 @@ npx shadcn@latest add table
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Table>
-  <TableCaption>A list of your recent invoices.</TableCaption>
-  <TableHeader>
-    <TableRow>
-      <TableHead className="w-[100px]">Invoice</TableHead>
-      <TableHead>Status</TableHead>
-      <TableHead>Method</TableHead>
-      <TableHead className="text-right">Amount</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
-    </TableRow>
-  </TableBody>
+  <Table.Caption> {"A list of your recent invoices."->React.string} </Table.Caption>
+  <Table.Header>
+    <Table.Row>
+      <Table.Head className="w-[100px]"> {"Invoice"->React.string} </Table.Head>
+      <Table.Head> {"Status"->React.string} </Table.Head>
+      <Table.Head> {"Method"->React.string} </Table.Head>
+      <Table.Head className="text-right"> {"Amount"->React.string} </Table.Head>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell className="font-medium"> {"INV001"->React.string} </Table.Cell>
+      <Table.Cell> {"Paid"->React.string} </Table.Cell>
+      <Table.Cell> {"Credit Card"->React.string} </Table.Cell>
+      <Table.Cell className="text-right"> {"$250.00"->React.string} </Table.Cell>
+    </Table.Row>
+  </Table.Body>
 </Table>
 ```
 
@@ -89,29 +73,19 @@ import {
 
 Use the `<TableFooter />` component to add a footer to the table.
 
-<ComponentPreview styleName="base-nova" name="TableFooter" />
+<ComponentPreview name="TableFooter" />
 
 ### Actions
 
 A table showing actions for each row using a `<DropdownMenu />` component.
 
-<ComponentPreview styleName="base-nova" name="TableActions" />
+<ComponentPreview name="TableActions" />
 
 ## Data Table
 
 You can use the `<Table />` component to build more complex data tables. Combine it with [@tanstack/react-table](https://tanstack.com/table/v8) to create tables with sorting, filtering and pagination.
 
-See the [Data Table](/docs/components/data-table) documentation for more information.
+See the [Data Table](/components/DataTable) documentation for more information.
 
 You can also see an example of a data table in the [Tasks](/examples/tasks) demo.
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="TableRtl"
-  direction="rtl"
-  previewClassName="h-auto"
-/>

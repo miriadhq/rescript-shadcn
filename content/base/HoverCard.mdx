@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="HoverCardDemo"
   previewClassName="h-80"
 />
@@ -25,7 +24,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add hover-card
+npx shadcn@latest add @rescript-shadcn/HoverCard
 ```
 
 </TabsContent>
@@ -37,18 +36,15 @@ npx shadcn@latest add hover-card
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="hover-card"
-  title="components/ui/hover-card.tsx"
-  styleName="base-nova"
+  title="components/ui/HoverCard.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -58,20 +54,14 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <HoverCard>
-  <HoverCardTrigger>Hover</HoverCardTrigger>
-  <HoverCardContent>
-    The React Framework – created and maintained by @vercel.
-  </HoverCardContent>
+  <HoverCard.Trigger render={<Button variant=Link />}>
+    {"Hover"->React.string}
+  </HoverCard.Trigger>
+  <HoverCard.Content>
+    {"The React Framework \u2013 created and maintained by @vercel."->React.string}
+  </HoverCard.Content>
 </HoverCard>
 ```
 
@@ -80,7 +70,7 @@ import {
 Use `delay` and `closeDelay` on the trigger to control when the card opens and
 closes.
 
-```tsx showLineNumbers
+```res showLineNumbers
 <HoverCard>
   <HoverCardTrigger delay={100} closeDelay={200}>
     Hover
@@ -93,7 +83,7 @@ closes.
 
 Use the `side` and `align` props on `HoverCardContent` to control placement.
 
-```tsx showLineNumbers
+```res showLineNumbers
 <HoverCard>
   <HoverCardTrigger>Hover</HoverCardTrigger>
   <HoverCardContent side="top" align="start">
@@ -107,7 +97,6 @@ Use the `side` and `align` props on `HoverCardContent` to control placement.
 ### Basic
 
 <ComponentPreview
-  styleName="base-nova"
   name="HoverCardDemo"
   previewClassName="h-80"
 />
@@ -115,21 +104,10 @@ Use the `side` and `align` props on `HoverCardContent` to control placement.
 ### Sides
 
 <ComponentPreview
-  styleName="base-nova"
   name="HoverCardSides"
   previewClassName="h-[22rem]"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="HoverCardRtl"
-  direction="rtl"
-  previewClassName="h-80"
-/>
 
 ## API Reference
 

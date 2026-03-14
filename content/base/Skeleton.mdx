@@ -5,7 +5,7 @@ base: base
 component: true
 ---
 
-<ComponentPreview styleName="base-nova" name="SkeletonDemo" />
+<ComponentPreview name="SkeletonDemo" />
 
 ## Installation
 
@@ -18,7 +18,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add skeleton
+npx shadcn@latest add @rescript-shadcn/Skeleton
 ```
 
 </TabsContent>
@@ -31,11 +31,8 @@ npx shadcn@latest add skeleton
 
 <ComponentSource
   name="skeleton"
-  title="components/ui/skeleton.tsx"
-  styleName="base-nova"
+  title="components/ui/Skeleton.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -45,11 +42,7 @@ npx shadcn@latest add skeleton
 
 ## Usage
 
-```tsx
-import { Skeleton } from "@/components/ui/skeleton"
-```
-
-```tsx
+```res
 <Skeleton className="h-[20px] w-[100px] rounded-full" />
 ```
 
@@ -57,30 +50,24 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 ### Avatar
 
-<ComponentPreview styleName="base-nova" name="SkeletonAvatar" />
+<ComponentPreview name="SkeletonAvatar" />
 
 ### Card
 
 <ComponentPreview
-  styleName="base-nova"
   name="SkeletonCard"
   previewClassName="h-80"
 />
 
 ### Text
 
-<ComponentPreview styleName="base-nova" name="SkeletonText" />
+<ComponentPreview name="SkeletonText" />
 
 ### Form
 
-<ComponentPreview styleName="base-nova" name="SkeletonForm" />
+<ComponentPreview name="SkeletonForm" />
 
 ### Table
 
-<ComponentPreview styleName="base-nova" name="SkeletonTable" />
+<ComponentPreview name="SkeletonTable" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="SkeletonRtl" direction="rtl" />

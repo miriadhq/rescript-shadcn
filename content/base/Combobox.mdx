@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="ComboboxDemo"
   description="A combobox with a list of frameworks."
 />
@@ -25,7 +24,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add combobox
+npx shadcn@latest add @rescript-shadcn/Combobox
 ```
 
 </TabsContent>
@@ -36,18 +35,15 @@ npx shadcn@latest add combobox
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="combobox"
-  title="components/ui/combobox.tsx"
-  styleName="base-nova"
+  title="components/ui/Combobox.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -57,85 +53,56 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-} from "@/components/ui/combobox"
-```
+```res showLineNumbers
+let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
-```tsx showLineNumbers
-const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
-
-export function ExampleCombobox() {
-  return (
-    <Combobox items={frameworks}>
-      <ComboboxInput placeholder="Select a framework" />
-      <ComboboxContent>
-        <ComboboxEmpty>No items found.</ComboboxEmpty>
-        <ComboboxList>
-          {(item) => (
-            <ComboboxItem key={item} value={item}>
-              {item}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
-    </Combobox>
-  )
-}
+<Combobox items=frameworks>
+  <Combobox.Input placeholder="Select a framework" />
+  <Combobox.Content>
+    <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
+    <Combobox.List>
+      {(item, _index) =>
+        <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
+    </Combobox.List>
+  </Combobox.Content>
+</Combobox>
 ```
 
 ## Custom Items
 
 Use `itemToStringValue` when your items are objects.
 
-```tsx showLineNumbers
-import * as React from "react"
-
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-} from "@/components/ui/combobox"
-
-type Framework = {
+```res showLineNumbers
+type framework = {
   label: string
   value: string
 }
 
-const frameworks: Framework[] = [
+let frameworks = [
   { label: "Next.js", value: "next" },
   { label: "SvelteKit", value: "sveltekit" },
   { label: "Nuxt", value: "nuxt" },
 ]
 
-export function ExampleComboboxCustomItems() {
-  return (
+module ExampleComboboxCustomItems = {
+  @react.component
+  let make = () => {
     <Combobox
       items={frameworks}
       itemToStringValue={(framework) => framework.label}
     >
-      <ComboboxInput placeholder="Select a framework" />
-      <ComboboxContent>
-        <ComboboxEmpty>No items found.</ComboboxEmpty>
-        <ComboboxList>
-          {(framework) => (
-            <ComboboxItem key={framework.value} value={framework}>
-              {framework.label}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
+      <Combobox.Input placeholder="Select a framework" />
+      <Combobox.Content>
+        <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
+        <Combobox.List>
+          {(framework, _index) =>
+            <Combobox.Item key={framework.value} value={framework}>
+              {framework.label->React.string}
+            </Combobox.Item>}
+        </Combobox.List>
+      </Combobox.Content>
     </Combobox>
-  )
+  }
 }
 ```
 
@@ -143,54 +110,39 @@ export function ExampleComboboxCustomItems() {
 
 Use `multiple` with chips for multi-select behavior.
 
-```tsx showLineNumbers
-import * as React from "react"
+```res showLineNumbers
+let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
-import {
-  Combobox,
-  ComboboxChip,
-  ComboboxChips,
-  ComboboxChipsInput,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-  ComboboxValue,
-} from "@/components/ui/combobox"
+module ExampleComboboxMultiple = {
+  @react.component 
+  let make = () => {
+  let (value, setValue) = React.useState<string[]>([])
 
-const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
-
-export function ExampleComboboxMultiple() {
-  const [value, setValue] = React.useState<string[]>([])
-
-  return (
     <Combobox
       items={frameworks}
       multiple
       value={value}
-      onValueChange={setValue}
+      onValueChange={v => setValue(_ => v)}
     >
-      <ComboboxChips>
-        <ComboboxValue>
+      <Combobox.Chips>
+        <Combobox.Value>
           {value.map((item) => (
-            <ComboboxChip key={item}>{item}</ComboboxChip>
+            <Combobox.Chip key={item}> {item->React.string} </Combobox.Chip>
           ))}
-        </ComboboxValue>
-        <ComboboxChipsInput placeholder="Add framework" />
-      </ComboboxChips>
-      <ComboboxContent>
-        <ComboboxEmpty>No items found.</ComboboxEmpty>
-        <ComboboxList>
-          {(item) => (
+        </Combobox.Value>
+        <Combobox.ChipsInput placeholder="Add framework" />
+      </Combobox.Chips>
+      <Combobox.Content>
+        <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
+        <Combobox.List>
+          {(item, _index) => 
             <ComboboxItem key={item} value={item}>
               {item}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
+            </ComboboxItem>}
+        </Combobox.List>
+      </Combobox.Content>
     </Combobox>
-  )
+  }
 }
 ```
 
@@ -200,72 +152,62 @@ export function ExampleComboboxMultiple() {
 
 A simple combobox with a list of frameworks.
 
-<ComponentPreview styleName="base-nova" name="ComboboxBasic" />
+<ComponentPreview name="ComboboxBasic" />
 
 ### Multiple
 
 A combobox with multiple selection using `multiple` and `ComboboxChips`.
 
-<ComponentPreview styleName="base-nova" name="ComboboxMultiple" />
+<ComponentPreview name="ComboboxMultiple" />
 
 ### Clear Button
 
 Use the `showClear` prop to show a clear button.
 
-<ComponentPreview styleName="base-nova" name="ComboboxClear" />
+<ComponentPreview name="ComboboxClear" />
 
 ### Groups
 
 Use `ComboboxGroup` and `ComboboxSeparator` to group items.
 
-<ComponentPreview styleName="base-nova" name="ComboboxGroups" />
+<ComponentPreview name="ComboboxGroups" />
 
 ### Custom Items
 
 You can render custom component inside `ComboboxItem`.
 
-<ComponentPreview styleName="base-nova" name="ComboboxCustom" />
+<ComponentPreview name="ComboboxCustom" />
 
 ### Invalid
 
 Use the `aria-invalid` prop to make the combobox invalid.
 
-<ComponentPreview styleName="base-nova" name="ComboboxInvalid" />
+<ComponentPreview name="ComboboxInvalid" />
 
 ### Disabled
 
 Use the `disabled` prop to disable the combobox.
 
-<ComponentPreview styleName="base-nova" name="ComboboxDisabled" />
+<ComponentPreview name="ComboboxDisabled" />
 
 ### Auto Highlight
 
 Use the `autoHighlight` prop automatically highlight the first item on filter.
 
-<ComponentPreview styleName="base-nova" name="ComboboxAutoHighlight" />
+<ComponentPreview name="ComboboxAutoHighlight" />
 
 ### Popup
 
-You can trigger the combobox from a button or any other component by using the `render` prop. Move the `ComboboxInput` inside the `ComboboxContent`.
+You can trigger the combobox from a button or any other component by using the `render` prop. Move the `ComboboxInput` inside the `Combobox.Content`.
 
-<ComponentPreview styleName="base-nova" name="ComboboxPopup" />
+<ComponentPreview name="ComboboxPopup" />
 
 ### Input Group
 
 You can add an addon to the combobox by using the `InputGroupAddon` component inside the `ComboboxInput`.
 
-<ComponentPreview styleName="base-nova" name="ComboboxInputGroup" />
+<ComponentPreview name="ComboboxInputGroup" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="ComboboxRtl"
-  direction="rtl"
-  align="start"
-/>
 
 ## API Reference
 

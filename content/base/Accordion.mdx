@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="AccordionDemo"
   align="start"
   previewClassName="*:data-[slot=accordion]:max-w-sm h-[300px]"
@@ -27,7 +26,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add accordion
+npx shadcn@latest add @rescript-shadcn/Accordion
 ```
 
 </TabsContent>
@@ -39,18 +38,15 @@ npx shadcn@latest add accordion
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="accordion"
-  title="components/ui/accordion.tsx"
-  styleName="base-nova"
+  title="components/ui/Accordion.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -60,23 +56,14 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-```
-
-```tsx showLineNumbers
-<Accordion defaultValue={["item-1"]}>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Is it accessible?</AccordionTrigger>
-    <AccordionContent>
-      Yes. It adheres to the WAI-ARIA design pattern.
-    </AccordionContent>
-  </AccordionItem>
+```res showLineNumbers
+<Accordion defaultValue=["item-1"]>
+  <Accordion.Item value="item-1">
+    <Accordion.Trigger> {"Is it accessible?"->React.string} </Accordion.Trigger>
+    <Accordion.Content>
+      {"Yes. It adheres to the WAI-ARIA design pattern."->React.string}
+    </Accordion.Content>
+  </Accordion.Item>
 </Accordion>
 ```
 
@@ -87,7 +74,6 @@ import {
 A basic accordion that shows one item at a time. The first item is open by default.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AccordionBasic"
   align="start"
   previewClassName="*:data-[slot=accordion]:max-w-sm h-[300px]"
@@ -98,7 +84,6 @@ A basic accordion that shows one item at a time. The first item is open by defau
 Use the `multiple` prop to allow multiple items to be open at the same time.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AccordionMultiple"
   align="start"
   previewClassName="*:data-[slot=accordion]:max-w-sm h-[450px]"
@@ -109,7 +94,6 @@ Use the `multiple` prop to allow multiple items to be open at the same time.
 Use the `disabled` prop on `AccordionItem` to disable individual items.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AccordionDisabled"
   align="start"
   previewClassName="*:data-[slot=accordion]:max-w-sm h-[300px]"
@@ -120,7 +104,6 @@ Use the `disabled` prop on `AccordionItem` to disable individual items.
 Add `border` to the `Accordion` and `border-b last:border-b-0` to the `AccordionItem` to add borders to the items.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AccordionBorders"
   align="start"
   previewClassName="*:data-[slot=accordion]:max-w-sm h-[300px]"
@@ -131,22 +114,11 @@ Add `border` to the `Accordion` and `border-b last:border-b-0` to the `Accordion
 Wrap the `Accordion` in a `Card` component.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AccordionCard"
   align="start"
   previewClassName="*:data-[slot=accordion]:max-w-sm h-[435px]"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="AccordionRtl"
-  align="start"
-  direction="rtl"
-/>
 
 ## API Reference
 

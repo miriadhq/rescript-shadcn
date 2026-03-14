@@ -259,16 +259,45 @@ module Separator = {
 }
 
 module Error = {
+  type t = {
+    message: string,
+  }
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  let make = (~className=?, ~children=?, ~errors=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+    let content = React.useMemo(() => {
+      children->Option.getOr(
+        switch errors {
+        | None | Some([]) => React.null
+        | Some(errors) =>
+          let uniqueErrors =
+            Map.fromArray(errors->Array.map(error => (error.message, error)))
+            ->Map.values
+            ->Iterator.toArray
+          switch uniqueErrors {
+          | [{message}] => message->React.string
+          | errors =>
+            <ul className="ml-4 flex list-disc flex-col gap-1">
+              {errors
+              ->Array.mapWithIndex(({message}, index) =>
+                <li key={index->Int.toString}> {message->React.string} </li>
+              )
+              ->React.array}
+            </ul>
+          }
+        },
+      )
+    }, (children, errors))
+
     <div
       ?id
-      ?children
       ?style
       ?onClick
       ?onKeyDown
       role="alert"
       dataSlot="field-error"
-      className={cn("text-destructive text-sm font-normal", className)}
-    />
+      className={cn("text-sm font-normal text-destructive", className)}
+    >
+      {content}
+    </div>
+  }
 }

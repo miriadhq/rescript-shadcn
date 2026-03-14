@@ -49,7 +49,7 @@ This guide will show you how to use [TanStack Table](https://tanstack.com/table)
 1. Add the `<Table />` component to your project:
 
 ```bash
-npx shadcn@latest add table
+npx shadcn@latest add @rescript-shadcn/DataTable
 ```
 
 2. Add `tanstack/react-table` dependency:
@@ -62,25 +62,25 @@ npm install @tanstack/react-table
 
 We are going to build a table to show recent payments. Here's what our data looks like:
 
-```tsx showLineNumbers
-type Payment = {
+```res showLineNumbers
+type payment = {
   id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
+  amount: float
+  status: [ #pending | #processing | #success | #failed ]
   email: string
 }
 
-export const payments: Payment[] = [
+let payments = [
   {
     id: "728ed52f",
-    amount: 100,
-    status: "pending",
+    amount: 100.0,
+    status: #pending,
     email: "m@example.com",
   },
   {
     id: "489e1d42",
-    amount: 125,
-    status: "processing",
+    amount: 125.0,
+    status: #processing,
     email: "example@gmail.com",
   },
   // ...
@@ -94,9 +94,9 @@ Start by creating the following file structure:
 ```txt
 app
 └── payments
-    ├── columns.tsx
-    ├── data-table.tsx
-    └── page.tsx
+    ├── Columns.res
+    ├── DataTable.res
+    └── page.res
 ```
 
 I'm using a Next.js example here but this works for any other React framework.
@@ -115,23 +115,18 @@ Let's start by building a basic table.
 
 First, we'll define our columns.
 
-```tsx showLineNumbers title="app/payments/columns.tsx" {3,14-27}
-"use client"
-
-import { ColumnDef } from "@tanstack/react-table"
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
+```res showLineNumbers title="app/payments/Columns.res" {3,14-27}
+@@directive("'use client'")
+export type payment = {
   id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
+  amount: float
+  status: [ #pending | #processing | #success | #failed ]
   email: string
 }
 
-export const columns: ColumnDef<Payment>[] = [
+let columns = [
   {
-    accessorKey: "status",
+    TanStack.ColumnDef.accessorKey: "status",
     header: "Status",
   },
   {
@@ -157,86 +152,60 @@ formatted, sorted and filtered.
 
 Next, we'll create a `<DataTable />` component to render our table.
 
-```tsx showLineNumbers title="app/payments/data-table.tsx"
-"use client"
+```res showLineNumbers title="app/payments/DataTable.res"
+@@directive("'use client'")
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+module DataTable = {
+  @react.component 
+  let make = (~columns, ~data) => {
+    let table = TanStack.useReactTable({
+      data,
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+    })
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-}
-
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  })
-
-  return (
     <div className="overflow-hidden rounded-md border">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
+      <TanStack.Table>
+        <TanStack.TableHeader>
+          {table.getHeaderGroups()->Array.map((headerGroup) => 
+            <TanStack.TableRow key={headerGroup.id}>
+              {headerGroup.headers->Array.map((header) => 
                   <TableHead key={header.id}>
                     {header.isPlaceholder
-                      ? null
+                      ? React.null
                       : flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
                   </TableHead>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
+              )}
+            </TanStack.TableRow>
           )}
-        </TableBody>
-      </Table>
+        </TanStack.TableHeader>
+        <TanStack.TableBody>
+          {table.getRowModel().rows->Option.map(({length}) => length > 0)->Option.getOt(false) ? 
+            table.getRowModel().rows->Array.map((row) => 
+              <TanStack.TableRow
+                key={row.id}
+                dataState=?{row.getIsSelected() ? Some("selected") : None}
+              >
+                {row.getVisibleCells()->Array.map((cell) => 
+                  <TanStack.TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TanStack.TableCell>
+                )}
+              </TanStack.TableRow>
+            )
+           : <TanStack.TableRow>
+              <TanStack.TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
+              </TanStack.TableCell>
+            </TanStack.TableRow>
+          }
+        </TanStack.TableBody>
+      </TanStack.Table>
     </div>
-  )
+  }
 }
 ```
 
@@ -252,16 +221,13 @@ export function DataTable<TData, TValue>({
 
 Finally, we'll render our table in our page component.
 
-```tsx showLineNumbers title="app/payments/page.tsx" {22}
-import { columns, Payment } from "./columns"
-import { DataTable } from "./data-table"
-
-async function getData(): Promise<Payment[]> {
+```res showLineNumbers title="app/payments/page.res" {22}
+let getData = async () => {
   // Fetch data from your API here.
-  return [
+  [
     {
       id: "728ed52f",
-      amount: 100,
+      amount: 100.0,
       status: "pending",
       email: "m@example.com",
     },
@@ -269,14 +235,15 @@ async function getData(): Promise<Payment[]> {
   ]
 }
 
-export default async function DemoPage() {
-  const data = await getData()
+module DemoPage = {
+  @react.component 
+  let make = () => {
+    let data = await getData()
 
-  return (
     <div className="container mx-auto py-10">
       <DataTable columns={columns} data={data} />
     </div>
-  )
+  }
 }
 ```
 
@@ -292,19 +259,21 @@ Let's format the amount cell to display the dollar amount. We'll also align the 
 
 Update the `header` and `cell` definitions for amount as follows:
 
-```tsx showLineNumbers title="app/payments/columns.tsx" {4-15}
-export const columns: ColumnDef<Payment>[] = [
+```res showLineNumbers title="app/payments/Columns.res" {4-15}
+let columns = [
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    TanStack.ColumnDef.accessorKey: "amount",
+    header: () => <div className="text-right"> {"Amount"->React.string} </div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
+      let amount = Float.parseFloat(row.getValue("amount"))
+      let formatted = Intl.NumberFormat.make(
+        ~locales=["en-US"], 
+        ~options={
         style: "currency",
         currency: "USD",
-      }).format(amount)
+      })->Intl.NumberFormat.format(amount)
 
-      return <div className="text-right font-medium">{formatted}</div>
+      <div className="text-right font-medium">{formatted->React.string}</div>
     },
   },
 ]
@@ -324,50 +293,33 @@ Let's add row actions to our table. We'll use a `<Dropdown />` component for thi
 
 Update our columns definition to add a new `actions` column. The `actions` cell returns a `<Dropdown />` component.
 
-```tsx showLineNumbers title="app/payments/columns.tsx" {4,6-14,18-45}
-"use client"
+```res showLineNumbers title="app/payments/columns.res" {4,6-14,18-45}
+@@directive("'use client'")
 
-import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-export const columns: ColumnDef<Payment>[] = [
+let columns = [
   // ...
   {
-    id: "actions",
+    TanStack.ColumnDef.id: "actions",
     cell: ({ row }) => {
-      const payment = row.original
+      let payment = row.original
 
-      return (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+          <DropdownMenu.Trigger render={<Button variant="ghost" className="h-8 w-8 p-0"/>}>
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content align=End>
+            <DropdownMenu.Label> {"Actions"->React.string}</DropdownMenu.Label>
+            <DropdownMenu.Item
+              onClick={_ => navigator.clipboard.writeText(payment.id)}
             >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
+              {"Copy payment ID"->React.string}
+            </DropdownMenu.Item>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item> {"View customer"->React.string}</DropdownMenu.Item>
+            <DropdownMenu.Item> {"View payment details"->React.string} </DropdownMenu.Item>
+          </DropdownMenu.Content>
         </DropdownMenu>
-      )
     },
   },
   // ...
@@ -386,27 +338,19 @@ Next, we'll add pagination to our table.
 
 ### Update `<DataTable>`
 
-```tsx showLineNumbers title="app/payments/data-table.tsx" {5,17}
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
-
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-  })
+```res showLineNumbers title="app/payments/data-table.tsx" {5,17}
+module DataTable = {
+  @react.component 
+  let make = (~columns, ~data) => {
+    let table = TanStack.useReactTable({
+      data,
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+    })
 
   // ...
+  }
 }
 ```
 
@@ -416,47 +360,43 @@ This will automatically paginate your rows into pages of 10. See the [pagination
 
 We can add pagination controls to our table using the `<Button />` component and the `table.previousPage()`, `table.nextPage()` API methods.
 
-```tsx showLineNumbers title="app/payments/data-table.tsx" {1,15,21-39}
-import { Button } from "@/components/ui/button"
+```res showLineNumbers title="app/payments/data-table.tsx" {1,15,21-39}
+module DataTable = {
+  @react.component 
+  let make = (~columns, ~data) => {
+    let table = TanStack.useReactTable({
+      data,
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+    })
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-  })
-
-  return (
     <div>
       <div className="overflow-hidden rounded-md border">
-        <Table>
+        <TanStack.Table>
           { // .... }
-        </Table>
+        </TanStack.Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
+          variant=Outline
+          size=Sm
+          onClick={_ => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          {"Previous"->React.string}
         </Button>
         <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
+          variant=Outline
+          size=Sm
+          onClick={_ => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          {"Next"->React.string}
         </Button>
       </div>
     </div>
-  )
+  }
 }
 ```
 
@@ -472,45 +412,32 @@ Let's make the email column sortable.
 
 ### Update `<DataTable>`
 
-```tsx showLineNumbers title="app/payments/data-table.tsx" showLineNumbers {3,6,10,18,25-28}
-"use client"
+```res showLineNumbers title="app/payments/DataTable.res" showLineNumbers {3,6,10,18,25-28}
+@@directive("'use client'")
 
-import * as React from "react"
-import {
-  ColumnDef,
-  SortingState,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+module DataTable = {
+  @react.component 
+  let make = (~columns, ~data) => {
+    let (sorting, setSorting) = React.useState(() => [])
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+    let table = TanStack.useReactTable({
+      data,
+      columns,
+      getCoreRowModel: TanStack.getCoreRowModel(),
+      getPaginationRowModel: TanStack.getPaginationRowModel(),
+      onSortingChange: setSorting,
+      getSortedRowModel: TanStack.getSortedRowModel(),
+      state: {
+        sorting,
+      },
+    })
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
-    state: {
-      sorting,
-    },
-  })
-
-  return (
     <div>
       <div className="overflow-hidden rounded-md border">
         <Table>{ ... }</Table>
       </div>
     </div>
-  )
+  }
 }
 ```
 
@@ -518,26 +445,21 @@ export function DataTable<TData, TValue>({
 
 We can now update the `email` header cell to add sorting controls.
 
-```tsx showLineNumbers title="app/payments/columns.tsx" {4,9-19}
-"use client"
+```res showLineNumbers title="app/payments/Columns.res" {4,9-19}
+@@directive("'use client'")
 
-import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown } from "lucide-react"
 
-export const columns: ColumnDef<Payment>[] = [
+let columns = [
   {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
+    TanStack.ColumnDef.accessorKey: "email",
+    header: ({ column }) => 
         <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          variant=Ghost
+          onClick={_ => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+          {"Email"->React.string}
+          <Icons.ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>,
   },
 ]
 ```
@@ -554,66 +476,46 @@ Let's add a search input to filter emails in our table.
 
 ### Update `<DataTable>`
 
-```tsx showLineNumbers title="app/payments/data-table.tsx" {6,10,17,24-26,35-36,39,45-54}
-"use client"
+```res showLineNumbers title="app/payments/DataTable.res" {6,10,17,24-26,35-36,39,45-54}
+@@directive("'use client'")
 
-import * as React from "react"
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+module DataTable = {
+  @react.component 
+  let make = (~columns, ~data) => {
+    let (sorting, setSorting) = React.useState(() => [])
+    let (columnFilters, setColumnFilters) = React.useState(() => [])
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+    let table = TanStack.useReactTable({
+      data,
+      columns,
+      onSortingChange: setSorting,
+      getCoreRowModel: TanStack.getCoreRowModel(),
+      getPaginationRowModel: TanStack.getPaginationRowModel(),
+      getSortedRowModel: TanStack.getSortedRowModel(),
+      onColumnFiltersChange: setColumnFilters,
+      getFilteredRowModel: TanStack.getFilteredRowModel(),
+      state: {
+        sorting,
+        columnFilters,
+      },
+    })
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
-
-  const table = useReactTable({
-    data,
-    columns,
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
-    state: {
-      sorting,
-      columnFilters,
-    },
-  })
-
-  return (
     <div>
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("email")->Option.map( column => column.getFilterValue()))->Option.getOr("")}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("email")->Option.map(column => column.setFilterValue(event.target.value))
           }
           className="max-w-sm"
         />
       </div>
       <div className="overflow-hidden rounded-md border">
-        <Table>{ ... }</Table>
+        <TanStack.Table>{ ... }</TanStack.Table>
       </div>
     </div>
-  )
+  }
 }
 ```
 
@@ -629,51 +531,26 @@ Adding column visibility is fairly simple using `@tanstack/react-table` visibili
 
 ### Update `<DataTable>`
 
-```tsx showLineNumbers title="app/payments/data-table.tsx" {8,18-23,33-34,45,49,64-91}
-"use client"
+```res title="app/payments/DataTable.res" {8,18-23,33-34,45,49,64-91}
+"use client"@@directive("'use client'")
 
-import * as React from "react"
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+module DataTable = {
+  @react.component 
+  let make = (~columns, ~data) => {
+    let (sorting, setSorting) = React.useState(() => [])
+    let (columnFilters, setColumnFilters) = React.useState(() => [])
+    let (columnVisibility: TanStack.VisibilityState.t, setColumnVisibility) = 
+      React.useState(() => {})
 
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-
-  const table = useReactTable({
+  let table = useReactTable({
     data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    getCoreRowModel: TanStack.getCoreRowModel(),
+    getPaginationRowModel: TanStack.getPaginationRowModel(),
+    getSortedRowModel: TanStack.getSortedRowModel(),
+    getFilteredRowModel: TanStack.getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
@@ -682,7 +559,6 @@ export function DataTable<TData, TValue>({
     },
   })
 
-  return (
     <div>
       <div className="flex items-center py-4">
         <Input
@@ -694,20 +570,17 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter(
+          <DropdownMenu.Trigger render={
+            <Button variant="outline" className="ml-auto" />}>
+              {"Columns"->React.string} 
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content align=End >
+            {table.getAllColumns()
+              ->Array.filter(
                 (column) => column.getCanHide()
               )
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
+              ->Array.map((column) => {
+                  <DropdownMenu.CheckboxItem
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}
@@ -715,18 +588,17 @@ export function DataTable<TData, TValue>({
                       column.toggleVisibility(!!value)
                     }
                   >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
+                    {column.id->React.string}
+                  </DropdownMenu.CheckboxItem>
               })}
-          </DropdownMenuContent>
+          </DropdownMenu.Content>
         </DropdownMenu>
       </div>
       <div className="overflow-hidden rounded-md border">
         <Table>{ ... }</Table>
       </div>
     </div>
-  )
+  }
 }
 ```
 
@@ -742,32 +614,27 @@ Next, we're going to add row selection to our table.
 
 ### Update column definitions
 
-```tsx showLineNumbers title="app/payments/columns.tsx" {6,9-27}
-"use client"
+```res title="app/payments/columns.tsx" {6,9-27}
+@@directive("'use client'")
 
-import { ColumnDef } from "@tanstack/react-table"
-
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
-
-export const columns: ColumnDef<Payment>[] = [
+let columns = [
   {
-    id: "select",
+    TanStack.ColumnDef.id: "select",
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(value)}
+        ariaLabel="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        onCheckedChange={(value) => row.toggleSelected(value)}
+        ariaLabel="Select row"
       />
     ),
     enableSorting: false,
@@ -778,28 +645,25 @@ export const columns: ColumnDef<Payment>[] = [
 
 ### Update `<DataTable>`
 
-```tsx showLineNumbers title="app/payments/data-table.tsx" {11,23,28}
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
+```res title="app/payments/DataTable.tsx" {11,23,28}
+module DataTable = {
+  @react.component 
+  let make = (~columns, ~data) => {
+    let (sorting, setSorting) = React.useState(() => [])
+    let (columnFilters, setColumnFilters) = React.useState(() => [])
+    let (columnVisibility: TanStack.VisibilityState.t, setColumnVisibility) = 
+      React.useState(() => {})
+    let (rowSelection, setRowSelection) = React.useState(() => {})
 
-  const table = useReactTable({
+  let table = TanStack.useReactTable({
     data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    getCoreRowModel: TanStack.getCoreRowModel(),
+    getPaginationRowModel: TanStack.getPaginationRowModel(),
+    getSortedRowModel: TanStack.getSortedRowModel(),
+    getFilteredRowModel: TanStack.getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     state: {
@@ -810,13 +674,12 @@ export function DataTable<TData, TValue>({
     },
   })
 
-  return (
     <div>
       <div className="overflow-hidden rounded-md border">
-        <Table />
+        <TanStack.Table />
       </div>
     </div>
-  )
+  }
 }
 ```
 
@@ -826,10 +689,10 @@ This adds a checkbox to each row and a checkbox in the header to select all rows
 
 You can show the number of selected rows using the `table.getFilteredSelectedRowModel()` API.
 
-```tsx
+```res showLineNumbers
 <div className="text-muted-foreground flex-1 text-sm">
-  {table.getFilteredSelectedRowModel().rows.length} of{" "}
-  {table.getFilteredRowModel().rows.length} row(s) selected.
+  {`${table.getFilteredSelectedRowModel().rows.length->Int.toString} of 
+  {table.getFilteredRowModel().rows.length->Int.toString} row(s) selected.}
 </div>
 ```
 
@@ -848,8 +711,8 @@ Make any column header sortable and hideable.
   title="examples/DataTableColumnHeader.res"
 />
 
-```tsx showLineNumbers {5}
-export const columns = [
+```res showLineNumbers {5}
+let columns = [
   {
     accessorKey: "email",
     header: ({ column }) => (
@@ -868,7 +731,7 @@ Add pagination controls to your table including page size and selection count.
   title="examples/DataTablePagination.res"
 />
 
-```tsx
+```res
 <DataTablePagination table={table} />
 ```
 
@@ -881,18 +744,7 @@ A component to toggle column visibility.
   title="examples/DataTableViewOptions.res"
 />
 
-```tsx
+```res
 <DataTableViewOptions table={table} />
 ```
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="DataTableRtl"
-  direction="rtl"
-  previewClassName="items-start h-auto px-4 md:px-8"
-  hideCode
-/>

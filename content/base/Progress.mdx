@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/progress#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="ProgressDemo" />
+<ComponentPreview name="ProgressDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add progress
+npx shadcn@latest add @rescript-shadcn/Progress
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add progress
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="progress"
-  title="components/ui/progress.tsx"
-  styleName="base-nova"
+  title="components/ui/Progress.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,12 +51,8 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { Progress } from "@/components/ui/progress"
-```
-
-```tsx showLineNumbers
-<Progress value={33} />
+```res showLineNumbers
+<Progress value=33.0 />
 ```
 
 ## Examples
@@ -68,19 +61,14 @@ import { Progress } from "@/components/ui/progress"
 
 Use `ProgressLabel` and `ProgressValue` to add a label and value display.
 
-<ComponentPreview styleName="base-nova" name="ProgressLabel" />
+<ComponentPreview name="ProgressLabel" />
 
 ### Controlled
 
 A progress bar that can be controlled by a slider.
 
-<ComponentPreview styleName="base-nova" name="ProgressControlled" />
+<ComponentPreview name="ProgressControlled" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="ProgressRtl" direction="rtl" />
 
 ## API Reference
 

@@ -51,43 +51,31 @@ module Link = {
   @react.component
   let make = (
     ~className="",
-    ~isActive=?,
+    ~isActive=false,
     ~size=Size.Icon,
     ~children=?,
     ~href=?,
     ~target=?,
     ~id=?,
     ~style=?,
-    ~ariaLabel=?,
     ~onClick=?,
-    ~onKeyDown=?,
-    ~dataActive: option<bool>=?,
+    ~ariaLabel=?,
   ) => {
-    let resolvedIsActive = isActive->Option.getOr(false)
-    let resolvedDataActive = switch dataActive {
-    | Some(value) => Some(value)
-    | None => isActive
-    }
-    let buttonSize = switch size {
-    | Icon => Button.Size.Icon
-    | Default => Button.Size.Default
-    }
     <Button
-      variant={resolvedIsActive ? Button.Variant.Outline : Button.Variant.Ghost}
-      size={buttonSize}
+      variant={isActive ? Outline : Ghost}
+      size={(size :> Button.Size.t)}
       className
       nativeButton={false}
       render={<a
         ?id
+        ?ariaLabel
         ?style
         ?href
         ?target
-        ?ariaLabel
         ?onClick
-        ?onKeyDown
-        ariaCurrent=?{resolvedIsActive ? Some(#page) : None}
+        ariaCurrent=?{isActive ? Some(#page) : None}
         dataSlot="pagination-link"
-        dataActive=?resolvedDataActive
+        dataActive=isActive
       />}
       ?children
     />
@@ -96,17 +84,7 @@ module Link = {
 
 module Previous = {
   @react.component
-  let make = (
-    ~className=?,
-    ~text="Previous",
-    ~href=?,
-    ~target=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dataActive=?,
-  ) => {
+  let make = (~className=?, ~text="Previous", ~href=?, ~target=?, ~id=?, ~style=?, ~onClick=?) => {
     <Link
       ariaLabel="Go to previous page"
       size={Size.Default}
@@ -116,8 +94,6 @@ module Previous = {
       ?id
       ?style
       ?onClick
-      ?onKeyDown
-      ?dataActive
     >
       <Icons.ChevronLeft dataIcon="inline-start" className="cn-rtl-flip" />
       <span className="hidden sm:block"> {text->React.string} </span>
@@ -127,17 +103,7 @@ module Previous = {
 
 module Next = {
   @react.component
-  let make = (
-    ~className=?,
-    ~text="Next",
-    ~href=?,
-    ~target=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dataActive=?,
-  ) => {
+  let make = (~className=?, ~text="Next", ~href=?, ~target=?, ~id=?, ~style=?, ~onClick=?) => {
     <Link
       ariaLabel="Go to next page"
       size={Size.Default}
@@ -147,8 +113,6 @@ module Next = {
       ?id
       ?style
       ?onClick
-      ?onKeyDown
-      ?dataActive
     >
       <span className="hidden sm:block"> {text->React.string} </span>
       <Icons.ChevronRight dataIcon="inline-end" className="cn-rtl-flip" />

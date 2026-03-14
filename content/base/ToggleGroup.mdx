@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/toggle-group#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="ToggleGroupDemo" />
+<ComponentPreview name="ToggleGroupDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add toggle-group
+npx shadcn@latest add @rescript-shadcn/ToggleGroup
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add toggle-group
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="toggle-group"
-  title="components/ui/toggle-group.tsx"
-  styleName="base-nova"
+  title="components/ui/ToggleGroup.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,15 +51,11 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-```
-
-```tsx
-<ToggleGroup type="single">
-  <ToggleGroupItem value="a">A</ToggleGroupItem>
-  <ToggleGroupItem value="b">B</ToggleGroupItem>
-  <ToggleGroupItem value="c">C</ToggleGroupItem>
+```res 
+<ToggleGroup multiple=false>
+  <ToggleGroup.Item value="a"> {"A"->React.string} </ToggleGroup.Item>
+  <ToggleGroup.Item value="b"> {"B"->React.string} </ToggleGroup.Item>
+  <ToggleGroup.Item value="c"> {"C"->React.string} </ToggleGroup.Item>
 </ToggleGroup>
 ```
 
@@ -72,49 +65,39 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 Use `variant="outline"` for an outline style.
 
-<ComponentPreview styleName="base-nova" name="ToggleGroupOutline" />
+<ComponentPreview name="ToggleGroupOutline" />
 
 ### Size
 
 Use the `size` prop to change the size of the toggle group.
 
-<ComponentPreview styleName="base-nova" name="ToggleGroupSizes" />
+<ComponentPreview name="ToggleGroupSizes" />
 
 ### Spacing
 
 Use `spacing` to add spacing between toggle group items.
 
-<ComponentPreview styleName="base-nova" name="ToggleGroupSpacing" />
+<ComponentPreview name="ToggleGroupSpacing" />
 
 ### Vertical
 
 Use `orientation="vertical"` for vertical toggle groups.
 
-<ComponentPreview styleName="base-nova" name="ToggleGroupVertical" />
+<ComponentPreview name="ToggleGroupVertical" />
 
 ### Disabled
 
-<ComponentPreview styleName="base-nova" name="ToggleGroupDisabled" />
+<ComponentPreview name="ToggleGroupDisabled" />
 
 ### Custom
 
 A custom toggle group example.
 
 <ComponentPreview
-  styleName="base-nova"
   name="ToggleGroupFontWeightSelector"
   previewClassName="*:data-[slot=field]:max-w-xs"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="ToggleGroupRtl"
-  direction="rtl"
-/>
 
 ## API Reference
 

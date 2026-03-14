@@ -6,7 +6,6 @@ component: true
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="EmptyDemo"
   previewClassName="h-96 p-0"
 />
@@ -22,7 +21,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add empty
+npx shadcn@latest add @rescript-shadcn/Empty
 ```
 
 </TabsContent>
@@ -35,11 +34,8 @@ npx shadcn@latest add empty
 
 <ComponentSource
   name="empty"
-  title="components/ui/empty.tsx"
-  styleName="base-nova"
+  title="components/ui/Empty.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -49,29 +45,18 @@ npx shadcn@latest add empty
 
 ## Usage
 
-```tsx
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@/components/ui/empty"
-```
-
-```tsx
+```res showLineNumbers
 <Empty>
-  <EmptyHeader>
-    <EmptyMedia variant="icon">
-      <Icon />
-    </EmptyMedia>
-    <EmptyTitle>No data</EmptyTitle>
-    <EmptyDescription>No data found</EmptyDescription>
-  </EmptyHeader>
-  <EmptyContent>
-    <Button>Add data</Button>
-  </EmptyContent>
+  <Empty.Header>
+    <Empty.Media variant=Icon>
+      <Icons.Folder />
+    </Empty.Media>
+    <Empty.Title> {"No data"->React.string} </Empty.Title>
+    <Empty.Description> {"No data found"->React.string} </Empty.Description>
+  </Empty.Header>
+  <Empty.Content>
+    <Button> {"Add data"->React.string} </Button>
+  </Empty.Content>
 </Empty>
 ```
 
@@ -82,7 +67,6 @@ import {
 Use the `border` utility class to create an outline empty state.
 
 <ComponentPreview
-  styleName="base-nova"
   name="EmptyOutline"
   previewClassName="h-96 p-6 md:p-10"
 />
@@ -92,7 +76,6 @@ Use the `border` utility class to create an outline empty state.
 Use the `bg-*` and `bg-gradient-*` utilities to add a background to the empty state.
 
 <ComponentPreview
-  styleName="base-nova"
   name="EmptyBackground"
   previewClassName="h-96 p-0"
 />
@@ -102,7 +85,6 @@ Use the `bg-*` and `bg-gradient-*` utilities to add a background to the empty st
 Use the `EmptyMedia` component to display an avatar in the empty state.
 
 <ComponentPreview
-  styleName="base-nova"
   name="EmptyAvatar"
   previewClassName="h-96 p-0"
 />
@@ -112,7 +94,6 @@ Use the `EmptyMedia` component to display an avatar in the empty state.
 Use the `EmptyMedia` component to display an avatar group in the empty state.
 
 <ComponentPreview
-  styleName="base-nova"
   name="EmptyAvatarGroup"
   previewClassName="h-96 p-0"
 />
@@ -122,16 +103,10 @@ Use the `EmptyMedia` component to display an avatar group in the empty state.
 You can add an `InputGroup` component to the `EmptyContent` component.
 
 <ComponentPreview
-  styleName="base-nova"
   name="EmptyInputGroup"
   previewClassName="h-96 p-0"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="EmptyRtl" direction="rtl" />
 
 ## API Reference
 
@@ -143,7 +118,7 @@ The main component of the empty state. Wraps the `EmptyHeader` and `EmptyContent
 | ----------- | -------- | ------- |
 | `className` | `string` |         |
 
-```tsx
+```res showLineNumbers
 <Empty>
   <EmptyHeader />
   <EmptyContent />
@@ -158,12 +133,12 @@ The `EmptyHeader` component wraps the empty media, title, and description.
 | ----------- | -------- | ------- |
 | `className` | `string` |         |
 
-```tsx
-<EmptyHeader>
-  <EmptyMedia />
-  <EmptyTitle />
-  <EmptyDescription />
-</EmptyHeader>
+```res
+<Empty.Header>
+  <Empty.Media />
+  <Empty.Title />
+  <Empty.Description />
+</Empty.Header>
 ```
 
 ### EmptyMedia
@@ -172,22 +147,22 @@ Use the `EmptyMedia` component to display the media of the empty state such as a
 
 | Prop        | Type                  | Default   |
 | ----------- | --------------------- | --------- |
-| `variant`   | `"default" \| "icon"` | `default` |
+| `variant`   | `Default \| Icon`     | `Default` |
 | `className` | `string`              |           |
 
-```tsx
-<EmptyMedia variant="icon">
+```res
+<Empty.Media variant=Icon>
   <Icon />
-</EmptyMedia>
+</Empty.Media>
 ```
 
-```tsx
-<EmptyMedia>
+```res 
+<Empty.Media>
   <Avatar>
-    <AvatarImage src="..." />
-    <AvatarFallback>CN</AvatarFallback>
+    <Avatar.Image src="..." />
+    <Avatar.Fallback> {"CN"->React.string} </Avatar.Fallback>
   </Avatar>
-</EmptyMedia>
+</Empty.Media>
 ```
 
 ### EmptyTitle
@@ -198,8 +173,8 @@ Use the `EmptyTitle` component to display the title of the empty state.
 | ----------- | -------- | ------- |
 | `className` | `string` |         |
 
-```tsx
-<EmptyTitle>No data</EmptyTitle>
+```res
+<Empty.Title> {"No data"->React.string} </Empty.Title>
 ```
 
 ### EmptyDescription
@@ -210,8 +185,8 @@ Use the `EmptyDescription` component to display the description of the empty sta
 | ----------- | -------- | ------- |
 | `className` | `string` |         |
 
-```tsx
-<EmptyDescription>You do not have any notifications.</EmptyDescription>
+```res 
+<EmptyDescription> {"You do not have any notifications."->React.string} </EmptyDescription>
 ```
 
 ### EmptyContent
@@ -222,8 +197,8 @@ Use the `EmptyContent` component to display the content of the empty state such 
 | ----------- | -------- | ------- |
 | `className` | `string` |         |
 
-```tsx
+```res 
 <EmptyContent>
-  <Button>Add Project</Button>
+  <Button> {"Add Project"->React.string}</Button>
 </EmptyContent>
 ```

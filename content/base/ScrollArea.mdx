@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="ScrollAreaDemo"
   previewClassName="h-96"
 />
@@ -25,7 +24,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add scroll-area
+npx shadcn@latest add @rescript-shadcn/ScrollArea
 ```
 
 </TabsContent>
@@ -37,18 +36,15 @@ npx shadcn@latest add scroll-area
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="scroll-area"
-  title="components/ui/scroll-area.tsx"
-  styleName="base-nova"
+  title="components/ui/ScrollArea.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -58,13 +54,9 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { ScrollArea } from "@/components/ui/scroll-area"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
-  Your scrollable content here.
+  {"Your scrollable content here."->React.string}
 </ScrollArea>
 ```
 
@@ -74,18 +66,8 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 Use `ScrollBar` with `orientation="horizontal"` for horizontal scrolling.
 
-<ComponentPreview styleName="base-nova" name="ScrollAreaHorizontalDemo" />
+<ComponentPreview name="ScrollAreaHorizontalDemo" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="ScrollAreaRtl"
-  direction="rtl"
-  previewClassName="h-auto"
-/>
 
 ## API Reference
 

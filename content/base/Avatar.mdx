@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="AvatarDemo"
   previewClassName="h-72"
 />
@@ -25,7 +24,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add avatar
+npx shadcn@latest add @rescript-shadcn/Avatar
 ```
 
 </TabsContent>
@@ -37,18 +36,15 @@ npx shadcn@latest add avatar
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="avatar"
-  title="components/ui/avatar.tsx"
-  styleName="base-nova"
+  title="components/ui/Avatar.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -58,14 +54,10 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Avatar>
-  <AvatarImage src="https://github.com/shadcn.png" />
-  <AvatarFallback>CN</AvatarFallback>
+  <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
+  <Avatar.Fallback> {"CN"->React.string} </Avatar.Fallback>
 </Avatar>
 ```
 
@@ -75,20 +67,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 A basic avatar component with an image and a fallback.
 
-<ComponentPreview styleName="base-nova" name="AvatarBasic" />
+<ComponentPreview name="AvatarBasic" />
 
 ### Badge
 
 Use the `AvatarBadge` component to add a badge to the avatar. The badge is positioned at the bottom right of the avatar.
 
-<ComponentPreview styleName="base-nova" name="AvatarBadge" />
+<ComponentPreview name="AvatarBadge" />
 
 Use the `className` prop to add custom styles to the badge such as custom colors, sizes, etc.
 
-```tsx showLineNumbers
+```res showLineNumbers
 <Avatar>
   <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-  <AvatarFallback>CN</AvatarFallback>
+  <AvatarFallback> {"CN"->React.string} </AvatarFallback>
   <AvatarBadge className="bg-green-600 dark:bg-green-800" />
 </Avatar>
 ```
@@ -97,48 +89,38 @@ Use the `className` prop to add custom styles to the badge such as custom colors
 
 You can also use an icon inside `<AvatarBadge>`.
 
-<ComponentPreview styleName="base-nova" name="AvatarBadgeIcon" />
+<ComponentPreview name="AvatarBadgeIcon" />
 
 ### Avatar Group
 
 Use the `AvatarGroup` component to add a group of avatars.
 
-<ComponentPreview styleName="base-nova" name="AvatarGroup" />
+<ComponentPreview name="AvatarGroup" />
 
 ### Avatar Group Count
 
 Use `<AvatarGroupCount>` to add a count to the group.
 
-<ComponentPreview styleName="base-nova" name="AvatarGroupCount" />
+<ComponentPreview name="AvatarGroupCount" />
 
 ### Avatar Group with Icon
 
 You can also use an icon inside `<AvatarGroupCount>`.
 
-<ComponentPreview styleName="base-nova" name="AvatarGroupCountIcon" />
+<ComponentPreview name="AvatarGroupCountIcon" />
 
 ### Sizes
 
 Use the `size` prop to change the size of the avatar.
 
-<ComponentPreview styleName="base-nova" name="AvatarSize" />
+<ComponentPreview name="AvatarSize" />
 
 ### Dropdown
 
 You can use the `Avatar` component as a trigger for a dropdown menu.
 
-<ComponentPreview styleName="base-nova" name="AvatarDropdown" />
+<ComponentPreview name="AvatarDropdown" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="AvatarRtl"
-  direction="rtl"
-  previewClassName="h-72"
-/>
 
 ## API Reference
 
@@ -148,7 +130,7 @@ The `Avatar` component is the root component that wraps the avatar image and fal
 
 | Prop        | Type                        | Default     |
 | ----------- | --------------------------- | ----------- |
-| `size`      | `"default" \| "sm" \| "lg"` | `"default"` |
+| `size`      | `Default \| Sm \| Lg`       | `Default` |
 | `className` | `string`                    | -           |
 
 ### AvatarImage

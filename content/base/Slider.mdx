@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/slider#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="SliderDemo" />
+<ComponentPreview name="SliderDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add slider
+npx shadcn@latest add @rescript-shadcn/Slider
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add slider
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="slider"
-  title="components/ui/slider.tsx"
-  styleName="base-nova"
+  title="components/ui/Slider.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,12 +51,8 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx
-import { Slider } from "@/components/ui/slider"
-```
-
-```tsx
-<Slider defaultValue={[33]} max={100} step={1} />
+```res showLineNumbers
+<Slider defaultValue={[33.]} max={100.} step={1.} />
 ```
 
 ## Examples
@@ -68,35 +61,30 @@ import { Slider } from "@/components/ui/slider"
 
 Use an array with two values for a range slider.
 
-<ComponentPreview styleName="base-nova" name="SliderRange" />
+<ComponentPreview name="SliderRange" />
 
 ### Multiple Thumbs
 
 Use an array with multiple values for multiple thumbs.
 
-<ComponentPreview styleName="base-nova" name="SliderMultiple" />
+<ComponentPreview name="SliderMultiple" />
 
 ### Vertical
 
 Use `orientation="vertical"` for a vertical slider.
 
-<ComponentPreview styleName="base-nova" name="SliderVertical" />
+<ComponentPreview name="SliderVertical" />
 
 ### Controlled
 
-<ComponentPreview styleName="base-nova" name="SliderControlled" />
+<ComponentPreview name="SliderControlled" />
 
 ### Disabled
 
 Use the `disabled` prop to disable the slider.
 
-<ComponentPreview styleName="base-nova" name="SliderDisabled" />
+<ComponentPreview name="SliderDisabled" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="SliderRtl" direction="rtl" />
 
 ## API Reference
 

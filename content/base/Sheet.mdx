@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/dialog#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="SheetDemo" />
+<ComponentPreview name="SheetDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add sheet
+npx shadcn@latest add @rescript-shadcn/Sheet
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add sheet
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="sheet"
-  title="components/ui/sheet.tsx"
-  styleName="base-nova"
+  title="components/ui/Sheet.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,28 +51,17 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Sheet>
-  <SheetTrigger>Open</SheetTrigger>
-  <SheetContent>
-    <SheetHeader>
-      <SheetTitle>Are you absolutely sure?</SheetTitle>
-      <SheetDescription>This action cannot be undone.</SheetDescription>
-    </SheetHeader>
-  </SheetContent>
+  <Sheet.Trigger render={<Button variant=Outline />}>
+    {"Open"->React.string}
+  </Sheet.Trigger>
+  <Sheet.Content>
+    <Sheet.Header>
+      <Sheet.Title> {"Are you absolutely sure?"->React.string} </Sheet.Title>
+      <Sheet.Description> {"This action cannot be undone."->React.string} </Sheet.Description>
+    </Sheet.Header>
+  </Sheet.Content>
 </Sheet>
 ```
 
@@ -85,19 +71,14 @@ import {
 
 Use the `side` prop on `SheetContent` to set the edge of the screen where the sheet appears. Values are `top`, `right`, `bottom`, or `left`.
 
-<ComponentPreview styleName="base-nova" name="SheetSide" />
+<ComponentPreview name="SheetSide" />
 
 ### No Close Button
 
 Use `showCloseButton={false}` on `SheetContent` to hide the close button.
 
-<ComponentPreview styleName="base-nova" name="SheetNoCloseButton" />
+<ComponentPreview name="SheetNoCloseButton" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="SheetRtl" direction="rtl" />
 
 ## API Reference
 

@@ -9,7 +9,7 @@ links:
   api: https://base-ui.com/react/components/collapsible#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="CollapsibleDemo" align="start" />
+<ComponentPreview name="CollapsibleDemo" align="start" />
 
 ## Installation
 
@@ -22,7 +22,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add collapsible
+npx shadcn@latest add @rescript-shadcn/Collapsible
 ```
 
 </TabsContent>
@@ -34,18 +34,15 @@ npx shadcn@latest add collapsible
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="collapsible"
-  title="components/ui/collapsible.tsx"
-  styleName="base-nova"
+  title="components/ui/Collapsible.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -55,21 +52,14 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Collapsible>
-  <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
-  <CollapsibleContent>
-    Yes. Free to use for personal and commercial projects. No attribution
-    required.
-  </CollapsibleContent>
+  <Collapsible.Trigger render={<Button variant=Ghost size=Icon />}>
+    <Icons.ChevronsUpDown />
+  </Collapsible.Trigger>
+  <Collapsible.Content>
+    {"Content here."->React.string}
+  </Collapsible.Content>
 </Collapsible>
 ```
 
@@ -77,7 +67,7 @@ import {
 
 Use the `open` and `onOpenChange` props to control the state.
 
-```tsx showLineNumbers
+```res showLineNumbers
 import * as React from "react"
 
 export function Example() {
@@ -97,7 +87,6 @@ export function Example() {
 ### Basic
 
 <ComponentPreview
-  styleName="base-nova"
   name="CollapsibleBasic"
   align="start"
 />
@@ -106,28 +95,17 @@ export function Example() {
 
 Use a trigger button to reveal additional settings.
 
-<ComponentPreview styleName="base-nova" name="CollapsibleSettings" />
+<ComponentPreview name="CollapsibleSettings" />
 
 ### File Tree
 
 Use nested collapsibles to build a file tree.
 
 <ComponentPreview
-  styleName="base-nova"
   name="CollapsibleFileTree"
   previewClassName="h-[36rem]"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="CollapsibleRtl"
-  direction="rtl"
-  align="start"
-/>
 
 ## API Reference
 

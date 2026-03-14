@@ -8,7 +8,6 @@ component: true
 import { IconInfoCircle } from "@tabler/icons-react"
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupDemo"
   previewClassName="h-[26rem]"
 />
@@ -24,7 +23,7 @@ import { IconInfoCircle } from "@tabler/icons-react"
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add input-group
+npx shadcn@latest add @rescript-shadcn/InputGroup
 ```
 
 </TabsContent>
@@ -36,12 +35,9 @@ npx shadcn@latest add input-group
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
-  name="input-group"
-  title="components/ui/input-group.tsx"
-  styleName="base-nova"
+  name="InputGroup"
+  title="components/ui/InputGroup.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -51,23 +47,12 @@ npx shadcn@latest add input-group
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-  InputGroupTextarea,
-} from "@/components/ui/input-group"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <InputGroup>
-  <InputGroupInput placeholder="Search..." />
-  <InputGroupAddon>
-    <SearchIcon />
-  </InputGroupAddon>
+  <InputGroup.Input placeholder="Search..." />
+  <InputGroup.Addon>
+    <Icons.Search />
+  </InputGroup.Addon>
 </InputGroup>
 ```
 
@@ -86,7 +71,6 @@ Use the `align` prop on `InputGroupAddon` to position the addon relative to the 
 Use `align="inline-start"` to position the addon at the start of the input. This is the default.
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupInlineStart"
   previewClassName="h-48"
 />
@@ -96,7 +80,6 @@ Use `align="inline-start"` to position the addon at the start of the input. This
 Use `align="inline-end"` to position the addon at the end of the input.
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupInlineEnd"
   previewClassName="h-48"
 />
@@ -106,7 +89,6 @@ Use `align="inline-end"` to position the addon at the end of the input.
 Use `align="block-start"` to position the addon above the input.
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupBlockStart"
   previewClassName="h-96"
 />
@@ -116,7 +98,6 @@ Use `align="block-start"` to position the addon above the input.
 Use `align="block-end"` to position the addon below the input.
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupBlockEnd"
   previewClassName="h-[26rem]"
 />
@@ -126,7 +107,6 @@ Use `align="block-end"` to position the addon below the input.
 ### Icon
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupIcon"
   previewClassName="h-80"
 />
@@ -134,7 +114,6 @@ Use `align="block-end"` to position the addon below the input.
 ### Text
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupText"
   previewClassName="h-80"
 />
@@ -142,7 +121,6 @@ Use `align="block-end"` to position the addon below the input.
 ### Button
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupButton"
   previewClassName="h-72"
 />
@@ -150,7 +128,6 @@ Use `align="block-end"` to position the addon below the input.
 ### Kbd
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupKbd"
   previewClassName="h-40"
 />
@@ -158,7 +135,6 @@ Use `align="block-end"` to position the addon below the input.
 ### Dropdown
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupDropdown"
   previewClassName="h-56"
 />
@@ -166,7 +142,6 @@ Use `align="block-end"` to position the addon below the input.
 ### Spinner
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupSpinner"
   previewClassName="h-80"
 />
@@ -174,7 +149,6 @@ Use `align="block-end"` to position the addon below the input.
 ### Textarea
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupTextarea"
   previewClassName="h-96"
 />
@@ -186,21 +160,10 @@ Add the `data-slot="input-group-control"` attribute to your custom input for aut
 Here's an example of a custom resizable textarea from a third-party library.
 
 <ComponentPreview
-  styleName="base-nova"
   name="InputGroupCustom"
   previewClassName="h-56"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="InputGroupRtl"
-  direction="rtl"
-  previewClassName="h-[30rem]"
-/>
 
 ## API Reference
 
@@ -212,7 +175,7 @@ The main component that wraps inputs and addons.
 | ----------- | -------- | ------- |
 | `className` | `string` |         |
 
-```tsx
+```res
 <InputGroup>
   <InputGroupInput />
   <InputGroupAddon />
@@ -233,20 +196,20 @@ Displays icons, text, buttons, or other content alongside inputs.
 | `align`     | `"inline-start" \| "inline-end" \| "block-start" \| "block-end"` | `"inline-start"` |
 | `className` | `string`                                                         |                  |
 
-```tsx
-<InputGroupAddon align="inline-end">
+```res
+<InputGroupAddon align=InlineEnd>
   <SearchIcon />
 </InputGroupAddon>
 ```
 
-**For `<InputGroupInput />`, use the `inline-start` or `inline-end` alignment. For `<InputGroupTextarea />`, use the `block-start` or `block-end` alignment.**
+**For `<InputGroupInput />`, use the `InlineStart` or `InlineEnd` alignment. For `<InputGroupTextarea />`, use the `BlockStart` or `BlockEnd` alignment.**
 
 The `InputGroupAddon` component can have multiple `InputGroupButton` components and icons.
 
-```tsx
+```res
 <InputGroupAddon>
-  <InputGroupButton>Button</InputGroupButton>
-  <InputGroupButton>Button</InputGroupButton>
+  <InputGroupButton> {"Button"->React.string} </InputGroupButton>
+  <InputGroupButton> {"Button"->React.string} </InputGroupButton>
 </InputGroupAddon>
 ```
 
@@ -256,13 +219,13 @@ Displays buttons within input groups.
 
 | Prop        | Type                                                                          | Default   |
 | ----------- | ----------------------------------------------------------------------------- | --------- |
-| `size`      | `"xs" \| "icon-xs" \| "sm" \| "icon-sm"`                                      | `"xs"`    |
-| `variant`   | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"ghost"` |
+| `size`      | `Xs \| IconXs \| Sm \| IconSm`                                      | `"xs"`    |
+| `variant`   | `Default \| Destructive \| Outline \| Secondary \| Ghost \| Link`             | `Ghost`   |
 | `className` | `string`                                                                      |           |
 
-```tsx
-<InputGroupButton>Button</InputGroupButton>
-<InputGroupButton size="icon-xs" aria-label="Copy">
+```res
+<InputGroupButton> {"Button"->React.string} </InputGroupButton>
+<InputGroupButton size=IconXs ariaLabel="Copy">
   <CopyIcon />
 </InputGroupButton>
 ```
@@ -277,7 +240,7 @@ Replacement for `<Input />` when building input groups. This component has the i
 
 All other props are passed through to the underlying `<Input />` component.
 
-```tsx
+```res
 <InputGroup>
   <InputGroupInput placeholder="Enter text..." />
   <InputGroupAddon>
@@ -296,11 +259,11 @@ Replacement for `<Textarea />` when building input groups. This component has th
 
 All other props are passed through to the underlying `<Textarea />` component.
 
-```tsx
+```res
 <InputGroup>
   <InputGroupTextarea placeholder="Enter message..." />
-  <InputGroupAddon align="block-end">
-    <InputGroupButton>Send</InputGroupButton>
+  <InputGroupAddon align=BlockEnd>
+    <InputGroupButton> {"Send"->React.string} </InputGroupButton>
   </InputGroupAddon>
 </InputGroup>
 ```

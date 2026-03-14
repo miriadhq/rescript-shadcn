@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/separator#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="SeparatorDemo" />
+<ComponentPreview name="SeparatorDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add separator
+npx shadcn@latest add @rescript-shadcn/Separator
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add separator
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="separator"
-  title="components/ui/separator.tsx"
-  styleName="base-nova"
+  title="components/ui/Separator.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,11 +51,7 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { Separator } from "@/components/ui/separator"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Separator />
 ```
 
@@ -68,25 +61,20 @@ import { Separator } from "@/components/ui/separator"
 
 Use `orientation="vertical"` for a vertical separator.
 
-<ComponentPreview styleName="base-nova" name="SeparatorVertical" />
+<ComponentPreview name="SeparatorVertical" />
 
 ### Menu
 
 Vertical separators between menu items with descriptions.
 
-<ComponentPreview styleName="base-nova" name="SeparatorMenu" />
+<ComponentPreview name="SeparatorMenu" />
 
 ### List
 
 Horizontal separators between list items.
 
-<ComponentPreview styleName="base-nova" name="SeparatorList" />
+<ComponentPreview name="SeparatorList" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="SeparatorRtl" direction="rtl" />
 
 ## API Reference
 

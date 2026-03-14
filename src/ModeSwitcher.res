@@ -41,10 +41,10 @@ module DarkModeScript = {
 
 let isTargetEditable: WebAPI.UIEventsAPI.keyboardEvent => bool = %raw(`
 function(e){
-  (e.target instanceof HTMLElement && e.target.isContentEditable) ||
+  return (e.target instanceof HTMLElement && e.target.isContentEditable) ||
           e.target instanceof HTMLInputElement ||
           e.target instanceof HTMLTextAreaElement ||
-          e.target instanceof HTMLSelectElement
+          e.target instanceof HTMLSelectElement;
 }
 `)
 

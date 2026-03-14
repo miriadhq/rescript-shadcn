@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/radio-group#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="RadioGroupDemo" />
+<ComponentPreview name="RadioGroupDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add radio-group
+npx shadcn@latest add @rescript-shadcn/RadioGroup
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add radio-group
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="radio-group"
-  title="components/ui/radio-group.tsx"
-  styleName="base-nova"
+  title="components/ui/RadioGroup.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,20 +51,15 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <RadioGroup defaultValue="option-one">
   <div className="flex items-center gap-3">
-    <RadioGroupItem value="option-one" id="option-one" />
-    <Label htmlFor="option-one">Option One</Label>
+    <RadioGroup.Item value="option-one" id="option-one" />
+    <Label htmlFor="option-one"> {"Option One"->React.string} </Label>
   </div>
   <div className="flex items-center gap-3">
-    <RadioGroupItem value="option-two" id="option-two" />
-    <Label htmlFor="option-two">Option Two</Label>
+    <RadioGroup.Item value="option-two" id="option-two" />
+    <Label htmlFor="option-two"> {"Option Two"->React.string} </Label>
   </div>
 </RadioGroup>
 ```
@@ -78,41 +70,32 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 Radio group items with a description using the `Field` component.
 
-<ComponentPreview styleName="base-nova" name="RadioGroupDescription" />
+<ComponentPreview name="RadioGroupDescription" />
 
 ### Choice Card
 
 Use `FieldLabel` to wrap the entire `Field` for a clickable card-style selection.
 
-<ComponentPreview styleName="base-nova" name="RadioGroupChoiceCard" />
+<ComponentPreview name="RadioGroupChoiceCard" />
 
 ### Fieldset
 
 Use `FieldSet` and `FieldLegend` to group radio items with a label and description.
 
-<ComponentPreview styleName="base-nova" name="RadioGroupFieldset" />
+<ComponentPreview name="RadioGroupFieldset" />
 
 ### Disabled
 
 Use the `disabled` prop on `RadioGroup` to disable all items.
 
-<ComponentPreview styleName="base-nova" name="RadioGroupDisabled" />
+<ComponentPreview name="RadioGroupDisabled" />
 
 ### Invalid
 
 Use `aria-invalid` on `RadioGroupItem` and `data-invalid` on `Field` to show validation errors.
 
-<ComponentPreview styleName="base-nova" name="RadioGroupInvalid" />
+<ComponentPreview name="RadioGroupInvalid" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="RadioGroupRtl"
-  direction="rtl"
-/>
 
 ## API Reference
 

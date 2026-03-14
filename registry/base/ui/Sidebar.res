@@ -63,10 +63,10 @@ let mobileBreakpoint = 768
 
 let context: React.Context.t<option<sidebar>> = React.createContext(None)
 
-let useSidebar = () =>
+let use = () =>
   switch React.useContext(context) {
   | Some(sidebar) => sidebar
-  | None => JsError.throwWithMessage("useSidebar must be used within a SidebarProvider.")
+  | None => JsError.throwWithMessage("use must be used within a SidebarProvider.")
   }
 
 let useIsMobile = () => {
@@ -117,7 +117,7 @@ let make = (
   ~onClick=?,
   ~onKeyDown=?,
 ) => {
-  let {isMobile, state, openMobile, setOpenMobile} = useSidebar()
+  let {isMobile, state, openMobile, setOpenMobile} = use()
 
   if collapsible == NotCollapsible {
     <div
@@ -339,7 +339,7 @@ module Trigger = {
     ~ariaLabel=?,
     ~render=?,
   ) => {
-    let {toggleSidebar} = useSidebar()
+    let {toggleSidebar} = use()
     <Button
       className
       variant
@@ -366,7 +366,7 @@ module Trigger = {
 module Rail = {
   @react.component
   let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
-    let {toggleSidebar} = useSidebar()
+    let {toggleSidebar} = use()
     let resolvedOnClick = switch onClick {
     | Some(onClick) => onClick
     | None => _ => toggleSidebar()
@@ -649,10 +649,6 @@ type menuButtonTooltipConfig = {
   alignOffset?: float,
 }
 
-type menuButtonTooltip =
-  | TooltipText(string)
-  | TooltipConfig(menuButtonTooltipConfig)
-
 module MenuButton = {
   module Variant = {
     @unboxed
@@ -682,125 +678,66 @@ module MenuButton = {
     `${base} ${variantClass} ${sizeClass}`
   }
 
+  type state = {
+    slot: string,
+    sidebar: string,
+    size: Size.t,
+    active: bool,
+  }
+
   @react.component
   let make = (
     ~className=?,
     ~variant=Variant.Default,
     ~size=Size.Default,
     ~isActive=false,
-    ~tooltip: option<menuButtonTooltip>=?,
-    ~buttonProps: option<BaseUi.Types.props<string, bool>>=?,
+    ~tooltip: option<Tooltip.contentProps>=?,
     ~render=?,
     ~children=React.null,
-    ~type_=?,
     ~ariaDisabled=?,
-    ~dataSlot=?,
     ~ariaExpanded=?,
     ~ariaHaspopup=?,
     ~ariaControls=?,
     ~tabIndex=?,
+    ~dataSlot=?,
   ) => {
-    let {isMobile, state} = useSidebar()
-    let resolvedRender = switch tooltip {
-    | Some(_) => Some(<Tooltip.Trigger />)
-    | None => render
-    }
-    let baseWithoutDataActive: BaseUi.Types.props<string, bool> = {
-      render: React.null,
-      children,
-      dataSlot: dataSlot->Option.getOr("sidebar-menu-button"),
-      dataSidebar: "menu-button",
-      dataSize: (size :> string),
-      ?type_,
-      ?ariaDisabled,
-      ariaExpanded: ariaExpanded->Option.getOr(false),
-      ariaHaspopup: ariaHaspopup->Option.getOr("menu"),
-      ?ariaControls,
-      tabIndex: tabIndex->Option.getOr(0),
-      className: cn(sidebarMenuButtonVariants(~variant, ~size), className),
-    }
-    let dataActiveOverlay: BaseUi.Types.props<string, bool> = isActive ? {dataActive: true} : {}
-    let baseProps = mergeProps(baseWithoutDataActive, dataActiveOverlay)
-    let mergedProps = switch buttonProps {
-    | Some(buttonProps) => mergeProps(baseProps, buttonProps)
-    | None => baseProps
-    }
-    let props = switch (resolvedRender, mergedProps.type_) {
-    | (Some(_), _) => mergedProps
-    | (None, Some(_)) => mergedProps
-    | (None, None) => {...mergedProps, type_: "button"}
-    }
-    let render = resolvedRender
-    let comp = BaseUi.Render.use({defaultTagName: "button", props, ?render})
+    let {isMobile, state} = use()
+    let comp = BaseUi.Render.use({
+      defaultTagName: "button",
+      props: {
+        children,
+        ?ariaDisabled,
+        ?ariaExpanded,
+        ?ariaHaspopup,
+        ?ariaControls,
+        ?tabIndex,
+        ?dataSlot,
+        className: cn(sidebarMenuButtonVariants(~variant, ~size), className),
+      },
+      render: ?{
+        switch tooltip {
+        | Some(_) => Some(<Tooltip.Trigger />)
+        | None => render
+        }
+      },
+      state: {
+        slot: "sidebar-menu-button",
+        sidebar: "menu-button",
+        size,
+        active: isActive,
+      },
+    })
     switch tooltip {
     | None => comp
     | Some(tooltip) =>
-      let (
-        tooltipChildren,
-        tooltipClassName,
-        tooltipId,
-        tooltipStyle,
-        tooltipOnClick,
-        tooltipOnKeyDown,
-        tooltipSide,
-        tooltipSideOffset,
-        tooltipAlign,
-        tooltipAlignOffset,
-      ) = switch tooltip {
-      | TooltipText(text) => (
-          Some(React.string(text)),
-          None,
-          None,
-          None,
-          None,
-          None,
-          None,
-          None,
-          None,
-          None,
-        )
-      | TooltipConfig(config) => (
-          config.children,
-          config.className,
-          config.id,
-          config.style,
-          config.onClick,
-          config.onKeyDown,
-          config.side,
-          config.sideOffset,
-          config.align,
-          config.alignOffset,
-        )
-      }
-      let hidden = state != Collapsed || isMobile
-      let contentClassName = tooltipClassName->Option.getOr("")
-      let popupRender = <div hidden />
       <Tooltip>
         {comp}
-        <BaseUi.Tooltip.Portal>
-          <BaseUi.Tooltip.Positioner
-            align={tooltipAlign->Option.getOr(Align.Center)}
-            alignOffset={tooltipAlignOffset->Option.getOr(0.)}
-            side={tooltipSide->Option.getOr(Side.Right)}
-            sideOffset={tooltipSideOffset->Option.getOr(4.)}
-            className="isolate z-50"
-          >
-            <BaseUi.Tooltip.Popup
-              id=?tooltipId
-              style=?tooltipStyle
-              onClick=?tooltipOnClick
-              onKeyDown=?tooltipOnKeyDown
-              dataSlot="tooltip-content"
-              className={`data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 bg-foreground text-background z-50 w-fit max-w-xs origin-(--transform-origin) rounded-md px-3 py-1.5 text-xs ${contentClassName}`}
-              render={hidden ? popupRender : <div />}
-            >
-              {tooltipChildren->Option.getOr(React.null)}
-              <BaseUi.Tooltip.Arrow
-                className="bg-foreground fill-foreground z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] data-[side=bottom]:top-1 data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
-              />
-            </BaseUi.Tooltip.Popup>
-          </BaseUi.Tooltip.Positioner>
-        </BaseUi.Tooltip.Portal>
+        <Tooltip.Content
+          {...tooltip}
+          side={tooltip.side->Option.getOr(Side.Right)}
+          align={tooltip.align->Option.getOr(Align.Center)}
+          hidden={tooltip.hidden->Option.getOr(state !== Collapsed || isMobile)}
+        />
       </Tooltip>
     }
   }

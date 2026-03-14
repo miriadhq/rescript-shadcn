@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/menubar#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="MenubarDemo" />
+<ComponentPreview name="MenubarDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add menubar
+npx shadcn@latest add @rescript-shadcn/Menubar
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add menubar
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="menubar"
-  title="components/ui/menubar.tsx"
-  styleName="base-nova"
+  title="components/ui/Menubar.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,37 +51,25 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Menubar,
-  MenubarContent,
-  MenubarGroup,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "@/components/ui/menubar"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Menubar>
-  <MenubarMenu>
-    <MenubarTrigger>File</MenubarTrigger>
-    <MenubarContent>
-      <MenubarGroup>
-        <MenubarItem>
-          New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-        </MenubarItem>
-        <MenubarItem>New Window</MenubarItem>
-      </MenubarGroup>
-      <MenubarSeparator />
-      <MenubarGroup>
-        <MenubarItem>Share</MenubarItem>
-        <MenubarItem>Print</MenubarItem>
-      </MenubarGroup>
-    </MenubarContent>
-  </MenubarMenu>
+  <Menubar.Menu>
+    <Menubar.Trigger> {"File"->React.string} </Menubar.Trigger>
+    <Menubar.Content>
+      <Menubar.Group>
+        <Menubar.Item>
+          {"New Tab"->React.string}
+          <Menubar.Shortcut> {"\u2318T"->React.string} </Menubar.Shortcut>
+        </Menubar.Item>
+        <Menubar.Item> {"New Window"->React.string} </Menubar.Item>
+      </Menubar.Group>
+      <Menubar.Separator />
+      <Menubar.Group>
+        <Menubar.Item> {"Share"->React.string} </Menubar.Item>
+        <Menubar.Item> {"Print"->React.string} </Menubar.Item>
+      </Menubar.Group>
+    </Menubar.Content>
+  </Menubar.Menu>
 </Menubar>
 ```
 
@@ -94,29 +79,24 @@ import {
 
 Use `MenubarCheckboxItem` for toggleable options.
 
-<ComponentPreview styleName="base-nova" name="MenubarCheckbox" />
+<ComponentPreview name="MenubarCheckbox" />
 
 ### Radio
 
 Use `MenubarRadioGroup` and `MenubarRadioItem` for single-select options.
 
-<ComponentPreview styleName="base-nova" name="MenubarRadio" />
+<ComponentPreview name="MenubarRadio" />
 
 ### Submenu
 
 Use `MenubarSub`, `MenubarSubTrigger`, and `MenubarSubContent` for nested menus.
 
-<ComponentPreview styleName="base-nova" name="MenubarSubmenu" />
+<ComponentPreview name="MenubarSubmenu" />
 
 ### With Icons
 
-<ComponentPreview styleName="base-nova" name="MenubarIcons" />
+<ComponentPreview name="MenubarIcons" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="MenubarRtl" direction="rtl" />
 
 ## API Reference
 

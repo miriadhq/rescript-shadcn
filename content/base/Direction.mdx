@@ -13,7 +13,6 @@ The `DirectionProvider` component is used to set the text direction (`ltr` or `r
 Here's a preview of the component in RTL mode. Use the language selector to switch the language. To see more examples, look for the RTL section on components pages.
 
 <ComponentPreview
-  styleName="base-nova"
   name="CardRtl"
   direction="rtl"
   previewClassName="h-auto"
@@ -32,7 +31,7 @@ Here's a preview of the component in RTL mode. Use the language selector to swit
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add direction
+npx shadcn@latest add @rescript-shadcn/Direction
 ```
 
 </TabsContent>
@@ -44,18 +43,15 @@ npx shadcn@latest add direction
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="direction"
-  title="components/ui/direction.tsx"
-  styleName="base-nova"
+  title="components/ui/Direction.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -65,25 +61,17 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { DirectionProvider } from "@/components/ui/direction"
-```
-
-```tsx showLineNumbers
-<html dir="rtl">
-  <body>
-    <DirectionProvider direction="rtl">
-      {/* Your app content */}
-    </DirectionProvider>
-  </body>
-</html>
+```res showLineNumbers
+<Direction.DirectionProvider>
+  {"Direction context"->React.string}
+</Direction.DirectionProvider>
 ```
 
 ## useDirection
 
 The `useDirection` hook is used to get the current direction of the application.
 
-```tsx showLineNumbers
+```res showLineNumbers
 import { useDirection } from "@/components/ui/direction"
 
 function MyComponent() {

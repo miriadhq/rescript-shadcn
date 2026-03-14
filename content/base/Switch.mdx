@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/switch#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="SwitchDemo" />
+<ComponentPreview name="SwitchDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add switch
+npx shadcn@latest add @rescript-shadcn/Switch
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add switch
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="switch"
-  title="components/ui/switch.tsx"
-  styleName="base-nova"
+  title="components/ui/Switch.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,11 +51,7 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx
-import { Switch } from "@/components/ui/switch"
-```
-
-```tsx
+```res
 <Switch />
 ```
 
@@ -66,37 +59,32 @@ import { Switch } from "@/components/ui/switch"
 
 ### Description
 
-<ComponentPreview styleName="base-nova" name="SwitchDescription" />
+<ComponentPreview name="SwitchDescription" />
 
 ### Choice Card
 
 Card-style selection where `FieldLabel` wraps the entire `Field` for a clickable card pattern.
 
-<ComponentPreview styleName="base-nova" name="SwitchChoiceCard" />
+<ComponentPreview name="SwitchChoiceCard" />
 
 ### Disabled
 
 Add the `disabled` prop to the `Switch` component to disable the switch. Add the `data-disabled` prop to the `Field` component for styling.
 
-<ComponentPreview styleName="base-nova" name="SwitchDisabled" />
+<ComponentPreview name="SwitchDisabled" />
 
 ### Invalid
 
 Add the `aria-invalid` prop to the `Switch` component to indicate an invalid state. Add the `data-invalid` prop to the `Field` component for styling.
 
-<ComponentPreview styleName="base-nova" name="SwitchInvalid" />
+<ComponentPreview name="SwitchInvalid" />
 
 ### Size
 
 Use the `size` prop to change the size of the switch.
 
-<ComponentPreview styleName="base-nova" name="SwitchSizes" />
+<ComponentPreview name="SwitchSizes" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="SwitchRtl" direction="rtl" />
 
 ## API Reference
 

@@ -5,7 +5,7 @@ base: base
 component: true
 ---
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupDemo" />
+<ComponentPreview name="ButtonGroupDemo" />
 
 ## Installation
 
@@ -18,7 +18,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add button-group
+npx shadcn@latest add @rescript-shadcn/ButtonGroup
 ```
 
 </TabsContent>
@@ -30,18 +30,15 @@ npx shadcn@latest add button-group
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="button-group"
-  title="components/ui/button-group.tsx"
-  styleName="base-nova"
+  title="components/ui/ButtonGroup.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -51,18 +48,10 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx
-import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-  ButtonGroupText,
-} from "@/components/ui/button-group"
-```
-
-```tsx
+```res showLineNumbers
 <ButtonGroup>
-  <Button>Button 1</Button>
-  <Button>Button 2</Button>
+  <Button> {"Button 1"->React.string} </Button>
+  <Button> {"Button 2"->React.string} </Button>
 </ButtonGroup>
 ```
 
@@ -72,10 +61,10 @@ import {
 - Use <Kbd>Tab</Kbd> to navigate between the buttons in the group.
 - Use `aria-label` or `aria-labelledby` to label the button group.
 
-```tsx showLineNumbers
+```res showLineNumbers
 <ButtonGroup aria-label="Button group">
-  <Button>Button 1</Button>
-  <Button>Button 2</Button>
+  <Button> {"Button 1"->React.string} </Button>
+  <Button> {"Button 2"->React.string} </Button>
 </ButtonGroup>
 ```
 
@@ -90,19 +79,19 @@ import {
 
 Set the `orientation` prop to change the button group layout.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupOrientation" />
+<ComponentPreview name="ButtonGroupOrientation" />
 
 ### Size
 
 Control the size of buttons using the `size` prop on individual buttons.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupSize" />
+<ComponentPreview name="ButtonGroupSize" />
 
 ### Nested
 
 Nest `<ButtonGroup>` components to create button groups with spacing.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupNested" />
+<ComponentPreview name="ButtonGroupNested" />
 
 ### Separator
 
@@ -110,53 +99,44 @@ The `ButtonGroupSeparator` component visually divides buttons within a group.
 
 Buttons with variant `outline` do not need a separator since they have a border. For other variants, a separator is recommended to improve the visual hierarchy.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupSeparator" />
+<ComponentPreview name="ButtonGroupSeparator" />
 
 ### Split
 
 Create a split button group by adding two buttons separated by a `ButtonGroupSeparator`.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupSplit" />
+<ComponentPreview name="ButtonGroupSplit" />
 
 ### Input
 
 Wrap an `Input` component with buttons.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupInput" />
+<ComponentPreview name="ButtonGroupInput" />
 
 ### Input Group
 
 Wrap an `InputGroup` component to create complex input layouts.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupInputGroup" />
+<ComponentPreview name="ButtonGroupInputGroup" />
 
 ### Dropdown Menu
 
 Create a split button group with a `DropdownMenu` component.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupDropdown" />
+<ComponentPreview name="ButtonGroupDropdown" />
 
 ### Select
 
 Pair with a `Select` component.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupSelect" />
+<ComponentPreview name="ButtonGroupSelect" />
 
 ### Popover
 
 Use with a `Popover` component.
 
-<ComponentPreview styleName="base-nova" name="ButtonGroupPopover" />
+<ComponentPreview name="ButtonGroupPopover" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="ButtonGroupRtl"
-  direction="rtl"
-/>
 
 ## API Reference
 
@@ -166,18 +146,18 @@ The `ButtonGroup` component is a container that groups related buttons together 
 
 | Prop          | Type                         | Default        |
 | ------------- | ---------------------------- | -------------- |
-| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `orientation` | `Horizontal \| Vertical`     | `Horizontal`   |
 
-```tsx
+```res showLineNumbers
 <ButtonGroup>
-  <Button>Button 1</Button>
-  <Button>Button 2</Button>
+  <Button> {"Button 1"->React.string} </Button>
+  <Button> {"Button 2"->React.string} </Button>
 </ButtonGroup>
 ```
 
 Nest multiple button groups to create complex layouts with spacing. See the [nested](#nested) example for more details.
 
-```tsx
+```res showLineNumbers
 <ButtonGroup>
   <ButtonGroup />
   <ButtonGroup />
@@ -190,9 +170,9 @@ The `ButtonGroupSeparator` component visually divides buttons within a group.
 
 | Prop          | Type                         | Default      |
 | ------------- | ---------------------------- | ------------ |
-| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` |
+| `orientation` | `Horizontal \| Vertical`     | `Vertical`   |
 
-```tsx
+```res showLineNumbers
 <ButtonGroup>
   <Button>Button 1</Button>
   <ButtonGroupSeparator />
@@ -204,31 +184,31 @@ The `ButtonGroupSeparator` component visually divides buttons within a group.
 
 Use this component to display text within a button group.
 
-| Prop      | Type      | Default |
-| --------- | --------- | ------- |
-| `asChild` | `boolean` | `false` |
+| Prop      | Type            | Default |
+| --------- | --------------- | ------- |
+| `render`  | `React.element` |         |
 
-```tsx
+```res showLineNumbers
 <ButtonGroup>
   <ButtonGroupText>Text</ButtonGroupText>
   <Button>Button</Button>
 </ButtonGroup>
 ```
 
-Use the `asChild` prop to render a custom component as the text, for example a label.
+Use the `render` prop to render a custom component as the text, for example a label.
 
-```tsx showLineNumbers
-import { ButtonGroupText } from "@/components/ui/button-group"
-import { Label } from "@/components/ui/label"
+```res showLineNumbers
 
-export function ButtonGroupTextDemo() {
-  return (
+
+module ButtonGroupTextDemo = {
+  @react.component
+  let make = () => {
     <ButtonGroup>
-      <ButtonGroupText asChild>
-        <Label htmlFor="name">Text</Label>
+      <ButtonGroupText render={<Label htmlFor="name"/>}>
+        {"Text"->React.string}
       </ButtonGroupText>
       <Input placeholder="Type something here..." id="name" />
     </ButtonGroup>
-  )
+  }
 }
 ```

@@ -10,7 +10,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="DropdownMenuDemo"
   description="A dropdown menu with icons, shortcuts and sub menu items."
 />
@@ -26,7 +25,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add dropdown-menu
+npx shadcn@latest add @rescript-shadcn/DropdownMenu
 ```
 
 </TabsContent>
@@ -38,18 +37,15 @@ npx shadcn@latest add dropdown-menu
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="dropdown-menu"
-  title="components/ui/dropdown-menu.tsx"
-  styleName="base-nova"
+  title="components/ui/DropdownMenu.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -59,36 +55,23 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <DropdownMenu>
-  <DropdownMenuTrigger render={<Button variant="outline" />}>
-    Open
-  </DropdownMenuTrigger>
-  <DropdownMenuContent>
-    <DropdownMenuGroup>
-      <DropdownMenuLabel>My Account</DropdownMenuLabel>
-      <DropdownMenuItem>Profile</DropdownMenuItem>
-      <DropdownMenuItem>Billing</DropdownMenuItem>
-      <DropdownMenuSeparator />
-    </DropdownMenuGroup>
-    <DropdownMenuGroup>
-      <DropdownMenuItem>Team</DropdownMenuItem>
-      <DropdownMenuItem>Subscription</DropdownMenuItem>
-    </DropdownMenuGroup>
-  </DropdownMenuContent>
+  <DropdownMenu.Trigger render={<Button variant=Outline />}>
+    {"Open"->React.string}
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content>
+    <DropdownMenu.Group>
+      <DropdownMenu.Label> {"My Account"->React.string} </DropdownMenu.Label>
+      <DropdownMenu.Item> {"Profile"->React.string} </DropdownMenu.Item>
+      <DropdownMenu.Item> {"Billing"->React.string} </DropdownMenu.Item>
+      <DropdownMenu.Separator />
+    </DropdownMenu.Group>
+    <DropdownMenu.Group>
+      <DropdownMenu.Item> {"Team"->React.string} </DropdownMenu.Item>
+      <DropdownMenu.Item> {"Subscription"->React.string} </DropdownMenu.Item>
+    </DropdownMenu.Group>
+  </DropdownMenu.Content>
 </DropdownMenu>
 ```
 
@@ -98,77 +81,68 @@ import {
 
 A basic dropdown menu with labels and separators.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuBasic" />
+<ComponentPreview name="DropdownMenuBasic" />
 
 ### Submenu
 
 Use `DropdownMenuSub` to nest secondary actions.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuSubmenu" />
+<ComponentPreview name="DropdownMenuSubmenu" />
 
 ### Shortcuts
 
 Add `DropdownMenuShortcut` to show keyboard hints.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuShortcuts" />
+<ComponentPreview name="DropdownMenuShortcuts" />
 
 ### Icons
 
 Combine icons with labels for quick scanning.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuIcons" />
+<ComponentPreview name="DropdownMenuIcons" />
 
 ### Checkboxes
 
 Use `DropdownMenuCheckboxItem` for toggles.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuCheckboxes" />
+<ComponentPreview name="DropdownMenuCheckboxes" />
 
 ### Checkboxes Icons
 
 Add icons to checkbox items.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuCheckboxesIcons" />
+<ComponentPreview name="DropdownMenuCheckboxesIcons" />
 
 ### Radio Group
 
 Use `DropdownMenuRadioGroup` for exclusive choices.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuRadioGroup" />
+<ComponentPreview name="DropdownMenuRadioGroup" />
 
 ### Radio Icons
 
 Show radio options with icons.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuRadioIcons" />
+<ComponentPreview name="DropdownMenuRadioIcons" />
 
 ### Destructive
 
 Use `variant="destructive"` for irreversible actions.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuDestructive" />
+<ComponentPreview name="DropdownMenuDestructive" />
 
 ### Avatar
 
 An account switcher dropdown triggered by an avatar.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuAvatar" />
+<ComponentPreview name="DropdownMenuAvatar" />
 
 ### Complex
 
 A richer example combining groups, icons, and submenus.
 
-<ComponentPreview styleName="base-nova" name="DropdownMenuComplex" />
+<ComponentPreview name="DropdownMenuComplex" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="DropdownMenuRtl"
-  direction="rtl"
-/>
 
 ## API Reference
 

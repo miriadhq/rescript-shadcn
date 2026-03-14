@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="CheckboxDemo"
   previewClassName="h-80"
 />
@@ -25,7 +24,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add checkbox
+npx shadcn@latest add @rescript-shadcn/Checkbox
 ```
 
 </TabsContent>
@@ -37,18 +36,15 @@ npx shadcn@latest add checkbox
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="checkbox"
-  title="components/ui/checkbox.tsx"
-  styleName="base-nova"
+  title="components/ui/Checkbox.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -58,11 +54,7 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx
-import { Checkbox } from "@/components/ui/checkbox"
-```
-
-```tsx
+```res
 <Checkbox />
 ```
 
@@ -71,13 +63,14 @@ import { Checkbox } from "@/components/ui/checkbox"
 Use `defaultChecked` for uncontrolled checkboxes, or `checked` and
 `onCheckedChange` to control the state.
 
-```tsx showLineNumbers
-import * as React from "react"
+```res showLineNumbers
+module Example = {
+  @react.component
+  let make = () => {
+    let (checked, setChecked) = React.useState(() => false)
 
-export function Example() {
-  const [checked, setChecked] = React.useState(false)
-
-  return <Checkbox checked={checked} onCheckedChange={setChecked} />
+    <Checkbox checked onCheckedChange={v => setChecked(_ => v)} />
+  }
 }
 ```
 
@@ -86,7 +79,7 @@ export function Example() {
 Set `aria-invalid` on the checkbox and `data-invalid` on the field wrapper to
 show the invalid styles.
 
-<ComponentPreview styleName="base-nova" name="CheckboxInvalid" />
+<ComponentPreview name="CheckboxInvalid" />
 
 ## Examples
 
@@ -94,44 +87,33 @@ show the invalid styles.
 
 Pair the checkbox with `Field` and `FieldLabel` for proper layout and labeling.
 
-<ComponentPreview styleName="base-nova" name="CheckboxBasic" />
+<ComponentPreview name="CheckboxBasic" />
 
 ### Description
 
 Use `FieldContent` and `FieldDescription` for helper text.
 
-<ComponentPreview styleName="base-nova" name="CheckboxDescription" />
+<ComponentPreview name="CheckboxDescription" />
 
 ### Disabled
 
 Use the `disabled` prop to prevent interaction and add the `data-disabled` attribute to the `<Field>` component for disabled styles.
 
-<ComponentPreview styleName="base-nova" name="CheckboxDisabled" />
+<ComponentPreview name="CheckboxDisabled" />
 
 ### Group
 
 Use multiple fields to create a checkbox list.
 
-<ComponentPreview styleName="base-nova" name="CheckboxGroup" />
+<ComponentPreview name="CheckboxGroup" />
 
 ### Table
 
 <ComponentPreview
-  styleName="base-nova"
   name="CheckboxTable"
   previewClassName="p-4 md:p-8"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="CheckboxRtl"
-  direction="rtl"
-  previewClassName="h-80"
-/>
 
 ## API Reference
 

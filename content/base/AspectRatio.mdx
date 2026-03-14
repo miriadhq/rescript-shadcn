@@ -5,7 +5,7 @@ base: base
 component: true
 ---
 
-<ComponentPreview name="AspectRatioDemo" styleName="base-nova" />
+<ComponentPreview name="AspectRatioDemo" />
 
 ## Installation
 
@@ -18,7 +18,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add aspect-ratio
+npx shadcn@latest add @rescript-shadcn/AspectRatio
 ```
 
 </TabsContent>
@@ -30,18 +30,15 @@ npx shadcn@latest add aspect-ratio
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="aspect-ratio"
-  title="components/ui/aspect-ratio.tsx"
-  styleName="base-nova"
+  title="components/ui/AspectRatio.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -51,13 +48,9 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import { AspectRatio } from "@/components/ui/aspect-ratio"
-```
-
-```tsx showLineNumbers
-<AspectRatio ratio={16 / 9}>
-  <Image src="..." alt="Image" className="rounded-md object-cover" />
+```res showLineNumbers
+<AspectRatio ratio={16. / 9.} className="bg-muted rounded-lg">
+  <Next.Image src="..." alt="Image" className="rounded-md object-cover" />
 </AspectRatio>
 ```
 
@@ -67,28 +60,17 @@ import { AspectRatio } from "@/components/ui/aspect-ratio"
 
 A square aspect ratio component using the `ratio={1 / 1}` prop. This is useful for displaying images in a square format.
 
-<ComponentPreview name="AspectRatioSquare" styleName="base-nova" />
+<ComponentPreview name="AspectRatioSquare" />
 
 ### Portrait
 
 A portrait aspect ratio component using the `ratio={9 / 16}` prop. This is useful for displaying images in a portrait format.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AspectRatioPortrait"
   previewClassName="h-96"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="AspectRatioRtl"
-  direction="rtl"
-  previewClassName="h-96"
-/>
 
 ## API Reference
 
@@ -98,7 +80,7 @@ The `AspectRatio` component displays content within a desired ratio.
 
 | Prop        | Type     | Default | Required |
 | ----------- | -------- | ------- | -------- |
-| `ratio`     | `number` | -       | Yes      |
+| `ratio`     | `float`  | -       | Yes      |
 | `className` | `string` | -       | No       |
 
 For more information, see the [Base UI documentation](https://base-ui.com/react/components/aspect-ratio#api-reference).

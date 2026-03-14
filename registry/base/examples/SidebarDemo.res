@@ -143,7 +143,7 @@ let projects: array<project> = [
 module TeamSwitcher = {
   @react.component
   let make = (~teams: array<team>) => {
-    let sidebar = Sidebar.useSidebar()
+    let sidebar = Sidebar.use()
     let isMobile = sidebar.isMobile
     let (activeTeamIndex, setActiveTeamIndex) = React.useState(() => 0)
 
@@ -152,70 +152,70 @@ module TeamSwitcher = {
     | Some(activeTeam) =>
       <Sidebar.Menu>
         <Sidebar.MenuItem>
-            <DropdownMenu>
-              <DropdownMenu.Trigger
-                render={<Sidebar.MenuButton
-                  size=Sidebar.MenuButton.Size.Lg
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                  dataSlot="dropdown-menu-trigger"
-                />}
+          <DropdownMenu>
+            <DropdownMenu.Trigger
+              render={<Sidebar.MenuButton
+                size=Sidebar.MenuButton.Size.Lg
+                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                dataSlot="dropdown-menu-trigger"
+              />}
+            >
+              <div
+                className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
               >
-                <div
-                  className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
-                >
-                  {renderIcon(~icon=activeTeam.logo, ~className="size-4")}
-                </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium"> {activeTeam.name->React.string} </span>
-                  <span className="truncate text-xs"> {activeTeam.plan->React.string} </span>
-                </div>
-                <Icons.ChevronsUpDown className="ml-auto" />
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content
-                className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-                align=BaseUi.Types.Align.Start
-                side={isMobile ? BaseUi.Types.Side.Bottom : BaseUi.Types.Side.Right}
-                sideOffset={4.}
-              >
-                <DropdownMenu.Group>
-                  <DropdownMenu.Label className="text-muted-foreground text-xs">
-                    {"Teams"->React.string}
-                  </DropdownMenu.Label>
-                  {teams
-                  ->Array.mapWithIndex((team, index) =>
-                    <DropdownMenu.Item
-                      key={team.name}
-                      onClick={_ => setActiveTeamIndex(_ => index)}
-                      className="gap-2 p-2"
-                    >
-                      <div className="flex size-6 items-center justify-center rounded-md border">
-                        {renderIcon(~icon=team.logo, ~className="size-3.5 shrink-0")}
-                      </div>
-                      {team.name->React.string}
-                      <DropdownMenu.Shortcut>
-                        {`⌘${Int.toString(index + 1)}`->React.string}
-                      </DropdownMenu.Shortcut>
-                    </DropdownMenu.Item>
-                  )
-                  ->React.array}
-                </DropdownMenu.Group>
-                <DropdownMenu.Separator />
-                <DropdownMenu.Group>
-                  <DropdownMenu.Item className="gap-2 p-2">
-                    <div
-                      className="flex size-6 items-center justify-center rounded-md border bg-transparent"
-                    >
-                      {renderIcon(~icon=IconPlus, ~className="size-4")}
+                {renderIcon(~icon=activeTeam.logo, ~className="size-4")}
+              </div>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-medium"> {activeTeam.name->React.string} </span>
+                <span className="truncate text-xs"> {activeTeam.plan->React.string} </span>
+              </div>
+              <Icons.ChevronsUpDown className="ml-auto" />
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content
+              className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+              align=BaseUi.Types.Align.Start
+              side={isMobile ? BaseUi.Types.Side.Bottom : BaseUi.Types.Side.Right}
+              sideOffset={4.}
+            >
+              <DropdownMenu.Group>
+                <DropdownMenu.Label className="text-muted-foreground text-xs">
+                  {"Teams"->React.string}
+                </DropdownMenu.Label>
+                {teams
+                ->Array.mapWithIndex((team, index) =>
+                  <DropdownMenu.Item
+                    key={team.name}
+                    onClick={_ => setActiveTeamIndex(_ => index)}
+                    className="gap-2 p-2"
+                  >
+                    <div className="flex size-6 items-center justify-center rounded-md border">
+                      {renderIcon(~icon=team.logo, ~className="size-3.5 shrink-0")}
                     </div>
-                    <div className="text-muted-foreground font-medium">
-                      {"Add team"->React.string}
-                    </div>
+                    {team.name->React.string}
+                    <DropdownMenu.Shortcut>
+                      {`⌘${Int.toString(index + 1)}`->React.string}
+                    </DropdownMenu.Shortcut>
                   </DropdownMenu.Item>
-                </DropdownMenu.Group>
-              </DropdownMenu.Content>
-            </DropdownMenu>
-          </Sidebar.MenuItem>
-        </Sidebar.Menu>
+                )
+                ->React.array}
+              </DropdownMenu.Group>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Group>
+                <DropdownMenu.Item className="gap-2 p-2">
+                  <div
+                    className="flex size-6 items-center justify-center rounded-md border bg-transparent"
+                  >
+                    {renderIcon(~icon=IconPlus, ~className="size-4")}
+                  </div>
+                  <div className="text-muted-foreground font-medium">
+                    {"Add team"->React.string}
+                  </div>
+                </DropdownMenu.Item>
+              </DropdownMenu.Group>
+            </DropdownMenu.Content>
+          </DropdownMenu>
+        </Sidebar.MenuItem>
+      </Sidebar.Menu>
     }
   }
 }
@@ -263,7 +263,7 @@ module NavMainSection = {
 module NavProjectsSection = {
   @react.component
   let make = (~projects: array<project>) => {
-    let sidebar = Sidebar.useSidebar()
+    let sidebar = Sidebar.use()
     let isMobile = sidebar.isMobile
 
     <Sidebar.Group className="group-data-[collapsible=icon]:hidden">
@@ -320,7 +320,7 @@ module NavProjectsSection = {
 module NavUserSection = {
   @react.component
   let make = (~user: user) => {
-    let sidebar = Sidebar.useSidebar()
+    let sidebar = Sidebar.use()
     let isMobile = sidebar.isMobile
 
     <Sidebar.Menu>
@@ -354,9 +354,7 @@ module NavUserSection = {
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
                     <Avatar.Image src={user.avatar} alt={user.name} />
-                    <Avatar.Fallback className="rounded-lg">
-                      {"CN"->React.string}
-                    </Avatar.Fallback>
+                    <Avatar.Fallback className="rounded-lg"> {"CN"->React.string} </Avatar.Fallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-medium"> {user.name->React.string} </span>

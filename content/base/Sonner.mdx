@@ -7,7 +7,7 @@ links:
   doc: https://sonner.emilkowal.ski
 ---
 
-<ComponentPreview styleName="base-nova" name="SonnerDemo" />
+<ComponentPreview name="SonnerDemo" />
 
 ## About
 
@@ -28,24 +28,22 @@ Sonner is built and maintained by [emilkowalski](https://twitter.com/emilkowalsk
 <Step>Run the following command:</Step>
 
 ```bash
-npx shadcn@latest add sonner
+npx shadcn@latest add @rescript-shadcn/Sonner
 ```
 
 <Step>Add the Toaster component</Step>
 
-```tsx title="app/layout.tsx" {1,9} showLineNumbers
-import { Toaster } from "@/components/ui/sonner"
-
-export default function RootLayout({ children }) {
-  return (
+```res title="app/layout.tsx" {1,9} showLineNumbers
+module RootLayout = {
+  @react.component 
+  let make = (~children) => 
     <html lang="en">
       <head />
       <body>
         <main>{children}</main>
-        <Toaster />
+        <Sonner />
       </body>
     </html>
-  )
 }
 ```
 
@@ -67,17 +65,15 @@ npm install sonner next-themes
 
 <ComponentSource
   name="sonner"
-  title="components/ui/sonner.tsx"
-  styleName="base-nova"
+  title="components/ui/Sonner.res"
 />
 
 <Step>Add the Toaster component</Step>
 
-```tsx showLineNumbers title="app/layout.tsx" {1,8}
-import { Toaster } from "@/components/ui/sonner"
-
-export default function RootLayout({ children }) {
-  return (
+```res showLineNumbers title="app/layout.tsx" {1,8}
+module RootLayout = {
+  @react.component 
+  let make = (~children) => 
     <html lang="en">
       <head />
       <body>
@@ -85,7 +81,6 @@ export default function RootLayout({ children }) {
         <main>{children}</main>
       </body>
     </html>
-  )
 }
 ```
 
@@ -97,29 +92,25 @@ export default function RootLayout({ children }) {
 
 ## Usage
 
-```tsx
-import { toast } from "sonner"
-```
-
-```tsx
-toast("Event has been created.")
+```res showLineNumbers
+Sonner.toast("Event has been created"->React.string)
 ```
 
 ## Examples
 
 ### Types
 
-<ComponentPreview styleName="base-nova" name="SonnerTypes" />
+<ComponentPreview name="SonnerTypes" />
 
 ### Description
 
-<ComponentPreview styleName="base-nova" name="SonnerDescription" />
+<ComponentPreview name="SonnerDescription" />
 
 ### Position
 
 Use the `position` prop to change the position of the toast.
 
-<ComponentPreview styleName="base-nova" name="SonnerPosition" />
+<ComponentPreview name="SonnerPosition" />
 
 ## API Reference
 

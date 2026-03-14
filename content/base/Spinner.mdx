@@ -5,7 +5,7 @@ base: base
 component: true
 ---
 
-<ComponentPreview styleName="base-nova" name="SpinnerDemo" />
+<ComponentPreview name="SpinnerDemo" />
 
 ## Installation
 
@@ -18,7 +18,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add spinner
+npx shadcn@latest add @rescript-shadcn/Spinner
 ```
 
 </TabsContent>
@@ -31,11 +31,8 @@ npx shadcn@latest add spinner
 
 <ComponentSource
   name="spinner"
-  title="components/ui/spinner.tsx"
-  styleName="base-nova"
+  title="components/ui/Spinner.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -45,11 +42,7 @@ npx shadcn@latest add spinner
 
 ## Usage
 
-```tsx
-import { Spinner } from "@/components/ui/spinner"
-```
-
-```tsx
+```res
 <Spinner />
 ```
 
@@ -57,25 +50,23 @@ import { Spinner } from "@/components/ui/spinner"
 
 You can replace the default spinner icon with any other icon by editing the `Spinner` component.
 
-<ComponentPreview styleName="base-nova" name="SpinnerCustom" />
+<ComponentPreview name="SpinnerCustom" />
 
-```tsx showLineNumbers title="components/ui/spinner.tsx"
-import { LoaderIcon } from "lucide-react"
+```res showLineNumbers title="components/ui/Spinner.res"
+@module("tailwind-merge")
+external cn: (string, option<string>) => string = "twMerge"
 
-import { cn } from "@/lib/utils"
-
-function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
-  return (
-    <LoaderIcon
-      role="status"
-      aria-label="Loading"
-      className={cn("size-4 animate-spin", className)}
-      {...props}
-    />
-  )
+@react.component
+let make = (~className=?, ~dataIcon=?, ~dataSlot=?) => {
+  <LoaderIcon
+    ?dataIcon
+    ?dataSlot
+    role="status"
+    ariaLabel="Loading"
+    className={cn("size-4 animate-spin", className)}
+  />
 }
 
-export { Spinner }
 ```
 
 ## Examples
@@ -84,30 +75,25 @@ export { Spinner }
 
 Use the `size-*` utility class to change the size of the spinner.
 
-<ComponentPreview styleName="base-nova" name="SpinnerSize" />
+<ComponentPreview name="SpinnerSize" />
 
 ### Button
 
 Add a spinner to a button to indicate a loading state. Remember to use the `data-icon="inline-start"` prop to add the spinner to the start of the button and the `data-icon="inline-end"` prop to add the spinner to the end of the button.
 
-<ComponentPreview styleName="base-nova" name="SpinnerButton" />
+<ComponentPreview name="SpinnerButton" />
 
 ### Badge
 
 Add a spinner to a badge to indicate a loading state. Remember to use the `data-icon="inline-start"` prop to add the spinner to the start of the badge and the `data-icon="inline-end"` prop to add the spinner to the end of the badge.
 
-<ComponentPreview styleName="base-nova" name="SpinnerBadge" />
+<ComponentPreview name="SpinnerBadge" />
 
 ### Input Group
 
-<ComponentPreview styleName="base-nova" name="SpinnerInputGroup" />
+<ComponentPreview name="SpinnerInputGroup" />
 
 ### Empty
 
-<ComponentPreview styleName="base-nova" name="SpinnerEmpty" />
+<ComponentPreview name="SpinnerEmpty" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="SpinnerRtl" direction="rtl" />

@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/toggle#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="ToggleDemo" />
+<ComponentPreview name="ToggleDemo" />
 
 ## Installation
 
@@ -21,7 +21,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add toggle
+npx shadcn@latest add @rescript-shadcn/Toggle
 ```
 
 </TabsContent>
@@ -33,18 +33,15 @@ npx shadcn@latest add toggle
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="toggle"
-  title="components/ui/toggle.tsx"
-  styleName="base-nova"
+  title="components/ui/Toggle.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -54,12 +51,8 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx
-import { Toggle } from "@/components/ui/toggle"
-```
-
-```tsx
-<Toggle>Toggle</Toggle>
+```res showLineNumbers
+<Toggle> {"Toggle"->React.string} </Toggle>
 ```
 
 ## Examples
@@ -68,27 +61,22 @@ import { Toggle } from "@/components/ui/toggle"
 
 Use `variant="outline"` for an outline style.
 
-<ComponentPreview styleName="base-nova" name="ToggleOutline" />
+<ComponentPreview name="ToggleOutline" />
 
 ### With Text
 
-<ComponentPreview styleName="base-nova" name="ToggleText" />
+<ComponentPreview name="ToggleText" />
 
 ### Size
 
 Use the `size` prop to change the size of the toggle.
 
-<ComponentPreview styleName="base-nova" name="ToggleSizes" />
+<ComponentPreview name="ToggleSizes" />
 
 ### Disabled
 
-<ComponentPreview styleName="base-nova" name="ToggleDisabled" />
+<ComponentPreview name="ToggleDisabled" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="ToggleRtl" direction="rtl" />
 
 ## API Reference
 

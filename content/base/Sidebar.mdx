@@ -5,11 +5,8 @@ base: base
 component: true
 ---
 
-import { ExternalLinkIcon } from "lucide-react"
-
 <figure className="flex flex-col gap-4">
   <ComponentPreview
-    styleName="base-nova"
     name="SidebarDemo"
     type="block"
     className="w-full"
@@ -38,7 +35,7 @@ Customizable.
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add sidebar
+npx shadcn@latest add @rescript-shadcn/Sidebar
 ```
 
 </TabsContent>
@@ -47,8 +44,7 @@ npx shadcn@latest add sidebar
 
 <ComponentSource
   name="sidebar"
-  title="components/ui/sidebar.tsx"
-  styleName="base-nova"
+  title="components/ui/Sidebar.res"
 />
 
 </TabsContent>
@@ -59,12 +55,12 @@ npx shadcn@latest add sidebar
 
 A `Sidebar` component is composed of the following parts:
 
-- `SidebarProvider` - Handles collapsible state.
+- `Sidebar.Provider` - Handles collapsible state.
 - `Sidebar` - The sidebar container.
-- `SidebarHeader` and `SidebarFooter` - Sticky at the top and bottom of the sidebar.
-- `SidebarContent` - Scrollable content.
-- `SidebarGroup` - Section within the `SidebarContent`.
-- `SidebarTrigger` - Trigger for the `Sidebar`.
+- `Sidebar.Header` and `Sidebar.Footer` - Sticky at the top and bottom of the sidebar.
+- `Sidebar.Content` - Scrollable content.
+- `Sidebar.Group` - Section within the `Sidebar.Content`.
+- `Sidebar.Trigger` - Trigger for the `Sidebar`.
 
 <Image
   src="/images/sidebar-structure.png"
@@ -83,86 +79,76 @@ A `Sidebar` component is composed of the following parts:
 
 ## Usage
 
-```tsx showLineNumbers title="app/layout.tsx"
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
+```res showLineNumbers title="app/layout.res"
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <SidebarProvider>
+module Layout = {
+  @react.component 
+  let make = (~children) => 
+    <Sidebar.Provider>
       <AppSidebar />
       <main>
-        <SidebarTrigger />
+        <Sidebar.Trigger />
         {children}
       </main>
-    </SidebarProvider>
-  )
+    </Sidebar.Provider>
 }
 ```
 
-```tsx showLineNumbers title="components/app-sidebar.tsx"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarHeader,
-} from "@/components/ui/sidebar"
-
-export function AppSidebar() {
-  return (
+```res showLineNumbers title="components/app-sidebar.tsx"
+module AppSidebar = {
+  @react.component 
+  let make = () => 
     <Sidebar>
-      <SidebarHeader />
-      <SidebarContent>
-        <SidebarGroup />
-        <SidebarGroup />
-      </SidebarContent>
-      <SidebarFooter />
+      <Sidebar.Header />
+      <Sidebar.Content>
+        <Sidebar.Group />
+        <Sidebar.Group />
+      </Sidebar.Content>
+      <Sidebar.Footer />
     </Sidebar>
-  )
 }
 ```
 
-## SidebarProvider
+## Sidebar.Provider
 
-The `SidebarProvider` component is used to provide the sidebar context to the `Sidebar` component. You should always wrap your application in a `SidebarProvider` component.
+The `Sidebar.Provider` component is used to provide the sidebar context to the `Sidebar` component. You should always wrap your application in a `Sidebar.Provider` component.
 
 ### Props
 
 | Name           | Type                      | Description                                  |
 | -------------- | ------------------------- | -------------------------------------------- |
-| `defaultOpen`  | `boolean`                 | Default open state of the sidebar.           |
-| `open`         | `boolean`                 | Open state of the sidebar (controlled).      |
-| `onOpenChange` | `(open: boolean) => void` | Sets open state of the sidebar (controlled). |
+| `defaultOpen`  | `bool`                    | Default open state of the sidebar.           |
+| `open`         | `bool`                    | Open state of the sidebar (controlled).      |
+| `onOpenChange` | `(bool) => unit`          | Sets open state of the sidebar (controlled). |
 
 ### Width
 
-If you have a single sidebar in your application, you can use the `SIDEBAR_WIDTH` and `SIDEBAR_WIDTH_MOBILE` variables in `sidebar.tsx` to set the width of the sidebar.
+If you have a single sidebar in your application, you can use the `sidebarWidth` and `sidebarWidthMobile` variables in `Sidebar.res` to set the width of the sidebar.
 
-```tsx showLineNumbers title="components/ui/sidebar.tsx"
-const SIDEBAR_WIDTH = "16rem"
-const SIDEBAR_WIDTH_MOBILE = "18rem"
+```res showLineNumbers title="components/ui/Sidebar.res"
+let sidebarWidth = "16rem"
+let sidebarWidthMobile = "18rem"
 ```
 
 For multiple sidebars in your application, you can use the `--sidebar-width` and `--sidebar-width-mobile` CSS variables in the `style` prop.
 
-```tsx showLineNumbers
-<SidebarProvider
+```res showLineNumbers
+<Sidebar.Provider
   style={{
     "--sidebar-width": "20rem",
     "--sidebar-width-mobile": "20rem",
   }}
 >
   <Sidebar />
-</SidebarProvider>
+</Sidebar.Provider>
 ```
 
 ### Keyboard Shortcut
 
 To trigger the sidebar, you use the `cmd+b` keyboard shortcut on Mac and `ctrl+b` on Windows.
 
-```tsx showLineNumbers title="components/ui/sidebar.tsx"
-const SIDEBAR_KEYBOARD_SHORTCUT = "b"
+```res showLineNumbers title="components/ui/Sidebar.res"
+let sidebarKeyboardShortcut = "b"
 ```
 
 ## Sidebar
@@ -171,158 +157,159 @@ The main `Sidebar` component used to render a collapsible sidebar.
 
 ### Props
 
-| Property      | Type                              | Description                       |
-| ------------- | --------------------------------- | --------------------------------- |
-| `side`        | `left` or `right`                 | The side of the sidebar.          |
-| `variant`     | `sidebar`, `floating`, or `inset` | The variant of the sidebar.       |
-| `collapsible` | `offcanvas`, `icon`, or `none`    | Collapsible state of the sidebar. |
+| Property      | Type                                     | Description                       |
+| ------------- | ---------------------------------------- | --------------------------------- |
+| `side`        | `left` or `right`                        | The side of the sidebar.          |
+| `variant`     | `Sidebar`, `Floating`, or `Inset`        | The variant of the sidebar.       |
+| `collapsible` | `Offcanvas`, `Icon`, or `NotCollapsible` | Collapsible state of the sidebar. |
 
-| Prop        | Description                                                  |
-| ----------- | ------------------------------------------------------------ |
-| `offcanvas` | A collapsible sidebar that slides in from the left or right. |
-| `icon`      | A sidebar that collapses to icons.                           |
-| `none`      | A non-collapsible sidebar.                                   |
+| Prop             | Description                                                  |
+| ---------------- | ------------------------------------------------------------ |
+| `Offcanvas`      | A collapsible sidebar that slides in from the left or right. |
+| `Icon`           | A sidebar that collapses to icons.                           |
+| `NotCollapsible` | A non-collapsible sidebar.                                   |
 
 <Callout>
   **Note:** If you use the `inset` variant, remember to wrap your main content
-  in a `SidebarInset` component.
+  in a `Sidebar.Inset` component.
 </Callout>
 
-```tsx showLineNumbers
-<SidebarProvider>
-  <Sidebar variant="inset" />
-  <SidebarInset>
+```res showLineNumbers
+<Sidebar.Provider>
+  <Sidebar variant=Inset />
+  <Sidebar.Inset>
     <main>{children}</main>
-  </SidebarInset>
-</SidebarProvider>
+  </Sidebar.Inset>
+</Sidebar.Provider>
 ```
 
 ## useSidebar
 
 The `useSidebar` hook is used to control the sidebar.
 
-```tsx showLineNumbers
+```res showLineNumbers
 import { useSidebar } from "@/components/ui/sidebar"
 
-export function AppSidebar() {
-  const {
-    state,
-    open,
-    setOpen,
-    openMobile,
-    setOpenMobile,
-    isMobile,
-    toggleSidebar,
-  } = useSidebar()
+module AppSidebar = {
+  @react.component 
+  let make = () => {
+    let {
+      state,
+      open,
+      setOpen,
+      openMobile,
+      setOpenMobile,
+      isMobile,
+      toggleSidebar,
+    } = Sidebar.use()
+  }
 }
 ```
 
 | Property        | Type                      | Description                                   |
 | --------------- | ------------------------- | --------------------------------------------- |
 | `state`         | `expanded` or `collapsed` | The current state of the sidebar.             |
-| `open`          | `boolean`                 | Whether the sidebar is open.                  |
-| `setOpen`       | `(open: boolean) => void` | Sets the open state of the sidebar.           |
-| `openMobile`    | `boolean`                 | Whether the sidebar is open on mobile.        |
-| `setOpenMobile` | `(open: boolean) => void` | Sets the open state of the sidebar on mobile. |
-| `isMobile`      | `boolean`                 | Whether the sidebar is on mobile.             |
-| `toggleSidebar` | `() => void`              | Toggles the sidebar. Desktop and mobile.      |
+| `open`          | `bool`                 | Whether the sidebar is open.                  |
+| `setOpen`       | `(bool) => unit` | Sets the open state of the sidebar.           |
+| `openMobile`    | `bool`                 | Whether the sidebar is open on mobile.        |
+| `setOpenMobile` | `(bool) => unit` | Sets the open state of the sidebar on mobile. |
+| `isMobile`      | `bool`                 | Whether the sidebar is on mobile.             |
+| `toggleSidebar` | `unit => unit`              | Toggles the sidebar. Desktop and mobile.      |
 
-## SidebarHeader
+## Sidebar.Header
 
-Use the `SidebarHeader` component to add a sticky header to the sidebar.
+Use the `Sidebar.Header` component to add a sticky header to the sidebar.
 
-```tsx showLineNumbers title="components/app-sidebar.tsx"
+```res showLineNumbers title="components/app-sidebar.tsx"
 <Sidebar>
-  <SidebarHeader>
-    <SidebarMenu>
-      <SidebarMenuItem>
+  <Sidebar.Header>
+    <Sidebar.Menu>
+      <Sidebar.MenuItem>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton>
-              Select Workspace
-              <ChevronDown className="ml-auto" />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
-            <DropdownMenuItem>
-              <span>Acme Inc</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
+          <DropdownMenu.Trigger asChild>
+            <Sidebar.MenuButton>
+              {"Select Workspace"->React.string}
+              <Icons.ChevronDown className="ml-auto" />
+            </Sidebar.MenuButton>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content className="w-[--radix-popper-anchor-width]">
+            <DropdownMenu.Item>
+              <span> {"Acme Inc"->React.string} </span>
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
         </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
-  </SidebarHeader>
+      </Sidebar.MenuItem>
+    </Sidebar.Menu>
+  </Sidebar.Header>
 </Sidebar>
 ```
 
-## SidebarFooter
+## Sidebar.Footer
 
-Use the `SidebarFooter` component to add a sticky footer to the sidebar.
+Use the `Sidebar.Footer` component to add a sticky footer to the sidebar.
 
-```tsx showLineNumbers
+```res showLineNumbers
 <Sidebar>
-  <SidebarFooter>
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <SidebarMenuButton>
+  <Sidebar.Footer>
+    <Sidebar.Menu>
+      <Sidebar.MenuItem>
+        <Sidebar.MenuButton>
           <User2 /> Username
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-    </SidebarMenu>
-  </SidebarFooter>
+        </Sidebar.MenuButton>
+      </Sidebar.MenuItem>
+    </Sidebar.Menu>
+  </Sidebar.Footer>
 </Sidebar>
 ```
 
-## SidebarContent
+## Sidebar.Content
 
-The `SidebarContent` component is used to wrap the content of the sidebar. This is where you add your `SidebarGroup` components. It is scrollable.
+The `Sidebar.Content` component is used to wrap the content of the sidebar. This is where you add your `Sidebar.Group` components. It is scrollable.
 
-```tsx showLineNumbers
+```res showLineNumbers
 <Sidebar>
-  <SidebarContent>
-    <SidebarGroup />
-    <SidebarGroup />
-  </SidebarContent>
+  <Sidebar.Content>
+    <Sidebar.Group />
+    <Sidebar.Group />
+  </Sidebar.Content>
 </Sidebar>
 ```
 
-## SidebarGroup
+## Sidebar.Group
 
-Use the `SidebarGroup` component to create a section within the sidebar.
+Use the `Sidebar.Group` component to create a section within the sidebar.
 
-A `SidebarGroup` has a `SidebarGroupLabel`, a `SidebarGroupContent` and an optional `SidebarGroupAction`.
+A `Sidebar.Group` has a `Sidebar.GroupLabel`, a `Sidebar.GroupContent` and an optional `Sidebar.GroupAction`.
 
-```tsx showLineNumbers
-<SidebarGroup>
-  <SidebarGroupLabel>Application</SidebarGroupLabel>
-  <SidebarGroupAction>
+```res showLineNumbers
+<Sidebar.Group>
+  <Sidebar.GroupLabel>Application</Sidebar.GroupLabel>
+  <Sidebar.GroupAction>
     <Plus /> <span className="sr-only">Add Project</span>
-  </SidebarGroupAction>
-  <SidebarGroupContent></SidebarGroupContent>
-</SidebarGroup>
+  </Sidebar.GroupAction>
+  <Sidebar.GroupContent></Sidebar.GroupContent>
+</Sidebar.Group>
 ```
 
-To make a `SidebarGroup` collapsible, wrap it in a `Collapsible`.
+To make a `Sidebar.Group` collapsible, wrap it in a `Collapsible`.
 
-```tsx showLineNumbers
+```res showLineNumbers
 <Collapsible defaultOpen className="group/collapsible">
-  <SidebarGroup>
-    <SidebarGroupLabel asChild>
-      <CollapsibleTrigger>
-        Help
-        <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-      </CollapsibleTrigger>
-    </SidebarGroupLabel>
-    <CollapsibleContent>
-      <SidebarGroupContent />
-    </CollapsibleContent>
-  </SidebarGroup>
+  <Sidebar.Group>
+    <Sidebar.GroupLabel render={<Collapsible.Trigger/>}>
+        {"Help"->React.string}
+        <Icons.ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+    </Sidebar.GroupLabel>
+    <Collapsible.Content>
+      <Sidebar.GroupContent />
+    </Collapsible.Content>
+  </Sidebar.Group>
 </Collapsible>
 ```
 
-## SidebarMenu
+## Sidebar.Menu
 
-The `SidebarMenu` component is used for building a menu within a `SidebarGroup`.
+The `Sidebar.Menu` component is used for building a menu within a `Sidebar.Group`.
 
 <Image
   src="/images/sidebar-menu.png"
@@ -339,134 +326,135 @@ The `SidebarMenu` component is used for building a menu within a `SidebarGroup`.
   className="mt-6 hidden w-full overflow-hidden rounded-lg border dark:block"
 />
 
-```tsx showLineNumbers
-<SidebarMenu>
+```res showLineNumbers
+<Sidebar.Menu>
   {projects.map((project) => (
-    <SidebarMenuItem key={project.name}>
-      <SidebarMenuButton asChild>
+    <Sidebar.MenuItem key={project.name}>
+      <Sidebar.MenuButton asChild>
         <a href={project.url}>
           <project.icon />
           <span>{project.name}</span>
         </a>
-      </SidebarMenuButton>
-    </SidebarMenuItem>
+      </Sidebar.MenuButton>
+    </Sidebar.MenuItem>
   ))}
-</SidebarMenu>
+</Sidebar.Menu>
 ```
 
-## SidebarMenuButton
+## Sidebar.MenuButton
 
-The `SidebarMenuButton` component is used to render a menu button within a `SidebarMenuItem`.
+The `Sidebar.MenuButton` component is used to render a menu button within a `Sidebar.MenuItem`.
 
-By default, the `SidebarMenuButton` renders a button but you can use the `asChild` prop to render a different component such as a `Link` or an `a` tag.
+By default, the `Sidebar.MenuButton` renders a button but you can use the `render` prop to render a different component such as a `Link` or an `a` tag.
 
 Use the `isActive` prop to mark a menu item as active.
 
-```tsx showLineNumbers
-<SidebarMenuButton asChild isActive>
-  <a href="#">Home</a>
-</SidebarMenuButton>
+```res showLineNumbers
+<Sidebar.MenuButton render={<a href="#"/>} isActive>
+  {"Home"->React.string}
+</Sidebar.MenuButton>
 ```
 
-## SidebarMenuAction
+## Sidebar.MenuAction
 
-The `SidebarMenuAction` component is used to render a menu action within a `SidebarMenuItem`.
+The `Sidebar.MenuAction` component is used to render a menu action within a `Sidebar.MenuItem`.
 
-```tsx showLineNumbers
-<SidebarMenuItem>
-  <SidebarMenuButton asChild>
-    <a href="#">
+```res showLineNumbers
+<Sidebar.MenuItem>
+  <Sidebar.MenuButton render={<a href="#"/>}>
       <Home />
-      <span>Home</span>
-    </a>
-  </SidebarMenuButton>
-  <SidebarMenuAction>
-    <Plus /> <span className="sr-only">Add Project</span>
-  </SidebarMenuAction>
-</SidebarMenuItem>
+      <span> {"Home"->React.string} </span>
+  </Sidebar.MenuButton>
+  <Sidebar.MenuAction>
+    <Icons.Plus /> <span className="sr-only">Add Project</span>
+  </Sidebar.MenuAction>
+</Sidebar.MenuItem>
 ```
 
-## SidebarMenuSub
+## Sidebar.MenuSub
 
-The `SidebarMenuSub` component is used to render a submenu within a `SidebarMenu`.
+The `Sidebar.MenuSub` component is used to render a submenu within a `Sidebar.Menu`.
 
-```tsx showLineNumbers
-<SidebarMenuItem>
-  <SidebarMenuButton />
-  <SidebarMenuSub>
-    <SidebarMenuSubItem>
-      <SidebarMenuSubButton />
-    </SidebarMenuSubItem>
-  </SidebarMenuSub>
-</SidebarMenuItem>
+```res showLineNumbers
+<Sidebar.MenuItem>
+  <Sidebar.MenuButton />
+  <Sidebar.MenuSub>
+    <Sidebar.MenuSubItem>
+      <Sidebar.MenuSubButton />
+    </Sidebar.MenuSubItem>
+  </Sidebar.MenuSub>
+</Sidebar.MenuItem>
 ```
 
-## SidebarMenuBadge
+## Sidebar.MenuBadge
 
-The `SidebarMenuBadge` component is used to render a badge within a `SidebarMenuItem`.
+The `Sidebar.MenuBadge` component is used to render a badge within a `Sidebar.MenuItem`.
 
-```tsx showLineNumbers
-<SidebarMenuItem>
-  <SidebarMenuButton />
-  <SidebarMenuBadge>24</SidebarMenuBadge>
-</SidebarMenuItem>
+```res showLineNumbers
+<Sidebar.MenuItem>
+  <Sidebar.MenuButton />
+  <Sidebar.MenuBadge>24</Sidebar.MenuBadge>
+</Sidebar.MenuItem>
 ```
 
-## SidebarMenuSkeleton
+## Sidebar.MenuSkeleton
 
-The `SidebarMenuSkeleton` component is used to render a skeleton for a `SidebarMenu`.
+The `Sidebar.MenuSkeleton` component is used to render a skeleton for a `Sidebar.Menu`.
 
-```tsx showLineNumbers
-<SidebarMenu>
-  {Array.from({ length: 5 }).map((_, index) => (
-    <SidebarMenuItem key={index}>
-      <SidebarMenuSkeleton />
-    </SidebarMenuItem>
+```res showLineNumbers
+<Sidebar.Menu>
+  {Array.fromInitializer(~length: 5 )->Array.mapWithIndex((_, index) => (
+    <Sidebar.MenuItem key={index->Int.toString}>
+      <Sidebar.MenuSkeleton />
+    </Sidebar.MenuItem>
   ))}
-</SidebarMenu>
+</Sidebar.Menu>
 ```
 
 ## SidebarTrigger
 
 Use the `SidebarTrigger` component to render a button that toggles the sidebar.
 
-```tsx showLineNumbers
+```res showLineNumbers
 import { useSidebar } from "@/components/ui/sidebar"
 
-export function CustomTrigger() {
-  const { toggleSidebar } = useSidebar()
+module CustomTrigger = {
+  @react.component 
+  let make = () => {
+    let { toggleSidebar } = Sidebar.use()
 
-  return <button onClick={toggleSidebar}>Toggle Sidebar</button>
+    <button onClick={_ => toggleSidebar()}> {"Toggle Sidebar"->React.string} </button>
+  }
 }
 ```
 
-## SidebarRail
+## Sidebar.Rail
 
-The `SidebarRail` component is used to render a rail within a `Sidebar`. This rail can be used to toggle the sidebar.
+The `Sidebar.Rail` component is used to render a rail within a `Sidebar`. This rail can be used to toggle the sidebar.
 
-```tsx showLineNumbers
+```res showLineNumbers
 <Sidebar>
-  <SidebarHeader />
-  <SidebarContent>
-    <SidebarGroup />
-  </SidebarContent>
-  <SidebarFooter />
-  <SidebarRail />
+  <Sidebar.Header />
+  <Sidebar.Content>
+    <Sidebar.Group />
+  </Sidebar.Content>
+  <Sidebar.Footer />
+  <Sidebar.Rail />
 </Sidebar>
 ```
 
 ## Controlled Sidebar
 
-Use the `open` and `onOpenChange` props to control the sidebar.
+Use the `open_` and `onOpenChange` props to control the sidebar.
 
-```tsx showLineNumbers
+```res showLineNumbers
 export function AppSidebar() {
-  const [open, setOpen] = React.useState(false)
+  let (open_, setOpen) = React.useState(() => false)
 
   return (
-    <SidebarProvider open={open} onOpenChange={setOpen}>
+    <Sidebar.Provider open_ onOpenChange={setOpen}>
       <Sidebar />
-    </SidebarProvider>
+    </Sidebar.Provider>
   )
 }
 ```
@@ -505,123 +493,19 @@ We use the following CSS variables to theme the sidebar.
 
 Here are some tips for styling the sidebar based on different states.
 
-```tsx
+```res
 <Sidebar collapsible="icon">
-  <SidebarContent>
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden" />
-  </SidebarContent>
+  <Sidebar.Content>
+    <Sidebar.Group className="group-data-[collapsible=icon]:hidden" />
+  </Sidebar.Content>
 </Sidebar>
 ```
 
-```tsx
-<SidebarMenuItem>
-  <SidebarMenuButton />
-  <SidebarMenuAction className="peer-data-[active=true]/menu-button:opacity-100" />
-</SidebarMenuItem>
+```res
+<Sidebar.MenuItem>
+  <Sidebar.MenuButton />
+  <Sidebar.MenuAction className="peer-data-[active=true]/menu-button:opacity-100" />
+</Sidebar.MenuItem>
 ```
 
-## RTL
 
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-{/* prettier-ignore */}
-<Button asChild size="sm" className="mt-6">
-  <a href="/view/base-nova/sidebar-rtl" target="_blank">View RTL Sidebar <ExternalLinkIcon /></a>
-</Button>
-
-## Changelog
-
-### RTL Support
-
-If you're upgrading from a previous version of the `Sidebar` component, you'll need to apply the following updates to add RTL support:
-
-<Steps>
-
-<Step>Add `dir` prop to Sidebar component.</Step>
-
-Add `dir` to the destructured props and pass it to `SheetContent` for mobile:
-
-```diff
-  function Sidebar({
-    side = "left",
-    variant = "sidebar",
-    collapsible = "offcanvas",
-    className,
-    children,
-+   dir,
-    ...props
-  }: React.ComponentProps<"div"> & {
-    side?: "left" | "right"
-    variant?: "sidebar" | "floating" | "inset"
-    collapsible?: "offcanvas" | "icon" | "none"
-  }) {
-```
-
-Then pass it to `SheetContent` in the mobile view:
-
-```diff
-  <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-    <SheetContent
-+     dir={dir}
-      data-sidebar="sidebar"
-      data-slot="sidebar"
-      data-mobile="true"
-```
-
-<Step>Add `data-side` attribute to sidebar container.</Step>
-
-Add `data-side={side}` to the sidebar container element:
-
-```diff
-  <div
-    data-slot="sidebar-container"
-+   data-side={side}
-    className={cn(
-```
-
-<Step>Update sidebar container positioning classes.</Step>
-
-Replace JavaScript ternary conditional classes with CSS data attribute selectors:
-
-```diff
-  className={cn(
--   "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
--   side === "left"
--     ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
--     : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
-+   "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex data-[side=left]:left-0 data-[side=right]:right-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
-```
-
-<Step>Update SidebarRail positioning classes.</Step>
-
-Update the `SidebarRail` component to use physical positioning for the rail:
-
-```diff
-  className={cn(
--   "hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-end-4 group-data-[side=right]:start-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex",
-+   "hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 ltr:-translate-x-1/2 rtl:-translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex",
-```
-
-<Step>Add RTL flip to SidebarTrigger icon.</Step>
-
-Add `className="rtl:rotate-180"` to the icon in `SidebarTrigger` to flip it in RTL mode:
-
-```diff
-  <Button ...>
--   <PanelLeftIcon />
-+   <PanelLeftIcon className="rtl:rotate-180" />
-    <span className="sr-only">Toggle Sidebar</span>
-  </Button>
-```
-
-</Steps>
-
-After applying these changes, you can use the `dir` prop to set the direction:
-
-```tsx
-<Sidebar dir="rtl" side="right">
-  {/* ... */}
-</Sidebar>
-```
-
-The sidebar will correctly position itself and handle interactions in both LTR and RTL layouts.

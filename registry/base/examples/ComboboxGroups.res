@@ -50,8 +50,7 @@ let make = ({}: Demo.Props.t) =>
     <Combobox.Content>
       <Combobox.Empty> {"No timezones found."->React.string} </Combobox.Empty>
       <Combobox.List>
-        {timezones
-        ->Array.mapWithIndex((group, index) =>
+        {(group, index) =>
           <React.Fragment key={group.value}>
             <Combobox.Group>
               <Combobox.Label> {group.value->React.string} </Combobox.Label>
@@ -62,9 +61,7 @@ let make = ({}: Demo.Props.t) =>
               ->React.array}
             </Combobox.Group>
             {index < Array.length(timezones) - 1 ? <Combobox.Separator /> : React.null}
-          </React.Fragment>
-        )
-        ->React.array}
+          </React.Fragment>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

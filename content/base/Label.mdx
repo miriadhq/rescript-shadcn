@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/label#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="LabelDemo" />
+<ComponentPreview name="LabelDemo" />
 
 <Callout>
   For form fields, use the [Field](/docs/components/base/field) component which
@@ -26,7 +26,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add label
+npx shadcn@latest add @rescript-shadcn/Label
 ```
 
 </TabsContent>
@@ -38,18 +38,15 @@ npx shadcn@latest add label
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="label"
-  title="components/ui/label.tsx"
-  styleName="base-nova"
+  title="components/ui/Label.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -59,12 +56,8 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx
-import { Label } from "@/components/ui/label"
-```
-
-```tsx
-<Label htmlFor="email">Your email address</Label>
+```res showLineNumbers
+<Label htmlFor="email"> {"Your email address"->React.string} </Label>
 ```
 
 ## Label in Field
@@ -72,24 +65,18 @@ import { Label } from "@/components/ui/label"
 For form fields, use the [Field](/docs/components/base/field) component which
 includes built-in `FieldLabel`, `FieldDescription`, and `FieldError` components.
 
-```tsx
+```res showLineNumbers
 <Field>
-  <FieldLabel htmlFor="email">Your email address</FieldLabel>
+  <Field.Label htmlFor="email"> {"Your email address"->React.string} </FieldLabel>
   <Input id="email" />
 </Field>
 ```
 
 <ComponentPreview
-  styleName="base-nova"
   name="FieldDemo"
   previewClassName="h-[44rem]"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="LabelRtl" direction="rtl" />
 
 ## API Reference
 

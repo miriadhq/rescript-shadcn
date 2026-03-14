@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="ContextMenuDemo"
   description="A context menu with sub menu items."
 />
@@ -25,7 +24,7 @@ links:
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add context-menu
+npx shadcn@latest add @rescript-shadcn/ContextMenu
 ```
 
 </TabsContent>
@@ -37,18 +36,15 @@ npx shadcn@latest add context-menu
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="context-menu"
-  title="components/ui/context-menu.tsx"
-  styleName="base-nova"
+  title="components/ui/ContextMenu.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -58,24 +54,15 @@ npm install @base-ui/react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <ContextMenu>
-  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
-  <ContextMenuContent>
-    <ContextMenuItem>Profile</ContextMenuItem>
-    <ContextMenuItem>Billing</ContextMenuItem>
-    <ContextMenuItem>Team</ContextMenuItem>
-    <ContextMenuItem>Subscription</ContextMenuItem>
-  </ContextMenuContent>
+  <ContextMenu.Trigger> {"Right click here"->React.string} </ContextMenu.Trigger>
+  <ContextMenu.Content>
+    <ContextMenu.Item> {"Profile"->React.string} </ContextMenu.Item>
+    <ContextMenu.Item> {"Billing"->React.string} </ContextMenu.Item>
+    <ContextMenu.Item> {"Team"->React.string} </ContextMenu.Item>
+    <ContextMenu.Item> {"Subscription"->React.string} </ContextMenu.Item>
+  </ContextMenu.Content>
 </ContextMenu>
 ```
 
@@ -85,79 +72,56 @@ import {
 
 A simple context menu with a few actions.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuBasic" />
+<ComponentPreview name="ContextMenuBasic" />
 
 ### Submenu
 
 Use `ContextMenuSub` to nest secondary actions.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuSubmenu" />
+<ComponentPreview name="ContextMenuSubmenu" />
 
 ### Shortcuts
 
 Add `ContextMenuShortcut` to show keyboard hints.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuShortcuts" />
+<ComponentPreview name="ContextMenuShortcuts" />
 
 ### Groups
 
 Group related actions and separate them with dividers.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuGroups" />
+<ComponentPreview name="ContextMenuGroups" />
 
 ### Icons
 
 Combine icons with labels for quick scanning.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuIcons" />
+<ComponentPreview name="ContextMenuIcons" />
 
 ### Checkboxes
 
 Use `ContextMenuCheckboxItem` for toggles.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuCheckboxes" />
+<ComponentPreview name="ContextMenuCheckboxes" />
 
 ### Radio
 
 Use `ContextMenuRadioItem` for exclusive choices.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuRadio" />
+<ComponentPreview name="ContextMenuRadio" />
 
 ### Destructive
 
 Use `variant="destructive"` to style the menu item as destructive.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuDestructive" />
+<ComponentPreview name="ContextMenuDestructive" />
 
 ### Sides
 
 Control submenu placement with side and align props.
 
-<ComponentPreview styleName="base-nova" name="ContextMenuSides" />
+<ComponentPreview name="ContextMenuSides" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="ContextMenuRtl"
-  direction="rtl"
-/>
-
-Use `side="inline-end"` to place the menu on the logical right side of the trigger.
-
-```tsx showLineNumbers
-<ContextMenu>
-  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
-  <ContextMenuContent side="inline-end">
-    <ContextMenuItem>Profile</ContextMenuItem>
-    <ContextMenuItem>Billing</ContextMenuItem>
-    <ContextMenuItem>Team</ContextMenuItem>
-    <ContextMenuItem>Subscription</ContextMenuItem>
-  </ContextMenuContent>
-</ContextMenu>
-```
 
 ## API Reference
 

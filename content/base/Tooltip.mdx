@@ -8,7 +8,7 @@ links:
   api: https://base-ui.com/react/components/tooltip#api-reference
 ---
 
-<ComponentPreview styleName="base-nova" name="TooltipDemo" />
+<ComponentPreview name="TooltipDemo" />
 
 ## Installation
 
@@ -25,22 +25,20 @@ links:
 <Step>Run the following command:</Step>
 
 ```bash
-npx shadcn@latest add tooltip
+npx shadcn@latest add @rescript-shadcn/Tooltip
 ```
 
-<Step>Add the `TooltipProvider` to the root of your app.</Step>
+<Step>Add the `Tooltip.Provider` to the root of your app.</Step>
 
-```tsx title="app/layout.tsx" showLineNumbers {1,7}
-import { TooltipProvider } from "@/components/ui/tooltip"
-
-export default function RootLayout({ children }) {
-  return (
+```res title="app/layout.res" showLineNumbers {1,7}
+module RootLayout = {
+  @react.component
+  let make = (~children) =>
     <html lang="en">
       <body>
-        <TooltipProvider>{children}</TooltipProvider>
+        <Tooltip.Provider>{children}</Tooltip.Provider>
       </body>
     </html>
-  )
 }
 ```
 
@@ -55,29 +53,26 @@ export default function RootLayout({ children }) {
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @base-ui/react
+npm install @base-ui/react @rescript-shadcn/base-ui
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
   name="tooltip"
-  title="components/ui/tooltip.tsx"
-  styleName="base-nova"
+  title="components/ui/Tooltip.res"
 />
 
-<Step>Update the import paths to match your project setup.</Step>
+<Step>Add the `Tooltip.Provider` to the root of your app.</Step>
 
-<Step>Add the `TooltipProvider` to the root of your app.</Step>
-
-```tsx title="app/layout.tsx" showLineNumbers {1,7}
-import { TooltipProvider } from "@/components/ui/tooltip"
+```res title="app/layout.tsx" showLineNumbers {1,7}
+import { Tooltip.Provider } from "@/components/ui/tooltip"
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <TooltipProvider>{children}</TooltipProvider>
+        <Tooltip.Provider>{children}</Tooltip.Provider>
       </body>
     </html>
   )
@@ -92,20 +87,14 @@ export default function RootLayout({ children }) {
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Tooltip>
-  <TooltipTrigger>Hover</TooltipTrigger>
-  <TooltipContent>
-    <p>Add to library</p>
-  </TooltipContent>
+  <Tooltip.Trigger render={<Button variant=Outline />}>
+    {"Hover"->React.string}
+  </Tooltip.Trigger>
+  <Tooltip.Content>
+    <p> {"Add to library"->React.string} </p>
+  </Tooltip.Content>
 </Tooltip>
 ```
 
@@ -115,23 +104,18 @@ import {
 
 Use the `side` prop to change the position of the tooltip.
 
-<ComponentPreview styleName="base-nova" name="TooltipSides" />
+<ComponentPreview name="TooltipSides" />
 
 ### With Keyboard Shortcut
 
-<ComponentPreview styleName="base-nova" name="TooltipKeyboard" />
+<ComponentPreview name="TooltipKeyboard" />
 
 ### Disabled Button
 
 Show a tooltip on a disabled button by wrapping it with a span.
 
-<ComponentPreview styleName="base-nova" name="TooltipDisabled" />
+<ComponentPreview name="TooltipDisabled" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="TooltipRtl" direction="rtl" />
 
 ## API Reference
 

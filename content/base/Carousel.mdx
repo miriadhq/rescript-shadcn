@@ -9,7 +9,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="CarouselDemo"
   previewClassName="h-80 sm:h-[32rem]"
 />
@@ -30,7 +29,7 @@ The carousel component is built using the [Embla Carousel](https://www.embla-car
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add carousel
+npx shadcn@latest add @rescript-shadcn/Carousel
 ```
 
 </TabsContent>
@@ -49,11 +48,8 @@ npm install embla-carousel-react
 
 <ComponentSource
   name="carousel"
-  title="components/ui/carousel.tsx"
-  styleName="base-nova"
+  title="components/ui/Carousel.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -63,25 +59,15 @@ npm install embla-carousel-react
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Carousel>
-  <CarouselContent>
-    <CarouselItem>...</CarouselItem>
-    <CarouselItem>...</CarouselItem>
-    <CarouselItem>...</CarouselItem>
-  </CarouselContent>
-  <CarouselPrevious />
-  <CarouselNext />
+  <Carousel.Content>
+    <Carousel.Item> {"..."->React.string} </Carousel.Item>
+    <Carousel.Item> {"..."->React.string} </Carousel.Item>
+    <Carousel.Item> {"..."->React.string} </Carousel.Item>
+  </Carousel.Content>
+  <Carousel.Previous />
+  <Carousel.Next />
 </Carousel>
 ```
 
@@ -91,9 +77,9 @@ import {
 
 To set the size of the items, you can use the `basis` utility class on the `<CarouselItem />`.
 
-<ComponentPreview styleName="base-nova" name="CarouselSize" />
+<ComponentPreview name="CarouselSize" />
 
-```tsx showLineNumbers {4-6}
+```res showLineNumbers {4-6}
 // 33% of the carousel width.
 <Carousel>
   <CarouselContent>
@@ -104,7 +90,7 @@ To set the size of the items, you can use the `basis` utility class on the `<Car
 </Carousel>
 ```
 
-```tsx showLineNumbers {4-6}
+```res showLineNumbers {4-6}
 // 50% on small screens and 33% on larger screens.
 <Carousel>
   <CarouselContent>
@@ -119,9 +105,9 @@ To set the size of the items, you can use the `basis` utility class on the `<Car
 
 To set the spacing between the items, we use a `pl-[VALUE]` utility on the `<CarouselItem />` and a negative `-ml-[VALUE]` on the `<CarouselContent />`.
 
-<ComponentPreview styleName="base-nova" name="CarouselSpacing" />
+<ComponentPreview name="CarouselSpacing" />
 
-```tsx showLineNumbers /-ml-4/ /pl-4/
+```res showLineNumbers /-ml-4/ /pl-4/
 <Carousel>
   <CarouselContent className="-ml-4">
     <CarouselItem className="pl-4">...</CarouselItem>
@@ -131,7 +117,7 @@ To set the spacing between the items, we use a `pl-[VALUE]` utility on the `<Car
 </Carousel>
 ```
 
-```tsx showLineNumbers /-ml-2/ /pl-2/ /md:-ml-4/ /md:pl-4/
+```res showLineNumbers /-ml-2/ /pl-2/ /md:-ml-4/ /md:pl-4/
 <Carousel>
   <CarouselContent className="-ml-2 md:-ml-4">
     <CarouselItem className="pl-2 md:pl-4">...</CarouselItem>
@@ -146,13 +132,12 @@ To set the spacing between the items, we use a `pl-[VALUE]` utility on the `<Car
 Use the `orientation` prop to set the orientation of the carousel.
 
 <ComponentPreview
-  styleName="base-nova"
   name="CarouselOrientation"
   previewClassName="h-[32rem]"
 />
 
-```tsx showLineNumbers /vertical | horizontal/
-<Carousel orientation="vertical | horizontal">
+```res showLineNumbers /vertical | horizontal/
+<Carousel orientation=Vertical>
   <CarouselContent>
     <CarouselItem>...</CarouselItem>
     <CarouselItem>...</CarouselItem>
@@ -165,7 +150,7 @@ Use the `orientation` prop to set the orientation of the carousel.
 
 You can pass options to the carousel using the `opts` prop. See the [Embla Carousel docs](https://www.embla-carousel.com/api/options/) for more information.
 
-```tsx showLineNumbers {2-5}
+```res showLineNumbers {2-5}
 <Carousel
   opts={{
     align: "start",
@@ -185,12 +170,11 @@ You can pass options to the carousel using the `opts` prop. See the [Embla Carou
 Use a state and the `setApi` props to get an instance of the carousel API.
 
 <ComponentPreview
-  styleName="base-nova"
   name="CarouselApi"
   previewClassName="sm:h-[32rem]"
 />
 
-```tsx showLineNumbers {1,4,22}
+```res showLineNumbers {1,4,22}
 import { type CarouselApi } from "@/components/ui/carousel"
 
 export function Example() {
@@ -227,23 +211,20 @@ export function Example() {
 
 You can listen to events using the api instance from `setApi`.
 
-```tsx showLineNumbers {1,4-14,16}
-import { type CarouselApi } from "@/components/ui/carousel"
+```res showLineNumbers {1,4-14,16}
+module Example = {
+  @react.component
+  let make = () => {
+    let (api, setApi) = React.useState(() => None)
 
-export function Example() {
-  const [api, setApi] = React.useState<CarouselApi>()
+    React.useEffect(() => {
 
-  React.useEffect(() => {
-    if (!api) {
-      return
-    }
+      api->Option.forEach(api => api->Carousel.onApi("select", api => {
+        // Do something on select.
+      }))
+      None
+    }, [api])
 
-    api.on("select", () => {
-      // Do something on select.
-    })
-  }, [api])
-
-  return (
     <Carousel setApi={setApi}>
       <CarouselContent>
         <CarouselItem>...</CarouselItem>
@@ -251,7 +232,7 @@ export function Example() {
         <CarouselItem>...</CarouselItem>
       </CarouselContent>
     </Carousel>
-  )
+    }
 }
 ```
 
@@ -261,61 +242,32 @@ See the [Embla Carousel docs](https://www.embla-carousel.com/api/events/) for mo
 
 You can use the `plugins` prop to add plugins to the carousel.
 
-```ts showLineNumbers {1,6-10}
-import Autoplay from "embla-carousel-autoplay"
+```res showLineNumbers {1,6-10}
+type autoplayOptions = {delay: int}
+@module("embla-carousel-autoplay")
+external autoplay: autplayOptions => Carousel.emblaPlugin = "default"
 
-export function Example() {
-  return (
+module Example = {
+  @react.component
+  let make = () => {
     <Carousel
       plugins={[
-        Autoplay({
+        autoplay({
           delay: 2000,
         }),
       ]}
     >
       // ...
     </Carousel>
-  )
+  }
 }
 ```
 
 <ComponentPreview
-  styleName="base-nova"
   name="CarouselPlugin"
   previewClassName="sm:h-[32rem]"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="CarouselRtl"
-  direction="rtl"
-  previewClassName="h-80 sm:h-[32rem]"
-/>
-
-When localizing the carousel for RTL languages, you need to set the `direction` option in the `opts` prop to match the text direction. This ensures the carousel scrolls in the correct direction.
-
-```tsx showLineNumbers {2-5}
-<Carousel
-  dir={dir}
-  opts={{
-    direction: dir,
-  }}
->
-  <CarouselContent>
-    <CarouselItem>...</CarouselItem>
-    <CarouselItem>...</CarouselItem>
-    <CarouselItem>...</CarouselItem>
-  </CarouselContent>
-  <CarouselPrevious className="rtl:rotate-180" />
-  <CarouselNext className="rtl:rotate-180" />
-</Carousel>
-```
-
-The `direction` option accepts `"ltr"` or `"rtl"` and should match the `dir` prop value. You may also want to rotate the navigation buttons using the `rtl:rotate-180` class to ensure they point in the correct direction.
 
 ## API Reference
 

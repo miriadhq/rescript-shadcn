@@ -6,7 +6,6 @@ component: true
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="TextareaDemo"
   previewClassName="*:max-w-xs"
 />
@@ -22,7 +21,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add textarea
+npx shadcn@latest add @rescript-shadcn/Textarea
 ```
 
 </TabsContent>
@@ -35,11 +34,8 @@ npx shadcn@latest add textarea
 
 <ComponentSource
   name="textarea"
-  title="components/ui/textarea.tsx"
-  styleName="base-nova"
+  title="components/ui/Textarea.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -49,11 +45,7 @@ npx shadcn@latest add textarea
 
 ## Usage
 
-```tsx
-import { Textarea } from "@/components/ui/textarea"
-```
-
-```tsx
+```res
 <Textarea />
 ```
 
@@ -64,7 +56,6 @@ import { Textarea } from "@/components/ui/textarea"
 Use `Field`, `FieldLabel`, and `FieldDescription` to create a textarea with a label and description.
 
 <ComponentPreview
-  styleName="base-nova"
   name="TextareaField"
   previewClassName="*:max-w-xs"
 />
@@ -74,7 +65,6 @@ Use `Field`, `FieldLabel`, and `FieldDescription` to create a textarea with a la
 Use the `disabled` prop to disable the textarea. To style the disabled state, add the `data-disabled` attribute to the `Field` component.
 
 <ComponentPreview
-  styleName="base-nova"
   name="TextareaDisabled"
   previewClassName="*:max-w-xs"
 />
@@ -84,7 +74,6 @@ Use the `disabled` prop to disable the textarea. To style the disabled state, ad
 Use the `aria-invalid` prop to mark the textarea as invalid. To style the invalid state, add the `data-invalid` attribute to the `Field` component.
 
 <ComponentPreview
-  styleName="base-nova"
   name="TextareaInvalid"
   previewClassName="*:max-w-xs"
 />
@@ -94,13 +83,7 @@ Use the `aria-invalid` prop to mark the textarea as invalid. To style the invali
 Pair with `Button` to create a textarea with a submit button.
 
 <ComponentPreview
-  styleName="base-nova"
   name="TextareaButton"
   previewClassName="*:max-w-xs"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview styleName="base-nova" name="TextareaRtl" direction="rtl" />

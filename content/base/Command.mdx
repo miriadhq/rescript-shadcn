@@ -8,7 +8,6 @@ links:
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="CommandDemo"
   align="start"
   previewClassName="h-[24.5rem]"
@@ -29,7 +28,7 @@ The `<Command />` component uses the [`cmdk`](https://github.com/dip/cmdk) compo
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add command
+npx shadcn@latest add @rescript-shadcn/Command
 ```
 
 </TabsContent>
@@ -48,11 +47,8 @@ npm install cmdk
 
 <ComponentSource
   name="command"
-  title="components/ui/command.tsx"
-  styleName="base-nova"
+  title="components/ui/Command.res"
 />
-
-<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -62,37 +58,23 @@ npm install cmdk
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Command className="max-w-sm rounded-lg border">
-  <CommandInput placeholder="Type a command or search..." />
-  <CommandList>
-    <CommandEmpty>No results found.</CommandEmpty>
-    <CommandGroup heading="Suggestions">
-      <CommandItem>Calendar</CommandItem>
-      <CommandItem>Search Emoji</CommandItem>
-      <CommandItem>Calculator</CommandItem>
-    </CommandGroup>
-    <CommandSeparator />
-    <CommandGroup heading="Settings">
-      <CommandItem>Profile</CommandItem>
-      <CommandItem>Billing</CommandItem>
-      <CommandItem>Settings</CommandItem>
-    </CommandGroup>
-  </CommandList>
+  <Command.Input placeholder="Type a command or search..." />
+  <Command.List>
+    <Command.Empty> {"No results found."->React.string} </Command.Empty>
+    <Command.Group heading="Suggestions">
+      <Command.Item> {"Calendar"->React.string} </Command.Item>
+      <Command.Item> {"Search Emoji"->React.string} </Command.Item>
+      <Command.Item> {"Calculator"->React.string} </Command.Item>
+    </Command.Group>
+    <Command.Separator />
+    <Command.Group heading="Settings">
+      <Command.Item> {"Profile"->React.string} </Command.Item>
+      <Command.Item> {"Billing"->React.string} </Command.Item>
+      <Command.Item> {"Settings"->React.string} </Command.Item>
+    </Command.Group>
+  </Command.List>
 </Command>
 ```
 
@@ -102,35 +84,24 @@ import {
 
 A simple command menu in a dialog.
 
-<ComponentPreview styleName="base-nova" name="CommandBasic" />
+<ComponentPreview name="CommandBasic" />
 
 ### Shortcuts
 
-<ComponentPreview styleName="base-nova" name="CommandShortcuts" />
+<ComponentPreview name="CommandShortcuts" />
 
 ### Groups
 
 A command menu with groups, icons and separators.
 
-<ComponentPreview styleName="base-nova" name="CommandGroups" />
+<ComponentPreview name="CommandGroups" />
 
 ### Scrollable
 
 Scrollable command menu with multiple items.
 
-<ComponentPreview styleName="base-nova" name="CommandScrollable" />
+<ComponentPreview name="CommandScrollable" />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="CommandRtl"
-  direction="rtl"
-  align="start"
-  previewClassName="h-[24.5rem]"
-/>
 
 ## API Reference
 

@@ -19,8 +19,15 @@ module Trigger = {
 }
 
 module List = {
-  @module("@base-ui/react/combobox") @scope("Combobox")
-  external make: React.component<Types.props<'value, 'checked>> = "List"
+  @module("@base-ui/react/combobox") @scope("Combobox") @react.component
+  external make: (
+    @as("dataSlot") ~dataSlot: string=?,
+    ~nativeButton: bool=?,
+    ~className: string=?,
+    ~style: ReactDOM.Style.t=?,
+    ~children: ('item, int) => React.element,
+    ~render: React.element=?,
+  ) => React.element = "List"
 }
 
 module Status = {

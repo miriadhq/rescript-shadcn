@@ -2,12 +2,8 @@
 
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
-
-@val external dictEntries: dict<'a> => array<(string, 'a)> = "Object.entries"
 
 type colorTheme = {
   light?: string,
@@ -31,7 +27,7 @@ type payloadItem<'value> = {
   name?: string,
   color?: string,
   value?: 'value,
-  payload: dict<JSON.t>,
+  payload: dict<string>,
 }
 
 let chartContext: React.Context.t<option<chartContext>> = React.createContext(None)
@@ -40,12 +36,6 @@ let useChart = () =>
   switch React.useContext(chartContext) {
   | Some(context) => context
   | None => JsError.throwWithMessage("useChart must be used within a <ChartContainer />")
-  }
-
-let getString = (dict: dict<JSON.t>, key: string) =>
-  switch dict->Dict.get(key) {
-  | Some(String(value)) => Some(value)
-  | _ => None
   }
 
 let themeColor = (~itemConfig: chartConfigItem, ~themeName: string) =>
@@ -65,9 +55,9 @@ let getPayloadConfigFromPayload = (
   ~key: string,
 ) => {
   let configLabelKey = switch key {
-  | "name" => payload.name->Option.orElse(payload.payload->getString("name"))
-  | "dataKey" => payload.dataKey->Option.orElse(payload.payload->getString("dataKey"))
-  | _ => payload.payload->getString(key)
+  | "name" => payload.name->Option.orElse(payload.payload->Dict.get("name"))
+  | "dataKey" => payload.dataKey->Option.orElse(payload.payload->Dict.get("dataKey"))
+  | _ => payload.payload->Dict.get(key)
   }->Option.getOr(key)
   switch config->Dict.get(configLabelKey) {
   | Some(foundConfig) => Some(foundConfig)
@@ -75,54 +65,579 @@ let getPayloadConfigFromPayload = (
   }
 }
 
-let renderStyleElement = (~id: string, ~config: chartConfig) => {
-  let colorConfig =
-    config
-    ->dictEntries
-    ->Array.filter(((_, itemConfig)) =>
-      switch (itemConfig.theme, itemConfig.color) {
-      | (Some(_), _)
-      | (_, Some(_)) => true
-      | _ => false
-      }
-    )
-  if colorConfig->Array.length == 0 {
-    React.null
-  } else {
-    let css =
-      [("light", ""), ("dark", ".dark")]
-      ->Array.map(((themeName, prefix)) => {
-        let declarations =
-          colorConfig
-          ->Array.filterMap(((key, itemConfig)) =>
-            switch themeColor(~itemConfig, ~themeName) {
-            | Some(color) => Some(`  --color-${key}: ${color};`)
-            | None => None
-            }
-          )
-          ->Array.join("\n")
+module Recharts = {
+  module Dimensions = {
+    type t = {width: float, height: float}
+  }
+  module ResponsiveContainer = {
+    @module("recharts") @react.component
+    external make: (
+      /**
+   * width / height. If specified, the height will be calculated by width / aspect.
+   */
+      ~aspect: float=?,
+      /**
+   * The width of chart container.
+   * Can be a number or a percent string like "100%".
+   * @default '100%'
+   */
+      ~width: float=?,
+      /**
+   * The height of chart container.
+   * Can be a number or a percent string like "100%".
+   * @default '100%'
+   */
+      ~height: float=?,
+      /**
+   * The minimum width of the container.
+   * @default 0
+   */
+      ~minWidth: float=?,
+      /**
+   * The minimum height of the container.
+   */
+      ~minHeight: float=?,
+      /**
+   * The initial width and height of the container.
+   * @default {"width":-1,"height":-1}
+   */
+      ~initialDimension: Dimensions.t=?,
+      /**
+   * The maximum height of the container. It can be a number.
+   */
+      ~maxHeight: float=?,
+      /**
+   * The content of the container.
+   * It can contain multiple charts, and then they will all share the same dimensions.
+   */
+      ~children: React.element,
+      /**
+   * If specified a positive number, debounced function will be used to handle the resize event.
+   * @default 0
+   */
+      ~debounce: float=?,
+      /**
+   * Unique identifier of this component.
+   * Used as an HTML attribute `id`.
+   */
+      ~id: string=?,
+      /**
+   * The HTML element's class name
+   */
+      ~className: string=?,
+      /**
+   * The style of the container.
+   */
+      ~style: ReactDOM.Style.t=?,
+      /**
+   * If specified provides a callback providing the updated chart width and height values.
+   */
+      ~onResize: (float, float) => unit=?,
+    ) => React.element = "ResponsiveContainer"
+  }
 
-        `${prefix} [data-chart=${id}] {\n${declarations}\n}`
-      })
-      ->Array.join("\n\n")
-    <style> {css->React.string} </style>
+  module AllowInDimension = {
+    type t = {x?: bool, y?: bool}
+  }
+  module AnimationTiming = {
+    @unboxed
+    type t =
+      | @as("ease") Ease
+      | @as("linear") Linear
+      | @as("ease-in") EaseIn
+      | @as("ease-out") EaseOut
+      | @as("ease-in-out") EaseInOut
+  }
+
+  module Index = {
+    @unboxed
+    type t =
+      | Int(int)
+      | String(string)
+  }
+
+  module CursorDefinition = {
+    @unboxed
+    type t =
+      | @as(false) NoCursor
+      | Custom(React.element)
+  }
+
+  module AnimationActive = {
+    @unboxed
+    type t =
+      | Bool(bool)
+      | @as("auto") Auto
+  }
+
+  module TooltipItemSorter = {
+    @unboxed
+    type t<'payloadItem> =
+      | @as("name") Name
+      | @as("value") Value
+      | @as("dataKey") Id
+      | Function((~item: 'payloadItem) => int)
+  }
+
+  module Coordinate = {
+    type t = {x: float, y: float}
+    module Partial = {
+      type t = {x?: float, y?: float}
+    }
+  }
+
+  module Offset = {
+    @unboxed
+    type t =
+      | Int(int)
+      | Coordinate(Coordinate.t)
+  }
+
+  module UniqueOption = {
+    @unboxed
+    type t<'entry> =
+      | Bool(bool)
+      | Function('entry => string)
+  }
+
+  module TooltipTrigger = {
+    @unboxed
+    type t =
+      | @as("hover") Hover
+      | @as("click") Click
+  }
+
+  type mouseEvent<'element>
+
+  module Tooltip = {
+    @module("recharts") @react.component
+    external make: (
+      ~wrapperClassName: string=?,
+      ~labelClassName: string=?,
+      /**
+   * If true, then Tooltip is always displayed, once an activeIndex is set by mouse over, or programmatically.
+   * If false, then Tooltip is never displayed.
+   * If undefined, Recharts will control when the Tooltip displays. This includes mouse and keyboard controls.
+   */
+      ~active: bool=?,
+      /**
+   * This option allows the tooltip to extend beyond the viewBox of the chart itself.
+   * @defaultValue {"x":false,"y":false}
+   */
+      ~allowEscapeViewBox: AllowInDimension.t=?,
+      /**
+   * Specifies the duration of animation, the unit of this option is ms.
+   * @defaultValue 400
+   */
+      ~animationDuration: float=?,
+      /**
+   * The type of easing function.
+   * @defaultValue ease
+   */
+      ~animationEasing: AnimationTiming.t=?,
+      /**
+   * Tooltip always attaches itself to the "Tooltip" axis. Which axis is it? Depends on the layout:
+   * - horizontal layout -> X axis
+   * - vertical layout -> Y axis
+   * - radial layout -> radial axis
+   * - centric layout -> angle axis
+   *
+   * Tooltip will use the default axis for the layout, unless you specify an axisId.
+   *
+   * @defaultValue 0
+   */
+      ~axisId: Index.t=?,
+      /**
+   * Renders the content of the tooltip.
+   *
+   * This should return HTML elements, not SVG elements.
+   *
+   * - If not set, the {@link DefaultTooltipContent} component is used.
+   * - If set to a React element, this element will be cloned and extra props will be passed in.
+   * - If set to a function, the function will be called and should return HTML elements.
+   *
+   * @see {@link https://recharts.github.io/en-US/examples/CustomContentOfTooltip/ Example with custom content}
+   */
+      ~content: React.element=?,
+      /**
+   * The style of tooltip content which is a dom element.
+   * @defaultValue {}
+   */
+      ~contentStyle: ReactDOM.Style.t=?,
+      /**
+   * If set false, no cursor will be drawn when tooltip is active.
+   * If set a object, the option is the configuration of cursor.
+   * If set a React element, the option is the custom react element of drawing cursor.
+   * @defaultValue true
+   */
+      ~cursor: CursorDefinition.t=?,
+      ~defaultIndex: Index.t=?,
+      /**
+   * When an item of the payload has value null or undefined, this item won't be displayed.
+   * @defaultValue true
+   */
+      ~filterNull: bool=?,
+      /**
+   * Function to customize the value in the tooltip.
+   * If you return an array, the first entry will be the formatted "value", and the second entry will be the formatted "name"
+   */
+      ~formatter: (
+        ~name: string,
+        ~value: string,
+        ~item: 'payloadItem,
+        ~index: int,
+        ~payload: array<'payloadEntry>,
+      ) => (React.element, React.element)=?,
+      /**
+   * If true, the tooltip will display information about hidden series.
+   * Defaults to false.
+   * Interacting with the hide property of Area, Bar, Line, Scatter.
+   *
+   * @defaultValue false
+   */
+      ~includeHidden: bool=?,
+      /**
+   * If set false, animation of tooltip will be disabled.
+   * If set "auto", the animation will be disabled in SSR and will respect the user's prefers-reduced-motion system preference for accessibility.
+   * @defaultValue auto
+   */
+      ~isAnimationActive: AnimationActive.t=?,
+      /**
+   * Sorts tooltip items.
+   * Defaults to 'name' which means it sorts alphabetically by graphical item `name` property.
+   * @defaultValue name
+   */
+      ~itemSorter: TooltipItemSorter.t<'payloadItem>=?,
+      /**
+   * The style of default tooltip content item which is a li element.
+   * @defaultValue {}
+   */
+      ~itemStyle: ReactDOM.Style.t=?,
+      /**
+   * The formatter function of label in tooltip.
+   */
+      ~labelFormatter: (~label: 'label, ~payload: 'tooltipPayload) => React.element=?,
+      /**
+   * The style of default tooltip label which is a p element.
+   * @defaultValue {}
+   */
+      ~labelStyle: ReactDOM.Style.t=?,
+      /**
+   * The offset size between the position of tooltip and the mouse cursor position.
+   * When a number is provided, the same offset is applied to both x and y axes.
+   *
+   * When a Coordinate object is provided, you can specify different offsets for each axis (x and y as numbers)
+   * @defaultValue 10
+   */
+      ~offset: Offset.t=?,
+      ~payloadUniqBy: UniqueOption.t<'payloadEntry>=?,
+      /**
+   * If portal is defined, then Tooltip will use this element as a target
+   * for rendering using React Portal: https://react.dev/reference/react-dom/createPortal
+   *
+   * If this is undefined then Tooltip renders inside the recharts-wrapper element.
+   */
+      ~portal: Dom.htmlElement=?,
+      /**
+   * If this field is set, the tooltip will be displayed at the specified position
+   * regardless of the mouse position.
+   *
+   * You can set a single field (x or y) and let the other field be calculated automatically based
+   * on the mouse position.
+   */
+      ~position: Coordinate.Partial.t=?,
+      /**
+   * @defaultValue {"x":false,"y":false}
+   */
+      ~reverseDirection: AllowInDimension.t=?,
+      /**
+   * The separator between name and value.
+   * @defaultValue ' : '
+   */
+      ~separator: string=?,
+      /**
+   * Defines whether the tooltip is reacting to the current data point,
+   * or to all data points at the current axis coordinate.
+   */
+      ~shared: bool=?,
+      /**
+   * If `hover` then the Tooltip shows on mouse enter and hides on mouse leave.
+   *
+   * If `click` then the Tooltip shows after clicking and stays active.
+   *
+   * @defaultValue hover
+   */
+      ~trigger: TooltipTrigger.t=?,
+      /**
+   * @defaultValue false
+   */
+      ~useTranslate3d: bool=?,
+      /**
+   * CSS styles to be applied to the wrapper `div` element.
+   */
+      ~wrapperStyle: ReactDOM.Style.t=?,
+    ) => React.element = "Tooltip"
+  }
+
+  module LegendType = {
+    @unboxed
+    type t =
+      | @as("circle") Circle
+      | @as("cross") Cross
+      | @as("diamond") Diamond
+      | @as("line") Line
+      | @as("plainline") Plainline
+      | @as("rect") Rect
+      | @as("square") Square
+      | @as("star") Star
+      | @as("triangle") Triangle
+      | @as("wye") Wye
+      | @as("none") None
+  }
+
+  module CartesianLayout = {
+    @unboxed
+    type t =
+      | @as("horizontal") Horizontal
+      | @as("vertical") Vertical
+  }
+
+  module HorizontalAlignmentType = {
+    @unboxed
+    type t =
+      | @as("left") Left
+      | @as("right") Right
+      | @as("center") Center
+  }
+
+  module VerticalAlignmentType = {
+    @unboxed
+    type t =
+      | @as("bottom") Bottom
+      | @as("top") Top
+      | @as("middle") Middle
+  }
+
+  module Dimension = {
+    @unboxed
+    type t =
+      | Int(int)
+      | String(string)
+  }
+
+  module LegendItemSorter = {
+    @unboxed
+    type t<'legendPayload> =
+      | @as("value") Value
+      | @as("dataKey") DataKey
+      | Function((~item: 'legendPayload) => string)
+  }
+  module Legend = {
+    @module("recharts") @react.component
+    external make: (
+      /**
+   * The size of icon in each legend item.
+   * @defaultValue 14
+   */
+      ~iconSize: float=?,
+      /**
+   * The type of icon in each legend item.
+   */
+      ~iconType: LegendType.t=?,
+      /**
+   * The layout of legend items inside the legend container.
+   * @defaultValue horizontal
+   */
+      ~layout: CartesianLayout.t=?,
+      /**
+   * Horizontal alignment of the whole Legend container:
+   *
+   * - `left`: shows the Legend to the left of the chart, and chart width reduces automatically to make space for it.
+   * - `right` shows the Legend to the right of the chart, and chart width reduces automatically.
+   * - `center` shows the Legend in the middle of chart, and chart width remains unchanged.
+   *
+   * The exact behavior changes depending on 'verticalAlign' prop.
+   *
+   * @defaultValue center
+   */
+      ~align: HorizontalAlignmentType.t=?,
+      /**
+   * The color of the icon when the item is inactive.
+   * @defaultValue #ccc
+   */
+      ~inactiveColor: string=?,
+      /**
+   * Function to customize how content is serialized before rendering.
+   *
+   * This should return HTML elements, or strings.
+   *
+   * @example (value, entry, index) => <span style={{ color: 'red' }}>{value}</span>
+   * @example https://codesandbox.io/s/legend-formatter-rmzp9
+   */
+      ~formatter: (~value: 'value, ~entry: 'entry, ~index: int) => React.element=?,
+      /**
+   * The customized event handler of mouseenter on the items in this group
+   * @example https://recharts.github.io/examples/LegendEffectOpacity
+   */
+      ~onMouseEnter: (
+        ~data: 'legendPayload,
+        ~index: int,
+        ~event: mouseEvent<Dom.htmlElement>,
+      ) => unit=?,
+      /**
+   * The customized event handler of mouseleave on the items in this group
+   * @example https://recharts.github.io/examples/LegendEffectOpacity
+   */
+      ~onMouseLeave: (
+        ~data: 'legendPayload,
+        ~index: int,
+        ~event: mouseEvent<Dom.htmlElement>,
+      ) => unit=?,
+      /**
+   * The customized event handler of click on the items in this group
+   */
+      ~onClick: (~data: 'legendPayload, ~index: int, ~event: mouseEvent<Dom.htmlElement>) => unit=?,
+      /**
+   * The style of each text label which is a span element.
+   * @defaultValue {}
+   */
+      ~labelStyle: ReactDOM.Style.t=?,
+      /**
+   * Renders the content of the legend.
+   *
+   * This should return HTML elements, not SVG elements.
+   *
+   * - If not set, the {@link DefaultLegendContent} component is used.
+   * - If set to a React element, this element will be cloned and extra props will be passed in.
+   * - If set to a function, the function will be called and should return HTML elements.
+   *
+   * @example <Legend content={CustomizedLegend} />
+   * @example <Legend content={renderLegend} />
+   */
+      ~content: React.element=?,
+      /**
+   * CSS styles to be applied to the wrapper `div` element.
+   */
+      ~wrapperStyle: ReactDOM.Style.t=?,
+      /**
+   * Width of the legend.
+   * Accept CSS style string values like `100%` or `fit-content`, or number values like `400`.
+   */
+      ~width: Dimension.t=?,
+      /**
+   * Height of the legend.
+   * Accept CSS style string values like `100%` or `fit-content`, or number values like `400`.
+   */
+      ~height: Dimension.t=?,
+      /**
+   * If portal is defined, then Legend will use this element as a target
+   * for rendering using React Portal.
+   *
+   * If this is undefined then Legend renders inside the recharts-wrapper element.
+   *
+   * @see {@link https://react.dev/reference/react-dom/createPortal}
+   */
+      ~portal: Dom.htmlElement=?,
+      /**
+   * Sorts Legend items. Defaults to `value` which means it will sort alphabetically
+   * by the label.
+   *
+   * If `null` is provided then the payload is not sorted. Be aware that without sort,
+   * the order of items may change between renders!
+   *
+   * @defaultValue value
+   */
+      ~itemSorter: LegendItemSorter.t<'payloadItem>=?,
+      /**
+   * The alignment of the whole Legend container:
+   *
+   * - `bottom`: shows the Legend below chart, and chart height reduces automatically to make space for it.
+   * - `top`: shows the Legend above chart, and chart height reduces automatically.
+   * - `middle`:  shows the Legend in the middle of chart, covering other content, and chart height remains unchanged.
+   * The exact behavior changes depending on `align` prop.
+   *
+   * @defaultValue bottom
+   */
+      ~verticalAlign: VerticalAlignmentType.t=?,
+    ) => React.element = "Legend"
+  }
+
+  module Bar = {
+    @module("recharts") @react.component
+    external make: (~dataKey: string, ~radius: float=?) => React.element = "Bar"
+  }
+
+  module BarChart = {
+    @module("recharts") @react.component
+    external make: (
+      ~data: array<'data>,
+      ~accessibilityLayer: bool=?,
+      ~children: React.element,
+    ) => React.element = "BarChart"
+  }
+
+  module GridLineType = {
+    @unboxed
+    type t =
+      | @as(false) NoLine
+      | Custom(React.element)
+  }
+
+  module CartesianGrid = {
+    @module("recharts") @react.component
+    external make: (~vertical: GridLineType.t=?, ~horizontal: GridLineType.t=?) => React.element =
+      "CartesianGrid"
+  }
+
+  module XAxis = {
+    @module("recharts") @react.component
+    external make: (
+      ~dataKey: string=?,
+      ~tickLine: bool=?,
+      ~axisLine: bool=?,
+      ~tickMargin: int=?,
+      ~tickFormatter: string => string=?,
+    ) => React.element = "XAxis"
   }
 }
 
-module RechartsPrimitive = {
-  module ResponsiveContainer = {
-    @module("recharts")
-    external make: React.component<props<'value, 'checked>> = "ResponsiveContainer"
-  }
+module Style = {
+  @react.component
+  let make = (~id: string, ~config: chartConfig) => {
+    let colorConfig =
+      config
+      ->Dict.toArray
+      ->Array.filter(((_, itemConfig)) =>
+        switch itemConfig {
+        | {theme: _} | {color: _} => true
+        | _ => false
+        }
+      )
+    switch colorConfig {
+    | [] => React.null
+    | _ =>
+      let css =
+        [("light", ""), ("dark", ".dark")]
+        ->Array.map(((themeName, prefix)) => {
+          let declarations =
+            colorConfig
+            ->Array.filterMap(((key, itemConfig)) =>
+              switch themeColor(~itemConfig, ~themeName) {
+              | Some(color) => Some(`  --color-${key}: ${color};`)
+              | None => None
+              }
+            )
+            ->Array.join("\n")
 
-  module Tooltip = {
-    @module("recharts")
-    external make: React.component<props<'value, 'checked>> = "Tooltip"
-  }
-
-  module Legend = {
-    @module("recharts")
-    external make: React.component<props<'value, 'checked>> = "Legend"
+          `${prefix} [data-chart=${id}] {\n${declarations}\n}`
+        })
+        ->Array.join("\n\n")
+      <style
+        dangerouslySetInnerHTML={
+          "__html": css,
+        }
+      />
+    }
   }
 }
 
@@ -130,7 +645,7 @@ module RechartsPrimitive = {
 let make = (
   ~config: chartConfig,
   ~className=?,
-  ~children=?,
+  ~children,
   ~id=?,
   ~style=?,
   ~onClick=?,
@@ -153,17 +668,17 @@ let make = (
       dataSlot="chart"
       dataChart={chartId}
       className={cn(
-        "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border flex aspect-video justify-center text-xs [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
         className,
       )}
     >
-      {renderStyleElement(~id=chartId, ~config)}
-      <RechartsPrimitive.ResponsiveContainer ?children />
+      <Style id={chartId} config={config} />
+      <Recharts.ResponsiveContainer children />
     </div>
   </Provider>
 }
 
-module Tooltip = RechartsPrimitive.Tooltip
+module Tooltip = Recharts.Tooltip
 
 module Indicator = {
   @unboxed
@@ -182,13 +697,13 @@ module TooltipContent = {
     ~indicator=Indicator.Dot,
     ~hideLabel=false,
     ~hideIndicator=false,
-    ~label="",
+    ~label=?,
     ~labelFormatter: option<(option<React.element>, array<payloadItem<'value>>) => React.element>=?,
-    ~labelClassName="",
-    ~formatter: option<('value, string, payloadItem<'value>, int, dict<JSON.t>) => React.element>=?,
-    ~color="",
-    ~nameKey="",
-    ~labelKey="",
+    ~labelClassName=?,
+    ~formatter: option<('value, string, payloadItem<'value>, int, dict<string>) => React.element>=?,
+    ~color=?,
+    ~nameKey=?,
+    ~labelKey=?,
     ~id=?,
     ~style=?,
     ~onClick=?,
@@ -202,40 +717,36 @@ module TooltipContent = {
       switch payload->Array.get(0) {
       | None => None
       | Some(item) =>
-        let key = if labelKey != "" {
-          labelKey
-        } else {
-          switch item.dataKey->Option.orElse(item.name) {
-          | Some(key) => key
-          | None => "value"
-          }
-        }
+        let key =
+          labelKey->Option.orElse(item.dataKey)->Option.orElse(item.name)->Option.getOr("value")
         let itemConfig = getPayloadConfigFromPayload(~config, ~payload=item, ~key)
-        let value = if labelKey == "" && label != "" {
+        let value = switch (labelKey, label) {
+        | (None, Some(label)) =>
           switch config->Dict.get(label) {
           | Some(configItem) => Some(configItem.label->Option.getOr(label->React.string))
           | None => Some(label->React.string)
           }
-        } else {
-          itemConfig->Option.flatMap(itemConfig => itemConfig.label)
+        | _ => itemConfig->Option.flatMap(itemConfig => itemConfig.label)
         }
         switch labelFormatter {
         | Some(formatLabel) =>
           Some(
-            <div className={`font-medium ${labelClassName}`}> {formatLabel(value, payload)} </div>,
+            <div className={cn("font-medium", labelClassName)}>
+              {formatLabel(value, payload)}
+            </div>,
           )
         | None =>
           switch value {
-          | Some(value) => Some(<div className={`font-medium ${labelClassName}`}> {value} </div>)
+          | Some(value) => Some(<div className={cn("font-medium", labelClassName)}> {value} </div>)
           | None => None
           }
         }
       }
     }
 
-    if !active || payload->Array.length == 0 {
-      React.null
-    } else {
+    switch (active, payload) {
+    | (false, _) | (_, []) => React.null
+    | _ =>
       let nestLabel = payload->Array.length == 1 && indicator != Indicator.Dot
       let visiblePayloadItems = payload->Array.filter(item =>
         switch item.type_ {
@@ -261,20 +772,12 @@ module TooltipContent = {
         <div className="grid gap-1.5">
           {visiblePayloadItems
           ->Array.mapWithIndex((item, index) => {
-            let key = if nameKey != "" {
-              nameKey
-            } else {
-              switch item.name->Option.orElse(item.dataKey) {
-              | Some(key) => key
-              | None => "value"
-              }
-            }
+            let key =
+              nameKey->Option.orElse(item.name)->Option.orElse(item.dataKey)->Option.getOr("value")
             let itemConfig = getPayloadConfigFromPayload(~config, ~payload=item, ~key)
-            let indicatorColor = if color != "" {
-              Some(color)
-            } else {
-              item.payload->getString("fill")->Option.orElse(item.color)
-            }
+            let indicatorColor =
+              color->Option.orElse(item.payload->Dict.get("fill"))->Option.orElse(item.color)
+
             let customContent = switch (formatter, item.value, item.name) {
             | (Some(customFormatter), Some(value), Some(name)) =>
               Some(customFormatter(value, name, item, index, item.payload))
@@ -369,7 +872,7 @@ module TooltipContent = {
   }
 }
 
-module Legend = RechartsPrimitive.Legend
+module Legend = Recharts.Legend
 
 module LegendContent = {
   @react.component
@@ -386,9 +889,9 @@ module LegendContent = {
   ) => {
     let {config} = useChart()
 
-    if payload->Array.length == 0 {
-      React.null
-    } else {
+    switch payload {
+    | [] => React.null
+    | _ =>
       <div
         ?id
         ?style
@@ -437,9 +940,4 @@ module LegendContent = {
       </div>
     }
   }
-}
-
-module Style = {
-  @react.component
-  let make = (~id: string, ~config: chartConfig) => renderStyleElement(~id, ~config)
 }

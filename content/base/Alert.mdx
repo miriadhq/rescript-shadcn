@@ -6,7 +6,6 @@ component: true
 ---
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertDemo"
   previewClassName="h-auto sm:h-72 p-6"
 />
@@ -22,7 +21,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add alert
+npx shadcn@latest add @rescript-shadcn/Alert
 ```
 
 </TabsContent>
@@ -33,9 +32,7 @@ npx shadcn@latest add alert
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource name="alert" title="components/ui/alert.tsx" />
-
-<Step>Update the import paths to match your project setup.</Step>
+<ComponentSource name="alert" title="components/ui/Alert.res" />
 
 </Steps>
 
@@ -45,25 +42,13 @@ npx shadcn@latest add alert
 
 ## Usage
 
-```tsx showLineNumbers
-import {
-  Alert,
-  AlertAction,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
-```
-
-```tsx showLineNumbers
+```res showLineNumbers
 <Alert>
-  <InfoIcon />
-  <AlertTitle>Heads up!</AlertTitle>
-  <AlertDescription>
-    You can add components and dependencies to your app using the cli.
-  </AlertDescription>
-  <AlertAction>
-    <Button variant="outline">Enable</Button>
-  </AlertAction>
+  <Icons.Info />
+  <Alert.Title> {"Heads up!"->React.string} </Alert.Title>
+  <Alert.Description>
+    {"You can add components and dependencies to your app using the cli."->React.string}
+  </Alert.Description>
 </Alert>
 ```
 
@@ -74,7 +59,6 @@ import {
 A basic alert with an icon, title and description.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertBasic"
   previewClassName="h-auto sm:h-72 p-6"
 />
@@ -84,7 +68,6 @@ A basic alert with an icon, title and description.
 Use `variant="destructive"` to create a destructive alert.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertDestructive"
   previewClassName="h-auto sm:h-72 p-6"
 />
@@ -94,7 +77,6 @@ Use `variant="destructive"` to create a destructive alert.
 Use `AlertAction` to add a button or other action element to the alert.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertAction"
   previewClassName="h-auto sm:h-72 p-6"
 />
@@ -104,21 +86,10 @@ Use `AlertAction` to add a button or other action element to the alert.
 You can customize the alert colors by adding custom classes such as `bg-amber-50 dark:bg-amber-950` to the `Alert` component.
 
 <ComponentPreview
-  styleName="base-nova"
   name="AlertColors"
   previewClassName="h-auto sm:h-72 p-6"
 />
 
-## RTL
-
-To enable RTL support in shadcn/ui, see the [RTL configuration guide](/docs/rtl).
-
-<ComponentPreview
-  styleName="base-nova"
-  name="AlertRtl"
-  direction="rtl"
-  previewClassName="h-auto sm:h-72 p-6"
-/>
 
 ## API Reference
 
@@ -128,7 +99,7 @@ The `Alert` component displays a callout for user attention.
 
 | Prop      | Type                         | Default     |
 | --------- | ---------------------------- | ----------- |
-| `variant` | `"default" \| "destructive"` | `"default"` |
+| `variant` | `Default \| Destructive`     | `Default`   |
 
 ### AlertTitle
 
