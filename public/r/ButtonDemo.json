@@ -11,7 +11,7 @@
   "files": [
     {
       "path": "registry/base/examples/ButtonDemo.res",
-      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap items-center gap-2 md:flex-row\">\n    <Button variant=Button.Variant.Outline> {\"Button\"->React.string} </Button>\n    <Button variant=Button.Variant.Outline size=Button.Size.Icon ariaLabel=\"Submit\">\n      <Icons.ArrowUp />\n    </Button>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap items-center gap-2 md:flex-row\">\n    <Button variant=Outline> {\"Button\"->React.string} </Button>\n    <Button variant=Outline size=Icon ariaLabel=\"Submit\">\n      <Icons.ArrowUp />\n    </Button>\n  </div>\n",
       "type": "registry:example"
     }
   ],

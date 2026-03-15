@@ -68,11 +68,11 @@ let make = (
       className,
     )}
   >
-    <Direction.DirectionProvider>
+    <Direction.Provider>
       <PreviewWrapper align chromeLessOnMobile previewClassName dir=direction>
         {component}
       </PreviewWrapper>
-    </Direction.DirectionProvider>
+    </Direction.Provider>
     {if !hideCode {
       <CodeWrapper codeVisible>
         {if codeVisible {

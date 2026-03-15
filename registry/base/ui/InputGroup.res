@@ -7,6 +7,9 @@ open BaseUi.Types
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@module("tailwind-merge")
+external cn3: (string, string, option<string>) => string = "twMerge"
+
 module DataAlign = {
   @unboxed
   type t =
@@ -46,32 +49,6 @@ module SharedTextarea = Textarea
 @send external querySelector: (Dom.element, string) => Nullable.t<Dom.element> = "querySelector"
 @send external focusElement: Dom.element => unit = "focus"
 
-let inputGroupAddonAlignClass = (~align: DataAlign.t) =>
-  switch align {
-  | InlineEnd => "pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem] order-last"
-  | BlockStart => "px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2 order-first w-full justify-start"
-  | BlockEnd => "px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2 order-last w-full justify-start"
-  | InlineStart => "pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem] order-first"
-  }
-
-let inputGroupAddonVariants = (~align=DataAlign.InlineStart) => {
-  let base = "text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4 flex cursor-text items-center justify-center select-none"
-  `${base} ${inputGroupAddonAlignClass(~align)}`
-}
-
-let inputGroupButtonSizeClass = (~size: Size.t) =>
-  switch size {
-  | Sm => ""
-  | IconXs => "size-6 rounded-[calc(var(--radius)-3px)] p-0 has-[>svg]:p-0"
-  | IconSm => "size-8 p-0 has-[>svg]:p-0"
-  | Xs => "h-6 gap-1 rounded-[calc(var(--radius)-3px)] px-1.5 [&>svg:not([class*='size-'])]:size-3.5"
-  }
-
-let inputGroupButtonVariants = (~size=Size.Xs) => {
-  let base = "gap-2 text-sm shadow-none flex items-center"
-  `${base} ${inputGroupButtonSizeClass(~size)}`
-}
-
 @react.component
 let make = (
   ~className=?,
@@ -94,13 +71,23 @@ let make = (
     dataSlot="input-group"
     role="group"
     className={cn(
-      "border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-input/50 dark:has-disabled:bg-input/80 group/input-group relative flex h-8 w-full min-w-0 items-center rounded-lg border transition-colors outline-none in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "group/input-group relative flex h-8 w-full min-w-0 items-center rounded-lg border border-input transition-colors outline-none in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:bg-input/50 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:border-destructive has-[[data-slot][aria-invalid=true]]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto dark:bg-input/30 dark:has-disabled:bg-input/80 dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
       className,
     )}
   />
 }
 
 module Addon = {
+  let baseClass = "flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm font-medium text-muted-foreground select-none group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4"
+
+  let alignClass = (~align: DataAlign.t) =>
+    switch align {
+    | InlineStart => "order-first pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem]"
+    | InlineEnd => "order-last pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem]"
+    | BlockStart => "order-first w-full justify-start px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2"
+    | BlockEnd => "order-last w-full justify-start px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2"
+    }
+
   @react.component
   let make = (
     ~align=DataAlign.InlineStart,
@@ -108,46 +95,57 @@ module Addon = {
     ~children=?,
     ~id=?,
     ~style=?,
-    ~onClick=?,
     ~onKeyDown=?,
-    ~dataSlot="input-group-addon",
   ) => {
-    let onClick = switch onClick {
-    | Some(onClick) => onClick
-    | None =>
-      event => {
-        let target = event->mouseEventTarget
-        switch target->closest("button")->Nullable.toOption {
-        | Some(_) => ()
-        | None =>
-          let currentTarget = event->mouseEventCurrentTarget
-          currentTarget
-          ->parentElement
-          ->Nullable.toOption
-          ->Option.flatMap(parent => parent->querySelector("input")->Nullable.toOption)
-          ->Option.forEach(focusElement)
-        }
-      }
-    }
     <div
       ?id
       ?children
       ?style
-      onClick
+      onClick={event => {
+        let target = event->mouseEventTarget
+        switch target->closest("button") {
+        | Value(_) => ()
+        | Null | Undefined =>
+          event
+          ->mouseEventCurrentTarget
+          ->parentElement
+          ->Nullable.flatMap(parent => parent->querySelector("input"))
+          ->Nullable.forEach(focusElement)
+        }
+      }}
       ?onKeyDown
-      dataSlot
+      dataSlot="input-group-addon"
       dataAlign={(align :> string)}
       role="group"
-      className={cn(inputGroupAddonVariants(~align), className)}
+      className={cn3(baseClass, alignClass(~align), className)}
     />
   }
 }
 
 module Button = {
+  type type_ =
+    | @as("button") Button
+    | @as("submit") Submit
+    | @as("reset") Reset
+
+  let sizeClass = (~size: Size.t) =>
+    switch size {
+    | Xs => "h-6 gap-1 rounded-[calc(var(--radius)-3px)] px-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+    | Sm => ""
+    | IconXs => "size-6 rounded-[calc(var(--radius)-3px)] p-0 has-[>svg]:p-0"
+    | IconSm => "size-8 p-0 has-[>svg]:p-0"
+    }
+
+  let baseClass = "flex items-center gap-2 text-sm shadow-none"
+
   @react.component
   let make = (
     ~className=?,
     ~children=?,
+    ~type_=Button,
+    ~dataSlot="button",
+    ~size=Size.Xs,
+    ~variant=Variant.Ghost,
     ~id=?,
     ~style=?,
     ~onClick=?,
@@ -156,19 +154,8 @@ module Button = {
     ~dataActive=?,
     ~ariaPressed=?,
     ~ariaLabel=?,
-    ~type_="button",
-    ~dataSlot="button",
-    ~size=Size.Xs,
-    ~variant=Variant.Ghost,
   ) => {
-    let buttonVariant = switch variant {
-    | Ghost => UiButton.Variant.Ghost
-    | Default => UiButton.Variant.Default
-    | Secondary => UiButton.Variant.Secondary
-    | Outline => UiButton.Variant.Outline
-    | Destructive => UiButton.Variant.Destructive
-    }
-    <BaseUi.Button
+    <Button
       ?id
       ?children
       ?style
@@ -178,13 +165,11 @@ module Button = {
       ?dataActive
       ?ariaPressed
       ?ariaLabel
-      type_
+      type_={(type_ :> string)}
       dataSlot
+      size={(size :> Button.Size.t)}
       dataSize={(size :> string)}
-      className={cn(
-        `${UiButton.buttonVariants(~variant=buttonVariant)} ${inputGroupButtonVariants(~size)}`,
-        className,
-      )}
+      className={cn3(baseClass, sizeClass(~size), className)}
     />
   }
 }

@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/base/ui/Direction.res",
-      "content": "@@directive(\"'use client'\")\n\nopen BaseUi.Types\n\n@react.component\nlet make = (~children=?, ~className=?, ~style=?) =>\n  <BaseUi.DirectionProvider ?children ?className ?style />\n\nmodule DirectionProvider = {\n  @react.component\n  let make = (~children=?, ~className=?, ~style=?) =>\n    <BaseUi.DirectionProvider ?children ?className ?style />\n}\n\nlet useDirection = BaseUi.DirectionProvider.useDirection\n",
+      "content": "@@directive(\"'use client'\")\n\nmodule Provider = BaseUi.DirectionProvider\n\nlet useDirection = BaseUi.DirectionProvider.useDirection\n",
       "type": "registry:ui"
     }
   ],

@@ -6,20 +6,20 @@ let make = ({}: Demo.Props.t) => {
 
   <ButtonGroup>
     <ButtonGroup className="hidden sm:flex">
-      <Button variant=Button.Variant.Outline size=Button.Size.Icon ariaLabel="Go Back">
+      <Button variant=Outline size=Button.Size.Icon ariaLabel="Go Back">
         <Icons.ArrowLeft />
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button variant=Button.Variant.Outline> {"Archive"->React.string} </Button>
-      <Button variant=Button.Variant.Outline> {"Report"->React.string} </Button>
+      <Button variant=Outline> {"Archive"->React.string} </Button>
+      <Button variant=Outline> {"Report"->React.string} </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button variant=Button.Variant.Outline> {"Snooze"->React.string} </Button>
+      <Button variant=Outline> {"Snooze"->React.string} </Button>
       <DropdownMenu>
         <DropdownMenu.Trigger
           render={<Button
-            variant=Button.Variant.Outline
+            variant=Outline
             dataSlot="dropdown-menu-trigger"
             size=Button.Size.Icon
             ariaLabel="More Options"

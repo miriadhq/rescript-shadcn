@@ -3113,6 +3113,9 @@
     {
       "name": "DirectionDemo",
       "type": "registry:example",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "registryDependencies": [
         "Direction"
       ],

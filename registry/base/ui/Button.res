@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
 @module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+external cn: (string, string, string, option<string>) => string = "twMerge"
 
 module Variant = {
   @unboxed
@@ -29,12 +29,12 @@ module Size = {
 
 let buttonVariantClass = (~variant: Variant.t) =>
   switch variant {
-  | Outline => "border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground"
-  | Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
-  | Ghost => "hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground"
-  | Destructive => "bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30"
-  | Link => "text-primary underline-offset-4 hover:underline"
   | Default => "bg-primary text-primary-foreground [a]:hover:bg-primary/80"
+  | Outline => "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+  | Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+  | Ghost => "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+  | Destructive => "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+  | Link => "text-primary underline-offset-4 hover:underline"
   }
 
 let buttonSizeClass = (~size: Size.t) =>
@@ -49,10 +49,10 @@ let buttonSizeClass = (~size: Size.t) =>
   | Default => "h-8 gap-1.5 rounded-lg px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
   }
 
-let buttonVariants = (~variant=Variant.Default, ~size=Size.Default) => {
-  `focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none 
-  ${buttonVariantClass(~variant)} ${buttonSizeClass(~size)}`
-}
+let baseClass = "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+
+let buttonVariants = (~variant=Variant.Default, ~size=Size.Default, ~className=?) =>
+  cn(baseClass, buttonVariantClass(~variant), buttonSizeClass(~size), className)
 
 @react.component
 let make = (
@@ -81,19 +81,22 @@ let make = (
   ~dataRangeStart=?,
   ~dataRangeEnd=?,
   ~dataRangeMiddle=?,
+  ~dataState=?,
+  ~dataEmpty=?,
+  ~dataActive=?,
+  ~dataSize=?,
   ~render=?,
   ~dataSlot=?,
   ~ariaControls=?,
   ~ariaExpanded=?,
   ~ariaHaspopup=?,
-  ~dataState=?,
-  ~dataEmpty=?,
+  ~ariaPressed=?,
   ~dir=?,
   ~suppressHydrationWarning=?,
 ) => {
   <BaseUi.Button
     dataSlot={dataSlot->Option.getOr("button")}
-    className={cn(buttonVariants(~variant, ~size), className)}
+    className={buttonVariants(~variant, ~size, ~className?)}
     ?id
     ?ariaControls
     ?ariaExpanded
@@ -121,12 +124,15 @@ let make = (
     ?ariaLabel
     ?ariaDisabled
     ?dataSidebar
+    ?ariaPressed
     ?dataDay
     ?dataSelectedSingle
     ?dataRangeStart
     ?dataRangeEnd
     ?dataRangeMiddle
     ?dataEmpty
+    ?dataActive
+    ?dataSize
     ?dir
     ?render
     ?suppressHydrationWarning

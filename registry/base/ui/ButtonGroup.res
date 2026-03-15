@@ -13,12 +13,12 @@ module DataOrientation = {
 }
 
 let buttonGroupVariants = (~orientation=DataOrientation.Horizontal) => {
-  let base = "has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-lg flex w-fit items-stretch *:focus-visible:z-10 *:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1"
+  let base = "flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-lg [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1"
   let orientationClass = switch orientation {
-  | Vertical => "[&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-lg! flex-col [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0 *:data-slot:rounded-b-none"
-  | Horizontal => "[&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-lg! [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0 *:data-slot:rounded-r-none"
+  | Horizontal => "*:data-slot:rounded-r-none [&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-lg! [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0"
+  | Vertical => "flex-col *:data-slot:rounded-b-none [&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-lg! [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0"
   }
-  `${base} ${orientationClass}`
+  cn(base, Some(orientationClass))
 }
 
 @react.component
@@ -31,15 +31,7 @@ let make = (
   ~onKeyDown=?,
   ~ariaLabel=?,
   ~orientation=?,
-  ~dataOrientation=?,
 ) => {
-  let dataOrientation = switch (orientation, dataOrientation) {
-  | (Some(orientation), _) => Some(orientation)
-  | (None, Some(orientation)) => Some(orientation)
-  | (None, None) => None
-  }
-  let resolvedOrientation = dataOrientation->Option.getOr(DataOrientation.Horizontal)
-  let dataOrientation = dataOrientation->Option.map(value => (value :> string))
   <div
     ?id
     ?style
@@ -48,9 +40,9 @@ let make = (
     ?ariaLabel
     ?children
     role="group"
-    ?dataOrientation
+    dataOrientation=?{(orientation :> option<string>)}
     dataSlot="button-group"
-    className={cn(buttonGroupVariants(~orientation=resolvedOrientation), className)}
+    className={cn(buttonGroupVariants(~orientation?), className)}
   />
 }
 
@@ -65,7 +57,7 @@ module Text = {
       ?children,
       dataSlot: "button-group-text",
       className: cn(
-        "bg-muted gap-2 rounded-lg border px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4 flex items-center [&_svg]:pointer-events-none",
+        "flex items-center gap-2 rounded-lg border bg-muted px-2.5 text-sm font-medium [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
         className,
       ),
     }
@@ -83,7 +75,7 @@ module Separator = {
       dataSlot="button-group-separator"
       orientation
       className={cn(
-        "bg-input relative self-stretch shrink-0 data-horizontal:mx-px data-horizontal:h-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto data-vertical:w-px data-vertical:self-stretch",
+        "relative self-stretch bg-input data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
         className,
       )}
     />
