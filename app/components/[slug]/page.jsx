@@ -49,15 +49,13 @@ export const generateMetadata = async (props) => {
 export default async function Page({ params }) {
   const { slug } = await params
   const { default: ComponentDocs, frontmatter: doc } = await import(`@/content/base/${slug}.mdx`)
-  return <div data-slot="component-docs" className="flex flex-col scroll-mt-24 items-center pb-8 text-[1.05rem] sm:text-[15px] xl:w-full p-5">
-    <div className="max-w-160">
-      <ComponentTitle title={doc.title} />
-      {doc.description && (
-        <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance md:max-w-[80%]">
-          {doc.description}
-        </p>
-      )}
-      <ComponentDocs components={MdxComponents} />
-    </div>
-  </div>
+  return <>
+    <ComponentTitle title={doc.title} />
+    {doc.description && (
+      <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance md:max-w-[80%]">
+        {doc.description}
+      </p>
+    )}
+    <ComponentDocs components={MdxComponents} />
+  </>
 }

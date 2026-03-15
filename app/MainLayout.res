@@ -6,7 +6,9 @@ let make = (~children) => {
     <Sidebar.Provider>
       <Tooltip.Provider>
         <NavMenu />
-        <Sidebar.Inset> {children} </Sidebar.Inset>
+        <Sidebar.Inset>
+          <div className="flex flex-col self-center max-w-3xl px-4 py-8"> {children} </div>
+        </Sidebar.Inset>
         <Sonner position=TopCenter />
       </Tooltip.Provider>
     </Sidebar.Provider>
