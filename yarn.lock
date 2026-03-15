@@ -2248,33 +2248,18 @@ __metadata:
   resolution: "@rescript-shadcn/base-ui@workspace:packages/base-ui"
   dependencies:
     "@rescript/react": "npm:0.14.1"
-    "@rescript/runtime": "npm:^12.1.0"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
-    rescript: "https://pkg.pr.new/rescript-lang/rescript/rescript@104c7ff"
+    rescript: "npm:v12.2.0"
   peerDependencies:
     "@base-ui/react": ^1.2.0
   languageName: unknown
   linkType: soft
 
-"@rescript/darwin-arm64@https://pkg.pr.new/rescript-lang/rescript/@rescript/darwin-arm64@104c7ff":
-  version: 13.0.0-alpha.3
-  resolution: "@rescript/darwin-arm64@https://pkg.pr.new/rescript-lang/rescript/@rescript/darwin-arm64@104c7ff"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rescript/darwin-arm64@npm:12.2.0":
   version: 12.2.0
   resolution: "@rescript/darwin-arm64@npm:12.2.0"
   conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rescript/darwin-x64@https://pkg.pr.new/rescript-lang/rescript/@rescript/darwin-x64@104c7ff":
-  version: 13.0.0-alpha.3
-  resolution: "@rescript/darwin-x64@https://pkg.pr.new/rescript-lang/rescript/@rescript/darwin-x64@104c7ff"
-  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
@@ -2285,24 +2270,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rescript/linux-arm64@https://pkg.pr.new/rescript-lang/rescript/@rescript/linux-arm64@104c7ff":
-  version: 13.0.0-alpha.3
-  resolution: "@rescript/linux-arm64@https://pkg.pr.new/rescript-lang/rescript/@rescript/linux-arm64@104c7ff"
-  conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rescript/linux-arm64@npm:12.2.0":
   version: 12.2.0
   resolution: "@rescript/linux-arm64@npm:12.2.0"
   conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rescript/linux-x64@https://pkg.pr.new/rescript-lang/rescript/@rescript/linux-x64@104c7ff":
-  version: 13.0.0-alpha.3
-  resolution: "@rescript/linux-x64@https://pkg.pr.new/rescript-lang/rescript/@rescript/linux-x64@104c7ff"
-  conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
@@ -2323,14 +2294,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rescript/runtime@https://pkg.pr.new/rescript-lang/rescript/@rescript/runtime@104c7ff":
-  version: 13.0.0-alpha.3
-  resolution: "@rescript/runtime@https://pkg.pr.new/rescript-lang/rescript/@rescript/runtime@104c7ff"
-  checksum: 10c0/18949b51724f27855194775296ceeaf01180830790ddc5f1b5426baa15c60165fdf3c62b16b60b89eec463d1cc5df50ddc160b9dde17f60462b7d04bcf071a9f
-  languageName: node
-  linkType: hard
-
-"@rescript/runtime@npm:12.2.0, @rescript/runtime@npm:^12.1.0":
+"@rescript/runtime@npm:12.2.0":
   version: 12.2.0
   resolution: "@rescript/runtime@npm:12.2.0"
   checksum: 10c0/59c0194ae52fbbaadc736bbf1cfac1ed6ffde92b2346e36b9f1a29bb136e38b7ef203c780647203912fa657d293eab5c4e208f04dd65ed4bf47d53843980f7e1
@@ -2343,13 +2307,6 @@ __metadata:
   peerDependencies:
     rescript: ">=12.0.0 <13"
   checksum: 10c0/caebcbaa979230209aa8511684653c9d16255524eac8ed5a0b1cb42ef1583e1560fb9014d042c205b701c3c75c56410519915eed2ea261c4986e7d6c94963cd9
-  languageName: node
-  linkType: hard
-
-"@rescript/win32-x64@https://pkg.pr.new/rescript-lang/rescript/@rescript/win32-x64@104c7ff":
-  version: 13.0.0-alpha.3
-  resolution: "@rescript/win32-x64@https://pkg.pr.new/rescript-lang/rescript/@rescript/win32-x64@104c7ff"
-  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -8422,7 +8379,7 @@ __metadata:
     react-textarea-autosize: "npm:^8.5.9"
     recharts: "npm:^3.7.0"
     rehype-pretty-code: "npm:^0.14.3"
-    rescript: "npm:12.2.0"
+    rescript: "npm:v12.2.0"
     shadcn: "npm:^3.0.0"
     shiki: "npm:^4.0.1"
     sonner: "npm:^2.0.7"
@@ -8434,36 +8391,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"rescript@https://pkg.pr.new/rescript-lang/rescript/rescript@104c7ff":
-  version: 13.0.0-alpha.3
-  resolution: "rescript@https://pkg.pr.new/rescript-lang/rescript/rescript@104c7ff"
-  dependencies:
-    "@rescript/darwin-arm64": "https://pkg.pr.new/rescript-lang/rescript/@rescript/darwin-arm64@104c7ff"
-    "@rescript/darwin-x64": "https://pkg.pr.new/rescript-lang/rescript/@rescript/darwin-x64@104c7ff"
-    "@rescript/linux-arm64": "https://pkg.pr.new/rescript-lang/rescript/@rescript/linux-arm64@104c7ff"
-    "@rescript/linux-x64": "https://pkg.pr.new/rescript-lang/rescript/@rescript/linux-x64@104c7ff"
-    "@rescript/runtime": "https://pkg.pr.new/rescript-lang/rescript/@rescript/runtime@104c7ff"
-    "@rescript/win32-x64": "https://pkg.pr.new/rescript-lang/rescript/@rescript/win32-x64@104c7ff"
-  dependenciesMeta:
-    "@rescript/darwin-arm64":
-      optional: true
-    "@rescript/darwin-x64":
-      optional: true
-    "@rescript/linux-arm64":
-      optional: true
-    "@rescript/linux-x64":
-      optional: true
-    "@rescript/win32-x64":
-      optional: true
-  bin:
-    bsc: cli/bsc.js
-    rescript: cli/rescript.js
-    rescript-tools: cli/rescript-tools.js
-  checksum: 10c0/27b3c657277954907eefbd91397424d59a79dee3841e905bfddfd7cf4d2dea9c7ab5ee084667d7a3e71c49070c26fb47236c4b38463195429c409ebedfce6257
-  languageName: node
-  linkType: hard
-
-"rescript@npm:12.2.0":
+"rescript@npm:v12.2.0":
   version: 12.2.0
   resolution: "rescript@npm:12.2.0"
   dependencies:

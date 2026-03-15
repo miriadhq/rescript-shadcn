@@ -55,7 +55,7 @@
     "react-textarea-autosize": "^8.5.9",
     "recharts": "^3.7.0",
     "rehype-pretty-code": "^0.14.3",
-    "rescript": "12.2.0",
+    "rescript": "v12.2.0",
     "shadcn": "^3.0.0",
     "shiki": "^4.0.1",
     "sonner": "^2.0.7",

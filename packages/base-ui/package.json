@@ -26,10 +26,9 @@
   ],
   "dependencies": {
     "@rescript/react": "0.14.1",
-    "@rescript/runtime": "^12.1.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "rescript": "https://pkg.pr.new/rescript-lang/rescript/rescript@104c7ff"
+    "rescript": "v12.2.0"
   },
   "peerDependencies": {
     "@base-ui/react": "^1.2.0"
