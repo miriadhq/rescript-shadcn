@@ -24,21 +24,20 @@ jobs:
       - name: Compile ReScript
         run: yarn rescript
 
+      - name: format rescript code
+        run:
+          yarn rescript format
+          test -z "$(git status --porcelain)" || echo "rescript code not formatted" && exit 1
+
       - name: Generate registry
-        run: yarn registry:generate
+        run: 
+          yarn registry:generate
+          test -z "$(git status --porcelain)" || echo "registry not synced" && exit 1
 
       - name: Build public registry
-        run: yarn registry:build
-
-      - name: Check git status is clean
-        run: |
-          git diff --exit-code
-          git diff --cached --exit-code
-          if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-            echo "Untracked files found:"
-            git ls-files --others --exclude-standard
-            exit 1
-          fi
+        run: 
+          yarn registry:build
+          test -z "$(git status --porcelain)" || echo "public registry not synced" && exit 1
 
   visual:
     runs-on: ubuntu-latest
