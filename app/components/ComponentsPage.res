@@ -12,7 +12,9 @@ let make = () => {
       <h1 className="scroll-m-24 text-3xl font-semibold tracking-tight sm:text-3xl">
         {"Components"->React.string}
       </h1>
-      <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance md:max-w-[80%]">
+      <p
+        className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance md:max-w-[80%]"
+      >
         {"Browse all available components."->React.string}
       </p>
       <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
