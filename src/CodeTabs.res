@@ -2,11 +2,11 @@
 
 @react.component
 let make = (~children) => {
-  let (installationType, setInstallationType) = React.useState(() => "cli")
+  let (config, setConfig) = Config.use()
 
   <Tabs
-    value=installationType
-    onValueChange={(value, _) => setInstallationType(_ => value)}
+    value=config.installationType
+    onValueChange={(value, _) => setConfig({...config, installationType: value})}
     className="relative mt-6 w-full *:data-[slot=tabs-list]:gap-6"
   >
     {children}

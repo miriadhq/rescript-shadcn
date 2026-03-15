@@ -5953,6 +5953,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jotai@npm:^2.18.1":
+  version: 2.18.1
+  resolution: "jotai@npm:2.18.1"
+  peerDependencies:
+    "@babel/core": ">=7.0.0"
+    "@babel/template": ">=7.0.0"
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@babel/template":
+      optional: true
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 10c0/bff677bc8d52041f60496d84b389bae89bc6e1c4d487d5fa1458f88aae279454b413bb310e097647f84776d6da94644b861092310460c1fb0924b30d78b119b8
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -8366,6 +8387,7 @@ __metadata:
     fumadocs-mdx: "npm:^14.2.9"
     fumadocs-ui: "npm:^16.6.14"
     input-otp: "npm:^1.4.2"
+    jotai: "npm:^2.18.1"
     lru-cache: "npm:^11.2.6"
     lucide-react: "npm:^0.487.0"
     next: "npm:16.1.6"
