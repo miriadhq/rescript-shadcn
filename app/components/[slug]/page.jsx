@@ -1,7 +1,7 @@
 import meta from "@/content/base/meta.json"
 import MdxComponents from "@/src/MdxComponents.res.mjs";
-import { Trigger } from "@/registry/base/ui/Sidebar.res.mjs";
 export const generateStaticParams = () => meta.pages.map(slug => ({ "slug": slug }))
+import { make as ComponentTitle } from "@/src/ComponentTitle.res.mjs";
 export const dynamicParams = false;
 
 function absoluteUrl(path) {
@@ -51,10 +51,7 @@ export default async function Page({ params }) {
   const { default: ComponentDocs, frontmatter: doc } = await import(`@/content/base/${slug}.mdx`)
   return <div data-slot="component-docs" className="flex flex-col scroll-mt-24 items-center pb-8 text-[1.05rem] sm:text-[15px] xl:w-full p-5">
     <div className="max-w-160">
-      <h1 className="scroll-m-24 text-3xl font-semibold tracking-tight sm:text-3xl">
-        {/* <Trigger.make className="md:hidden" /> // put it back once https://github.com/rescript-lang/rescript/pull/8293 is merged  */}
-        {doc.title}
-      </h1>
+      <ComponentTitle title={doc.title} />
       {doc.description && (
         <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance md:max-w-[80%]">
           {doc.description}
