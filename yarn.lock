@@ -2243,19 +2243,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rescript-shadcn/base-ui@workspace:^, @rescript-shadcn/base-ui@workspace:packages/base-ui":
-  version: 0.0.0-use.local
-  resolution: "@rescript-shadcn/base-ui@workspace:packages/base-ui"
-  dependencies:
-    "@rescript/react": "npm:0.14.1"
-    react: "npm:19.2.4"
-    react-dom: "npm:19.2.4"
-    rescript: "npm:v12.2.0"
-  peerDependencies:
-    "@base-ui/react": ^1.2.0
-  languageName: unknown
-  linkType: soft
-
 "@rescript/darwin-arm64@npm:12.2.0":
   version: 12.2.0
   resolution: "@rescript/darwin-arm64@npm:12.2.0"
@@ -8359,6 +8346,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rescript-base-ui@workspace:^, rescript-base-ui@workspace:packages/base-ui":
+  version: 0.0.0-use.local
+  resolution: "rescript-base-ui@workspace:packages/base-ui"
+  dependencies:
+    "@rescript/react": "npm:0.14.1"
+    react: "npm:19.2.4"
+    react-dom: "npm:19.2.4"
+    rescript: "npm:v12.2.0"
+  peerDependencies:
+    "@base-ui/react": ^1.2.0
+  languageName: unknown
+  linkType: soft
+
 "rescript-shadcn@workspace:.":
   version: 0.0.0-use.local
   resolution: "rescript-shadcn@workspace:."
@@ -8369,7 +8369,6 @@ __metadata:
     "@next/mdx": "npm:^16.1.6"
     "@radix-ui/react-label": "npm:^2.1.7"
     "@radix-ui/react-slot": "npm:^1.2.3"
-    "@rescript-shadcn/base-ui": "workspace:^"
     "@rescript/react": "npm:^0.14.1"
     "@rescript/webapi": "npm:0.1.0-experimental-127e19a"
     "@tabler/icons-react": "npm:^3.38.0"
@@ -8402,6 +8401,7 @@ __metadata:
     recharts: "npm:^3.7.0"
     rehype-pretty-code: "npm:^0.14.3"
     rescript: "npm:v12.2.0"
+    rescript-base-ui: "workspace:^"
     shadcn: "npm:^3.0.0"
     shiki: "npm:^4.0.1"
     sonner: "npm:^2.0.7"

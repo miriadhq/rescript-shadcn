@@ -1,5 +1,5 @@
 {
-  "name": "@rescript-shadcn/base-ui",
+  "name": "rescript-base-ui",
   "namespace": "base-ui",
   "sources": [
     {
