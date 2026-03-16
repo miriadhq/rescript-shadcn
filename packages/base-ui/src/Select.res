@@ -1,6 +1,19 @@
-module Root = {
+module Item = {
+  type t<'value> = {
+    label: string,
+    value: 'value,
+  }
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.props<'value, 'checked>> = "Root"
+  external make: React.component<Types.props<'value, 'checked>> = "Item"
+}
+
+module Root = {
+  type props<'value, 'checked> = {
+    ...Types.props<'value, 'checked>,
+    items?: array<Item.t<'value>>,
+  }
+  @module("@base-ui/react/select") @scope("Select")
+  external make: React.component<props<'value, 'checked>> = "Root"
 }
 
 module Trigger = {
@@ -41,11 +54,6 @@ module Popup = {
 module List = {
   @module("@base-ui/react/select") @scope("Select")
   external make: React.component<Types.props<'value, 'checked>> = "List"
-}
-
-module Item = {
-  @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.props<'value, 'checked>> = "Item"
 }
 
 module ItemIndicator = {

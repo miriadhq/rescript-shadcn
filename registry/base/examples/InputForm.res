@@ -1,9 +1,7 @@
-type country = {label: string, value: string}
-
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let countries = [
-    {label: "United States", value: "us"},
+    {BaseUi.Select.Item.label: "United States", value: "us"},
     {label: "United Kingdom", value: "uk"},
     {label: "Canada", value: "ca"},
   ]
@@ -27,7 +25,7 @@ let make = ({}: Demo.Props.t) => {
         </Field>
         <Field>
           <Field.Label htmlFor="form-country"> {"Country"->React.string} </Field.Label>
-          <Select defaultValue="us">
+          <Select items={countries} defaultValue="us">
             <Select.Trigger id="form-country">
               <Select.Value />
             </Select.Trigger>

@@ -67,7 +67,8 @@ let make = ({}: Demo.Props.t) => {
               "Close"
             } else {
               "Open"
-            } ++ " Sidebar")->React.string}
+            })->React.string}
+            {" Sidebar"->React.string}
           </span>
         </Button>
       </header>

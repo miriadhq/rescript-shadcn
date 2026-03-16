@@ -1,12 +1,7 @@
 @@directive("'use client'")
 
-type currency = {
-  label: string,
-  value: string,
-}
-
-let currencies: array<currency> = [
-  {label: "US Dollar", value: "$"},
+let currencies = [
+  {BaseUi.Select.Item.label: "US Dollar", value: "$"},
   {label: "Euro", value: "€"},
   {label: "British Pound", value: "£"},
 ]
@@ -14,11 +9,10 @@ let currencies: array<currency> = [
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (currency, setCurrency) = React.useState(() => "$")
-  let items = currencies->Array.map(item => item.value)
 
   <ButtonGroup>
     <ButtonGroup>
-      <Select items value=currency onValueChange={(value, _) => setCurrency(_ => value)}>
+      <Select items=currencies value=currency onValueChange={(value, _) => setCurrency(_ => value)}>
         <Select.Trigger className="font-mono"> {currency->React.string} </Select.Trigger>
         <Select.Content dataAlignTrigger={false} align=BaseUi.Types.Align.Start>
           <Select.Group>

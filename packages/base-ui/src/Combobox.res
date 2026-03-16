@@ -1,6 +1,11 @@
+type props<'value, 'checked> = {
+  ...Types.props<'value, 'checked>,
+  items?: array<'value>,
+}
+
 module Root = {
   @module("@base-ui/react/combobox") @scope("Combobox")
-  external make: React.component<Types.props<'value, 'checked>> = "Root"
+  external make: React.component<props<'value, 'checked>> = "Root"
 }
 
 module Value = {
@@ -67,7 +72,7 @@ module Icon = {
 
 module Group = {
   @module("@base-ui/react/combobox") @scope("Combobox")
-  external make: React.component<Types.props<'value, 'checked>> = "Group"
+  external make: React.component<props<'value, 'checked>> = "Group"
 }
 
 module GroupLabel = {
@@ -106,8 +111,11 @@ module Row = {
 }
 
 module Collection = {
-  @module("@base-ui/react/combobox") @scope("Combobox")
-  external make: React.component<Types.props<'value, 'checked>> = "Collection"
+  @module("@base-ui/react/combobox") @scope("Combobox") @react.component
+  external make: (
+    ~children: ('item, int) => React.element,
+    @as("dataSlot") ~dataSlot: string=?,
+  ) => React.element = "Collection"
 }
 
 module Empty = {

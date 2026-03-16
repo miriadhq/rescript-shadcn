@@ -23,7 +23,7 @@ let make = ({}: Demo.Props.t) =>
     <InputGroup>
       <InputGroup.Input placeholder="Refreshing data..." />
       <InputGroup.Addon>
-        <Icons.Loader2 className="animate-spin" />
+        <Icons.Loader className="animate-spin" />
       </InputGroup.Addon>
       <InputGroup.Addon align=InlineEnd>
         <InputGroup.Text className="text-muted-foreground">

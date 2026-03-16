@@ -1,3 +1,5 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Button nativeButton={false} render={<a href="#" />}> {"Login"->React.string} </Button>
+  <a href="#" className={Button.buttonVariants(~variant=Secondary, ~size=Sm)}>
+    {"Login"->React.string}
+  </a>

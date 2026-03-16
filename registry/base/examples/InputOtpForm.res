@@ -16,7 +16,7 @@ let make = ({}: Demo.Props.t) =>
             {"Verification code"->React.string}
           </Field.Label>
           <Button variant=Button.Variant.Outline size=Button.Size.Xs>
-            <Icons.RefreshCcw />
+            <Icons.RefreshCw />
             {"Resend Code"->React.string}
           </Button>
         </div>

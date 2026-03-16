@@ -25,7 +25,7 @@ let make = ({}: Demo.Props.t) =>
     <InputGroup>
       <InputGroup.Input placeholder="Card number" />
       <InputGroup.Addon align=InlineEnd>
-        <Icons.Info />
+        <Icons.Star />
       </InputGroup.Addon>
     </InputGroup>
   </div>

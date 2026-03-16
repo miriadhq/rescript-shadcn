@@ -4,7 +4,7 @@ let make = ({}: Demo.Props.t) =>
     <Empty.Header>
       <Empty.Media variant=Empty.Variant.Default>
         <Avatar className="size-12">
-          <Avatar.Image src="https://github.com/shadcn.png" className="grayscale" />
+          <Avatar.Image src="https://github.com/shadcn.png" alt="" className="grayscale" />
           <Avatar.Fallback> {"LR"->React.string} </Avatar.Fallback>
         </Avatar>
       </Empty.Media>

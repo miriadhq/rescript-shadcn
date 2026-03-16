@@ -294,8 +294,10 @@ module Label = {
 
 module Collection = {
   @react.component
-  let make = (~children=?, ~items=?) =>
-    <BaseUi.Combobox.Collection ?children ?items dataSlot="combobox-collection" />
+  let make = (~children) =>
+    <BaseUi.Combobox.Collection dataSlot="combobox-collection">
+      {children}
+    </BaseUi.Combobox.Collection>
 }
 
 module Empty = {

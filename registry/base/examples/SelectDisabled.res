@@ -1,21 +1,23 @@
 type item = {
   label: string,
-  value: Nullable.t<string>,
+  value: option<string>,
   disabled: bool,
 }
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let items: array<item> = [
-    {label: "Select a fruit", value: Nullable.null, disabled: false},
-    {label: "Apple", value: Nullable.make("apple"), disabled: false},
-    {label: "Banana", value: Nullable.make("banana"), disabled: false},
-    {label: "Blueberry", value: Nullable.make("blueberry"), disabled: false},
-    {label: "Grapes", value: Nullable.make("grapes"), disabled: true},
-    {label: "Pineapple", value: Nullable.make("pineapple"), disabled: false},
+  let items = [
+    {label: "Select a fruit", value: None, disabled: false},
+    {label: "Apple", value: Some("apple"), disabled: false},
+    {label: "Banana", value: Some("banana"), disabled: false},
+    {label: "Blueberry", value: Some("blueberry"), disabled: false},
+    {label: "Grapes", value: Some("grapes"), disabled: true},
+    {label: "Pineapple", value: Some("pineapple"), disabled: false},
   ]
 
-  <Select items disabled={true}>
+  <Select
+    items={items->Array.map(({label, value}) => {BaseUi.Select.Item.label, value})} disabled={true}
+  >
     <Select.Trigger className="w-full max-w-48">
       <Select.Value />
     </Select.Trigger>

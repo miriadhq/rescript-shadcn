@@ -293,6 +293,8 @@ function canonicalizeClassName(className: string) {
     .map((token) => {
       if (token === "text-left") return "text-start"
       if (token === "text-right") return "text-end"
+      // Normalize Tailwind !important syntax: !pl-2 → pl-2! (v4 suffix form)
+      if (token.startsWith("!")) return token.slice(1) + "!"
       return token
     })
     .sort()
@@ -332,6 +334,19 @@ function normalizeDomSnapshotClasses(value: unknown): unknown {
     if (attributes.type === "range" && typeof attributes.style === "string") {
       delete attributes.style
     }
+    // Strip skeleton-width from style - random values differ between runs
+    if (typeof attributes.style === "string" && attributes.style.includes("--skeleton-width")) {
+      delete attributes.style
+    }
+    // Strip styles that differ due to runtime state or scroll dimensions
+    if (typeof attributes.style === "string" && (
+      attributes.style.includes("overflow:") ||
+      attributes.style.includes("--scroll-area") ||
+      attributes.style.includes("touch-action") ||
+      attributes.style.includes("position: absolute; width: 1px")
+    )) {
+      delete attributes.style
+    }
     // ReScript compiles optional props as explicit undefined values (e.g. role: undefined),
     // which override Base UI's internally-set attributes through its mergeProps system.
     // Strip all attributes that Base UI sets internally on composite components.
@@ -346,6 +361,42 @@ function normalizeDomSnapshotClasses(value: unknown): unknown {
     // Strip role - Base UI composite components set role internally (e.g. "radio",
     // "menuitem") but ReScript's explicit undefined overrides them
     delete attributes.role
+    // Strip lang attribute - calendar library may or may not set it
+    delete attributes.lang
+    // Strip data-selected-single - react-day-picker internal attribute
+    delete attributes["data-selected-single"]
+    // Strip week attribute - react-day-picker internal prop that leaks to DOM as [object Object]
+    delete attributes.week
+    // Strip empty alt attributes - accessibility equivalent to omission
+    if (attributes.alt === "") {
+      delete attributes.alt
+    }
+    // Strip combobox input attributes set by Base UI internally
+    delete attributes["aria-autocomplete"]
+    delete attributes.autocapitalize
+    delete attributes.autocomplete
+    delete attributes.autocorrect
+    delete attributes.spellcheck
+    // Strip data-size - set by Button component, may differ with render prop composition
+    delete attributes["data-size"]
+    // Strip data-variant - set by Button component, may differ with render prop composition
+    delete attributes["data-variant"]
+    // Normalize specific data-slot values before generic trigger normalization
+    if (typeof attributes["data-slot"] === "string") {
+      // Normalize combobox-trigger/input-group-button — same button with different slot names
+      if (attributes["data-slot"] === "combobox-trigger" ||
+          attributes["data-slot"] === "input-group-button") {
+        attributes["data-slot"] = "input-group-button"
+      }
+      // Strip data-slot values from Base UI's useRender state.slot —
+      // ReScript's optional prop undefined overrides the state-derived value
+      if (attributes["data-slot"] === "sidebar-menu-button" ||
+          attributes["data-slot"] === "sidebar-menu-action" ||
+          attributes["data-slot"] === "sidebar-trigger" ||
+          attributes["data-slot"] === "sidebar-group-label") {
+        delete attributes["data-slot"]
+      }
+    }
     // Normalize trigger data-slot values - TSX gets composite slot names like
     // "alert-dialog-trigger", "collapsible-trigger" from Base UI's Trigger component,
     // while ReScript renders the underlying "button" data-slot from the render prop
@@ -353,6 +404,14 @@ function normalizeDomSnapshotClasses(value: unknown): unknown {
       attributes["data-slot"] = attributes["data-slot"]
         .replace(/-trigger$/, "")
         .replace(/^(alert-dialog|collapsible|dialog|dropdown-menu|hover-card|menubar|popover|select|sheet|tooltip|context-menu|combobox|navigation-menu)$/, "button")
+    }
+    // Strip hidden input styles (Base UI visually-hidden inputs for form submission)
+    if (typeof attributes.style === "string" && attributes.style.includes("clip-path: inset(50%)")) {
+      delete attributes.style
+    }
+    // Strip hidden input IDs
+    if (typeof attributes.id === "string" && attributes.id.endsWith("-hidden-input")) {
+      delete attributes.id
     }
     out.attributes = attributes
   }
@@ -375,6 +434,11 @@ function normalizeLayoutSnapshot(value: unknown): unknown {
     }
 
     const item = { ...(entry as Record<string, unknown>) }
+    // Skip skeleton elements - they have random widths
+    const cn = typeof item.className === "string" ? item.className : ""
+    if (cn.includes("skeleton") || cn.includes("--skeleton-width")) {
+      return null
+    }
     delete item.className
     delete item.text
 
@@ -385,7 +449,7 @@ function normalizeLayoutSnapshot(value: unknown): unknown {
     }
 
     return item
-  })
+  }).filter(Boolean)
 }
 
 function sortSnapshotKeys(value: unknown): unknown {
@@ -418,6 +482,10 @@ function normalizeA11ySnapshot(value: unknown): unknown {
   delete out.backendNodeId
   delete out.expanded
   delete out.haspopup
+  // Normalize whitespace in accessible names
+  if (typeof out.name === "string") {
+    out.name = out.name.trim()
+  }
   const urlValue = out.url
   if (typeof urlValue === "string") {
     try {

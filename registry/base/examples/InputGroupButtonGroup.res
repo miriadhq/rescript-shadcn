@@ -8,7 +8,7 @@ let make = ({}: Demo.Props.t) =>
       <InputGroup>
         <InputGroup.Input id="url" />
         <InputGroup.Addon align=InlineEnd>
-          <Icons.ExternalLink />
+          <Icons.Link2 />
         </InputGroup.Addon>
       </InputGroup>
       <ButtonGroup.Text> {".com"->React.string} </ButtonGroup.Text>

@@ -1,24 +1,17 @@
 @@directive("'use client'")
 
-type item = {
-  label: string,
-  value: Nullable.t<string>,
-}
-
-let items: array<item> = [
-  {label: "Select a fruit", value: Nullable.null},
-  {label: "Apple", value: Nullable.make("apple")},
-  {label: "Banana", value: Nullable.make("banana")},
-  {label: "Blueberry", value: Nullable.make("blueberry")},
-  {label: "Grapes", value: Nullable.make("grapes")},
-  {label: "Pineapple", value: Nullable.make("pineapple")},
+let items = [
+  {BaseUi.Select.Item.label: "Select a fruit", value: None},
+  {label: "Apple", value: Some("apple")},
+  {label: "Banana", value: Some("banana")},
+  {label: "Blueberry", value: Some("blueberry")},
+  {label: "Grapes", value: Some("grapes")},
+  {label: "Pineapple", value: Some("pineapple")},
 ]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (alignItemWithTrigger, setAlignItemWithTrigger) = React.useState(() => true)
-  let defaultItem =
-    items->Array.get(2)->Option.getOr({label: "Banana", value: Nullable.make("banana")})
 
   <Field.Group className="w-full max-w-xs">
     <Field orientation=BaseUi.Types.Orientation.Horizontal>
@@ -35,7 +28,7 @@ let make = ({}: Demo.Props.t) => {
       />
     </Field>
     <Field>
-      <Select items defaultValue={defaultItem}>
+      <Select items defaultValue=Some("banana")>
         <Select.Trigger>
           <Select.Value />
         </Select.Trigger>

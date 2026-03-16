@@ -4,7 +4,7 @@ let make = ({}: Demo.Props.t) =>
     <Item variant=Item.Variant.Outline>
       <Item.Media>
         <Avatar className="size-10">
-          <Avatar.Image src="https://github.com/evilrabbit.png" />
+          <Avatar.Image src="https://github.com/evilrabbit.png" alt="" />
           <Avatar.Fallback> {"ER"->React.string} </Avatar.Fallback>
         </Avatar>
       </Item.Media>

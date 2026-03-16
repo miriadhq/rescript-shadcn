@@ -1,79 +1,74 @@
-type item = {
-  label: string,
-  value: Nullable.t<string>,
-}
-
-let northAmerica: array<item> = [
-  {label: "Eastern Standard Time", value: Nullable.make("est")},
-  {label: "Central Standard Time", value: Nullable.make("cst")},
-  {label: "Mountain Standard Time", value: Nullable.make("mst")},
-  {label: "Pacific Standard Time", value: Nullable.make("pst")},
-  {label: "Alaska Standard Time", value: Nullable.make("akst")},
-  {label: "Hawaii Standard Time", value: Nullable.make("hst")},
+let northAmerica = [
+  {BaseUi.Select.Item.label: "Eastern Standard Time", value: Some("est")},
+  {label: "Central Standard Time", value: Some("cst")},
+  {label: "Mountain Standard Time", value: Some("mst")},
+  {label: "Pacific Standard Time", value: Some("pst")},
+  {label: "Alaska Standard Time", value: Some("akst")},
+  {label: "Hawaii Standard Time", value: Some("hst")},
 ]
 
-let europeAfrica: array<item> = [
-  {label: "Greenwich Mean Time", value: Nullable.make("gmt")},
-  {label: "Central European Time", value: Nullable.make("cet")},
-  {label: "Eastern European Time", value: Nullable.make("eet")},
-  {label: "Western European Summer Time", value: Nullable.make("west")},
-  {label: "Central Africa Time", value: Nullable.make("cat")},
-  {label: "East Africa Time", value: Nullable.make("eat")},
+let europeAfrica = [
+  {BaseUi.Select.Item.label: "Greenwich Mean Time", value: Some("gmt")},
+  {label: "Central European Time", value: Some("cet")},
+  {label: "Eastern European Time", value: Some("eet")},
+  {label: "Western European Summer Time", value: Some("west")},
+  {label: "Central Africa Time", value: Some("cat")},
+  {label: "East Africa Time", value: Some("eat")},
 ]
 
-let asia: array<item> = [
-  {label: "Moscow Time", value: Nullable.make("msk")},
-  {label: "India Standard Time", value: Nullable.make("ist")},
-  {label: "China Standard Time", value: Nullable.make("cst_china")},
-  {label: "Japan Standard Time", value: Nullable.make("jst")},
-  {label: "Korea Standard Time", value: Nullable.make("kst")},
-  {label: "Indonesia Central Standard Time", value: Nullable.make("ist_indonesia")},
+let asia = [
+  {BaseUi.Select.Item.label: "Moscow Time", value: Some("msk")},
+  {label: "India Standard Time", value: Some("ist")},
+  {label: "China Standard Time", value: Some("cst_china")},
+  {label: "Japan Standard Time", value: Some("jst")},
+  {label: "Korea Standard Time", value: Some("kst")},
+  {label: "Indonesia Central Standard Time", value: Some("ist_indonesia")},
 ]
 
-let australiaPacific: array<item> = [
-  {label: "Australian Western Standard Time", value: Nullable.make("awst")},
-  {label: "Australian Central Standard Time", value: Nullable.make("acst")},
-  {label: "Australian Eastern Standard Time", value: Nullable.make("aest")},
-  {label: "New Zealand Standard Time", value: Nullable.make("nzst")},
-  {label: "Fiji Time", value: Nullable.make("fjt")},
+let australiaPacific = [
+  {BaseUi.Select.Item.label: "Australian Western Standard Time", value: Some("awst")},
+  {label: "Australian Central Standard Time", value: Some("acst")},
+  {label: "Australian Eastern Standard Time", value: Some("aest")},
+  {label: "New Zealand Standard Time", value: Some("nzst")},
+  {label: "Fiji Time", value: Some("fjt")},
 ]
 
-let southAmerica: array<item> = [
-  {label: "Argentina Time", value: Nullable.make("art")},
-  {label: "Bolivia Time", value: Nullable.make("bot")},
-  {label: "Brasilia Time", value: Nullable.make("brt")},
-  {label: "Chile Standard Time", value: Nullable.make("clt")},
+let southAmerica = [
+  {BaseUi.Select.Item.label: "Argentina Time", value: Some("art")},
+  {label: "Bolivia Time", value: Some("bot")},
+  {label: "Brasilia Time", value: Some("brt")},
+  {label: "Chile Standard Time", value: Some("clt")},
 ]
 
-let items: array<item> = [
-  {label: "Select a timezone", value: Nullable.null},
-  {label: "Eastern Standard Time", value: Nullable.make("est")},
-  {label: "Central Standard Time", value: Nullable.make("cst")},
-  {label: "Mountain Standard Time", value: Nullable.make("mst")},
-  {label: "Pacific Standard Time", value: Nullable.make("pst")},
-  {label: "Alaska Standard Time", value: Nullable.make("akst")},
-  {label: "Hawaii Standard Time", value: Nullable.make("hst")},
-  {label: "Greenwich Mean Time", value: Nullable.make("gmt")},
-  {label: "Central European Time", value: Nullable.make("cet")},
-  {label: "Eastern European Time", value: Nullable.make("eet")},
-  {label: "Western European Summer Time", value: Nullable.make("west")},
-  {label: "Central Africa Time", value: Nullable.make("cat")},
-  {label: "East Africa Time", value: Nullable.make("eat")},
-  {label: "Moscow Time", value: Nullable.make("msk")},
-  {label: "India Standard Time", value: Nullable.make("ist")},
-  {label: "China Standard Time", value: Nullable.make("cst_china")},
-  {label: "Japan Standard Time", value: Nullable.make("jst")},
-  {label: "Korea Standard Time", value: Nullable.make("kst")},
-  {label: "Indonesia Central Standard Time", value: Nullable.make("ist_indonesia")},
-  {label: "Australian Western Standard Time", value: Nullable.make("awst")},
-  {label: "Australian Central Standard Time", value: Nullable.make("acst")},
-  {label: "Australian Eastern Standard Time", value: Nullable.make("aest")},
-  {label: "New Zealand Standard Time", value: Nullable.make("nzst")},
-  {label: "Fiji Time", value: Nullable.make("fjt")},
-  {label: "Argentina Time", value: Nullable.make("art")},
-  {label: "Bolivia Time", value: Nullable.make("bot")},
-  {label: "Brasilia Time", value: Nullable.make("brt")},
-  {label: "Chile Standard Time", value: Nullable.make("clt")},
+let items = [
+  {BaseUi.Select.Item.label: "Select a timezone", value: None},
+  {label: "Eastern Standard Time", value: Some("est")},
+  {label: "Central Standard Time", value: Some("cst")},
+  {label: "Mountain Standard Time", value: Some("mst")},
+  {label: "Pacific Standard Time", value: Some("pst")},
+  {label: "Alaska Standard Time", value: Some("akst")},
+  {label: "Hawaii Standard Time", value: Some("hst")},
+  {label: "Greenwich Mean Time", value: Some("gmt")},
+  {label: "Central European Time", value: Some("cet")},
+  {label: "Eastern European Time", value: Some("eet")},
+  {label: "Western European Summer Time", value: Some("west")},
+  {label: "Central Africa Time", value: Some("cat")},
+  {label: "East Africa Time", value: Some("eat")},
+  {label: "Moscow Time", value: Some("msk")},
+  {label: "India Standard Time", value: Some("ist")},
+  {label: "China Standard Time", value: Some("cst_china")},
+  {label: "Japan Standard Time", value: Some("jst")},
+  {label: "Korea Standard Time", value: Some("kst")},
+  {label: "Indonesia Central Standard Time", value: Some("ist_indonesia")},
+  {label: "Australian Western Standard Time", value: Some("awst")},
+  {label: "Australian Central Standard Time", value: Some("acst")},
+  {label: "Australian Eastern Standard Time", value: Some("aest")},
+  {label: "New Zealand Standard Time", value: Some("nzst")},
+  {label: "Fiji Time", value: Some("fjt")},
+  {label: "Argentina Time", value: Some("art")},
+  {label: "Bolivia Time", value: Some("bot")},
+  {label: "Brasilia Time", value: Some("brt")},
+  {label: "Chile Standard Time", value: Some("clt")},
 ]
 
 @react.componentWithProps(Demo.Props.t)

@@ -21,7 +21,7 @@ let make = ({}: Demo.Props.t) =>
       <InputGroup>
         <InputGroup.Input id="input-icon-right-07" />
         <InputGroup.Addon align=InlineEnd>
-          <Icons.Eye />
+          <Icons.EyeOff />
         </InputGroup.Addon>
       </InputGroup>
     </Field>
@@ -32,10 +32,10 @@ let make = ({}: Demo.Props.t) =>
       <InputGroup>
         <InputGroup.Input id="input-icon-both-09" />
         <InputGroup.Addon>
-          <Icons.Search className="text-muted-foreground" />
+          <Icons.Mic className="text-muted-foreground" />
         </InputGroup.Addon>
         <InputGroup.Addon align=InlineEnd>
-          <Icons.Info className="animate-pulse text-red-500" />
+          <Icons.Radio className="animate-pulse text-red-500" />
         </InputGroup.Addon>
       </InputGroup>
     </Field>
@@ -64,13 +64,13 @@ let make = ({}: Demo.Props.t) =>
       <InputGroup>
         <InputGroup.Input id="input-icon-both-10" />
         <InputGroup.Addon align=InlineEnd>
-          <Icons.Info />
-          <InputGroup.Button size=InputGroup.Size.IconXs>
-            <Icons.Download />
+          <Icons.Star />
+          <InputGroup.Button size=IconXs>
+            <Icons.Copy />
           </InputGroup.Button>
         </InputGroup.Addon>
         <InputGroup.Addon>
-          <Icons.Info className="animate-pulse text-red-500" />
+          <Icons.Radio className="animate-pulse text-red-500" />
         </InputGroup.Addon>
       </InputGroup>
     </Field>

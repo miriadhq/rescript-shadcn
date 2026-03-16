@@ -1,28 +1,23 @@
-type item = {
-  label: string,
-  value: Nullable.t<string>,
-}
-
-let fruits: array<item> = [
-  {label: "Apple", value: Nullable.make("apple")},
-  {label: "Banana", value: Nullable.make("banana")},
-  {label: "Blueberry", value: Nullable.make("blueberry")},
+let fruits = [
+  {BaseUi.Select.Item.label: "Apple", value: Some("apple")},
+  {label: "Banana", value: Some("banana")},
+  {label: "Blueberry", value: Some("blueberry")},
 ]
 
-let vegetables: array<item> = [
-  {label: "Carrot", value: Nullable.make("carrot")},
-  {label: "Broccoli", value: Nullable.make("broccoli")},
-  {label: "Spinach", value: Nullable.make("spinach")},
+let vegetables = [
+  {BaseUi.Select.Item.label: "Carrot", value: Some("carrot")},
+  {label: "Broccoli", value: Some("broccoli")},
+  {label: "Spinach", value: Some("spinach")},
 ]
 
-let allItems: array<item> = [
-  {label: "Select a fruit", value: Nullable.null},
-  {label: "Apple", value: Nullable.make("apple")},
-  {label: "Banana", value: Nullable.make("banana")},
-  {label: "Blueberry", value: Nullable.make("blueberry")},
-  {label: "Carrot", value: Nullable.make("carrot")},
-  {label: "Broccoli", value: Nullable.make("broccoli")},
-  {label: "Spinach", value: Nullable.make("spinach")},
+let allItems = [
+  {BaseUi.Select.Item.label: "Select a fruit", value: None},
+  {label: "Apple", value: Some("apple")},
+  {label: "Banana", value: Some("banana")},
+  {label: "Blueberry", value: Some("blueberry")},
+  {label: "Carrot", value: Some("carrot")},
+  {label: "Broccoli", value: Some("broccoli")},
+  {label: "Spinach", value: Some("spinach")},
 ]
 
 @react.componentWithProps(Demo.Props.t)

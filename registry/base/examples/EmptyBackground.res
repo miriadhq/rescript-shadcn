@@ -1,9 +1,16 @@
+module TablerIcons = {
+  module Bell = {
+    @module("@tabler/icons-react") @react.component
+    external make: (~className: string=?) => React.element = "IconBell"
+  }
+}
+
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Empty className="bg-muted/30 h-full">
     <Empty.Header>
       <Empty.Media variant=Empty.Variant.Icon>
-        <Icons.Bell />
+        <TablerIcons.Bell />
       </Empty.Media>
       <Empty.Title> {"No Notifications"->React.string} </Empty.Title>
       <Empty.Description className="max-w-xs text-pretty">

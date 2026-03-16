@@ -572,12 +572,14 @@ module GroupAction = {
     ~onClick=?,
     ~onKeyDown=?,
     ~render=?,
+    ~title=?,
   ) => {
     let props: BaseUi.Types.props<string, bool> = {
       ?id,
       ?style,
       ?onClick,
       ?onKeyDown,
+      ?title,
       render: React.null,
       children,
       dataSlot: "sidebar-group-action",

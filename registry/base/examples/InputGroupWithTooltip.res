@@ -80,7 +80,7 @@ let make = ({}: Demo.Props.t) => {
         <InputGroup.Input id="input-secure-19" />
         <InputGroup.Addon align=InlineEnd>
           <InputGroup.Button size=InputGroup.Size.IconXs>
-            <Icons.Info />
+            <Icons.Star />
           </InputGroup.Button>
         </InputGroup.Addon>
       </InputGroup>

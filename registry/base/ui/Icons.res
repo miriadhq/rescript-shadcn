@@ -48,6 +48,11 @@ module Info = {
   external make: React.component<props> = "InfoIcon"
 }
 
+module Loader = {
+  @module("lucide-react")
+  external make: React.component<props> = "LoaderIcon"
+}
+
 module Loader2 = {
   @module("lucide-react")
   external make: React.component<props> = "Loader2Icon"
@@ -611,6 +616,31 @@ module LifeBuoy = {
 module Send = {
   @module("lucide-react")
   external make: React.component<props> = "SendIcon"
+}
+
+module CornerDownLeft = {
+  @module("lucide-react")
+  external make: React.component<props> = "CornerDownLeftIcon"
+}
+
+module RefreshCw = {
+  @module("lucide-react")
+  external make: React.component<props> = "RefreshCwIcon"
+}
+
+module Mic = {
+  @module("lucide-react")
+  external make: React.component<props> = "MicIcon"
+}
+
+module Radio = {
+  @module("lucide-react")
+  external make: React.component<props> = "RadioIcon"
+}
+
+module Link2 = {
+  @module("lucide-react")
+  external make: React.component<props> = "Link2Icon"
 }
 
 module PanelLeftClose = {

@@ -3,7 +3,7 @@ let make = ({}: Demo.Props.t) =>
   <Item.Group>
     <Item variant=Item.Variant.Outline>
       <Item.Media variant=Item.Media.Variant.Icon>
-        <Icons.Archive />
+        <Icons.Inbox />
       </Item.Media>
       <Item.Content>
         <Item.Title> {"Item 1"->React.string} </Item.Title>
@@ -12,7 +12,7 @@ let make = ({}: Demo.Props.t) =>
     </Item>
     <Item variant=Item.Variant.Outline>
       <Item.Media variant=Item.Media.Variant.Icon>
-        <Icons.Archive />
+        <Icons.Inbox />
       </Item.Media>
       <Item.Content>
         <Item.Title> {"Item 2"->React.string} </Item.Title>
@@ -21,7 +21,7 @@ let make = ({}: Demo.Props.t) =>
     </Item>
     <Item variant=Item.Variant.Outline>
       <Item.Media variant=Item.Media.Variant.Icon>
-        <Icons.Archive />
+        <Icons.Inbox />
       </Item.Media>
       <Item.Content>
         <Item.Title> {"Item 3"->React.string} </Item.Title>

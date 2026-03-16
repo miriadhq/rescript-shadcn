@@ -34,13 +34,11 @@ module NavProjectsSkeleton = {
   @react.component
   let make = () =>
     <Sidebar.Menu>
-      {[0, 1, 2, 3, 4]
-      ->Array.map(i =>
+      {Array.fromInitializer(~length=5, i =>
         <Sidebar.MenuItem key={Int.toString(i)}>
           <Sidebar.MenuSkeleton showIcon=true />
         </Sidebar.MenuItem>
-      )
-      ->React.array}
+      )->React.array}
     </Sidebar.Menu>
 }
 

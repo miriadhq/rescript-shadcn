@@ -9,19 +9,19 @@ let make = ({}: Demo.Props.t) =>
         <InputGroup.Text> {"Line 1, Column 1"->React.string} </InputGroup.Text>
         <InputGroup.Button size=Sm className="ml-auto" variant=Default>
           {"Run"->React.string}
-          <Icons.ArrowRight />
+          <Icons.CornerDownLeft />
         </InputGroup.Button>
       </InputGroup.Addon>
       <InputGroup.Addon align=BlockStart className="border-b">
         <InputGroup.Text className="font-mono font-medium">
-          <Icons.FileCode />
+          <Icons.Code />
           {"script.js"->React.string}
         </InputGroup.Text>
         <InputGroup.Button className="ml-auto" size=IconXs>
-          <Icons.RefreshCcw />
+          <Icons.RefreshCw />
         </InputGroup.Button>
         <InputGroup.Button variant=Ghost size=IconXs>
-          <Icons.Download />
+          <Icons.Copy />
         </InputGroup.Button>
       </InputGroup.Addon>
     </InputGroup>

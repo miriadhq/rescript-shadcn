@@ -102,7 +102,7 @@ module RT = {
   @send external colToggleVisibility: (col, bool) => unit = "toggleVisibility"
   @send external colGetIsSorted: col => string = "getIsSorted"
   @send external colToggleSorting: (col, bool) => unit = "toggleSorting"
-  @send external colGetFilterValue: col => string = "getFilterValue"
+  @send external colGetFilterValue: col => Nullable.t<string> = "getFilterValue"
   @send external colSetFilterValue: (col, string) => unit = "setFilterValue"
 
   @get external rowId: row<'data> => string = "id"
@@ -257,7 +257,7 @@ let make = ({}: Demo.Props.t) => {
     table
     ->RT.getColumn("email")
     ->Nullable.toOption
-    ->Option.map(RT.colGetFilterValue)
+    ->Option.flatMap(col => col->RT.colGetFilterValue->Nullable.toOption)
     ->Option.getOr("")
 
   <div className="w-full">

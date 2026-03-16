@@ -5,7 +5,7 @@ let make = ({}: Demo.Props.t) =>
     <InputGroup>
       <InputGroup.Input id="inline-end-input" type_="password" placeholder="Enter password" />
       <InputGroup.Addon align=InlineEnd>
-        <Icons.Eye />
+        <Icons.EyeOff />
       </InputGroup.Addon>
     </InputGroup>
     <Field.Description> {"Icon positioned at the end."->React.string} </Field.Description>

@@ -23,7 +23,7 @@ let make = ({}: Demo.Props.t) =>
           <Icons.FileCode className="text-muted-foreground" />
           <InputGroup.Text className="font-mono"> {"script.js"->React.string} </InputGroup.Text>
           <InputGroup.Button size=IconXs className="ml-auto">
-            <Icons.Download />
+            <Icons.Copy />
             <span className="sr-only"> {"Copy"->React.string} </span>
           </InputGroup.Button>
         </InputGroup.Addon>

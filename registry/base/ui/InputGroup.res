@@ -170,6 +170,7 @@ module Button = {
       ?render
       ?nativeButton
       type_={(type_ :> string)}
+      variant={(variant :> Button.Variant.t)}
       dataSlot
       dataSize={(size :> string)}
       className={cn3(baseClass, sizeClass(~size), className)}

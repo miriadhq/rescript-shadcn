@@ -1,8 +1,8 @@
 let hoverCardSides = [
-  (BaseUi.Types.Side.Left, "Left"),
-  (BaseUi.Types.Side.Top, "Top"),
-  (BaseUi.Types.Side.Bottom, "Bottom"),
-  (BaseUi.Types.Side.Right, "Right"),
+  (BaseUi.Types.Side.Left, "left"),
+  (BaseUi.Types.Side.Top, "top"),
+  (BaseUi.Types.Side.Bottom, "bottom"),
+  (BaseUi.Types.Side.Right, "right"),
 ]
 
 @react.componentWithProps(Demo.Props.t)

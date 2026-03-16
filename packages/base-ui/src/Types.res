@@ -223,7 +223,6 @@ type props<'value, 'checked> = {
   labelFormatter?: string => string,
   tickFormatter?: string => string,
   isItemEqualToValue?: ('value, 'value) => bool,
-  items?: array<'value>,
   item?: 'value,
   xStart?: float,
   xEnd?: float,

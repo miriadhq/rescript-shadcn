@@ -1,13 +1,8 @@
-type item = {
-  label: string,
-  value: Nullable.t<string>,
-}
-
-let items: array<item> = [
-  {label: "Select a fruit", value: Nullable.null},
-  {label: "Apple", value: Nullable.make("apple")},
-  {label: "Banana", value: Nullable.make("banana")},
-  {label: "Blueberry", value: Nullable.make("blueberry")},
+let items = [
+  {BaseUi.Select.Item.label: "Select a fruit", value: None},
+  {label: "Apple", value: Some("apple")},
+  {label: "Banana", value: Some("banana")},
+  {label: "Blueberry", value: Some("blueberry")},
 ]
 
 @react.componentWithProps(Demo.Props.t)

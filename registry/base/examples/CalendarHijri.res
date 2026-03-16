@@ -260,6 +260,8 @@ module HijriCalendar = {
                 ?children
               />
             </td>,
+          week: ({?children, ?className, ?role}) =>
+            <tr ?className ?role> {children->Option.getOr(React.null)} </tr>,
         },
         components,
       )}

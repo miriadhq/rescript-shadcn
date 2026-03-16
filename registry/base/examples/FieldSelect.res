@@ -1,11 +1,5 @@
-type item = {
-  label: string,
-  value: string,
-}
-
 let items = [
-  {label: "Choose department", value: ""},
-  {label: "Engineering", value: "engineering"},
+  {BaseUi.Select.Item.label: "Engineering", value: "engineering"},
   {label: "Design", value: "design"},
   {label: "Marketing", value: "marketing"},
   {label: "Sales", value: "sales"},
@@ -21,7 +15,7 @@ let make = ({}: Demo.Props.t) =>
     <Field.Label> {"Department"->React.string} </Field.Label>
     <Select items>
       <Select.Trigger>
-        <Select.Value />
+        <Select.Value placeholder="Choose department" />
       </Select.Trigger>
       <Select.Content>
         <Select.Group>

@@ -1,10 +1,5 @@
-type item = {
-  label: string,
-  value: string,
-}
-
-let months: array<item> = [
-  {label: "MM", value: ""},
+let months = [
+  {BaseUi.Select.Item.label: "MM", value: ""},
   {label: "01", value: "01"},
   {label: "02", value: "02"},
   {label: "03", value: "03"},
@@ -19,8 +14,8 @@ let months: array<item> = [
   {label: "12", value: "12"},
 ]
 
-let years: array<item> = [
-  {label: "YYYY", value: ""},
+let years = [
+  {BaseUi.Select.Item.label: "YYYY", value: ""},
   {label: "2024", value: "2024"},
   {label: "2025", value: "2025"},
   {label: "2026", value: "2026"},

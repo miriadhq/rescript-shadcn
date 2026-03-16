@@ -27,7 +27,11 @@ let make = ({}: Demo.Props.t) => {
         <Icons.Calendar dataIcon="inline-start" />
         {switch dateRange {
         | Some({Calendar.DateRange.from: from, to}) =>
-          React.string(`${from->format("LLL dd, y")} - ${to->format("LLL dd, y")}`)
+          <>
+            {from->format("LLL dd, y")->React.string}
+            {" - "->React.string}
+            {to->format("LLL dd, y")->React.string}
+          </>
         | Some({Calendar.DateRange.from: from}) => from->format("LLL dd, y")->React.string
         | _ => <span> {"Pick a date"->React.string} </span>
         }}

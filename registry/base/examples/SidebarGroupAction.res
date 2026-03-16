@@ -10,7 +10,7 @@ let make = ({}: Demo.Props.t) =>
       <Sidebar.Content>
         <Sidebar.Group>
           <Sidebar.GroupLabel> {"Projects"->React.string} </Sidebar.GroupLabel>
-          <Sidebar.GroupAction onClick={_ => toast("You clicked the group action!")}>
+          <Sidebar.GroupAction title="Add Project" onClick={_ => toast("You clicked the group action!")}>
             <Icons.Plus />
             <span className="sr-only"> {"Add Project"->React.string} </span>
           </Sidebar.GroupAction>

@@ -9,7 +9,7 @@ let make = ({}: Demo.Props.t) => {
       <InputGroup.Input placeholder="https://x.com/shadcn" readOnly={true} />
       <InputGroup.Addon align=InlineEnd>
         <InputGroup.Button ariaLabel="Copy" size=IconXs>
-          <Icons.Download />
+          <Icons.Copy />
         </InputGroup.Button>
       </InputGroup.Addon>
     </InputGroup>
@@ -23,7 +23,7 @@ let make = ({}: Demo.Props.t) => {
       <InputGroup.Input placeholder="Type to search..." />
       <InputGroup.Addon align=InlineEnd>
         <InputGroup.Button onClick={_ => setIsFavorite(f => !f)} size=IconXs>
-          <Icons.Info
+          <Icons.Star
             dataIcon={isFavorite ? "true" : "false"}
             className="data-[icon=true]:fill-blue-600 data-[icon=true]:stroke-blue-600"
           />

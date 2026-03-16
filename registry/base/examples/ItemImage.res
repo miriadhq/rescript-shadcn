@@ -44,7 +44,8 @@ let make = ({}: Demo.Props.t) =>
           </Item.Media>
           <Item.Content>
             <Item.Title className="line-clamp-1">
-              {`${song.title} - `->React.string}
+              {song.title->React.string}
+              {" - "->React.string}
               <span className="text-muted-foreground"> {song.album->React.string} </span>
             </Item.Title>
             <Item.Description> {song.artist->React.string} </Item.Description>

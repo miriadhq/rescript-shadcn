@@ -90,14 +90,14 @@ let make = ({}: Demo.Props.t) =>
         />
         <InputGroup.Addon align=BlockStart className="border-b">
           <InputGroup.Text className="font-mono font-medium">
-            <Icons.FileCode />
+            <Icons.Code />
             {"script.js"->React.string}
           </InputGroup.Text>
           <InputGroup.Button size=IconXs className="ml-auto">
-            <Icons.RefreshCcw />
+            <Icons.RefreshCw />
           </InputGroup.Button>
           <InputGroup.Button size=IconXs variant=Ghost>
-            <Icons.Download />
+            <Icons.Copy />
           </InputGroup.Button>
         </InputGroup.Addon>
         <InputGroup.Addon align=BlockEnd className="border-t">

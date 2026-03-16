@@ -26,7 +26,7 @@ let make = ({}: Demo.Props.t) =>
       <Item key={person.username} variant=Item.Variant.Outline>
         <Item.Media>
           <Avatar>
-            <Avatar.Image src={person.avatar} className="grayscale" />
+            <Avatar.Image src={person.avatar} alt="" className="grayscale" />
             <Avatar.Fallback>
               {person.username->String.slice(~start=0, ~end=1)->React.string}
             </Avatar.Fallback>

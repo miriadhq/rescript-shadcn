@@ -549,6 +549,8 @@ let make = props => {
               className="flex size-(--cell-size) items-center justify-center text-center" ?children
             />
           </td>,
+        week: ({?children, ?className, ?role}) =>
+          <tr ?className ?role> {children->Option.getOr(React.null)} </tr>,
       },
       components,
     )}
