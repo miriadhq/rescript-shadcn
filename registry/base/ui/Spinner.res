@@ -1,10 +1,15 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@unboxed
+type dataIcon =
+  | @as("inline-start") InlineStart
+  | @as("inline-end") InlineEnd
+
 @react.component
-let make = (~className=?, ~dataIcon=?, ~dataSlot=?) => {
+let make = (~className=?, ~dataIcon: option<dataIcon>=?, ~dataSlot=?) => {
   <Icons.Loader2
-    ?dataIcon
+    dataIcon=?{(dataIcon :> option<string>)}
     ?dataSlot
     role="status"
     ariaLabel="Loading"

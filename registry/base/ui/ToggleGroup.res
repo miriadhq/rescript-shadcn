@@ -3,6 +3,9 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@module("tailwind-merge")
+external cn3: (string, string, option<string>) => string = "twMerge"
+
 module Variant = Toggle.Variant
 module Size = Toggle.Size
 
@@ -55,17 +58,15 @@ let make = (
   ~dir=?,
   ~type_=?,
 ) => {
-  let dataVariant = variant->Option.map(variant => (variant :> string))
-  let dataSize = size->Option.map(size => (size :> string))
   <BaseUi.ToggleGroup
     dataSlot="toggle-group"
-    dataVariant=?dataVariant
-    dataSize=?dataSize
+    dataVariant=?{(variant :> option<string>)}
+    dataSize=?{(size :> option<string>)}
     dataSpacing={spacing}
     dataOrientation={(orientation :> string)}
     style={ReactDOM.Style.unsafeAddStyle({}, {"--gap": spacing})}
     className={cn(
-      "group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] rounded-lg data-vertical:flex-col data-vertical:items-stretch data-[size=sm]:rounded-[min(var(--radius-md),10px)]",
+      "group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] rounded-lg data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-vertical:flex-col data-vertical:items-stretch",
       className,
     )}
     ?id
@@ -112,19 +113,17 @@ module Item = {
     ~render=?,
   ) => {
     let context = React.useContext(toggleGroupContext)
-    let resolvedVariant = context.variant->Option.getOr(variant)
-    let resolvedSize = context.size->Option.getOr(size)
+    let variant = context.variant->Option.getOr(variant)
+    let size = context.size->Option.getOr(size)
 
     <BaseUi.Toggle
       dataSlot="toggle-group-item"
-      dataVariant={(resolvedVariant :> string)}
-      dataSize={(resolvedSize :> string)}
+      dataVariant={(variant :> string)}
+      dataSize={(size :> string)}
       dataSpacing=?context.spacing
-      className={cn(
-        `shrink-0 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t ${Toggle.toggleVariants(
-            ~variant=resolvedVariant,
-            ~size=resolvedSize,
-          )}`,
+      className={cn3(
+        "shrink-0 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        Toggle.toggleVariants(~variant, ~size),
         className,
       )}
       ?id

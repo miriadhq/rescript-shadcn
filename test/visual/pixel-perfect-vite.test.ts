@@ -377,6 +377,13 @@ function normalizeLayoutSnapshot(value: unknown): unknown {
     const item = { ...(entry as Record<string, unknown>) }
     delete item.className
     delete item.text
+
+    for (const key of ["x", "y", "width", "height"] as const) {
+      if (typeof item[key] === "number") {
+        item[key] = Math.round(item[key] as number)
+      }
+    }
+
     return item
   })
 }

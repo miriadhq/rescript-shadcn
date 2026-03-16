@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/base/examples/ButtonSpinner.res",
-      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex gap-2\">\n    <Button variant=Button.Variant.Outline disabled=true>\n      <Spinner dataIcon=\"inline-start\" />\n      {\"Generating\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Secondary disabled=true>\n      {\"Downloading\"->React.string}\n      <Spinner dataIcon=\"inline-start\" />\n    </Button>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex gap-2\">\n    <Button variant=Button.Variant.Outline disabled=true>\n      <Spinner dataIcon=InlineStart />\n      {\"Generating\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Secondary disabled=true>\n      {\"Downloading\"->React.string}\n      <Spinner dataIcon=InlineStart />\n    </Button>\n  </div>\n",
       "type": "registry:example"
     }
   ],

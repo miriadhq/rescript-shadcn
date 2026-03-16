@@ -12,7 +12,7 @@ let make = ({}: Demo.Props.t) =>
       <InputGroup.Addon align=BlockEnd>
         <Spinner />
         {"Validating..."->React.string}
-        <InputGroup.Button className="ml-auto">
+        <InputGroup.Button className="ml-auto" variant=Default>
           <Icons.ArrowUp />
           <span className="sr-only"> {"Send"->React.string} </span>
         </InputGroup.Button>

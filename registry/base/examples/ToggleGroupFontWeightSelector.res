@@ -10,6 +10,8 @@ let make = ({}: Demo.Props.t) => {
       value={[fontWeight]}
       onValueChange={(value, _) => setFontWeight(_ => value->Array.get(0)->Option.getOr("normal"))}
       variant=ToggleGroup.Variant.Outline
+      spacing=2.
+      size=Lg
     >
       <ToggleGroup.Item
         value="light"
@@ -47,7 +49,8 @@ let make = ({}: Demo.Props.t) => {
     <Field.Description>
       {"Use "->React.string}
       <code className="bg-muted rounded-md px-1 py-0.5 font-mono">
-        {`font-${fontWeight}`->React.string}
+        {"font-"->React.string}
+        {fontWeight->React.string}
       </code>
       {" to set the font weight."->React.string}
     </Field.Description>

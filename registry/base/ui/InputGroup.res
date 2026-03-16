@@ -10,7 +10,7 @@ external cn: (string, option<string>) => string = "twMerge"
 @module("tailwind-merge")
 external cn3: (string, string, option<string>) => string = "twMerge"
 
-module DataAlign = {
+module Align = {
   @unboxed
   type t =
     | @as("inline-start") InlineStart
@@ -80,7 +80,7 @@ let make = (
 module Addon = {
   let baseClass = "flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm font-medium text-muted-foreground select-none group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4"
 
-  let alignClass = (~align: DataAlign.t) =>
+  let alignClass = (~align=Align.InlineStart) =>
     switch align {
     | InlineStart => "order-first pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem]"
     | InlineEnd => "order-last pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem]"
@@ -90,7 +90,7 @@ module Addon = {
 
   @react.component
   let make = (
-    ~align=DataAlign.InlineStart,
+    ~align=Align.InlineStart,
     ~className=?,
     ~children=?,
     ~id=?,
@@ -154,6 +154,8 @@ module Button = {
     ~dataActive=?,
     ~ariaPressed=?,
     ~ariaLabel=?,
+    ~render=?,
+    ~nativeButton=?,
   ) => {
     <Button
       ?id
@@ -165,9 +167,10 @@ module Button = {
       ?dataActive
       ?ariaPressed
       ?ariaLabel
+      ?render
+      ?nativeButton
       type_={(type_ :> string)}
       dataSlot
-      size={(size :> Button.Size.t)}
       dataSize={(size :> string)}
       className={cn3(baseClass, sizeClass(~size), className)}
     />

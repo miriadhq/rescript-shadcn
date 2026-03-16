@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/base/examples/SpinnerButton.res",
-      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-col items-center gap-4\">\n    <Button disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=\"inline-start\" />\n      {\"Loading...\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Outline disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=\"inline-start\" />\n      {\"Please wait\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Secondary disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=\"inline-start\" />\n      {\"Processing\"->React.string}\n    </Button>\n  </div>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-col items-center gap-4\">\n    <Button disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=InlineStart />\n      {\"Loading...\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Outline disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=InlineStart />\n      {\"Please wait\"->React.string}\n    </Button>\n    <Button variant=Button.Variant.Secondary disabled={true} size=Button.Size.Sm>\n      <Spinner dataIcon=InlineStart />\n      {\"Processing\"->React.string}\n    </Button>\n  </div>\n",
       "type": "registry:example"
     }
   ],

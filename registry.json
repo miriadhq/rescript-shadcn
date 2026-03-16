@@ -236,12 +236,11 @@
       "name": "Command",
       "type": "registry:ui",
       "dependencies": [
-        "@base-ui/react",
         "cmdk",
         "lucide-react"
       ],
       "registryDependencies": [
-        "Button",
+        "Dialog",
         "Icons",
         "InputGroup"
       ],

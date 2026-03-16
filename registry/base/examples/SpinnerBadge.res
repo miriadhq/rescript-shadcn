@@ -2,15 +2,15 @@
 let make = ({}: Demo.Props.t) =>
   <div className="flex items-center gap-4 [--radius:1.2rem]">
     <Badge>
-      <Spinner dataIcon="inline-start" />
+      <Spinner dataIcon=InlineStart />
       {"Syncing"->React.string}
     </Badge>
     <Badge variant=Badge.Variant.Secondary>
-      <Spinner dataIcon="inline-start" />
+      <Spinner dataIcon=InlineStart />
       {"Updating"->React.string}
     </Badge>
     <Badge variant=Badge.Variant.Outline>
-      <Spinner dataIcon="inline-start" />
+      <Spinner dataIcon=InlineStart />
       {"Processing"->React.string}
     </Badge>
   </div>
