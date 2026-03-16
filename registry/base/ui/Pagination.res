@@ -50,7 +50,7 @@ module Item = {
 module Link = {
   @react.component
   let make = (
-    ~className="",
+    ~className=?,
     ~isActive=false,
     ~size=Size.Icon,
     ~children=?,
@@ -64,7 +64,7 @@ module Link = {
     <Button
       variant={isActive ? Outline : Ghost}
       size={(size :> Button.Size.t)}
-      className
+      className={cn("", className)}
       nativeButton={false}
       render={<a
         ?id
@@ -75,7 +75,7 @@ module Link = {
         ?onClick
         ariaCurrent=?{isActive ? Some(#page) : None}
         dataSlot="pagination-link"
-        dataActive=isActive
+        dataActive=?{isActive ? Some(true) : None}
       />}
       ?children
     />
