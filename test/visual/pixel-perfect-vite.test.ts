@@ -99,7 +99,7 @@ const COMPONENT_IDS = EXAMPLE_COMPONENT_IDS.filter(
   (component) => REQUESTED_COMPONENT_ID_SET.size === 0 || REQUESTED_COMPONENT_ID_SET.has(component)
 )
 const MISSING_RESCRIPT_COMPONENT_IDS = COMPONENT_IDS.filter(
-  (component) => !hasRescriptEquivalent(component)
+  (component) => !hasRescriptEquivalent(component) && !component.endsWith("-rtl")
 )
 const PAIRED_COMPONENT_IDS = COMPONENT_IDS.filter((component) => hasRescriptEquivalent(component))
 const COMPONENT_IDS_FOR_PARITY =
