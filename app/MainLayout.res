@@ -7,7 +7,12 @@ let make = (~children) => {
       <Tooltip.Provider>
         <NavMenu />
         <Sidebar.Inset className="w-full min-w-0">
-          <div className="flex flex-col self-center max-w-3xl px-4 py-8 w-full"> {children} </div>
+          <div className="flex flex-col self-center max-w-3xl px-4 py-8 w-full">
+            <Sidebar.Trigger
+              className="md:hidden fixed bottom-4 p-1 rounded-md bg-stone-800 z-10"
+            />
+            {children}
+          </div>
         </Sidebar.Inset>
         <Sonner position=TopCenter />
       </Tooltip.Provider>
