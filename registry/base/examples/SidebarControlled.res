@@ -63,11 +63,11 @@ let make = ({}: Demo.Props.t) => {
         >
           {open_ ? <Icons.PanelLeftClose /> : <Icons.PanelLeftOpen />}
           <span>
-            {(if open_ {
+            {if open_ {
               "Close"
             } else {
               "Open"
-            })->React.string}
+            }->React.string}
             {" Sidebar"->React.string}
           </span>
         </Button>
