@@ -1,10 +1,10 @@
 let items = [
-  {BaseUi.Select.Item.label: "Select a fruit", value: None},
-  {label: "Apple", value: Some("apple")},
-  {label: "Banana", value: Some("banana")},
-  {label: "Blueberry", value: Some("blueberry")},
-  {label: "Grapes", value: Some("grapes")},
-  {label: "Pineapple", value: Some("pineapple")},
+  {BaseUi.Select.Item.label: "Select a fruit", value: Null.null},
+  {label: "Apple", value: Value("apple")},
+  {label: "Banana", value: Value("banana")},
+  {label: "Blueberry", value: Value("blueberry")},
+  {label: "Grapes", value: Value("grapes")},
+  {label: "Pineapple", value: Value("pineapple")},
 ]
 
 @react.componentWithProps(Demo.Props.t)

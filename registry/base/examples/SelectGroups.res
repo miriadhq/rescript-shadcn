@@ -1,23 +1,23 @@
 let fruits = [
-  {BaseUi.Select.Item.label: "Apple", value: Some("apple")},
-  {label: "Banana", value: Some("banana")},
-  {label: "Blueberry", value: Some("blueberry")},
+  {BaseUi.Select.Item.label: "Apple", value: Null.Value("apple")},
+  {label: "Banana", value: Value("banana")},
+  {label: "Blueberry", value: Value("blueberry")},
 ]
 
 let vegetables = [
-  {BaseUi.Select.Item.label: "Carrot", value: Some("carrot")},
-  {label: "Broccoli", value: Some("broccoli")},
-  {label: "Spinach", value: Some("spinach")},
+  {BaseUi.Select.Item.label: "Carrot", value: Null.Value("carrot")},
+  {label: "Broccoli", value: Value("broccoli")},
+  {label: "Spinach", value: Value("spinach")},
 ]
 
 let allItems = [
-  {BaseUi.Select.Item.label: "Select a fruit", value: None},
-  {label: "Apple", value: Some("apple")},
-  {label: "Banana", value: Some("banana")},
-  {label: "Blueberry", value: Some("blueberry")},
-  {label: "Carrot", value: Some("carrot")},
-  {label: "Broccoli", value: Some("broccoli")},
-  {label: "Spinach", value: Some("spinach")},
+  {BaseUi.Select.Item.label: "Select a fruit", value: Null.null},
+  {label: "Apple", value: Value("apple")},
+  {label: "Banana", value: Value("banana")},
+  {label: "Blueberry", value: Value("blueberry")},
+  {label: "Carrot", value: Value("carrot")},
+  {label: "Broccoli", value: Value("broccoli")},
+  {label: "Spinach", value: Value("spinach")},
 ]
 
 @react.componentWithProps(Demo.Props.t)
