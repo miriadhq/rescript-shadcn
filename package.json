@@ -5,6 +5,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "next dev",
