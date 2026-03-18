@@ -8,8 +8,9 @@ let make = () => {
   let pathname = Next.Navigation.usePathname()
 
   <Sidebar>
-    <Sidebar.Header className="flex-row items-center gap-2">
-      <Sidebar.MenuButton render={<Next.Link href="/" />}>
+    <Sidebar.Header className="flex-row items-center gap-1">
+      <Sidebar.MenuButton render={<Next.Link href="/" />} className="text-sm">
+        <BrandIcons.RescriptShadcn className="h-2" />
         {"ReScript Shadcn"->React.string}
       </Sidebar.MenuButton>
       <ModeSwitcher />

@@ -7,6 +7,7 @@ let make = () => {
       <div className="flex items-center gap-2">
         <Sidebar.Trigger className="md:hidden" />
         <h1 className="text-3xl font-bold tracking-tight"> {"Rescript-Shadcn"->React.string} </h1>
+        <BrandIcons.RescriptShadcn className="h-10" />
       </div>
       <p className="text-muted-foreground">
         {"Beautiful rescript-react components based on base-ui, distributed using shadcn."->React.string}
