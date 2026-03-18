@@ -79,28 +79,14 @@ module Legend = {
 }
 
 module Group = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~dir=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dataSlot="field-group",
-  ) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?dir
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot
+      {...props}
+      dataSlot="field-group"
       className={cn(
         "group/field-group @container/field-group flex w-full flex-col gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
-        className,
+        props.className,
       )}
     />
 }
