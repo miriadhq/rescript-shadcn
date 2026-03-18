@@ -1,8 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Drawer direction="right">
-    <Drawer.Trigger asChild={true}>
-      <Button variant=Button.Variant.Outline dataSlot="drawer-trigger">
+  <Drawer direction=Right>
+    <Drawer.Trigger asChild=true>
+      <Button variant=Outline dataSlot="drawer-trigger">
         {"Scrollable Content"->React.string}
       </Button>
     </Drawer.Trigger>
@@ -20,8 +20,8 @@ let make = ({}: Demo.Props.t) =>
       </div>
       <Drawer.Footer>
         <Button> {"Submit"->React.string} </Button>
-        <Drawer.Close asChild={true}>
-          <Button variant=Button.Variant.Outline> {"Cancel"->React.string} </Button>
+        <Drawer.Close asChild=true>
+          <Button variant=Outline> {"Cancel"->React.string} </Button>
         </Drawer.Close>
       </Drawer.Footer>
     </Drawer.Content>

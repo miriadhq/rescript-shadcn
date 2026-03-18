@@ -10,6 +10,7 @@ module Item = {
 module Root = {
   type props<'value, 'checked> = {
     ...Types.props<'value, 'checked>,
+    defaultValue?: 'value,
     items?: array<Item.t<'value>>,
   }
   @module("@base-ui/react/select") @scope("Select")

@@ -1,16 +1,34 @@
-type props<'value, 'checked> = {
-  ...Types.props<'value, 'checked>,
-  items?: array<'value>,
-}
-
 module Root = {
+  type props<'value, 'checked> = {
+    ...Types.props<'value, 'checked>,
+    defaultValue?: 'value,
+    multiple?: Types.OnlyFalse.t,
+    items?: array<'value>,
+  }
   @module("@base-ui/react/combobox") @scope("Combobox")
   external make: React.component<props<'value, 'checked>> = "Root"
+
+  module Multiple = {
+    type props<'value, 'checked> = {
+      ...Types.props<'value, 'checked>,
+      defaultValue?: array<'value>,
+      multiple?: Types.OnlyTrue.t,
+      items?: array<'value>,
+    }
+    @module("@base-ui/react/combobox") @scope("Combobox")
+    external make: React.component<props<'value, 'checked>> = "Root"
+  }
 }
 
 module Value = {
+  type props<'value> = {
+    children?: 'value => React.element,
+    placeholder?: React.element,
+    ...Types.DataProps.t,
+    ...Types.AriaProps.t,
+  }
   @module("@base-ui/react/combobox") @scope("Combobox")
-  external make: React.component<Types.props<'value, 'checked>> = "Value"
+  external make: React.component<props<'value>> = "Value"
 }
 
 module Input = {
@@ -24,15 +42,16 @@ module Trigger = {
 }
 
 module List = {
-  @module("@base-ui/react/combobox") @scope("Combobox") @react.component
-  external make: (
-    @as("dataSlot") ~dataSlot: string=?,
-    ~nativeButton: bool=?,
-    ~className: string=?,
-    ~style: ReactDOM.Style.t=?,
-    ~children: ('item, int) => React.element,
-    ~render: React.element=?,
-  ) => React.element = "List"
+  type props<'item> = {
+    children: ('item, int) => React.element,
+    render?: React.element,
+    style?: ReactDOM.Style.t,
+    className?: string,
+    ...Types.DataProps.t,
+    ...Types.AriaProps.t,
+  }
+  @module("@base-ui/react/combobox") @scope("Combobox")
+  external make: React.component<props<'item>> = "List"
 }
 
 module Status = {
@@ -71,8 +90,17 @@ module Icon = {
 }
 
 module Group = {
+  type props<'value> = {
+    children?: React.element,
+    items?: array<'value>,
+    className?: string,
+    style?: ReactDOM.Style.t,
+    render?: React.element,
+    ...Types.DataProps.t,
+    ...Types.AriaProps.t,
+  }
   @module("@base-ui/react/combobox") @scope("Combobox")
-  external make: React.component<props<'value, 'checked>> = "Group"
+  external make: React.component<props<'value>> = "Group"
 }
 
 module GroupLabel = {
@@ -111,11 +139,13 @@ module Row = {
 }
 
 module Collection = {
-  @module("@base-ui/react/combobox") @scope("Combobox") @react.component
-  external make: (
-    ~children: ('item, int) => React.element,
-    @as("dataSlot") ~dataSlot: string=?,
-  ) => React.element = "Collection"
+  type props<'item> = {
+    children: ('item, int) => React.element,
+    ...Types.DataProps.t,
+    ...Types.AriaProps.t,
+  }
+  @module("@base-ui/react/combobox") @scope("Combobox")
+  external make: React.component<props<'item>> = "Collection"
 }
 
 module Empty = {

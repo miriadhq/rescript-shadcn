@@ -53,7 +53,10 @@ let data: array<drawerDatum> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let goal = 350
+  let (goal, setGloal) = React.useState(() => 350)
+  let onClick = (adjustment: int) => {
+    setGloal(goal => Math.Int.max(200, Math.Int.min(400, goal + adjustment)))
+  }
   <Drawer>
     <Drawer.Trigger asChild={true}>
       <Button variant=Button.Variant.Outline dataSlot="drawer-trigger">
@@ -63,16 +66,15 @@ let make = ({}: Demo.Props.t) => {
     <Drawer.Content>
       <div className="mx-auto w-full max-w-sm">
         <Drawer.Header>
-          <Drawer.Title> {"Move Goal"->React.string} </Drawer.Title>
           <Drawer.Description> {"Set your daily activity goal."->React.string} </Drawer.Description>
         </Drawer.Header>
         <div className="p-4 pb-0">
           <div className="flex items-center justify-center space-x-2">
             <Button
-              variant=Button.Variant.Outline
-              size=Button.Size.Icon
+              variant=Outline
+              size=Icon
               className="h-8 w-8 shrink-0 rounded-full"
-              onClick={_ => ()}
+              onClick={_ => onClick(-10)}
               disabled={goal <= 200}
             >
               <Icons.Minus />
@@ -87,8 +89,8 @@ let make = ({}: Demo.Props.t) => {
               </div>
             </div>
             <Button
-              variant=Button.Variant.Outline
-              size=Button.Size.Icon
+              variant=Outline
+              size=Icon
               className="h-8 w-8 shrink-0 rounded-full"
               onClick={_ => ()}
               disabled={goal >= 400}
@@ -107,8 +109,8 @@ let make = ({}: Demo.Props.t) => {
         </div>
         <Drawer.Footer>
           <Button> {"Submit"->React.string} </Button>
-          <Drawer.Close asChild={true}>
-            <Button variant=Button.Variant.Outline> {"Cancel"->React.string} </Button>
+          <Drawer.Close asChild=true>
+            <Button variant=Outline> {"Cancel"->React.string} </Button>
           </Drawer.Close>
         </Drawer.Footer>
       </div>

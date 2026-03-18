@@ -3,52 +3,14 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~disabled=?,
-  ~required=?,
-  ~readOnly=?,
-  ~placeholder=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~ariaLabel=?,
-  ~dir=?,
-  ~style=?,
-  ~maxLength=?,
-  ~tabIndex=?,
-  ~rows=?,
-  ~spellCheck=?,
-  ~dataSlot="textarea",
-) => {
+@react.componentWithProps(BaseUi.Types.DomProps.t)
+let make = (props: BaseUi.Types.DomProps.t) => {
   <textarea
-    ?id
-    ?name
-    ?value
-    ?defaultValue
-    ?disabled
-    ?required
-    ?readOnly
-    ?placeholder
-    ?onClick
-    ?onKeyDown
-    ?ariaLabel
-    ?dir
-    ?style
-    ?maxLength
-    ?tabIndex
-    ?rows
-    ?spellCheck
-    ?children
-    dataSlot
+    {...props}
+    dataSlot="textarea"
     className={cn(
-      "border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 placeholder:text-muted-foreground flex field-sizing-content min-h-16 w-full rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors outline-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 md:text-sm",
-      className,
+      "flex field-sizing-content min-h-16 w-full rounded-lg border border-input bg-transparent px-2.5 py-2 text-base transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+      props.className,
     )}
   />
 }

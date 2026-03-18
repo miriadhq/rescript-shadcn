@@ -14,7 +14,6 @@ let make = (
   ~defaultValue=?,
   ~onValueChange=?,
   ~disabled=?,
-  ~multiple=?,
   ~orientation=?,
   ~onClick=?,
   ~onKeyDown=?,
@@ -26,7 +25,6 @@ let make = (
     ?defaultValue
     ?onValueChange
     ?disabled
-    ?multiple
     ?orientation
     ?onClick
     ?onKeyDown
@@ -35,6 +33,38 @@ let make = (
     dataSlot="accordion"
     className={cn("flex w-full flex-col", className)}
   />
+
+module Multiple = {
+  @react.component
+  let make = (
+    ~className=?,
+    ~children=?,
+    ~id=?,
+    ~value=?,
+    ~defaultValue=?,
+    ~onValueChange=?,
+    ~disabled=?,
+    ~orientation=?,
+    ~onClick=?,
+    ~onKeyDown=?,
+    ~style=?,
+  ) =>
+    <BaseUi.Accordion.Root.Multiple
+      ?id
+      ?value
+      ?defaultValue
+      ?onValueChange
+      ?disabled
+      multiple=True
+      ?orientation
+      ?onClick
+      ?onKeyDown
+      ?style
+      ?children
+      dataSlot="accordion"
+      className={cn("flex w-full flex-col", className)}
+    />
+}
 
 module Item = {
   @react.component

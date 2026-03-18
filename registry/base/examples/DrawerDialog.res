@@ -55,7 +55,7 @@ let make = ({}: Demo.Props.t) => {
 
   if isDesktop {
     <Dialog open_ onOpenChange={(nextOpen, _) => setOpen(_ => nextOpen)}>
-      <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot="dialog-trigger" />}>
+      <Dialog.Trigger render={<Button variant=Outline dataSlot="dialog-trigger" />}>
         {"Edit Profile"->React.string}
       </Dialog.Trigger>
       <Dialog.Content className="sm:max-w-[425px]">
@@ -71,7 +71,7 @@ let make = ({}: Demo.Props.t) => {
   } else {
     <Drawer open_ onOpenChange={(nextOpen, _) => setOpen(_ => nextOpen)}>
       <Drawer.Trigger asChild={true}>
-        <Button variant=Button.Variant.Outline> {"Edit Profile"->React.string} </Button>
+        <Button variant=Outline> {"Edit Profile"->React.string} </Button>
       </Drawer.Trigger>
       <Drawer.Content>
         <Drawer.Header className="text-left">
@@ -82,8 +82,8 @@ let make = ({}: Demo.Props.t) => {
         </Drawer.Header>
         <ProfileForm className="px-4" />
         <Drawer.Footer className="pt-2">
-          <Drawer.Close asChild={true}>
-            <Button variant=Button.Variant.Outline> {"Cancel"->React.string} </Button>
+          <Drawer.Close asChild=true>
+            <Button variant=Outline> {"Cancel"->React.string} </Button>
           </Drawer.Close>
         </Drawer.Footer>
       </Drawer.Content>

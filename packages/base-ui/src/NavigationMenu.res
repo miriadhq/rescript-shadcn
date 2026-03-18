@@ -1,6 +1,11 @@
+type props<'value, 'checked> = {
+  ...Types.props<'value, 'checked>,
+  defaultValue?: 'value,
+}
+
 module Root = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.props<'value, 'checked>> = "Root"
+  external make: React.component<props<'value, 'checked>> = "Root"
 }
 
 module List = {

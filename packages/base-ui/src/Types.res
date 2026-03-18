@@ -79,9 +79,17 @@ module DataOrientation = {
     | @as("responsive") Responsive
 }
 
-module ExtraDomProps = {
+module OnlyTrue = {
+  @unboxed
+  type t = | @as(true) True
+}
+module OnlyFalse = {
+  @unboxed
+  type t = | @as(false) False
+}
+
+module DataProps = {
   type t = {
-    onKeyDownCapture?: JsxEvent.Keyboard.t => unit,
     @as("data-slot") dataSlot?: string,
     @as("data-sidebar") dataSidebar?: string,
     @as("data-side") dataSide?: string,
@@ -122,10 +130,40 @@ module ExtraDomProps = {
   }
 }
 
+module ExtraDomProps = {
+  type t = {
+    onKeyDownCapture?: JsxEvent.Keyboard.t => unit,
+    ...DataProps.t,
+  }
+}
+
 module DomProps = {
   type t = {
     ...JsxDOM.domProps,
     ...ExtraDomProps.t,
+  }
+}
+
+module AriaProps = {
+  type t = {
+    @as("aria-label") ariaLabel?: string,
+    @as("aria-controls") ariaControls?: string,
+    @as("aria-expanded") ariaExpanded?: bool,
+    @as("aria-haspopup") ariaHaspopup?: string,
+    @as("aria-current")
+    ariaCurrent?: [#page | #step | #location | #date | #time | #"true" | #"false"],
+    @as("aria-details")
+    ariaDetails?: string,
+    @as("aria-disabled")
+    ariaDisabled?: bool,
+    @as("aria-invalid")
+    ariaInvalid?: bool,
+    @as("aria-pressed")
+    ariaPressed?: bool,
+    @as("aria-roledescription")
+    ariaRoledescription?: string,
+    @as("aria-hidden")
+    ariaHidden?: bool,
   }
 }
 
@@ -164,7 +202,6 @@ type props<'value, 'checked> = {
   onOpenChange?: (bool, eventDetails) => unit,
   onOpenChangeComplete?: bool => unit,
   value?: 'value,
-  defaultValue?: 'value,
   defaultSize?: string,
   onValueChange?: ('value, eventDetails) => unit,
   checked?: 'checked,
@@ -179,7 +216,6 @@ type props<'value, 'checked> = {
   readOnly?: bool,
   required?: bool,
   indeterminate?: bool,
-  multiple?: bool,
   modal?: Modal.t,
   direction?: string,
   orientation?: Orientation.t,
@@ -238,24 +274,10 @@ type props<'value, 'checked> = {
   thumbCollisionBehavior?: ThumbCollisionBehavior.t,
   suppressHydrationWarning?: bool,
   hidden?: bool,
+  autoHighlight?: bool,
+  swipeDirection?: string,
+  showRemove?: bool,
   @as("type") type_?: string,
-  @as("aria-label") ariaLabel?: string,
-  @as("aria-controls") ariaControls?: string,
-  @as("aria-expanded") ariaExpanded?: bool,
-  @as("aria-haspopup") ariaHaspopup?: string,
-  @as("aria-current")
-  ariaCurrent?: [#page | #step | #location | #date | #time | #"true" | #"false"],
-  @as("aria-details")
-  ariaDetails?: string,
-  @as("aria-disabled")
-  ariaDisabled?: bool,
-  @as("aria-invalid")
-  ariaInvalid?: bool,
-  @as("aria-pressed")
-  ariaPressed?: bool,
-  @as("aria-roledescription")
-  ariaRoledescription?: string,
-  @as("aria-hidden")
-  ariaHidden?: bool,
+  ...AriaProps.t,
   ...ExtraDomProps.t,
 }

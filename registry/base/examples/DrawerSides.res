@@ -1,23 +1,18 @@
-let sides = ["top", "right", "bottom", "left"]
+let sides = [Drawer.Top, Drawer.Right, Drawer.Bottom, Drawer.Left]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap gap-2">
     {sides
-    ->Array.map(side => {
-      let direction = if side === "bottom" {
-        None
-      } else {
-        Some(side)
-      }
-      <Drawer key={side} ?direction>
-        <Drawer.Trigger asChild={true}>
-          <Button variant=Button.Variant.Outline className="capitalize" dataSlot="drawer-trigger">
-            {side->React.string}
+    ->Array.map(side =>
+      <Drawer key={(side :> string)} direction=side>
+        <Drawer.Trigger asChild=true>
+          <Button variant=Outline className="capitalize" dataSlot="drawer-trigger">
+            {(side :> string)->React.string}
           </Button>
         </Drawer.Trigger>
         <Drawer.Content
-          className="data-[vaul-drawer-direction=bottom]:max-h-[50vh] data-[vaul-drawer-direction=top]:max-h-[50vh]"
+          className="data-[swipe-direction=bottom]:max-h-[50vh] data-[swipe-direction=top]:max-h-[50vh]"
         >
           <Drawer.Header>
             <Drawer.Title> {"Move Goal"->React.string} </Drawer.Title>
@@ -34,12 +29,12 @@ let make = ({}: Demo.Props.t) =>
           </div>
           <Drawer.Footer>
             <Button> {"Submit"->React.string} </Button>
-            <Drawer.Close asChild={true}>
-              <Button variant=Button.Variant.Outline> {"Cancel"->React.string} </Button>
+            <Drawer.Close asChild=true>
+              <Button variant=Outline> {"Cancel"->React.string} </Button>
             </Drawer.Close>
           </Drawer.Footer>
         </Drawer.Content>
       </Drawer>
-    })
+    )
     ->React.array}
   </div>

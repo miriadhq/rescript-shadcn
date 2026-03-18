@@ -24,7 +24,7 @@ let items: array<item> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Accordion multiple={true} className="max-w-lg" defaultValue=["notifications"]>
+  <Accordion.Multiple className="max-w-lg" defaultValue=["notifications"]>
     {items
     ->Array.map(item =>
       <Accordion.Item key={item.value} value={item.value}>
@@ -33,4 +33,4 @@ let make = ({}: Demo.Props.t) =>
       </Accordion.Item>
     )
     ->React.array}
-  </Accordion>
+  </Accordion.Multiple>

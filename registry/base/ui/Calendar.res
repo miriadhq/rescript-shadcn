@@ -375,15 +375,11 @@ module Props = {
   }
 }
 
-let toDayPickerProps = props => {
-  module Unsafe = {
-    external toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<'selected> = "%identity"
-    external toDict: Props.t<'selected> => dict<unknown> = "%identity"
+let toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<'selected> = %raw(`
+  function({buttonVariant, ...rest}){
+    return rest;
   }
-  let propsDict = props->Unsafe.toDict
-  Dict.delete(propsDict, "buttonVariant")
-  props->Unsafe.toDayPickerProps
-}
+`)
 
 @scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
 

@@ -1,6 +1,11 @@
+type props<'value, 'checked> = {
+  ...Types.props<'value, 'checked>,
+  defaultValue?: array<'value>,
+}
+
 module Root = {
   @module("@base-ui/react/slider") @scope("Slider")
-  external make: React.component<Types.props<'value, 'checked>> = "Root"
+  external make: React.component<props<'value, 'checked>> = "Root"
 }
 
 module Value = {

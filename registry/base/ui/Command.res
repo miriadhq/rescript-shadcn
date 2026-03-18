@@ -8,6 +8,10 @@ open BaseUi.Types
 external cn: (string, option<string>) => string = "twMerge"
 
 module CommandPrimitive = {
+  type props<'value, 'checked> = {
+    ...props<'value, 'checked>,
+    defaultValue?: 'value,
+  }
   @module("cmdk")
   external make: React.component<props<'value, 'checked>> = "Command"
 
