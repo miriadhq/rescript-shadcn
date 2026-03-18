@@ -22,15 +22,10 @@ let make = (
   ~onOpenChange=?,
   ~onOpenChangeComplete=?,
   ~modal=?,
+  ~dataSlot="dropdown-menu",
 ) =>
   <BaseUi.Menu.Root
-    ?children
-    ?open_
-    ?defaultOpen
-    ?onOpenChange
-    ?onOpenChangeComplete
-    ?modal
-    dataSlot="dropdown-menu"
+    ?children ?open_ ?defaultOpen ?onOpenChange ?onOpenChangeComplete ?modal dataSlot
   />
 
 module Portal = {
@@ -40,39 +35,33 @@ module Portal = {
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <BaseUi.Menu.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="dropdown-menu-trigger"
-      className
-    />
+  @react.componentWithProps(BaseUi.Types.props)
+  let make = (props: BaseUi.Types.props<'value, 'checked>) =>
+    <BaseUi.Menu.Trigger {...props} dataSlot="dropdown-menu-trigger" />
 }
 
 module Content = {
-  @react.component
+  type contentProps = {
+    className?: string,
+    children?: React.element,
+    id?: string,
+    dir?: string,
+    dataLang?: string,
+    style?: ReactDOM.Style.t,
+    onClick?: JsxEvent.Mouse.t => unit,
+    onKeyDown?: JsxEvent.Keyboard.t => unit,
+    align?: Align.t,
+    alignOffset?: float,
+    side?: Side.t,
+    sideOffset?: float,
+    dataSlot?: string,
+  }
+  @react.component(: contentProps)
   let make = (
+    ~align=Align.Start,
+    ~alignOffset=0.,
+    ~side=Side.Bottom,
+    ~sideOffset=4.,
     ~className=?,
     ~dataSlot="dropdown-menu-content",
     ~children=?,
@@ -82,10 +71,6 @@ module Content = {
     ~style=?,
     ~onClick=?,
     ~onKeyDown=?,
-    ~align=Align.Start,
-    ~alignOffset=0.,
-    ~side=Side.Bottom,
-    ~sideOffset=4.,
   ) => {
     <BaseUi.Menu.Portal>
       <BaseUi.Menu.Positioner
@@ -118,7 +103,16 @@ module Group = {
 
 module Label = {
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~inset=?) =>
+  let make = (
+    ~className=?,
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~onClick=?,
+    ~onKeyDown=?,
+    ~inset=?,
+    ~dataSlot="dropdown-menu-label",
+  ) =>
     <BaseUi.Menu.GroupLabel
       ?id
       ?style
@@ -126,7 +120,7 @@ module Label = {
       ?onKeyDown
       dataInset=?inset
       ?children
-      dataSlot="dropdown-menu-label"
+      dataSlot
       className={cn(
         "text-muted-foreground px-1.5 py-1 text-xs font-medium data-inset:pl-7",
         className,
@@ -147,6 +141,7 @@ module Item = {
     ~onKeyDown=?,
     ~disabled=?,
     ~closeOnClick=?,
+    ~dataSlot="dropdown-menu-item",
   ) => {
     <BaseUi.Menu.Item
       ?id
@@ -157,7 +152,7 @@ module Item = {
       ?closeOnClick
       dataInset=?inset
       ?children
-      dataSlot="dropdown-menu-item"
+      dataSlot
       dataVariant={(variant :> string)}
       className={cn(
         "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground group/dropdown-menu-item relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -196,7 +191,7 @@ module CheckboxItem = {
       ?onKeyDown
       dataSlot="dropdown-menu-checkbox-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
     >
@@ -214,10 +209,15 @@ module CheckboxItem = {
 
 module RadioGroup = {
   @react.component
-  let make = (~className="", ~children=?, ~id=?, ~style=?, ~value=?, ~onValueChange=?) =>
-    <BaseUi.Menu.RadioGroup
-      ?id ?style ?value ?onValueChange ?children dataSlot="dropdown-menu-radio-group" className
-    />
+  let make = (
+    ~className=?,
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~value=?,
+    ~onValueChange=?,
+    ~dataSlot="dropdown-menu-radio-group",
+  ) => <BaseUi.Menu.RadioGroup ?id ?style ?value ?onValueChange ?children dataSlot ?className />
 }
 
 module RadioItem = {
@@ -263,13 +263,9 @@ module RadioItem = {
 
 module Separator = {
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
+  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~dataSlot="dropdown-menu-separator") =>
     <BaseUi.Menu.Separator
-      ?id
-      ?style
-      ?children
-      dataSlot="dropdown-menu-separator"
-      className={cn("bg-border -mx-1 my-1 h-px", className)}
+      ?id ?style ?children dataSlot className={cn("bg-border -mx-1 my-1 h-px", className)}
     />
 }
 
@@ -300,45 +296,40 @@ module Shortcut = {
 
 module Sub = {
   @react.component
-  let make = (~children=?, ~open_=?, ~defaultOpen=?, ~onOpenChange=?) =>
-    <BaseUi.Menu.SubmenuRoot
-      ?children ?open_ ?defaultOpen ?onOpenChange dataSlot="dropdown-menu-sub"
-    />
+  let make = (
+    ~dataSlot="dropdown-menu-sub",
+    ~className=?,
+    ~children=?,
+    ~open_=?,
+    ~defaultOpen=?,
+    ~onOpenChange=?,
+  ) => <BaseUi.Menu.SubmenuRoot ?className ?children ?open_ ?defaultOpen ?onOpenChange dataSlot />
 }
 
 module SubTrigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~dataInset=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Types.props)
+  let make = (props: BaseUi.Types.props<'value, 'checked>) =>
     <BaseUi.Menu.SubmenuTrigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?dataInset
-      dataSlot="dropdown-menu-sub-trigger"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("dropdown-menu-sub-trigger")}
       className={cn(
         "focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-popup-open:bg-accent data-popup-open:text-accent-foreground flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
+        props.className,
       )}
     >
-      {children}
+      {props.children->Option.getOr(React.null)}
       <Icons.ChevronRight className="cn-rtl-flip ml-auto" />
     </BaseUi.Menu.SubmenuTrigger>
 }
 
 module SubContent = {
-  @react.component
+  @react.component(: Content.contentProps)
   let make = (
+    ~align=Align.Start,
+    ~alignOffset=-3.,
+    ~side=Side.Right,
+    ~sideOffset=0.,
+    ~dataSlot="dropdown-menu-sub-content",
     ~className=?,
     ~children=?,
     ~id=?,
@@ -347,11 +338,6 @@ module SubContent = {
     ~style=?,
     ~onClick=?,
     ~onKeyDown=?,
-    ~align=Align.Start,
-    ~alignOffset=-3.,
-    ~side=Side.Right,
-    ~sideOffset=0.,
-    ~dataSlot="dropdown-menu-sub-content",
   ) =>
     <Content
       ?children
@@ -367,7 +353,7 @@ module SubContent = {
       sideOffset
       dataSlot
       className={cn(
-        "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground w-auto min-w-[96px] rounded-md p-1 shadow-lg ring-1 duration-100",
+        "cn-menu-target cn-menu-translucent w-auto min-w-[96px] rounded-lg bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
         className,
       )}
     />
