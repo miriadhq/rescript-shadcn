@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ToggleGroupVertical",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "ToggleGroup"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ToggleGroupVertical.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <ToggleGroup\n    multiple=true\n    orientation=ToggleGroup.Orientation.Vertical\n    spacing=1.\n    defaultValue={[\"bold\", \"italic\"]}\n  >\n    <ToggleGroup.Item value=\"bold\" ariaLabel=\"Toggle bold\">\n      <Icons.Bold />\n    </ToggleGroup.Item>\n    <ToggleGroup.Item value=\"italic\" ariaLabel=\"Toggle italic\">\n      <Icons.Italic />\n    </ToggleGroup.Item>\n    <ToggleGroup.Item value=\"underline\" ariaLabel=\"Toggle underline\">\n      <Icons.Underline />\n    </ToggleGroup.Item>\n  </ToggleGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "FieldChoiceCard",
+  "registryDependencies": [
+    "Field",
+    "RadioGroup"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/FieldChoiceCard.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Group className=\"w-full max-w-xs\">\n    <Field.Set>\n      <Field.Legend variant=Label> {\"Compute Environment\"->React.string} </Field.Legend>\n      <Field.Description>\n        {\"Select the compute environment for your cluster.\"->React.string}\n      </Field.Description>\n      <RadioGroup defaultValue=\"kubernetes\">\n        <Field.Label htmlFor=\"kubernetes-r2h\">\n          <Field orientation=BaseUi.Types.Orientation.Horizontal>\n            <Field.Content>\n              <Field.Title> {\"Kubernetes\"->React.string} </Field.Title>\n              <Field.Description>\n                {\"Run GPU workloads on a K8s cluster.\"->React.string}\n              </Field.Description>\n            </Field.Content>\n            <RadioGroup.Item value=\"kubernetes\" id=\"kubernetes-r2h\" />\n          </Field>\n        </Field.Label>\n        <Field.Label htmlFor=\"vm-z4k\">\n          <Field orientation=BaseUi.Types.Orientation.Horizontal>\n            <Field.Content>\n              <Field.Title> {\"Virtual Machine\"->React.string} </Field.Title>\n              <Field.Description>\n                {\"Access a cluster to run GPU workloads.\"->React.string}\n              </Field.Description>\n            </Field.Content>\n            <RadioGroup.Item value=\"vm\" id=\"vm-z4k\" />\n          </Field>\n        </Field.Label>\n      </RadioGroup>\n    </Field.Set>\n  </Field.Group>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

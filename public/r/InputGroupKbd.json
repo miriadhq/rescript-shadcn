@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupKbd",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "InputGroup",
+    "Kbd"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupKbd.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <InputGroup className=\"max-w-sm\">\n    <InputGroup.Input placeholder=\"Search...\" />\n    <InputGroup.Addon>\n      <Icons.Search className=\"text-muted-foreground\" />\n    </InputGroup.Addon>\n    <InputGroup.Addon align=InlineEnd>\n      <Kbd> {\"⌘K\"->React.string} </Kbd>\n    </InputGroup.Addon>\n  </InputGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

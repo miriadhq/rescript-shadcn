@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SidebarMenuAction",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "DropdownMenu",
+    "Icons",
+    "Sidebar"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SidebarMenuAction.res",
+      "content": "@@directive(\"'use client'\")\n\ntype icon =\n  | IconFrame\n  | IconLifeBuoy\n  | IconMap\n  | IconPieChart\n  | IconSend\n\nlet renderIcon = (~icon) =>\n  switch icon {\n  | IconFrame => <Icons.Frame />\n  | IconLifeBuoy => <Icons.LifeBuoy />\n  | IconMap => <Icons.Map />\n  | IconPieChart => <Icons.PieChart />\n  | IconSend => <Icons.Send />\n  }\n\ntype project = {\n  name: string,\n  url: string,\n  icon: icon,\n}\n\nlet projects: array<project> = [\n  {name: \"Design Engineering\", url: \"#\", icon: IconFrame},\n  {name: \"Sales & Marketing\", url: \"#\", icon: IconPieChart},\n  {name: \"Travel\", url: \"#\", icon: IconMap},\n  {name: \"Support\", url: \"#\", icon: IconLifeBuoy},\n  {name: \"Feedback\", url: \"#\", icon: IconSend},\n]\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Sidebar.Provider>\n    <Sidebar>\n      <Sidebar.Content>\n        <Sidebar.Group>\n          <Sidebar.GroupLabel> {\"Projects\"->React.string} </Sidebar.GroupLabel>\n          <Sidebar.GroupContent>\n            <Sidebar.Menu>\n              {projects\n              ->Array.map(project =>\n                <Sidebar.MenuItem key={project.name}>\n                  <Sidebar.MenuButton\n                    render={<a href={project.url} />}\n                    className=\"group-has-[[data-state=open]]/menu-item:bg-sidebar-accent\"\n                  >\n                    {renderIcon(~icon=project.icon)}\n                    <span> {project.name->React.string} </span>\n                  </Sidebar.MenuButton>\n                  <DropdownMenu>\n                    <DropdownMenu.Trigger render={<Sidebar.MenuAction />}>\n                      <Icons.MoreHorizontal />\n                      <span className=\"sr-only\"> {\"More\"->React.string} </span>\n                    </DropdownMenu.Trigger>\n                    <DropdownMenu.Content\n                      side=BaseUi.Types.Side.Right align=BaseUi.Types.Align.Start\n                    >\n                      <DropdownMenu.Item>\n                        <span> {\"Edit Project\"->React.string} </span>\n                      </DropdownMenu.Item>\n                      <DropdownMenu.Item>\n                        <span> {\"Delete Project\"->React.string} </span>\n                      </DropdownMenu.Item>\n                    </DropdownMenu.Content>\n                  </DropdownMenu>\n                </Sidebar.MenuItem>\n              )\n              ->React.array}\n            </Sidebar.Menu>\n          </Sidebar.GroupContent>\n        </Sidebar.Group>\n      </Sidebar.Content>\n    </Sidebar>\n  </Sidebar.Provider>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

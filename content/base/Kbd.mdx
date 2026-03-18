@@ -1,0 +1,103 @@
+---
+title: Kbd
+description: Used to display textual user input from keyboard.
+base: base
+component: true
+---
+
+<ComponentPreview name="KbdDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Kbd
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="kbd"
+  title="components/ui/Kbd.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res
+<Kbd> {"Ctrl"->React.string} </Kbd>
+```
+
+## Examples
+
+### Group
+
+Use the `Kbd.Group` component to group keyboard keys together.
+
+<ComponentPreview name="KbdGroup" />
+
+### Button
+
+Use the `Kbd` component inside a `Button` component to display a keyboard key inside a button.
+
+<ComponentPreview name="KbdButton" />
+
+### Tooltip
+
+You can use the `Kbd` component inside a `Tooltip` component to display a tooltip with a keyboard key.
+
+<ComponentPreview name="KbdTooltip" />
+
+### Input Group
+
+You can use the `Kbd` component inside a `InputGroupAddon` component to display a keyboard key inside an input group.
+
+<ComponentPreview name="KbdInputGroup" />
+
+
+## API Reference
+
+### Kbd
+
+Use the `Kbd` component to display a keyboard key.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | ``      |
+
+```res showLineNumbers
+<Kbd> {"Ctrl"->React.string} </Kbd>
+```
+
+### Kbd.Group
+
+Use the `Kbd.Group` component to group `Kbd` components together.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | ``      |
+
+```res
+<Kbd.Group>
+  <Kbd> {"Ctrl"->React.string} </Kbd>
+  <Kbd> {"B"->React.string} </Kbd>
+</Kbd.Group>
+```

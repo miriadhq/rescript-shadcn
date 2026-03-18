@@ -1,0 +1,74 @@
+---
+title: Scroll Area
+description: Augments native scroll functionality for custom, cross-browser styling.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/scroll-area
+  api: https://base-ui.com/react/components/scroll-area#api-reference
+---
+
+<ComponentPreview
+  name="ScrollAreaDemo"
+  previewClassName="h-96"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/ScrollArea
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="scroll-area"
+  title="components/ui/ScrollArea.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+  {"Your scrollable content here."->React.string}
+</ScrollArea>
+```
+
+## Examples
+
+### Horizontal
+
+Use `ScrollBar` with `orientation="horizontal"` for horizontal scrolling.
+
+<ComponentPreview name="ScrollAreaHorizontalDemo" />
+
+
+## API Reference
+
+See the [Base UI Scroll Area](https://base-ui.com/react/components/scroll-area#api-reference) documentation.

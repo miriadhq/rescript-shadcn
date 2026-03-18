@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TypographyH4",
+  "files": [
+    {
+      "path": "registry/base/examples/TypographyH4.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <h4 className=\"scroll-m-20 text-xl font-semibold tracking-tight\">\n    {\"People stopped telling jokes\"->React.string}\n  </h4>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

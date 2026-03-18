@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "MenubarIcons",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "Menubar"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/MenubarIcons.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Menubar className=\"w-72\">\n    <Menubar.Menu>\n      <Menubar.Trigger> {\"File\"->React.string} </Menubar.Trigger>\n      <Menubar.Content>\n        <Menubar.Item>\n          <Icons.File />\n          {\"New File\"->React.string}\n          <Menubar.Shortcut> {\"⌘N\"->React.string} </Menubar.Shortcut>\n        </Menubar.Item>\n        <Menubar.Item>\n          <Icons.Folder />\n          {\"Open Folder\"->React.string}\n        </Menubar.Item>\n        <Menubar.Separator />\n        <Menubar.Item>\n          <Icons.Save />\n          {\"Save\"->React.string}\n          <Menubar.Shortcut> {\"⌘S\"->React.string} </Menubar.Shortcut>\n        </Menubar.Item>\n      </Menubar.Content>\n    </Menubar.Menu>\n    <Menubar.Menu>\n      <Menubar.Trigger> {\"More\"->React.string} </Menubar.Trigger>\n      <Menubar.Content>\n        <Menubar.Group>\n          <Menubar.Item>\n            <Icons.Settings />\n            {\"Settings\"->React.string}\n          </Menubar.Item>\n          <Menubar.Item>\n            <Icons.HelpCircle />\n            {\"Help\"->React.string}\n          </Menubar.Item>\n          <Menubar.Separator />\n          <Menubar.Item variant=Menubar.Variant.Destructive>\n            <Icons.Trash />\n            {\"Delete\"->React.string}\n          </Menubar.Item>\n        </Menubar.Group>\n      </Menubar.Content>\n    </Menubar.Menu>\n  </Menubar>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TypographyH1",
+  "files": [
+    {
+      "path": "registry/base/examples/TypographyH1.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <h1 className=\"scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance\">\n    {\"Taxing Laughter: The Joke Tax Chronicles\"->React.string}\n  </h1>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

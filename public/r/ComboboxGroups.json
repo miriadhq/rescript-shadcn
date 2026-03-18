@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ComboboxGroups",
+  "registryDependencies": [
+    "Combobox"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ComboboxGroups.res",
+      "content": "@@directive(\"'use client'\")\n\ntype timezone = {\n  value: string,\n  items: array<string>,\n}\n\nlet timezones = [\n  {\n    value: \"Americas\",\n    items: [\n      \"(GMT-5) New York\",\n      \"(GMT-8) Los Angeles\",\n      \"(GMT-6) Chicago\",\n      \"(GMT-5) Toronto\",\n      \"(GMT-8) Vancouver\",\n      \"(GMT-3) São Paulo\",\n    ],\n  },\n  {\n    value: \"Europe\",\n    items: [\n      \"(GMT+0) London\",\n      \"(GMT+1) Paris\",\n      \"(GMT+1) Berlin\",\n      \"(GMT+1) Rome\",\n      \"(GMT+1) Madrid\",\n      \"(GMT+1) Amsterdam\",\n    ],\n  },\n  {\n    value: \"Asia/Pacific\",\n    items: [\n      \"(GMT+9) Tokyo\",\n      \"(GMT+8) Shanghai\",\n      \"(GMT+8) Singapore\",\n      \"(GMT+4) Dubai\",\n      \"(GMT+11) Sydney\",\n      \"(GMT+9) Seoul\",\n    ],\n  },\n]\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Combobox items={timezones}>\n    <Combobox.Input placeholder=\"Select a timezone\" />\n    <Combobox.Content>\n      <Combobox.Empty> {\"No timezones found.\"->React.string} </Combobox.Empty>\n      <Combobox.List>\n        {(group, index) =>\n          <React.Fragment key={group.value}>\n            <Combobox.Group>\n              <Combobox.Label> {group.value->React.string} </Combobox.Label>\n              {group.items\n              ->Array.map(item =>\n                <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>\n              )\n              ->React.array}\n            </Combobox.Group>\n            {index < Array.length(timezones) - 1 ? <Combobox.Separator /> : React.null}\n          </React.Fragment>}\n      </Combobox.List>\n    </Combobox.Content>\n  </Combobox>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

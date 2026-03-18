@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SidebarGroup",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "Sidebar"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SidebarGroup.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Sidebar.Provider>\n    <Sidebar>\n      <Sidebar.Content>\n        <Sidebar.Group>\n          <Sidebar.GroupLabel> {\"Help\"->React.string} </Sidebar.GroupLabel>\n          <Sidebar.GroupContent>\n            <Sidebar.Menu>\n              <Sidebar.MenuItem>\n                <Sidebar.MenuButton>\n                  <Icons.LifeBuoy />\n                  {\"Support\"->React.string}\n                </Sidebar.MenuButton>\n              </Sidebar.MenuItem>\n              <Sidebar.MenuItem>\n                <Sidebar.MenuButton>\n                  <Icons.Send />\n                  {\"Feedback\"->React.string}\n                </Sidebar.MenuButton>\n              </Sidebar.MenuItem>\n            </Sidebar.Menu>\n          </Sidebar.GroupContent>\n        </Sidebar.Group>\n      </Sidebar.Content>\n    </Sidebar>\n  </Sidebar.Provider>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SwitchSizes",
+  "registryDependencies": [
+    "Field",
+    "Switch"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SwitchSizes.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Group className=\"w-full max-w-[10rem]\">\n    <Field orientation=BaseUi.Types.Orientation.Horizontal>\n      <Switch id=\"switch-size-sm\" size=Switch.Size.Sm />\n      <Field.Label htmlFor=\"switch-size-sm\"> {\"Small\"->React.string} </Field.Label>\n    </Field>\n    <Field orientation=BaseUi.Types.Orientation.Horizontal>\n      <Switch id=\"switch-size-default\" size=Switch.Size.Default />\n      <Field.Label htmlFor=\"switch-size-default\"> {\"Default\"->React.string} </Field.Label>\n    </Field>\n  </Field.Group>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,112 @@
+---
+title: Select
+description: Displays a list of options for the user to pick from—triggered by a button.
+base: base
+component: true
+featured: true
+links:
+  doc: https://base-ui.com/react/components/select
+  api: https://base-ui.com/react/components/select#api-reference
+---
+
+<ComponentPreview name="SelectDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Select
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="select"
+  title="components/ui/Select.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Select>
+  <Select.Trigger className="w-[180px]">
+    <Select.Value placeholder="Theme" />
+  </Select.Trigger>
+  <Select.Content>
+    <Select.Group>
+      <Select.Item value="light"> {"Light"->React.string} </Select.Item>
+      <Select.Item value="dark"> {"Dark"->React.string} </Select.Item>
+      <Select.Item value="system"> {"System"->React.string} </Select.Item>
+    </Select.Group>
+  </Select.Content>
+</Select>
+```
+
+## Examples
+
+### Align Item With Trigger
+
+Use `alignItemWithTrigger` on `SelectContent` to control whether the selected item aligns with the trigger. When `true` (default), the popup positions so the selected item appears over the trigger. When `false`, the popup aligns to the trigger edge.
+
+<ComponentPreview name="SelectAlignItem" />
+
+### Groups
+
+Use `SelectGroup`, `SelectLabel`, and `SelectSeparator` to organize items.
+
+<ComponentPreview name="SelectGroups" />
+
+### Scrollable
+
+A select with many items that scrolls.
+
+<ComponentPreview name="SelectScrollable" />
+
+### Disabled
+
+<ComponentPreview name="SelectDisabled" />
+
+### Invalid
+
+Add the `data-invalid` attribute to the `Field` component and the `aria-invalid` attribute to the `SelectTrigger` component to show an error state.
+
+```res /data-invalid/ /aria-invalid/
+<Field data-invalid>
+  <FieldLabel>Fruit</FieldLabel>
+  <SelectTrigger aria-invalid>
+    <SelectValue />
+  </SelectTrigger>
+</Field>
+```
+
+<ComponentPreview name="SelectInvalid" />
+
+
+## API Reference
+
+See the [Base UI Select](https://base-ui.com/react/components/select#api-reference) documentation.

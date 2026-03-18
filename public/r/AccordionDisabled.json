@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AccordionDisabled",
+  "registryDependencies": [
+    "Accordion"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/AccordionDisabled.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Accordion className=\"w-full\">\n    <Accordion.Item value=\"item-1\">\n      <Accordion.Trigger> {\"Can I access my account history?\"->React.string} </Accordion.Trigger>\n      <Accordion.Content>\n        {\"Yes, you can view your complete account history including all transactions, plan changes, and support tickets in the Account History section of your dashboard.\"->React.string}\n      </Accordion.Content>\n    </Accordion.Item>\n    <Accordion.Item value=\"item-2\" disabled={true}>\n      <Accordion.Trigger> {\"Premium feature information\"->React.string} </Accordion.Trigger>\n      <Accordion.Content>\n        {\"This section contains information about premium features. Upgrade your plan to access this content.\"->React.string}\n      </Accordion.Content>\n    </Accordion.Item>\n    <Accordion.Item value=\"item-3\">\n      <Accordion.Trigger> {\"How do I update my email address?\"->React.string} </Accordion.Trigger>\n      <Accordion.Content>\n        {\"You can update your email address in your account settings. You'll receive a verification email at your new address to confirm the change.\"->React.string}\n      </Accordion.Content>\n    </Accordion.Item>\n  </Accordion>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

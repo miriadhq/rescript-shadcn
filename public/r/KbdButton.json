@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "KbdButton",
+  "registryDependencies": [
+    "Button",
+    "Kbd"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/KbdButton.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Button variant=Button.Variant.Outline>\n    {\"Accept \"->React.string}\n    <Kbd dataIcon=\"inline-end\" className=\"translate-x-0.5\"> {\"⏎\"->React.string} </Kbd>\n  </Button>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

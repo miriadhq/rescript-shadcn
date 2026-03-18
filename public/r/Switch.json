@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "Switch",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "files": [
+    {
+      "path": "registry/base/ui/Switch.res",
+      "content": "@@directive(\"'use client'\")\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\nmodule Size = {\n  @unboxed\n  type t =\n    | @as(\"default\") Default\n    | @as(\"sm\") Sm\n}\n\n@react.component\nlet make = (\n  ~className=?,\n  ~id=?,\n  ~name=?,\n  ~checked=?,\n  ~defaultChecked=?,\n  ~onCheckedChange=?,\n  ~disabled=?,\n  ~required=?,\n  ~readOnly=?,\n  ~onClick=?,\n  ~onKeyDown=?,\n  ~tabIndex=0,\n  ~ariaLabel=?,\n  ~ariaInvalid=?,\n  ~dir=?,\n  ~style=?,\n  ~render=?,\n  ~size=Size.Default,\n) => {\n  <BaseUi.Switch.Root\n    ?id\n    ?name\n    ?checked\n    ?defaultChecked\n    ?onCheckedChange\n    ?disabled\n    ?required\n    ?readOnly\n    ?onClick\n    ?onKeyDown\n    tabIndex\n    ?ariaLabel\n    ?ariaInvalid\n    ?dir\n    ?style\n    ?render\n    dataSlot=\"switch\"\n    dataSize={(size :> string)}\n    className={cn(\n      \"peer group/switch relative inline-flex shrink-0 items-center rounded-full border border-transparent transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px] dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 data-checked:bg-primary data-unchecked:bg-input dark:data-unchecked:bg-input/80 data-disabled:cursor-not-allowed data-disabled:opacity-50\",\n      className,\n    )}\n  >\n    <BaseUi.Switch.Thumb\n      dataSlot=\"switch-thumb\"\n      className=\"pointer-events-none block rounded-full bg-background ring-0 transition-transform group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] dark:data-checked:bg-primary-foreground group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 dark:data-unchecked:bg-foreground\"\n    />\n  </BaseUi.Switch.Root>\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

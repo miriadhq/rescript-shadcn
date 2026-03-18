@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "HoverCard",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "files": [
+    {
+      "path": "registry/base/ui/HoverCard.res",
+      "content": "@@directive(\"'use client'\")\n\nopen BaseUi.Types\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\n@react.component\nlet make = (\n  ~className=?,\n  ~children=?,\n  ~id=?,\n  ~open_=?,\n  ~defaultOpen=?,\n  ~onOpenChange=?,\n  ~onOpenChangeComplete=?,\n  ~delay=?,\n  ~closeDelay=?,\n  ~style=?,\n) =>\n  <BaseUi.PreviewCard.Root\n    ?className\n    ?children\n    ?id\n    ?open_\n    ?defaultOpen\n    ?onOpenChange\n    ?onOpenChangeComplete\n    ?delay\n    ?closeDelay\n    ?style\n    dataSlot=\"hover-card\"\n  />\n\nmodule Trigger = {\n  @react.component\n  let make = (\n    ~className=?,\n    ~children=?,\n    ~id=?,\n    ~disabled=?,\n    ~onClick=?,\n    ~onKeyDown=?,\n    ~ariaLabel=?,\n    ~delay=?,\n    ~closeDelay=?,\n    ~render=?,\n    ~style=?,\n  ) =>\n    <BaseUi.PreviewCard.Trigger\n      ?className\n      ?children\n      ?id\n      ?disabled\n      ?onClick\n      ?onKeyDown\n      ?ariaLabel\n      ?delay\n      ?closeDelay\n      ?render\n      ?style\n      dataSlot=\"hover-card-trigger\"\n    />\n}\n\nmodule Content = {\n  @react.component\n  let make = (\n    ~className=?,\n    ~children=?,\n    ~id=?,\n    ~dir=?,\n    ~style=?,\n    ~onClick=?,\n    ~onKeyDown=?,\n    ~align=Align.Center,\n    ~alignOffset=4.,\n    ~side=Side.Bottom,\n    ~sideOffset=4.,\n  ) =>\n    <BaseUi.PreviewCard.Portal dataSlot=\"hover-card-portal\">\n      <BaseUi.PreviewCard.Positioner align alignOffset side sideOffset className=\"isolate z-50\">\n        <BaseUi.PreviewCard.Popup\n          ?id\n          ?dir\n          ?style\n          ?onClick\n          ?onKeyDown\n          ?children\n          dataSlot=\"hover-card-content\"\n          className={cn(\n            \"data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 z-50 w-64 origin-(--transform-origin) rounded-lg p-2.5 text-sm shadow-md ring-1 outline-hidden duration-100\",\n            className,\n          )}\n        />\n      </BaseUi.PreviewCard.Positioner>\n    </BaseUi.PreviewCard.Portal>\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

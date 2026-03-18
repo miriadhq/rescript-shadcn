@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputOtpPattern",
+  "dependencies": [
+    "input-otp"
+  ],
+  "registryDependencies": [
+    "Field",
+    "InputOtp"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputOtpPattern.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field className=\"w-fit\">\n    <Field.Label htmlFor=\"digits-only\"> {\"Digits Only\"->React.string} </Field.Label>\n    <InputOtp id=\"digits-only\" maxLength={6} pattern={InputOtp.regexpOnlyDigits}>\n      <InputOtp.Group>\n        <InputOtp.Slot index={0} />\n        <InputOtp.Slot index={1} />\n        <InputOtp.Slot index={2} />\n        <InputOtp.Slot index={3} />\n        <InputOtp.Slot index={4} />\n        <InputOtp.Slot index={5} />\n      </InputOtp.Group>\n    </InputOtp>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,93 @@
+---
+title: Tabs
+description: A set of layered sections of content—known as tab panels—that are displayed one at a time.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/tabs
+  api: https://base-ui.com/react/components/tabs#api-reference
+---
+
+<ComponentPreview
+  name="TabsDemo"
+  previewClassName="h-96"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Tabs
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="tabs"
+  title="components/ui/Tabs.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Tabs defaultValue="account" className="w-[400px]">
+  <Tabs.List>
+    <Tabs.Trigger value="account"> {"Account"->React.string} </Tabs.Trigger>
+    <Tabs.Trigger value="password"> {"Password"->React.string} </Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="account"> {"Make changes to your account here."->React.string} </Tabs.Content>
+  <Tabs.Content value="password"> {"Change your password here."->React.string} </Tabs.Content>
+</Tabs>
+```
+
+## Examples
+
+### Line
+
+Use the `variant="line"` prop on `TabsList` for a line style.
+
+<ComponentPreview name="TabsLine" />
+
+### Vertical
+
+Use `orientation="vertical"` for vertical tabs.
+
+<ComponentPreview name="TabsVertical" />
+
+### Disabled
+
+<ComponentPreview name="TabsDisabled" />
+
+### Icons
+
+<ComponentPreview name="TabsIcons" />
+
+
+## API Reference
+
+See the [Base UI Tabs](https://base-ui.com/react/components/tabs#api-reference) documentation.

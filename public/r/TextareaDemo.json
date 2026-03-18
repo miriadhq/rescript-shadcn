@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TextareaDemo",
+  "registryDependencies": [
+    "Textarea"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/TextareaDemo.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => <Textarea placeholder=\"Type your message here.\" />\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

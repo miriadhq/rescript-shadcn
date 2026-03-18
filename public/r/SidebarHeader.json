@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SidebarHeader",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "DropdownMenu",
+    "Icons",
+    "Sidebar"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SidebarHeader.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Sidebar.Provider>\n    <Sidebar>\n      <Sidebar.Header>\n        <Sidebar.Menu>\n          <Sidebar.MenuItem>\n            <DropdownMenu>\n              <DropdownMenu.Trigger\n                render={<Sidebar.MenuButton\n                  className=\"data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground\"\n                />}\n              >\n                {\"Select Workspace\"->React.string}\n                <Icons.ChevronDown className=\"ml-auto\" />\n              </DropdownMenu.Trigger>\n              <DropdownMenu.Content className=\"w-(--radix-popper-anchor-width)\">\n                <DropdownMenu.Item>\n                  <span> {\"Acme Inc\"->React.string} </span>\n                </DropdownMenu.Item>\n                <DropdownMenu.Item>\n                  <span> {\"Acme Corp.\"->React.string} </span>\n                </DropdownMenu.Item>\n              </DropdownMenu.Content>\n            </DropdownMenu>\n          </Sidebar.MenuItem>\n        </Sidebar.Menu>\n      </Sidebar.Header>\n    </Sidebar>\n    <Sidebar.Inset>\n      <header className=\"flex h-12 items-center justify-between px-4\">\n        <Sidebar.Trigger />\n      </header>\n    </Sidebar.Inset>\n  </Sidebar.Provider>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

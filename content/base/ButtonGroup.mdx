@@ -1,0 +1,214 @@
+---
+title: Button Group
+description: A container that groups related buttons together with consistent styling.
+base: base
+component: true
+---
+
+<ComponentPreview name="ButtonGroupDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/ButtonGroup
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="button-group"
+  title="components/ui/ButtonGroup.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<ButtonGroup>
+  <Button> {"Button 1"->React.string} </Button>
+  <Button> {"Button 2"->React.string} </Button>
+</ButtonGroup>
+```
+
+## Accessibility
+
+- The `ButtonGroup` component has the `role` attribute set to `group`.
+- Use <Kbd>Tab</Kbd> to navigate between the buttons in the group.
+- Use `aria-label` or `aria-labelledby` to label the button group.
+
+```res showLineNumbers
+<ButtonGroup aria-label="Button group">
+  <Button> {"Button 1"->React.string} </Button>
+  <Button> {"Button 2"->React.string} </Button>
+</ButtonGroup>
+```
+
+## ButtonGroup vs ToggleGroup
+
+- Use the `ButtonGroup` component when you want to group buttons that perform an action.
+- Use the `ToggleGroup` component when you want to group buttons that toggle a state.
+
+## Examples
+
+### Orientation
+
+Set the `orientation` prop to change the button group layout.
+
+<ComponentPreview name="ButtonGroupOrientation" />
+
+### Size
+
+Control the size of buttons using the `size` prop on individual buttons.
+
+<ComponentPreview name="ButtonGroupSize" />
+
+### Nested
+
+Nest `<ButtonGroup>` components to create button groups with spacing.
+
+<ComponentPreview name="ButtonGroupNested" />
+
+### Separator
+
+The `ButtonGroupSeparator` component visually divides buttons within a group.
+
+Buttons with variant `outline` do not need a separator since they have a border. For other variants, a separator is recommended to improve the visual hierarchy.
+
+<ComponentPreview name="ButtonGroupSeparator" />
+
+### Split
+
+Create a split button group by adding two buttons separated by a `ButtonGroupSeparator`.
+
+<ComponentPreview name="ButtonGroupSplit" />
+
+### Input
+
+Wrap an `Input` component with buttons.
+
+<ComponentPreview name="ButtonGroupInput" />
+
+### Input Group
+
+Wrap an `InputGroup` component to create complex input layouts.
+
+<ComponentPreview name="ButtonGroupInputGroup" />
+
+### Dropdown Menu
+
+Create a split button group with a `DropdownMenu` component.
+
+<ComponentPreview name="ButtonGroupDropdown" />
+
+### Select
+
+Pair with a `Select` component.
+
+<ComponentPreview name="ButtonGroupSelect" />
+
+### Popover
+
+Use with a `Popover` component.
+
+<ComponentPreview name="ButtonGroupPopover" />
+
+
+## API Reference
+
+### ButtonGroup
+
+The `ButtonGroup` component is a container that groups related buttons together with consistent styling.
+
+| Prop          | Type                         | Default        |
+| ------------- | ---------------------------- | -------------- |
+| `orientation` | `Horizontal \| Vertical`     | `Horizontal`   |
+
+```res showLineNumbers
+<ButtonGroup>
+  <Button> {"Button 1"->React.string} </Button>
+  <Button> {"Button 2"->React.string} </Button>
+</ButtonGroup>
+```
+
+Nest multiple button groups to create complex layouts with spacing. See the [nested](#nested) example for more details.
+
+```res showLineNumbers
+<ButtonGroup>
+  <ButtonGroup />
+  <ButtonGroup />
+</ButtonGroup>
+```
+
+### ButtonGroupSeparator
+
+The `ButtonGroupSeparator` component visually divides buttons within a group.
+
+| Prop          | Type                         | Default      |
+| ------------- | ---------------------------- | ------------ |
+| `orientation` | `Horizontal \| Vertical`     | `Vertical`   |
+
+```res showLineNumbers
+<ButtonGroup>
+  <Button>Button 1</Button>
+  <ButtonGroupSeparator />
+  <Button>Button 2</Button>
+</ButtonGroup>
+```
+
+### ButtonGroupText
+
+Use this component to display text within a button group.
+
+| Prop      | Type            | Default |
+| --------- | --------------- | ------- |
+| `render`  | `React.element` |         |
+
+```res showLineNumbers
+<ButtonGroup>
+  <ButtonGroupText>Text</ButtonGroupText>
+  <Button>Button</Button>
+</ButtonGroup>
+```
+
+Use the `render` prop to render a custom component as the text, for example a label.
+
+```res showLineNumbers
+
+
+module ButtonGroupTextDemo = {
+  @react.component
+  let make = () => {
+    <ButtonGroup>
+      <ButtonGroupText render={<Label htmlFor="name"/>}>
+        {"Text"->React.string}
+      </ButtonGroupText>
+      <Input placeholder="Type something here..." id="name" />
+    </ButtonGroup>
+  }
+}
+```

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ItemLink",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "Item"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ItemLink.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex w-full max-w-md flex-col gap-4\">\n    <Item render={<a href=\"#\" />}>\n      <Item.Content>\n        <Item.Title> {\"Visit our documentation\"->React.string} </Item.Title>\n        <Item.Description>\n          {\"Learn how to get started with our components.\"->React.string}\n        </Item.Description>\n      </Item.Content>\n      <Item.Actions>\n        <Icons.ChevronRight className=\"size-4\" />\n      </Item.Actions>\n    </Item>\n    <Item\n      variant=Item.Variant.Outline render={<a href=\"#\" target=\"_blank\" rel=\"noopener noreferrer\" />}\n    >\n      <Item.Content>\n        <Item.Title> {\"External resource\"->React.string} </Item.Title>\n        <Item.Description>\n          {\"Opens in a new tab with security attributes.\"->React.string}\n        </Item.Description>\n      </Item.Content>\n      <Item.Actions>\n        <Icons.ExternalLink className=\"size-4\" />\n      </Item.Actions>\n    </Item>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputInline",
+  "registryDependencies": [
+    "Button",
+    "Field",
+    "Input"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputInline.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field orientation=BaseUi.Types.Orientation.Horizontal>\n    <Input type_=\"search\" placeholder=\"Search...\" />\n    <Button> {\"Search\"->React.string} </Button>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

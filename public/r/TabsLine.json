@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TabsLine",
+  "registryDependencies": [
+    "Tabs"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/TabsLine.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Tabs defaultValue=\"overview\">\n    <Tabs.List variant=Line>\n      <Tabs.Trigger value=\"overview\"> {\"Overview\"->React.string} </Tabs.Trigger>\n      <Tabs.Trigger value=\"analytics\"> {\"Analytics\"->React.string} </Tabs.Trigger>\n      <Tabs.Trigger value=\"reports\"> {\"Reports\"->React.string} </Tabs.Trigger>\n    </Tabs.List>\n  </Tabs>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

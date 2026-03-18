@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AvatarSize",
+  "registryDependencies": [
+    "Avatar"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/AvatarSize.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap items-center gap-2 grayscale\">\n    <Avatar size=Sm>\n      <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n      <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar>\n      <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n      <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n    </Avatar>\n    <Avatar size=Lg>\n      <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n      <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n    </Avatar>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

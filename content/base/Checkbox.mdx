@@ -1,0 +1,120 @@
+---
+title: Checkbox
+description: A control that allows the user to toggle between checked and not checked.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/checkbox
+  api: https://base-ui.com/react/components/checkbox#api-reference
+---
+
+<ComponentPreview
+  name="CheckboxDemo"
+  previewClassName="h-80"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Checkbox
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="checkbox"
+  title="components/ui/Checkbox.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res
+<Checkbox />
+```
+
+## Checked State
+
+Use `defaultChecked` for uncontrolled checkboxes, or `checked` and
+`onCheckedChange` to control the state.
+
+```res showLineNumbers
+module Example = {
+  @react.component
+  let make = () => {
+    let (checked, setChecked) = React.useState(() => false)
+
+    <Checkbox checked onCheckedChange={v => setChecked(_ => v)} />
+  }
+}
+```
+
+## Invalid State
+
+Set `aria-invalid` on the checkbox and `data-invalid` on the field wrapper to
+show the invalid styles.
+
+<ComponentPreview name="CheckboxInvalid" />
+
+## Examples
+
+### Basic
+
+Pair the checkbox with `Field` and `FieldLabel` for proper layout and labeling.
+
+<ComponentPreview name="CheckboxBasic" />
+
+### Description
+
+Use `FieldContent` and `FieldDescription` for helper text.
+
+<ComponentPreview name="CheckboxDescription" />
+
+### Disabled
+
+Use the `disabled` prop to prevent interaction and add the `data-disabled` attribute to the `<Field>` component for disabled styles.
+
+<ComponentPreview name="CheckboxDisabled" />
+
+### Group
+
+Use multiple fields to create a checkbox list.
+
+<ComponentPreview name="CheckboxGroup" />
+
+### Table
+
+<ComponentPreview
+  name="CheckboxTable"
+  previewClassName="p-4 md:p-8"
+/>
+
+
+## API Reference
+
+See the [Base UI](https://base-ui.com/react/components/checkbox#api-reference) documentation for more information.

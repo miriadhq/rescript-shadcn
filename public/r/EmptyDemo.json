@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "EmptyDemo",
+  "dependencies": [
+    "@tabler/icons-react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Empty",
+    "Icons"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/EmptyDemo.res",
+      "content": "module TablerIcons = {\n  type props = {className?: string}\n\n  module FolderCode = {\n    @module(\"@tabler/icons-react\")\n    external make: React.component<props> = \"IconFolderCode\"\n  }\n}\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Empty>\n    <Empty.Header>\n      <Empty.Media variant=Empty.Variant.Icon>\n        <TablerIcons.FolderCode />\n      </Empty.Media>\n      <Empty.Title> {\"No Projects Yet\"->React.string} </Empty.Title>\n      <Empty.Description>\n        {\"You haven't created any projects yet. Get started by creating your first project.\"->React.string}\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Content className=\"flex-row justify-center gap-2\">\n      <Button> {\"Create Project\"->React.string} </Button>\n      <Button variant=Button.Variant.Outline> {\"Import Project\"->React.string} </Button>\n    </Empty.Content>\n    <Button\n      variant=Button.Variant.Link\n      render={<a href=\"#\" />}\n      className=\"text-muted-foreground\"\n      size=Button.Size.Sm\n      nativeButton={false}\n    >\n      {\"Learn More \"->React.string}\n      <Icons.ArrowUpRight />\n    </Button>\n  </Empty>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

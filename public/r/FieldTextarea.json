@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "FieldTextarea",
+  "registryDependencies": [
+    "Field",
+    "Textarea"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/FieldTextarea.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Set className=\"w-full max-w-xs\">\n    <Field.Group>\n      <Field>\n        <Field.Label htmlFor=\"feedback\"> {\"Feedback\"->React.string} </Field.Label>\n        <Textarea id=\"feedback\" placeholder=\"Your feedback helps us improve...\" rows={4} />\n        <Field.Description>\n          {\"Share your thoughts about our service.\"->React.string}\n        </Field.Description>\n      </Field>\n    </Field.Group>\n  </Field.Set>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

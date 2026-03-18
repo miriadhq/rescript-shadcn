@@ -1,0 +1,93 @@
+---
+title: Navigation Menu
+description: A collection of links for navigating websites.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/navigation-menu
+  api: https://base-ui.com/react/components/navigation-menu#api-reference
+---
+
+<ComponentPreview
+  name="NavigationMenuDemo"
+  previewClassName="h-96"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/NavigationMenu
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="navigation-menu"
+  title="components/ui/NavigationMenu.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<NavigationMenu>
+  <NavigationMenu.List>
+    <NavigationMenu.Item>
+      <NavigationMenu.Trigger> {"Item One"->React.string} </NavigationMenu.Trigger>
+      <NavigationMenu.Content>
+        <NavigationMenu.Link> {"Link"->React.string} </NavigationMenu.Link>
+      </NavigationMenu.Content>
+    </NavigationMenu.Item>
+  </NavigationMenu.List>
+</NavigationMenu>
+```
+
+## Link Component
+
+Use the `render` prop to compose a custom link component such as Next.js `Link`.
+
+```res showLineNumbers
+
+module NavigationMenuDemo = {
+  @react.component
+  let make = () =>
+    <NavigationMenu.Item>
+      <NavigationMenu.Link
+        render={<Next.Link href="/docs" />}
+        className={NavigationMenu.navigationMenuTriggerStyle()}
+      >
+        Documentation
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+}
+```
+
+
+## API Reference
+
+See the [Base UI Navigation Menu](https://base-ui.com/react/components/navigation-menu#api-reference) documentation for more information.

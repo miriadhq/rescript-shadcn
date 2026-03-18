@@ -1,0 +1,33 @@
+{
+  "name": "rescript-shadcn",
+  "namespace": true,
+  "sources": [
+    {
+      "dir": "app",
+      "subdirs": true
+    },
+    {
+      "dir": "registry",
+      "subdirs": true
+    },
+    {
+      "dir": "src"
+    }
+  ],
+  "jsx": {
+    "version": 4
+  },
+  "package-specs": {
+    "module": "esmodule",
+    "in-source": true
+  },
+  "suffix": ".res.mjs",
+  "dependencies": [
+    "@rescript/react",
+    "@rescript/webapi",
+    "rescript-base-ui"
+  ],
+  "compiler-flags": [
+    "-open WebAPI.Global"
+  ]
+}

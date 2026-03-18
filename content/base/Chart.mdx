@@ -1,0 +1,541 @@
+---
+title: Chart
+description: Beautiful charts. Built using Recharts. Copy and paste into your apps.
+base: base
+component: true
+---
+
+<Callout>
+
+**Note:** We're working on upgrading to Recharts v3. In the meantime, if you'd like to start testing v3, see the code in the comment [here](https://github.com/shadcn-ui/ui/issues/7669#issuecomment-2998299159). We'll have an official release soon.
+
+</Callout>
+
+<ComponentPreview
+  name="ChartDemo"
+  className="theme-blue [&_.preview]:h-auto [&_.preview]:p-0 [&_.preview]:lg:min-h-[404px] [&_.preview>div]:w-full [&_.preview>div]:border-none [&_.preview>div]:shadow-none"
+  hideCode
+/>
+
+Introducing **Charts**. A collection of chart components that you can copy and paste into your apps.
+
+Charts are designed to look great out of the box. They work well with the other components and are fully customizable to fit your project.
+
+[Browse the Charts Library](/charts).
+
+## Component
+
+We use [Recharts](https://recharts.org/) under the hood.
+
+We designed the `chart` component with composition in mind. **You build your charts using Recharts components and only bring in custom components, such as `ChartTooltip`, when and where you need it**.
+
+```res showLineNumbers /ChartContainer/ /ChartTooltipContent/
+module MyChart = {
+  @react.component
+  let make = () => {
+    <Chart>
+      <Chart.Recharts.BarChart data={data}>
+        <Chart.Recharts.Bar dataKey="value" />
+        <Chart.Tooltip content={<Chart.TooltipContent />} />
+      </Chart.Recharts.BarChart>
+    </Chart>
+  }
+}
+```
+
+We do not wrap Recharts. This means you're not locked into an abstraction. When a new Recharts version is released, you can follow the official upgrade path to upgrade your charts.
+
+**The components are yours**.
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Chart
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install recharts
+```
+
+<Step>Copy and paste the following code into `components/ui/chart.tsx`.</Step>
+
+<ComponentSource
+  name="chart"
+  title="components/ui/Chart.res"
+/>
+
+<Step>Add the following colors to your CSS file</Step>
+
+```css title="app/globals.css" showLineNumbers
+@layer base {
+  :root {
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+  }
+
+  .dark {
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+  }
+}
+```
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Your First Chart
+
+Let's build your first chart. We'll build a bar chart, add a grid, axis, tooltip and legend.
+
+<Steps>
+
+<Step>Start by defining your data</Step>
+
+The following data represents the number of desktop and mobile users for each month.
+
+<Callout className="mt-4">
+
+**Note:** Your data can be in any shape. You are not limited to the shape of the data below. Use the `dataKey` prop to map your data to the chart.
+
+</Callout>
+
+```res title="components/example-chart.res" showLineNumbers
+let chartData = [
+  { DataRow.month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
+]
+```
+
+<Step>Define your chart config</Step>
+
+The chart config holds configuration for the chart. This is where you place human-readable strings, such as labels, icons and color tokens for theming.
+
+```res title="components/example-chart.res" showLineNumbers
+let chartConfig = dict{
+  "desktop": {
+    Chart.label: "Desktop",
+    color: "#2563eb",
+  },
+  "mobile": {
+    label: "Mobile",
+    color: "#60a5fa",
+  },
+}
+```
+
+<Step>Build your chart</Step>
+
+You can now build your chart using Recharts components.
+
+<Callout className="mt-4 bg-amber-50 border-amber-200 dark:bg-amber-950/50 dark:border-amber-950">
+
+**Important:** Remember to set a `min-h-[VALUE]` on the `ChartContainer` component. This is required for the chart to be responsive.
+
+</Callout>
+
+<ComponentPreview
+  name="ChartExample"
+  previewClassName="h-80"
+/>
+
+</Steps>
+
+### Add a Grid
+
+Let's add a grid to the chart.
+
+<Steps className="mb-0 pt-2">
+
+
+<Step>Add the `CartesianGrid` component to your chart.</Step>
+
+```res showLineNumbers {3}
+<Chart config={chartConfig} className="min-h-[200px] w-full">
+  <Chart.Recharts.BarChart accessibilityLayer=true data={chartData}>
+    <Chart.Recharts.CartesianGrid vertical=NoLine />
+    <Chart.Recharts.Bar dataKey="desktop" fill="var(--color-desktop)" radius=4.0 />
+    <Chart.Recharts.Bar dataKey="mobile" fill="var(--color-mobile)" radius=4.0 />
+  </Chart.Recharts.BarChart>
+</Chart>
+```
+
+<ComponentPreview
+  name="ChartExampleGrid"
+  previewClassName="h-80"
+/>
+
+</Steps>
+
+### Add an Axis
+
+To add an x-axis to the chart, we'll use the `XAxis` component.
+
+<Steps className="mb-0 pt-2">
+
+
+<Step>Add the `XAxis` component to your chart.</Step>
+
+```res showLineNumbers {4-10}
+<Chart config={chartConfig} className="h-[200px] w-full">
+  <Chart.Recharts.BarChart accessibilityLayer=true data={chartData}>
+    <CartesianGrid vertical=NoLine />
+    <Chart.Recharts.XAxis
+      dataKey="month"
+      tickLine={false}
+      tickMargin={10}
+      axisLine={false}
+      tickFormatter={(value) => value.slice(0, 3)}
+    />
+    <Chart.Recharts.Bar dataKey="desktop" fill="var(--color-desktop)" radius=4.0 />
+    <Chart.Recharts.Bar dataKey="mobile" fill="var(--color-mobile)" radius=4.0 />
+  </Chart.Recharts.BarChart>
+</Chart>
+```
+
+<ComponentPreview
+  name="ChartExampleAxis"
+  previewClassName="h-80"
+/>
+
+</Steps>
+
+### Add Tooltip
+
+So far we've only used components from Recharts. They look great out of the box thanks to some customization in the `chart` component.
+
+To add a tooltip, we'll use the custom `ChartTooltip` and `ChartTooltipContent` components from `chart`.
+
+<Steps className="mb-0 pt-2">
+
+<Step>Import the `ChartTooltip` and `ChartTooltipContent` components.</Step>
+
+<Step>Add the components to your chart.</Step>
+
+```res showLineNumbers {11}
+<Chart config={chartConfig} className="h-[200px] w-full">
+  <Chart.Recharts.BarChart accessibilityLayer=true data={chartData}>
+    <Chart.Recharts.CartesianGrid vertical={NoLine} />
+    <Chart.Recharts.XAxis
+      dataKey="month"
+      tickLine={false}
+      tickMargin={10.0}
+      axisLine={false}
+      tickFormatter={(value) => value->String.slice(~start=0, ~end=3)}
+    />
+    <Chart.Tooltip content={<Chart.TooltipContent />} />
+    <Chart.Recharts.Bar dataKey="desktop" fill="var(--color-desktop)" radius={4.0} />
+    <Chart.Recharts.Bar dataKey="mobile" fill="var(--color-mobile)" radius={4.0} />
+  </Chart.Recharts.BarChart>
+</Chart>
+```
+
+<ComponentPreview
+  name="ChartExampleTooltip"
+  previewClassName="h-80"
+/>
+
+Hover to see the tooltips. Easy, right? Two components, and we've got a beautiful tooltip.
+
+</Steps>
+
+### Add Legend
+
+We'll do the same for the legend. We'll use the `ChartLegend` and `ChartLegendContent` components from `chart`.
+
+<Steps className="mb-0 pt-2">
+
+<Step>Import the `ChartLegend` and `ChartLegendContent` components.</Step>
+
+<Step>Add the components to your chart.</Step>
+
+```res showLineNumbers {12}
+<Chart config={chartConfig} className="h-[200px] w-full">
+  <Chart.Recharts.BarChart accessibilityLayer=true data={chartData}>
+    <Chart.Recharts.CartesianGrid vertical={NoLine} />
+    <Chart.Recharts.XAxis
+      dataKey="month"
+      tickLine={false}
+      tickMargin={10.0}
+      axisLine={false}
+      tickFormatter={(value) => value->String.slice(~start=0, ~end=3)}
+    />
+    <Chart.Tooltip content={<Chart.TooltipContent />} />
+    <Chart.Legend content={<Chart.LegendContent />} />
+    <Chart.Recharts.Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+    <Chart.Recharts.Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+  </Chart.Recharts.BarChart>
+</Chart>
+```
+
+<ComponentPreview
+  name="ChartExampleLegend"
+  previewClassName="h-80"
+/>
+
+</Steps>
+
+Done. You've built your first chart! What's next?
+
+- [Themes and Colors](/docs/components/chart#theming)
+- [Tooltip](/docs/components/chart#tooltip)
+- [Legend](/docs/components/chart#legend)
+
+## Chart Config
+
+The chart config is where you define the labels, icons and colors for a chart.
+
+It is intentionally decoupled from chart data.
+
+This allows you to share config and color tokens between charts. It can also work independently for cases where your data or color tokens live remotely or in a different format.
+
+```res showLineNumbers /ChartConfig/
+let chartConfig = dict{
+  "desktop": {
+    Chart.label: "Desktop",
+    icon: Monitor,
+    // A color like 'hsl(220, 98%, 61%)' or 'var(--color-name)'
+    color: "#2563eb",
+    // OR a theme object with 'light' and 'dark' keys
+    theme: {
+      light: "#2563eb",
+      dark: "#dc2626",
+    },
+  },
+}
+```
+
+## Theming
+
+Charts have built-in support for theming. You can use css variables (recommended) or color values in any color format, such as hex, hsl or oklch.
+
+### CSS Variables
+
+<Steps className="mb-0 pt-2">
+
+<Step>Define your colors in your css file</Step>
+
+```css title="app/globals.css" showLineNumbers
+@layer base {
+  :root {
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+  }
+
+  .dark: {
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+  }
+}
+```
+
+<Step>Add the color to your `chartConfig`</Step>
+
+```res title="components/example-chart.res" showLineNumbers
+let chartConfig = dict{
+  "desktop": {
+    Chart.label: "Desktop",
+    color: "var(--chart-1)",
+  },
+  "mobile": {
+    label: "Mobile",
+    color: "var(--chart-2)",
+  },
+}
+```
+
+</Steps>
+
+### hex, hsl or oklch
+
+You can also define your colors directly in the chart config. Use the color format you prefer.
+
+```res title="components/example-chart.res" showLineNumbers
+let chartConfig = dict{
+  "desktop": {
+    Chart.label: "Desktop",
+    color: "#2563eb",
+  },
+  "mobile": {
+    label: "Mobile",
+    color: "hsl(220, 98%, 61%)",
+  },
+  "tablet": {
+    label: "Tablet",
+    color: "oklch(0.5 0.2 240)",
+  },
+  "laptop": {
+    label: "Laptop",
+    color: "var(--chart-2)",
+  },
+}
+```
+
+### Using Colors
+
+To use the theme colors in your chart, reference the colors using the format `var(--color-KEY)`.
+
+#### Components
+
+```res
+<Chart.Recharts.Bar dataKey="desktop" fill="var(--color-desktop)" />
+```
+
+#### Chart Data
+
+```res title="components/example-chart.tsx" showLineNumbers
+let chartData = [
+  { Data.browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
+  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+]
+```
+
+#### Tailwind
+
+```res title="components/example-chart.res"
+<LabelList className="fill-[--color-desktop]" />
+```
+
+## Tooltip
+
+A chart tooltip contains a label, name, indicator and value. You can use a combination of these to customize your tooltip.
+
+<ComponentPreview name="ChartTooltip" hideCode />
+
+You can turn on/off any of these using the `hideLabel`, `hideIndicator` props and customize the indicator style using the `indicator` prop.
+
+Use `labelKey` and `nameKey` to use a custom key for the tooltip label and name.
+
+Chart comes with the `<ChartTooltip>` and `<ChartTooltipContent>` components. You can use these two components to add custom tooltips to your chart.
+
+```res title="components/example-chart.res"
+<Chart.Tooltip content={<Chart.TooltipContent />} />
+```
+
+### Props
+
+Use the following props to customize the tooltip.
+
+| Prop            | Type                     | Description                                  |
+| :-------------- | :----------------------- | :------------------------------------------- |
+| `labelKey`      | string                   | The config or data key to use for the label. |
+| `nameKey`       | string                   | The config or data key to use for the name.  |
+| `indicator`     | `Dot` `Line` or `Dashed` | The indicator style for the tooltip.         |
+| `hideLabel`     | bool                     | Whether to hide the label.                   |
+| `hideIndicator` | bool                     | Whether to hide the indicator.               |
+
+### Colors
+
+Colors are automatically referenced from the chart config.
+
+### Custom
+
+To use a custom key for tooltip label and names, use the `labelKey` and `nameKey` props.
+
+```res showLineNumbers /browser/
+const chartData = [
+  { Data.browser: "chrome", visitors: 187, fill: "var(--color-chrome)" },
+  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+]
+
+let chartConfig = dict{
+  "visitors": {
+    Chart.label: "Total Visitors",
+  },
+  "chrome": {
+    label: "Chrome",
+    color: "hsl(var(--chart-1))",
+  },
+  "safari": {
+    label: "Safari",
+    color: "hsl(var(--chart-2))",
+  },
+}
+```
+
+```res title="components/example-chart.res"
+<Chart.Tooltip
+  content={<Chart.TooltipContent labelKey="visitors" nameKey="browser" />}
+/>
+```
+
+This will use `Total Visitors` for label and `Chrome` and `Safari` for the tooltip names.
+
+## Legend
+
+You can use the custom `<ChartLegend>` and `<ChartLegendContent>` components to add a legend to your chart.
+
+```res title="components/example-chart.res"
+<Char.tLegend content={<Chart.LegendContent />} />
+```
+
+### Colors
+
+Colors are automatically referenced from the chart config.
+
+### Custom
+
+To use a custom key for legend names, use the `nameKey` prop.
+
+```res showLineNumbers /browser/
+let chartData = [
+  { Data.browser: "chrome", visitors: 187, fill: "var(--color-chrome)" },
+  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+]
+
+let chartConfig = dict{
+  "chrome": {
+    Chart.label: "Chrome",
+    color: "hsl(var(--chart-1))",
+  },
+  safari: {
+    label: "Safari",
+    color: "hsl(var(--chart-2))",
+  },
+}
+```
+
+```res title="components/example-chart.res"
+<Chart.Legend content={<Chart.LegendContent nameKey="browser" />} />
+```
+
+This will use `Chrome` and `Safari` for the legend names.
+
+## Accessibility
+
+You can turn on the `accessibilityLayer` prop to add an accessible layer to your chart.
+
+This prop adds keyboard access and screen reader support to your charts.
+
+```res title="components/example-chart.tsx"
+<LineChart accessibilityLayer=true />
+```
+

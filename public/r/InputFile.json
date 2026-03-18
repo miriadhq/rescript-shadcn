@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputFile",
+  "registryDependencies": [
+    "Field",
+    "Input"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputFile.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field>\n    <Field.Label htmlFor=\"picture\"> {\"Picture\"->React.string} </Field.Label>\n    <Input id=\"picture\" type_=\"file\" />\n    <Field.Description> {\"Select a picture to upload.\"->React.string} </Field.Description>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

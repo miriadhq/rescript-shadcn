@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CollapsibleBasic",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Card",
+    "Collapsible",
+    "Icons"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/CollapsibleBasic.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Card className=\"mx-auto w-full max-w-sm\">\n    <Card.Content>\n      <Collapsible className=\"data-open:bg-muted rounded-md\">\n        <Collapsible.Trigger render={<Button variant=Ghost className=\"w-full\" />}>\n          {\"Product details\"->React.string}\n          <Icons.ChevronDown className=\"ml-auto group-data-panel-open/button:rotate-180\" />\n        </Collapsible.Trigger>\n        <Collapsible.Content className=\"flex flex-col items-start gap-2 p-2.5 pt-0 text-sm\">\n          <div>\n            {\"This panel can be expanded or collapsed to reveal additional content.\"->React.string}\n          </div>\n          <Button size=Button.Size.Xs> {\"Learn More\"->React.string} </Button>\n        </Collapsible.Content>\n      </Collapsible>\n    </Card.Content>\n  </Card>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

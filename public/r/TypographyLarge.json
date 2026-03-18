@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TypographyLarge",
+  "files": [
+    {
+      "path": "registry/base/examples/TypographyLarge.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"text-lg font-semibold\"> {\"Are you absolutely sure?\"->React.string} </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

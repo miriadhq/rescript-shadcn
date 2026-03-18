@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonGhost",
+  "registryDependencies": [
+    "Button"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonGhost.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Button variant=Button.Variant.Ghost> {\"Ghost\"->React.string} </Button>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

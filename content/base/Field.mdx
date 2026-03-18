@@ -1,0 +1,319 @@
+---
+title: Field
+description: Combine labels, controls, and help text to compose accessible form fields and grouped inputs.
+base: base
+component: true
+---
+
+<ComponentPreview
+  name="FieldDemo"
+  previewClassName="h-[800px] p-6 md:h-[850px]"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Field
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="field"
+  title="components/ui/Field.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Field.Set>
+  <Field.Legend> {"Profile"->React.string} </Field.Legend>
+  <Field.Description> {"This appears on invoices and emails."->React.string} </Field.Description>
+  <Field.Group>
+    <Field>
+      <Field.Label htmlFor="name"> {"Full name"->React.string} </Field.Label>
+      <Input id="name" placeholder="Evil Rabbit" />
+    </Field>
+    <Field orientation=Horizontal>
+      <Switch id="newsletter" />
+      <Field.Label htmlFor="newsletter"> {"Subscribe to the newsletter"->React.string} </Field.Label>
+    </Field>
+  </Field.Group>
+</Field.Set>
+```
+
+## Anatomy
+
+The `Field` family is designed for composing accessible forms. A typical field is structured as follows:
+
+```res showLineNumbers
+<Field>
+  <Field.Label htmlFor="input-id">Label</Field.Label>
+  {/* Input, Select, Switch, etc. */}
+  <Field.Description>Optional helper text.</Field.Description>
+  <Field.Error>Validation message.</Field.Error>
+</Field>
+```
+
+- `Field` is the core wrapper for a single field.
+- `Field.Content` is a flex column that groups label and description. Not required if you have no description.
+- Wrap related fields with `FieldGroup`, and use `FieldSet` with `FieldLegend` for semantic grouping.
+
+## Form
+
+See the [Form](https://ui.shadcn.com/docs/forms) documentation for building forms with the `Field` component and [React Hook Form](/docs/forms/react-hook-form) or [Tanstack Form](/docs/forms/tanstack-form).
+
+## Examples
+
+### Input
+
+<ComponentPreview name="FieldInput" />
+
+### Textarea
+
+<ComponentPreview name="FieldTextarea" />
+
+### Select
+
+<ComponentPreview name="FieldSelect" />
+
+### Slider
+
+<ComponentPreview name="FieldSlider" />
+
+### Fieldset
+
+<ComponentPreview name="FieldFieldset" />
+
+### Checkbox
+
+<ComponentPreview
+  name="FieldCheckbox"
+  previewClassName="h-[32rem]"
+/>
+
+### Radio
+
+<ComponentPreview name="FieldRadio" />
+
+### Switch
+
+<ComponentPreview name="FieldSwitch" />
+
+### Choice Card
+
+Wrap `Field` components inside `Field.Label` to create selectable field groups. This works with `RadioItem`, `Checkbox` and `Switch` components.
+
+<ComponentPreview name="FieldChoiceCard" />
+
+### Field Group
+
+Stack `Field` components with `FieldGroup`. Add `Field.Separator` to divide them.
+
+<ComponentPreview
+  name="FieldGroup"
+  previewClassName="h-96"
+/>
+
+
+## Responsive Layout
+
+- **Vertical fields:** Default orientation stacks label, control, and helper text—ideal for mobile-first layouts.
+- **Horizontal fields:** Set `orientation="horizontal"` on `Field` to align the label and control side-by-side. Pair with `Field.Content` to keep descriptions aligned.
+- **Responsive fields:** Set `orientation="responsive"` for automatic column layouts inside container-aware parents. Apply `@container/field-group` classes on `FieldGroup` to switch orientations at specific breakpoints.
+
+<ComponentPreview
+  name="FieldResponsive"
+  previewClassName="h-[650px] p-6 md:h-[500px] md:p-10"
+/>
+
+## Validation and Errors
+
+- Add `dataInvalid` to `Field` to switch the entire block into an error state.
+- Add `ariaInvalid` on the input itself for assistive technologies.
+- Render `Field.Error` immediately after the control or inside `Field.Content` to keep error messages aligned with the field.
+
+```res /data-invalid/ /aria-invalid/
+<Field dataInvalid=true>
+  <Field.Label htmlFor="email"> {"Email"->React.string} </Field.Label>
+  <Input id="email" type="email" ariaInvalid=true />
+  <Field.Error> {"Enter a valid email address."->React.string} </Field.Error>
+</Field>
+```
+
+## Accessibility
+
+- `FieldSet` and `FieldLegend` keep related controls grouped for keyboard and assistive tech users.
+- `Field` outputs `role="group"` so nested controls inherit labeling from `Field.Label` and `FieldLegend` when combined.
+- Apply `Field.Separator` sparingly to ensure screen readers encounter clear section boundaries.
+
+## API Reference
+
+### FieldSet
+
+Container that renders a semantic `fieldset` with spacing presets.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res
+<FieldSet>
+  <FieldLegend> {"Delivery"->React.string} </FieldLegend>
+  <FieldGroup>{/* Fields */}</FieldGroup>
+</FieldSet>
+```
+
+### FieldLegend
+
+Legend element for a `FieldSet`. Switch to the `label` variant to align with label sizing.
+
+| Prop        | Type                  | Default    |
+| ----------- | --------------------- | ---------- |
+| `variant`   | `Legend \| Label`     | `Legend`   |
+| `className` | `string`              |            |
+
+```res showLineNumbers
+<FieldLegend variant="label">Notification Preferences</FieldLegend>
+```
+
+The `FieldLegend` has two variants: `legend` and `label`. The `label` variant applies label sizing and alignment. Handy if you have nested `FieldSet`.
+
+### FieldGroup
+
+Layout wrapper that stacks `Field` components and enables container queries for responsive orientations.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res
+<FieldGroup className="@container/field-group flex flex-col gap-6">
+  <Field>{/* ... */}</Field>
+  <Field>{/* ... */}</Field>
+</FieldGroup>
+```
+
+### Field
+
+The core wrapper for a single field. Provides orientation control, invalid state styling, and spacing.
+
+| Prop           | Type                                         | Default      |
+| -------------- | -------------------------------------------- | ------------ |
+| `orientation`  | `Vertical \| Horizontal \| Responsive`       | `Vertical`   |
+| `className`    | `string`                                     |              |
+| `dataInvalid` | `bool`                                    |              |
+
+```res 
+<Field orientation=Horizontal>
+  <Field.Label htmlFor="remember"> {"Remember me"->React.string} </Field.Label>
+  <Switch id="remember" />
+</Field>
+```
+
+### Field.Content
+
+Flex column that groups control and descriptions when the label sits beside the control. Not required if you have no description.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res
+<Field>
+  <Checkbox id="notifications" />
+  <Field.Content>
+    <Field.Label htmlFor="notifications"> {"Notifications"->React.string} </Field.Label>
+    <Field.Description> {"Email, SMS, and push options."->React.string} </Field.Description>
+  </Field.Content>
+</Field>
+```
+
+### Field.Label
+
+Label styled for both direct inputs and nested `Field` children.
+
+| Prop        | Type      | Default |
+| ----------- | --------- | ------- |
+| `className` | `string`  |         |
+| `asChild`   | `bool` | `false` |
+
+```res
+<Field.Label htmlFor="email"> {"Email"->React.string} </Field.Label>
+```
+
+### Field.Title
+
+Renders a title with label styling inside `Field.Content`.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res
+<Field.Content>
+  <Field.Title> {"Enable Touch ID"->React.string} </Field.Title>
+  <Field.Description> {"Unlock your device faster."->React.string} </Field.Description>
+</Field.Content>
+```
+
+### Field.Description
+
+Helper text slot that automatically balances long lines in horizontal layouts.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res showLineNumbers
+<Field.Description>We never share your email with anyone.</Field.Description>
+```
+
+### Field.Separator
+
+Visual divider to separate sections inside a `FieldGroup`. Accepts optional inline content.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res 
+<Field.Separator>Or continue with</Field.Separator>
+```
+
+### Field.Error
+
+Accessible error container that accepts children or an `errors` array (e.g., from `react-hook-form`).
+
+| Prop        | Type                                       | Default |
+| ----------- | ------------------------------------------ | ------- |
+| `errors`    | `Array<Error.t>` |         |
+| `className` | `string`                                   |         |
+
+```res
+<Field.Error errors={errors.username} />
+```
+
+When the `errors` array contains multiple messages, the component renders a list automatically.
+
+`Field.Error` also accepts issues produced by any validator that implements [Standard Schema](https://standardschema.dev/), including Zod, Valibot, and ArkType. Pass the `issues` array from the schema result directly to render a unified error list across libraries.

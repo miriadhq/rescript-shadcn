@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ComboboxCustom",
+  "registryDependencies": [
+    "Combobox",
+    "Item"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ComboboxCustom.res",
+      "content": "@@directive(\"'use client'\")\n\ntype country = {\n  code: string,\n  value: string,\n  label: string,\n  continent: string,\n}\n\nlet countries = [\n  {code: \"ar\", value: \"argentina\", label: \"Argentina\", continent: \"South America\"},\n  {code: \"au\", value: \"australia\", label: \"Australia\", continent: \"Oceania\"},\n  {code: \"br\", value: \"brazil\", label: \"Brazil\", continent: \"South America\"},\n  {code: \"ca\", value: \"canada\", label: \"Canada\", continent: \"North America\"},\n  {code: \"cn\", value: \"china\", label: \"China\", continent: \"Asia\"},\n  {code: \"co\", value: \"colombia\", label: \"Colombia\", continent: \"South America\"},\n  {code: \"eg\", value: \"egypt\", label: \"Egypt\", continent: \"Africa\"},\n  {code: \"fr\", value: \"france\", label: \"France\", continent: \"Europe\"},\n  {code: \"de\", value: \"germany\", label: \"Germany\", continent: \"Europe\"},\n  {code: \"it\", value: \"italy\", label: \"Italy\", continent: \"Europe\"},\n  {code: \"jp\", value: \"japan\", label: \"Japan\", continent: \"Asia\"},\n  {code: \"ke\", value: \"kenya\", label: \"Kenya\", continent: \"Africa\"},\n  {code: \"mx\", value: \"mexico\", label: \"Mexico\", continent: \"North America\"},\n  {code: \"nz\", value: \"new-zealand\", label: \"New Zealand\", continent: \"Oceania\"},\n  {code: \"ng\", value: \"nigeria\", label: \"Nigeria\", continent: \"Africa\"},\n  {code: \"za\", value: \"south-africa\", label: \"South Africa\", continent: \"Africa\"},\n  {code: \"kr\", value: \"south-korea\", label: \"South Korea\", continent: \"Asia\"},\n  {code: \"gb\", value: \"united-kingdom\", label: \"United Kingdom\", continent: \"Europe\"},\n  {code: \"us\", value: \"united-states\", label: \"United States\", continent: \"North America\"},\n]\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Combobox items={countries} itemToStringValue={(c: country) => c.label}>\n    <Combobox.Input placeholder=\"Search countries...\" />\n    <Combobox.Content>\n      <Combobox.Empty> {\"No countries found.\"->React.string} </Combobox.Empty>\n      <Combobox.List>\n        {(country, _index) =>\n          <Combobox.Item key={country.code} value={country}>\n            <Item size=Item.Size.Xs className=\"p-0\">\n              <Item.Content>\n                <Item.Title className=\"whitespace-nowrap\">\n                  {country.label->React.string}\n                </Item.Title>\n                <Item.Description>\n                  {`${country.continent} (${country.code})`->React.string}\n                </Item.Description>\n              </Item.Content>\n            </Item>\n          </Combobox.Item>}\n      </Combobox.List>\n    </Combobox.Content>\n  </Combobox>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

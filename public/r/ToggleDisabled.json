@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ToggleDisabled",
+  "registryDependencies": [
+    "Toggle"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ToggleDisabled.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap items-center gap-2\">\n    <Toggle ariaLabel=\"Toggle disabled\" disabled={true}> {\"Disabled\"->React.string} </Toggle>\n    <Toggle variant=Toggle.Variant.Outline ariaLabel=\"Toggle disabled outline\" disabled={true}>\n      {\"Disabled\"->React.string}\n    </Toggle>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

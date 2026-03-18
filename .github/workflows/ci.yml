@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Generate DemoLoader
+        run: yarn loader:generate
+
+      - name: Compile ReScript
+        run: yarn rescript
+
+      - name: format rescript code
+        run: |
+          yarn rescript format
+          test -z "$(git status --porcelain)" || (echo "rescript code not formatted" && exit 1)
+
+      - name: Generate registry
+        run: |
+          yarn registry:generate
+          test -z "$(git status --porcelain)" || (echo "registry not synced" && exit 1)
+
+      - name: Build public registry
+        run: |
+          yarn registry:build
+          test -z "$(git status --porcelain)" || (echo "public registry not synced" && exit 1)
+
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Generate DemoLoader
+        run: yarn loader:generate
+
+      - name: Compile ReScript
+        run: yarn rescript
+
+      - name: Run visual tests
+        run: yarn test:visual

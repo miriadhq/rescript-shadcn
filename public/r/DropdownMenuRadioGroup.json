@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "DropdownMenuRadioGroup",
+  "registryDependencies": [
+    "Button",
+    "DropdownMenu"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/DropdownMenuRadioGroup.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (position, setPosition) = React.useState(() => \"bottom\")\n\n  <DropdownMenu>\n    <DropdownMenu.Trigger\n      render={<Button variant=Button.Variant.Outline dataSlot=\"dropdown-menu-trigger\" />}\n    >\n      {\"Open\"->React.string}\n    </DropdownMenu.Trigger>\n    <DropdownMenu.Content className=\"w-32\">\n      <DropdownMenu.Group>\n        <DropdownMenu.Label> {\"Panel Position\"->React.string} </DropdownMenu.Label>\n        <DropdownMenu.RadioGroup value={position} onValueChange={(v, _) => setPosition(_ => v)}>\n          <DropdownMenu.RadioItem value=\"top\"> {\"Top\"->React.string} </DropdownMenu.RadioItem>\n          <DropdownMenu.RadioItem value=\"bottom\"> {\"Bottom\"->React.string} </DropdownMenu.RadioItem>\n          <DropdownMenu.RadioItem value=\"right\"> {\"Right\"->React.string} </DropdownMenu.RadioItem>\n        </DropdownMenu.RadioGroup>\n      </DropdownMenu.Group>\n    </DropdownMenu.Content>\n  </DropdownMenu>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

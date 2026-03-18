@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "EmptyOutline",
+  "dependencies": [
+    "@tabler/icons-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Empty"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/EmptyOutline.res",
+      "content": "module TablerIcons = {\n  module Cloud = {\n    @module(\"@tabler/icons-react\") @react.component\n    external make: (~className: string=?) => React.element = \"IconCloud\"\n  }\n}\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Empty className=\"border border-dashed\">\n    <Empty.Header>\n      <Empty.Media variant=Empty.Variant.Icon>\n        <TablerIcons.Cloud />\n      </Empty.Media>\n      <Empty.Title> {\"Cloud Storage Empty\"->React.string} </Empty.Title>\n      <Empty.Description>\n        {\"Upload files to your cloud storage to access them anywhere.\"->React.string}\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Content>\n      <Button variant=Button.Variant.Outline size=Button.Size.Sm>\n        {\"Upload Files\"->React.string}\n      </Button>\n    </Empty.Content>\n  </Empty>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

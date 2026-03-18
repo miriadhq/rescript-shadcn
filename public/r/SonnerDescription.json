@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SonnerDescription",
+  "dependencies": [
+    "sonner"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Sonner"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SonnerDescription.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Button\n    variant=Outline\n    className=\"w-fit\"\n    onClick={_ =>\n      Sonner.toast(\n        \"Event has been created\"->React.string,\n        ~options={description: \"Monday, January 3rd at 6:00pm\"->React.string},\n      )}\n  >\n    {\"Show Toast\"->React.string}\n  </Button>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

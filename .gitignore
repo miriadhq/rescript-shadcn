@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+#rescript
+**/lib/bs/* 
+**/lib/ocaml/* 
+
+*.res.jsx
+*.res.mjs
+
+rescript.lock
+
+test/artifacts
+
+# fumadocs
+.source

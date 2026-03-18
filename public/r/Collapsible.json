@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "Collapsible",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "files": [
+    {
+      "path": "registry/base/ui/Collapsible.res",
+      "content": "@@directive(\"'use client'\")\n\nopen BaseUi.Types\n\n@react.component\nlet make = (\n  ~className=?,\n  ~children=?,\n  ~id=?,\n  ~dir=?,\n  ~open_=?,\n  ~defaultOpen=?,\n  ~onOpenChange=?,\n  ~disabled=?,\n  ~style=?,\n) =>\n  <BaseUi.Collapsible.Root\n    ?className\n    ?children\n    ?id\n    ?dir\n    ?open_\n    ?defaultOpen\n    ?onOpenChange\n    ?disabled\n    ?style\n    dataSlot=\"collapsible\"\n  />\n\nmodule Trigger = {\n  @react.component\n  let make = (\n    ~className=?,\n    ~children=?,\n    ~id=?,\n    ~disabled=?,\n    ~onClick=?,\n    ~onKeyDown=?,\n    ~ariaLabel=?,\n    ~render=?,\n    ~style=?,\n    ~type_=?,\n    ~nativeButton=?,\n  ) => {\n    <BaseUi.Collapsible.Trigger\n      ?className\n      ?children\n      ?id\n      ?disabled\n      ?onClick\n      ?onKeyDown\n      ?ariaLabel\n      ?render\n      ?style\n      ?type_\n      ?nativeButton\n      dataSlot=\"collapsible-trigger\"\n    />\n  }\n}\n\nmodule Content = {\n  @react.component\n  let make = (\n    ~className=?,\n    ~children,\n    ~id=?,\n    ~style=?,\n    ~render=?,\n    ~hiddenUntilFound=?,\n    ~keepMounted=?,\n  ) =>\n    <BaseUi.Collapsible.Panel\n      ?className ?id ?style ?hiddenUntilFound ?keepMounted ?render dataSlot=\"collapsible-content\"\n    >\n      {children}\n    </BaseUi.Collapsible.Panel>\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

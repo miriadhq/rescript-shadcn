@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AlertDialogDemo",
+  "registryDependencies": [
+    "AlertDialog",
+    "Button"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/AlertDialogDemo.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <AlertDialog>\n    <AlertDialog.Trigger\n      render={<Button variant=Button.Variant.Outline dataSlot=\"alert-dialog-trigger\" />}\n    >\n      {\"Show Dialog\"->React.string}\n    </AlertDialog.Trigger>\n    <AlertDialog.Content>\n      <AlertDialog.Header>\n        <AlertDialog.Title> {\"Are you absolutely sure?\"->React.string} </AlertDialog.Title>\n        <AlertDialog.Description>\n          {\"This action cannot be undone. This will permanently delete your account from our servers.\"->React.string}\n        </AlertDialog.Description>\n      </AlertDialog.Header>\n      <AlertDialog.Footer>\n        <AlertDialog.Cancel> {\"Cancel\"->React.string} </AlertDialog.Cancel>\n        <AlertDialog.Action> {\"Continue\"->React.string} </AlertDialog.Action>\n      </AlertDialog.Footer>\n    </AlertDialog.Content>\n  </AlertDialog>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

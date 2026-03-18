@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RadioGroupDemo",
+  "registryDependencies": [
+    "Label",
+    "RadioGroup"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/RadioGroupDemo.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <RadioGroup defaultValue=\"comfortable\" className=\"w-fit\">\n    <div className=\"flex items-center gap-3\">\n      <RadioGroup.Item value=\"default\" id=\"r1\" />\n      <Label htmlFor=\"r1\"> {\"Default\"->React.string} </Label>\n    </div>\n    <div className=\"flex items-center gap-3\">\n      <RadioGroup.Item value=\"comfortable\" id=\"r2\" />\n      <Label htmlFor=\"r2\"> {\"Comfortable\"->React.string} </Label>\n    </div>\n    <div className=\"flex items-center gap-3\">\n      <RadioGroup.Item value=\"compact\" id=\"r3\" />\n      <Label htmlFor=\"r3\"> {\"Compact\"->React.string} </Label>\n    </div>\n  </RadioGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

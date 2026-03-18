@@ -1,0 +1,73 @@
+---
+title: Skeleton
+description: Use to show a placeholder while content is loading.
+base: base
+component: true
+---
+
+<ComponentPreview name="SkeletonDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Skeleton
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="skeleton"
+  title="components/ui/Skeleton.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res
+<Skeleton className="h-[20px] w-[100px] rounded-full" />
+```
+
+## Examples
+
+### Avatar
+
+<ComponentPreview name="SkeletonAvatar" />
+
+### Card
+
+<ComponentPreview
+  name="SkeletonCard"
+  previewClassName="h-80"
+/>
+
+### Text
+
+<ComponentPreview name="SkeletonText" />
+
+### Form
+
+<ComponentPreview name="SkeletonForm" />
+
+### Table
+
+<ComponentPreview name="SkeletonTable" />
+

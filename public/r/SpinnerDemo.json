@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SpinnerDemo",
+  "registryDependencies": [
+    "Item",
+    "Spinner"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SpinnerDemo.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex w-full max-w-xs flex-col gap-4 [--radius:1rem]\">\n    <Item variant=Item.Variant.Muted>\n      <Item.Media>\n        <Spinner />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title className=\"line-clamp-1\"> {\"Processing payment...\"->React.string} </Item.Title>\n      </Item.Content>\n      <Item.Content className=\"flex-none justify-end\">\n        <span className=\"text-sm tabular-nums\"> {\"$100.00\"->React.string} </span>\n      </Item.Content>\n    </Item>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

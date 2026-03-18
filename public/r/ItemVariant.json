@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ItemVariant",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "Item"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ItemVariant.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex w-full max-w-md flex-col gap-6\">\n    <Item>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Default Variant\"->React.string} </Item.Title>\n        <Item.Description>\n          {\"Transparent background with no border.\"->React.string}\n        </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Outline>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Outline Variant\"->React.string} </Item.Title>\n        <Item.Description>\n          {\"Outlined style with a visible border.\"->React.string}\n        </Item.Description>\n      </Item.Content>\n    </Item>\n    <Item variant=Item.Variant.Muted>\n      <Item.Media variant=Item.Media.Variant.Icon>\n        <Icons.Inbox />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Muted Variant\"->React.string} </Item.Title>\n        <Item.Description>\n          {\"Muted background for secondary content.\"->React.string}\n        </Item.Description>\n      </Item.Content>\n    </Item>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,136 @@
+---
+title: Alert Dialog
+description: A modal dialog that interrupts the user with important content and expects a response.
+featured: true
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/alert-dialog
+  api: https://base-ui.com/react/components/alert-dialog#api-reference
+---
+
+<ComponentPreview
+  name="AlertDialogDemo"
+  previewClassName="h-56"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/AlertDialog
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="alert-dialog"
+  title="components/ui/AlertDialog.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<AlertDialog>
+  <AlertDialog.Trigger render={<Button variant=Outline />}>
+    {"Show Dialog"->React.string}
+  </AlertDialog.Trigger>
+  <AlertDialog.Content>
+    <AlertDialog.Header>
+      <AlertDialog.Title> {"Are you absolutely sure?"->React.string} </AlertDialog.Title>
+      <AlertDialog.Description>
+        {"This action cannot be undone."->React.string}
+      </AlertDialog.Description>
+    </AlertDialog.Header>
+    <AlertDialog.Footer>
+      <AlertDialog.Cancel> {"Cancel"->React.string} </AlertDialog.Cancel>
+      <AlertDialog.Action> {"Continue"->React.string} </AlertDialog.Action>
+    </AlertDialog.Footer>
+  </AlertDialog.Content>
+</AlertDialog>
+```
+
+## Examples
+
+### Basic
+
+A basic alert dialog with a title, description, and cancel and continue buttons.
+
+<ComponentPreview
+  name="AlertDialogBasic"
+  previewClassName="h-56"
+/>
+
+### Small
+
+Use the `size="sm"` prop to make the alert dialog smaller.
+
+<ComponentPreview
+  name="AlertDialogSmall"
+  previewClassName="h-56"
+/>
+
+### Media
+
+Use the `AlertDialogMedia` component to add a media element such as an icon or image to the alert dialog.
+
+<ComponentPreview
+  name="AlertDialogMedia"
+  previewClassName="h-56"
+/>
+
+### Small with Media
+
+Use the `size="sm"` prop to make the alert dialog smaller and the `AlertDialogMedia` component to add a media element such as an icon or image to the alert dialog.
+
+<ComponentPreview
+  name="AlertDialogSmallMedia"
+  previewClassName="h-56"
+/>
+
+### Destructive
+
+Use the `AlertDialogAction` component to add a destructive action button to the alert dialog.
+
+<ComponentPreview
+  name="AlertDialogDestructive"
+  previewClassName="h-56"
+/>
+
+
+## API Reference
+
+### size
+
+Use the `size` props on the `AlertDialogContent` component to control the size of the alert dialog. It accepts the following values:
+
+| Prop   | Type                | Default     |
+| ------ | ------------------- | ----------- |
+| `size` | `Default \| Sm`     | `Default`   |
+
+For more information about the other components and their props, see the [Base UI documentation](https://base-ui.com/react/components/alert-dialog#api-reference).

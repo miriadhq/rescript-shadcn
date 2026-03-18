@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SliderRange",
+  "registryDependencies": [
+    "Slider"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SliderRange.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Slider defaultValue={[25., 50.]} max={100.} step={5.} className=\"mx-auto w-full max-w-xs\" />\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,89 @@
+---
+title: Popover
+description: Displays rich content in a portal, triggered by a button.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/popover
+  api: https://base-ui.com/react/components/popover#api-reference
+---
+
+<ComponentPreview name="PopoverDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Popover
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="popover"
+  title="components/ui/Popover.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Popover>
+  <Popover.Trigger render={<Button variant=Outline />}>
+    {"Open Popover"->React.string}
+  </Popover.Trigger>
+  <Popover.Content>
+    <h4 className="leading-none font-medium"> {"Title"->React.string} </h4>
+    <p className="text-muted-foreground text-sm"> {"Description text here."->React.string} </p>
+  </Popover.Content>
+</Popover>
+```
+
+## Examples
+
+### Basic
+
+A simple popover with a header, title, and description.
+
+<ComponentPreview name="PopoverBasic" />
+
+### Align
+
+Use the `align` prop on `PopoverContent` to control the horizontal alignment.
+
+<ComponentPreview name="PopoverAlignments" />
+
+### With Form
+
+A popover with form fields inside.
+
+<ComponentPreview name="PopoverForm" />
+
+
+## API Reference
+
+See the [Base UI Popover](https://base-ui.com/react/components/popover#api-reference) documentation.

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonGroup",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "files": [
+    {
+      "path": "registry/base/ui/ButtonGroup.res",
+      "content": "@@jsxConfig({version: 4, mode: \"automatic\", module_: \"BaseUi.BaseUiJsxDOM\"})\n\nopen BaseUi.Types\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\nmodule DataOrientation = {\n  @unboxed\n  type t =\n    | @as(\"horizontal\") Horizontal\n    | @as(\"vertical\") Vertical\n}\n\nlet buttonGroupVariants = (~orientation=DataOrientation.Horizontal) => {\n  let base = \"flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-lg [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1\"\n  let orientationClass = switch orientation {\n  | Horizontal => \"*:data-slot:rounded-r-none [&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-lg! [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0\"\n  | Vertical => \"flex-col *:data-slot:rounded-b-none [&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-lg! [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0\"\n  }\n  cn(base, Some(orientationClass))\n}\n\n@react.component\nlet make = (\n  ~className=?,\n  ~children=?,\n  ~id=?,\n  ~style=?,\n  ~onClick=?,\n  ~onKeyDown=?,\n  ~ariaLabel=?,\n  ~orientation=?,\n) => {\n  <div\n    ?id\n    ?style\n    ?onClick\n    ?onKeyDown\n    ?ariaLabel\n    ?children\n    role=\"group\"\n    dataOrientation=?{(orientation :> option<string>)}\n    dataSlot=\"button-group\"\n    className={cn(buttonGroupVariants(~orientation?), className)}\n  />\n}\n\nmodule Text = {\n  @react.component\n  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~render=?) => {\n    let props: BaseUi.Types.props<string, bool> = {\n      ?id,\n      ?style,\n      ?onClick,\n      ?onKeyDown,\n      ?children,\n      dataSlot: \"button-group-text\",\n      className: cn(\n        \"flex items-center gap-2 rounded-lg border bg-muted px-2.5 text-sm font-medium [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4\",\n        className,\n      ),\n    }\n    BaseUi.Render.use({defaultTagName: \"div\", props, ?render})\n  }\n}\n\nmodule Separator = {\n  @react.component\n  let make = (~className=?, ~id=?, ~style=?, ~orientation=Orientation.Vertical, ~children=?) =>\n    <BaseUi.Separator\n      ?id\n      ?style\n      ?children\n      dataSlot=\"button-group-separator\"\n      orientation\n      className={cn(\n        \"relative self-stretch bg-input data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto\",\n        className,\n      )}\n    />\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

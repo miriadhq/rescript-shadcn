@@ -1,0 +1,108 @@
+---
+title: Command
+description: Command menu for search and quick actions.
+base: base
+component: true
+links:
+  doc: https://github.com/dip/cmdk
+---
+
+<ComponentPreview
+  name="CommandDemo"
+  align="start"
+  previewClassName="h-[24.5rem]"
+/>
+
+## About
+
+The `<Command />` component uses the [`cmdk`](https://github.com/dip/cmdk) component by [Dip](https://www.dip.org/).
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Command
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install cmdk
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="command"
+  title="components/ui/Command.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Command className="max-w-sm rounded-lg border">
+  <Command.Input placeholder="Type a command or search..." />
+  <Command.List>
+    <Command.Empty> {"No results found."->React.string} </Command.Empty>
+    <Command.Group heading="Suggestions">
+      <Command.Item> {"Calendar"->React.string} </Command.Item>
+      <Command.Item> {"Search Emoji"->React.string} </Command.Item>
+      <Command.Item> {"Calculator"->React.string} </Command.Item>
+    </Command.Group>
+    <Command.Separator />
+    <Command.Group heading="Settings">
+      <Command.Item> {"Profile"->React.string} </Command.Item>
+      <Command.Item> {"Billing"->React.string} </Command.Item>
+      <Command.Item> {"Settings"->React.string} </Command.Item>
+    </Command.Group>
+  </Command.List>
+</Command>
+```
+
+## Examples
+
+### Basic
+
+A simple command menu in a dialog.
+
+<ComponentPreview name="CommandBasic" />
+
+### Shortcuts
+
+<ComponentPreview name="CommandShortcuts" />
+
+### Groups
+
+A command menu with groups, icons and separators.
+
+<ComponentPreview name="CommandGroups" />
+
+### Scrollable
+
+Scrollable command menu with multiple items.
+
+<ComponentPreview name="CommandScrollable" />
+
+
+## API Reference
+
+See the [cmdk](https://github.com/dip/cmdk) documentation for more information.

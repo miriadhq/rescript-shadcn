@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SpinnerCustom",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SpinnerCustom.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex items-center gap-4\">\n    <Icons.Loader role=\"status\" ariaLabel=\"Loading\" className=\"size-4 animate-spin\" />\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

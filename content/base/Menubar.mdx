@@ -1,0 +1,103 @@
+---
+title: Menubar
+description: A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/menubar
+  api: https://base-ui.com/react/components/menubar#api-reference
+---
+
+<ComponentPreview name="MenubarDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Menubar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="menubar"
+  title="components/ui/Menubar.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Menubar>
+  <Menubar.Menu>
+    <Menubar.Trigger> {"File"->React.string} </Menubar.Trigger>
+    <Menubar.Content>
+      <Menubar.Group>
+        <Menubar.Item>
+          {"New Tab"->React.string}
+          <Menubar.Shortcut> {"\u2318T"->React.string} </Menubar.Shortcut>
+        </Menubar.Item>
+        <Menubar.Item> {"New Window"->React.string} </Menubar.Item>
+      </Menubar.Group>
+      <Menubar.Separator />
+      <Menubar.Group>
+        <Menubar.Item> {"Share"->React.string} </Menubar.Item>
+        <Menubar.Item> {"Print"->React.string} </Menubar.Item>
+      </Menubar.Group>
+    </Menubar.Content>
+  </Menubar.Menu>
+</Menubar>
+```
+
+## Examples
+
+### Checkbox
+
+Use `MenubarCheckboxItem` for toggleable options.
+
+<ComponentPreview name="MenubarCheckbox" />
+
+### Radio
+
+Use `MenubarRadioGroup` and `MenubarRadioItem` for single-select options.
+
+<ComponentPreview name="MenubarRadio" />
+
+### Submenu
+
+Use `MenubarSub`, `MenubarSubTrigger`, and `MenubarSubContent` for nested menus.
+
+<ComponentPreview name="MenubarSubmenu" />
+
+### With Icons
+
+<ComponentPreview name="MenubarIcons" />
+
+
+## API Reference
+
+See the [Base UI Menubar](https://base-ui.com/react/components/menubar#api-reference) documentation.

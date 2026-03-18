@@ -1,0 +1,128 @@
+---
+title: Context Menu
+description: Displays a menu of actions triggered by a right click.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/context-menu
+  api: https://base-ui.com/react/components/context-menu#api-reference
+---
+
+<ComponentPreview
+  name="ContextMenuDemo"
+  description="A context menu with sub menu items."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/ContextMenu
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="context-menu"
+  title="components/ui/ContextMenu.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<ContextMenu>
+  <ContextMenu.Trigger> {"Right click here"->React.string} </ContextMenu.Trigger>
+  <ContextMenu.Content>
+    <ContextMenu.Item> {"Profile"->React.string} </ContextMenu.Item>
+    <ContextMenu.Item> {"Billing"->React.string} </ContextMenu.Item>
+    <ContextMenu.Item> {"Team"->React.string} </ContextMenu.Item>
+    <ContextMenu.Item> {"Subscription"->React.string} </ContextMenu.Item>
+  </ContextMenu.Content>
+</ContextMenu>
+```
+
+## Examples
+
+### Basic
+
+A simple context menu with a few actions.
+
+<ComponentPreview name="ContextMenuBasic" />
+
+### Submenu
+
+Use `ContextMenuSub` to nest secondary actions.
+
+<ComponentPreview name="ContextMenuSubmenu" />
+
+### Shortcuts
+
+Add `ContextMenuShortcut` to show keyboard hints.
+
+<ComponentPreview name="ContextMenuShortcuts" />
+
+### Groups
+
+Group related actions and separate them with dividers.
+
+<ComponentPreview name="ContextMenuGroups" />
+
+### Icons
+
+Combine icons with labels for quick scanning.
+
+<ComponentPreview name="ContextMenuIcons" />
+
+### Checkboxes
+
+Use `ContextMenuCheckboxItem` for toggles.
+
+<ComponentPreview name="ContextMenuCheckboxes" />
+
+### Radio
+
+Use `ContextMenuRadioItem` for exclusive choices.
+
+<ComponentPreview name="ContextMenuRadio" />
+
+### Destructive
+
+Use `variant="destructive"` to style the menu item as destructive.
+
+<ComponentPreview name="ContextMenuDestructive" />
+
+### Sides
+
+Control submenu placement with side and align props.
+
+<ComponentPreview name="ContextMenuSides" />
+
+
+## API Reference
+
+See the [Base UI](https://base-ui.com/react/components/context-menu#api-reference) documentation for more information.

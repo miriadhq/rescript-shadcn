@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "Pagination",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Icons"
+  ],
+  "files": [
+    {
+      "path": "registry/base/ui/Pagination.res",
+      "content": "@@jsxConfig({version: 4, mode: \"automatic\", module_: \"BaseUi.BaseUiJsxDOM\"})\n\n@module(\"tailwind-merge\")\nexternal cn: (string, option<string>) => string = \"twMerge\"\n\nmodule Size = {\n  @unboxed\n  type t =\n    | @as(\"icon\") Icon\n    | @as(\"default\") Default\n}\n\n@react.component\nlet make = (~className=?, ~children=?, ~id=?, ~dir=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {\n  <nav\n    dataSlot=\"pagination\"\n    ?id\n    ?style\n    ?dir\n    ?onClick\n    ?onKeyDown\n    role=\"navigation\"\n    ariaLabel=\"pagination\"\n    className={cn(\"mx-auto flex w-full justify-center\", className)}\n    ?children\n  />\n}\n\nmodule Content = {\n  @react.component\n  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {\n    <ul\n      dataSlot=\"pagination-content\"\n      ?id\n      ?style\n      ?onClick\n      ?onKeyDown\n      className={cn(\"flex items-center gap-0.5\", className)}\n      ?children\n    />\n  }\n}\n\nmodule Item = {\n  @react.component\n  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>\n    <li dataSlot=\"pagination-item\" ?id ?style ?className ?children />\n}\n\nmodule Link = {\n  @react.component\n  let make = (\n    ~className=?,\n    ~isActive=false,\n    ~size=Size.Icon,\n    ~children=?,\n    ~href=?,\n    ~target=?,\n    ~id=?,\n    ~style=?,\n    ~onClick=?,\n    ~ariaLabel=?,\n  ) => {\n    <Button\n      variant={isActive ? Outline : Ghost}\n      size={(size :> Button.Size.t)}\n      className={cn(\"\", className)}\n      nativeButton={false}\n      render={<a\n        ?id\n        ?ariaLabel\n        ?style\n        ?href\n        ?target\n        ?onClick\n        ariaCurrent=?{isActive ? Some(#page) : None}\n        dataSlot=\"pagination-link\"\n        dataActive=?{isActive ? Some(true) : None}\n      />}\n      ?children\n    />\n  }\n}\n\nmodule Previous = {\n  @react.component\n  let make = (~className=?, ~text=\"Previous\", ~href=?, ~target=?, ~id=?, ~style=?, ~onClick=?) => {\n    <Link\n      ariaLabel=\"Go to previous page\"\n      size={Size.Default}\n      className={cn(\"pl-1.5!\", className)}\n      ?href\n      ?target\n      ?id\n      ?style\n      ?onClick\n    >\n      <Icons.ChevronLeft dataIcon=\"inline-start\" className=\"cn-rtl-flip\" />\n      <span className=\"hidden sm:block\"> {text->React.string} </span>\n    </Link>\n  }\n}\n\nmodule Next = {\n  @react.component\n  let make = (~className=?, ~text=\"Next\", ~href=?, ~target=?, ~id=?, ~style=?, ~onClick=?) => {\n    <Link\n      ariaLabel=\"Go to next page\"\n      size={Size.Default}\n      className={cn(\"pr-1.5!\", className)}\n      ?href\n      ?target\n      ?id\n      ?style\n      ?onClick\n    >\n      <span className=\"hidden sm:block\"> {text->React.string} </span>\n      <Icons.ChevronRight dataIcon=\"inline-end\" className=\"cn-rtl-flip\" />\n    </Link>\n  }\n}\n\nmodule Ellipsis = {\n  @react.component\n  let make = (~className=?, ~id=?, ~style=?) => {\n    <span\n      dataSlot=\"pagination-ellipsis\"\n      ?id\n      ?style\n      ariaHidden={true}\n      className={cn(\n        \"flex size-8 items-center justify-center [&_svg:not([class*='size-'])]:size-4\",\n        className,\n      )}\n    >\n      <Icons.MoreHorizontal />\n      <span className=\"sr-only\"> {\"More pages\"->React.string} </span>\n    </span>\n  }\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

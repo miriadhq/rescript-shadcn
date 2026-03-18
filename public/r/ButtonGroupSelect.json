@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonGroupSelect",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "ButtonGroup",
+    "Icons",
+    "Input",
+    "Select"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonGroupSelect.res",
+      "content": "@@directive(\"'use client'\")\n\nlet currencies = [\n  {BaseUi.Select.Item.label: \"US Dollar\", value: \"$\"},\n  {label: \"Euro\", value: \"€\"},\n  {label: \"British Pound\", value: \"£\"},\n]\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (currency, setCurrency) = React.useState(() => \"$\")\n\n  <ButtonGroup>\n    <ButtonGroup>\n      <Select items=currencies value=currency onValueChange={(value, _) => setCurrency(_ => value)}>\n        <Select.Trigger className=\"font-mono\"> {currency->React.string} </Select.Trigger>\n        <Select.Content dataAlignTrigger={false} align=BaseUi.Types.Align.Start>\n          <Select.Group>\n            {currencies\n            ->Array.map(item =>\n              <Select.Item key={item.value} value={item.value}>\n                {item.value->React.string}\n                {\" \"->React.string}\n                <span className=\"text-muted-foreground\"> {item.label->React.string} </span>\n              </Select.Item>\n            )\n            ->React.array}\n          </Select.Group>\n        </Select.Content>\n      </Select>\n      <Input placeholder=\"10.00\" pattern=\"[0-9]*\" />\n    </ButtonGroup>\n    <ButtonGroup>\n      <Button ariaLabel=\"Send\" size=Button.Size.Icon variant=Button.Variant.Outline>\n        <Icons.ArrowRight />\n      </Button>\n    </ButtonGroup>\n  </ButtonGroup>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

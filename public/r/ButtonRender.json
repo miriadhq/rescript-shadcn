@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonRender",
+  "registryDependencies": [
+    "Button"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonRender.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <a href=\"#\" className={Button.buttonVariants(~variant=Secondary, ~size=Sm)}>\n    {\"Login\"->React.string}\n  </a>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

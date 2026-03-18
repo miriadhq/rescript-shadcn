@@ -1,0 +1,100 @@
+---
+title: Drawer
+description: A drawer component for React.
+base: base
+component: true
+links:
+  doc: https://vaul.emilkowal.ski/getting-started
+---
+
+<ComponentPreview name="DrawerDemo" />
+
+## About
+
+Drawer is built on top of [Vaul](https://github.com/emilkowalski/vaul) by [emilkowalski](https://twitter.com/emilkowalski).
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Drawer
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install vaul
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="drawer"
+  title="components/ui/Drawer.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Drawer>
+  <Drawer.Trigger asChild=true>
+    <Button variant=Outline> {"Open Drawer"->React.string} </Button>
+  </Drawer.Trigger>
+  <Drawer.Content>
+    <Drawer.Header>
+      <Drawer.Title> {"Are you absolutely sure?"->React.string} </Drawer.Title>
+      <Drawer.Description> {"This action cannot be undone."->React.string} </Drawer.Description>
+    </Drawer.Header>
+    <Drawer.Footer>
+      <Button> {"Submit"->React.string} </Button>
+      <Drawer.Close asChild=true>
+        <Button variant=Outline> {"Cancel"->React.string} </Button>
+      </Drawer.Close>
+    </Drawer.Footer>
+  </Drawer.Content>
+</Drawer>
+```
+
+## Examples
+
+### Scrollable Content
+
+Keep actions visible while the content scrolls.
+
+<ComponentPreview name="DrawerScrollableContent" />
+
+### Sides
+
+Use the `direction` prop to set the side of the drawer. Available options are `top`, `right`, `bottom`, and `left`.
+
+<ComponentPreview name="DrawerSides" />
+
+### Responsive Dialog
+
+You can combine the `Dialog` and `Drawer` components to create a responsive dialog. This renders a `Dialog` component on desktop and a `Drawer` on mobile.
+
+<ComponentPreview name="DrawerDialog" />
+
+
+## API Reference
+
+See the [Vaul documentation](https://vaul.emilkowal.ski/getting-started) for the full API reference.

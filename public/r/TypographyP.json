@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TypographyP",
+  "files": [
+    {
+      "path": "registry/base/examples/TypographyP.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <p className=\"leading-7 [&:not(:first-child)]:mt-6\">\n    {\"The king, seeing how much happier his subjects were, realized the error of his ways and repealed the joke tax.\"->React.string}\n  </p>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

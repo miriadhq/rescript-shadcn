@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TextareaButton",
+  "registryDependencies": [
+    "Button",
+    "Textarea"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/TextareaButton.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"grid w-full gap-2\">\n    <Textarea placeholder=\"Type your message here.\" />\n    <Button> {\"Send message\"->React.string} </Button>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

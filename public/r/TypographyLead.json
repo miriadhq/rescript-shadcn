@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TypographyLead",
+  "files": [
+    {
+      "path": "registry/base/examples/TypographyLead.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <p className=\"text-muted-foreground text-xl\">\n    {\"A modal dialog that interrupts the user with important content and expects a response.\"->React.string}\n  </p>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

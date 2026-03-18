@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SelectAlignItem",
+  "registryDependencies": [
+    "Field",
+    "Select",
+    "Switch"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/SelectAlignItem.res",
+      "content": "@@directive(\"'use client'\")\n\nlet items = [\n  {BaseUi.Select.Item.label: \"Select a fruit\", value: None},\n  {label: \"Apple\", value: Some(\"apple\")},\n  {label: \"Banana\", value: Some(\"banana\")},\n  {label: \"Blueberry\", value: Some(\"blueberry\")},\n  {label: \"Grapes\", value: Some(\"grapes\")},\n  {label: \"Pineapple\", value: Some(\"pineapple\")},\n]\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (alignItemWithTrigger, setAlignItemWithTrigger) = React.useState(() => true)\n\n  <Field.Group className=\"w-full max-w-xs\">\n    <Field orientation=BaseUi.Types.Orientation.Horizontal>\n      <Field.Content>\n        <Field.Label htmlFor=\"align-item\"> {\"Align Item\"->React.string} </Field.Label>\n        <Field.Description>\n          {\"Toggle to align the item with the trigger.\"->React.string}\n        </Field.Description>\n      </Field.Content>\n      <Switch\n        id=\"align-item\"\n        checked={alignItemWithTrigger}\n        onCheckedChange={(checked, _) => setAlignItemWithTrigger(_ => checked)}\n      />\n    </Field>\n    <Field>\n      <Select items defaultValue=Some(\"banana\")>\n        <Select.Trigger>\n          <Select.Value />\n        </Select.Trigger>\n        <Select.Content dataAlignTrigger={alignItemWithTrigger}>\n          <Select.Group>\n            {items\n            ->Array.map(item =>\n              <Select.Item key={item.label} value={item}> {item.label->React.string} </Select.Item>\n            )\n            ->React.array}\n          </Select.Group>\n        </Select.Content>\n      </Select>\n    </Field>\n  </Field.Group>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupDropdown",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "DropdownMenu",
+    "Icons",
+    "InputGroup"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupDropdown.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"grid w-full max-w-sm gap-4\">\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Enter file name\" />\n      <InputGroup.Addon align=InlineEnd>\n        <DropdownMenu>\n          <DropdownMenu.Trigger\n            render={<InputGroup.Button variant=Ghost ariaLabel=\"More\" size=IconXs />}\n          >\n            <Icons.MoreHorizontal />\n          </DropdownMenu.Trigger>\n          <DropdownMenu.Content align=BaseUi.Types.Align.End sideOffset=8. alignOffset={-4.}>\n            <DropdownMenu.Group>\n              <DropdownMenu.Item> {\"Settings\"->React.string} </DropdownMenu.Item>\n              <DropdownMenu.Item> {\"Copy path\"->React.string} </DropdownMenu.Item>\n              <DropdownMenu.Item> {\"Open location\"->React.string} </DropdownMenu.Item>\n            </DropdownMenu.Group>\n          </DropdownMenu.Content>\n        </DropdownMenu>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Enter search query\" />\n      <InputGroup.Addon align=InlineEnd>\n        <DropdownMenu>\n          <DropdownMenu.Trigger\n            render={<InputGroup.Button variant=Ghost className=\"!pr-1.5 text-xs\" />}\n          >\n            {\"Search In...\"->React.string}\n            <Icons.ChevronDown className=\"size-3\" />\n          </DropdownMenu.Trigger>\n          <DropdownMenu.Content align=BaseUi.Types.Align.End sideOffset=8. alignOffset={-4.}>\n            <DropdownMenu.Group>\n              <DropdownMenu.Item> {\"Documentation\"->React.string} </DropdownMenu.Item>\n              <DropdownMenu.Item> {\"Blog Posts\"->React.string} </DropdownMenu.Item>\n              <DropdownMenu.Item> {\"Changelog\"->React.string} </DropdownMenu.Item>\n            </DropdownMenu.Group>\n          </DropdownMenu.Content>\n        </DropdownMenu>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

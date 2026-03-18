@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "MenubarRadio",
+  "registryDependencies": [
+    "Menubar"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/MenubarRadio.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (user, setUser) = React.useState(() => \"benoit\")\n  let (theme, setTheme) = React.useState(() => \"system\")\n\n  <Menubar className=\"w-72\">\n    <Menubar.Menu>\n      <Menubar.Trigger> {\"Profiles\"->React.string} </Menubar.Trigger>\n      <Menubar.Content>\n        <Menubar.RadioGroup value={user} onValueChange={(v, _) => setUser(_ => v)}>\n          <Menubar.RadioItem value=\"andy\"> {\"Andy\"->React.string} </Menubar.RadioItem>\n          <Menubar.RadioItem value=\"benoit\"> {\"Benoit\"->React.string} </Menubar.RadioItem>\n          <Menubar.RadioItem value=\"luis\"> {\"Luis\"->React.string} </Menubar.RadioItem>\n        </Menubar.RadioGroup>\n        <Menubar.Separator />\n        <Menubar.Item inset=true> {\"Edit...\"->React.string} </Menubar.Item>\n        <Menubar.Item inset=true> {\"Add Profile...\"->React.string} </Menubar.Item>\n      </Menubar.Content>\n    </Menubar.Menu>\n    <Menubar.Menu>\n      <Menubar.Trigger> {\"Theme\"->React.string} </Menubar.Trigger>\n      <Menubar.Content>\n        <Menubar.RadioGroup value={theme} onValueChange={(v, _) => setTheme(_ => v)}>\n          <Menubar.RadioItem value=\"light\"> {\"Light\"->React.string} </Menubar.RadioItem>\n          <Menubar.RadioItem value=\"dark\"> {\"Dark\"->React.string} </Menubar.RadioItem>\n          <Menubar.RadioItem value=\"system\"> {\"System\"->React.string} </Menubar.RadioItem>\n        </Menubar.RadioGroup>\n      </Menubar.Content>\n    </Menubar.Menu>\n  </Menubar>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

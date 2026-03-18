@@ -1,0 +1,142 @@
+---
+title: Card
+description: Displays a card with header, content, and footer.
+base: base
+component: true
+---
+
+<ComponentPreview
+  name="CardDemo"
+  previewClassName="h-[30rem]"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Card
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="card"
+  title="components/ui/Card.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Card>
+  <Card.Header>
+    <Card.Title> {"Card Title"->React.string} </Card.Title>
+    <Card.Description> {"Card Description"->React.string} </Card.Description>
+    <Card.Action> {"Card Action"->React.string} </Card.Action>
+  </Card.Header>
+  <Card.Content>
+    <p> {"Card Content"->React.string} </p>
+  </Card.Content>
+  <Card.Footer>
+    <p> {"Card Footer"->React.string} </p>
+  </Card.Footer>
+</Card>
+```
+
+## Examples
+
+### Size
+
+Use the `size="sm"` prop to set the size of the card to small. The small size variant uses smaller spacing.
+
+<ComponentPreview
+  name="CardSmall"
+  previewClassName="h-96"
+/>
+
+### Image
+
+Add an image before the card header to create a card with an image.
+
+<ComponentPreview
+  name="CardImage"
+  previewClassName="h-[32rem]"
+/>
+
+
+## API Reference
+
+### Card
+
+The `Card` component is the root container for card content.
+
+| Prop        | Type                | Default     |
+| ----------- | ------------------- | ----------- |
+| `size`      | `Default \| Sm`     | `Default` |
+| `className` | `string`            | -           |
+
+### CardHeader
+
+The `CardHeader` component is used for a title, description, and optional action.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### CardTitle
+
+The `CardTitle` component is used for the card title.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### CardDescription
+
+The `CardDescription` component is used for helper text under the title.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### CardAction
+
+The `CardAction` component places content in the top-right of the header (for example, a button or a badge).
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### CardContent
+
+The `CardContent` component is used for the main card body.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### CardFooter
+
+The `CardFooter` component is used for actions and secondary content at the bottom of the card.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |

@@ -1,0 +1,81 @@
+---
+title: Separator
+description: Visually or semantically separates content.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/separator
+  api: https://base-ui.com/react/components/separator#api-reference
+---
+
+<ComponentPreview name="SeparatorDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Separator
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="separator"
+  title="components/ui/Separator.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Separator />
+```
+
+## Examples
+
+### Vertical
+
+Use `orientation="vertical"` for a vertical separator.
+
+<ComponentPreview name="SeparatorVertical" />
+
+### Menu
+
+Vertical separators between menu items with descriptions.
+
+<ComponentPreview name="SeparatorMenu" />
+
+### List
+
+Horizontal separators between list items.
+
+<ComponentPreview name="SeparatorList" />
+
+
+## API Reference
+
+See the [Base UI Separator](https://base-ui.com/react/components/separator#api-reference) documentation.

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupCustom",
+  "registryDependencies": [
+    "InputGroup",
+    "Textarea"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupCustom.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"grid w-full max-w-sm gap-6\">\n    <InputGroup>\n      <Textarea\n        dataSlot=\"input-group-control\"\n        className=\"flex field-sizing-content min-h-16 w-full resize-none rounded-md bg-transparent px-3 py-2.5 text-base transition-[color,box-shadow] outline-none md:text-sm\"\n        placeholder=\"Autoresize textarea...\"\n      />\n      <InputGroup.Addon align=BlockEnd>\n        <InputGroup.Button className=\"ml-auto\" size=Sm variant=Default>\n          {\"Submit\"->React.string}\n        </InputGroup.Button>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ToggleDemo",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "Toggle"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ToggleDemo.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Toggle ariaLabel=\"Toggle bookmark\" size=Toggle.Size.Sm variant=Toggle.Variant.Outline>\n    <Icons.Bookmark className=\"group-aria-pressed/toggle:fill-foreground\" />\n    {\"Bookmark\"->React.string}\n  </Toggle>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

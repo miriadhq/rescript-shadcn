@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "RadioGroupChoiceCard",
+  "registryDependencies": [
+    "Field",
+    "RadioGroup"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/RadioGroupChoiceCard.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <RadioGroup defaultValue=\"plus\" className=\"max-w-sm\">\n    <Field.Label htmlFor=\"plus-plan\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <Field.Content>\n          <Field.Title> {\"Plus\"->React.string} </Field.Title>\n          <Field.Description>\n            {\"For individuals and small teams.\"->React.string}\n          </Field.Description>\n        </Field.Content>\n        <RadioGroup.Item value=\"plus\" id=\"plus-plan\" />\n      </Field>\n    </Field.Label>\n    <Field.Label htmlFor=\"pro-plan\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <Field.Content>\n          <Field.Title> {\"Pro\"->React.string} </Field.Title>\n          <Field.Description> {\"For growing businesses.\"->React.string} </Field.Description>\n        </Field.Content>\n        <RadioGroup.Item value=\"pro\" id=\"pro-plan\" />\n      </Field>\n    </Field.Label>\n    <Field.Label htmlFor=\"enterprise-plan\">\n      <Field orientation=BaseUi.Types.Orientation.Horizontal>\n        <Field.Content>\n          <Field.Title> {\"Enterprise\"->React.string} </Field.Title>\n          <Field.Description>\n            {\"For large teams and enterprises.\"->React.string}\n          </Field.Description>\n        </Field.Content>\n        <RadioGroup.Item value=\"enterprise\" id=\"enterprise-plan\" />\n      </Field>\n    </Field.Label>\n  </RadioGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

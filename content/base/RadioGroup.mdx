@@ -1,0 +1,102 @@
+---
+title: Radio Group
+description: A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/radio-group
+  api: https://base-ui.com/react/components/radio-group#api-reference
+---
+
+<ComponentPreview name="RadioGroupDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/RadioGroup
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="radio-group"
+  title="components/ui/RadioGroup.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<RadioGroup defaultValue="option-one">
+  <div className="flex items-center gap-3">
+    <RadioGroup.Item value="option-one" id="option-one" />
+    <Label htmlFor="option-one"> {"Option One"->React.string} </Label>
+  </div>
+  <div className="flex items-center gap-3">
+    <RadioGroup.Item value="option-two" id="option-two" />
+    <Label htmlFor="option-two"> {"Option Two"->React.string} </Label>
+  </div>
+</RadioGroup>
+```
+
+## Examples
+
+### Description
+
+Radio group items with a description using the `Field` component.
+
+<ComponentPreview name="RadioGroupDescription" />
+
+### Choice Card
+
+Use `FieldLabel` to wrap the entire `Field` for a clickable card-style selection.
+
+<ComponentPreview name="RadioGroupChoiceCard" />
+
+### Fieldset
+
+Use `FieldSet` and `FieldLegend` to group radio items with a label and description.
+
+<ComponentPreview name="RadioGroupFieldset" />
+
+### Disabled
+
+Use the `disabled` prop on `RadioGroup` to disable all items.
+
+<ComponentPreview name="RadioGroupDisabled" />
+
+### Invalid
+
+Use `aria-invalid` on `RadioGroupItem` and `data-invalid` on `Field` to show validation errors.
+
+<ComponentPreview name="RadioGroupInvalid" />
+
+
+## API Reference
+
+See the [Base UI Radio Group](https://base-ui.com/react/components/radio-group#api-reference) documentation.

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CarouselOrientation",
+  "registryDependencies": [
+    "Card",
+    "Carousel"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/CarouselOrientation.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Carousel\n    opts={align: \"start\"}\n    orientation=BaseUi.Types.DataOrientation.Vertical\n    className=\"w-full max-w-xs\"\n  >\n    <Carousel.Content className=\"-mt-1 h-[270px]\">\n      {Array.fromInitializer(~length=5, index =>\n        <Carousel.Item key={Int.toString(index)} className=\"basis-1/2 pt-1\">\n          <div className=\"p-1\">\n            <Card>\n              <Card.Content className=\"flex items-center justify-center p-6\">\n                <span className=\"text-3xl font-semibold\">\n                  {Int.toString(index + 1)->React.string}\n                </span>\n              </Card.Content>\n            </Card>\n          </div>\n        </Carousel.Item>\n      )->React.array}\n    </Carousel.Content>\n    <Carousel.Previous />\n    <Carousel.Next />\n  </Carousel>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

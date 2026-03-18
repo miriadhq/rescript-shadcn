@@ -1,0 +1,124 @@
+---
+title: Native Select
+description: A styled native HTML select element with consistent design system integration.
+base: base
+component: true
+---
+
+import { InfoIcon } from "lucide-react"
+
+<Callout variant="info" icon={<InfoIcon className="!translate-y-[3px]" />}>
+  For a styled select component, see the [Select](/components/Select)
+  component.
+</Callout>
+
+<ComponentPreview name="NativeSelectDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/NativeSelect
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="native-select"
+  title="components/ui/NativeSelect.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<NativeSelect>
+  <NativeSelect.Option value=""> {"Select a fruit"->React.string} </NativeSelect.Option>
+  <NativeSelect.Option value="apple"> {"Apple"->React.string} </NativeSelect.Option>
+  <NativeSelect.Option value="banana"> {"Banana"->React.string} </NativeSelect.Option>
+  <NativeSelect.Option value="blueberry"> {"Blueberry"->React.string} </NativeSelect.Option>
+  <NativeSelect.Option value="pineapple"> {"Pineapple"->React.string} </NativeSelect.Option>
+</NativeSelect>
+```
+
+## Examples
+
+### Groups
+
+Use `NativeSelectOptGroup` to organize options into categories.
+
+<ComponentPreview name="NativeSelectGroups" />
+
+### Disabled
+
+Add the `disabled` prop to the `NativeSelect` component to disable the select.
+
+<ComponentPreview name="NativeSelectDisabled" />
+
+### Invalid
+
+Use `aria-invalid` to show validation errors and the `data-invalid` attribute to the `Field` component for styling.
+
+<ComponentPreview name="NativeSelectInvalid" />
+
+## Native Select vs Select
+
+- Use `NativeSelect` for native browser behavior, better performance, or mobile-optimized dropdowns.
+- Use `Select` for custom styling, animations, or complex interactions.
+
+
+## API Reference
+
+### NativeSelect
+
+The main select component that wraps the native HTML select element.
+
+```res showLineNumbers
+<NativeSelect>
+  <NativeSelectOption value="option1">Option 1</NativeSelectOption>
+  <NativeSelectOption value="option2">Option 2</NativeSelectOption>
+</NativeSelect>
+```
+
+### NativeSelectOption
+
+Represents an individual option within the select.
+
+| Prop       | Type      | Default |
+| ---------- | --------- | ------- |
+| `value`    | `string`  |         |
+| `disabled` | `bool` | `false` |
+
+### NativeSelectOptGroup
+
+Groups related options together for better organization.
+
+| Prop       | Type      | Default |
+| ---------- | --------- | ------- |
+| `label`    | `string`  |         |
+| `disabled` | `bool` | `false` |
+
+```res
+<NativeSelectOptGroup label="Fruits">
+  <NativeSelectOption value="apple"> {"Apple"->React.string} </NativeSelectOption>
+  <NativeSelectOption value="banana"> {"Banana"->React.string} </NativeSelectOption>
+</NativeSelectOptGroup>
+```

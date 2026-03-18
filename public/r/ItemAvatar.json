@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ItemAvatar",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Avatar",
+    "Button",
+    "Icons",
+    "Item"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ItemAvatar.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex w-full max-w-lg flex-col gap-6\">\n    <Item variant=Item.Variant.Outline>\n      <Item.Media>\n        <Avatar className=\"size-10\">\n          <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"\" />\n          <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n        </Avatar>\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"Evil Rabbit\"->React.string} </Item.Title>\n        <Item.Description> {\"Last seen 5 months ago\"->React.string} </Item.Description>\n      </Item.Content>\n      <Item.Actions>\n        <Button\n          size=Button.Size.IconSm\n          variant=Button.Variant.Outline\n          className=\"rounded-full\"\n          ariaLabel=\"Invite\"\n        >\n          <Icons.Plus />\n        </Button>\n      </Item.Actions>\n    </Item>\n    <Item variant=Item.Variant.Outline>\n      <Item.Media>\n        <div\n          className=\"*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale\"\n        >\n          <Avatar className=\"hidden sm:flex\">\n            <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n            <Avatar.Fallback> {\"CN\"->React.string} </Avatar.Fallback>\n          </Avatar>\n          <Avatar className=\"hidden sm:flex\">\n            <Avatar.Image src=\"https://github.com/maxleiter.png\" alt=\"@maxleiter\" />\n            <Avatar.Fallback> {\"LR\"->React.string} </Avatar.Fallback>\n          </Avatar>\n          <Avatar>\n            <Avatar.Image src=\"https://github.com/evilrabbit.png\" alt=\"@evilrabbit\" />\n            <Avatar.Fallback> {\"ER\"->React.string} </Avatar.Fallback>\n          </Avatar>\n        </div>\n      </Item.Media>\n      <Item.Content>\n        <Item.Title> {\"No Team Members\"->React.string} </Item.Title>\n        <Item.Description>\n          {\"Invite your team to collaborate on this project.\"->React.string}\n        </Item.Description>\n      </Item.Content>\n      <Item.Actions>\n        <Button size=Button.Size.Sm variant=Button.Variant.Outline>\n          {\"Invite\"->React.string}\n        </Button>\n      </Item.Actions>\n    </Item>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

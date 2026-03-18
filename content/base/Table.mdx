@@ -1,0 +1,91 @@
+---
+title: Table
+description: A responsive table component.
+base: base
+component: true
+---
+
+<ComponentPreview
+  name="TableDemo"
+  previewClassName="h-[30rem]"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Table
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="table"
+  title="components/ui/Table.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Table>
+  <Table.Caption> {"A list of your recent invoices."->React.string} </Table.Caption>
+  <Table.Header>
+    <Table.Row>
+      <Table.Head className="w-[100px]"> {"Invoice"->React.string} </Table.Head>
+      <Table.Head> {"Status"->React.string} </Table.Head>
+      <Table.Head> {"Method"->React.string} </Table.Head>
+      <Table.Head className="text-right"> {"Amount"->React.string} </Table.Head>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell className="font-medium"> {"INV001"->React.string} </Table.Cell>
+      <Table.Cell> {"Paid"->React.string} </Table.Cell>
+      <Table.Cell> {"Credit Card"->React.string} </Table.Cell>
+      <Table.Cell className="text-right"> {"$250.00"->React.string} </Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+```
+
+## Examples
+
+### Footer
+
+Use the `<TableFooter />` component to add a footer to the table.
+
+<ComponentPreview name="TableFooter" />
+
+### Actions
+
+A table showing actions for each row using a `<DropdownMenu />` component.
+
+<ComponentPreview name="TableActions" />
+
+## Data Table
+
+You can use the `<Table />` component to build more complex data tables. Combine it with [@tanstack/react-table](https://tanstack.com/table/v8) to create tables with sorting, filtering and pagination.
+
+See the [Data Table](/components/DataTable) documentation for more information.
+
+You can also see an example of a data table in the [Tasks](/examples/tasks) demo.
+

@@ -1,0 +1,109 @@
+---
+title: Pagination
+description: Pagination with page navigation, next and previous links.
+base: base
+component: true
+---
+
+<ComponentPreview name="PaginationDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Pagination
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="pagination"
+  title="components/ui/Pagination.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Pagination>
+  <Pagination.Content>
+    <Pagination.Item>
+      <Pagination.Previous href="#" />
+    </Pagination.Item>
+    <Pagination.Item>
+      <Pagination.Link href="#"> {"1"->React.string} </Pagination.Link>
+    </Pagination.Item>
+    <Pagination.Item>
+      <Pagination.Link href="#" isActive=true> {"2"->React.string} </Pagination.Link>
+    </Pagination.Item>
+    <Pagination.Item>
+      <Pagination.Link href="#"> {"3"->React.string} </Pagination.Link>
+    </Pagination.Item>
+    <Pagination.Item>
+      <Pagination.Ellipsis />
+    </Pagination.Item>
+    <Pagination.Item>
+      <Pagination.Next href="#" />
+    </Pagination.Item>
+  </Pagination.Content>
+</Pagination>
+```
+
+## Examples
+
+### Simple
+
+A simple pagination with only page numbers.
+
+<ComponentPreview name="PaginationSimple" />
+
+### Icons Only
+
+Use just the previous and next buttons without page numbers. This is useful for data tables with a rows per page selector.
+
+<ComponentPreview name="PaginationIconsOnly" />
+
+## Next.js
+
+By default the `<Pagination.Link />` component will render an `<a />` tag.
+
+To use the Next.js `<Link />` component, make the following updates to `Pagination.res`.
+
+```diff showLineNumbers /typeof Link/ {1}
+
+module Link = (...) => 
+  <Item>
+-   <a>
++   <Link>
+      // ...
+-   </a>
++   </Link>
+  </Item>
+
+
+```
+
+<Callout className="mt-6">
+
+**Note:** We are making updates to the cli to automatically do this for you.
+
+</Callout>
+

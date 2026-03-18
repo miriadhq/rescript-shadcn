@@ -1,0 +1,204 @@
+---
+title: Empty
+description: Use the Empty component to display an empty state.
+base: base
+component: true
+---
+
+<ComponentPreview
+  name="EmptyDemo"
+  previewClassName="h-96 p-0"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Empty
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="empty"
+  title="components/ui/Empty.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Empty>
+  <Empty.Header>
+    <Empty.Media variant=Icon>
+      <Icons.Folder />
+    </Empty.Media>
+    <Empty.Title> {"No data"->React.string} </Empty.Title>
+    <Empty.Description> {"No data found"->React.string} </Empty.Description>
+  </Empty.Header>
+  <Empty.Content>
+    <Button> {"Add data"->React.string} </Button>
+  </Empty.Content>
+</Empty>
+```
+
+## Examples
+
+### Outline
+
+Use the `border` utility class to create an outline empty state.
+
+<ComponentPreview
+  name="EmptyOutline"
+  previewClassName="h-96 p-6 md:p-10"
+/>
+
+### Background
+
+Use the `bg-*` and `bg-gradient-*` utilities to add a background to the empty state.
+
+<ComponentPreview
+  name="EmptyBackground"
+  previewClassName="h-96 p-0"
+/>
+
+### Avatar
+
+Use the `EmptyMedia` component to display an avatar in the empty state.
+
+<ComponentPreview
+  name="EmptyAvatar"
+  previewClassName="h-96 p-0"
+/>
+
+### Avatar Group
+
+Use the `EmptyMedia` component to display an avatar group in the empty state.
+
+<ComponentPreview
+  name="EmptyAvatarGroup"
+  previewClassName="h-96 p-0"
+/>
+
+### InputGroup
+
+You can add an `InputGroup` component to the `EmptyContent` component.
+
+<ComponentPreview
+  name="EmptyInputGroup"
+  previewClassName="h-96 p-0"
+/>
+
+
+## API Reference
+
+### Empty
+
+The main component of the empty state. Wraps the `EmptyHeader` and `EmptyContent` components.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res showLineNumbers
+<Empty>
+  <EmptyHeader />
+  <EmptyContent />
+</Empty>
+```
+
+### EmptyHeader
+
+The `EmptyHeader` component wraps the empty media, title, and description.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res
+<Empty.Header>
+  <Empty.Media />
+  <Empty.Title />
+  <Empty.Description />
+</Empty.Header>
+```
+
+### EmptyMedia
+
+Use the `EmptyMedia` component to display the media of the empty state such as an icon or an image. You can also use it to display other components such as an avatar.
+
+| Prop        | Type                  | Default   |
+| ----------- | --------------------- | --------- |
+| `variant`   | `Default \| Icon`     | `Default` |
+| `className` | `string`              |           |
+
+```res
+<Empty.Media variant=Icon>
+  <Icon />
+</Empty.Media>
+```
+
+```res 
+<Empty.Media>
+  <Avatar>
+    <Avatar.Image src="..." />
+    <Avatar.Fallback> {"CN"->React.string} </Avatar.Fallback>
+  </Avatar>
+</Empty.Media>
+```
+
+### EmptyTitle
+
+Use the `EmptyTitle` component to display the title of the empty state.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res
+<Empty.Title> {"No data"->React.string} </Empty.Title>
+```
+
+### EmptyDescription
+
+Use the `EmptyDescription` component to display the description of the empty state.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res 
+<EmptyDescription> {"You do not have any notifications."->React.string} </EmptyDescription>
+```
+
+### EmptyContent
+
+Use the `EmptyContent` component to display the content of the empty state such as a button, input or a link.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```res 
+<EmptyContent>
+  <Button> {"Add Project"->React.string}</Button>
+</EmptyContent>
+```

@@ -1,0 +1,99 @@
+---
+title: Spinner
+description: An indicator that can be used to show a loading state.
+base: base
+component: true
+---
+
+<ComponentPreview name="SpinnerDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Spinner
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="spinner"
+  title="components/ui/Spinner.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res
+<Spinner />
+```
+
+## Customization
+
+You can replace the default spinner icon with any other icon by editing the `Spinner` component.
+
+<ComponentPreview name="SpinnerCustom" />
+
+```res showLineNumbers title="components/ui/Spinner.res"
+@module("tailwind-merge")
+external cn: (string, option<string>) => string = "twMerge"
+
+@react.component
+let make = (~className=?, ~dataIcon=?, ~dataSlot=?) => {
+  <LoaderIcon
+    ?dataIcon
+    ?dataSlot
+    role="status"
+    ariaLabel="Loading"
+    className={cn("size-4 animate-spin", className)}
+  />
+}
+
+```
+
+## Examples
+
+### Size
+
+Use the `size-*` utility class to change the size of the spinner.
+
+<ComponentPreview name="SpinnerSize" />
+
+### Button
+
+Add a spinner to a button to indicate a loading state. Remember to use the `dataIcon=InlineStart` prop to add the spinner to the start of the button and the `dataIcon=InlineEnd` prop to add the spinner to the end of the button.
+
+<ComponentPreview name="SpinnerButton" />
+
+### Badge
+
+Add a spinner to a badge to indicate a loading state. Remember to use the `dataIcon=InlineStart` prop to add the spinner to the start of the badge and the `dataIcon=InlineEnd` prop to add the spinner to the end of the badge.
+
+<ComponentPreview name="SpinnerBadge" />
+
+### Input Group
+
+<ComponentPreview name="SpinnerInputGroup" />
+
+### Empty
+
+<ComponentPreview name="SpinnerEmpty" />
+

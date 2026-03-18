@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ButtonGroupSeparator",
+  "registryDependencies": [
+    "Button",
+    "ButtonGroup"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/ButtonGroupSeparator.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <ButtonGroup>\n    <Button variant=Button.Variant.Secondary size=Button.Size.Sm> {\"Copy\"->React.string} </Button>\n    <ButtonGroup.Separator />\n    <Button variant=Button.Variant.Secondary size=Button.Size.Sm> {\"Paste\"->React.string} </Button>\n  </ButtonGroup>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

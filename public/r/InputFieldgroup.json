@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputFieldgroup",
+  "registryDependencies": [
+    "Button",
+    "Field",
+    "Input"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputFieldgroup.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field.Group>\n    <Field>\n      <Field.Label htmlFor=\"fieldgroup-name\"> {\"Name\"->React.string} </Field.Label>\n      <Input id=\"fieldgroup-name\" placeholder=\"Jordan Lee\" />\n    </Field>\n    <Field>\n      <Field.Label htmlFor=\"fieldgroup-email\"> {\"Email\"->React.string} </Field.Label>\n      <Input id=\"fieldgroup-email\" type_=\"email\" placeholder=\"name@example.com\" />\n      <Field.Description> {\"We'll send updates to this address.\"->React.string} </Field.Description>\n    </Field>\n    <Field orientation=Horizontal>\n      <Button type_=\"reset\" variant=Outline> {\"Reset\"->React.string} </Button>\n      <Button type_=\"submit\"> {\"Submit\"->React.string} </Button>\n    </Field>\n  </Field.Group>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

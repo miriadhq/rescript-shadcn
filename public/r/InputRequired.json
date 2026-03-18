@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputRequired",
+  "registryDependencies": [
+    "Field",
+    "Input"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputRequired.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Field>\n    <Field.Label htmlFor=\"input-required\">\n      {\"Required Field \"->React.string}\n      <span className=\"text-destructive\"> {\"*\"->React.string} </span>\n    </Field.Label>\n    <Input id=\"input-required\" placeholder=\"This field is required\" required={true} />\n    <Field.Description> {\"This field must be filled out.\"->React.string} </Field.Description>\n  </Field>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

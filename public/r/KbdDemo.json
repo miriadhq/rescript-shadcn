@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "KbdDemo",
+  "registryDependencies": [
+    "Kbd"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/KbdDemo.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-col items-center gap-4\">\n    <Kbd.Group>\n      <Kbd> {\"⌘\"->React.string} </Kbd>\n      <Kbd> {\"⇧\"->React.string} </Kbd>\n      <Kbd> {\"⌥\"->React.string} </Kbd>\n      <Kbd> {\"⌃\"->React.string} </Kbd>\n    </Kbd.Group>\n    <Kbd.Group>\n      <Kbd> {\"Ctrl\"->React.string} </Kbd>\n      <span> {\"+\"->React.string} </span>\n      <Kbd> {\"B\"->React.string} </Kbd>\n    </Kbd.Group>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

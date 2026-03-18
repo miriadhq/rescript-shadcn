@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupTextarea",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "InputGroup"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupTextarea.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"grid w-full max-w-md gap-4\">\n    <InputGroup>\n      <InputGroup.Textarea\n        id=\"textarea-code-32\" placeholder=\"console.log('Hello, world!');\" className=\"min-h-[200px]\"\n      />\n      <InputGroup.Addon align=BlockEnd className=\"border-t\">\n        <InputGroup.Text> {\"Line 1, Column 1\"->React.string} </InputGroup.Text>\n        <InputGroup.Button size=Sm className=\"ml-auto\" variant=Default>\n          {\"Run\"->React.string}\n          <Icons.CornerDownLeft />\n        </InputGroup.Button>\n      </InputGroup.Addon>\n      <InputGroup.Addon align=BlockStart className=\"border-b\">\n        <InputGroup.Text className=\"font-mono font-medium\">\n          <Icons.Code />\n          {\"script.js\"->React.string}\n        </InputGroup.Text>\n        <InputGroup.Button className=\"ml-auto\" size=IconXs>\n          <Icons.RefreshCw />\n        </InputGroup.Button>\n        <InputGroup.Button variant=Ghost size=IconXs>\n          <Icons.Copy />\n        </InputGroup.Button>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

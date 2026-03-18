@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "InputGroupButton",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Icons",
+    "InputGroup"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/InputGroupButton.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (isFavorite, setIsFavorite) = React.useState(() => false)\n\n  <div className=\"grid w-full max-w-sm gap-6\">\n    <InputGroup>\n      <InputGroup.Input placeholder=\"https://x.com/shadcn\" readOnly={true} />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Button ariaLabel=\"Copy\" size=IconXs>\n          <Icons.Copy />\n        </InputGroup.Button>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Enter your message\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Button variant=Secondary> {\"Search\"->React.string} </InputGroup.Button>\n      </InputGroup.Addon>\n    </InputGroup>\n    <InputGroup>\n      <InputGroup.Input placeholder=\"Type to search...\" />\n      <InputGroup.Addon align=InlineEnd>\n        <InputGroup.Button onClick={_ => setIsFavorite(f => !f)} size=IconXs>\n          <Icons.Star\n            dataIcon={isFavorite ? \"true\" : \"false\"}\n            className=\"data-[icon=true]:fill-blue-600 data-[icon=true]:stroke-blue-600\"\n          />\n        </InputGroup.Button>\n      </InputGroup.Addon>\n    </InputGroup>\n  </div>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,135 @@
+---
+title: Input OTP
+description: Accessible one-time password component with copy paste functionality.
+base: base
+component: true
+links:
+  doc: https://input-otp.rodz.dev
+---
+
+<ComponentPreview name="InputOtpDemo" />
+
+## About
+
+Input OTP is built on top of [input-otp](https://github.com/guilhermerodz/input-otp) by [@guilherme_rodz](https://twitter.com/guilherme_rodz).
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/InputOtp
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install input-otp
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="input-otp"
+  title="components/ui/InputOtp.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<InputOtp maxLength={6}>
+  <InputOtp.Group>
+    <InputOtp.Slot index={0} />
+    <InputOtp.Slot index={1} />
+    <InputOtp.Slot index={2} />
+  </InputOtp.Group>
+  <InputOtp.Separator />
+  <InputOtp.Group>
+    <InputOtp.Slot index={3} />
+    <InputOtp.Slot index={4} />
+    <InputOtp.Slot index={5} />
+  </InputOtp.Group>
+</InputOtp>
+```
+
+## Pattern
+
+Use the `pattern` prop to define a custom pattern for the OTP input.
+
+```res {1,5}
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
+
+;<InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
+  ...
+</InputOTP>
+```
+
+<ComponentPreview name="InputOtpPattern" />
+
+## Examples
+
+### Separator
+
+Use the `<InputOTPSeparator />` component to add a separator between input groups.
+
+<ComponentPreview name="InputOtpSeparator" />
+
+### Disabled
+
+Use the `disabled` prop to disable the input.
+
+<ComponentPreview name="InputOtpDisabled" />
+
+### Controlled
+
+Use the `value` and `onChange` props to control the input value.
+
+<ComponentPreview name="InputOtpControlled" />
+
+### Invalid
+
+Use `aria-invalid` on the slots to show an error state.
+
+<ComponentPreview name="InputOtpInvalid" />
+
+### Four Digits
+
+A common pattern for PIN codes. This uses the `pattern={REGEXP_ONLY_DIGITS}` prop.
+
+<ComponentPreview name="InputOtpFourDigits" />
+
+### Alphanumeric
+
+Use `REGEXP_ONLY_DIGITS_AND_CHARS` to accept both letters and numbers.
+
+<ComponentPreview name="InputOtpAlphanumeric" />
+
+### Form
+
+<ComponentPreview
+  name="InputOtpForm"
+  previewClassName="h-[30rem]"
+/>
+
+
+## API Reference
+
+See the [input-otp](https://input-otp.rodz.dev) documentation for more information.

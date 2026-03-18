@@ -1,0 +1,214 @@
+---
+title: Combobox
+description: Autocomplete input with a list of suggestions.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/combobox
+  api: https://base-ui.com/react/components/combobox#api-reference
+---
+
+<ComponentPreview
+  name="ComboboxDemo"
+  description="A combobox with a list of frameworks."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Combobox
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="combobox"
+  title="components/ui/Combobox.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
+
+<Combobox items=frameworks>
+  <Combobox.Input placeholder="Select a framework" />
+  <Combobox.Content>
+    <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
+    <Combobox.List>
+      {(item, _index) =>
+        <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
+    </Combobox.List>
+  </Combobox.Content>
+</Combobox>
+```
+
+## Custom Items
+
+Use `itemToStringValue` when your items are objects.
+
+```res showLineNumbers
+type framework = {
+  label: string
+  value: string
+}
+
+let frameworks = [
+  { label: "Next.js", value: "next" },
+  { label: "SvelteKit", value: "sveltekit" },
+  { label: "Nuxt", value: "nuxt" },
+]
+
+module ExampleComboboxCustomItems = {
+  @react.component
+  let make = () => {
+    <Combobox
+      items={frameworks}
+      itemToStringValue={(framework) => framework.label}
+    >
+      <Combobox.Input placeholder="Select a framework" />
+      <Combobox.Content>
+        <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
+        <Combobox.List>
+          {(framework, _index) =>
+            <Combobox.Item key={framework.value} value={framework}>
+              {framework.label->React.string}
+            </Combobox.Item>}
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox>
+  }
+}
+```
+
+## Multiple Selection
+
+Use `multiple` with chips for multi-select behavior.
+
+```res showLineNumbers
+let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
+
+module ExampleComboboxMultiple = {
+  @react.component 
+  let make = () => {
+  let (value, setValue) = React.useState<string[]>([])
+
+    <Combobox
+      items={frameworks}
+      multiple
+      value={value}
+      onValueChange={v => setValue(_ => v)}
+    >
+      <Combobox.Chips>
+        <Combobox.Value>
+          {value.map((item) => (
+            <Combobox.Chip key={item}> {item->React.string} </Combobox.Chip>
+          ))}
+        </Combobox.Value>
+        <Combobox.ChipsInput placeholder="Add framework" />
+      </Combobox.Chips>
+      <Combobox.Content>
+        <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
+        <Combobox.List>
+          {(item, _index) => 
+            <ComboboxItem key={item} value={item}>
+              {item}
+            </ComboboxItem>}
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox>
+  }
+}
+```
+
+## Examples
+
+### Basic
+
+A simple combobox with a list of frameworks.
+
+<ComponentPreview name="ComboboxBasic" />
+
+### Multiple
+
+A combobox with multiple selection using `multiple` and `ComboboxChips`.
+
+<ComponentPreview name="ComboboxMultiple" />
+
+### Clear Button
+
+Use the `showClear` prop to show a clear button.
+
+<ComponentPreview name="ComboboxClear" />
+
+### Groups
+
+Use `ComboboxGroup` and `ComboboxSeparator` to group items.
+
+<ComponentPreview name="ComboboxGroups" />
+
+### Custom Items
+
+You can render custom component inside `ComboboxItem`.
+
+<ComponentPreview name="ComboboxCustom" />
+
+### Invalid
+
+Use the `aria-invalid` prop to make the combobox invalid.
+
+<ComponentPreview name="ComboboxInvalid" />
+
+### Disabled
+
+Use the `disabled` prop to disable the combobox.
+
+<ComponentPreview name="ComboboxDisabled" />
+
+### Auto Highlight
+
+Use the `autoHighlight` prop automatically highlight the first item on filter.
+
+<ComponentPreview name="ComboboxAutoHighlight" />
+
+### Popup
+
+You can trigger the combobox from a button or any other component by using the `render` prop. Move the `ComboboxInput` inside the `Combobox.Content`.
+
+<ComponentPreview name="ComboboxPopup" />
+
+### Input Group
+
+You can add an addon to the combobox by using the `InputGroupAddon` component inside the `ComboboxInput`.
+
+<ComponentPreview name="ComboboxInputGroup" />
+
+
+## API Reference
+
+See the [Base UI](https://base-ui.com/react/components/combobox#api-reference) documentation for more information.

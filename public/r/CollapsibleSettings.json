@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "CollapsibleSettings",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Card",
+    "Collapsible",
+    "Field",
+    "Icons",
+    "Input"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/CollapsibleSettings.res",
+      "content": "@@directive(\"'use client'\")\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  let (isOpen, setIsOpen) = React.useState(() => false)\n\n  <Card className=\"mx-auto w-full max-w-xs\" size=Sm>\n    <Card.Header>\n      <Card.Title> {\"Radius\"->React.string} </Card.Title>\n      <Card.Description> {\"Set the corner radius of the element.\"->React.string} </Card.Description>\n    </Card.Header>\n    <Card.Content>\n      <Collapsible\n        open_=isOpen\n        onOpenChange={(nextOpen, _) => setIsOpen(_ => nextOpen)}\n        className=\"flex items-start gap-2\"\n      >\n        <Field.Group className=\"grid w-full grid-cols-2 gap-2\">\n          <Field>\n            <Field.Label htmlFor=\"radius-x\" className=\"sr-only\">\n              {\"Radius X\"->React.string}\n            </Field.Label>\n            <Input id=\"radius\" placeholder=\"0\" defaultValue=\"0\" />\n          </Field>\n          <Field>\n            <Field.Label htmlFor=\"radius-y\" className=\"sr-only\">\n              {\"Radius Y\"->React.string}\n            </Field.Label>\n            <Input id=\"radius\" placeholder=\"0\" defaultValue=\"0\" />\n          </Field>\n          <Collapsible.Content className=\"col-span-full grid grid-cols-subgrid gap-2\">\n            <Field>\n              <Field.Label htmlFor=\"radius-x\" className=\"sr-only\">\n                {\"Radius X\"->React.string}\n              </Field.Label>\n              <Input id=\"radius\" placeholder=\"0\" defaultValue=\"0\" />\n            </Field>\n            <Field>\n              <Field.Label htmlFor=\"radius-y\" className=\"sr-only\">\n                {\"Radius Y\"->React.string}\n              </Field.Label>\n              <Input id=\"radius\" placeholder=\"0\" defaultValue=\"0\" />\n            </Field>\n          </Collapsible.Content>\n        </Field.Group>\n        <Collapsible.Trigger render={<Button variant=Outline size=Icon />}>\n          {if isOpen {\n            <Icons.Minimize />\n          } else {\n            <Icons.Maximize />\n          }}\n        </Collapsible.Trigger>\n      </Collapsible>\n    </Card.Content>\n  </Card>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "TooltipKeyboard",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Button",
+    "Kbd",
+    "Tooltip"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/TooltipKeyboard.res",
+      "content": "module LucideIcons = {\n  type props = {className?: string, @as(\"data-icon\") dataIcon?: string}\n\n  module Save = {\n    @module(\"lucide-react\")\n    external make: React.component<props> = \"SaveIcon\"\n  }\n}\n\n@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) => {\n  <Tooltip>\n    <Tooltip.Trigger render={<Button variant=Outline size=IconSm />}>\n      <LucideIcons.Save />\n    </Tooltip.Trigger>\n    <Tooltip.Content className=\"pr-1.5\">\n      <div className=\"flex items-center gap-2\">\n        {\"Save Changes\"->React.string}\n        <Kbd> {\"S\"->React.string} </Kbd>\n      </div>\n    </Tooltip.Content>\n  </Tooltip>\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

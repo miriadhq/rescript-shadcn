@@ -1,0 +1,112 @@
+---
+title: Collapsible
+description: An interactive component which expands/collapses a panel.
+base: base
+component: true
+featured: true
+links:
+  doc: https://base-ui.com/react/components/collapsible
+  api: https://base-ui.com/react/components/collapsible#api-reference
+---
+
+<ComponentPreview name="CollapsibleDemo" align="start" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Collapsible
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="collapsible"
+  title="components/ui/Collapsible.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Collapsible>
+  <Collapsible.Trigger render={<Button variant=Ghost size=Icon />}>
+    <Icons.ChevronsUpDown />
+  </Collapsible.Trigger>
+  <Collapsible.Content>
+    {"Content here."->React.string}
+  </Collapsible.Content>
+</Collapsible>
+```
+
+## Controlled State
+
+Use the `open` and `onOpenChange` props to control the state.
+
+```res showLineNumbers
+import * as React from "react"
+
+export function Example() {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger>Toggle</CollapsibleTrigger>
+      <CollapsibleContent>Content</CollapsibleContent>
+    </Collapsible>
+  )
+}
+```
+
+## Examples
+
+### Basic
+
+<ComponentPreview
+  name="CollapsibleBasic"
+  align="start"
+/>
+
+### Settings Panel
+
+Use a trigger button to reveal additional settings.
+
+<ComponentPreview name="CollapsibleSettings" />
+
+### File Tree
+
+Use nested collapsibles to build a file tree.
+
+<ComponentPreview
+  name="CollapsibleFileTree"
+  previewClassName="h-[36rem]"
+/>
+
+
+## API Reference
+
+See the [Base UI](https://base-ui.com/react/components/collapsible#api-reference) documentation for more information.

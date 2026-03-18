@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "BreadcrumbDropdown",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Breadcrumb",
+    "DropdownMenu",
+    "Icons"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/BreadcrumbDropdown.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Breadcrumb>\n    <Breadcrumb.List>\n      <Breadcrumb.Item>\n        <Breadcrumb.Link render={<a href=\"/\" />}> {\"Home\"->React.string} </Breadcrumb.Link>\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator>\n        <Icons.Dot />\n      </Breadcrumb.Separator>\n      <Breadcrumb.Item>\n        <DropdownMenu>\n          <DropdownMenu.Trigger\n            render={<button className=\"flex items-center gap-1\" type_=\"button\" />}\n          >\n            {\"Components\"->React.string}\n            <Icons.ChevronDown dataIcon=\"inline-end\" />\n          </DropdownMenu.Trigger>\n          <DropdownMenu.Content align=BaseUi.Types.Align.Start>\n            <DropdownMenu.Group>\n              <DropdownMenu.Item> {\"Documentation\"->React.string} </DropdownMenu.Item>\n              <DropdownMenu.Item> {\"Themes\"->React.string} </DropdownMenu.Item>\n              <DropdownMenu.Item> {\"GitHub\"->React.string} </DropdownMenu.Item>\n            </DropdownMenu.Group>\n          </DropdownMenu.Content>\n        </DropdownMenu>\n      </Breadcrumb.Item>\n      <Breadcrumb.Separator>\n        <Icons.Dot />\n      </Breadcrumb.Separator>\n      <Breadcrumb.Item>\n        <Breadcrumb.Page> {\"Breadcrumb\"->React.string} </Breadcrumb.Page>\n      </Breadcrumb.Item>\n    </Breadcrumb.List>\n  </Breadcrumb>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

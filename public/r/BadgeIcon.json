@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "BadgeIcon",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "Badge",
+    "Icons"
+  ],
+  "files": [
+    {
+      "path": "registry/base/examples/BadgeIcon.res",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <div className=\"flex flex-wrap gap-2\">\n    <Badge variant=Badge.Variant.Secondary>\n      <Icons.BadgeCheck dataIcon=\"inline-start\" />\n      {\"Verified\"->React.string}\n    </Badge>\n    <Badge variant=Badge.Variant.Outline>\n      {\"Bookmark\"->React.string}\n      <Icons.Bookmark dataIcon=\"inline-end\" />\n    </Badge>\n  </div>\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

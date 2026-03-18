@@ -1,0 +1,104 @@
+---
+title: Toggle Group
+description: A set of two-state buttons that can be toggled on or off.
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/toggle-group
+  api: https://base-ui.com/react/components/toggle-group#api-reference
+---
+
+<ComponentPreview name="ToggleGroupDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/ToggleGroup
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="toggle-group"
+  title="components/ui/ToggleGroup.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res 
+<ToggleGroup multiple=false>
+  <ToggleGroup.Item value="a"> {"A"->React.string} </ToggleGroup.Item>
+  <ToggleGroup.Item value="b"> {"B"->React.string} </ToggleGroup.Item>
+  <ToggleGroup.Item value="c"> {"C"->React.string} </ToggleGroup.Item>
+</ToggleGroup>
+```
+
+## Examples
+
+### Outline
+
+Use `variant="outline"` for an outline style.
+
+<ComponentPreview name="ToggleGroupOutline" />
+
+### Size
+
+Use the `size` prop to change the size of the toggle group.
+
+<ComponentPreview name="ToggleGroupSizes" />
+
+### Spacing
+
+Use `spacing` to add spacing between toggle group items.
+
+<ComponentPreview name="ToggleGroupSpacing" />
+
+### Vertical
+
+Use `orientation="vertical"` for vertical toggle groups.
+
+<ComponentPreview name="ToggleGroupVertical" />
+
+### Disabled
+
+<ComponentPreview name="ToggleGroupDisabled" />
+
+### Custom
+
+A custom toggle group example.
+
+<ComponentPreview
+  name="ToggleGroupFontWeightSelector"
+  previewClassName="*:data-[slot=field]:max-w-xs"
+/>
+
+
+## API Reference
+
+See the [Base UI Toggle Group](https://base-ui.com/react/components/toggle-group#api-reference) documentation.
