@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/base/examples/EmptyAvatar.res",
-      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Empty>\n    <Empty.Header>\n      <Empty.Media variant=Empty.Variant.Default>\n        <Avatar className=\"size-12\">\n          <Avatar.Image src=\"https://github.com/shadcn.png\" className=\"grayscale\" />\n          <Avatar.Fallback> {\"LR\"->React.string} </Avatar.Fallback>\n        </Avatar>\n      </Empty.Media>\n      <Empty.Title> {\"User Offline\"->React.string} </Empty.Title>\n      <Empty.Description>\n        {\"This user is currently offline. You can leave a message to notify them or try again later.\"->React.string}\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Content>\n      <Button size=Button.Size.Sm> {\"Leave Message\"->React.string} </Button>\n    </Empty.Content>\n  </Empty>\n",
+      "content": "@react.componentWithProps(Demo.Props.t)\nlet make = ({}: Demo.Props.t) =>\n  <Empty>\n    <Empty.Header>\n      <Empty.Media variant=Empty.Variant.Default>\n        <Avatar className=\"size-12\">\n          <Avatar.Image src=\"https://github.com/shadcn.png\" alt=\"\" className=\"grayscale\" />\n          <Avatar.Fallback> {\"LR\"->React.string} </Avatar.Fallback>\n        </Avatar>\n      </Empty.Media>\n      <Empty.Title> {\"User Offline\"->React.string} </Empty.Title>\n      <Empty.Description>\n        {\"This user is currently offline. You can leave a message to notify them or try again later.\"->React.string}\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Content>\n      <Button size=Button.Size.Sm> {\"Leave Message\"->React.string} </Button>\n    </Empty.Content>\n  </Empty>\n",
       "type": "registry:example"
     }
   ],

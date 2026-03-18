@@ -394,11 +394,9 @@
     {
       "name": "InputGroup",
       "type": "registry:ui",
-      "dependencies": [
-        "@base-ui/react"
-      ],
       "registryDependencies": [
         "Button",
+        "Input",
         "Textarea"
       ],
       "files": [
@@ -466,6 +464,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "DropdownMenu",
         "Icons"
       ],
       "files": [
@@ -555,11 +554,7 @@
       "name": "RadioGroup",
       "type": "registry:ui",
       "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "Icons"
+        "@base-ui/react"
       ],
       "files": [
         {
@@ -3420,6 +3415,7 @@
       "name": "EmptyBackground",
       "type": "registry:example",
       "dependencies": [
+        "@tabler/icons-react",
         "lucide-react"
       ],
       "registryDependencies": [
@@ -3494,12 +3490,11 @@
       "name": "EmptyOutline",
       "type": "registry:example",
       "dependencies": [
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "registryDependencies": [
         "Button",
-        "Empty",
-        "Icons"
+        "Empty"
       ],
       "files": [
         {
