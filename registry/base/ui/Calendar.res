@@ -140,26 +140,21 @@ external cn4: (
 ) => string = "twMerge"
 
 module DayButton = {
-  @react.componentWithProps
-  let make = ({
-    DayButtonProps.className: ?className,
-    children,
-    day,
-    modifiers,
-    ?locale,
-    ?id,
-    ?style,
-    ?disabled,
-    ?tabIndex,
-    ?onClick,
-    ?onKeyDown,
-    ?onBlur,
-    ?onFocus,
-    ?onMouseEnter,
-    ?onMouseLeave,
-    ?ariaLabel,
-  }) => {
+  let toButtonProps: DayButtonProps.t => Button.props<'value, 'checked> = %raw(`
+  ({day, modifiers, locale, ...rest}) => rest 
+  `)
+
+  @react.componentWithProps(DayButtonProps.t)
+  let make = (props: DayButtonProps.t) => {
+    let className = props.className
+    let day = props.day
+    let modifiers = props.modifiers
+    let locale = props.locale
+    let children = props.children
+    let props = props->toButtonProps
+
     let defaultClassNames = getDefaultClassNames()
+
     let buttonRef = React.useRef(null)
     React.useEffect(() => {
       if modifiers.focused->Option.getOr(false) {
@@ -167,18 +162,9 @@ module DayButton = {
       }
       None
     }, [modifiers.focused])
+
     <Button
-      ?id
-      ?style
-      ?disabled
-      ?tabIndex
-      ?onClick
-      ?onKeyDown
-      ?onBlur
-      ?onFocus
-      ?onMouseEnter
-      ?onMouseLeave
-      ?ariaLabel
+      {...props}
       variant=Ghost
       size=Icon
       ref={buttonRef->ReactDOM.Ref.domRef}
@@ -312,6 +298,13 @@ module DayPicker = {
       | @as("none") NoSelection: t<unit>
   }
 
+  module Matcher = {
+    @unboxed
+    type t =
+      | Fn(Date.t => bool)
+      | Dates(array<Date.t>)
+  }
+
   module Props = {
     type t<'selected> = {
       showOutsideDays?: bool,
@@ -355,10 +348,10 @@ module DayPicker = {
       onPrevClick?: Date.t => unit,
       styles?: dict<ReactDOM.Style.t>,
       labels?: Labels.t,
-      hidden?: Date.t => bool,
+      hidden?: Matcher.t,
       footer?: React.element,
-      disabled?: Date.t => bool,
-      modifiers?: dict<Date.t => bool>,
+      disabled?: Matcher.t,
+      modifiers?: dict<Matcher.t>,
       modifiersClassNames?: dict<string>,
       components?: DayPickerComponents.t,
     }

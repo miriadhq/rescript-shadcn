@@ -54,87 +54,25 @@ let baseClass = "group/button inline-flex shrink-0 items-center justify-center r
 let buttonVariants = (~variant=Variant.Default, ~size=Size.Default, ~className=?) =>
   cn(baseClass, buttonVariantClass(~variant), buttonSizeClass(~size), className)
 
-@react.component
-let make = (
-  ~className=?,
-  ~variant=Variant.Default,
-  ~size=Size.Default,
-  ~id=?,
-  ~tabIndex=?,
-  ~nativeButton=?,
-  ~disabled=?,
-  ~style=?,
-  ~children=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~onBlur=?,
-  ~onFocus=?,
-  ~onMouseEnter=?,
-  ~onMouseLeave=?,
-  ~ref=?,
-  ~type_=?,
-  ~ariaLabel=?,
-  ~ariaDisabled=?,
-  ~dataSidebar=?,
-  ~dataDay=?,
-  ~dataSelectedSingle=?,
-  ~dataRangeStart=?,
-  ~dataRangeEnd=?,
-  ~dataRangeMiddle=?,
-  ~dataState=?,
-  ~dataEmpty=?,
-  ~dataActive=?,
-  ~dataSize=?,
-  ~render=?,
-  ~dataSlot=?,
-  ~ariaControls=?,
-  ~ariaExpanded=?,
-  ~ariaHaspopup=?,
-  ~ariaPressed=?,
-  ~dir=?,
-  ~suppressHydrationWarning=?,
-) => {
+type props<'value, 'checked> = {
+  variant?: Variant.t,
+  size?: Size.t,
+  ...BaseUi.Types.props<'value, 'checked>,
+}
+
+let toBaseUiProps: props<'value, 'checked> => BaseUi.Types.props<'value, 'checked> = %raw(`
+  ({variant, size, ...rest}) => rest 
+  `)
+
+@react.componentWithProps(props)
+let make = (props: props<'value, 'checked>) => {
+  let variant = props.variant->Option.getOr(Default)
+  let size = props.size->Option.getOr(Default)
+  let className = props.className
+  let baseUiProps = props->toBaseUiProps
   <BaseUi.Button
-    dataSlot={dataSlot->Option.getOr("button")}
+    {...baseUiProps}
+    dataSlot={props.dataSlot->Option.getOr("button")}
     className={buttonVariants(~variant, ~size, ~className?)}
-    ?id
-    ?ariaControls
-    ?ariaExpanded
-    ?ariaHaspopup
-    ?dataState
-    tabIndex=?{switch tabIndex {
-    | Some(v) => Some(v)
-    | None => Some(0)
-    }}
-    ?nativeButton
-    ?disabled
-    ?style
-    ?children
-    ?onClick
-    ?onKeyDown
-    ?onBlur
-    ?onFocus
-    ?onMouseEnter
-    ?onMouseLeave
-    ?ref
-    type_=?{switch (type_, nativeButton, render) {
-    | (None, None, None) => Some("button")
-    | _ => type_
-    }}
-    ?ariaLabel
-    ?ariaDisabled
-    ?dataSidebar
-    ?ariaPressed
-    ?dataDay
-    ?dataSelectedSingle
-    ?dataRangeStart
-    ?dataRangeEnd
-    ?dataRangeMiddle
-    ?dataEmpty
-    ?dataActive
-    ?dataSize
-    ?dir
-    ?render
-    ?suppressHydrationWarning
   />
 }
