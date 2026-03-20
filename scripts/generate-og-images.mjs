@@ -11,6 +11,8 @@
 
 import puppeteer from "puppeteer";
 import sharp from "sharp";
+import puppeteerCore from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 import { readFileSync, mkdirSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -41,10 +43,19 @@ async function main() {
   console.log(`Generating OG images for ${pages.length} components${limit ? ` (limit ${limit})` : ""}...`);
   console.log(`Base URL: ${baseUrl}`);
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  const isLinux = process.platform === "linux";
+
+  const browser = isLinux
+    ? await puppeteerCore.launch({
+      args: chromium.args,
+      defaultViewport: null,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+    })
+    : await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      headless: true,
+    });
 
   try {
     const page = await browser.newPage();
@@ -65,7 +76,7 @@ async function main() {
         }
 
         await page.waitForSelector("[data-og-demo]", { timeout: 15000 });
-        await new Promise((r) => setTimeout(r, 1000));
+        await new Promise((r) => setTimeout(r, 1200));
 
         const element = await page.$("[data-og-demo]");
         if (!element) {

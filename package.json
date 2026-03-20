@@ -69,8 +69,11 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@sparticuz/chromium": "^143.0.4",
     "@tailwindcss/postcss": "^4.2.1",
-    "puppeteer": "^24.38.0",
+    "puppeteer": "^24.40.0",
+    "puppeteer-core": "^24.40.0",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.2.1",
     "vitest": "^4.0.18"
   },
