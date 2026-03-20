@@ -18,26 +18,8 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Generate DemoLoader
-        run: yarn loader:generate
-
-      - name: Compile ReScript
-        run: yarn rescript
-
-      - name: format rescript code
-        run: |
-          yarn rescript format
-          test -z "$(git status --porcelain)" || (echo "rescript code not formatted" && exit 1)
-
-      - name: Generate registry
-        run: |
-          yarn registry:generate
-          test -z "$(git status --porcelain)" || (echo "registry not synced" && exit 1)
-
-      - name: Build public registry
-        run: |
-          yarn registry:build
-          test -z "$(git status --porcelain)" || (echo "public registry not synced" && exit 1)
+      - name: yarn build
+        run: yarn build
 
   visual:
     runs-on: ubuntu-latest

@@ -11,7 +11,8 @@
       "subdirs": true
     },
     {
-      "dir": "src"
+      "dir": "src",
+      "subdirs": true
     }
   ],
   "jsx": {

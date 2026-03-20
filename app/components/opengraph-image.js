@@ -34,8 +34,7 @@ export const contentType = "image/png";
 // Image generation
 export default async function Image(_) {
   const title = "Rescript-Shadcn";
-  const description =
-    "The design system for your ReScript web applications.";
+  const description = "Components";
 
   const geistSansData = await loadGoogleFont("Geist", `${title} ${description}`);
 
@@ -44,14 +43,14 @@ export default async function Image(_) {
 
   return new ImageResponse(
     (
-      <section tw="flex items-center bg-white h-full w-full px-24" style={{ fontFamily: "Geist" }}>
+      <section tw="flex items-center bg-white h-full w-full px-24" style={{ fontFamily: "Geist" }} >
         <img src={logoSrc} alt="Rescript-Shadcn" tw="w-64 h-64 mr-16" />
         <div tw="flex flex-col w-184" >
           <h1 tw="text-7xl font-extrabold">
             {title}
           </h1>
-          <p tw="text-6xl pt-8 font-bold text-slate-500">
-            {description}
+          <p tw="text-6xl pt-6 font-bold text-slate-500">
+            Components
           </p>
         </div>
       </section>

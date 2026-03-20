@@ -2670,6 +2670,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sparticuz/chromium@npm:^143.0.4":
+  version: 143.0.4
+  resolution: "@sparticuz/chromium@npm:143.0.4"
+  dependencies:
+    follow-redirects: "npm:^1.15.11"
+    tar-fs: "npm:^3.1.1"
+  checksum: 10c0/eab7db834ad4b2f7d07c233a59b1a4dee44e271e15f1747e8e5c5d02515d059f109e5f5f84766d95c067f47aacaed0be3d5b08ee05fa2f7e73d42a2dae0f4f4f
+  languageName: node
+  linkType: hard
+
 "@standard-schema/spec@npm:^1.0.0, @standard-schema/spec@npm:^1.1.0":
   version: 1.1.0
   resolution: "@standard-schema/spec@npm:1.1.0"
@@ -4874,6 +4884,16 @@ __metadata:
     parseurl: "npm:^1.3.3"
     statuses: "npm:^2.0.1"
   checksum: 10c0/6bd664e21b7b2e79efcaace7d1a427169f61cce048fae68eb56290e6934e676b78e55d89f5998c5508871345bc59a61f47002dc505dc7288be68cceac1b701e2
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.11":
+  version: 1.15.11
+  resolution: "follow-redirects@npm:1.15.11"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 10c0/d301f430542520a54058d4aeeb453233c564aaccac835d29d15e050beb33f339ad67d9bddbce01739c5dc46a6716dbe3d9d0d5134b1ca203effa11a7ef092343
   languageName: node
   linkType: hard
 
@@ -7869,9 +7889,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:24.38.0":
-  version: 24.38.0
-  resolution: "puppeteer-core@npm:24.38.0"
+"puppeteer-core@npm:24.40.0, puppeteer-core@npm:^24.40.0":
+  version: 24.40.0
+  resolution: "puppeteer-core@npm:24.40.0"
   dependencies:
     "@puppeteer/browsers": "npm:2.13.0"
     chromium-bidi: "npm:14.0.0"
@@ -7880,23 +7900,23 @@ __metadata:
     typed-query-selector: "npm:^2.12.1"
     webdriver-bidi-protocol: "npm:0.4.1"
     ws: "npm:^8.19.0"
-  checksum: 10c0/999cf60c5a4b35750b85477a5a342a23603298c430ded378927a8c681d5020a0022d541ef0f31a53886ce111810771a211ba89904d92e78ddd1ad91313a9d14a
+  checksum: 10c0/f2b38407dfe428718efaa706315e9e1442d05178281b84ebc2ef5c8d00fa6856d43a4033afc39a5138d4f0ae56598d475de1856076188c3fc89bebeb8d9c2c2b
   languageName: node
   linkType: hard
 
-"puppeteer@npm:^24.38.0":
-  version: 24.38.0
-  resolution: "puppeteer@npm:24.38.0"
+"puppeteer@npm:^24.40.0":
+  version: 24.40.0
+  resolution: "puppeteer@npm:24.40.0"
   dependencies:
     "@puppeteer/browsers": "npm:2.13.0"
     chromium-bidi: "npm:14.0.0"
     cosmiconfig: "npm:^9.0.0"
     devtools-protocol: "npm:0.0.1581282"
-    puppeteer-core: "npm:24.38.0"
+    puppeteer-core: "npm:24.40.0"
     typed-query-selector: "npm:^2.12.1"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10c0/0f195e5d1fe2b9e71034b9f63cb74f48b7ede1f42714caa1935361bc93376e2d488323339314ac2b4c9622c46221122f6d411ef371e074334a9d6ba37dadccd6
+  checksum: 10c0/d39a4a322e235fd4a84bc2fe7555b7e511e56d5b707053dea79f5ef616b1abc82ebdf69c059ef318a839208592f4aa708231c2595e7bee3e8961ee938b2b780e
   languageName: node
   linkType: hard
 
@@ -8371,6 +8391,7 @@ __metadata:
     "@radix-ui/react-slot": "npm:^1.2.3"
     "@rescript/react": "npm:^0.14.1"
     "@rescript/webapi": "npm:0.1.0-experimental-127e19a"
+    "@sparticuz/chromium": "npm:^143.0.4"
     "@tabler/icons-react": "npm:^3.38.0"
     "@tailwindcss/postcss": "npm:^4.2.1"
     "@tanstack/react-table": "npm:^8.21.3"
@@ -8391,7 +8412,8 @@ __metadata:
     lucide-react: "npm:^0.487.0"
     next: "npm:16.1.6"
     next-themes: "npm:^0.4.6"
-    puppeteer: "npm:^24.38.0"
+    puppeteer: "npm:^24.40.0"
+    puppeteer-core: "npm:^24.40.0"
     react: "npm:19.2.4"
     react-day-picker: "npm:^9.14.0"
     react-dom: "npm:19.2.4"
@@ -8403,6 +8425,7 @@ __metadata:
     rescript: "npm:v12.2.0"
     rescript-base-ui: "workspace:^"
     shadcn: "npm:^3.0.0"
+    sharp: "npm:^0.34.5"
     shiki: "npm:^4.0.1"
     sonner: "npm:^2.0.7"
     tailwind-merge: "npm:^3.3.1"
@@ -8732,7 +8755,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.34.4":
+"sharp@npm:^0.34.4, sharp@npm:^0.34.5":
   version: 0.34.5
   resolution: "sharp@npm:0.34.5"
   dependencies:

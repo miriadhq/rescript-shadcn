@@ -54,3 +54,10 @@ test/artifacts
 
 # fumadocs
 .source
+
+# generated content
+src/generated/*
+public/og/*
+public/r/*
+registry.json
+!.gitkeep

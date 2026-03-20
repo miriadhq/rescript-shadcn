@@ -9,17 +9,19 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "yarn loader:generate && yarn rescript && yarn registry:sync && node scripts/build-with-og.mjs",
+    "build:next": "next build",
     "start": "next start",
     "lint": "next lint",
-    "registry:sync": "yarn registry:generate && yarn registry:build",
+    "registry:sync": "yarn registry:generate && rm -rf public/r && yarn registry:build",
     "registry:build": "shadcn build",
     "registry:generate": "node scripts/generate-registry.mjs",
     "loader:generate": "node scripts/generate-demo-loader.mjs",
+    "og:generate": "node scripts/generate-og-images.mjs",
     "test:docs": "vitest run test/mdx-links.test.ts",
     "test:visual": "node test/visual/run-pixel-perfect.mjs",
     "test": "test:docs && test:visual",
-    "postInstall": "fumadocs-mdx source.config.mjs .source"
+    "postInstall": "yarn loader:generate && fumadocs-mdx source.config.mjs .source"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -67,8 +69,11 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@sparticuz/chromium": "^143.0.4",
     "@tailwindcss/postcss": "^4.2.1",
-    "puppeteer": "^24.38.0",
+    "puppeteer": "^24.40.0",
+    "puppeteer-core": "^24.40.0",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.2.1",
     "vitest": "^4.0.18"
   },
