@@ -56,8 +56,8 @@ test/artifacts
 .source
 
 # generated content
-!.gitkeep
-src/generated
-public/og
-public/r
+src/generated/*
+public/og/*
+public/r/*
 registry.json
+!.gitkeep
