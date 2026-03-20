@@ -12,19 +12,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Rescript-Shadcn";
+const description = "The design system for your ReScript web applications.";
+
 export const metadata = {
-  title: "Rescript Shadcn",
-  description: "Rescript Shadcn is a library of components for building web applications.",
+  title,
+  description,
   metadataBase: new URL("https://rescript-shadcn.miriad.studio"),
   openGraph: {
-    title: "Rescript Shadcn",
-    description: "Rescript Shadcn is a library of components for building web applications.",
+    title,
+    description,
     url: "https://rescript-shadcn.miriad.studio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rescript Shadcn",
-    description: "Rescript Shadcn is a library of components for building web applications.",
+    title,
+    description,
   },
 };
 
