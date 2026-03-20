@@ -4,39 +4,34 @@ export const generateStaticParams = () => meta.pages.map(slug => ({ "slug": slug
 import { make as ComponentTitle } from "@/src/ComponentTitle.res.mjs";
 export const dynamicParams = false;
 
-function absoluteUrl(path) {
-  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
-}
-
 export const generateMetadata = async (props) => {
   const { slug } = await props.params
   const { frontmatter: doc } = await import(`@/content/base/${slug}.mdx`)
+  const title = `ReScript-Shadcn – ${doc.title}`
+  const images = [
+    {
+      url: `/og/components/${slug}.png`,
+      width: 1200,
+      height: 630,
+    },
+  ]
 
   return {
-    title: doc.title,
+    title,
     description: doc.description,
+    metadataBase: new URL("https://rescript-shadcn.miriad.studio"),
     openGraph: {
-      title: doc.title,
+      title,
       description: doc.description,
       type: "article",
-      url: absoluteUrl(`/components/${slug}`),
-      images: [
-        {
-          url: absoluteUrl(`/og/components/${slug}.png`),
-          width: 1200,
-          height: 630,
-        },
-      ],
+      url: `/components/${slug}`,
+      images,
     },
     twitter: {
       card: "summary_large_image",
-      title: doc.title,
+      title,
       description: doc.description,
-      images: [
-        {
-          url: absoluteUrl(`/og/components/${slug}.png`),
-        },
-      ],
+      images,
       creator: "@miriad.studio",
     },
   }
