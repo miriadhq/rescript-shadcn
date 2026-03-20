@@ -22,9 +22,9 @@ export const generateMetadata = async (props) => {
       url: absoluteUrl(`/components/${slug}`),
       images: [
         {
-          url: `/og?title=${encodeURIComponent(
-            doc.title
-          )}&description=${encodeURIComponent(doc.description)}`,
+          url: absoluteUrl(`/og/components/${slug}.png`),
+          width: 1200,
+          height: 630,
         },
       ],
     },
@@ -34,9 +34,7 @@ export const generateMetadata = async (props) => {
       description: doc.description,
       images: [
         {
-          url: `/og?title=${encodeURIComponent(
-            doc.title
-          )}&description=${encodeURIComponent(doc.description)}`,
+          url: absoluteUrl(`/og/components/${slug}.png`),
         },
       ],
       creator: "@miriad.studio",

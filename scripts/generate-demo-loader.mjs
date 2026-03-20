@@ -6,7 +6,7 @@ import { readdirSync, writeFileSync } from "fs";
 import { basename, join } from "path";
 
 const EXAMPLES_DIR = "registry/base/examples";
-const OUTPUT_FILE = "src/DemoLoader.res";
+const OUTPUT_FILE = "src/generated/DemoLoader.res";
 
 // Files to exclude (they're used for sources, not for demos)
 const EXCLUDE = new Set(["DataTableColumnHeader", "DataTablePagination", "DataTableViewOptions"]);
