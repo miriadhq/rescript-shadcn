@@ -58,3 +58,6 @@ test/artifacts
 # generated content
 !.gitkeep
 src/generated
+public/og
+public/r
+registry.json
