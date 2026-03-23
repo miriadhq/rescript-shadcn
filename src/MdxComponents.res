@@ -1,12 +1,5 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-let slugify = (text: string) =>
-  text
-  ->String.replaceAll(" ", "-")
-  ->String.replaceAll("'", "")
-  ->String.replaceAll("?", "")
-  ->String.toLowerCase
-
 module Placeholder = {
   @react.component
   let make = (~children=React.null) => {
