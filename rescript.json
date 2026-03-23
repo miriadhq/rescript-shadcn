@@ -30,5 +30,11 @@
   ],
   "compiler-flags": [
     "-open WebAPI.Global"
-  ]
+  ],
+  "reanalyze": {
+    "analysis": [
+      "dce",
+      "exception"
+    ]
+  }
 }
