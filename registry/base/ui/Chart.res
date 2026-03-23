@@ -32,7 +32,8 @@ type payloadItem<'value> = {
 
 let chartContext: React.Context.t<option<chartContext>> = React.createContext(None)
 
-let useChart = () =>
+@throws(JsExn)
+let use = () =>
   switch React.useContext(chartContext) {
   | Some(context) => context
   | None => JsError.throwWithMessage("useChart must be used within a <ChartContainer />")
@@ -709,7 +710,7 @@ module TooltipContent = {
     ~onClick=?,
     ~onKeyDown=?,
   ) => {
-    let {config} = useChart()
+    let {config} = use()
 
     let tooltipLabel = if hideLabel || payload->Array.length == 0 {
       None
@@ -887,7 +888,7 @@ module LegendContent = {
     ~onClick=?,
     ~onKeyDown=?,
   ) => {
-    let {config} = useChart()
+    let {config} = use()
 
     switch payload {
     | [] => React.null

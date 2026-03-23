@@ -70,6 +70,7 @@ type carouselContext = {
 
 let context: React.Context.t<option<carouselContext>> = React.createContext(None)
 
+@throws(JsExn)
 let useCarousel = () =>
   switch React.useContext(context) {
   | Some(context) => context
