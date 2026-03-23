@@ -26,6 +26,7 @@ const FONT_WAIT_TIMEOUT_MS = Number(process.env.PARITY_FONT_WAIT_TIMEOUT_MS ?? 2
 const IMAGE_WAIT_TIMEOUT_MS = Number(process.env.PARITY_IMAGE_WAIT_TIMEOUT_MS ?? 5_000)
 const SETUP_TIMEOUT_MS = Number(process.env.PARITY_SETUP_TIMEOUT_MS ?? 240_000)
 const SKIP_BUILD = ["1", "true", "yes"].includes((process.env.PARITY_SKIP_BUILD ?? "").toLowerCase())
+const IS_CI = ["1", "true", "yes"].includes((process.env.CI ?? "").toLowerCase())
 const SCREENSHOT_SSIM_MIN = Number(process.env.PARITY_SCREENSHOT_SSIM_MIN ?? 0.998)
 const ALLOW_MISSING_RESCRIPT_EQUIVALENT = ["1", "true", "yes"].includes(
   (process.env.PARITY_ALLOW_MISSING_EQUIVALENT ?? "").toLowerCase()
@@ -801,7 +802,13 @@ describe("tsx vs rescript parity (vite harness)", () => {
     }
 
     browser = await puppeteer.launch({
-      args: ["--lang=en-US"],
+      args: [
+        "--lang=en-US",
+        // Ubuntu runners (e.g. GitHub Actions) often disallow Chromium’s sandbox.
+        ...(IS_CI
+          ? ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
+          : []),
+      ],
     })
   }, SETUP_TIMEOUT_MS)
 
