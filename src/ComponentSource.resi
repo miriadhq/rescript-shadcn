@@ -1,3 +1,7 @@
+type kind =
+  | Example
+  | Component
+
 @react.component
 let make: (
   ~name: string=?,
@@ -7,4 +11,5 @@ let make: (
   ~collapsible: bool=?,
   ~className: string=?,
   ~maxLines: int=?,
+  ~kind: kind=?,
 ) => Jsx.element

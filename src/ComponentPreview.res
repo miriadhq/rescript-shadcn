@@ -1,7 +1,6 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
 // ComponentPreview: async server component that renders a demo with source code tabs.
-// Names in MDX are PascalCase matching the ReScript module name (e.g. "ButtonDemo").
 
 module Type = {
   type t =
@@ -59,8 +58,9 @@ let make = async (
       let componentName = name
 
       // Get source code (full and preview)
-      let source = <ComponentSource name={componentName} collapsible=false />
-      let sourcePreview = <ComponentSource name={componentName} collapsible=false maxLines=3 />
+      let source = <ComponentSource name={componentName} collapsible=false kind=Example />
+      let sourcePreview =
+        <ComponentSource name={componentName} collapsible=false maxLines=3 kind=Example />
 
       let content =
         <ComponentPreviewTabs

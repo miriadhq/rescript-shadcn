@@ -7,13 +7,6 @@ const contentDir = path.join(rootDir, "content", "base");
 const examplesDir = path.join(rootDir, "registry", "base", "examples");
 const uiDir = path.join(rootDir, "registry", "base", "ui");
 
-function toPascalCase(name: string): string {
-  return name
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join("");
-}
-
 function collectFullTag(lines: string[], startIndex: number): string {
   let tag = lines[startIndex];
   let j = startIndex;
@@ -84,8 +77,7 @@ describe("MDX ComponentPreview references", () => {
   it.each(allPreviews)(
     '$file:$line — ComponentPreview name="$name" has a matching example .res file',
     ({ name }) => {
-      const pascalName = toPascalCase(name);
-      const resFile = path.join(examplesDir, pascalName + ".res");
+      const resFile = path.join(examplesDir, name + ".res");
       expect(
         fs.existsSync(resFile),
         `Expected ${resFile} to exist for ComponentPreview name="${name}"`
@@ -126,8 +118,7 @@ describe("MDX ComponentSource references", () => {
     it.each(nameRefs)(
       '$file:$line — ComponentSource name="$name" has a matching UI .res file',
       ({ name }) => {
-        const pascalName = toPascalCase(name);
-        const resFile = path.join(uiDir, pascalName + ".res");
+        const resFile = path.join(uiDir, name + ".res");
         expect(
           fs.existsSync(resFile),
           `Expected ${resFile} to exist for ComponentSource name="${name}"`
