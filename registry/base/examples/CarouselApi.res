@@ -9,9 +9,9 @@ let make = ({}: Demo.Props.t) => {
   React.useEffect(() => {
     switch emblaApi {
     | Some(api) =>
-      setCount(_ => api->Carousel.scrollSnapListApi->Array.length)
-      setCurrent(_ => api->Carousel.selectedScrollSnapApi + 1)
-      api->Carousel.onApi("select", _ => setCurrent(_ => api->Carousel.selectedScrollSnapApi + 1))
+      setCount(_ => api->Carousel.Api.scrollSnapList->Array.length)
+      setCurrent(_ => api->Carousel.Api.selectedScrollSnap + 1)
+      api->Carousel.Api.on("select", _ => setCurrent(_ => api->Carousel.Api.selectedScrollSnap + 1))
       None
     | None => None
     }

@@ -1,14 +1,5 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-module Placeholder = {
-  @react.component
-  let make = (~children=React.null) => {
-    <div> {children} </div>
-  }
-}
-
-// --- Code component with special handling ---
-
 module Image = {
   @react.component
   let make = (~className=?, ~alt="", ~src="", ~width=?, ~height=?) => {

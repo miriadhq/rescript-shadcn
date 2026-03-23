@@ -67,15 +67,17 @@ npm install @base-ui/react @rescript-shadcn/base-ui
 </Direction.DirectionProvider>
 ```
 
-## useDirection
+## Direction.use
 
-The `useDirection` hook is used to get the current direction of the application.
+The `Direction.use` hook is used to get the current direction of the application.
 
 ```res showLineNumbers
-import { useDirection } from "@/components/ui/direction"
+module MyComponent = {
+  @react.component 
+  let make = () => {
+    let direction = Direction.use()
 
-function MyComponent() {
-  const direction = useDirection()
-  return <div>Current direction: {direction}</div>
+    <div> {`Current direction: ${(direction :> string)}`->React.string} </div>
+  }
 }
 ```

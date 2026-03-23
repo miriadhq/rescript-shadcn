@@ -7,7 +7,18 @@ open BaseUi.Types
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-type carouselApi
+module Api = {
+  type t
+  @send external scrollPrev: t => unit = "scrollPrev"
+  @send external scrollNext: t => unit = "scrollNext"
+  @send external canScrollPrev: t => bool = "canScrollPrev"
+  @send external canScrollNext: t => bool = "canScrollNext"
+  @send external scrollSnapList: t => array<float> = "scrollSnapList"
+  @send external selectedScrollSnap: t => int = "selectedScrollSnap"
+  @send external on: (t, string, t => unit) => unit = "on"
+  @send external off: (t, string, t => unit) => unit = "off"
+}
+
 type carouselRef = ReactDOM.domRef
 
 module EmblaOptions = {
@@ -46,20 +57,11 @@ type emblaPlugin
 external useEmblaCarousel: (
   ~options: EmblaOptions.t=?,
   ~plugins: array<emblaPlugin>=?,
-) => (carouselRef, option<carouselApi>) = "default"
-
-@send external scrollPrevApi: carouselApi => unit = "scrollPrev"
-@send external scrollNextApi: carouselApi => unit = "scrollNext"
-@send external canScrollPrevApi: carouselApi => bool = "canScrollPrev"
-@send external canScrollNextApi: carouselApi => bool = "canScrollNext"
-@send external scrollSnapListApi: carouselApi => array<float> = "scrollSnapList"
-@send external selectedScrollSnapApi: carouselApi => int = "selectedScrollSnap"
-@send external onApi: (carouselApi, string, carouselApi => unit) => unit = "on"
-@send external offApi: (carouselApi, string, carouselApi => unit) => unit = "off"
+) => (carouselRef, option<Api.t>) = "default"
 
 type carouselContext = {
   carouselRef: carouselRef,
-  api: option<carouselApi>,
+  api: option<Api.t>,
   opts: EmblaOptions.t,
   orientation: DataOrientation.t,
   scrollPrev: unit => unit,
@@ -104,18 +106,18 @@ let make = (
   )
   let (canScrollPrev, setCanScrollPrev) = React.useState(() => false)
   let (canScrollNext, setCanScrollNext) = React.useState(() => false)
-  let onSelect = (api: carouselApi) => {
-    setCanScrollPrev(_ => api->canScrollPrevApi)
-    setCanScrollNext(_ => api->canScrollNextApi)
+  let onSelect = (api: Api.t) => {
+    setCanScrollPrev(_ => api->Api.canScrollPrev)
+    setCanScrollNext(_ => api->Api.canScrollNext)
   }
   let scrollPrev = () =>
     switch api {
-    | Some(api) => api->scrollPrevApi
+    | Some(api) => api->Api.scrollPrev
     | None => ()
     }
   let scrollNext = () =>
     switch api {
-    | Some(api) => api->scrollNextApi
+    | Some(api) => api->Api.scrollNext
     | None => ()
     }
   React.useEffect(() => {
@@ -137,9 +139,9 @@ let make = (
   React.useEffect(() => {
     api->Option.map(api => {
       onSelect(api)
-      api->onApi("reInit", onSelect)
-      api->onApi("select", onSelect)
-      () => api->offApi("select", onSelect)
+      api->Api.on("reInit", onSelect)
+      api->Api.on("select", onSelect)
+      () => api->Api.off("select", onSelect)
     })
   }, [api])
   let handleKeyDownCapture = React.useCallback(event => {

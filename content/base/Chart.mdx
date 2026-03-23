@@ -73,7 +73,7 @@ npx shadcn@latest add @rescript-shadcn/Chart
 npm install recharts
 ```
 
-<Step>Copy and paste the following code into `components/ui/chart.tsx`.</Step>
+<Step>Copy and paste the following code into `components/ui/Chart.res`.</Step>
 
 <ComponentSource
   name="chart"
@@ -411,7 +411,7 @@ To use the theme colors in your chart, reference the colors using the format `va
 
 #### Chart Data
 
-```res title="components/example-chart.tsx" showLineNumbers
+```res title="components/ExampleChart.res" showLineNumbers
 let chartData = [
   { Data.browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
@@ -535,7 +535,7 @@ You can turn on the `accessibilityLayer` prop to add an accessible layer to your
 
 This prop adds keyboard access and screen reader support to your charts.
 
-```res title="components/example-chart.tsx"
+```res title="components/ExampleChart.res"
 <LineChart accessibilityLayer=true />
 ```
 
