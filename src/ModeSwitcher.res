@@ -1,44 +1,5 @@
 @@directive("'use client'")
 
-let darkModeForwardType = "dark-mode-forward"
-
-module DarkModeScript = {
-  @react.component
-  let make = () => {
-    <Next.Script
-      id="dark-mode-listener"
-      strategy="beforeInteractive"
-      dangerouslySetInnerHTML={{
-        __html: `
-            (function() {
-              // Forward D key
-              document.addEventListener('keydown', function(e) {
-                if ((e.key === 'd' || e.key === 'D') && !e.metaKey && !e.ctrlKey && !e.altKey) {
-                  if (
-                    (e.target instanceof HTMLElement && e.target.isContentEditable) ||
-                    e.target instanceof HTMLInputElement ||
-                    e.target instanceof HTMLTextAreaElement ||
-                    e.target instanceof HTMLSelectElement
-                  ) {
-                    return;
-                  }
-                  e.preventDefault();
-                  if (window.parent && window.parent !== window) {
-                    window.parent.postMessage({
-                      type: '${darkModeForwardType}',
-                      key: e.key
-                    }, '*');
-                  }
-                }
-              });
-
-            })();
-          `,
-      }}
-    />
-  }
-}
-
 let isTargetEditable: WebAPI.UIEventsAPI.keyboardEvent => bool = %raw(`
 function(e){
   return (e.target instanceof HTMLElement && e.target.isContentEditable) ||

@@ -40,7 +40,7 @@ npm install @base-ui/react @rescript-shadcn/base-ui
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
-  name="collapsible"
+  name="Collapsible"
   title="components/ui/Collapsible.res"
 />
 
@@ -68,17 +68,14 @@ npm install @base-ui/react @rescript-shadcn/base-ui
 Use the `open` and `onOpenChange` props to control the state.
 
 ```res showLineNumbers
-import * as React from "react"
+@react.component
+let make = () => {
+  let (open_, setOpen) = React.useState(() => false)
 
-export function Example() {
-  const [open, setOpen] = React.useState(false)
-
-  return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger>Toggle</CollapsibleTrigger>
-      <CollapsibleContent>Content</CollapsibleContent>
-    </Collapsible>
-  )
+  <Collapsible open_= onOpenChange={o => setOpen(_ => o)}>
+    <CollapsibleTrigger> {"Toggle"->React.string} </CollapsibleTrigger>
+    <CollapsibleContent> {"Content"->React.string} </CollapsibleContent>
+  </Collapsible>
 }
 ```
 

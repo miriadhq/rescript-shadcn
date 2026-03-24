@@ -47,7 +47,7 @@ npm install embla-carousel-react
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
-  name="carousel"
+  name="Carousel"
   title="components/ui/Carousel.res"
 />
 
@@ -175,35 +175,30 @@ Use a state and the `setApi` props to get an instance of the carousel API.
 />
 
 ```res showLineNumbers {1,4,22}
-import { type CarouselApi } from "@/components/ui/carousel"
-
-export function Example() {
-  const [api, setApi] = React.useState<CarouselApi>()
-  const [current, setCurrent] = React.useState(0)
-  const [count, setCount] = React.useState(0)
+@react.component
+let make = () => {
+  const (api, setApi) = React.useState(() => None)
+  const (current, setCurrent) = React.useState(() => 0)
+  const (count, setCount) = React.useState(() => 0)
 
   React.useEffect(() => {
-    if (!api) {
-      return
-    }
-
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap() + 1)
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1)
+    api->Option.forEach(api => {
+      setCount(_ => api->Carousel.Api.scrollSnapList->Array.length)
+      setCurrent(_ => api->Carousel.Api.selectedScrollSnap + 1)
+      api->Carousel.Api.on("select", () => {
+        setCurrent(_ => api->Carousel.Api.selectedScrollSnap + 1)
+      })
     })
+    None
   }, [api])
 
-  return (
-    <Carousel setApi={setApi}>
-      <CarouselContent>
-        <CarouselItem>...</CarouselItem>
-        <CarouselItem>...</CarouselItem>
-        <CarouselItem>...</CarouselItem>
-      </CarouselContent>
-    </Carousel>
-  )
+  <Carousel setApi={api => setApi(_ => api)}>
+    <Carousel.Content>
+      <Carousel.Item>...</Carousel.Item>
+      <Carousel.Item>...</Carousel.Item>
+      <Carousel.Item>...</Carousel.Item>
+    </Carousel.Content>
+  </Carousel>
 }
 ```
 
@@ -219,7 +214,7 @@ module Example = {
 
     React.useEffect(() => {
 
-      api->Option.forEach(api => api->Carousel.onApi("select", api => {
+      api->Option.forEach(api => api->Carousel.Api.on("select", api => {
         // Do something on select.
       }))
       None

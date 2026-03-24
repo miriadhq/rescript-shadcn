@@ -43,7 +43,7 @@ npx shadcn@latest add @rescript-shadcn/Sidebar
 <TabsContent value="manual">
 
 <ComponentSource
-  name="sidebar"
+  name="Sidebar"
   title="components/ui/Sidebar.res"
 />
 
@@ -94,19 +94,17 @@ module Layout = {
 }
 ```
 
-```res showLineNumbers title="components/app-sidebar.tsx"
-module AppSidebar = {
-  @react.component 
-  let make = () => 
-    <Sidebar>
-      <Sidebar.Header />
-      <Sidebar.Content>
-        <Sidebar.Group />
-        <Sidebar.Group />
-      </Sidebar.Content>
-      <Sidebar.Footer />
-    </Sidebar>
-}
+```res showLineNumbers title="components/AppSidebar.res"
+@react.component 
+let make = () => 
+  <Sidebar>
+    <Sidebar.Header />
+    <Sidebar.Content>
+      <Sidebar.Group />
+      <Sidebar.Group />
+    </Sidebar.Content>
+    <Sidebar.Footer />
+  </Sidebar>
 ```
 
 ## Sidebar.Provider
@@ -220,7 +218,7 @@ module AppSidebar = {
 
 Use the `Sidebar.Header` component to add a sticky header to the sidebar.
 
-```res showLineNumbers title="components/app-sidebar.tsx"
+```res showLineNumbers title="components/AppSidebar.res"
 <Sidebar>
   <Sidebar.Header>
     <Sidebar.Menu>
@@ -448,14 +446,15 @@ The `Sidebar.Rail` component is used to render a rail within a `Sidebar`. This r
 Use the `open_` and `onOpenChange` props to control the sidebar.
 
 ```res showLineNumbers
-export function AppSidebar() {
-  let (open_, setOpen) = React.useState(() => false)
+module AppSidebar = {
+  @react.component
+  let make = () => {
+    let (open_, setOpen) = React.useState(() => false)
 
-  return (
-    <Sidebar.Provider open_ onOpenChange={setOpen}>
+    <Sidebar.Provider open_ onOpenChange={o => setOpen(_ => o)}>
       <Sidebar />
     </Sidebar.Provider>
-  )
+  }
 }
 ```
 

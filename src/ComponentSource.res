@@ -1,5 +1,9 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
+type kind =
+  | Example
+  | Component
+
 let registryRoot = Node.Path.join([Node.cwd(), "registry", "base"])
 
 let fileExists = async (filePath: string) => {
@@ -11,20 +15,16 @@ let fileExists = async (filePath: string) => {
   }
 }
 
-let resolveSourcePath = async (name: string) => {
-  // Try examples first (e.g., "ButtonDemo" -> registry/base/examples/ButtonDemo.res)
-  let examplePath = Node.Path.join([registryRoot, "examples", `${name}.res`])
-  if await fileExists(examplePath) {
-    Some(examplePath)
-  } else {
-    // Try UI component (e.g., "Button" -> registry/base/ui/Button.res)
-    let uiPath = Node.Path.join([registryRoot, "ui", `${name}.res`])
-    if await fileExists(uiPath) {
-      Some(uiPath)
-    } else {
-      None
-    }
-  }
+let resolveSourcePath = async (name: string, kind) => {
+  let examplePath = Node.Path.join([
+    registryRoot,
+    switch kind {
+    | Example => "examples"
+    | Component => "ui"
+    },
+    `${name}.res`,
+  ])
+  await fileExists(examplePath) ? Some(examplePath) : None
 }
 
 module ComponentCode = {
@@ -58,6 +58,7 @@ let make = async (
   ~collapsible=true,
   ~className=?,
   ~maxLines=?,
+  ~kind=Component,
 ) => {
   let code = switch (name, src) {
   | (None, None) => None
@@ -67,7 +68,7 @@ let make = async (
       (await Node.Fs.readFile(Node.Path.join([registryRoot, relativePath]), "utf-8"))->Some
     }
   | (Some(name), None) =>
-    switch await resolveSourcePath(name) {
+    switch await resolveSourcePath(name, kind) {
     | Some(path) => (await Node.Fs.readFile(path, "utf-8"))->Some
     | None => None
     }

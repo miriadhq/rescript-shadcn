@@ -10,15 +10,6 @@ links:
 
 The `DirectionProvider` component is used to set the text direction (`ltr` or `rtl`) for your application. This is essential for supporting right-to-left languages like Arabic, Hebrew, and Persian.
 
-Here's a preview of the component in RTL mode. Use the language selector to switch the language. To see more examples, look for the RTL section on components pages.
-
-<ComponentPreview
-  name="CardRtl"
-  direction="rtl"
-  previewClassName="h-auto"
-  hideCode
-/>
-
 ## Installation
 
 <CodeTabs>
@@ -49,7 +40,7 @@ npm install @base-ui/react @rescript-shadcn/base-ui
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
-  name="direction"
+  name="Direction"
   title="components/ui/Direction.res"
 />
 
@@ -67,15 +58,17 @@ npm install @base-ui/react @rescript-shadcn/base-ui
 </Direction.DirectionProvider>
 ```
 
-## useDirection
+## Direction.use
 
-The `useDirection` hook is used to get the current direction of the application.
+The `Direction.use` hook is used to get the current direction of the application.
 
 ```res showLineNumbers
-import { useDirection } from "@/components/ui/direction"
+module MyComponent = {
+  @react.component 
+  let make = () => {
+    let direction = Direction.use()
 
-function MyComponent() {
-  const direction = useDirection()
-  return <div>Current direction: {direction}</div>
+    <div> {`Current direction: ${(direction :> string)}`->React.string} </div>
+  }
 }
 ```

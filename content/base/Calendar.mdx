@@ -51,7 +51,7 @@ The `Calendar` component uses the `Button` component. Make sure you have it inst
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
-  name="calendar"
+  name="Calendar"
   title="components/ui/Calendar.res"
 />
 
@@ -86,7 +86,7 @@ You can use the `<Calendar>` component to build a date picker. See the [Date Pic
 
 ## Persian / Hijri / Jalali Calendar
 
-To use the Persian calendar, edit `components/ui/calendar.tsx` and replace `react-day-picker` with `react-day-picker/persian`.
+To use the Persian calendar, edit `components/ui/Calendar.res` and replace `react-day-picker` with `react-day-picker/persian`.
 
 ```diff
 - import { DayPicker } from "react-day-picker"
@@ -105,22 +105,24 @@ To use the Persian calendar, edit `components/ui/calendar.tsx` and replace `reac
 The Calendar component accepts a `timeZone` prop to ensure dates are displayed and selected in the user's local timezone.
 
 ```res showLineNumbers
-export function CalendarWithTimezone() {
-  const [date, setDate] = React.useState<Date | undefined>(undefined)
-  const [timeZone, setTimeZone] = React.useState<string | undefined>(undefined)
+module CalendarWithTimezone = {
+  @react.component 
+  let make = () => {
+    let (date, setDate) = React.useState(() => None)
+    let (timeZone, setTimeZone) = React.useState(() => None)
 
-  React.useEffect(() => {
-    setTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone)
-  }, [])
+    React.useEffect(() => {
+      setTimeZone((Intl.DateTimeFormat.make()->Intl.DateTimeFormat.resolvedOptions).timeZone)
+      None
+    }, [])
 
-  return (
     <Calendar
-      mode="single"
-      selected={date}
-      onSelect={setDate}
-      timeZone={timeZone}
+      mode=Single
+      selected=date
+      onSelect={date => setDate(_ => date)}
+      timeZone
     />
-  )
+  }
 }
 ```
 

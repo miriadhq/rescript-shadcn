@@ -63,6 +63,7 @@ let mobileBreakpoint = 768
 
 let context: React.Context.t<option<sidebar>> = React.createContext(None)
 
+@throws(JsExn)
 let use = () =>
   switch React.useContext(context) {
   | Some(sidebar) => sidebar

@@ -59,23 +59,22 @@ npm install @base-ui/react @rescript-shadcn/base-ui
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
-  name="tooltip"
+  name="Tooltip"
   title="components/ui/Tooltip.res"
 />
 
 <Step>Add the `Tooltip.Provider` to the root of your app.</Step>
 
-```res title="app/layout.tsx" showLineNumbers {1,7}
-import { Tooltip.Provider } from "@/components/ui/tooltip"
-
-export default function RootLayout({ children }) {
-  return (
+```res title="app/layout.res" showLineNumbers {1,7}
+module RootLayout = {
+  @react.component 
+  let make = (~children) => {
     <html lang="en">
       <body>
         <Tooltip.Provider>{children}</Tooltip.Provider>
       </body>
     </html>
-  )
+  }
 }
 ```
 

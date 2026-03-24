@@ -13,7 +13,7 @@ module StarsCount = {
     | Object(dict{"stargazers_count": JSON.Number(starGazersCount)}) =>
       let formattedCount =
         starGazersCount >= 1000.0
-          ? `${Math.round(starGazersCount / 1000.0)->Float.toLocaleString}}k`
+          ? `${Math.round(starGazersCount * 0.001)->Float.toLocaleString}}k`
           : starGazersCount->Float.toLocaleString
 
       <span className="w-fit text-xs text-muted-foreground tabular-nums">

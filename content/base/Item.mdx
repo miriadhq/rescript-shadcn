@@ -32,7 +32,7 @@ npx shadcn@latest add @rescript-shadcn/Item
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
-  name="item"
+  name="Item"
   title="components/ui/Item.res"
 />
 
@@ -84,19 +84,19 @@ Use the `size` prop to change the size of the item. Available sizes are `default
 
 ### Icon
 
-Use `Item.Media` with `variant="icon"` to display an icon.
+Use `Item.Media` with `variant=Icon` to display an icon.
 
 <ComponentPreview name="ItemIcon" />
 
 ### Avatar
 
-You can use `Item.Media` with `variant="avatar"` to display an avatar.
+You can use `Item.Media` with `variant=Avatar` to display an avatar.
 
 <ComponentPreview name="ItemAvatar" />
 
 ### Image
 
-Use `Item.Media` with `variant="image"` to display an image.
+Use `Item.Media` with `variant=Image` to display an image.
 
 <ComponentPreview name="ItemImage" />
 
@@ -114,7 +114,7 @@ Use `ItemGroup` to group related items together.
 Use `Item.Header` to add a header above the item content.
 
 <ComponentPreview
-  name="Item.Header"
+  name="ItemHeader"
   previewClassName="h-96"
 />
 
@@ -126,7 +126,7 @@ Use the `render` prop to render the item as a link. The hover and focus states w
 
 ```res showLineNumbers
 <Item render={<a href="/dashboard" />}>
-  <Item.Media variant="icon">
+  <Item.Media variant=Icon>
     <HomeIcon />
   </Item.Media>
   <Item.Content>
@@ -185,7 +185,7 @@ Use `Item.Media` to display media content such as icons, images, or avatars.
 | `variant` | `Default \| Icon \| Image`       | `Default`   |
 
 ```res showLineNumbers
-<Item.Media variant="icon">
+<Item.Media variant=Icon>
   <Icon />
 </Item.Media>
 ```

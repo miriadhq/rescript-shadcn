@@ -101,9 +101,9 @@ app
 
 I'm using a Next.js example here but this works for any other React framework.
 
-- `columns.tsx` (client component) will contain our column definitions.
-- `data-table.tsx` (client component) will contain our `<DataTable />` component.
-- `page.tsx` (server component) is where we'll fetch data and render our table.
+- `Columns.res` (client component) will contain our column definitions.
+- `DataTable.res` (client component) will contain our `<DataTable />` component.
+- `page.res` (server component) is where we'll fetch data and render our table.
 
 ## Basic Table
 
@@ -117,7 +117,8 @@ First, we'll define our columns.
 
 ```res showLineNumbers title="app/payments/Columns.res" {3,14-27}
 @@directive("'use client'")
-export type payment = {
+
+type payment = {
   id: string
   amount: float
   status: [ #pending | #processing | #success | #failed ]
@@ -211,7 +212,7 @@ module DataTable = {
 
 <Callout>
 
-**Tip**: If you find yourself using `<DataTable />` in multiple places, this is the component you could make reusable by extracting it to `components/ui/data-table.tsx`.
+**Tip**: If you find yourself using `<DataTable />` in multiple places, this is the component you could make reusable by extracting it to `components/ui/DataTable.res`.
 
 `<DataTable columns={columns} data={data} />`
 
@@ -228,7 +229,7 @@ let getData = async () => {
     {
       id: "728ed52f",
       amount: 100.0,
-      status: "pending",
+      status: #pending,
       email: "m@example.com",
     },
     // ...
@@ -304,7 +305,7 @@ let columns = [
       let payment = row.original
 
         <DropdownMenu>
-          <DropdownMenu.Trigger render={<Button variant="ghost" className="h-8 w-8 p-0"/>}>
+          <DropdownMenu.Trigger render={<Button variant=Ghost className="h-8 w-8 p-0"/>}>
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
           </DropdownMenu.Trigger>
@@ -338,7 +339,7 @@ Next, we'll add pagination to our table.
 
 ### Update `<DataTable>`
 
-```res showLineNumbers title="app/payments/data-table.tsx" {5,17}
+```res showLineNumbers title="app/payments/DataTable.res" {5,17}
 module DataTable = {
   @react.component 
   let make = (~columns, ~data) => {
@@ -360,7 +361,7 @@ This will automatically paginate your rows into pages of 10. See the [pagination
 
 We can add pagination controls to our table using the `<Button />` component and the `table.previousPage()`, `table.nextPage()` API methods.
 
-```res showLineNumbers title="app/payments/data-table.tsx" {1,15,21-39}
+```res showLineNumbers title="app/payments/DataTable.res" {1,15,21-39}
 module DataTable = {
   @react.component 
   let make = (~columns, ~data) => {
@@ -571,7 +572,7 @@ module DataTable = {
         />
         <DropdownMenu>
           <DropdownMenu.Trigger render={
-            <Button variant="outline" className="ml-auto" />}>
+            <Button variant=Outline className="ml-auto" />}>
               {"Columns"->React.string} 
           </DropdownMenu.Trigger>
           <DropdownMenu.Content align=End >
@@ -614,7 +615,7 @@ Next, we're going to add row selection to our table.
 
 ### Update column definitions
 
-```res title="app/payments/columns.tsx" {6,9-27}
+```res title="app/payments/Columns.res" {6,9-27}
 @@directive("'use client'")
 
 let columns = [
@@ -645,7 +646,7 @@ let columns = [
 
 ### Update `<DataTable>`
 
-```res title="app/payments/DataTable.tsx" {11,23,28}
+```res title="app/payments/DataTable.res" {11,23,28}
 module DataTable = {
   @react.component 
   let make = (~columns, ~data) => {

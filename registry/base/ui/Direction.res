@@ -2,4 +2,4 @@
 
 module Provider = BaseUi.DirectionProvider
 
-let useDirection = BaseUi.DirectionProvider.useDirection
+let use = BaseUi.DirectionProvider.useDirection
