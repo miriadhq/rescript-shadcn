@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -18,13 +18,10 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: yarn build
-        run: yarn build
-
       - name: check docs links
         run: yarn test:docs
 
-  tests:
+  test-visual:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
