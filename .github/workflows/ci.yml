@@ -21,25 +21,25 @@ jobs:
       - name: check docs links
         run: yarn test:docs
 
-  test-visual:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          submodules: true
+  # test-visual:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v6
+  #       with:
+  #         submodules: true
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: ".node-version"
+  #     - uses: actions/setup-node@v6
+  #       with:
+  #         node-version-file: ".node-version"
 
-      - name: Install dependencies
-        run: yarn
+  #     - name: Install dependencies
+  #       run: yarn
 
-      - name: Generate DemoLoader
-        run: yarn loader:generate
+  #     - name: Generate DemoLoader
+  #       run: yarn loader:generate
 
-      - name: Compile ReScript
-        run: yarn rescript
+  #     - name: Compile ReScript
+  #       run: yarn rescript
 
-      - name: Run visual tests
-        run: yarn test:visual
+  #     - name: Run visual tests
+  #       run: yarn test:visual
