@@ -27,6 +27,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      // shadcn-ui v4 globals import `shadcn/tailwind.css`; the `shadcn` npm package
+      // (CLI v3) no longer exports that path — map to the app's theme file (same role as app/globals.css).
+      "shadcn/tailwind.css": path.resolve(repoRoot, "app/tailwind.css"),
       "@": appRoot,
       "next/image": path.resolve(harnessRoot, "next-image.tsx"),
       "next/link": path.resolve(harnessRoot, "next-link.tsx"),
