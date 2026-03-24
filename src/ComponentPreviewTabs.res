@@ -57,7 +57,7 @@ let make = (
   ~component: React.element,
   ~source: React.element,
   ~sourcePreview: React.element,
-  ~direction: option<BaseUi.Types.TextDirection.t>=Ltr,
+  ~direction=BaseUi.Types.TextDirection.Ltr,
 ) => {
   let (codeVisible, setCodeVisible) = React.useState(() => false)
 

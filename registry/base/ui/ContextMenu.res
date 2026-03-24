@@ -54,7 +54,7 @@ module Trigger = {
       ?onClick
       ?onKeyDown
       ?children
-      dataSlot="context-menu-trigger"
+      dataSlot
       className={cn("select-none", className)}
     />
 }
