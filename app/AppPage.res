@@ -14,11 +14,18 @@ let make = () => {
     </header>
 
     <main className="flex flex-col flex-1 gap-8">
-      <Button
-        render={<Next.Link href="/components" />} nativeButton=false className="sm:self-start"
-      >
-        {"See components"->React.string}
-      </Button>
+      <div className="flex flex-wrap gap-3 sm:self-start">
+        <Button render={<Next.Link href="/installation" />} nativeButton=false>
+          {"Get started"->React.string}
+        </Button>
+        <Button
+          render={<Next.Link href="/components" />}
+          nativeButton=false
+          variant=Outline
+        >
+          {"See components"->React.string}
+        </Button>
+      </div>
       <HomeDemo />
     </main>
   </>
