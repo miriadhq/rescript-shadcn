@@ -1,6 +1,6 @@
 {
   "name": "rescript-base-ui",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "Rescript bindings for Base UI",
   "publishConfig": {
     "access": "public"
@@ -15,9 +15,6 @@
     "url": "https://github.com/tsnobip/rescript-shadcn-ui.git",
     "directory": "packages/base-ui-bindings"
   },
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "components",
     "base-ui",
@@ -25,13 +22,16 @@
     "bindings"
   ],
   "dependencies": {
-    "@rescript/react": "0.14.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "rescript": "v12.2.0"
+    "rescript": "^12.2.0"
+  },
+  "devDependencies": {
+    "@rescript/react": "^0.14.2"
   },
   "peerDependencies": {
-    "@base-ui/react": "^1.2.0"
+    "@base-ui/react": "^1.2.0",
+    "@rescript/react": "^0.14.2"
   },
   "scripts": {
     "res:build": "rescript",
