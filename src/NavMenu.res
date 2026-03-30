@@ -19,6 +19,25 @@ let make = () => {
     </Sidebar.Header>
     <Sidebar.Content>
       <Sidebar.Group>
+        <Sidebar.GroupLabel> {"Get started"->React.string} </Sidebar.GroupLabel>
+        <Sidebar.GroupContent>
+          <Sidebar.Menu>
+            <Sidebar.MenuItem>
+              <Sidebar.MenuButton
+                render={<Next.Link
+                  href="/installation"
+                  className={`rounded-md px-3 py-1.5 text-sm transition-colors ${pathname === "/installation"
+                      ? "bg-accent text-accent-foreground font-medium"
+                      : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"}`}
+                />}
+              >
+                {"Installation"->React.string}
+              </Sidebar.MenuButton>
+            </Sidebar.MenuItem>
+          </Sidebar.Menu>
+        </Sidebar.GroupContent>
+      </Sidebar.Group>
+      <Sidebar.Group>
         <Sidebar.GroupLabel render={<Next.Link href="/components" />}>
           {"Components"->React.string}
         </Sidebar.GroupLabel>

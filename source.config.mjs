@@ -25,5 +25,5 @@ export default defineConfig({
 })
 
 export const docs = defineDocs({
-  dir: "content/base"
+  dir: "content",
 })
