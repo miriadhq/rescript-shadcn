@@ -1,29 +1,29 @@
-type props<'value, 'checked> = {
-  ...Types.props<'value, 'checked>,
-  defaultValue?: 'value,
-}
-
 module Root = {
+  type props<'value, 'checked> = {
+    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+    onValueChange?: ('value, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
+    defaultValue?: 'value,
+  }
   @module("@base-ui/react/tabs") @scope("Tabs")
   external make: React.component<props<'value, 'checked>> = "Root"
 }
 
 module List = {
   @module("@base-ui/react/tabs") @scope("Tabs")
-  external make: React.component<Types.props<'value, 'checked>> = "List"
+  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "List"
 }
 
 module Tab = {
   @module("@base-ui/react/tabs") @scope("Tabs")
-  external make: React.component<Types.props<'value, 'checked>> = "Tab"
+  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Tab"
 }
 
 module Panel = {
   @module("@base-ui/react/tabs") @scope("Tabs")
-  external make: React.component<Types.props<'value, 'checked>> = "Panel"
+  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Panel"
 }
 
 module Indicator = {
   @module("@base-ui/react/tabs") @scope("Tabs")
-  external make: React.component<Types.props<'value, 'checked>> = "Indicator"
+  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Indicator"
 }

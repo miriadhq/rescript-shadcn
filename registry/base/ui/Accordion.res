@@ -1,7 +1,5 @@
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
@@ -49,13 +47,13 @@ module Multiple = {
     ~onKeyDown=?,
     ~style=?,
   ) =>
-    <BaseUi.Accordion.Root.Multiple
+    <BaseUi.Accordion.Root
       ?id
       ?value
       ?defaultValue
       ?onValueChange
       ?disabled
-      multiple=True
+      multiple=true
       ?orientation
       ?onClick
       ?onKeyDown

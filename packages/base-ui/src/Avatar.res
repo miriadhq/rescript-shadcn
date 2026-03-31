@@ -1,14 +1,14 @@
 module Root = {
   @module("@base-ui/react/avatar") @scope("Avatar")
-  external make: React.component<Types.props<'value, 'checked>> = "Root"
+  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Root"
 }
 
 module Image = {
   @module("@base-ui/react/avatar") @scope("Avatar")
-  external make: React.component<Types.props<'value, 'checked>> = "Image"
+  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Image"
 }
 
 module Fallback = {
   @module("@base-ui/react/avatar") @scope("Avatar")
-  external make: React.component<Types.props<'value, 'checked>> = "Fallback"
+  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Fallback"
 }

@@ -1,7 +1,5 @@
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @react.component
 let make = (
   ~className=?,

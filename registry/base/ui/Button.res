@@ -57,10 +57,12 @@ let buttonVariants = (~variant=Variant.Default, ~size=Size.Default, ~className=?
 type props<'value, 'checked> = {
   variant?: Variant.t,
   size?: Size.t,
-  ...BaseUi.Types.props<'value, 'checked>,
+  ...BaseUi.Types.BaseUIComponentProps.t<'value, 'checked>,
+  ...BaseUi.Types.NativeButtonProps.t,
+  focusableWhenDisabled?: bool,
 }
 
-let toBaseUiProps: props<'value, 'checked> => BaseUi.Types.props<'value, 'checked> = %raw(`
+let toBaseUiProps: props<'value, 'checked> => BaseUi.Button.props<'value, 'checked> = %raw(`
   ({variant, size, ...rest}) => rest 
   `)
 

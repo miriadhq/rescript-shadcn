@@ -2,8 +2,6 @@
 
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @unboxed
 type direction =
   | @as("bottom") Bottom
@@ -16,43 +14,64 @@ external cn: (string, option<string>) => string = "twMerge"
 
 module DrawerPrimitive = {
   module Root = {
+    type props = {
+      ...BaseUi.Types.DomProps.t,
+      defaultOpen?: bool,
+      onOpenChange?: bool => unit,
+      onOpenChangeComplete?: bool => unit,
+      modal?: bool,
+      container?: Dom.htmlElement,
+      dismissible?: bool,
+      handleOnly?: bool,
+      repositionInputs?: bool,
+    }
     @module("vaul") @scope("Drawer")
-    external make: React.component<props<'value, 'checked>> = "Root"
+    external make: React.component<props> = "Root"
+  }
+
+  type chromeProps = {
+    ...BaseUi.Types.DomProps.t,
+    asChild?: bool,
   }
 
   module Trigger = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<props<'value, 'checked>> = "Trigger"
+    external make: React.component<chromeProps> = "Trigger"
   }
 
   module Portal = {
+    type props = {
+      ...BaseUi.Types.DomProps.t,
+      asChild?: bool,
+      container?: Dom.element,
+    }
     @module("vaul") @scope("Drawer")
-    external make: React.component<props<'value, 'checked>> = "Portal"
+    external make: React.component<props> = "Portal"
   }
 
   module Close = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<props<'value, 'checked>> = "Close"
+    external make: React.component<chromeProps> = "Close"
   }
 
   module Overlay = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<props<'value, 'checked>> = "Overlay"
+    external make: React.component<BaseUi.Types.DomProps.t> = "Overlay"
   }
 
   module Content = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<props<'value, 'checked>> = "Content"
+    external make: React.component<BaseUi.Types.BaseUIComponentProps.t<'value, 'checked>> = "Content"
   }
 
   module Title = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<props<'value, 'checked>> = "Title"
+    external make: React.component<BaseUi.Types.DomProps.t> = "Title"
   }
 
   module Description = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<props<'value, 'checked>> = "Description"
+    external make: React.component<BaseUi.Types.DomProps.t> = "Description"
   }
 }
 
@@ -158,8 +177,8 @@ module Overlay = {
 }
 
 module Content = {
-  @react.componentWithProps(BaseUi.Types.props)
-  let make = (props: BaseUi.Types.props<'value, 'checked>) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t<'value, 'checked>) =>
     <Portal>
       <Overlay />
       <DrawerPrimitive.Content

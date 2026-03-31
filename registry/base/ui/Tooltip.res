@@ -32,10 +32,8 @@ let make = (
 
 module Provider = {
   @react.component
-  let make = (~children=?, ~id=?, ~className=?, ~delay=0., ~closeDelay=?, ~style=?) =>
-    <BaseUi.Tooltip.Provider
-      ?children ?id ?className ?closeDelay ?style dataSlot="tooltip-provider" delay
-    />
+  let make = (~children=?, ~delay=0., ~closeDelay=?, ~timeout=?) =>
+    <BaseUi.Tooltip.Provider ?children ?closeDelay ?timeout delay />
 }
 
 module Trigger = {
@@ -97,7 +95,13 @@ module Content = {
     ~hidden=?,
   ) =>
     <BaseUi.Tooltip.Portal>
-      <BaseUi.Tooltip.Positioner align alignOffset side sideOffset className="isolate z-50">
+      <BaseUi.Tooltip.Positioner
+        align
+        alignOffset={Const(alignOffset)}
+        side
+        sideOffset={Const(sideOffset)}
+        className="isolate z-50"
+      >
         <BaseUi.Tooltip.Popup
           ?id
           dir=?{(dir :> option<string>)}

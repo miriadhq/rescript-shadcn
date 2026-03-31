@@ -69,7 +69,7 @@ let make = ({}: Demo.Props.t) => {
       </Dialog.Content>
     </Dialog>
   } else {
-    <Drawer open_ onOpenChange={(nextOpen, _) => setOpen(_ => nextOpen)}>
+    <Drawer open_ onOpenChange={nextOpen => setOpen(_ => nextOpen)}>
       <Drawer.Trigger asChild={true}>
         <Button variant=Outline> {"Edit Profile"->React.string} </Button>
       </Drawer.Trigger>

@@ -9,5 +9,5 @@ let make = ({}: Demo.Props.t) =>
         {"You must accept the terms and conditions to continue."->React.string}
       </Field.Description>
     </Field.Content>
-    <Switch id="switch-terms" ariaInvalid={true} />
+    <Switch id="switch-terms" ariaInvalid={#"true"} />
   </Field>

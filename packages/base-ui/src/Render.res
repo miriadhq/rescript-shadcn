@@ -1,6 +1,6 @@
 type params<'state> = {
   render?: React.element,
-  props?: Types.props<string, bool>,
+  props?: Types.BaseUIComponentProps.t<string, bool>,
   state?: 'state,
   defaultTagName?: string,
   enabled?: bool,

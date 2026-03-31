@@ -44,7 +44,7 @@ module ComponentCode = {
         </figcaption>
       }}
       <CopyButton value={code} />
-      <div dangerouslySetInnerHTML={{"__html": highlightedCode}} />
+      <div dangerouslySetInnerHTML={{"__html": highlightedCode}->Obj.magic} />
     </figure>
   }
 }

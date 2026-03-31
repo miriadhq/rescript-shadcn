@@ -44,9 +44,9 @@ let make = (
   ~name=?,
   ~dir=?,
   ~disabled=?,
-  ~checked=?,
-  ~defaultChecked=?,
-  ~onCheckedChange=?,
+  ~pressed=?,
+  ~defaultPressed=?,
+  ~onPressedChange=?,
   ~onClick=?,
   ~onKeyDown=?,
   ~tabIndex=0,
@@ -56,14 +56,14 @@ let make = (
   ~variant=Variant.Default,
   ~size=Size.Default,
 ) => {
-  let _ignoredOnCheckedChange = onCheckedChange
   <BaseUi.Toggle
     ?id
     ?name
     ?dir
     ?disabled
-    ?checked
-    ?defaultChecked
+    ?pressed
+    ?defaultPressed
+    ?onPressedChange
     ?onClick
     ?onKeyDown
     tabIndex

@@ -98,11 +98,11 @@ let make = ({}: Demo.Props.t) =>
       </Field.Legend>
       <RadioGroup>
         <Field dataInvalid={true} orientation=BaseUi.Types.Orientation.Horizontal>
-          <RadioGroup.Item value="invalid1" id="radio-invalid-1" ariaInvalid={true} />
+          <RadioGroup.Item value="invalid1" id="radio-invalid-1" ariaInvalid={#"true"} />
           <Field.Label htmlFor="radio-invalid-1"> {"Invalid Option 1"->React.string} </Field.Label>
         </Field>
         <Field dataInvalid={true} orientation=BaseUi.Types.Orientation.Horizontal>
-          <RadioGroup.Item value="invalid2" id="radio-invalid-2" ariaInvalid={true} />
+          <RadioGroup.Item value="invalid2" id="radio-invalid-2" ariaInvalid={#"true"} />
           <Field.Label htmlFor="radio-invalid-2"> {"Invalid Option 2"->React.string} </Field.Label>
         </Field>
       </RadioGroup>

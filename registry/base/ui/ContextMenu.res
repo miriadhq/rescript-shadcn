@@ -78,7 +78,11 @@ module Content = {
   ) => {
     <BaseUi.ContextMenu.Portal>
       <BaseUi.ContextMenu.Positioner
-        className="isolate z-50 outline-none" align alignOffset side sideOffset
+        className="isolate z-50 outline-none"
+        align
+        alignOffset={Const(alignOffset)}
+        side
+        sideOffset={Const(sideOffset)}
       >
         <BaseUi.ContextMenu.Popup
           ?id

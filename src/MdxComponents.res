@@ -21,7 +21,7 @@ module Code = {
     @as("__bun__") bun?: string,
   }
 
-  external toDomProps: props => BaseUi.Types.DomProps.t = "%identity"
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({className, children, __raw__, __npm__, __yarn__, __pnpm__, __bun__,...rest}) => rest`)
 
   @react.componentWithProps(props)
   let make = ({?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun} as props: props) => {

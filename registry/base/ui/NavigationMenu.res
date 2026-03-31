@@ -39,9 +39,9 @@ let make = (
     <BaseUi.NavigationMenu.Portal>
       <BaseUi.NavigationMenu.Positioner
         side={Side.Bottom}
-        sideOffset={8.}
+        sideOffset={Const(8.)}
         align
-        alignOffset={0.}
+        alignOffset={Const(0.)}
         className="isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-instant:transition-none data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0"
       >
         <BaseUi.NavigationMenu.Popup
@@ -188,9 +188,9 @@ module Positioner = {
     <BaseUi.NavigationMenu.Portal>
       <BaseUi.NavigationMenu.Positioner
         side
-        sideOffset
+        sideOffset={Const(sideOffset)}
         align
-        alignOffset
+        alignOffset={Const(alignOffset)}
         ?positionMethod
         className={cn(
           "isolate z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-instant:transition-none data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0",

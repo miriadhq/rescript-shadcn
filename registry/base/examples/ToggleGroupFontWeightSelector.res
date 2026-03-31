@@ -8,7 +8,7 @@ let make = ({}: Demo.Props.t) => {
     <Field.Label> {"Font Weight"->React.string} </Field.Label>
     <ToggleGroup
       value={[fontWeight]}
-      onValueChange={(value, _) => setFontWeight(_ => value->Array.get(0)->Option.getOr("normal"))}
+      onValueChange={(value: array<string>, _) => setFontWeight(_ => value->Array.getUnsafe(0))}
       variant=ToggleGroup.Variant.Outline
       spacing=2.
       size=Lg
