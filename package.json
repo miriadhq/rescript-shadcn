@@ -28,8 +28,6 @@
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.1.6",
-    "@radix-ui/react-label": "^2.1.7",
-    "@radix-ui/react-slot": "^1.2.3",
     "@rescript/react": "^0.14.2",
     "@rescript/webapi": "0.1.0-experimental-127e19a",
     "@tabler/icons-react": "^3.38.0",
