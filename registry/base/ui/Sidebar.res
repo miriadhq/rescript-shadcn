@@ -49,9 +49,9 @@ external removeWindowListener: (browserWindow, string, windowKeyboardEvent => un
 @val external mathRandom: unit => float = "Math.random"
 @module("@base-ui/react/merge-props")
 external mergeProps: (
-  BaseUi.Types.BaseUIComponentProps.t<string, bool>,
-  BaseUi.Types.BaseUIComponentProps.t<string, bool>,
-) => BaseUi.Types.BaseUIComponentProps.t<string, bool> = "mergeProps"
+  BaseUi.Types.BaseUIComponentProps.t,
+  BaseUi.Types.BaseUIComponentProps.t,
+) => BaseUi.Types.BaseUIComponentProps.t = "mergeProps"
 
 let sidebarCookieName = "sidebar_state"
 let sidebarCookieMaxAge = 60 * 60 * 24 * 7
@@ -545,7 +545,7 @@ module GroupLabel = {
     ~onKeyDown=?,
     ~render=?,
   ) => {
-    let props: BaseUi.Types.BaseUIComponentProps.t<string, bool> = {
+    let props: BaseUi.Types.BaseUIComponentProps.t = {
       ?id,
       ?style,
       ?onClick,
@@ -575,7 +575,7 @@ module GroupAction = {
     ~render=?,
     ~title=?,
   ) => {
-    let props: BaseUi.Types.BaseUIComponentProps.t<string, bool> = {
+    let props: BaseUi.Types.BaseUIComponentProps.t = {
       ?id,
       ?style,
       ?onClick,
@@ -752,7 +752,7 @@ module MenuAction = {
     ~className=?,
     ~children=React.null,
     ~render=?,
-    ~actionProps: option<BaseUi.Types.BaseUIComponentProps.t<string, bool>>=?,
+    ~actionProps: option<BaseUi.Types.BaseUIComponentProps.t>=?,
     ~id=?,
     ~style=?,
     ~onClick=?,
@@ -769,7 +769,7 @@ module MenuAction = {
     let showOnHoverClass = showOnHover
       ? "peer-data-active/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 aria-expanded:opacity-100 md:opacity-0"
       : ""
-    let baseProps: BaseUi.Types.BaseUIComponentProps.t<string, bool> = {
+    let baseProps: BaseUi.Types.BaseUIComponentProps.t = {
       ?id,
       ?style,
       ?onClick,
@@ -919,10 +919,10 @@ module MenuSubButton = {
     ~size=Size.Md,
     ~isActive=false,
     ~dataActive: option<bool>=?,
-    ~linkProps: option<BaseUi.Types.BaseUIComponentProps.t<string, bool>>=?,
+    ~linkProps: option<BaseUi.Types.BaseUIComponentProps.t>=?,
   ) => {
     let dataActive = dataActive->Option.getOr(isActive)
-    let baseWithoutDataActive: BaseUi.Types.BaseUIComponentProps.t<string, bool> = {
+    let baseWithoutDataActive: BaseUi.Types.BaseUIComponentProps.t = {
       ?id,
       ?style,
       ?onClick,
@@ -940,7 +940,7 @@ module MenuSubButton = {
         className,
       ),
     }
-    let dataActiveOverlay: BaseUi.Types.BaseUIComponentProps.t<string, bool> = dataActive
+    let dataActiveOverlay: BaseUi.Types.BaseUIComponentProps.t = dataActive
       ? {dataActive: true}
       : {}
     let baseProps = mergeProps(baseWithoutDataActive, dataActiveOverlay)

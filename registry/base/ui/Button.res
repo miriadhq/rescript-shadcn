@@ -54,20 +54,20 @@ let baseClass = "group/button inline-flex shrink-0 items-center justify-center r
 let buttonVariants = (~variant=Variant.Default, ~size=Size.Default, ~className=?) =>
   cn(baseClass, buttonVariantClass(~variant), buttonSizeClass(~size), className)
 
-type props<'value, 'checked> = {
+type props = {
   variant?: Variant.t,
   size?: Size.t,
-  ...BaseUi.Types.BaseUIComponentProps.t<'value, 'checked>,
+  ...BaseUi.Types.BaseUIComponentProps.t,
   ...BaseUi.Types.NativeButtonProps.t,
   focusableWhenDisabled?: bool,
 }
 
-let toBaseUiProps: props<'value, 'checked> => BaseUi.Button.props<'value, 'checked> = %raw(`
+let toBaseUiProps: props => BaseUi.Button.props = %raw(`
   ({variant, size, ...rest}) => rest 
   `)
 
 @react.componentWithProps(props)
-let make = (props: props<'value, 'checked>) => {
+let make = (props: props) => {
   let variant = props.variant->Option.getOr(Default)
   let size = props.size->Option.getOr(Default)
   let className = props.className

@@ -16,13 +16,13 @@ let make = BaseUi.Select.Root.make
 
 module Multiple = {
   @react.componentWithProps(BaseUi.Select.Root.Multiple.props)
-  let make = (props: BaseUi.Select.Root.Multiple.props<'value, 'checked>) =>
+  let make = (props: BaseUi.Select.Root.Multiple.props<'value>) =>
     <BaseUi.Select.Root.Multiple {...props} multiple=True />
 }
 
 module Group = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t<'value, 'checked>) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Select.Group
       {...props}
       dataSlot={props.dataSlot->Option.getOr("select-group")}
@@ -80,18 +80,15 @@ module ScrollDownButton = {
 }
 
 module Trigger = {
-  type triggerProps<'value, 'checked> = {
+  type triggerProps = {
     size?: Size.t,
-    ...BaseUi.Types.BaseUIComponentProps.t<'value, 'checked>,
+    ...BaseUi.Types.BaseUIComponentProps.t,
   }
-  let toBaseUiProps: triggerProps<'value, 'checked> => BaseUi.Types.BaseUIComponentProps.t<
-    'value,
-    'checked,
-  > = %raw(`
+  let toBaseUiProps: triggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`
   ({size, ...rest}) => rest 
   `)
   @react.componentWithProps(triggerProps)
-  let make = (props: triggerProps<'value, 'checked>) => {
+  let make = (props: triggerProps) => {
     let size = props.size->Option.getOr(Default)
     let baseUiProps = props->toBaseUiProps
     <BaseUi.Select.Trigger

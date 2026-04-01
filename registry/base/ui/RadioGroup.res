@@ -47,7 +47,7 @@ module Item = {
     ~children=React.null,
     ~id=?,
     ~name=?,
-    ~value=?,
+    ~value,
     ~disabled=?,
     ~required=?,
     ~readOnly=?,
@@ -61,7 +61,7 @@ module Item = {
     <BaseUi.Radio.Root
       ?id
       ?name
-      ?value
+      value
       ?disabled
       ?required
       ?readOnly

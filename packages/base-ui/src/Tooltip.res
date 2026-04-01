@@ -18,7 +18,7 @@ module Root = {
   }
 
   type props<'payload> = {
-    ...Types.BaseUIComponentProps.t<string, bool>,
+    ...Types.BaseUIComponentProps.t,
     defaultOpen?: bool,
     delay?: float,
     closeDelay?: float,
@@ -52,31 +52,31 @@ module Root = {
 
 module Trigger = {
   @module("@base-ui/react/tooltip") @scope("Tooltip")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Trigger"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Trigger"
 }
 
 module Portal = {
   @module("@base-ui/react/tooltip") @scope("Tooltip")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Portal"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Portal"
 }
 
 module Positioner = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...AnchorPositioning.SharedParameters.t,
   }
   @module("@base-ui/react/tooltip") @scope("Tooltip")
-  external make: React.component<props<'value, 'checked>> = "Positioner"
+  external make: React.component<props> = "Positioner"
 }
 
 module Popup = {
   @module("@base-ui/react/tooltip") @scope("Tooltip")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Popup"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Popup"
 }
 
 module Arrow = {
   @module("@base-ui/react/tooltip") @scope("Tooltip")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Arrow"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Arrow"
 }
 
 module Provider = {
@@ -92,5 +92,5 @@ module Provider = {
 
 module Viewport = {
   @module("@base-ui/react/tooltip") @scope("Tooltip")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Viewport"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Viewport"
 }

@@ -1,5 +1,5 @@
-let months = [
-  {BaseUi.Select.Item.label: "MM", value: ""},
+let months: array<BaseUi.Select.Item.t<string>> = [
+  {label: "MM", value: ""},
   {label: "01", value: "01"},
   {label: "02", value: "02"},
   {label: "03", value: "03"},
@@ -14,8 +14,8 @@ let months = [
   {label: "12", value: "12"},
 ]
 
-let years = [
-  {BaseUi.Select.Item.label: "YYYY", value: ""},
+let years: array<BaseUi.Select.Item.t<string>> = [
+  {label: "YYYY", value: ""},
   {label: "2024", value: "2024"},
   {label: "2025", value: "2025"},
   {label: "2026", value: "2026"},

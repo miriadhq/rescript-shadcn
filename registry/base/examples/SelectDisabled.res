@@ -1,4 +1,4 @@
-type item = {
+type row = {
   label: string,
   value: null<string>,
   disabled: bool,
@@ -6,7 +6,7 @@ type item = {
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let items = [
+  let rows = [
     {label: "Select a fruit", value: Null.null, disabled: false},
     {label: "Apple", value: Value("apple"), disabled: false},
     {label: "Banana", value: Value("banana"), disabled: false},
@@ -16,17 +16,20 @@ let make = ({}: Demo.Props.t) => {
   ]
 
   <Select
-    items={items->Array.map(({label, value}) => {BaseUi.Select.Item.label, value})} disabled={true}
+    items={rows->Array.map((r: row): BaseUi.Select.Item.t<null<string>> => {
+      label: r.label,
+      value: r.value,
+    })} disabled={true}
   >
     <Select.Trigger className="w-full max-w-48">
       <Select.Value />
     </Select.Trigger>
     <Select.Content>
       <Select.Group>
-        {items
-        ->Array.map(item =>
-          <Select.Item key={item.label} value={item.value} disabled={item.disabled}>
-            {item.label->React.string}
+        {rows
+        ->Array.map(row =>
+          <Select.Item key={row.label} value={row.value} disabled={row.disabled}>
+            {row.label->React.string}
           </Select.Item>
         )
         ->React.array}

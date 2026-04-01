@@ -8,8 +8,8 @@ module Root = {
 
   type handle<'payload>
 
-  type props<'payload, 'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'payload> = {
+    ...Types.BaseUIComponentProps.t,
     defaultOpen?: bool,
     loopFocus?: bool,
     highlightItemOnHover?: bool,
@@ -43,110 +43,108 @@ module Root = {
     handle?: handle<'payload>,
   }
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<props<'payload, 'value, 'checked>> = "Root"
+  external make: React.component<props<'payload>> = "Root"
 }
 
 module Trigger = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<props<'value, 'checked>> = "Trigger"
+  external make: React.component<props> = "Trigger"
 }
 
 module Backdrop = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Backdrop"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Backdrop"
 }
 
 module Portal = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     container?: Dom.element,
     keepMounted?: bool,
   }
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<props<'value, 'checked>> = "Portal"
+  external make: React.component<props> = "Portal"
 }
 
 module Positioner = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...AnchorPositioning.SharedParameters.t,
   }
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<props<'value, 'checked>> = "Positioner"
+  external make: React.component<props> = "Positioner"
 }
 
 module Popup = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Popup"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Popup"
 }
 
 module Arrow = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Arrow"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Arrow"
 }
 
 module Group = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Group"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Group"
 }
 
 module GroupLabel = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "GroupLabel"
+  external make: React.component<Types.BaseUIComponentProps.t> = "GroupLabel"
 }
 
 module Item = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     closeOnClick?: bool,
   }
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<props<'value, 'checked>> = "Item"
+  external make: React.component<props> = "Item"
 }
 
 module CheckboxItem = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Menu.CheckboxItem.props<'value>> = "CheckboxItem"
+  external make: React.component<Menu.CheckboxItem.props> = "CheckboxItem"
 }
 
 module CheckboxItemIndicator = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> =
-    "CheckboxItemIndicator"
+  external make: React.component<Types.BaseUIComponentProps.t> = "CheckboxItemIndicator"
 }
 
 module RadioGroup = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Menu.RadioGroup.props<'value, 'checked>> = "RadioGroup"
+  external make: React.component<Menu.RadioGroup.props<'value>> = "RadioGroup"
 }
 
 module RadioItem = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Menu.RadioItem.props<'value, 'checked>> = "RadioItem"
+  external make: React.component<Menu.RadioItem.props<'value>> = "RadioItem"
 }
 
 module RadioItemIndicator = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> =
-    "RadioItemIndicator"
+  external make: React.component<Types.BaseUIComponentProps.t> = "RadioItemIndicator"
 }
 
 module SubmenuRoot = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Menu.SubmenuRoot.props<'payload, 'value, 'checked>> = "SubmenuRoot"
+  external make: React.component<Menu.SubmenuRoot.props<'payload>> = "SubmenuRoot"
 }
 
 module SubmenuTrigger = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "SubmenuTrigger"
+  external make: React.component<Types.BaseUIComponentProps.t> = "SubmenuTrigger"
 }
 
 module Separator = {
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Separator"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Separator"
 }

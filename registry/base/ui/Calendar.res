@@ -140,7 +140,7 @@ external cn4: (
 ) => string = "twMerge"
 
 module DayButton = {
-  let toButtonProps: DayButtonProps.t => Button.props<'value, 'checked> = %raw(`
+  let toButtonProps: DayButtonProps.t => Button.props = %raw(`
   ({day, modifiers, locale, ...rest}) => rest 
   `)
 

@@ -1,17 +1,17 @@
-let fruits = [
-  {BaseUi.Select.Item.label: "Apple", value: Null.Value("apple")},
+let fruits: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Apple", value: Null.Value("apple")},
   {label: "Banana", value: Value("banana")},
   {label: "Blueberry", value: Value("blueberry")},
 ]
 
-let vegetables = [
-  {BaseUi.Select.Item.label: "Carrot", value: Null.Value("carrot")},
+let vegetables: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Carrot", value: Null.Value("carrot")},
   {label: "Broccoli", value: Value("broccoli")},
   {label: "Spinach", value: Value("spinach")},
 ]
 
-let allItems = [
-  {BaseUi.Select.Item.label: "Select a fruit", value: Null.null},
+let allItems: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Select a fruit", value: Null.null},
   {label: "Apple", value: Value("apple")},
   {label: "Banana", value: Value("banana")},
   {label: "Blueberry", value: Value("blueberry")},

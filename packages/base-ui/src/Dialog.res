@@ -21,8 +21,8 @@ module Root = {
     unknown,
   >
 
-  type props<'payload, 'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'payload> = {
+    ...Types.BaseUIComponentProps.t,
     defaultOpen?: bool,
     modal?: Types.Modal.t,
     onOpenChange?: (bool, changeEventDetails) => unit,
@@ -34,60 +34,60 @@ module Root = {
     defaultTriggerId?: string,
   }
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<props<'payload, 'value, 'checked>> = "Root"
+  external make: React.component<props<'payload>> = "Root"
 }
 
 module Trigger = {
-  type props<'payload, 'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'payload> = {
+    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
     handle?: Root.handle<'payload>,
     payload?: 'payload,
   }
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<props<'payload, 'value, 'checked>> = "Trigger"
+  external make: React.component<props<'payload>> = "Trigger"
 }
 
 module Portal = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     container?: Dom.element,
     keepMounted?: bool,
   }
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<props<'value, 'checked>> = "Portal"
+  external make: React.component<props> = "Portal"
 }
 
 module Popup = {
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Popup"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Popup"
 }
 
 module Backdrop = {
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Backdrop"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Backdrop"
 }
 
 module Title = {
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Title"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Title"
 }
 
 module Description = {
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Description"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Description"
 }
 
 module Close = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<props<'value, 'checked>> = "Close"
+  external make: React.component<props> = "Close"
 }
 
 module Viewport = {
   @module("@base-ui/react/dialog") @scope("Dialog")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Viewport"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Viewport"
 }

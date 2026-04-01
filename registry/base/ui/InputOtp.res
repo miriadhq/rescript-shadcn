@@ -9,10 +9,11 @@ module InputOtpPrimitive = {
   module Props = {
     type t = {
       size?: int,
-      ...BaseUi.Types.BaseDomProps.t<string, bool>,
+      ...BaseUi.Types.BaseDomProps.t,
       ...BaseUi.Types.ExtraDomProps.t,
       containerClassName?: string,
       onChange?: string => unit,
+      value?: string,
       defaultValue?: string,
     }
   }

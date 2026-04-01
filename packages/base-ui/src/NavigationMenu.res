@@ -5,10 +5,11 @@ module Root = {
     }
   }
 
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'value> = {
+    ...Types.BaseUIComponentProps.t,
     actionsRef?: React.ref<Actions.t>,
     onOpenChangeComplete?: bool => unit,
+    value?: 'value,
     onValueChange?: (
       'value,
       Types.BaseUIChangeEventDetail.t<
@@ -30,74 +31,74 @@ module Root = {
     defaultValue?: 'value,
   }
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<props<'value, 'checked>> = "Root"
+  external make: React.component<props<'value>> = "Root"
 }
 
 module List = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "List"
+  external make: React.component<Types.BaseUIComponentProps.t> = "List"
 }
 
 module Item = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Item"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Item"
 }
 
 module Content = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Content"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Content"
 }
 
 module Trigger = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<props<'value, 'checked>> = "Trigger"
+  external make: React.component<props> = "Trigger"
 }
 
 module Portal = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Portal"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Portal"
 }
 
 module Positioner = {
   /** See `NavigationMenuPositionerProps` in `@base-ui/react/navigation-menu/positioner/NavigationMenuPositioner.d.ts`. */
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...AnchorPositioning.SharedParameters.t,
   }
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<props<'value, 'checked>> = "Positioner"
+  external make: React.component<props> = "Positioner"
 }
 
 module Viewport = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Viewport"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Viewport"
 }
 
 module Backdrop = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Backdrop"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Backdrop"
 }
 
 module Popup = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Popup"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Popup"
 }
 
 module Arrow = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Arrow"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Arrow"
 }
 
 module Link = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Link"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Link"
 }
 
 module Icon = {
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Icon"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Icon"
 }

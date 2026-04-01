@@ -217,7 +217,7 @@ module RadioItem = {
     ~children=React.null,
     ~id=?,
     ~style=?,
-    ~value=?,
+    ~value,
     ~disabled=?,
     ~closeOnClick=?,
     ~dataInset=?,
@@ -227,7 +227,7 @@ module RadioItem = {
     <BaseUi.ContextMenu.RadioItem
       ?id
       ?style
-      ?value
+      value
       ?disabled
       ?closeOnClick
       ?dataInset

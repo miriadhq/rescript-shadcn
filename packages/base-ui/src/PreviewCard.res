@@ -17,8 +17,8 @@ module Root = {
     external make: unit => t<'payload> = "createHandle"
   }
 
-  type props<'value, 'checked, 'payload> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'payload> = {
+    ...Types.BaseUIComponentProps.t,
     defaultOpen?: bool,
     delay?: float,
     closeDelay?: float,
@@ -44,51 +44,51 @@ module Root = {
     defaultTriggerId?: string,
   }
   @module("@base-ui/react/preview-card") @scope("PreviewCard")
-  external make: React.component<props<'value, 'checked, 'payload>> = "Root"
+  external make: React.component<props<'payload>> = "Root"
 }
 
 module Trigger = {
-  type props<'value, 'checked, 'payload> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'payload> = {
+    ...Types.BaseUIComponentProps.t,
     handle?: Root.Handle.t<'payload>,
     payload?: 'payload,
     delay?: float,
     closeDelay?: float,
   }
   @module("@base-ui/react/preview-card") @scope("PreviewCard")
-  external make: React.component<props<'value, 'checked, 'payload>> = "Trigger"
+  external make: React.component<props<'payload>> = "Trigger"
 }
 
 module Portal = {
   @module("@base-ui/react/preview-card") @scope("PreviewCard")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Portal"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Portal"
 }
 
 module Positioner = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...AnchorPositioning.SharedParameters.t,
   }
   @module("@base-ui/react/preview-card") @scope("PreviewCard")
-  external make: React.component<props<'value, 'checked>> = "Positioner"
+  external make: React.component<props> = "Positioner"
 }
 
 module Popup = {
   @module("@base-ui/react/preview-card") @scope("PreviewCard")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Popup"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Popup"
 }
 
 module Arrow = {
   @module("@base-ui/react/preview-card") @scope("PreviewCard")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Arrow"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Arrow"
 }
 
 module Backdrop = {
   @module("@base-ui/react/preview-card") @scope("PreviewCard")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Backdrop"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Backdrop"
 }
 
 module Viewport = {
   @module("@base-ui/react/preview-card") @scope("PreviewCard")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Viewport"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Viewport"
 }

@@ -8,55 +8,57 @@ open BaseUi.Types
 external cn: (string, option<string>) => string = "twMerge"
 
 module CommandPrimitive = {
-  type props<'value, 'checked> = {
-    ...BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...BaseUIComponentProps.t,
+    value?: string,
     onValueChange?: string => unit,
     defaultValue?: string,
   }
   @module("cmdk")
-  external make: React.component<props<'value, 'checked>> = "Command"
+  external make: React.component<props> = "Command"
 
   module Input = {
-    type props<'value, 'checked> = {
-      ...BaseUIComponentProps.t<'value, 'checked>,
+    type props = {
+      ...BaseUIComponentProps.t,
+      value?: string,
       onValueChange?: string => unit,
       defaultValue?: string,
     }
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Input"
+    external make: React.component<props> = "Input"
   }
 
   module List = {
     @module("cmdk") @scope("Command")
-    external make: React.component<BaseUIComponentProps.t<'value, 'checked>> = "List"
+    external make: React.component<BaseUIComponentProps.t> = "List"
   }
 
   module Empty = {
     @module("cmdk") @scope("Command")
-    external make: React.component<BaseUIComponentProps.t<'value, 'checked>> = "Empty"
+    external make: React.component<BaseUIComponentProps.t> = "Empty"
   }
 
   module Group = {
-    type props<'value, 'checked> = {
-      ...BaseUIComponentProps.t<'value, 'checked>,
+    type props = {
+      ...BaseUIComponentProps.t,
       heading?: string,
       forceMount?: bool,
     }
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Group"
+    external make: React.component<props> = "Group"
   }
 
   module Separator = {
-    type props<'value, 'checked> = {
-      ...BaseUIComponentProps.t<'value, 'checked>,
+    type props = {
+      ...BaseUIComponentProps.t,
       alwaysRender?: bool,
     }
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Separator"
+    external make: React.component<props> = "Separator"
   }
 
   module Item = {
-    type props<'value, 'checked> = {
+    type props = {
       children?: React.element,
       className?: string,
       id?: string,
@@ -71,7 +73,7 @@ module CommandPrimitive = {
       asChild?: bool,
     }
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Item"
+    external make: React.component<props> = "Item"
   }
 }
 

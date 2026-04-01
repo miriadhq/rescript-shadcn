@@ -1,9 +1,10 @@
-type props<'value, 'checked> = {
-  ...Types.BaseUIComponentProps.t<'value, 'checked>,
-  onValueChange?: ('value, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
+type props<'value> = {
+  ...Types.BaseUIComponentProps.t,
+  value?: array<'value>,
+  onValueChange?: (array<'value>, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
   loopFocus?: bool,
-  defaultValue?: 'value,
+  defaultValue?: array<'value>,
   multiple?: bool,
 }
 @module("@base-ui/react/toggle-group")
-external make: React.component<props<array<'value>, 'checked>> = "ToggleGroup"
+external make: React.component<props<'value>> = "ToggleGroup"

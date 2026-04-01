@@ -1,6 +1,6 @@
 module Root = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     defaultOpen?: bool,
     onOpenChange?: (
       bool,
@@ -8,24 +8,24 @@ module Root = {
     ) => unit,
   }
   @module("@base-ui/react/collapsible") @scope("Collapsible")
-  external make: React.component<props<'value, 'checked>> = "Root"
+  external make: React.component<props> = "Root"
 }
 
 module Trigger = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/collapsible") @scope("Collapsible")
-  external make: React.component<props<'value, 'checked>> = "Trigger"
+  external make: React.component<props> = "Trigger"
 }
 
 module Panel = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     hiddenUntilFound?: bool,
     keepMounted?: bool,
   }
   @module("@base-ui/react/collapsible") @scope("Collapsible")
-  external make: React.component<props<'value, 'checked>> = "Panel"
+  external make: React.component<props> = "Panel"
 }

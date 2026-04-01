@@ -1,6 +1,6 @@
 module Root = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'value> = {
+    ...Types.BaseUIComponentProps.t,
     minStepsBetweenValues?: float,
     largeStep?: float,
     thumbAlignment?: Types.ThumbAlignment.t,
@@ -20,32 +20,33 @@ module Root = {
       >,
     ) => unit,
     defaultValue?: 'value,
+    value?: 'value,
   }
   @module("@base-ui/react/slider") @scope("Slider")
-  external make: React.component<props<'value, 'checked>> = "Root"
+  external make: React.component<props<'value>> = "Root"
 }
 
 module Value = {
   @module("@base-ui/react/slider") @scope("Slider")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Value"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Value"
 }
 
 module Control = {
   @module("@base-ui/react/slider") @scope("Slider")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Control"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Control"
 }
 
 module Track = {
   @module("@base-ui/react/slider") @scope("Slider")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Track"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Track"
 }
 
 module Thumb = {
   @module("@base-ui/react/slider") @scope("Slider")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Thumb"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Thumb"
 }
 
 module Indicator = {
   @module("@base-ui/react/slider") @scope("Slider")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Indicator"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Indicator"
 }

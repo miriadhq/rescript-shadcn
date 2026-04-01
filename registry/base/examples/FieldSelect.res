@@ -1,5 +1,5 @@
-let items = [
-  {BaseUi.Select.Item.label: "Engineering", value: "engineering"},
+let items: array<BaseUi.Select.Item.t<string>> = [
+  {label: "Engineering", value: "engineering"},
   {label: "Design", value: "design"},
   {label: "Marketing", value: "marketing"},
   {label: "Sales", value: "sales"},

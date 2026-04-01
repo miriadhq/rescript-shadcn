@@ -49,7 +49,7 @@ let make = (
 module Text = {
   @react.component
   let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~render=?) => {
-    let props: BaseUi.Types.BaseUIComponentProps.t<string, bool> = {
+    let props: BaseUi.Types.BaseUIComponentProps.t = {
       ?id,
       ?style,
       ?onClick,

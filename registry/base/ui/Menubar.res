@@ -55,7 +55,7 @@ module Portal = {
 
 module Trigger = {
   @react.componentWithProps(BaseUi.Menu.Trigger.props)
-  let make = (props: BaseUi.Menu.Trigger.props<'value, 'checked>) => {
+  let make = (props: BaseUi.Menu.Trigger.props) => {
     <DropdownMenu.Trigger
       {...props}
       dataSlot="menubar-trigger"
@@ -180,7 +180,7 @@ module RadioItem = {
     ~inset=?,
     ~id=?,
     ~style=?,
-    ~value=?,
+    ~value,
     ~disabled=?,
     ~closeOnClick=?,
     ~onClick=?,
@@ -189,7 +189,7 @@ module RadioItem = {
     <BaseUi.Menu.RadioItem
       ?id
       ?style
-      ?value
+      value
       ?disabled
       ?closeOnClick
       dataInset=?inset
@@ -273,17 +273,14 @@ module Sub = {
 }
 
 module SubTrigger = {
-  type subTriggerProps<'selected, 'checked> = {
+  type subTriggerProps = {
     inset?: bool,
-    ...BaseUi.Types.BaseUIComponentProps.t<'selected, 'checked>,
+    ...BaseUi.Types.BaseUIComponentProps.t,
   }
-  let toBaseUiProps: subTriggerProps<'selected, 'checked> => BaseUi.Types.BaseUIComponentProps.t<
-    'selected,
-    'checked,
-  > = %raw(`({inset, ...props}) => props`)
+  let toBaseUiProps: subTriggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({inset, ...props}) => props`)
 
   @react.componentWithProps(subTriggerProps)
-  let make = (props: subTriggerProps<'selected, 'checked>) => {
+  let make = (props: subTriggerProps) => {
     let baseUiProps = toBaseUiProps(props)
     <DropdownMenu.SubTrigger
       {...baseUiProps}

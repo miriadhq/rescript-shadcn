@@ -258,7 +258,7 @@ module ExtraDomProps = {
 type dangerouslySetInnerHTML = {"__html": string}
 
 module BaseDomProps = {
-  type t<'value, 'checked> = {
+  type t = {
     key?: string,
     children?: Jsx.element,
     ref?: ReactDOM.domRef,
@@ -306,7 +306,6 @@ module BaseDomProps = {
     autoPlay?: bool,
     challenge?: string,
     charSet?: string,
-    checked?: 'checked,
     cite?: string /* uri */,
     crossOrigin?: string /* anonymous, use-credentials */,
     cols?: int,
@@ -391,7 +390,6 @@ module BaseDomProps = {
     @as("type")
     type_?: string /* has a fixed but large-ish set of possible values */ /* use this one. Previous one is deprecated */,
     useMap?: string,
-    value?: 'value,
     width?: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
     wrap?: string /* "hard" or "soft" */,
     /* Clipboard events */
@@ -762,17 +760,19 @@ module DomProps = {
     size?: int,
     onChange?: JsxEvent.Form.t => unit,
     multiple?: bool,
+    checked?: bool,
     defaultChecked?: bool,
+    value?: string,
     defaultValue?: string,
-    ...BaseDomProps.t<string, bool>,
+    ...BaseDomProps.t,
     ...ExtraDomProps.t,
   }
 }
 
 module BaseUIComponentProps = {
-  type t<'value, 'checked> = {
+  type t = {
     render?: React.element,
-    ...BaseDomProps.t<'value, 'checked>,
+    ...BaseDomProps.t,
     ...ExtraDomProps.t,
   }
 }

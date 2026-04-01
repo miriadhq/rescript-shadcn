@@ -3,8 +3,13 @@ module Item = {
     label: string,
     value: 'value,
   }
+  type props<'value> = {
+    ...Types.BaseUIComponentProps.t,
+    ...Types.NonNativeButtonProps.t,
+    value?: 'value,
+  }
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Item"
+  external make: React.component<props<'value>> = "Item"
 }
 
 module Root = {
@@ -14,8 +19,8 @@ module Root = {
     }
   }
 
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'value> = {
+    ...Types.BaseUIComponentProps.t,
     inputRef?: ReactDOM.domRef,
     highlightItemOnHover?: bool,
     defaultOpen?: bool,
@@ -61,102 +66,103 @@ module Root = {
       >,
     ) => unit,
     defaultValue?: 'value,
+    value?: 'value,
   }
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<props<'value, 'checked>> = "Root"
+  external make: React.component<props<'value>> = "Root"
 
   module Multiple = {
-    type props<'value, 'checked> = {
-      ...props<array<'value>, 'checked>,
+    type props<'value> = {
+      ...props<array<'value>>,
       multiple?: Types.OnlyTrue.t,
     }
     @module("@base-ui/react/select") @scope("Select")
-    external make: React.component<props<'value, 'checked>> = "Root"
+    external make: React.component<props<'value>> = "Root"
   }
 }
 
 module Trigger = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Trigger"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Trigger"
 }
 
 module Value = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Value"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Value"
 }
 
 module Icon = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Icon"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Icon"
 }
 
 module Portal = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Portal"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Portal"
 }
 
 module Backdrop = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Backdrop"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Backdrop"
 }
 
 module Positioner = {
   /** See `SelectPositionerProps` in `@base-ui/react/select/positioner/SelectPositioner.d.ts`. */
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...AnchorPositioning.SharedParameters.t,
     alignItemWithTrigger?: bool,
   }
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<props<'value, 'checked>> = "Positioner"
+  external make: React.component<props> = "Positioner"
 }
 
 module Popup = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Popup"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Popup"
 }
 
 module List = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "List"
+  external make: React.component<Types.BaseUIComponentProps.t> = "List"
 }
 
 module ItemIndicator = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "ItemIndicator"
+  external make: React.component<Types.BaseUIComponentProps.t> = "ItemIndicator"
 }
 
 module ItemText = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "ItemText"
+  external make: React.component<Types.BaseUIComponentProps.t> = "ItemText"
 }
 
 module Arrow = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Arrow"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Arrow"
 }
 
 module ScrollDownArrow = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "ScrollDownArrow"
+  external make: React.component<Types.BaseUIComponentProps.t> = "ScrollDownArrow"
 }
 
 module ScrollUpArrow = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "ScrollUpArrow"
+  external make: React.component<Types.BaseUIComponentProps.t> = "ScrollUpArrow"
 }
 
 module Group = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Group"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Group"
 }
 
 module GroupLabel = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "GroupLabel"
+  external make: React.component<Types.BaseUIComponentProps.t> = "GroupLabel"
 }
 
 module Separator = {
   @module("@base-ui/react/select") @scope("Select")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Separator"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Separator"
 }

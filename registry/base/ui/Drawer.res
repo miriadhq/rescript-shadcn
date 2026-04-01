@@ -61,7 +61,7 @@ module DrawerPrimitive = {
 
   module Content = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<BaseUi.Types.BaseUIComponentProps.t<'value, 'checked>> = "Content"
+    external make: React.component<BaseUi.Types.BaseUIComponentProps.t> = "Content"
   }
 
   module Title = {
@@ -178,7 +178,7 @@ module Overlay = {
 
 module Content = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t<'value, 'checked>) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <Portal>
       <Overlay />
       <DrawerPrimitive.Content

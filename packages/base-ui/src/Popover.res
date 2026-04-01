@@ -8,8 +8,8 @@ module Root = {
 
   type handle<'payload>
 
-  type props<'payload, 'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props<'payload> = {
+    ...Types.BaseUIComponentProps.t,
     defaultOpen?: bool,
     onOpenChange?: (
       bool,
@@ -36,63 +36,63 @@ module Root = {
     handle?: handle<'payload>,
   }
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<props<'payload, 'value, 'checked>> = "Root"
+  external make: React.component<props<'payload>> = "Root"
 }
 
 module Trigger = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<props<'value, 'checked>> = "Trigger"
+  external make: React.component<props> = "Trigger"
 }
 
 module Portal = {
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Portal"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Portal"
 }
 
 module Positioner = {
-  type props<'value, 'checked> = {
-    ...Types.BaseUIComponentProps.t<'value, 'checked>,
+  type props = {
+    ...Types.BaseUIComponentProps.t,
     ...AnchorPositioning.SharedParameters.t,
   }
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<props<'value, 'checked>> = "Positioner"
+  external make: React.component<props> = "Positioner"
 }
 
 module Popup = {
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Popup"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Popup"
 }
 
 module Arrow = {
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Arrow"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Arrow"
 }
 
 module Backdrop = {
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Backdrop"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Backdrop"
 }
 
 module Title = {
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Title"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Title"
 }
 
 module Description = {
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Description"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Description"
 }
 
 module Close = {
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Close"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Close"
 }
 
 module Viewport = {
   @module("@base-ui/react/popover") @scope("Popover")
-  external make: React.component<Types.BaseUIComponentProps.t<'value, 'checked>> = "Viewport"
+  external make: React.component<Types.BaseUIComponentProps.t> = "Viewport"
 }
