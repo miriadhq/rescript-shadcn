@@ -43,7 +43,7 @@ let make = (
   ~render=?,
   ~dataIcon: option<dataIcon>=?,
 ) => {
-  let props: BaseUi.Types.props<string, bool> = {
+  let props: BaseUi.Types.BaseUIComponentProps.t = {
     ?id,
     ?style,
     ?onClick,

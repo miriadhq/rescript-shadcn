@@ -2,7 +2,7 @@
 external cn: (string, option<string>) => string = "twMerge"
 
 @react.componentWithProps(BaseUi.Input.props)
-let make = (props: BaseUi.Input.props<'value, 'checked>) =>
+let make = (props: BaseUi.Input.props) =>
   <BaseUi.Input
     {...props}
     dataSlot="input"

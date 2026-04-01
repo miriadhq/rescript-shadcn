@@ -1,7 +1,5 @@
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
@@ -47,8 +45,8 @@ let make = (
     ?value
     ?defaultValue
     ?onValueChange
-    min
-    max
+    min={Float.toString(min)}
+    max={Float.toString(max)}
     ?step
     ?largeStep
     ?disabled

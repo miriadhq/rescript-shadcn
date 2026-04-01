@@ -67,7 +67,13 @@ module Content = {
     ~sideOffset=4.,
   ) =>
     <BaseUi.Popover.Portal>
-      <BaseUi.Popover.Positioner align alignOffset side sideOffset className="isolate z-50">
+      <BaseUi.Popover.Positioner
+        align
+        alignOffset={Const(alignOffset)}
+        side
+        sideOffset={Const(sideOffset)}
+        className="isolate z-50"
+      >
         <BaseUi.Popover.Popup
           ?id
           ?dir

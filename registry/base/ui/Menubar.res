@@ -2,8 +2,6 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-open BaseUi.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
@@ -56,8 +54,8 @@ module Portal = {
 }
 
 module Trigger = {
-  @react.componentWithProps(BaseUi.Types.props)
-  let make = (props: BaseUi.Types.props<'value, 'checked>) => {
+  @react.componentWithProps(BaseUi.Menu.Trigger.props)
+  let make = (props: BaseUi.Menu.Trigger.props) => {
     <DropdownMenu.Trigger
       {...props}
       dataSlot="menubar-trigger"
@@ -72,7 +70,7 @@ module Trigger = {
 module Content = {
   @react.componentWithProps(DropdownMenu.Content.contentProps)
   let make = (props: DropdownMenu.Content.contentProps) => {
-    let align = props.align->Option.getOr(Start)
+    let align = props.align->Option.getOr(BaseUi.Types.Align.Start)
     let alignOffset = props.alignOffset->Option.getOr(-4.)
     let sideOffset = props.sideOffset->Option.getOr(8.)
     <DropdownMenu.Content
@@ -182,7 +180,7 @@ module RadioItem = {
     ~inset=?,
     ~id=?,
     ~style=?,
-    ~value=?,
+    ~value,
     ~disabled=?,
     ~closeOnClick=?,
     ~onClick=?,
@@ -191,7 +189,7 @@ module RadioItem = {
     <BaseUi.Menu.RadioItem
       ?id
       ?style
-      ?value
+      value
       ?disabled
       ?closeOnClick
       dataInset=?inset
@@ -275,17 +273,14 @@ module Sub = {
 }
 
 module SubTrigger = {
-  type subTriggerProps<'selected, 'checked> = {
+  type subTriggerProps = {
     inset?: bool,
-    ...BaseUi.Types.props<'selected, 'checked>,
+    ...BaseUi.Types.BaseUIComponentProps.t,
   }
-  let toBaseUiProps: subTriggerProps<'selected, 'checked> => BaseUi.Types.props<
-    'selected,
-    'checked,
-  > = %raw(`({inset, ...props}) => props`)
+  let toBaseUiProps: subTriggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({inset, ...props}) => props`)
 
   @react.componentWithProps(subTriggerProps)
-  let make = (props: subTriggerProps<'selected, 'checked>) => {
+  let make = (props: subTriggerProps) => {
     let baseUiProps = toBaseUiProps(props)
     <DropdownMenu.SubTrigger
       {...baseUiProps}

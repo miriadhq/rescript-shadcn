@@ -8,10 +8,13 @@ external cn: (string, option<string>) => string = "twMerge"
 module InputOtpPrimitive = {
   module Props = {
     type t = {
-      ...JsxDOM.domProps,
+      size?: int,
+      ...BaseUi.Types.BaseDomProps.t,
+      ...BaseUi.Types.ExtraDomProps.t,
       containerClassName?: string,
-      @as("data-slot")
-      dataSlot?: string,
+      onChange?: string => unit,
+      value?: string,
+      defaultValue?: string,
     }
   }
   @module("input-otp")
@@ -32,8 +35,6 @@ module InputOtpPrimitive = {
   @module("input-otp") @val
   external context: React.Context.t<renderProps> = "OTPInputContext"
 }
-
-external getValue: JsxEvent.Form.t => string = "%identity"
 
 @react.component
 let make = (
@@ -67,7 +68,7 @@ let make = (
     ?required
     ?readOnly
     ?onClick
-    onChange=?{onChange->Option.map(onChange => v => onChange(getValue(v)))}
+    ?onChange
     ?onKeyDown
     ?tabIndex
     ?ariaLabel

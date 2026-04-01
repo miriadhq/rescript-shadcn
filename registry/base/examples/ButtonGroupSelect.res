@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-let currencies = [
-  {BaseUi.Select.Item.label: "US Dollar", value: "$"},
+let currencies: array<BaseUi.Select.Item.t<string>> = [
+  {label: "US Dollar", value: "$"},
   {label: "Euro", value: "€"},
   {label: "British Pound", value: "£"},
 ]

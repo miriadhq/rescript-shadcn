@@ -11,7 +11,7 @@ let make = BaseUi.Combobox.Root.make
 
 module Multiple = {
   @react.componentWithProps(BaseUi.Combobox.Root.Multiple.props)
-  let make = (props: BaseUi.Combobox.Root.Multiple.props<'value, 'checked>) =>
+  let make = (props: BaseUi.Combobox.Root.Multiple.props<'item>) =>
     <BaseUi.Combobox.Root.Multiple {...props} multiple=True />
 }
 
@@ -90,17 +90,14 @@ module Clear = {
 }
 
 module Input = {
-  type inputProps<'value, 'checked> = {
+  type inputProps = {
     showTrigger?: bool,
     showClear?: bool,
-    ...BaseUi.Input.props<'value, 'checked>,
+    ...BaseUi.Combobox.Input.props,
   }
-  let toBaseUiProps: inputProps<'value, 'checked> => BaseUi.Types.props<
-    'selected,
-    'checked,
-  > = %raw(`({className, children, disabled, showTrigger, showClear,...rest}) => rest`)
+  let toBaseUiProps: inputProps => BaseUi.Combobox.Input.props = %raw(`({className, children, disabled, showTrigger, showClear,...rest}) => rest`)
   @react.componentWithProps(inputProps)
-  let make = (props: inputProps<'value, 'checked>) => {
+  let make = (props: inputProps) => {
     let disabled = props.disabled->Option.getOr(false)
     let showTrigger = props.showTrigger->Option.getOr(true)
     let showClear = props.showClear->Option.getOr(false)
@@ -144,7 +141,12 @@ module Content = {
   ) => {
     <BaseUi.Combobox.Portal>
       <BaseUi.Combobox.Positioner
-        side sideOffset align alignOffset ?anchor className="isolate z-50"
+        side
+        sideOffset={Const(sideOffset)}
+        align
+        alignOffset={Const(alignOffset)}
+        ?anchor
+        className="isolate z-50"
       >
         <BaseUi.Combobox.Popup
           ?id
@@ -183,8 +185,8 @@ module List = {
 }
 
 module Item = {
-  @react.componentWithProps(BaseUi.Types.props)
-  let make = (props: BaseUi.Types.props<'value, 'checked>) =>
+  @react.componentWithProps(BaseUi.Combobox.Item.props)
+  let make = (props: BaseUi.Combobox.Item.props<'value>) =>
     <BaseUi.Combobox.Item
       {...props}
       dataSlot="combobox-item"
@@ -262,8 +264,8 @@ module Separator = {
 }
 
 module Chips = {
-  @react.componentWithProps(BaseUi.Types.props)
-  let make = (props: BaseUi.Types.props<'value, 'checked>) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Combobox.Chips
       {...props}
       dataSlot="combobox-chips"
@@ -274,12 +276,19 @@ module Chips = {
     />
 }
 
+type chipProps = {
+  ...BaseUi.Types.BaseUIComponentProps.t,
+  showRemove?: bool,
+}
+
+let comboboxChipToBase: chipProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({ showRemove, ...rest }) => rest`)
+
 module Chip = {
-  @react.componentWithProps(BaseUi.Types.props)
-  let make = (props: BaseUi.Types.props<'value, 'checked>) => {
+  @react.componentWithProps(chipProps)
+  let make = (props: chipProps) => {
     let showRemove = props.showRemove->Option.getOr(true)
     <BaseUi.Combobox.Chip
-      {...props}
+      {...props->comboboxChipToBase}
       dataSlot="combobox-chip"
       className={cn(
         "bg-muted text-foreground flex h-[calc(--spacing(5.25))] w-fit items-center justify-center gap-1 rounded-sm px-1.5 text-xs font-medium whitespace-nowrap has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50 has-data-[slot=combobox-chip-remove]:pr-0",
@@ -301,8 +310,8 @@ module Chip = {
 }
 
 module ChipsInput = {
-  @react.componentWithProps(BaseUi.Types.props)
-  let make = (props: BaseUi.Types.props<'value, 'checked>) =>
+  @react.componentWithProps(BaseUi.Combobox.Input.props)
+  let make = (props: BaseUi.Combobox.Input.props) =>
     <BaseUi.Combobox.Input
       {...props}
       dataSlot="combobox-chip-input"

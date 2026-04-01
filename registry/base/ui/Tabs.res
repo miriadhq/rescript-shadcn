@@ -84,7 +84,7 @@ module Trigger = {
     ~className=?,
     ~children=?,
     ~id=?,
-    ~value=?,
+    ~value,
     ~disabled=?,
     ~onClick=?,
     ~onKeyDown=?,
@@ -93,7 +93,7 @@ module Trigger = {
   ) =>
     <BaseUi.Tabs.Tab
       ?id
-      ?value
+      value
       ?disabled
       ?onClick
       ?onKeyDown
@@ -110,10 +110,10 @@ module Trigger = {
 
 module Content = {
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~value=?, ~onClick=?, ~onKeyDown=?, ~style=?) =>
+  let make = (~className=?, ~children=?, ~id=?, ~value, ~onClick=?, ~onKeyDown=?, ~style=?) =>
     <BaseUi.Tabs.Panel
       ?id
-      ?value
+      value
       ?onClick
       ?onKeyDown
       ?style

@@ -1,7 +1,5 @@
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
@@ -17,12 +15,14 @@ let make = (
   ~style=?,
   ~onClick=?,
   ~onKeyDown=?,
-) =>
+) => {
+  let maxStr = max->Option.map(i => i->Int.toString)
+  let minStr = min->Option.map(i => i->Int.toString)
   <BaseUi.Progress.Root
     ?id
     ?value
-    ?max
-    ?min
+    max=?maxStr
+    min=?minStr
     ?dir
     ?style
     ?onClick
@@ -40,6 +40,7 @@ let make = (
       />
     </BaseUi.Progress.Track>
   </BaseUi.Progress.Root>
+}
 
 module Track = {
   @react.component

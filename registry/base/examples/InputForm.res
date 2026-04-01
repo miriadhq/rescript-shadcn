@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let countries = [
-    {BaseUi.Select.Item.label: "United States", value: "us"},
+  let countries: array<BaseUi.Select.Item.t<string>> = [
+    {label: "United States", value: "us"},
     {label: "United Kingdom", value: "uk"},
     {label: "Canada", value: "ca"},
   ]

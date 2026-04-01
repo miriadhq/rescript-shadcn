@@ -24,7 +24,7 @@ external writeText: string => promise<unit> = "writeText"
 
 @react.component
 let make = (~npm, ~yarn, ~pnpm, ~bun) => {
-  let (config, setConfig) = Config.use()
+  let (packageManager, setPackageManager) = Config.PackageManager.use()
   let (hasCopied, setHasCopied) = React.useState(() => false)
 
   React.useEffect(() => {
@@ -43,18 +43,18 @@ let make = (~npm, ~yarn, ~pnpm, ~bun) => {
 
   let copyCommand = React.useCallback(_ => {
     tabs
-    ->Dict.get((config.packageManager :> string))
+    ->Dict.get((packageManager :> string))
     ->Option.forEach(command => {
       writeText(command)->ignore
       setHasCopied(_ => true)
     })
-  }, (config, tabs))
+  }, (packageManager, tabs))
 
   <div className="overflow-x-auto">
     <Tabs
-      value=config.packageManager
+      value={packageManager}
       className="gap-0"
-      onValueChange={(value, _) => setConfig({...config, packageManager: value})}
+      onValueChange={(value, _) => setPackageManager(_ => value)}
     >
       <div className="flex items-center gap-2 border-b border-border/50 px-3 py-1">
         <div

@@ -1,5 +1,5 @@
-let northAmerica = [
-  {BaseUi.Select.Item.label: "Eastern Standard Time", value: Null.Value("est")},
+let northAmerica: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Eastern Standard Time", value: Null.Value("est")},
   {label: "Central Standard Time", value: Value("cst")},
   {label: "Mountain Standard Time", value: Value("mst")},
   {label: "Pacific Standard Time", value: Value("pst")},
@@ -7,8 +7,8 @@ let northAmerica = [
   {label: "Hawaii Standard Time", value: Value("hst")},
 ]
 
-let europeAfrica = [
-  {BaseUi.Select.Item.label: "Greenwich Mean Time", value: Null.Value("gmt")},
+let europeAfrica: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Greenwich Mean Time", value: Null.Value("gmt")},
   {label: "Central European Time", value: Value("cet")},
   {label: "Eastern European Time", value: Value("eet")},
   {label: "Western European Summer Time", value: Value("west")},
@@ -16,8 +16,8 @@ let europeAfrica = [
   {label: "East Africa Time", value: Value("eat")},
 ]
 
-let asia = [
-  {BaseUi.Select.Item.label: "Moscow Time", value: Null.Value("msk")},
+let asia: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Moscow Time", value: Null.Value("msk")},
   {label: "India Standard Time", value: Value("ist")},
   {label: "China Standard Time", value: Value("cst_china")},
   {label: "Japan Standard Time", value: Value("jst")},
@@ -25,23 +25,23 @@ let asia = [
   {label: "Indonesia Central Standard Time", value: Value("ist_indonesia")},
 ]
 
-let australiaPacific = [
-  {BaseUi.Select.Item.label: "Australian Western Standard Time", value: Null.Value("awst")},
+let australiaPacific: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Australian Western Standard Time", value: Null.Value("awst")},
   {label: "Australian Central Standard Time", value: Value("acst")},
   {label: "Australian Eastern Standard Time", value: Value("aest")},
   {label: "New Zealand Standard Time", value: Value("nzst")},
   {label: "Fiji Time", value: Value("fjt")},
 ]
 
-let southAmerica = [
-  {BaseUi.Select.Item.label: "Argentina Time", value: Null.Value("art")},
+let southAmerica: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Argentina Time", value: Null.Value("art")},
   {label: "Bolivia Time", value: Value("bot")},
   {label: "Brasilia Time", value: Value("brt")},
   {label: "Chile Standard Time", value: Value("clt")},
 ]
 
-let items = [
-  {BaseUi.Select.Item.label: "Select a timezone", value: Null.null},
+let items: array<BaseUi.Select.Item.t<null<string>>> = [
+  {label: "Select a timezone", value: Null.null},
   {label: "Eastern Standard Time", value: Value("est")},
   {label: "Central Standard Time", value: Value("cst")},
   {label: "Mountain Standard Time", value: Value("mst")},

@@ -26,7 +26,8 @@
   "dependencies": [
     "@rescript/react",
     "@rescript/webapi",
-    "rescript-base-ui"
+    "rescript-base-ui",
+    "rescript-signals"
   ],
   "compiler-flags": [
     "-open WebAPI.Global"

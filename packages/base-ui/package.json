@@ -1,6 +1,6 @@
 {
   "name": "rescript-base-ui",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Rescript bindings for Base UI",
   "publishConfig": {
     "access": "public"

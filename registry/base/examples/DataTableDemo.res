@@ -20,9 +20,10 @@ module RT = {
   type rowModel<'data> = {rows: array<row<'data>>}
   type rowModelGetter
   type colDef_
-  type colFilters
-  type colVisibility
-  type rowSel
+  type colFilter = {id: string, value: string}
+  type colFilters = array<colFilter>
+  type colVisibility = dict<bool>
+  type rowSel = dict<bool>
   type sortItem = {id: string, desc: bool}
   type sorting = array<sortItem>
   type hdrCtx<'data>
@@ -227,12 +228,10 @@ let columns: array<RT.colDef<payment>> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (sorting, setSorting) = React.useState((): RT.sorting => [])
-  let (colFilters, setColFilters) = React.useState((): RT.colFilters => Obj.magic([]))
-  let (colVisibility, setColVisibility) = React.useState((): RT.colVisibility =>
-    Obj.magic(Dict.make())
-  )
-  let (rowSelection, setRowSelection) = React.useState((): RT.rowSel => Obj.magic(Dict.make()))
+  let (sorting, setSorting) = React.useState(() => [])
+  let (colFilters, setColFilters) = React.useState(() => [])
+  let (colVisibility, setColVisibility) = React.useState(() => dict{})
+  let (rowSelection, setRowSelection) = React.useState(() => dict{})
 
   let table = RT.useReactTable({
     data: tableData,

@@ -8,41 +8,72 @@ open BaseUi.Types
 external cn: (string, option<string>) => string = "twMerge"
 
 module CommandPrimitive = {
-  type props<'value, 'checked> = {
-    ...props<'value, 'checked>,
-    defaultValue?: 'value,
+  type props = {
+    ...BaseUIComponentProps.t,
+    value?: string,
+    onValueChange?: string => unit,
+    defaultValue?: string,
   }
   @module("cmdk")
-  external make: React.component<props<'value, 'checked>> = "Command"
+  external make: React.component<props> = "Command"
 
   module Input = {
+    type props = {
+      ...BaseUIComponentProps.t,
+      value?: string,
+      onValueChange?: string => unit,
+      defaultValue?: string,
+    }
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Input"
+    external make: React.component<props> = "Input"
   }
 
   module List = {
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "List"
+    external make: React.component<BaseUIComponentProps.t> = "List"
   }
 
   module Empty = {
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Empty"
+    external make: React.component<BaseUIComponentProps.t> = "Empty"
   }
 
   module Group = {
+    type props = {
+      ...BaseUIComponentProps.t,
+      heading?: string,
+      forceMount?: bool,
+    }
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Group"
+    external make: React.component<props> = "Group"
   }
 
   module Separator = {
+    type props = {
+      ...BaseUIComponentProps.t,
+      alwaysRender?: bool,
+    }
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Separator"
+    external make: React.component<props> = "Separator"
   }
 
   module Item = {
+    type props = {
+      children?: React.element,
+      className?: string,
+      id?: string,
+      style?: ReactDOM.Style.t,
+      value?: string,
+      onSelect?: string => unit,
+      disabled?: bool,
+      onClick?: JsxEvent.Mouse.t => unit,
+      onKeyDown?: JsxEvent.Keyboard.t => unit,
+      dataSlot?: string,
+      ref?: ReactDOM.domRef,
+      asChild?: bool,
+    }
     @module("cmdk") @scope("Command")
-    external make: React.component<props<'value, 'checked>> = "Item"
+    external make: React.component<props> = "Item"
   }
 }
 

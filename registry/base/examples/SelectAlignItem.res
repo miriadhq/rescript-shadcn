@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-let items = [
-  {BaseUi.Select.Item.label: "Select a fruit", value: None},
+let items: array<BaseUi.Select.Item.t<option<string>>> = [
+  {label: "Select a fruit", value: None},
   {label: "Apple", value: Some("apple")},
   {label: "Banana", value: Some("banana")},
   {label: "Blueberry", value: Some("blueberry")},
@@ -36,7 +36,9 @@ let make = ({}: Demo.Props.t) => {
           <Select.Group>
             {items
             ->Array.map(item =>
-              <Select.Item key={item.label} value={item}> {item.label->React.string} </Select.Item>
+              <Select.Item key={item.label} value=?item.value>
+                {item.label->React.string}
+              </Select.Item>
             )
             ->React.array}
           </Select.Group>

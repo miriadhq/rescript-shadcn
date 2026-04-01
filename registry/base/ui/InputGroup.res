@@ -175,7 +175,7 @@ module Text = {
 
 module Input = {
   @react.componentWithProps(BaseUi.Input.props)
-  let make = (props: BaseUi.Input.props<'value, 'checked>) =>
+  let make = (props: BaseUi.Input.props) =>
     <Input
       {...props}
       dataSlot="input-group-control"

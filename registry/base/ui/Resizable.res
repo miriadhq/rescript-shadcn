@@ -6,19 +6,54 @@ open BaseUi.Types
 external cn: (string, option<string>) => string = "twMerge"
 
 module ResizablePrimitive = {
+  module Layout = {
+    type t = {
+      id: int,
+    }
+  }
+  module ResizeTargetMinimumSize = {
+    type t = {
+      coarse: float,
+      fine: float,
+    }
+  }
   module Group = {
+    type props = {
+      ...DomProps.t,
+      defaultLayout?: Layout.t,
+      disableCursor?: bool,
+      elementRef?: ReactDOM.domRef,
+      onLayoutChange?: Layout.t => unit,
+      onLayoutChanged?: Layout.t => unit,
+      resizeTargetMinimumSize?: ResizeTargetMinimumSize.t,
+    }
     @module("react-resizable-panels")
-    external make: React.component<props<'value, 'checked>> = "Group"
+    external make: React.component<props> = "Group"
   }
 
   module Panel = {
+    type props = {
+      ...DomProps.t,
+      collapsedSize?: string,
+      collapsible?: bool,
+      defaultSize?: string,
+      elementRef?: ReactDOM.domRef,
+      groupResizeBehavior?: [#"preserve-relative-size" | #"preserve-pixel-size"],
+      minSize?: string,
+      maxSize?: string,
+      onResize?: (~panelSize: string, ~id: string=?, ~prevPanelSize: string=?) => unit,
+    }
     @module("react-resizable-panels")
-    external make: React.component<props<'value, 'checked>> = "Panel"
+    external make: React.component<props> = "Panel"
   }
 
   module Separator = {
+    type props = {
+      ...DomProps.t,
+      elementRef?: ReactDOM.domRef,
+    }
     @module("react-resizable-panels")
-    external make: React.component<props<'value, 'checked>> = "Separator"
+    external make: React.component<props> = "Separator"
   }
 }
 

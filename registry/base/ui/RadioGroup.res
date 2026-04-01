@@ -1,7 +1,5 @@
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
@@ -49,7 +47,7 @@ module Item = {
     ~children=React.null,
     ~id=?,
     ~name=?,
-    ~value=?,
+    ~value,
     ~disabled=?,
     ~required=?,
     ~readOnly=?,
@@ -63,7 +61,7 @@ module Item = {
     <BaseUi.Radio.Root
       ?id
       ?name
-      ?value
+      value
       ?disabled
       ?required
       ?readOnly

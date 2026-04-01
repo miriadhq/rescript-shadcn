@@ -12,57 +12,21 @@ module Size = {
     | @as("sm") Sm
 }
 
-@react.component
-let make = (
-  ~children=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-  ~onOpenChangeComplete=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~items=?,
-  ~itemToStringLabel=?,
-  ~itemToStringValue=?,
-  ~isItemEqualToValue=?,
-  ~onItemHighlighted=?,
-  ~name=?,
-  ~required=?,
-  ~disabled=?,
-  ~readOnly=?,
-) =>
-  <BaseUi.Select.Root
-    ?children
-    ?open_
-    ?defaultOpen
-    ?onOpenChange
-    ?onOpenChangeComplete
-    ?value
-    ?defaultValue
-    ?onValueChange
-    ?items
-    ?itemToStringLabel
-    ?itemToStringValue
-    ?isItemEqualToValue
-    ?onItemHighlighted
-    ?name
-    ?required
-    ?disabled
-    ?readOnly
-  />
+let make = BaseUi.Select.Root.make
+
+module Multiple = {
+  @react.componentWithProps(BaseUi.Select.Root.Multiple.props)
+  let make = (props: BaseUi.Select.Root.Multiple.props<'value>) =>
+    <BaseUi.Select.Root.Multiple {...props} multiple=True />
+}
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Select.Group
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="select-group"
-      className={cn("scroll-my-1 p-1", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("select-group")}
+      className={cn("scroll-my-1 p-1", props.className)}
     />
 }
 
@@ -116,20 +80,20 @@ module ScrollDownButton = {
 }
 
 module Trigger = {
-  type triggerProps<'value, 'checked> = {
+  type triggerProps = {
     size?: Size.t,
-    ...BaseUi.Types.props<'value, 'checked>,
+    ...BaseUi.Types.BaseUIComponentProps.t,
   }
-  let toBaseUiProps: triggerProps<'value, 'checked> => BaseUi.Types.props<'value, 'checked> = %raw(`
+  let toBaseUiProps: triggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`
   ({size, ...rest}) => rest 
   `)
   @react.componentWithProps(triggerProps)
-  let make = (props: triggerProps<'value, 'checked>) => {
+  let make = (props: triggerProps) => {
     let size = props.size->Option.getOr(Default)
     let baseUiProps = props->toBaseUiProps
     <BaseUi.Select.Trigger
       {...baseUiProps}
-      dataSlot="select-trigger"
+      dataSlot={props.dataSlot->Option.getOr("select-trigger")}
       dataSize={(size :> string)}
       className={cn(
         "flex w-fit items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -162,7 +126,12 @@ module Content = {
     let alignItemWithTrigger = dataAlignTrigger
     <BaseUi.Select.Portal>
       <BaseUi.Select.Positioner
-        side sideOffset align alignOffset alignItemWithTrigger className="isolate z-50"
+        side
+        sideOffset={Const(sideOffset)}
+        align
+        alignOffset={Const(alignOffset)}
+        alignItemWithTrigger
+        className="isolate z-50"
       >
         <BaseUi.Select.Popup
           ?id

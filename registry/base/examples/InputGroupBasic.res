@@ -25,7 +25,7 @@ let make = ({}: Demo.Props.t) =>
       <Field.Label htmlFor="input-invalid-04"> {"Invalid"->React.string} </Field.Label>
       <InputGroup>
         <InputGroup.Input
-          id="input-invalid-04" placeholder="This field is invalid" ariaInvalid={true}
+          id="input-invalid-04" placeholder="This field is invalid" ariaInvalid={#"true"}
         />
       </InputGroup>
     </Field>

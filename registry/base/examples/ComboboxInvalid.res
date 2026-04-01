@@ -5,7 +5,7 @@ let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Combobox items={frameworks}>
-    <Combobox.Input placeholder="Select a framework" ariaInvalid={true} />
+    <Combobox.Input placeholder="Select a framework" ariaInvalid={#"true"} />
     <Combobox.Content>
       <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>
       <Combobox.List>

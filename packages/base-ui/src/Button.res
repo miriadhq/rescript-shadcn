@@ -1,2 +1,7 @@
+type props = {
+  ...Types.BaseUIComponentProps.t,
+  ...Types.NativeButtonProps.t,
+  focusableWhenDisabled?: bool,
+}
 @module("@base-ui/react/button")
-external make: React.component<Types.props<'value, 'checked>> = "Button"
+external make: React.component<props> = "Button"

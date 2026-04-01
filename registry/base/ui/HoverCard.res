@@ -79,7 +79,13 @@ module Content = {
     ~sideOffset=4.,
   ) =>
     <BaseUi.PreviewCard.Portal dataSlot="hover-card-portal">
-      <BaseUi.PreviewCard.Positioner align alignOffset side sideOffset className="isolate z-50">
+      <BaseUi.PreviewCard.Positioner
+        align
+        alignOffset={Const(alignOffset)}
+        side
+        sideOffset={Const(sideOffset)}
+        className="isolate z-50"
+      >
         <BaseUi.PreviewCard.Popup
           ?id
           ?dir

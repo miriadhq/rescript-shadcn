@@ -35,8 +35,8 @@ module Portal = {
 }
 
 module Trigger = {
-  @react.componentWithProps(BaseUi.Types.props)
-  let make = (props: BaseUi.Types.props<'value, 'checked>) =>
+  @react.componentWithProps(BaseUi.Menu.Trigger.props)
+  let make = (props: BaseUi.Menu.Trigger.props) =>
     <BaseUi.Menu.Trigger {...props} dataSlot="dropdown-menu-trigger" />
 }
 
@@ -74,7 +74,11 @@ module Content = {
   ) => {
     <BaseUi.Menu.Portal>
       <BaseUi.Menu.Positioner
-        className="isolate z-50 outline-none" align alignOffset side sideOffset
+        className="isolate z-50 outline-none"
+        align
+        alignOffset={Const(alignOffset)}
+        side
+        sideOffset={Const(sideOffset)}
       >
         <BaseUi.Menu.Popup
           ?id
@@ -227,7 +231,7 @@ module RadioItem = {
     ~children=React.null,
     ~id=?,
     ~style=?,
-    ~value=?,
+    ~value,
     ~disabled=?,
     ~closeOnClick=?,
     ~dataInset=?,
@@ -237,7 +241,7 @@ module RadioItem = {
     <BaseUi.Menu.RadioItem
       ?id
       ?style
-      ?value
+      value
       ?disabled
       ?closeOnClick
       ?dataInset
@@ -307,8 +311,8 @@ module Sub = {
 }
 
 module SubTrigger = {
-  @react.componentWithProps(BaseUi.Types.props)
-  let make = (props: BaseUi.Types.props<'value, 'checked>) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Menu.SubmenuTrigger
       {...props}
       dataSlot={props.dataSlot->Option.getOr("dropdown-menu-sub-trigger")}

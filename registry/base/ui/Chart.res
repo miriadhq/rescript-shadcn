@@ -634,9 +634,11 @@ module Style = {
         })
         ->Array.join("\n\n")
       <style
-        dangerouslySetInnerHTML={
-          "__html": css,
-        }
+        dangerouslySetInnerHTML={(
+          {
+            "__html": css,
+          }: {"__html": string}
+        )}
       />
     }
   }
