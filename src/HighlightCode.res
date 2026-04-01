@@ -156,7 +156,7 @@ let transformers: array<Shiki.Transformer.t> = [
 
         if raw->String.startsWith("npx") {
           properties->Dict.set("__npm__", raw)
-          properties->Dict.set("__yarn__", raw->String.replace("npx", "yarn"))
+          properties->Dict.set("__yarn__", raw->String.replace("npx", "yarn dlx"))
           properties->Dict.set("__pnpm__", raw->String.replace("npx", "pnpm dlx"))
           properties->Dict.set("__bun__", raw->String.replace("npx", "bunx --bun"))
         }
