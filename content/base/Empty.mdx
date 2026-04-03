@@ -82,7 +82,7 @@ Use the `bg-*` and `bg-gradient-*` utilities to add a background to the empty st
 
 ### Avatar
 
-Use the `EmptyMedia` component to display an avatar in the empty state.
+Use the `Empty.Media` component to display an avatar in the empty state.
 
 <ComponentPreview
   name="EmptyAvatar"
@@ -91,7 +91,7 @@ Use the `EmptyMedia` component to display an avatar in the empty state.
 
 ### Avatar Group
 
-Use the `EmptyMedia` component to display an avatar group in the empty state.
+Use the `Empty.Media` component to display an avatar group in the empty state.
 
 <ComponentPreview
   name="EmptyAvatarGroup"
@@ -100,7 +100,7 @@ Use the `EmptyMedia` component to display an avatar group in the empty state.
 
 ### InputGroup
 
-You can add an `InputGroup` component to the `EmptyContent` component.
+You can add an `InputGroup` component to the `Empty.Content` component.
 
 <ComponentPreview
   name="EmptyInputGroup"
@@ -112,7 +112,7 @@ You can add an `InputGroup` component to the `EmptyContent` component.
 
 ### Empty
 
-The main component of the empty state. Wraps the `EmptyHeader` and `EmptyContent` components.
+The main component of the empty state. Wraps the `Empty.Header` and `Empty.Content` components.
 
 | Prop        | Type     | Default |
 | ----------- | -------- | ------- |
@@ -120,14 +120,14 @@ The main component of the empty state. Wraps the `EmptyHeader` and `EmptyContent
 
 ```res showLineNumbers
 <Empty>
-  <EmptyHeader />
-  <EmptyContent />
+  <Empty.Header />
+  <Empty.Content />
 </Empty>
 ```
 
-### EmptyHeader
+### Empty.Header
 
-The `EmptyHeader` component wraps the empty media, title, and description.
+The `Empty.Header` component wraps the empty media, title, and description.
 
 | Prop        | Type     | Default |
 | ----------- | -------- | ------- |
@@ -141,9 +141,9 @@ The `EmptyHeader` component wraps the empty media, title, and description.
 </Empty.Header>
 ```
 
-### EmptyMedia
+### Empty.Media
 
-Use the `EmptyMedia` component to display the media of the empty state such as an icon or an image. You can also use it to display other components such as an avatar.
+Use the `Empty.Media` component to display the media of the empty state such as an icon or an image. You can also use it to display other components such as an avatar.
 
 | Prop        | Type                  | Default   |
 | ----------- | --------------------- | --------- |
@@ -177,28 +177,28 @@ Use the `EmptyTitle` component to display the title of the empty state.
 <Empty.Title> {"No data"->React.string} </Empty.Title>
 ```
 
-### EmptyDescription
+### Empty.Description
 
-Use the `EmptyDescription` component to display the description of the empty state.
+Use the `Empty.Description` component to display the description of the empty state.
 
 | Prop        | Type     | Default |
 | ----------- | -------- | ------- |
 | `className` | `string` |         |
 
 ```res 
-<EmptyDescription> {"You do not have any notifications."->React.string} </EmptyDescription>
+<Empty.Description> {"You do not have any notifications."->React.string} </Empty.Description>
 ```
 
-### EmptyContent
+### Empty.Content
 
-Use the `EmptyContent` component to display the content of the empty state such as a button, input or a link.
+Use the `Empty.Content` component to display the content of the empty state such as a button, input or a link.
 
 | Prop        | Type     | Default |
 | ----------- | -------- | ------- |
 | `className` | `string` |         |
 
 ```res 
-<EmptyContent>
+<Empty.Content>
   <Button> {"Add Project"->React.string}</Button>
-</EmptyContent>
+</Empty.Content>
 ```
