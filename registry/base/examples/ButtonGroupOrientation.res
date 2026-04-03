@@ -1,12 +1,10 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <ButtonGroup
-    orientation=ButtonGroup.DataOrientation.Vertical ariaLabel="Media controls" className="h-fit"
-  >
-    <Button variant=Button.Variant.Outline size=Button.Size.Icon>
+  <ButtonGroup orientation=Vertical ariaLabel="Media controls" className="h-fit">
+    <Button variant=Outline size=Icon>
       <Icons.Plus />
     </Button>
-    <Button variant=Button.Variant.Outline size=Button.Size.Icon>
+    <Button variant=Outline size=Icon>
       <Icons.Minus />
     </Button>
   </ButtonGroup>
