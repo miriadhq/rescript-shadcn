@@ -44,9 +44,7 @@ let make = ({}: Demo.Props.t) => {
             <Icons.Calendar />
             <span className="sr-only"> {"Select date"->React.string} </span>
           </Popover.Trigger>
-          <Popover.Content
-            className="w-auto overflow-hidden p-0" align=BaseUi.Types.Align.End sideOffset={8.}
-          >
+          <Popover.Content className="w-auto overflow-hidden p-0" align=End sideOffset={8.}>
             <Calendar
               mode=Single
               selected=?date

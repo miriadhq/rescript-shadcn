@@ -35,12 +35,12 @@ module LocalIcons = {
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   <ButtonGroup>
-    <Button variant=Button.Variant.Outline> {"Follow"->React.string} </Button>
+    <Button variant=Outline> {"Follow"->React.string} </Button>
     <DropdownMenu>
       <DropdownMenu.Trigger render={<Button variant=Outline className="!pl-2" />}>
         <Icons.ChevronDown />
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-44">
+      <DropdownMenu.Content align=End className="w-44">
         <DropdownMenu.Group>
           <DropdownMenu.Item>
             <LocalIcons.VolumeOff />
@@ -69,7 +69,7 @@ let make = ({}: Demo.Props.t) => {
         </DropdownMenu.Group>
         <DropdownMenu.Separator />
         <DropdownMenu.Group>
-          <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
+          <DropdownMenu.Item variant=Destructive>
             <LocalIcons.Trash />
             {"Delete Conversation"->React.string}
           </DropdownMenu.Item>

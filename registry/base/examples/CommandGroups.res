@@ -5,7 +5,7 @@ let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
 
   <div className="flex flex-col gap-4">
-    <Button onClick={_ => setOpen(_ => true)} variant=Button.Variant.Outline className="w-fit">
+    <Button onClick={_ => setOpen(_ => true)} variant=Outline className="w-fit">
       {"Open Menu"->React.string}
     </Button>
     <Command.Dialog open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>

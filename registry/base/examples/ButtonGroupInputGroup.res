@@ -10,7 +10,7 @@ let make = ({}: Demo.Props.t) => {
 
   <ButtonGroup className="[--radius:9999rem]">
     <ButtonGroup>
-      <Button variant=Button.Variant.Outline size=Button.Size.Icon>
+      <Button variant=Outline size=Icon>
         <Icons.Plus />
       </Button>
     </ButtonGroup>
@@ -25,7 +25,6 @@ let make = ({}: Demo.Props.t) => {
                 size=IconXs
                 dataActive=voiceEnabled
                 ariaPressed={voiceEnabled ? #"true" : #"false"}
-                dataSlot="tooltip-trigger"
                 className="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
               />}
             >

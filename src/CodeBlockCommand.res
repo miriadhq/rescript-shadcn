@@ -94,8 +94,8 @@ let make = (~npm, ~yarn, ~pnpm, ~bun) => {
     </Tabs>
     <Button
       dataSlot="copy-button"
-      size=Button.Size.Icon
-      variant=Button.Variant.Ghost
+      size=Icon
+      variant=Ghost
       className="absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100"
       onClick=copyCommand
     >

@@ -44,8 +44,8 @@ let make = ({}: Demo.Props.t) => {
       ->Array.map(preset =>
         <Button
           key={preset.value->Int.toString}
-          variant=Button.Variant.Outline
-          size=Button.Size.Sm
+          variant=Outline
+          size=Sm
           className="flex-1"
           onClick={_ => {
             let today = Date.make()

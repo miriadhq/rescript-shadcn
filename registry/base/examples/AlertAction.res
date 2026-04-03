@@ -6,6 +6,6 @@ let make = ({}: Demo.Props.t) =>
       {"Enable it under your profile settings to get started."->React.string}
     </Alert.Description>
     <Alert.Action>
-      <Button size=Button.Size.Xs variant=Button.Variant.Default> {"Enable"->React.string} </Button>
+      <Button size=Xs variant=Default> {"Enable"->React.string} </Button>
     </Alert.Action>
   </Alert>

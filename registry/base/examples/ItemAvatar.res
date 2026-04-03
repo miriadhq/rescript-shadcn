@@ -13,12 +13,7 @@ let make = ({}: Demo.Props.t) =>
         <Item.Description> {"Last seen 5 months ago"->React.string} </Item.Description>
       </Item.Content>
       <Item.Actions>
-        <Button
-          size=Button.Size.IconSm
-          variant=Button.Variant.Outline
-          className="rounded-full"
-          ariaLabel="Invite"
-        >
+        <Button size=IconSm variant=Outline className="rounded-full" ariaLabel="Invite">
           <Icons.Plus />
         </Button>
       </Item.Actions>
@@ -49,9 +44,7 @@ let make = ({}: Demo.Props.t) =>
         </Item.Description>
       </Item.Content>
       <Item.Actions>
-        <Button size=Button.Size.Sm variant=Button.Variant.Outline>
-          {"Invite"->React.string}
-        </Button>
+        <Button size=Sm variant=Outline> {"Invite"->React.string} </Button>
       </Item.Actions>
     </Item>
   </div>

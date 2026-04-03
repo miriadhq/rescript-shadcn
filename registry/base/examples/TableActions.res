@@ -14,24 +14,15 @@ let make = ({}: Demo.Props.t) =>
         <Table.Cell> {"$29.99"->React.string} </Table.Cell>
         <Table.Cell className="text-right">
           <DropdownMenu>
-            <DropdownMenu.Trigger
-              render={<Button
-                variant=Button.Variant.Ghost
-                size=Button.Size.Icon
-                className="size-8"
-                dataSlot="dropdown-menu-trigger"
-              />}
-            >
+            <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="size-8" />}>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content align=BaseUi.Types.Align.End>
+            <DropdownMenu.Content align=End>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />
-              <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
-                {"Delete"->React.string}
-              </DropdownMenu.Item>
+              <DropdownMenu.Item variant=Destructive> {"Delete"->React.string} </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu>
         </Table.Cell>
@@ -41,24 +32,15 @@ let make = ({}: Demo.Props.t) =>
         <Table.Cell> {"$129.99"->React.string} </Table.Cell>
         <Table.Cell className="text-right">
           <DropdownMenu>
-            <DropdownMenu.Trigger
-              render={<Button
-                variant=Button.Variant.Ghost
-                size=Button.Size.Icon
-                className="size-8"
-                dataSlot="dropdown-menu-trigger"
-              />}
-            >
+            <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="size-8" />}>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content align=BaseUi.Types.Align.End>
+            <DropdownMenu.Content align=End>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />
-              <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
-                {"Delete"->React.string}
-              </DropdownMenu.Item>
+              <DropdownMenu.Item variant=Destructive> {"Delete"->React.string} </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu>
         </Table.Cell>
@@ -68,24 +50,15 @@ let make = ({}: Demo.Props.t) =>
         <Table.Cell> {"$49.99"->React.string} </Table.Cell>
         <Table.Cell className="text-right">
           <DropdownMenu>
-            <DropdownMenu.Trigger
-              render={<Button
-                variant=Button.Variant.Ghost
-                size=Button.Size.Icon
-                className="size-8"
-                dataSlot="dropdown-menu-trigger"
-              />}
-            >
+            <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="size-8" />}>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content align=BaseUi.Types.Align.End>
+            <DropdownMenu.Content align=End>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />
-              <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
-                {"Delete"->React.string}
-              </DropdownMenu.Item>
+              <DropdownMenu.Item variant=Destructive> {"Delete"->React.string} </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu>
         </Table.Cell>

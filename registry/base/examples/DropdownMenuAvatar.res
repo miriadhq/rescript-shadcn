@@ -3,20 +3,13 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <DropdownMenu>
-    <DropdownMenu.Trigger
-      render={<Button
-        variant=Button.Variant.Ghost
-        size=Button.Size.Icon
-        className="rounded-full"
-        dataSlot="dropdown-menu-trigger"
-      />}
-    >
+    <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="rounded-full" />}>
       <Avatar>
         <Avatar.Image src="https://github.com/shadcn.png" alt="shadcn" />
         <Avatar.Fallback> {"LR"->React.string} </Avatar.Fallback>
       </Avatar>
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content align=BaseUi.Types.Align.End>
+    <DropdownMenu.Content align=End>
       <DropdownMenu.Group>
         <DropdownMenu.Item>
           <Icons.BadgeCheck />

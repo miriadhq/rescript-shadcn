@@ -2,26 +2,26 @@
 let make = ({}: Demo.Props.t) =>
   <div className="flex flex-col items-start gap-8">
     <ButtonGroup>
-      <Button variant=Button.Variant.Outline size=Button.Size.Sm> {"Small"->React.string} </Button>
-      <Button variant=Button.Variant.Outline size=Button.Size.Sm> {"Button"->React.string} </Button>
-      <Button variant=Button.Variant.Outline size=Button.Size.Sm> {"Group"->React.string} </Button>
-      <Button variant=Button.Variant.Outline size=Button.Size.IconSm>
+      <Button variant=Outline size=Sm> {"Small"->React.string} </Button>
+      <Button variant=Outline size=Sm> {"Button"->React.string} </Button>
+      <Button variant=Outline size=Sm> {"Group"->React.string} </Button>
+      <Button variant=Outline size=IconSm>
         <Icons.Plus />
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button variant=Button.Variant.Outline> {"Default"->React.string} </Button>
-      <Button variant=Button.Variant.Outline> {"Button"->React.string} </Button>
-      <Button variant=Button.Variant.Outline> {"Group"->React.string} </Button>
-      <Button variant=Button.Variant.Outline size=Button.Size.Icon>
+      <Button variant=Outline> {"Default"->React.string} </Button>
+      <Button variant=Outline> {"Button"->React.string} </Button>
+      <Button variant=Outline> {"Group"->React.string} </Button>
+      <Button variant=Outline size=Icon>
         <Icons.Plus />
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button variant=Button.Variant.Outline size=Button.Size.Lg> {"Large"->React.string} </Button>
-      <Button variant=Button.Variant.Outline size=Button.Size.Lg> {"Button"->React.string} </Button>
-      <Button variant=Button.Variant.Outline size=Button.Size.Lg> {"Group"->React.string} </Button>
-      <Button variant=Button.Variant.Outline size=Button.Size.IconLg>
+      <Button variant=Outline size=Lg> {"Large"->React.string} </Button>
+      <Button variant=Outline size=Lg> {"Button"->React.string} </Button>
+      <Button variant=Outline size=Lg> {"Group"->React.string} </Button>
+      <Button variant=Outline size=IconLg>
         <Icons.Plus />
       </Button>
     </ButtonGroup>

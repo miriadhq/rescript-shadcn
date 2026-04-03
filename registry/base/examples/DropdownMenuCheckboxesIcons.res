@@ -15,9 +15,7 @@ let make = ({}: Demo.Props.t) => {
   })
 
   <DropdownMenu>
-    <DropdownMenu.Trigger
-      render={<Button variant=Button.Variant.Outline dataSlot="dropdown-menu-trigger" />}
-    >
+    <DropdownMenu.Trigger render={<Button variant=Outline />}>
       {"Notifications"->React.string}
     </DropdownMenu.Trigger>
     <DropdownMenu.Content className="w-48">

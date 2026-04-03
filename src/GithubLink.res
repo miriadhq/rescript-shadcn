@@ -27,8 +27,8 @@ module StarsCount = {
 @react.component
 let make = () => {
   <Button
-    size=Button.Size.Sm
-    variant=Button.Variant.Ghost
+    size=Sm
+    variant=Ghost
     className="h-8 shadow-none"
     nativeButton=false
     render={<Next.Link

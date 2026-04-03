@@ -6,7 +6,7 @@ let make = ({}: Demo.Props.t) => {
 
   <ButtonGroup>
     <ButtonGroup className="hidden sm:flex">
-      <Button variant=Outline size=Button.Size.Icon ariaLabel="Go Back">
+      <Button variant=Outline size=Icon ariaLabel="Go Back">
         <Icons.ArrowLeft />
       </Button>
     </ButtonGroup>
@@ -18,16 +18,11 @@ let make = ({}: Demo.Props.t) => {
       <Button variant=Outline> {"Snooze"->React.string} </Button>
       <DropdownMenu>
         <DropdownMenu.Trigger
-          render={<Button
-            variant=Outline
-            dataSlot="dropdown-menu-trigger"
-            size=Button.Size.Icon
-            ariaLabel="More Options"
-          />}
+          render={<Button variant=Outline size=Icon ariaLabel="More Options" />}
         >
           <Icons.MoreHorizontal />
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-40">
+        <DropdownMenu.Content align=End className="w-40">
           <DropdownMenu.Group>
             <DropdownMenu.Item>
               <Icons.MailCheck />
@@ -76,7 +71,7 @@ let make = ({}: Demo.Props.t) => {
           </DropdownMenu.Group>
           <DropdownMenu.Separator />
           <DropdownMenu.Group>
-            <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
+            <DropdownMenu.Item variant=Destructive>
               <Icons.Trash2 />
               {"Trash"->React.string}
             </DropdownMenu.Item>

@@ -2,7 +2,7 @@
 let make = ({}: Demo.Props.t) =>
   <Dialog>
     <form>
-      <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot="dialog-trigger" />}>
+      <Dialog.Trigger render={<Button variant=Outline />}>
         {"Open Dialog"->React.string}
       </Dialog.Trigger>
       <Dialog.Content className="sm:max-w-sm">
@@ -23,7 +23,7 @@ let make = ({}: Demo.Props.t) =>
           </Field>
         </Field.Group>
         <Dialog.Footer>
-          <Dialog.Close render={<Button variant=Button.Variant.Outline dataSlot="dialog-close" />}>
+          <Dialog.Close render={<Button variant=Outline />}>
             {"Cancel"->React.string}
           </Dialog.Close>
           <Button type_="submit"> {"Save changes"->React.string} </Button>

@@ -2,9 +2,7 @@
 let make = ({}: Demo.Props.t) =>
   <Drawer direction=Right>
     <Drawer.Trigger asChild=true>
-      <Button variant=Outline dataSlot="drawer-trigger">
-        {"Scrollable Content"->React.string}
-      </Button>
+      <Button variant=Outline> {"Scrollable Content"->React.string} </Button>
     </Drawer.Trigger>
     <Drawer.Content>
       <Drawer.Header>

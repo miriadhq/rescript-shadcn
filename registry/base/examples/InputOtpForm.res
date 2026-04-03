@@ -15,7 +15,7 @@ let make = ({}: Demo.Props.t) =>
           <Field.Label htmlFor="otp-verification">
             {"Verification code"->React.string}
           </Field.Label>
-          <Button variant=Button.Variant.Outline size=Button.Size.Xs>
+          <Button variant=Outline size=Xs>
             <Icons.RefreshCw />
             {"Resend Code"->React.string}
           </Button>

@@ -46,7 +46,7 @@ let make = ({}: Demo.Props.t) => {
         <Input id="form-address" type_="text" placeholder="123 Main St" />
       </Field>
       <Field orientation=BaseUi.Types.Orientation.Horizontal>
-        <Button type_="button" variant=Button.Variant.Outline> {"Cancel"->React.string} </Button>
+        <Button type_="button" variant=Outline> {"Cancel"->React.string} </Button>
         <Button type_="submit"> {"Submit"->React.string} </Button>
       </Field>
     </Field.Group>

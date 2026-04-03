@@ -1,9 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Dialog>
-    <Dialog.Trigger render={<Button variant=Button.Variant.Outline dataSlot="dialog-trigger" />}>
-      {"Share"->React.string}
-    </Dialog.Trigger>
+    <Dialog.Trigger render={<Button variant=Outline />}> {"Share"->React.string} </Dialog.Trigger>
     <Dialog.Content className="sm:max-w-md">
       <Dialog.Header>
         <Dialog.Title> {"Share link"->React.string} </Dialog.Title>

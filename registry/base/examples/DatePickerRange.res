@@ -19,9 +19,7 @@ let make = ({}: Demo.Props.t) => {
     <Popover>
       <Popover.Trigger
         render={<Button
-          variant=Button.Variant.Outline
-          id="date-picker-range"
-          className="justify-start px-2.5 font-normal"
+          variant=Outline id="date-picker-range" className="justify-start px-2.5 font-normal"
         />}
       >
         <Icons.Calendar dataIcon="inline-start" />
@@ -36,7 +34,7 @@ let make = ({}: Demo.Props.t) => {
         | _ => <span> {"Pick a date"->React.string} </span>
         }}
       </Popover.Trigger>
-      <Popover.Content className="w-auto p-0" align=BaseUi.Types.Align.Start>
+      <Popover.Content className="w-auto p-0" align=Start>
         <Calendar
           mode=Range
           defaultMonth=?{dateRange->Option.map(r => r.from)}

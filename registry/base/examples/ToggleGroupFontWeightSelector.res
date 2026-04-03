@@ -9,7 +9,7 @@ let make = ({}: Demo.Props.t) => {
     <ToggleGroup
       value={[fontWeight]}
       onValueChange={(value: array<string>, _) => setFontWeight(_ => value->Array.getUnsafe(0))}
-      variant=ToggleGroup.Variant.Outline
+      variant=Outline
       spacing=2.
       size=Lg
     >

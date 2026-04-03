@@ -10,9 +10,9 @@ module TablerIcons = {
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <ButtonGroup>
-    <Button variant=Button.Variant.Secondary> {"Button"->React.string} </Button>
+    <Button variant=Secondary> {"Button"->React.string} </Button>
     <ButtonGroup.Separator />
-    <Button size=Button.Size.Icon variant=Button.Variant.Secondary>
+    <Button size=Icon variant=Secondary>
       <TablerIcons.Plus />
     </Button>
   </ButtonGroup>

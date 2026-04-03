@@ -8,13 +8,11 @@ let make = ({}: Demo.Props.t) =>
       <Breadcrumb.Separator />
       <Breadcrumb.Item>
         <DropdownMenu>
-          <DropdownMenu.Trigger
-            render={<Button size=IconSm variant=Ghost dataSlot="dropdown-menu-trigger" />}
-          >
+          <DropdownMenu.Trigger render={<Button size=IconSm variant=Ghost />}>
             <Breadcrumb.Ellipsis />
             <span className="sr-only"> {"Toggle menu"->React.string} </span>
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content align=BaseUi.Types.Align.Start>
+          <DropdownMenu.Content align=Start>
             <DropdownMenu.Group>
               <DropdownMenu.Item> {"Documentation"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Themes"->React.string} </DropdownMenu.Item>

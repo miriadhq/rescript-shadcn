@@ -27,7 +27,7 @@ let make = (~column: RT.col, ~title: string, ~className="") => {
             <Icons.ChevronsUpDown />
           }}
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=BaseUi.Types.Align.Start>
+        <DropdownMenu.Content align=Start>
           <DropdownMenu.Item onClick={_ => column->RT.colToggleSorting(false)}>
             <Icons.ArrowUp />
             {"Asc"->React.string}

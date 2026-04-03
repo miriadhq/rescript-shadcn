@@ -17,9 +17,7 @@ let make = ({}: Demo.Props.t) =>
           </Field>
           <Field dataOrientation=Field.DataOrientation.Responsive>
             <Button type_="submit"> {"Submit"->React.string} </Button>
-            <Button type_="button" variant=Button.Variant.Outline>
-              {"Cancel"->React.string}
-            </Button>
+            <Button type_="button" variant=Outline> {"Cancel"->React.string} </Button>
           </Field>
         </Field.Group>
       </Field.Set>

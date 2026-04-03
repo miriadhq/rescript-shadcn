@@ -11,9 +11,7 @@ let make = ({}: Demo.Props.t) => {
     <Popover>
       <Popover.Trigger
         render={<Button
-          variant=Button.Variant.Outline
-          id="date-picker-simple"
-          className="justify-start font-normal"
+          variant=Outline id="date-picker-simple" className="justify-start font-normal"
         />}
       >
         {switch date {
@@ -21,7 +19,7 @@ let make = ({}: Demo.Props.t) => {
         | None => <span> {"Pick a date"->React.string} </span>
         }}
       </Popover.Trigger>
-      <Popover.Content className="w-auto p-0" align=BaseUi.Types.Align.Start>
+      <Popover.Content className="w-auto p-0" align=Start>
         <Calendar
           mode=Single
           selected=?{date}

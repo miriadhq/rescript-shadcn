@@ -1,8 +1,6 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <ToggleGroup
-    size=ToggleGroup.Size.Sm defaultValue={["top"]} variant=ToggleGroup.Variant.Outline spacing=2.
-  >
+  <ToggleGroup size=ToggleGroup.Size.Sm defaultValue={["top"]} variant=Outline spacing=2.>
     <ToggleGroup.Item value="top" ariaLabel="Toggle top"> {"Top"->React.string} </ToggleGroup.Item>
     <ToggleGroup.Item value="bottom" ariaLabel="Toggle bottom">
       {"Bottom"->React.string}

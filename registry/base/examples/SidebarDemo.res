@@ -157,7 +157,6 @@ module TeamSwitcher = {
               render={<Sidebar.MenuButton
                 size=Sidebar.MenuButton.Size.Lg
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                dataSlot="dropdown-menu-trigger"
               />}
             >
               <div
@@ -173,7 +172,7 @@ module TeamSwitcher = {
             </DropdownMenu.Trigger>
             <DropdownMenu.Content
               className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-              align=BaseUi.Types.Align.Start
+              align=Start
               side={isMobile ? BaseUi.Types.Side.Bottom : BaseUi.Types.Side.Right}
               sideOffset={4.}
             >
@@ -277,9 +276,7 @@ module NavProjectsSection = {
               <span> {project.name->React.string} </span>
             </Sidebar.MenuButton>
             <DropdownMenu>
-              <DropdownMenu.Trigger
-                render={<Sidebar.MenuAction showOnHover=true dataSlot="dropdown-menu-trigger" />}
-              >
+              <DropdownMenu.Trigger render={<Sidebar.MenuAction showOnHover=true />}>
                 <Icons.MoreHorizontal />
                 <span className="sr-only"> {"More"->React.string} </span>
               </DropdownMenu.Trigger>
@@ -330,7 +327,6 @@ module NavUserSection = {
             render={<Sidebar.MenuButton
               size=Sidebar.MenuButton.Size.Lg
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-              dataSlot="dropdown-menu-trigger"
             />}
           >
             <Avatar className="h-8 w-8 rounded-lg">
@@ -346,7 +342,7 @@ module NavUserSection = {
           <DropdownMenu.Content
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             side={isMobile ? BaseUi.Types.Side.Bottom : BaseUi.Types.Side.Right}
-            align=BaseUi.Types.Align.End
+            align=End
             sideOffset={4.}
           >
             <DropdownMenu.Group>

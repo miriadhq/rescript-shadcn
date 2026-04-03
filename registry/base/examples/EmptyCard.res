@@ -15,13 +15,10 @@ let make = ({}: Demo.Props.t) =>
         <Button render={<a href="#" />} nativeButton={false}>
           {"Create project"->React.string}
         </Button>
-        <Button variant=Button.Variant.Outline> {"Import project"->React.string} </Button>
+        <Button variant=Outline> {"Import project"->React.string} </Button>
       </div>
       <Button
-        variant=Button.Variant.Link
-        render={<a href="#" />}
-        className="text-muted-foreground"
-        nativeButton={false}
+        variant=Link render={<a href="#" />} className="text-muted-foreground" nativeButton={false}
       >
         {"Learn more"->React.string}
         <Icons.ArrowUpRight />

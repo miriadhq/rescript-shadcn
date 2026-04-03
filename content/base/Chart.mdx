@@ -27,9 +27,9 @@ Charts are designed to look great out of the box. They work well with the other 
 
 We use [Recharts](https://recharts.org/) under the hood.
 
-We designed the `chart` component with composition in mind. **You build your charts using Recharts components and only bring in custom components, such as `ChartTooltip`, when and where you need it**.
+We designed the `chart` component with composition in mind. **You build your charts using Recharts components and only bring in custom components, such as `Chart.Tooltip`, when and where you need it**.
 
-```res showLineNumbers /ChartContainer/ /ChartTooltipContent/
+```res showLineNumbers /<Chart>/ /</Chart>/ /Chart.TooltipContent/
 module MyChart = {
   @react.component
   let make = () => {
@@ -124,7 +124,7 @@ The following data represents the number of desktop and mobile users for each mo
 
 </Callout>
 
-```res title="components/example-chart.res" showLineNumbers
+```res title="components/ExampleChart.res" showLineNumbers
 let chartData = [
   { DataRow.month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
@@ -139,7 +139,7 @@ let chartData = [
 
 The chart config holds configuration for the chart. This is where you place human-readable strings, such as labels, icons and color tokens for theming.
 
-```res title="components/example-chart.res" showLineNumbers
+```res title="components/ExampleChart.res" showLineNumbers
 let chartConfig = dict{
   "desktop": {
     Chart.label: "Desktop",
@@ -232,11 +232,11 @@ To add an x-axis to the chart, we'll use the `XAxis` component.
 
 So far we've only used components from Recharts. They look great out of the box thanks to some customization in the `chart` component.
 
-To add a tooltip, we'll use the custom `ChartTooltip` and `ChartTooltipContent` components from `chart`.
+To add a tooltip, we'll use the custom `Chart.Tooltip` and `Chart.TooltipContent` components from `chart`.
 
 <Steps className="mb-0 pt-2">
 
-<Step>Import the `ChartTooltip` and `ChartTooltipContent` components.</Step>
+<Step>Import the `Chart.Tooltip` and `Chart.TooltipContent` components.</Step>
 
 <Step>Add the components to your chart.</Step>
 
@@ -269,11 +269,11 @@ Hover to see the tooltips. Easy, right? Two components, and we've got a beautifu
 
 ### Add Legend
 
-We'll do the same for the legend. We'll use the `ChartLegend` and `ChartLegendContent` components from `chart`.
+We'll do the same for the legend. We'll use the `Chart.Legend` and `Chart.LegendContent` components from `chart`.
 
 <Steps className="mb-0 pt-2">
 
-<Step>Import the `ChartLegend` and `ChartLegendContent` components.</Step>
+<Step>Import the `Chart.Legend` and `Chart.LegendContent` components.</Step>
 
 <Step>Add the components to your chart.</Step>
 
@@ -359,7 +359,7 @@ Charts have built-in support for theming. You can use css variables (recommended
 
 <Step>Add the color to your `chartConfig`</Step>
 
-```res title="components/example-chart.res" showLineNumbers
+```res title="components/ExampleChart.res" showLineNumbers
 let chartConfig = dict{
   "desktop": {
     Chart.label: "Desktop",
@@ -378,7 +378,7 @@ let chartConfig = dict{
 
 You can also define your colors directly in the chart config. Use the color format you prefer.
 
-```res title="components/example-chart.res" showLineNumbers
+```res title="components/ExampleChart.res" showLineNumbers
 let chartConfig = dict{
   "desktop": {
     Chart.label: "Desktop",
@@ -420,7 +420,7 @@ let chartData = [
 
 #### Tailwind
 
-```res title="components/example-chart.res"
+```res title="components/ExampleChart.res"
 <LabelList className="fill-[--color-desktop]" />
 ```
 
@@ -434,9 +434,9 @@ You can turn on/off any of these using the `hideLabel`, `hideIndicator` props an
 
 Use `labelKey` and `nameKey` to use a custom key for the tooltip label and name.
 
-Chart comes with the `<ChartTooltip>` and `<ChartTooltipContent>` components. You can use these two components to add custom tooltips to your chart.
+Chart comes with the `<Chart.Tooltip>` and `<Chart.TooltipContent>` components. You can use these two components to add custom tooltips to your chart.
 
-```res title="components/example-chart.res"
+```res title="components/ExampleChart.res"
 <Chart.Tooltip content={<Chart.TooltipContent />} />
 ```
 
@@ -481,7 +481,7 @@ let chartConfig = dict{
 }
 ```
 
-```res title="components/example-chart.res"
+```res title="components/ExampleChart.res"
 <Chart.Tooltip
   content={<Chart.TooltipContent labelKey="visitors" nameKey="browser" />}
 />
@@ -491,9 +491,9 @@ This will use `Total Visitors` for label and `Chrome` and `Safari` for the toolt
 
 ## Legend
 
-You can use the custom `<ChartLegend>` and `<ChartLegendContent>` components to add a legend to your chart.
+You can use the custom `<Chart.Legend>` and `<Chart.LegendContent>` components to add a legend to your chart.
 
-```res title="components/example-chart.res"
+```res title="components/ExampleChart.res"
 <Char.tLegend content={<Chart.LegendContent />} />
 ```
 
@@ -523,7 +523,7 @@ let chartConfig = dict{
 }
 ```
 
-```res title="components/example-chart.res"
+```res title="components/ExampleChart.res"
 <Chart.Legend content={<Chart.LegendContent nameKey="browser" />} />
 ```
 

@@ -26,7 +26,7 @@ let make = ({}: Demo.Props.t) =>
       </Empty.Description>
     </Empty.Header>
     <Empty.Content>
-      <Button size=Button.Size.Sm>
+      <Button size=Sm>
         <Icons.Plus />
         {"Invite Members"->React.string}
       </Button>

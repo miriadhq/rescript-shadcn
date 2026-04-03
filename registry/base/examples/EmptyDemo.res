@@ -21,13 +21,13 @@ let make = ({}: Demo.Props.t) =>
     </Empty.Header>
     <Empty.Content className="flex-row justify-center gap-2">
       <Button> {"Create Project"->React.string} </Button>
-      <Button variant=Button.Variant.Outline> {"Import Project"->React.string} </Button>
+      <Button variant=Outline> {"Import Project"->React.string} </Button>
     </Empty.Content>
     <Button
-      variant=Button.Variant.Link
+      variant=Link
       render={<a href="#" />}
       className="text-muted-foreground"
-      size=Button.Size.Sm
+      size=Sm
       nativeButton={false}
     >
       {"Learn More "->React.string}

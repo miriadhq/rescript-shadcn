@@ -77,7 +77,7 @@ The `Field` family is designed for composing accessible forms. A typical field i
 
 - `Field` is the core wrapper for a single field.
 - `Field.Content` is a flex column that groups label and description. Not required if you have no description.
-- Wrap related fields with `FieldGroup`, and use `FieldSet` with `FieldLegend` for semantic grouping.
+- Wrap related fields with `Field.Group`, and use `Field.Set` with `Field.Legend` for semantic grouping.
 
 ## Form
 
@@ -101,7 +101,7 @@ See the [Form](https://ui.shadcn.com/docs/forms) documentation for building form
 
 <ComponentPreview name="FieldSlider" />
 
-### Fieldset
+### Field.Set
 
 <ComponentPreview name="FieldFieldset" />
 
@@ -128,7 +128,7 @@ Wrap `Field` components inside `Field.Label` to create selectable field groups. 
 
 ### Field Group
 
-Stack `Field` components with `FieldGroup`. Add `Field.Separator` to divide them.
+Stack `Field` components with `Field.Group`. Add `Field.Separator` to divide them.
 
 <ComponentPreview
   name="FieldGroup"
@@ -140,7 +140,7 @@ Stack `Field` components with `FieldGroup`. Add `Field.Separator` to divide them
 
 - **Vertical fields:** Default orientation stacks label, control, and helper text—ideal for mobile-first layouts.
 - **Horizontal fields:** Set `orientation="horizontal"` on `Field` to align the label and control side-by-side. Pair with `Field.Content` to keep descriptions aligned.
-- **Responsive fields:** Set `orientation="responsive"` for automatic column layouts inside container-aware parents. Apply `@container/field-group` classes on `FieldGroup` to switch orientations at specific breakpoints.
+- **Responsive fields:** Set `orientation="responsive"` for automatic column layouts inside container-aware parents. Apply `@container/field-group` classes on `Field.Group` to switch orientations at specific breakpoints.
 
 <ComponentPreview
   name="FieldResponsive"
@@ -163,13 +163,13 @@ Stack `Field` components with `FieldGroup`. Add `Field.Separator` to divide them
 
 ## Accessibility
 
-- `FieldSet` and `FieldLegend` keep related controls grouped for keyboard and assistive tech users.
-- `Field` outputs `role="group"` so nested controls inherit labeling from `Field.Label` and `FieldLegend` when combined.
+- `Field.Set` and `Field.Legend` keep related controls grouped for keyboard and assistive tech users.
+- `Field` outputs `role="group"` so nested controls inherit labeling from `Field.Label` and `Field.Legend` when combined.
 - Apply `Field.Separator` sparingly to ensure screen readers encounter clear section boundaries.
 
 ## API Reference
 
-### FieldSet
+### Field.Set
 
 Container that renders a semantic `fieldset` with spacing presets.
 
@@ -178,15 +178,15 @@ Container that renders a semantic `fieldset` with spacing presets.
 | `className` | `string` |         |
 
 ```res
-<FieldSet>
-  <FieldLegend> {"Delivery"->React.string} </FieldLegend>
-  <FieldGroup>{/* Fields */}</FieldGroup>
-</FieldSet>
+<Field.Set>
+  <Field.Legend> {"Delivery"->React.string} </Field.Legend>
+  <Field.Group>{/* Fields */}</Field.Group>
+</Field.Set>
 ```
 
-### FieldLegend
+### Field.Legend
 
-Legend element for a `FieldSet`. Switch to the `label` variant to align with label sizing.
+Legend element for a `Field.Set`. Switch to the `label` variant to align with label sizing.
 
 | Prop        | Type                  | Default    |
 | ----------- | --------------------- | ---------- |
@@ -194,12 +194,12 @@ Legend element for a `FieldSet`. Switch to the `label` variant to align with lab
 | `className` | `string`              |            |
 
 ```res showLineNumbers
-<FieldLegend variant=Label>Notification Preferences</FieldLegend>
+<Field.Legend variant=Label> {"Notification Preferences"->React.string} </Field.Legend>
 ```
 
-The `FieldLegend` has two variants: `legend` and `label`. The `label` variant applies label sizing and alignment. Handy if you have nested `FieldSet`.
+The `Field.Legend` has two variants: `Legend` and `Label`. The `Label` variant applies label sizing and alignment. Handy if you have nested `Field.Set`.
 
-### FieldGroup
+### Field.Group
 
 Layout wrapper that stacks `Field` components and enables container queries for responsive orientations.
 
@@ -208,10 +208,10 @@ Layout wrapper that stacks `Field` components and enables container queries for 
 | `className` | `string` |         |
 
 ```res
-<FieldGroup className="@container/field-group flex flex-col gap-6">
+<Field.Group className="@container/field-group flex flex-col gap-6">
   <Field>{/* ... */}</Field>
   <Field>{/* ... */}</Field>
-</FieldGroup>
+</Field.Group>
 ```
 
 ### Field
@@ -222,7 +222,7 @@ The core wrapper for a single field. Provides orientation control, invalid state
 | -------------- | -------------------------------------------- | ------------ |
 | `orientation`  | `Vertical \| Horizontal \| Responsive`       | `Vertical`   |
 | `className`    | `string`                                     |              |
-| `dataInvalid` | `bool`                                    |              |
+| `dataInvalid`  | `bool`                                       |              |
 
 ```res 
 <Field orientation=Horizontal>
@@ -291,7 +291,7 @@ Helper text slot that automatically balances long lines in horizontal layouts.
 
 ### Field.Separator
 
-Visual divider to separate sections inside a `FieldGroup`. Accepts optional inline content.
+Visual divider to separate sections inside a `Field.Group`. Accepts optional inline content.
 
 | Prop        | Type     | Default |
 | ----------- | -------- | ------- |
@@ -316,4 +316,4 @@ Accessible error container that accepts children or an `errors` array (e.g., fro
 
 When the `errors` array contains multiple messages, the component renders a list automatically.
 
-`Field.Error` also accepts issues produced by any validator that implements [Standard Schema](https://standardschema.dev/), including Zod, Valibot, and ArkType. Pass the `issues` array from the schema result directly to render a unified error list across libraries.
+`Field.Error` also accepts issues produced by any validator that implements [Standard Schema](https://standardschema.dev/), including [Sury](https://github.com/DZakh/sury), Zod, Valibot, and ArkType. Pass the `issues` array from the schema result directly to render a unified error list across libraries.

@@ -18,7 +18,7 @@ let make = ({}: Demo.Props.t) =>
       </Empty.Description>
     </Empty.Header>
     <Empty.Content>
-      <Button variant=Button.Variant.Outline>
+      <Button variant=Outline>
         <Icons.RefreshCcw dataIcon="inline-start" />
         {"Refresh"->React.string}
       </Button>

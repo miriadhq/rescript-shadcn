@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Popover>
-    <Popover.Trigger render={<Button variant=Button.Variant.Outline dataSlot="popover-trigger" />}>
+    <Popover.Trigger render={<Button variant=Outline />}>
       {"Open popover"->React.string}
     </Popover.Trigger>
     <Popover.Content className="w-80">

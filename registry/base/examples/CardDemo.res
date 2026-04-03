@@ -7,7 +7,7 @@ let make = ({}: Demo.Props.t) =>
         {"Enter your email below to login to your account"->React.string}
       </Card.Description>
       <Card.Action>
-        <Button variant=Button.Variant.Link> {"Sign Up"->React.string} </Button>
+        <Button variant=Link> {"Sign Up"->React.string} </Button>
       </Card.Action>
     </Card.Header>
     <Card.Content>
@@ -35,8 +35,6 @@ let make = ({}: Demo.Props.t) =>
     </Card.Content>
     <Card.Footer className="flex-col gap-2">
       <Button type_="submit" className="w-full"> {"Login"->React.string} </Button>
-      <Button variant=Button.Variant.Outline className="w-full">
-        {"Login with Google"->React.string}
-      </Button>
+      <Button variant=Outline className="w-full"> {"Login with Google"->React.string} </Button>
     </Card.Footer>
   </Card>

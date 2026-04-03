@@ -5,11 +5,11 @@ let make = ({}: Demo.Props.t) =>
       <Spinner dataIcon=InlineStart />
       {"Syncing"->React.string}
     </Badge>
-    <Badge variant=Badge.Variant.Secondary>
+    <Badge variant=Secondary>
       <Spinner dataIcon=InlineStart />
       {"Updating"->React.string}
     </Badge>
-    <Badge variant=Badge.Variant.Outline>
+    <Badge variant=Outline>
       <Spinner dataIcon=InlineStart />
       {"Processing"->React.string}
     </Badge>

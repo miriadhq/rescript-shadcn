@@ -16,7 +16,7 @@ let make = ({}: Demo.Props.t) =>
             {"Components"->React.string}
             <Icons.ChevronDown dataIcon="inline-end" />
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content align=BaseUi.Types.Align.Start>
+          <DropdownMenu.Content align=Start>
             <DropdownMenu.Group>
               <DropdownMenu.Item> {"Documentation"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Themes"->React.string} </DropdownMenu.Item>

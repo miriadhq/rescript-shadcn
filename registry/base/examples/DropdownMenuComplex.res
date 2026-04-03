@@ -16,9 +16,7 @@ let make = ({}: Demo.Props.t) => {
   let (theme, setTheme) = React.useState(() => "light")
 
   <DropdownMenu>
-    <DropdownMenu.Trigger
-      render={<Button variant=Button.Variant.Outline dataSlot="dropdown-menu-trigger" />}
-    >
+    <DropdownMenu.Trigger render={<Button variant=Outline />}>
       {"Complex Menu"->React.string}
     </DropdownMenu.Trigger>
     <DropdownMenu.Content className="w-44">
@@ -220,7 +218,7 @@ let make = ({}: Demo.Props.t) => {
       </DropdownMenu.Group>
       <DropdownMenu.Separator />
       <DropdownMenu.Group>
-        <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
+        <DropdownMenu.Item variant=Destructive>
           <Icons.LogOut />
           {"Sign Out"->React.string}
           <DropdownMenu.Shortcut> {"⇧⌘Q"->React.string} </DropdownMenu.Shortcut>

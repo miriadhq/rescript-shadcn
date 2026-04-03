@@ -3,9 +3,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <DropdownMenu>
-    <DropdownMenu.Trigger
-      render={<Button variant=Button.Variant.Outline dataSlot="dropdown-menu-trigger" />}
-    >
+    <DropdownMenu.Trigger render={<Button variant=Outline />}>
       {"Actions"->React.string}
     </DropdownMenu.Trigger>
     <DropdownMenu.Content>
@@ -21,7 +19,7 @@ let make = ({}: Demo.Props.t) =>
       </DropdownMenu.Group>
       <DropdownMenu.Separator />
       <DropdownMenu.Group>
-        <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
+        <DropdownMenu.Item variant=Destructive>
           <Icons.Trash />
           {"Delete"->React.string}
         </DropdownMenu.Item>

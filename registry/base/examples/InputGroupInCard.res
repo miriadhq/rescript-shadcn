@@ -44,7 +44,7 @@ let make = ({}: Demo.Props.t) =>
       </Field.Group>
     </Card.Content>
     <Card.Footer className="justify-end gap-2">
-      <Button variant=Button.Variant.Outline> {"Cancel"->React.string} </Button>
+      <Button variant=Outline> {"Cancel"->React.string} </Button>
       <Button> {"Submit"->React.string} </Button>
     </Card.Footer>
   </Card>

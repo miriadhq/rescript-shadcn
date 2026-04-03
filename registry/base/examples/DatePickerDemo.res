@@ -9,7 +9,7 @@ let make = ({}: Demo.Props.t) => {
   <Popover>
     <Popover.Trigger
       render={<Button
-        variant=Button.Variant.Outline
+        variant=Outline
         dataEmpty=?{date->Option.isNone ? Some(true) : None}
         className="data-[empty=true]:text-muted-foreground w-[212px] justify-between text-left font-normal"
       />}
@@ -20,7 +20,7 @@ let make = ({}: Demo.Props.t) => {
       }}
       <Icons.ChevronDown dataIcon="inline-end" />
     </Popover.Trigger>
-    <Popover.Content className="w-auto p-0" align=BaseUi.Types.Align.Start>
+    <Popover.Content className="w-auto p-0" align=Start>
       <Calendar
         mode=Single selected=?date onSelect={value => setDate(_ => value)} defaultMonth=?date
       />

@@ -50,10 +50,7 @@ let make = ({}: Demo.Props.t) => {
             <span className="sr-only"> {"Select date"->React.string} </span>
           </Popover.Trigger>
           <Popover.Content
-            className="w-auto overflow-hidden p-0"
-            align=BaseUi.Types.Align.End
-            alignOffset={-8.}
-            sideOffset={10.}
+            className="w-auto overflow-hidden p-0" align=End alignOffset={-8.} sideOffset={10.}
           >
             <Calendar
               mode=Single

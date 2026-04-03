@@ -1,9 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <div className="flex flex-col gap-4">
-    <ToggleGroup
-      size=ToggleGroup.Size.Sm defaultValue={["top"]} variant=ToggleGroup.Variant.Outline
-    >
+    <ToggleGroup size=ToggleGroup.Size.Sm defaultValue={["top"]} variant=Outline>
       <ToggleGroup.Item value="top" ariaLabel="Toggle top">
         {"Top"->React.string}
       </ToggleGroup.Item>
@@ -17,7 +15,7 @@ let make = ({}: Demo.Props.t) =>
         {"Right"->React.string}
       </ToggleGroup.Item>
     </ToggleGroup>
-    <ToggleGroup defaultValue={["top"]} variant=ToggleGroup.Variant.Outline>
+    <ToggleGroup defaultValue={["top"]} variant=Outline>
       <ToggleGroup.Item value="top" ariaLabel="Toggle top">
         {"Top"->React.string}
       </ToggleGroup.Item>

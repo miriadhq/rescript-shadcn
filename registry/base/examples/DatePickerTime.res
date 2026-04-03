@@ -13,9 +13,7 @@ let make = ({}: Demo.Props.t) => {
       <Popover open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>
         <Popover.Trigger
           render={<Button
-            variant=Button.Variant.Outline
-            id="date-picker-optional"
-            className="w-32 justify-between font-normal"
+            variant=Outline id="date-picker-optional" className="w-32 justify-between font-normal"
           />}
         >
           {switch date {
@@ -24,7 +22,7 @@ let make = ({}: Demo.Props.t) => {
           }}
           <Icons.ChevronDown dataIcon="inline-end" />
         </Popover.Trigger>
-        <Popover.Content className="w-auto overflow-hidden p-0" align=BaseUi.Types.Align.Start>
+        <Popover.Content className="w-auto overflow-hidden p-0" align=Start>
           <Calendar
             mode=Single
             selected=?date

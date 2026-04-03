@@ -12,7 +12,7 @@ let make = ({}: Demo.Props.t) =>
           >
             <Icons.MoreHorizontal />
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content align=BaseUi.Types.Align.End sideOffset=8. alignOffset={-4.}>
+          <DropdownMenu.Content align=End sideOffset=8. alignOffset={-4.}>
             <DropdownMenu.Group>
               <DropdownMenu.Item> {"Settings"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Copy path"->React.string} </DropdownMenu.Item>
@@ -32,7 +32,7 @@ let make = ({}: Demo.Props.t) =>
             {"Search In..."->React.string}
             <Icons.ChevronDown className="size-3" />
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content align=BaseUi.Types.Align.End sideOffset=8. alignOffset={-4.}>
+          <DropdownMenu.Content align=End sideOffset=8. alignOffset={-4.}>
             <DropdownMenu.Group>
               <DropdownMenu.Item> {"Documentation"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Blog Posts"->React.string} </DropdownMenu.Item>

@@ -166,8 +166,7 @@ let columns: array<RT.colDef<payment>> = [
     header: ctx => {
       let col = ctx->RT.ctxCol
       <Button
-        variant=Button.Variant.Ghost
-        onClick={_ => col->RT.colToggleSorting(col->RT.colGetIsSorted == "asc")}
+        variant=Ghost onClick={_ => col->RT.colToggleSorting(col->RT.colGetIsSorted == "asc")}
       >
         {"Email"->React.string}
         <Icons.SortAsc />
@@ -198,13 +197,11 @@ let columns: array<RT.colDef<payment>> = [
     cell: ctx => {
       let payment = ctx->RT.ctxRow->RT.rowOriginal
       <DropdownMenu>
-        <DropdownMenu.Trigger
-          render={<Button variant=Button.Variant.Ghost size=Button.Size.IconXs />}
-        >
+        <DropdownMenu.Trigger render={<Button variant=Ghost size=IconXs />}>
           <span className="sr-only"> {"Open menu"->React.string} </span>
           <Icons.MoreHorizontal />
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-44">
+        <DropdownMenu.Content align=End className="w-44">
           <DropdownMenu.Group>
             <DropdownMenu.Label> {"Actions"->React.string} </DropdownMenu.Label>
             <DropdownMenu.Item
@@ -272,13 +269,11 @@ let make = ({}: Demo.Props.t) => {
         className="max-w-sm"
       />
       <DropdownMenu>
-        <DropdownMenu.Trigger
-          render={<Button variant=Button.Variant.Outline className="ml-auto" />}
-        >
+        <DropdownMenu.Trigger render={<Button variant=Outline className="ml-auto" />}>
           {"Columns"->React.string}
           <Icons.ChevronDown />
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-44">
+        <DropdownMenu.Content align=End className="w-44">
           <DropdownMenu.Group>
             {table
             ->RT.getAllColumns
@@ -359,16 +354,16 @@ let make = ({}: Demo.Props.t) => {
       </div>
       <div className="space-x-2">
         <Button
-          variant=Button.Variant.Outline
-          size=Button.Size.Sm
+          variant=Outline
+          size=Sm
           onClick={_ => table->RT.previousPage}
           disabled={!(table->RT.getCanPreviousPage)}
         >
           {"Previous"->React.string}
         </Button>
         <Button
-          variant=Button.Variant.Outline
-          size=Button.Size.Sm
+          variant=Outline
+          size=Sm
           onClick={_ => table->RT.nextPage}
           disabled={!(table->RT.getCanNextPage)}
         >
