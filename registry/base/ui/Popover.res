@@ -16,55 +16,28 @@ let make = (
   ~onOpenChangeComplete=?,
   ~modal=?,
 ) =>
-  <BaseUi.Popover.Root
-    ?children ?open_ ?defaultOpen ?onOpenChange ?onOpenChangeComplete ?modal dataSlot="popover"
-  />
+  <BaseUi.Popover.Root ?children ?open_ ?defaultOpen ?onOpenChange ?onOpenChangeComplete ?modal />
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <BaseUi.Popover.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="popover-trigger"
-      className
-    />
+  @react.componentWithProps(BaseUi.Popover.Trigger.props)
+  let make = (props: BaseUi.Popover.Trigger.props<'payload>) =>
+    <BaseUi.Popover.Trigger {...props} dataSlot={props.dataSlot->Option.getOr("popover-trigger")} />
 }
 
 module Content = {
   @react.component
   let make = (
     ~className=?,
+    ~align=Align.Center,
+    ~alignOffset=0.,
+    ~side=Side.Bottom,
+    ~sideOffset=4.,
     ~children=?,
     ~id=?,
     ~dir=?,
     ~style=?,
     ~onClick=?,
     ~onKeyDown=?,
-    ~align=Align.Center,
-    ~alignOffset=0.,
-    ~side=Side.Bottom,
-    ~sideOffset=4.,
   ) =>
     <BaseUi.Popover.Portal>
       <BaseUi.Popover.Positioner
@@ -92,61 +65,31 @@ module Content = {
 }
 
 module Header = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dataSlot="popover-header",
-  ) =>
+  @react.componentWithProps(DomProps.t)
+  let make = (props: DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot
-      className={cn("flex flex-col gap-0.5 text-sm", className)}
-      ?children
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("popover-header")}
+      className={cn("flex flex-col gap-0.5 text-sm", props.className)}
     />
 }
 
 module Title = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dataSlot="popover-title",
-  ) =>
+  @react.componentWithProps(BaseUIComponentProps.t)
+  let make = (props: BaseUIComponentProps.t) =>
     <BaseUi.Popover.Title
-      ?id ?style ?onClick ?onKeyDown ?children dataSlot className={cn("font-medium", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("popover-title")}
+      className={cn("font-medium", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dataSlot="popover-description",
-  ) =>
+  @react.componentWithProps(BaseUIComponentProps.t)
+  let make = (props: BaseUIComponentProps.t) =>
     <BaseUi.Popover.Description
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot
-      className={cn("text-muted-foreground", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("popover-description")}
+      className={cn("text-muted-foreground", props.className)}
     />
 }
