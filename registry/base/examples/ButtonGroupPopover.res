@@ -9,7 +9,7 @@ let make = ({}: Demo.Props.t) => {
       <Popover.Trigger render={<Button variant=Outline size=Icon ariaLabel="Open Popover" />}>
         <Icons.ChevronDown />
       </Popover.Trigger>
-      <Popover.Content align=BaseUi.Types.Align.End className="rounded-xl text-sm">
+      <Popover.Content align=End className="rounded-xl text-sm">
         <Popover.Header>
           <Popover.Title> {"Start a new task with Copilot"->React.string} </Popover.Title>
           <Popover.Description>

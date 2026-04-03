@@ -14,7 +14,7 @@ let make = ({}: Demo.Props.t) => {
     <ButtonGroup>
       <Select items=currencies value=currency onValueChange={(value, _) => setCurrency(_ => value)}>
         <Select.Trigger className="font-mono"> {currency->React.string} </Select.Trigger>
-        <Select.Content dataAlignTrigger={false} align=BaseUi.Types.Align.Start>
+        <Select.Content dataAlignTrigger={false} align=Start>
           <Select.Group>
             {currencies
             ->Array.map(item =>

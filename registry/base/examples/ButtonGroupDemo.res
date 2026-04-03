@@ -24,7 +24,7 @@ let make = ({}: Demo.Props.t) => {
         >
           <Icons.MoreHorizontal />
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-40">
+        <DropdownMenu.Content align=End className="w-40">
           <DropdownMenu.Group>
             <DropdownMenu.Item>
               <Icons.MailCheck />

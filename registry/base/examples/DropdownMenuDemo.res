@@ -6,7 +6,7 @@ let make = ({}: Demo.Props.t) =>
     <DropdownMenu.Trigger render={<Button variant=Outline dataSlot="dropdown-menu-trigger" />}>
       {"Open"->React.string}
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content className="w-40" align=BaseUi.Types.Align.Start>
+    <DropdownMenu.Content className="w-40" align=Start>
       <DropdownMenu.Group>
         <DropdownMenu.Label> {"My Account"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item>

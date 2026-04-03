@@ -173,7 +173,7 @@ module TeamSwitcher = {
             </DropdownMenu.Trigger>
             <DropdownMenu.Content
               className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-              align=BaseUi.Types.Align.Start
+              align=Start
               side={isMobile ? BaseUi.Types.Side.Bottom : BaseUi.Types.Side.Right}
               sideOffset={4.}
             >
@@ -346,7 +346,7 @@ module NavUserSection = {
           <DropdownMenu.Content
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             side={isMobile ? BaseUi.Types.Side.Bottom : BaseUi.Types.Side.Right}
-            align=BaseUi.Types.Align.End
+            align=End
             sideOffset={4.}
           >
             <DropdownMenu.Group>

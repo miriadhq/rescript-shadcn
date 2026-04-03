@@ -16,7 +16,7 @@ let make = ({}: Demo.Props.t) => {
         | None => "Select date"->React.string
         }}
       </Popover.Trigger>
-      <Popover.Content className="w-auto overflow-hidden p-0" align=BaseUi.Types.Align.Start>
+      <Popover.Content className="w-auto overflow-hidden p-0" align=Start>
         <Calendar
           mode=Single
           selected=?date

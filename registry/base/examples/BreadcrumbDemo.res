@@ -14,7 +14,7 @@ let make = ({}: Demo.Props.t) =>
             <Breadcrumb.Ellipsis />
             <span className="sr-only"> {"Toggle menu"->React.string} </span>
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content align=BaseUi.Types.Align.Start>
+          <DropdownMenu.Content align=Start>
             <DropdownMenu.Group>
               <DropdownMenu.Item> {"Documentation"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Themes"->React.string} </DropdownMenu.Item>

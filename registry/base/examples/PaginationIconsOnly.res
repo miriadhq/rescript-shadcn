@@ -7,7 +7,7 @@ let make = ({}: Demo.Props.t) =>
         <Select.Trigger className="w-20" id="select-rows-per-page">
           <Select.Value />
         </Select.Trigger>
-        <Select.Content align=BaseUi.Types.Align.Start>
+        <Select.Content align=Start>
           <Select.Group>
             <Select.Item value="10"> {"10"->React.string} </Select.Item>
             <Select.Item value="25"> {"25"->React.string} </Select.Item>

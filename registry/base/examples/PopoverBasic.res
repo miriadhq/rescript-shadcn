@@ -4,7 +4,7 @@ let make = ({}: Demo.Props.t) => {
     <Popover.Trigger render={<Button variant=Outline className="w-fit" />}>
       {"Open Popover"->React.string}
     </Popover.Trigger>
-    <Popover.Content align=BaseUi.Types.Align.Start>
+    <Popover.Content align=Start>
       <Popover.Header>
         <Popover.Title> {"Dimensions"->React.string} </Popover.Title>
         <Popover.Description>

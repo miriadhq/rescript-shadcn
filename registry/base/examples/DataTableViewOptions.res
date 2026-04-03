@@ -11,7 +11,7 @@ let make = (~table: RT.t<'data>) => {
       <Icons.Settings2 />
       {"View"->React.string}
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-[150px]">
+    <DropdownMenu.Content align=End className="w-[150px]">
       <DropdownMenu.Label> {"Toggle columns"->React.string} </DropdownMenu.Label>
       <DropdownMenu.Separator />
       <DropdownMenu.Group>

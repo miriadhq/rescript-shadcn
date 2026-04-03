@@ -34,7 +34,7 @@ let make = ({}: Demo.Props.t) => {
         | _ => <span> {"Pick a date"->React.string} </span>
         }}
       </Popover.Trigger>
-      <Popover.Content className="w-auto p-0" align=BaseUi.Types.Align.Start>
+      <Popover.Content className="w-auto p-0" align=Start>
         <Calendar
           mode=Range
           defaultMonth=?{dateRange->Option.map(r => r.from)}

@@ -201,7 +201,7 @@ let columns: array<RT.colDef<payment>> = [
           <span className="sr-only"> {"Open menu"->React.string} </span>
           <Icons.MoreHorizontal />
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-44">
+        <DropdownMenu.Content align=End className="w-44">
           <DropdownMenu.Group>
             <DropdownMenu.Label> {"Actions"->React.string} </DropdownMenu.Label>
             <DropdownMenu.Item
@@ -273,7 +273,7 @@ let make = ({}: Demo.Props.t) => {
           {"Columns"->React.string}
           <Icons.ChevronDown />
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-44">
+        <DropdownMenu.Content align=End className="w-44">
           <DropdownMenu.Group>
             {table
             ->RT.getAllColumns

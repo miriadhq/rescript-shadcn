@@ -22,7 +22,7 @@ let make = ({}: Demo.Props.t) =>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content align=BaseUi.Types.Align.End>
+            <DropdownMenu.Content align=End>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />
@@ -46,7 +46,7 @@ let make = ({}: Demo.Props.t) =>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content align=BaseUi.Types.Align.End>
+            <DropdownMenu.Content align=End>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />
@@ -70,7 +70,7 @@ let make = ({}: Demo.Props.t) =>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content align=BaseUi.Types.Align.End>
+            <DropdownMenu.Content align=End>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />

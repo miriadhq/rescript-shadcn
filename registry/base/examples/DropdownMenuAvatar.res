@@ -13,7 +13,7 @@ let make = ({}: Demo.Props.t) =>
         <Avatar.Fallback> {"LR"->React.string} </Avatar.Fallback>
       </Avatar>
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content align=BaseUi.Types.Align.End>
+    <DropdownMenu.Content align=End>
       <DropdownMenu.Group>
         <DropdownMenu.Item>
           <Icons.BadgeCheck />

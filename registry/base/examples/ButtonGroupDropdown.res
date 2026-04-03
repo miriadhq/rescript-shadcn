@@ -40,7 +40,7 @@ let make = ({}: Demo.Props.t) => {
       <DropdownMenu.Trigger render={<Button variant=Outline className="!pl-2" />}>
         <Icons.ChevronDown />
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align=BaseUi.Types.Align.End className="w-44">
+      <DropdownMenu.Content align=End className="w-44">
         <DropdownMenu.Group>
           <DropdownMenu.Item>
             <LocalIcons.VolumeOff />

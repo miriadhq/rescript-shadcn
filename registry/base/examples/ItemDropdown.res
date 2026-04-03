@@ -27,7 +27,7 @@ let make = ({}: Demo.Props.t) =>
       {"Select "->React.string}
       <Icons.ChevronDown />
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content className="w-48" align=BaseUi.Types.Align.End>
+    <DropdownMenu.Content className="w-48" align=End>
       <DropdownMenu.Group>
         {people
         ->Array.map(person =>

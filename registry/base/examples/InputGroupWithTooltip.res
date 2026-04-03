@@ -36,9 +36,7 @@ let make = ({}: Demo.Props.t) => {
               {country->React.string}
               <Icons.ChevronDown />
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content
-              align=BaseUi.Types.Align.Start className="min-w-16" sideOffset=10. alignOffset={-8.}
-            >
+            <DropdownMenu.Content align=Start className="min-w-16" sideOffset=10. alignOffset={-8.}>
               <DropdownMenu.Item onClick={_ => setCountry(_ => "+1")}>
                 {"+1"->React.string}
               </DropdownMenu.Item>
@@ -65,7 +63,7 @@ let make = ({}: Demo.Props.t) => {
               <Icons.Info />
             </InputGroup.Button>
           </Popover.Trigger>
-          <Popover.Content align=BaseUi.Types.Align.Start>
+          <Popover.Content align=Start>
             <Popover.Header>
               <Popover.Title> {"Your connection is not secure."->React.string} </Popover.Title>
               <Popover.Description>
