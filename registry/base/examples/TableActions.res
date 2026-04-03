@@ -14,11 +14,7 @@ let make = ({}: Demo.Props.t) =>
         <Table.Cell> {"$29.99"->React.string} </Table.Cell>
         <Table.Cell className="text-right">
           <DropdownMenu>
-            <DropdownMenu.Trigger
-              render={<Button
-                variant=Ghost size=Icon className="size-8" dataSlot="dropdown-menu-trigger"
-              />}
-            >
+            <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="size-8" />}>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>
@@ -36,11 +32,7 @@ let make = ({}: Demo.Props.t) =>
         <Table.Cell> {"$129.99"->React.string} </Table.Cell>
         <Table.Cell className="text-right">
           <DropdownMenu>
-            <DropdownMenu.Trigger
-              render={<Button
-                variant=Ghost size=Icon className="size-8" dataSlot="dropdown-menu-trigger"
-              />}
-            >
+            <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="size-8" />}>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>
@@ -58,11 +50,7 @@ let make = ({}: Demo.Props.t) =>
         <Table.Cell> {"$49.99"->React.string} </Table.Cell>
         <Table.Cell className="text-right">
           <DropdownMenu>
-            <DropdownMenu.Trigger
-              render={<Button
-                variant=Ghost size=Icon className="size-8" dataSlot="dropdown-menu-trigger"
-              />}
-            >
+            <DropdownMenu.Trigger render={<Button variant=Ghost size=Icon className="size-8" />}>
               <Icons.MoreHorizontal />
               <span className="sr-only"> {"Open menu"->React.string} </span>
             </DropdownMenu.Trigger>

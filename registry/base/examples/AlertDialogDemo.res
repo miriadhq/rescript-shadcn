@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <AlertDialog>
-    <AlertDialog.Trigger render={<Button variant=Outline dataSlot="alert-dialog-trigger" />}>
+    <AlertDialog.Trigger render={<Button variant=Outline />}>
       {"Show Dialog"->React.string}
     </AlertDialog.Trigger>
     <AlertDialog.Content>

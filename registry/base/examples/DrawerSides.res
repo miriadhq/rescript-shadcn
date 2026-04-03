@@ -7,9 +7,7 @@ let make = ({}: Demo.Props.t) =>
     ->Array.map(side =>
       <Drawer key={(side :> string)} direction=side>
         <Drawer.Trigger asChild=true>
-          <Button variant=Outline className="capitalize" dataSlot="drawer-trigger">
-            {(side :> string)->React.string}
-          </Button>
+          <Button variant=Outline className="capitalize"> {(side :> string)->React.string} </Button>
         </Drawer.Trigger>
         <Drawer.Content
           className="data-[swipe-direction=bottom]:max-h-[50vh] data-[swipe-direction=top]:max-h-[50vh]"

@@ -12,13 +12,7 @@ let make = ({}: Demo.Props.t) => {
     <div className="flex items-center justify-between gap-4 px-4">
       <h4 className="text-sm font-semibold"> {"Order #4189"->React.string} </h4>
       <Collapsible.Trigger
-        render={<Button
-          variant=Ghost
-          size=Icon
-          className="size-8"
-          ariaDisabled={false}
-          dataSlot="collapsible-trigger"
-        />}
+        render={<Button variant=Ghost size=Icon className="size-8" ariaDisabled={false} />}
       >
         <Icons.ChevronsUpDown />
         <span className="sr-only"> {"Toggle details"->React.string} </span>

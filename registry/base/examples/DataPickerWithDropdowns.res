@@ -18,7 +18,6 @@ let make = ({}: Demo.Props.t) => {
           variant=Outline
           id="date-picker-with-dropdowns-desktop"
           className="justify-start px-2.5 font-normal"
-          dataSlot="popover-trigger"
         />}
       >
         <Icons.ChevronDown className="ml-auto" />

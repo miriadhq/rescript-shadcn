@@ -1,9 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <HoverCard>
-    <HoverCard.Trigger
-      delay={10.} closeDelay={100.} render={<Button variant=Link dataSlot="hover-card-trigger" />}
-    >
+    <HoverCard.Trigger delay={10.} closeDelay={100.} render={<Button variant=Link />}>
       {"Hover Here"->React.string}
     </HoverCard.Trigger>
     <HoverCard.Content className="flex w-64 flex-col gap-0.5">

@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Dialog>
-    <Dialog.Trigger render={<Button variant=Outline dataSlot="dialog-trigger" />}>
+    <Dialog.Trigger render={<Button variant=Outline />}>
       {"Sticky Footer"->React.string}
     </Dialog.Trigger>
     <Dialog.Content>
@@ -19,9 +19,7 @@ let make = ({}: Demo.Props.t) =>
         )->React.array}
       </div>
       <Dialog.Footer>
-        <Dialog.Close render={<Button variant=Outline dataSlot="dialog-close" />}>
-          {"Close"->React.string}
-        </Dialog.Close>
+        <Dialog.Close render={<Button variant=Outline />}> {"Close"->React.string} </Dialog.Close>
       </Dialog.Footer>
     </Dialog.Content>
   </Dialog>

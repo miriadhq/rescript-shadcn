@@ -42,7 +42,7 @@ let make = ({}: Demo.Props.t) =>
           </div>
           <Sheet.Footer>
             <Button type_="submit"> {"Save changes"->React.string} </Button>
-            <Sheet.Close render={<Button variant=Outline dataSlot="sheet-close" />}>
+            <Sheet.Close render={<Button variant=Outline />}>
               {"Cancel"->React.string}
             </Sheet.Close>
           </Sheet.Footer>

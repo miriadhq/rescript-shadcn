@@ -18,9 +18,7 @@ let make = ({}: Demo.Props.t) => {
       <Button variant=Outline> {"Snooze"->React.string} </Button>
       <DropdownMenu>
         <DropdownMenu.Trigger
-          render={<Button
-            variant=Outline dataSlot="dropdown-menu-trigger" size=Icon ariaLabel="More Options"
-          />}
+          render={<Button variant=Outline size=Icon ariaLabel="More Options" />}
         >
           <Icons.MoreHorizontal />
         </DropdownMenu.Trigger>

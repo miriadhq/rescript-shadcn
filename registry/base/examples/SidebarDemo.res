@@ -157,7 +157,6 @@ module TeamSwitcher = {
               render={<Sidebar.MenuButton
                 size=Sidebar.MenuButton.Size.Lg
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                dataSlot="dropdown-menu-trigger"
               />}
             >
               <div
@@ -277,9 +276,7 @@ module NavProjectsSection = {
               <span> {project.name->React.string} </span>
             </Sidebar.MenuButton>
             <DropdownMenu>
-              <DropdownMenu.Trigger
-                render={<Sidebar.MenuAction showOnHover=true dataSlot="dropdown-menu-trigger" />}
-              >
+              <DropdownMenu.Trigger render={<Sidebar.MenuAction showOnHover=true />}>
                 <Icons.MoreHorizontal />
                 <span className="sr-only"> {"More"->React.string} </span>
               </DropdownMenu.Trigger>
@@ -330,7 +327,6 @@ module NavUserSection = {
             render={<Sidebar.MenuButton
               size=Sidebar.MenuButton.Size.Lg
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-              dataSlot="dropdown-menu-trigger"
             />}
           >
             <Avatar className="h-8 w-8 rounded-lg">

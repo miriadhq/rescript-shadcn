@@ -55,7 +55,7 @@ let make = ({}: Demo.Props.t) => {
 
   if isDesktop {
     <Dialog open_ onOpenChange={(nextOpen, _) => setOpen(_ => nextOpen)}>
-      <Dialog.Trigger render={<Button variant=Outline dataSlot="dialog-trigger" />}>
+      <Dialog.Trigger render={<Button variant=Outline />}>
         {"Edit Profile"->React.string}
       </Dialog.Trigger>
       <Dialog.Content className="sm:max-w-[425px]">

@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Dialog>
-    <Dialog.Trigger render={<Button variant=Outline dataSlot="dialog-trigger" />}>
+    <Dialog.Trigger render={<Button variant=Outline />}>
       {"No Close Button"->React.string}
     </Dialog.Trigger>
     <Dialog.Content showCloseButton=false>
