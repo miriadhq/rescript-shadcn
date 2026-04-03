@@ -16,9 +16,7 @@ let make = ({}: Demo.Props.t) => {
   let (theme, setTheme) = React.useState(() => "light")
 
   <DropdownMenu>
-    <DropdownMenu.Trigger
-      render={<Button variant=Button.Variant.Outline dataSlot="dropdown-menu-trigger" />}
-    >
+    <DropdownMenu.Trigger render={<Button variant=Outline dataSlot="dropdown-menu-trigger" />}>
       {"Complex Menu"->React.string}
     </DropdownMenu.Trigger>
     <DropdownMenu.Content className="w-44">

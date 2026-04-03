@@ -7,9 +7,7 @@ let make = ({}: Demo.Props.t) => {
   let (showPanel, setShowPanel) = React.useState(() => false)
 
   <DropdownMenu>
-    <DropdownMenu.Trigger
-      render={<Button variant=Button.Variant.Outline dataSlot="dropdown-menu-trigger" />}
-    >
+    <DropdownMenu.Trigger render={<Button variant=Outline dataSlot="dropdown-menu-trigger" />}>
       {"Open"->React.string}
     </DropdownMenu.Trigger>
     <DropdownMenu.Content className="w-40">

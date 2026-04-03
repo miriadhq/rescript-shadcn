@@ -15,7 +15,7 @@ let make = ({}: Demo.Props.t) => {
       </Field.Label>
       <Popover.Trigger
         render={<Button
-          variant=Button.Variant.Outline
+          variant=Outline
           id="date-picker-with-dropdowns-desktop"
           className="justify-start px-2.5 font-normal"
           dataSlot="popover-trigger"
@@ -35,12 +35,7 @@ let make = ({}: Demo.Props.t) => {
           captionLayout=Calendar.CaptionLayout.Dropdown
         />
         <div className="flex gap-2 border-t p-2">
-          <Button
-            variant=Button.Variant.Outline
-            size=Button.Size.Sm
-            className="w-full"
-            onClick={_ => setOpen(_ => false)}
-          >
+          <Button variant=Outline size=Sm className="w-full" onClick={_ => setOpen(_ => false)}>
             {"Done"->React.string}
           </Button>
         </div>

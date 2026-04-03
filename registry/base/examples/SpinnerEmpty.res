@@ -11,6 +11,6 @@ let make = ({}: Demo.Props.t) =>
       </Empty.Description>
     </Empty.Header>
     <Empty.Content>
-      <Button variant=Button.Variant.Outline size=Button.Size.Sm> {"Cancel"->React.string} </Button>
+      <Button variant=Outline size=Sm> {"Cancel"->React.string} </Button>
     </Empty.Content>
   </Empty>

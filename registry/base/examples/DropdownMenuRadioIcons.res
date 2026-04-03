@@ -5,9 +5,7 @@ let make = ({}: Demo.Props.t) => {
   let (paymentMethod, setPaymentMethod) = React.useState(() => "card")
 
   <DropdownMenu>
-    <DropdownMenu.Trigger
-      render={<Button variant=Button.Variant.Outline dataSlot="dropdown-menu-trigger" />}
-    >
+    <DropdownMenu.Trigger render={<Button variant=Outline dataSlot="dropdown-menu-trigger" />}>
       {"Payment Method"->React.string}
     </DropdownMenu.Trigger>
     <DropdownMenu.Content className="min-w-56">

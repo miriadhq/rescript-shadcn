@@ -58,9 +58,7 @@ let make = ({}: Demo.Props.t) => {
     </Sidebar>
     <Sidebar.Inset>
       <header className="flex h-12 items-center justify-between px-4">
-        <Button
-          onClick={_ => setOpen(prev => !prev)} size=Button.Size.Sm variant=Button.Variant.Ghost
-        >
+        <Button onClick={_ => setOpen(prev => !prev)} size=Sm variant=Ghost>
           {open_ ? <Icons.PanelLeftClose /> : <Icons.PanelLeftOpen />}
           <span>
             {if open_ {

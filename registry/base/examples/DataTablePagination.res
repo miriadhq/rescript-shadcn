@@ -47,8 +47,8 @@ let make = (~table: RT.t<'data>) => {
       </div>
       <div className="flex items-center space-x-2">
         <Button
-          variant=Button.Variant.Outline
-          size=Button.Size.Icon
+          variant=Outline
+          size=Icon
           className="hidden size-8 lg:flex"
           onClick={_ => table->setPageIndex(0)}
           disabled={!(table->RT.getCanPreviousPage)}
@@ -57,8 +57,8 @@ let make = (~table: RT.t<'data>) => {
           <Icons.ChevronsLeft />
         </Button>
         <Button
-          variant=Button.Variant.Outline
-          size=Button.Size.Icon
+          variant=Outline
+          size=Icon
           className="size-8"
           onClick={_ => table->RT.previousPage}
           disabled={!(table->RT.getCanPreviousPage)}
@@ -67,8 +67,8 @@ let make = (~table: RT.t<'data>) => {
           <Icons.ChevronLeft />
         </Button>
         <Button
-          variant=Button.Variant.Outline
-          size=Button.Size.Icon
+          variant=Outline
+          size=Icon
           className="size-8"
           onClick={_ => table->RT.nextPage}
           disabled={!(table->RT.getCanNextPage)}
@@ -77,8 +77,8 @@ let make = (~table: RT.t<'data>) => {
           <Icons.ChevronRight />
         </Button>
         <Button
-          variant=Button.Variant.Outline
-          size=Button.Size.Icon
+          variant=Outline
+          size=Icon
           className="hidden size-8 lg:flex"
           onClick={_ => table->setPageIndex(pageCount - 1)}
           disabled={!(table->RT.getCanNextPage)}

@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   <ButtonGroup>
-    <Button variant=Button.Variant.Outline>
+    <Button variant=Outline>
       <Icons.Bot />
       {"Copilot"->React.string}
     </Button>

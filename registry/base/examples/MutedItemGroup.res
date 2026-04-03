@@ -7,9 +7,7 @@ let make = ({}: Demo.Props.t) =>
         <Item.Description> {"First item in muted group."->React.string} </Item.Description>
       </Item.Content>
       <Item.Actions>
-        <Button variant=Button.Variant.Outline size=Button.Size.Sm>
-          {"Action"->React.string}
-        </Button>
+        <Button variant=Outline size=Sm> {"Action"->React.string} </Button>
       </Item.Actions>
     </Item>
     <Item variant=Item.Variant.Muted>
@@ -18,9 +16,7 @@ let make = ({}: Demo.Props.t) =>
         <Item.Description> {"Second item in muted group."->React.string} </Item.Description>
       </Item.Content>
       <Item.Actions>
-        <Button variant=Button.Variant.Outline size=Button.Size.Sm>
-          {"Action"->React.string}
-        </Button>
+        <Button variant=Outline size=Sm> {"Action"->React.string} </Button>
       </Item.Actions>
     </Item>
     <Item variant=Item.Variant.Muted>
@@ -29,9 +25,7 @@ let make = ({}: Demo.Props.t) =>
         <Item.Description> {"Third item in muted group."->React.string} </Item.Description>
       </Item.Content>
       <Item.Actions>
-        <Button variant=Button.Variant.Outline size=Button.Size.Sm>
-          {"Action"->React.string}
-        </Button>
+        <Button variant=Outline size=Sm> {"Action"->React.string} </Button>
       </Item.Actions>
     </Item>
   </Item.Group>

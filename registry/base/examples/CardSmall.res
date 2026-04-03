@@ -26,12 +26,8 @@ let make = ({}: Demo.Props.t) => {
       </ul>
     </Card.Content>
     <Card.Footer className="flex-col gap-2">
-      <Button size=Button.Size.Sm className="w-full">
-        {"Set up scheduled reports"->React.string}
-      </Button>
-      <Button variant=Button.Variant.Outline size=Button.Size.Sm className="w-full">
-        {"See what's new"->React.string}
-      </Button>
+      <Button size=Sm className="w-full"> {"Set up scheduled reports"->React.string} </Button>
+      <Button variant=Outline size=Sm className="w-full"> {"See what's new"->React.string} </Button>
     </Card.Footer>
   </Card>
 }

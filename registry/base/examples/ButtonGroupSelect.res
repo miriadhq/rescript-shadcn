@@ -31,7 +31,7 @@ let make = ({}: Demo.Props.t) => {
       <Input placeholder="10.00" pattern="[0-9]*" />
     </ButtonGroup>
     <ButtonGroup>
-      <Button ariaLabel="Send" size=Button.Size.Icon variant=Button.Variant.Outline>
+      <Button ariaLabel="Send" size=Icon variant=Outline>
         <Icons.ArrowRight />
       </Button>
     </ButtonGroup>

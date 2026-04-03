@@ -18,11 +18,11 @@ module TablerIcons = {
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <div className="flex gap-2">
-    <Button variant=Button.Variant.Outline>
+    <Button variant=Outline>
       <TablerIcons.GitBranch dataIcon="inline-start" />
       {"New Branch"->React.string}
     </Button>
-    <Button variant=Button.Variant.Outline>
+    <Button variant=Outline>
       {"Fork"->React.string}
       <TablerIcons.GitFork dataIcon="inline-end" />
     </Button>

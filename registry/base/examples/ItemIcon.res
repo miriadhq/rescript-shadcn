@@ -12,9 +12,7 @@ let make = ({}: Demo.Props.t) =>
         </Item.Description>
       </Item.Content>
       <Item.Actions>
-        <Button size=Button.Size.Sm variant=Button.Variant.Outline>
-          {"Review"->React.string}
-        </Button>
+        <Button size=Sm variant=Outline> {"Review"->React.string} </Button>
       </Item.Actions>
     </Item>
   </div>

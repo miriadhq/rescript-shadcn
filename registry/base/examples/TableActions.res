@@ -16,10 +16,7 @@ let make = ({}: Demo.Props.t) =>
           <DropdownMenu>
             <DropdownMenu.Trigger
               render={<Button
-                variant=Button.Variant.Ghost
-                size=Button.Size.Icon
-                className="size-8"
-                dataSlot="dropdown-menu-trigger"
+                variant=Ghost size=Icon className="size-8" dataSlot="dropdown-menu-trigger"
               />}
             >
               <Icons.MoreHorizontal />
@@ -43,10 +40,7 @@ let make = ({}: Demo.Props.t) =>
           <DropdownMenu>
             <DropdownMenu.Trigger
               render={<Button
-                variant=Button.Variant.Ghost
-                size=Button.Size.Icon
-                className="size-8"
-                dataSlot="dropdown-menu-trigger"
+                variant=Ghost size=Icon className="size-8" dataSlot="dropdown-menu-trigger"
               />}
             >
               <Icons.MoreHorizontal />
@@ -70,10 +64,7 @@ let make = ({}: Demo.Props.t) =>
           <DropdownMenu>
             <DropdownMenu.Trigger
               render={<Button
-                variant=Button.Variant.Ghost
-                size=Button.Size.Icon
-                className="size-8"
-                dataSlot="dropdown-menu-trigger"
+                variant=Ghost size=Icon className="size-8" dataSlot="dropdown-menu-trigger"
               />}
             >
               <Icons.MoreHorizontal />

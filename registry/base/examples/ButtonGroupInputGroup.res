@@ -10,7 +10,7 @@ let make = ({}: Demo.Props.t) => {
 
   <ButtonGroup className="[--radius:9999rem]">
     <ButtonGroup>
-      <Button variant=Button.Variant.Outline size=Button.Size.Icon>
+      <Button variant=Outline size=Icon>
         <Icons.Plus />
       </Button>
     </ButtonGroup>

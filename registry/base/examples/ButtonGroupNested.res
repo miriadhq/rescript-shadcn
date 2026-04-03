@@ -2,7 +2,7 @@
 let make = ({}: Demo.Props.t) =>
   <ButtonGroup>
     <ButtonGroup>
-      <Button variant=Button.Variant.Outline size=Button.Size.Icon>
+      <Button variant=Outline size=Icon>
         <Icons.Plus />
       </Button>
     </ButtonGroup>

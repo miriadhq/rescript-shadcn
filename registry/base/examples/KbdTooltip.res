@@ -3,7 +3,7 @@ let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap gap-4">
     <ButtonGroup>
       <Tooltip>
-        <Tooltip.Trigger render={<Button variant=Button.Variant.Outline />}>
+        <Tooltip.Trigger render={<Button variant=Outline />}>
           {"Save"->React.string}
         </Tooltip.Trigger>
         <Tooltip.Content className="pr-1.5">
@@ -14,7 +14,7 @@ let make = ({}: Demo.Props.t) =>
         </Tooltip.Content>
       </Tooltip>
       <Tooltip>
-        <Tooltip.Trigger render={<Button variant=Button.Variant.Outline />}>
+        <Tooltip.Trigger render={<Button variant=Outline />}>
           {"Print"->React.string}
         </Tooltip.Trigger>
         <Tooltip.Content className="pr-1.5">

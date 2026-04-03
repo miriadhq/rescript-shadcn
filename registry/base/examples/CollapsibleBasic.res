@@ -11,7 +11,7 @@ let make = ({}: Demo.Props.t) =>
           <div>
             {"This panel can be expanded or collapsed to reveal additional content."->React.string}
           </div>
-          <Button size=Button.Size.Xs> {"Learn More"->React.string} </Button>
+          <Button size=Xs> {"Learn More"->React.string} </Button>
         </Collapsible.Content>
       </Collapsible>
     </Card.Content>

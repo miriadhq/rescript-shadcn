@@ -9,7 +9,7 @@ let make = ({}: Demo.Props.t) => {
   <Popover>
     <Popover.Trigger
       render={<Button
-        variant=Button.Variant.Outline
+        variant=Outline
         dataEmpty=?{date->Option.isNone ? Some(true) : None}
         className="data-[empty=true]:text-muted-foreground w-[212px] justify-between text-left font-normal"
       />}

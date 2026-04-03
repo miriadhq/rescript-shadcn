@@ -141,7 +141,7 @@ let make = ({}: Demo.Props.t) =>
         </Field.Set>
         <Field orientation=BaseUi.Types.Orientation.Horizontal>
           <Button type_="submit"> {"Submit"->React.string} </Button>
-          <Button variant=Button.Variant.Outline type_="button"> {"Cancel"->React.string} </Button>
+          <Button variant=Outline type_="button"> {"Cancel"->React.string} </Button>
         </Field>
       </Field.Group>
     </form>

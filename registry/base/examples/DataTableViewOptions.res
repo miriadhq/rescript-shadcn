@@ -6,9 +6,7 @@ module RT = DataTableDemo.RT
 let make = (~table: RT.t<'data>) => {
   <DropdownMenu>
     <DropdownMenu.Trigger
-      render={<Button
-        variant=Button.Variant.Outline size=Button.Size.Sm className="ml-auto hidden h-8 lg:flex"
-      />}
+      render={<Button variant=Outline size=Sm className="ml-auto hidden h-8 lg:flex" />}
     >
       <Icons.Settings2 />
       {"View"->React.string}

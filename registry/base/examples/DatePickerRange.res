@@ -19,9 +19,7 @@ let make = ({}: Demo.Props.t) => {
     <Popover>
       <Popover.Trigger
         render={<Button
-          variant=Button.Variant.Outline
-          id="date-picker-range"
-          className="justify-start px-2.5 font-normal"
+          variant=Outline id="date-picker-range" className="justify-start px-2.5 font-normal"
         />}
       >
         <Icons.Calendar dataIcon="inline-start" />

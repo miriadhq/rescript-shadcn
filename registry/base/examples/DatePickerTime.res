@@ -13,9 +13,7 @@ let make = ({}: Demo.Props.t) => {
       <Popover open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>
         <Popover.Trigger
           render={<Button
-            variant=Button.Variant.Outline
-            id="date-picker-optional"
-            className="w-32 justify-between font-normal"
+            variant=Outline id="date-picker-optional" className="w-32 justify-between font-normal"
           />}
         >
           {switch date {

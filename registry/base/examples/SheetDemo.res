@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Sheet>
-    <Sheet.Trigger render={<Button variant=Button.Variant.Outline dataSlot="sheet-trigger" />}>
+    <Sheet.Trigger render={<Button variant=Outline dataSlot="sheet-trigger" />}>
       {"Open"->React.string}
     </Sheet.Trigger>
     <Sheet.Content>
@@ -23,7 +23,7 @@ let make = ({}: Demo.Props.t) =>
       </div>
       <Sheet.Footer>
         <Button type_="submit"> {"Save changes"->React.string} </Button>
-        <Sheet.Close render={<Button variant=Button.Variant.Outline dataSlot="sheet-close" />}>
+        <Sheet.Close render={<Button variant=Outline dataSlot="sheet-close" />}>
           {"Close"->React.string}
         </Sheet.Close>
       </Sheet.Footer>

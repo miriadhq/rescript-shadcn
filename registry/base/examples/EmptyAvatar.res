@@ -14,6 +14,6 @@ let make = ({}: Demo.Props.t) =>
       </Empty.Description>
     </Empty.Header>
     <Empty.Content>
-      <Button size=Button.Size.Sm> {"Leave Message"->React.string} </Button>
+      <Button size=Sm> {"Leave Message"->React.string} </Button>
     </Empty.Content>
   </Empty>

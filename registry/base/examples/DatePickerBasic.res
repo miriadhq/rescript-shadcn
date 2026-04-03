@@ -11,9 +11,7 @@ let make = ({}: Demo.Props.t) => {
     <Popover>
       <Popover.Trigger
         render={<Button
-          variant=Button.Variant.Outline
-          id="date-picker-simple"
-          className="justify-start font-normal"
+          variant=Outline id="date-picker-simple" className="justify-start font-normal"
         />}
       >
         {switch date {

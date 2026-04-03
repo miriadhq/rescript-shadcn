@@ -6,7 +6,7 @@ let make = ({}: Demo.Props.t) => {
 
   <ButtonGroup>
     <ButtonGroup className="hidden sm:flex">
-      <Button variant=Outline size=Button.Size.Icon ariaLabel="Go Back">
+      <Button variant=Outline size=Icon ariaLabel="Go Back">
         <Icons.ArrowLeft />
       </Button>
     </ButtonGroup>
@@ -19,10 +19,7 @@ let make = ({}: Demo.Props.t) => {
       <DropdownMenu>
         <DropdownMenu.Trigger
           render={<Button
-            variant=Outline
-            dataSlot="dropdown-menu-trigger"
-            size=Button.Size.Icon
-            ariaLabel="More Options"
+            variant=Outline dataSlot="dropdown-menu-trigger" size=Icon ariaLabel="More Options"
           />}
         >
           <Icons.MoreHorizontal />

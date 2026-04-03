@@ -35,7 +35,7 @@ module LocalIcons = {
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   <ButtonGroup>
-    <Button variant=Button.Variant.Outline> {"Follow"->React.string} </Button>
+    <Button variant=Outline> {"Follow"->React.string} </Button>
     <DropdownMenu>
       <DropdownMenu.Trigger render={<Button variant=Outline className="!pl-2" />}>
         <Icons.ChevronDown />

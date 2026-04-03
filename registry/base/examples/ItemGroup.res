@@ -37,7 +37,7 @@ let make = ({}: Demo.Props.t) =>
           <Item.Description> {person.email->React.string} </Item.Description>
         </Item.Content>
         <Item.Actions>
-          <Button variant=Button.Variant.Ghost size=Button.Size.Icon className="rounded-full">
+          <Button variant=Ghost size=Icon className="rounded-full">
             <Icons.Plus />
           </Button>
         </Item.Actions>

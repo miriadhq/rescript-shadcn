@@ -70,12 +70,7 @@ let rec renderItem = (fileItem: fileTreeItem) =>
       </Collapsible.Content>
     </Collapsible>
   | File({name}) =>
-    <Button
-      key=name
-      variant=Button.Variant.Link
-      size=Button.Size.Sm
-      className="text-foreground w-full justify-start gap-2"
-    >
+    <Button key=name variant=Link size=Sm className="text-foreground w-full justify-start gap-2">
       <Icons.File />
       <span> {name->React.string} </span>
     </Button>

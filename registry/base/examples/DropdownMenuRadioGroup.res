@@ -5,9 +5,7 @@ let make = ({}: Demo.Props.t) => {
   let (position, setPosition) = React.useState(() => "bottom")
 
   <DropdownMenu>
-    <DropdownMenu.Trigger
-      render={<Button variant=Button.Variant.Outline dataSlot="dropdown-menu-trigger" />}
-    >
+    <DropdownMenu.Trigger render={<Button variant=Outline dataSlot="dropdown-menu-trigger" />}>
       {"Open"->React.string}
     </DropdownMenu.Trigger>
     <DropdownMenu.Content className="w-32">

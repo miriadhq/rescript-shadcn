@@ -9,6 +9,6 @@ module LucideIcons = {
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Button variant=Button.Variant.Outline size=Button.Size.Icon>
+  <Button variant=Outline size=Icon>
     <LucideIcons.CircleFadingArrowUp />
   </Button>

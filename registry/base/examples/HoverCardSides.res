@@ -12,9 +12,7 @@ let make = ({}: Demo.Props.t) =>
     ->Array.map(((side, label)) =>
       <HoverCard key=label>
         <HoverCard.Trigger
-          delay={100.}
-          closeDelay={100.}
-          render={<Button variant=Button.Variant.Outline className="capitalize" />}
+          delay={100.} closeDelay={100.} render={<Button variant=Outline className="capitalize" />}
         >
           {label->React.string}
         </HoverCard.Trigger>

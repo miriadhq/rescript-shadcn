@@ -5,10 +5,7 @@ let make = ({}: Demo.Props.t) =>
   <DropdownMenu>
     <DropdownMenu.Trigger
       render={<Button
-        variant=Button.Variant.Ghost
-        size=Button.Size.Icon
-        className="rounded-full"
-        dataSlot="dropdown-menu-trigger"
+        variant=Ghost size=Icon className="rounded-full" dataSlot="dropdown-menu-trigger"
       />}
     >
       <Avatar>

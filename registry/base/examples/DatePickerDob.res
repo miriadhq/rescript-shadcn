@@ -9,9 +9,7 @@ let make = ({}: Demo.Props.t) => {
     <Field.Label htmlFor="date"> {"Date of birth"->React.string} </Field.Label>
     <Popover open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>
       <Popover.Trigger
-        render={<Button
-          variant=Button.Variant.Outline id="date" className="justify-start font-normal"
-        />}
+        render={<Button variant=Outline id="date" className="justify-start font-normal" />}
       >
         {switch date {
         | Some(d) => d->Date.toLocaleDateString->React.string
