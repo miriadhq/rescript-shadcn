@@ -34,7 +34,7 @@ let make = ({}: Demo.Props.t) =>
             {"Help"->React.string}
           </Menubar.Item>
           <Menubar.Separator />
-          <Menubar.Item variant=Menubar.Variant.Destructive>
+          <Menubar.Item variant=Destructive>
             <Icons.Trash />
             {"Delete"->React.string}
           </Menubar.Item>

@@ -19,7 +19,7 @@ let make = ({}: Demo.Props.t) =>
       </DropdownMenu.Group>
       <DropdownMenu.Separator />
       <DropdownMenu.Group>
-        <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
+        <DropdownMenu.Item variant=Destructive>
           <Icons.Trash />
           {"Delete"->React.string}
         </DropdownMenu.Item>

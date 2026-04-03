@@ -20,9 +20,7 @@ let make = ({}: Demo.Props.t) =>
       </AlertDialog.Header>
       <AlertDialog.Footer>
         <AlertDialog.Cancel variant=Outline> {"Cancel"->React.string} </AlertDialog.Cancel>
-        <AlertDialog.Action variant=AlertDialog.Variant.Destructive>
-          {"Delete"->React.string}
-        </AlertDialog.Action>
+        <AlertDialog.Action variant=Destructive> {"Delete"->React.string} </AlertDialog.Action>
       </AlertDialog.Footer>
     </AlertDialog.Content>
   </AlertDialog>

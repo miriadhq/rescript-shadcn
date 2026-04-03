@@ -20,7 +20,7 @@ let make = ({}: Demo.Props.t) =>
         {"Settings"->React.string}
       </DropdownMenu.Item>
       <DropdownMenu.Separator />
-      <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
+      <DropdownMenu.Item variant=Destructive>
         <Icons.LogOut />
         {"Log out"->React.string}
       </DropdownMenu.Item>

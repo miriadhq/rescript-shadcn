@@ -9,7 +9,7 @@ let make = ({}: Demo.Props.t) =>
     />
     <Card.Header>
       <Card.Action>
-        <Badge variant=Badge.Variant.Secondary> {"Featured"->React.string} </Badge>
+        <Badge variant=Secondary> {"Featured"->React.string} </Badge>
       </Card.Action>
       <Card.Title> {"Design systems meetup"->React.string} </Card.Title>
       <Card.Description>

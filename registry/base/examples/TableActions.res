@@ -26,9 +26,7 @@ let make = ({}: Demo.Props.t) =>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />
-              <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
-                {"Delete"->React.string}
-              </DropdownMenu.Item>
+              <DropdownMenu.Item variant=Destructive> {"Delete"->React.string} </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu>
         </Table.Cell>
@@ -50,9 +48,7 @@ let make = ({}: Demo.Props.t) =>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />
-              <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
-                {"Delete"->React.string}
-              </DropdownMenu.Item>
+              <DropdownMenu.Item variant=Destructive> {"Delete"->React.string} </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu>
         </Table.Cell>
@@ -74,9 +70,7 @@ let make = ({}: Demo.Props.t) =>
               <DropdownMenu.Item> {"Edit"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Duplicate"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Separator />
-              <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
-                {"Delete"->React.string}
-              </DropdownMenu.Item>
+              <DropdownMenu.Item variant=Destructive> {"Delete"->React.string} </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu>
         </Table.Cell>

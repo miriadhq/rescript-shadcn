@@ -15,9 +15,7 @@ let make = ({}: Demo.Props.t) => {
       </DropdownMenu.Group>
       <DropdownMenu.Separator />
       <DropdownMenu.Group>
-        <DropdownMenu.Item variant=DropdownMenu.Variant.Destructive>
-          {"Log out"->React.string}
-        </DropdownMenu.Item>
+        <DropdownMenu.Item variant=Destructive> {"Log out"->React.string} </DropdownMenu.Item>
       </DropdownMenu.Group>
     </DropdownMenu.Content>
   </DropdownMenu>
