@@ -9,6 +9,7 @@ const suffix = rescriptJson.suffix
 const packageRoot = new URL("..", import.meta.url).pathname
 const baseDir = path.join(packageRoot, "registry", "base")
 const registryPath = path.join(packageRoot, "registry.json")
+const registryNamespace = "@rescript-shadcn"
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -177,7 +178,9 @@ function buildItem(mod, dir, type) {
     registryDepsSet.add(dep)
   }
 
-  const registryDeps = [...registryDepsSet].sort()
+  const registryDeps = [...registryDepsSet]
+    .map((dep) => `${registryNamespace}/${dep}`)
+    .sort()
 
   const item = { name, type }
 
