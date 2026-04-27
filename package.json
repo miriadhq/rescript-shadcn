@@ -32,6 +32,7 @@
     "@rescript/webapi": "0.1.0-experimental-127e19a",
     "@tabler/icons-react": "^3.38.0",
     "@tanstack/react-table": "^8.21.3",
+    "@vercel/analytics": "^2.0.1",
     "chrono-node": "^2.9.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
