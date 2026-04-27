@@ -19,7 +19,8 @@ let make = ({}: Demo.Props.t) => {
     items={rows->Array.map((r: row): BaseUi.Select.Item.t<null<string>> => {
       label: r.label,
       value: r.value,
-    })} disabled={true}
+    })}
+    disabled={true}
   >
     <Select.Trigger className="w-full max-w-48">
       <Select.Value />

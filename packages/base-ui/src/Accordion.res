@@ -20,7 +20,10 @@ module Item = {
   type props<'value> = {
     ...Types.BaseUIComponentProps.t,
     value?: 'value,
-    onOpenChange?: (bool, Types.BaseUIChangeEventDetail.t<[#"trigger-press" | #none], unknown>) => unit,
+    onOpenChange?: (
+      bool,
+      Types.BaseUIChangeEventDetail.t<[#"trigger-press" | #none], unknown>,
+    ) => unit,
   }
   @module("@base-ui/react/accordion") @scope("Accordion")
   external make: React.component<props<'value>> = "Item"

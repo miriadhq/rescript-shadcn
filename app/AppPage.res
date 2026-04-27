@@ -18,11 +18,7 @@ let make = () => {
         <Button render={<Next.Link href="/installation" />} nativeButton=false>
           {"Get started"->React.string}
         </Button>
-        <Button
-          render={<Next.Link href="/components" />}
-          nativeButton=false
-          variant=Outline
-        >
+        <Button render={<Next.Link href="/components" />} nativeButton=false variant=Outline>
           {"See components"->React.string}
         </Button>
       </div>
