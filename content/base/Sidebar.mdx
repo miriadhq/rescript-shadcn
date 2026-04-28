@@ -181,13 +181,11 @@ The main `Sidebar` component used to render a collapsible sidebar.
 </Sidebar.Provider>
 ```
 
-## useSidebar
+## Sidebar.use
 
-The `useSidebar` hook is used to control the sidebar.
+The `Sidebar.use` hook is used to control the sidebar.
 
 ```res showLineNumbers
-import { useSidebar } from "@/components/ui/sidebar"
-
 module AppSidebar = {
   @react.component 
   let make = () => {
@@ -409,13 +407,11 @@ The `Sidebar.MenuSkeleton` component is used to render a skeleton for a `Sidebar
 </Sidebar.Menu>
 ```
 
-## SidebarTrigger
+## Sidebar.Trigger
 
-Use the `SidebarTrigger` component to render a button that toggles the sidebar.
+Use the `Sidebar.Trigger` component to render a button that toggles the sidebar.
 
 ```res showLineNumbers
-import { useSidebar } from "@/components/ui/sidebar"
-
 module CustomTrigger = {
   @react.component 
   let make = () => {
