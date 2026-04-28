@@ -1,50 +1,8 @@
 @@directive("'use client'")
 
-type icon =
-  | IconAudioWaveform
-  | IconBadgeCheck
-  | IconBell
-  | IconBookOpen
-  | IconBot
-  | IconCommand
-  | IconFolder
-  | IconForward
-  | IconFrame
-  | IconGalleryVerticalEnd
-  | IconMap
-  | IconMoreHorizontal
-  | IconPieChart
-  | IconPlus
-  | IconSettings2
-  | IconSparkles
-  | IconSquareTerminal
-  | IconTrash2
-
-let renderIcon = (~icon: icon, ~className="") =>
-  switch icon {
-  | IconAudioWaveform => <Icons.AudioWaveform className />
-  | IconBadgeCheck => <Icons.BadgeCheck className />
-  | IconBell => <Icons.Bell className />
-  | IconBookOpen => <Icons.BookOpen className />
-  | IconBot => <Icons.Bot className />
-  | IconCommand => <Icons.Command className />
-  | IconFolder => <Icons.Folder className />
-  | IconForward => <Icons.Forward className />
-  | IconFrame => <Icons.Frame className />
-  | IconGalleryVerticalEnd => <Icons.GalleryVerticalEnd className />
-  | IconMap => <Icons.Map className />
-  | IconMoreHorizontal => <Icons.MoreHorizontal className />
-  | IconPieChart => <Icons.PieChart className />
-  | IconPlus => <Icons.Plus className />
-  | IconSettings2 => <Icons.Settings2 className />
-  | IconSparkles => <Icons.Sparkles className />
-  | IconSquareTerminal => <Icons.SquareTerminal className />
-  | IconTrash2 => <Icons.Trash2 className />
-  }
-
 type team = {
   name: string,
-  logo: icon,
+  logo: module(Icons.Icon),
   plan: string,
 }
 
@@ -56,7 +14,7 @@ type navSubItem = {
 type navMainItem = {
   title: string,
   url: string,
-  icon: icon,
+  icon: React.element,
   isActive: bool,
   items: array<navSubItem>,
 }
@@ -64,7 +22,7 @@ type navMainItem = {
 type project = {
   name: string,
   url: string,
-  icon: icon,
+  icon: React.element,
 }
 
 type user = {
@@ -80,16 +38,16 @@ let userData: user = {
 }
 
 let teams: array<team> = [
-  {name: "Acme Inc", logo: IconGalleryVerticalEnd, plan: "Enterprise"},
-  {name: "Acme Corp.", logo: IconAudioWaveform, plan: "Startup"},
-  {name: "Evil Corp.", logo: IconCommand, plan: "Free"},
+  {name: "Acme Inc", logo: module(Icons.GalleryVerticalEnd), plan: "Enterprise"},
+  {name: "Acme Corp.", logo: module(Icons.AudioWaveform), plan: "Startup"},
+  {name: "Evil Corp.", logo: module(Icons.Command), plan: "Free"},
 ]
 
 let navMain: array<navMainItem> = [
   {
     title: "Playground",
     url: "#",
-    icon: IconSquareTerminal,
+    icon: <Icons.SquareTerminal />,
     isActive: true,
     items: [
       {title: "History", url: "#"},
@@ -100,7 +58,7 @@ let navMain: array<navMainItem> = [
   {
     title: "Models",
     url: "#",
-    icon: IconBot,
+    icon: <Icons.Bot />,
     isActive: false,
     items: [
       {title: "Genesis", url: "#"},
@@ -111,7 +69,7 @@ let navMain: array<navMainItem> = [
   {
     title: "Documentation",
     url: "#",
-    icon: IconBookOpen,
+    icon: <Icons.BookOpen />,
     isActive: false,
     items: [
       {title: "Introduction", url: "#"},
@@ -123,7 +81,7 @@ let navMain: array<navMainItem> = [
   {
     title: "Settings",
     url: "#",
-    icon: IconSettings2,
+    icon: <Icons.Settings2 />,
     isActive: false,
     items: [
       {title: "General", url: "#"},
@@ -135,9 +93,9 @@ let navMain: array<navMainItem> = [
 ]
 
 let projects: array<project> = [
-  {name: "Design Engineering", url: "#", icon: IconFrame},
-  {name: "Sales & Marketing", url: "#", icon: IconPieChart},
-  {name: "Travel", url: "#", icon: IconMap},
+  {name: "Design Engineering", url: "#", icon: <Icons.Frame />},
+  {name: "Sales & Marketing", url: "#", icon: <Icons.PieChart />},
+  {name: "Travel", url: "#", icon: <Icons.Map />},
 ]
 
 module TeamSwitcher = {
@@ -149,7 +107,7 @@ module TeamSwitcher = {
 
     switch teams->Array.get(activeTeamIndex) {
     | None => React.null
-    | Some(activeTeam) =>
+    | Some({logo: module(Logo), name, plan}) =>
       <Sidebar.Menu>
         <Sidebar.MenuItem>
           <DropdownMenu>
@@ -162,11 +120,11 @@ module TeamSwitcher = {
               <div
                 className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
               >
-                {renderIcon(~icon=activeTeam.logo, ~className="size-4")}
+                <Logo className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium"> {activeTeam.name->React.string} </span>
-                <span className="truncate text-xs"> {activeTeam.plan->React.string} </span>
+                <span className="truncate font-medium"> {name->React.string} </span>
+                <span className="truncate text-xs"> {plan->React.string} </span>
               </div>
               <Icons.ChevronsUpDown className="ml-auto" />
             </DropdownMenu.Trigger>
@@ -181,16 +139,14 @@ module TeamSwitcher = {
                   {"Teams"->React.string}
                 </DropdownMenu.Label>
                 {teams
-                ->Array.mapWithIndex((team, index) =>
+                ->Array.mapWithIndex(({name, logo: module(Logo)}, index) =>
                   <DropdownMenu.Item
-                    key={team.name}
-                    onClick={_ => setActiveTeamIndex(_ => index)}
-                    className="gap-2 p-2"
+                    key={name} onClick={_ => setActiveTeamIndex(_ => index)} className="gap-2 p-2"
                   >
                     <div className="flex size-6 items-center justify-center rounded-md border">
-                      {renderIcon(~icon=team.logo, ~className="size-3.5 shrink-0")}
+                      <Logo className="size-3.5 shrink-0" />
                     </div>
-                    {team.name->React.string}
+                    {name->React.string}
                     <DropdownMenu.Shortcut>
                       {`⌘${Int.toString(index + 1)}`->React.string}
                     </DropdownMenu.Shortcut>
@@ -204,7 +160,7 @@ module TeamSwitcher = {
                   <div
                     className="flex size-6 items-center justify-center rounded-md border bg-transparent"
                   >
-                    {renderIcon(~icon=IconPlus, ~className="size-4")}
+                    {<Icons.Plus className="size-4" />}
                   </div>
                   <div className="text-muted-foreground font-medium">
                     {"Add team"->React.string}
@@ -232,7 +188,7 @@ module NavMainSection = {
               <Collapsible.Trigger
                 render={<Sidebar.MenuButton ariaDisabled={false} dataSlot="collapsible-trigger" />}
               >
-                {renderIcon(~icon=item.icon)}
+                {item.icon}
                 <span> {item.title->React.string} </span>
                 <Icons.ChevronRight
                   className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
@@ -272,7 +228,7 @@ module NavProjectsSection = {
         ->Array.map(project =>
           <Sidebar.MenuItem key={project.name}>
             <Sidebar.MenuButton render={<a href={project.url} />}>
-              {renderIcon(~icon=project.icon)}
+              {project.icon}
               <span> {project.name->React.string} </span>
             </Sidebar.MenuButton>
             <DropdownMenu>
@@ -286,16 +242,16 @@ module NavProjectsSection = {
                 align={isMobile ? BaseUi.Types.Align.End : BaseUi.Types.Align.Start}
               >
                 <DropdownMenu.Item>
-                  {renderIcon(~icon=IconFolder, ~className="text-muted-foreground")}
+                  {<Icons.Folder className="text-muted-foreground" />}
                   <span> {"View Project"->React.string} </span>
                 </DropdownMenu.Item>
                 <DropdownMenu.Item>
-                  {renderIcon(~icon=IconForward, ~className="text-muted-foreground")}
+                  {<Icons.Forward className="text-muted-foreground" />}
                   <span> {"Share Project"->React.string} </span>
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item>
-                  {renderIcon(~icon=IconTrash2, ~className="text-muted-foreground")}
+                  {<Icons.Trash2 className="text-muted-foreground" />}
                   <span> {"Delete Project"->React.string} </span>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
@@ -305,7 +261,7 @@ module NavProjectsSection = {
         ->React.array}
         <Sidebar.MenuItem>
           <Sidebar.MenuButton className="text-sidebar-foreground/70">
-            {renderIcon(~icon=IconMoreHorizontal, ~className="text-sidebar-foreground/70")}
+            {<Icons.MoreHorizontal className="text-sidebar-foreground/70" />}
             <span> {"More"->React.string} </span>
           </Sidebar.MenuButton>
         </Sidebar.MenuItem>
@@ -362,14 +318,14 @@ module NavUserSection = {
             <DropdownMenu.Separator />
             <DropdownMenu.Group>
               <DropdownMenu.Item>
-                {renderIcon(~icon=IconSparkles)}
+                {<Icons.Sparkles />}
                 {"Upgrade to Pro"->React.string}
               </DropdownMenu.Item>
             </DropdownMenu.Group>
             <DropdownMenu.Separator />
             <DropdownMenu.Group>
               <DropdownMenu.Item>
-                {renderIcon(~icon=IconBadgeCheck)}
+                {<Icons.BadgeCheck />}
                 {"Account"->React.string}
               </DropdownMenu.Item>
               <DropdownMenu.Item>
@@ -377,7 +333,7 @@ module NavUserSection = {
                 {"Billing"->React.string}
               </DropdownMenu.Item>
               <DropdownMenu.Item>
-                {renderIcon(~icon=IconBell)}
+                {<Icons.Bell />}
                 {"Notifications"->React.string}
               </DropdownMenu.Item>
             </DropdownMenu.Group>

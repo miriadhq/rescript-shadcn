@@ -1,34 +1,18 @@
 @@directive("'use client'")
 
-type icon =
-  | IconFrame
-  | IconLifeBuoy
-  | IconMap
-  | IconPieChart
-  | IconSend
-
-let renderIcon = (~icon) =>
-  switch icon {
-  | IconFrame => <Icons.Frame />
-  | IconLifeBuoy => <Icons.LifeBuoy />
-  | IconMap => <Icons.Map />
-  | IconPieChart => <Icons.PieChart />
-  | IconSend => <Icons.Send />
-  }
-
 type project = {
   name: string,
   url: string,
-  icon: icon,
+  icon: React.element,
   badge: string,
 }
 
 let projects: array<project> = [
-  {name: "Design Engineering", url: "#", icon: IconFrame, badge: "24"},
-  {name: "Sales & Marketing", url: "#", icon: IconPieChart, badge: "12"},
-  {name: "Travel", url: "#", icon: IconMap, badge: "3"},
-  {name: "Support", url: "#", icon: IconLifeBuoy, badge: "21"},
-  {name: "Feedback", url: "#", icon: IconSend, badge: "8"},
+  {name: "Design Engineering", url: "#", icon: <Icons.Frame />, badge: "24"},
+  {name: "Sales & Marketing", url: "#", icon: <Icons.PieChart />, badge: "12"},
+  {name: "Travel", url: "#", icon: <Icons.Map />, badge: "3"},
+  {name: "Support", url: "#", icon: <Icons.LifeBuoy />, badge: "21"},
+  {name: "Feedback", url: "#", icon: <Icons.Send />, badge: "8"},
 ]
 
 @react.componentWithProps(Demo.Props.t)
@@ -45,9 +29,9 @@ let make = ({}: Demo.Props.t) =>
                 <Sidebar.MenuItem key={project.name}>
                   <Sidebar.MenuButton
                     render={<a href={project.url} />}
-                    className="group-has-[[data-state=open]]/menu-item:bg-sidebar-accent"
+                    className="group-has-data-[state=open]/menu-item:bg-sidebar-accent"
                   >
-                    {renderIcon(~icon=project.icon)}
+                    {project.icon}
                     <span> {project.name->React.string} </span>
                   </Sidebar.MenuButton>
                   <Sidebar.MenuBadge> {project.badge->React.string} </Sidebar.MenuBadge>

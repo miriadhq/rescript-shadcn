@@ -1,33 +1,17 @@
 @@directive("'use client'")
 
-type icon =
-  | IconFrame
-  | IconLifeBuoy
-  | IconMap
-  | IconPieChart
-  | IconSend
-
-let renderIcon = (~icon) =>
-  switch icon {
-  | IconFrame => <Icons.Frame />
-  | IconLifeBuoy => <Icons.LifeBuoy />
-  | IconMap => <Icons.Map />
-  | IconPieChart => <Icons.PieChart />
-  | IconSend => <Icons.Send />
-  }
-
 type project = {
   name: string,
   url: string,
-  icon: icon,
+  icon: React.element,
 }
 
 let projects: array<project> = [
-  {name: "Design Engineering", url: "#", icon: IconFrame},
-  {name: "Sales & Marketing", url: "#", icon: IconPieChart},
-  {name: "Travel", url: "#", icon: IconMap},
-  {name: "Support", url: "#", icon: IconLifeBuoy},
-  {name: "Feedback", url: "#", icon: IconSend},
+  {name: "Design Engineering", url: "#", icon: <Icons.Frame />},
+  {name: "Sales & Marketing", url: "#", icon: <Icons.PieChart />},
+  {name: "Travel", url: "#", icon: <Icons.Map />},
+  {name: "Support", url: "#", icon: <Icons.LifeBuoy />},
+  {name: "Feedback", url: "#", icon: <Icons.Send />},
 ]
 
 module NavProjectsSkeleton = {
@@ -50,7 +34,7 @@ module NavProjects = {
       ->Array.map(project =>
         <Sidebar.MenuItem key={project.name}>
           <Sidebar.MenuButton render={<a href={project.url} />}>
-            {renderIcon(~icon=project.icon)}
+            {project.icon}
             <span> {project.name->React.string} </span>
           </Sidebar.MenuButton>
         </Sidebar.MenuItem>

@@ -8,6 +8,10 @@ type props = {
   @as("data-slot") dataSlot?: string,
 }
 
+module type Icon = {
+  let make: React.component<props>
+}
+
 module ChevronDown = {
   @module("lucide-react")
   external make: React.component<props> = "ChevronDownIcon"
