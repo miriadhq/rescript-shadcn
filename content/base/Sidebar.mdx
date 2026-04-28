@@ -222,11 +222,9 @@ Use the `Sidebar.Header` component to add a sticky header to the sidebar.
     <Sidebar.Menu>
       <Sidebar.MenuItem>
         <DropdownMenu>
-          <DropdownMenu.Trigger asChild>
-            <Sidebar.MenuButton>
+          <DropdownMenu.Trigger render={<Sidebar.MenuButton/>}>
               {"Select Workspace"->React.string}
               <Icons.ChevronDown className="ml-auto" />
-            </Sidebar.MenuButton>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content className="w-[--radix-popper-anchor-width]">
             <DropdownMenu.Item>
@@ -326,11 +324,9 @@ The `Sidebar.Menu` component is used for building a menu within a `Sidebar.Group
 <Sidebar.Menu>
   {projects.map((project) => (
     <Sidebar.MenuItem key={project.name}>
-      <Sidebar.MenuButton asChild>
-        <a href={project.url}>
-          <project.icon />
-          <span>{project.name}</span>
-        </a>
+      <Sidebar.MenuButton render={<a href={project.url}/>}>
+        <Project.Icon />
+        <span>{project.name->React.string}</span>
       </Sidebar.MenuButton>
     </Sidebar.MenuItem>
   ))}
