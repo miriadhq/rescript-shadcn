@@ -12,11 +12,11 @@ let make = ({}: Demo.Props.t) => {
         </Popover.Description>
       </Popover.Header>
       <Field.Group className="gap-4">
-        <Field orientation=BaseUi.Types.Orientation.Horizontal>
+        <Field orientation=Horizontal>
           <Field.Label htmlFor="width" className="w-1/2"> {"Width"->React.string} </Field.Label>
           <Input id="width" defaultValue="100%" />
         </Field>
-        <Field orientation=BaseUi.Types.Orientation.Horizontal>
+        <Field orientation=Horizontal>
           <Field.Label htmlFor="height" className="w-1/2"> {"Height"->React.string} </Field.Label>
           <Input id="height" defaultValue="25px" />
         </Field>

@@ -6,7 +6,7 @@ let make = ({}: Demo.Props.t) =>
         <Field.Legend> {"Profile"->React.string} </Field.Legend>
         <Field.Description> {"Fill in your profile information."->React.string} </Field.Description>
         <Field.Group>
-          <Field dataOrientation=Field.DataOrientation.Responsive>
+          <Field orientation=Responsive>
             <Field.Content>
               <Field.Label htmlFor="name"> {"Name"->React.string} </Field.Label>
               <Field.Description>
@@ -15,7 +15,7 @@ let make = ({}: Demo.Props.t) =>
             </Field.Content>
             <Input id="name" placeholder="Evil Rabbit" required={true} />
           </Field>
-          <Field dataOrientation=Field.DataOrientation.Responsive>
+          <Field orientation=Responsive>
             <Button type_="submit"> {"Submit"->React.string} </Button>
             <Button type_="button" variant=Outline> {"Cancel"->React.string} </Button>
           </Field>

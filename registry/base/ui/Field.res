@@ -99,22 +99,12 @@ let make = (
   ~style=?,
   ~onClick=?,
   ~onKeyDown=?,
-  ~orientation=?,
-  ~dataOrientation=?,
+  ~orientation=DataOrientation.Vertical,
   ~disabled=?,
   ~dataDisabled=?,
   ~dataInvalid=?,
   ~dir=?,
 ) => {
-  let resolvedOrientation = switch dataOrientation {
-  | Some(value) => value
-  | None =>
-    switch orientation {
-    | Some(Orientation.Horizontal) => DataOrientation.Horizontal
-    | Some(Orientation.Vertical) => DataOrientation.Vertical
-    | None => DataOrientation.Vertical
-    }
-  }
   <div
     ?id
     ?children
@@ -127,8 +117,8 @@ let make = (
     ?dir
     role="group"
     dataSlot="field"
-    dataOrientation={(resolvedOrientation :> string)}
-    className={cn(fieldVariants(~orientation=resolvedOrientation), className)}
+    dataOrientation={(orientation :> string)}
+    className={cn(fieldVariants(~orientation), className)}
   />
 }
 

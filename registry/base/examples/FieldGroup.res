@@ -7,7 +7,7 @@ let make = ({}: Demo.Props.t) =>
         {"Get notified when ChatGPT responds to requests that take time, like research or image generation."->React.string}
       </Field.Description>
       <Field.Group dataSlot="checkbox-group">
-        <Field orientation=BaseUi.Types.Orientation.Horizontal>
+        <Field orientation=Horizontal>
           <Checkbox id="push" defaultChecked={true} disabled={true} />
           <Field.Label htmlFor="push" className="font-normal">
             {"Push notifications"->React.string}
@@ -23,13 +23,13 @@ let make = ({}: Demo.Props.t) =>
         <a href="#"> {"Manage tasks"->React.string} </a>
       </Field.Description>
       <Field.Group dataSlot="checkbox-group">
-        <Field orientation=BaseUi.Types.Orientation.Horizontal>
+        <Field orientation=Horizontal>
           <Checkbox id="push-tasks" />
           <Field.Label htmlFor="push-tasks" className="font-normal">
             {"Push notifications"->React.string}
           </Field.Label>
         </Field>
-        <Field orientation=BaseUi.Types.Orientation.Horizontal>
+        <Field orientation=Horizontal>
           <Checkbox id="email-tasks" />
           <Field.Label htmlFor="email-tasks" className="font-normal">
             {"Email notifications"->React.string}

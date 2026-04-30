@@ -2,7 +2,7 @@
 let make = ({}: Demo.Props.t) =>
   <Field.Group className="w-full max-w-sm">
     <Field.Label htmlFor="switch-share">
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Field.Content>
           <Field.Title> {"Share across devices"->React.string} </Field.Title>
           <Field.Description>
@@ -13,7 +13,7 @@ let make = ({}: Demo.Props.t) =>
       </Field>
     </Field.Label>
     <Field.Label htmlFor="switch-notifications">
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Field.Content>
           <Field.Title> {"Enable notifications"->React.string} </Field.Title>
           <Field.Description>

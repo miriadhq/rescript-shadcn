@@ -242,7 +242,7 @@ module Previous = {
     ~onClick: option<JsxEvent.Mouse.t => unit>=?,
   ) => {
     let {orientation, scrollPrev, canScrollPrev} = useCarousel()
-    let resolvedOnClick = switch onClick {
+    let onClick = switch onClick {
     | Some(handler) => handler
     | None => _ => scrollPrev()
     }
@@ -261,7 +261,7 @@ module Previous = {
       dataSlot="carousel-previous"
       disabled={!canScrollPrev}
       ?style
-      onClick={resolvedOnClick}
+      onClick
     >
       <Icons.ChevronLeft className="cn-rtl-flip" />
       <span className="sr-only"> {"Previous slide"->React.string} </span>
@@ -282,7 +282,7 @@ module Next = {
     ~onClick: option<JsxEvent.Mouse.t => unit>=?,
   ) => {
     let {orientation, scrollNext, canScrollNext} = useCarousel()
-    let resolvedOnClick = switch onClick {
+    let onClick = switch onClick {
     | Some(handler) => handler
     | None => _ => scrollNext()
     }
@@ -301,7 +301,7 @@ module Next = {
       ?ariaLabel
       dataSlot="carousel-next"
       disabled={!canScrollNext}
-      onClick={resolvedOnClick}
+      onClick
     >
       <Icons.ChevronRight className="cn-rtl-flip" />
       <span className="sr-only"> {"Next slide"->React.string} </span>

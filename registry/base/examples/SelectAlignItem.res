@@ -14,7 +14,7 @@ let make = ({}: Demo.Props.t) => {
   let (alignItemWithTrigger, setAlignItemWithTrigger) = React.useState(() => true)
 
   <Field.Group className="w-full max-w-xs">
-    <Field orientation=BaseUi.Types.Orientation.Horizontal>
+    <Field orientation=Horizontal>
       <Field.Content>
         <Field.Label htmlFor="align-item"> {"Align Item"->React.string} </Field.Label>
         <Field.Description>

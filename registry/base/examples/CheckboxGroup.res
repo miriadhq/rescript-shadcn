@@ -6,7 +6,7 @@ let make = ({}: Demo.Props.t) =>
       {"Select the items you want to show on the desktop."->React.string}
     </Field.Description>
     <Field.Group className="gap-3">
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Checkbox
           id="finder-pref-9k2-hard-disks-ljj-checkbox"
           name="finder-pref-9k2-hard-disks-ljj-checkbox"
@@ -16,7 +16,7 @@ let make = ({}: Demo.Props.t) =>
           {"Hard disks"->React.string}
         </Field.Label>
       </Field>
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Checkbox
           id="finder-pref-9k2-external-disks-1yg-checkbox"
           name="finder-pref-9k2-external-disks-1yg-checkbox"
@@ -26,7 +26,7 @@ let make = ({}: Demo.Props.t) =>
           {"External disks"->React.string}
         </Field.Label>
       </Field>
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Checkbox
           id="finder-pref-9k2-cds-dvds-fzt-checkbox" name="finder-pref-9k2-cds-dvds-fzt-checkbox"
         />
@@ -34,7 +34,7 @@ let make = ({}: Demo.Props.t) =>
           {"CDs, DVDs, and iPods"->React.string}
         </Field.Label>
       </Field>
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Checkbox
           id="finder-pref-9k2-connected-servers-6l2-checkbox"
           name="finder-pref-9k2-connected-servers-6l2-checkbox"

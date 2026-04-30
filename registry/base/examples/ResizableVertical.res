@@ -1,9 +1,6 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Resizable
-    orientation=BaseUi.Types.Orientation.Vertical
-    className="min-h-[200px] max-w-sm rounded-lg border"
-  >
+  <Resizable orientation=Vertical className="min-h-[200px] max-w-sm rounded-lg border">
     <Resizable.Panel defaultSize="25%">
       <div className="flex h-full items-center justify-center p-6">
         <span className="font-semibold"> {"Header"->React.string} </span>

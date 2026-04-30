@@ -2,7 +2,7 @@
 let make = ({}: Demo.Props.t) =>
   <RadioGroup defaultValue="plus" className="max-w-sm">
     <Field.Label htmlFor="plus-plan">
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Field.Content>
           <Field.Title> {"Plus"->React.string} </Field.Title>
           <Field.Description>
@@ -13,7 +13,7 @@ let make = ({}: Demo.Props.t) =>
       </Field>
     </Field.Label>
     <Field.Label htmlFor="pro-plan">
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Field.Content>
           <Field.Title> {"Pro"->React.string} </Field.Title>
           <Field.Description> {"For growing businesses."->React.string} </Field.Description>
@@ -22,7 +22,7 @@ let make = ({}: Demo.Props.t) =>
       </Field>
     </Field.Label>
     <Field.Label htmlFor="enterprise-plan">
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Field.Content>
           <Field.Title> {"Enterprise"->React.string} </Field.Title>
           <Field.Description>

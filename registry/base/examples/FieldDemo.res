@@ -115,7 +115,7 @@ let make = ({}: Demo.Props.t) =>
             {"The billing address associated with your payment method"->React.string}
           </Field.Description>
           <Field.Group>
-            <Field orientation=BaseUi.Types.Orientation.Horizontal>
+            <Field orientation=Horizontal>
               <Checkbox id="checkout-7j9-same-as-shipping-wgm" defaultChecked={true} />
               <Field.Label htmlFor="checkout-7j9-same-as-shipping-wgm" className="font-normal">
                 {"Same as shipping address"->React.string}
@@ -139,7 +139,7 @@ let make = ({}: Demo.Props.t) =>
             </Field>
           </Field.Group>
         </Field.Set>
-        <Field orientation=BaseUi.Types.Orientation.Horizontal>
+        <Field orientation=Horizontal>
           <Button type_="submit"> {"Submit"->React.string} </Button>
           <Button variant=Outline type_="button"> {"Cancel"->React.string} </Button>
         </Field>

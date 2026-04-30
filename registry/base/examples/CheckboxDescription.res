@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Field.Group className="mx-auto w-72">
-    <Field orientation=BaseUi.Types.Orientation.Horizontal>
+    <Field orientation=Horizontal>
       <Checkbox id="terms-checkbox-desc" name="terms-checkbox-desc" defaultChecked=true />
       <Field.Content>
         <Field.Label htmlFor="terms-checkbox-desc">

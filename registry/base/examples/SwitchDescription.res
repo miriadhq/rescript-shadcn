@@ -1,6 +1,6 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Field orientation=BaseUi.Types.Orientation.Horizontal className="max-w-sm">
+  <Field orientation=Horizontal className="max-w-sm">
     <Field.Content>
       <Field.Label htmlFor="switch-focus-mode">
         {"Share across devices"->React.string}

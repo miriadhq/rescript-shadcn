@@ -5,12 +5,12 @@ let make = ({}: Demo.Props.t) =>
       <span className="font-medium"> {"Settings"->React.string} </span>
       <span className="text-muted-foreground text-xs"> {"Manage preferences"->React.string} </span>
     </div>
-    <Separator orientation=BaseUi.Types.Orientation.Vertical />
+    <Separator orientation=Vertical />
     <div className="flex flex-col gap-1">
       <span className="font-medium"> {"Account"->React.string} </span>
       <span className="text-muted-foreground text-xs"> {"Profile & security"->React.string} </span>
     </div>
-    <Separator orientation=BaseUi.Types.Orientation.Vertical className="hidden md:block" />
+    <Separator orientation=Vertical className="hidden md:block" />
     <div className="hidden flex-col gap-1 md:flex">
       <span className="font-medium"> {"Help"->React.string} </span>
       <span className="text-muted-foreground text-xs"> {"Support & docs"->React.string} </span>

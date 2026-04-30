@@ -368,14 +368,14 @@ module Rail = {
   @react.component
   let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
     let {toggleSidebar} = use()
-    let resolvedOnClick = switch onClick {
+    let onClick = switch onClick {
     | Some(onClick) => onClick
     | None => _ => toggleSidebar()
     }
     <button
       ?id
       ?style
-      onClick={resolvedOnClick}
+      onClick
       ?onKeyDown
       ?children
       ariaLabel="Toggle Sidebar"

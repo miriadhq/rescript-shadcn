@@ -8,7 +8,7 @@ let make = ({}: Demo.Props.t) =>
       </Field.Description>
       <RadioGroup defaultValue="kubernetes">
         <Field.Label htmlFor="kubernetes-r2h">
-          <Field orientation=BaseUi.Types.Orientation.Horizontal>
+          <Field orientation=Horizontal>
             <Field.Content>
               <Field.Title> {"Kubernetes"->React.string} </Field.Title>
               <Field.Description>
@@ -19,7 +19,7 @@ let make = ({}: Demo.Props.t) =>
           </Field>
         </Field.Label>
         <Field.Label htmlFor="vm-z4k">
-          <Field orientation=BaseUi.Types.Orientation.Horizontal>
+          <Field orientation=Horizontal>
             <Field.Content>
               <Field.Title> {"Virtual Machine"->React.string} </Field.Title>
               <Field.Description>

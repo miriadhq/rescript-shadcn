@@ -3,11 +3,11 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Field.Group className="max-w-sm">
-    <Field orientation=BaseUi.Types.Orientation.Horizontal>
+    <Field orientation=Horizontal>
       <Checkbox id="terms-checkbox" name="terms-checkbox" />
       <Label htmlFor="terms-checkbox"> {"Accept terms and conditions"->React.string} </Label>
     </Field>
-    <Field orientation=BaseUi.Types.Orientation.Horizontal>
+    <Field orientation=Horizontal>
       <Checkbox id="terms-checkbox-2" name="terms-checkbox-2" defaultChecked=true />
       <Field.Content>
         <Field.Label htmlFor="terms-checkbox-2">
@@ -18,12 +18,12 @@ let make = ({}: Demo.Props.t) =>
         </Field.Description>
       </Field.Content>
     </Field>
-    <Field orientation=BaseUi.Types.Orientation.Horizontal dataDisabled=true>
+    <Field orientation=Horizontal dataDisabled=true>
       <Checkbox id="toggle-checkbox" name="toggle-checkbox" disabled=true />
       <Field.Label htmlFor="toggle-checkbox"> {"Enable notifications"->React.string} </Field.Label>
     </Field>
     <Field.Label>
-      <Field orientation=BaseUi.Types.Orientation.Horizontal>
+      <Field orientation=Horizontal>
         <Checkbox id="toggle-checkbox-2" name="toggle-checkbox-2" />
         <Field.Content>
           <Field.Title> {"Enable notifications"->React.string} </Field.Title>
