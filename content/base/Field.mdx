@@ -68,10 +68,10 @@ The `Field` family is designed for composing accessible forms. A typical field i
 
 ```res showLineNumbers
 <Field>
-  <Field.Label htmlFor="input-id">Label</Field.Label>
+  <Field.Label htmlFor="input-id"> {"Label"->React.string} </Field.Label>
   {/* Input, Select, Switch, etc. */}
-  <Field.Description>Optional helper text.</Field.Description>
-  <Field.Error>Validation message.</Field.Error>
+  <Field.Description> {"Optional helper text."->React.string} </Field.Description>
+  <Field.Error> {"Validation message."->React.string} </Field.Error>
 </Field>
 ```
 
@@ -285,7 +285,7 @@ Helper text slot that automatically balances long lines in horizontal layouts.
 | `className` | `string` |         |
 
 ```res showLineNumbers
-<Field.Description>We never share your email with anyone.</Field.Description>
+<Field.Description> {"We never share your email with anyone."->React.string} </Field.Description>
 ```
 
 ### Field.Separator
@@ -297,7 +297,7 @@ Visual divider to separate sections inside a `Field.Group`. Accepts optional inl
 | `className` | `string` |         |
 
 ```res 
-<Field.Separator>Or continue with</Field.Separator>
+<Field.Separator> {"Or continue with"->React.string} </Field.Separator>
 ```
 
 ### Field.Error
