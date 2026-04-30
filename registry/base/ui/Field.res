@@ -2,12 +2,10 @@
 
 @@directive("'use client'")
 
-open BaseUi.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-module DataOrientation = {
+module Orientation = {
   @unboxed
   type t =
     | @as("horizontal") Horizontal
@@ -22,14 +20,14 @@ module Variant = {
     | @as("label") Label
 }
 
-let fieldOrientationClass = (~orientation: DataOrientation.t) =>
+let fieldOrientationClass = (~orientation: Orientation.t) =>
   switch orientation {
   | Horizontal => "flex-row items-center *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px"
   | Responsive => "flex-col *:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:*:data-[slot=field-label]:flex-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px"
   | Vertical => "flex-col *:w-full [&>.sr-only]:w-auto"
   }
 
-let fieldVariants = (~orientation=DataOrientation.Vertical) => {
+let fieldVariants = (~orientation=Orientation.Vertical) => {
   let base = "data-[invalid=true]:text-destructive gap-2 group/field flex w-full"
   `${base} ${fieldOrientationClass(~orientation)}`
 }
@@ -99,7 +97,7 @@ let make = (
   ~style=?,
   ~onClick=?,
   ~onKeyDown=?,
-  ~orientation=DataOrientation.Vertical,
+  ~orientation=Orientation.Vertical,
   ~disabled=?,
   ~dataDisabled=?,
   ~dataInvalid=?,
@@ -216,7 +214,7 @@ module Separator = {
       )}
     >
       <BaseUi.Separator
-        orientation=Orientation.Horizontal
+        orientation=Horizontal
         dataSlot="separator"
         className="absolute inset-0 top-1/2 bg-border shrink-0 data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
       />
