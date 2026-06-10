@@ -86,6 +86,11 @@ module Trigger = {
   external make: React.component<Types.BaseUIComponentProps.t> = "Trigger"
 }
 
+module Label = {
+  @module("@base-ui/react/select") @scope("Select")
+  external make: React.component<Types.BaseUIComponentProps.t> = "Label"
+}
+
 module Value = {
   @module("@base-ui/react/select") @scope("Select")
   external make: React.component<Types.BaseUIComponentProps.t> = "Value"

@@ -51,8 +51,12 @@ module Root = {
 }
 
 module Trigger = {
+  type props = {
+    ...Types.BaseUIComponentProps.t,
+    closeOnClick?: bool,
+  }
   @module("@base-ui/react/tooltip") @scope("Tooltip")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Trigger"
+  external make: React.component<props> = "Trigger"
 }
 
 module Portal = {

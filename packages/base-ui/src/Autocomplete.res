@@ -1,14 +1,30 @@
 module Root = {
+  module AutoHighlight = {
+    @unboxed
+    type t =
+      | Bool(bool)
+      | @as("always") Always
+  }
+
   type props<'item> = {
     ...Types.BaseUIComponentProps.t,
     items?: array<'item>,
-    autoHighlight?: bool,
+    autoHighlight?: AutoHighlight.t,
+    keepHighlight?: bool,
+    highlightItemOnHover?: bool,
     itemToStringLabel?: 'item => string,
     itemToStringValue?: 'item => string,
     defaultValue?: string,
     value?: string,
     inputRef?: ReactDOM.domRef,
     onValueChange?: (string, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
+    submitOnItemClick?: bool,
+    onOpenChange?: (bool, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
+    onItemHighlighted?: (
+      'item,
+      Types.BaseUIChangeEventDetail.t<[#keyboard | #pointer | #none], unknown>,
+    ) => unit,
+    openOnInputClick?: bool,
   }
   @module("@base-ui/react/autocomplete") @scope("Autocomplete")
   external make: React.component<props<'item>> = "Root"
@@ -33,6 +49,11 @@ module Input = {
   }
   @module("@base-ui/react/autocomplete") @scope("Autocomplete")
   external make: React.component<props> = "Input"
+}
+
+module InputGroup = {
+  @module("@base-ui/react/autocomplete") @scope("Autocomplete")
+  external make: React.component<Types.BaseUIComponentProps.t> = "InputGroup"
 }
 
 module Trigger = {
