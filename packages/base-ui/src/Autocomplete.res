@@ -2,7 +2,8 @@ module Root = {
   module AutoHighlight = {
     @unboxed
     type t =
-      | Bool(bool)
+      | @as(true) True
+      | @as(false) False
       | @as("always") Always
   }
 
