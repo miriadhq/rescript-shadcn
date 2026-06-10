@@ -1069,6 +1069,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@juspay/rescript-bindgen@npm:1.0.3":
+  version: 1.0.3
+  resolution: "@juspay/rescript-bindgen@npm:1.0.3"
+  dependencies:
+    typescript: "npm:^5.6.0"
+  bin:
+    rescript-bindgen: src/cli.mjs
+  checksum: 10c0/9539cd9bee083078a33fd64e6809c80d597da85c041cc4218a734c3a78a9d0934d5b452d682f9fd8731060c0fe3729110967a9ae6f443cf78850d41bb8a277a0
+  languageName: node
+  linkType: hard
+
 "@mdx-js/loader@npm:^3.1.1":
   version: 3.1.1
   resolution: "@mdx-js/loader@npm:3.1.1"
@@ -8363,6 +8374,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rescript-base-ui@workspace:packages/base-ui"
   dependencies:
+    "@juspay/rescript-bindgen": "npm:1.0.3"
     "@rescript/react": "npm:^0.14.2"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
@@ -9449,6 +9461,26 @@ __metadata:
   version: 2.12.1
   resolution: "typed-query-selector@npm:2.12.1"
   checksum: 10c0/2c81c8560910d87f98a64e1c0b03247a7c94c3703d11f2f048553718c18da8dcab8469be76a39d2d258f0ff5a9b0bf419394d8b1c804fdf72a06181a0631d70d
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^5.6.0":
+  version: 5.9.3
+  resolution: "typescript@npm:5.9.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10c0/6bd7552ce39f97e711db5aa048f6f9995b53f1c52f7d8667c1abdc1700c68a76a308f579cd309ce6b53646deb4e9a1be7c813a93baaf0a28ccd536a30270e1c5
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^5.6.0#optional!builtin<compat/typescript>":
+  version: 5.9.3
+  resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10c0/ad09fdf7a756814dce65bc60c1657b40d44451346858eea230e10f2e95a289d9183b6e32e5c11e95acc0ccc214b4f36289dcad4bf1886b0adb84d711d336a430
   languageName: node
   linkType: hard
 

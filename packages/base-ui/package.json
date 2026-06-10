@@ -1,6 +1,6 @@
 {
   "name": "rescript-base-ui",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Rescript bindings for Base UI",
   "publishConfig": {
     "access": "public"
@@ -27,6 +27,7 @@
     "rescript": "^12.2.0"
   },
   "devDependencies": {
+    "@juspay/rescript-bindgen": "1.0.3",
     "@rescript/react": "^0.14.2"
   },
   "peerDependencies": {
