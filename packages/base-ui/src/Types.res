@@ -30,7 +30,8 @@ module Orientation = {
 module Modal = {
   @unboxed
   type t =
-    | Bool(bool)
+    | @as(true) True
+    | @as(false) False
     | @as("trap-focus") TrapFocus
 }
 

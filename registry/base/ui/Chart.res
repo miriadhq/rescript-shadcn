@@ -167,7 +167,8 @@ module Recharts = {
   module AnimationActive = {
     @unboxed
     type t =
-      | Bool(bool)
+      | @as(true) True
+      | @as(false) False
       | @as("auto") Auto
   }
 
@@ -197,7 +198,8 @@ module Recharts = {
   module UniqueOption = {
     @unboxed
     type t<'entry> =
-      | Bool(bool)
+      | @as(true) True
+      | @as(false) False
       | Function('entry => string)
   }
 
