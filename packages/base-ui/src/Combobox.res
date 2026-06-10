@@ -1,13 +1,25 @@
 module Root = {
+  module Actions = {
+    type t = {
+      unmount: unit => unit,
+    }
+  }
+
   type props<'item, 'value> = {
     ...Types.BaseUIComponentProps.t,
     items?: array<'item>,
     autoHighlight?: bool,
+    highlightItemOnHover?: bool,
     itemToStringLabel?: 'item => string,
     itemToStringValue?: 'item => string,
     isItemEqualToValue?: ('item, 'item) => bool,
     defaultValue?: 'value,
     value?: 'value,
+    actionsRef?: React.ref<Actions.t>,
+    onOpenChange?: (bool, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
+    onInputValueChange?: (string, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
+    onItemHighlighted?: ('item, Types.BaseUIChangeEventDetail.t<[#keyboard | #pointer | #none], unknown>) => unit,
+    onValueChange?: ('value, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
   }
   @module("@base-ui/react/combobox") @scope("Combobox")
   external make: React.component<props<'item, 'value>> = "Root"
@@ -42,6 +54,16 @@ module Input = {
   }
   @module("@base-ui/react/combobox") @scope("Combobox")
   external make: React.component<props> = "Input"
+}
+
+module Label = {
+  @module("@base-ui/react/combobox") @scope("Combobox")
+  external make: React.component<Types.BaseUIComponentProps.t> = "Label"
+}
+
+module InputGroup = {
+  @module("@base-ui/react/combobox") @scope("Combobox")
+  external make: React.component<Types.BaseUIComponentProps.t> = "InputGroup"
 }
 
 module Trigger = {

@@ -26,6 +26,11 @@ module Root = {
   external make: React.component<props<'value>> = "Root"
 }
 
+module Label = {
+  @module("@base-ui/react/slider") @scope("Slider")
+  external make: React.component<Types.BaseUIComponentProps.t> = "Label"
+}
+
 module Value = {
   @module("@base-ui/react/slider") @scope("Slider")
   external make: React.component<Types.BaseUIComponentProps.t> = "Value"

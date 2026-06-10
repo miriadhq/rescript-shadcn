@@ -1,6 +1,6 @@
 {
   "name": "rescript-base-ui",
-  "version": "1.2.6",
+  "version": "1.5.0",
   "description": "Rescript bindings for Base UI",
   "publishConfig": {
     "access": "public"
@@ -31,7 +31,7 @@
     "@rescript/react": "^0.14.2"
   },
   "peerDependencies": {
-    "@base-ui/react": "^1.2.0",
+    "@base-ui/react": "^1.5.0",
     "@rescript/react": "^0.14.2"
   },
   "scripts": {
