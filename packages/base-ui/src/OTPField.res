@@ -27,11 +27,11 @@ module Root = {
       Types.BaseUIChangeEventDetail.t<[#"input-change" | #"input-paste"], unknown>,
     ) => unit,
   }
-  @module("@base-ui/react/otp-field") @scope("OTPFieldPreview")
+  @module("@base-ui/react/otp-field") @scope("OTPField")
   external make: React.component<props> = "Root"
 }
 
 module Input = {
-  @module("@base-ui/react/otp-field") @scope("OTPFieldPreview")
+  @module("@base-ui/react/otp-field") @scope("OTPField")
   external make: React.component<Types.BaseUIComponentProps.t> = "Input"
 }

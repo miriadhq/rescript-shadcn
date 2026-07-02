@@ -12,6 +12,7 @@ let _autocomplete = <Autocomplete.Root value="one"> {React.null} </Autocomplete.
 let _checkboxGroup = <CheckboxGroup value={["one"]}> {React.null} </CheckboxGroup>
 let _drawer = <Drawer.Root open_=false> {React.null} </Drawer.Root>
 let _drawerSwipeArea = <Drawer.SwipeArea />
+let _drawerVirtualKeyboardProvider = <Drawer.VirtualKeyboardProvider> {React.null} </Drawer.VirtualKeyboardProvider>
 let _field = <Field.Root name="email"> {React.null} </Field.Root>
 let _form = <Form validationMode=Form.ValidationMode.OnSubmit> {React.null} </Form>
 let _meter = <Meter.Root value=50.0> {React.null} </Meter.Root>

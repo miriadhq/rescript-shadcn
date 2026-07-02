@@ -74,3 +74,11 @@ module SwipeArea = {
   @module("@base-ui/react/drawer") @scope("Drawer")
   external make: React.component<Types.BaseUIComponentProps.t> = "SwipeArea"
 }
+
+module VirtualKeyboardProvider = {
+  type props = {
+    children?: React.element,
+  }
+  @module("@base-ui/react/drawer") @scope("Drawer")
+  external make: React.component<props> = "VirtualKeyboardProvider"
+}

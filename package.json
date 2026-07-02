@@ -24,11 +24,11 @@
     "postInstall": "yarn loader:generate && fumadocs-mdx source.config.mjs .source"
   },
   "dependencies": {
-    "@base-ui/react": "1.5.0",
+    "@base-ui/react": "1.6.0",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.1.6",
-    "@rescript/react": "^0.14.2",
+    "@rescript/react": "^0.15.0",
     "@rescript/webapi": "0.1.0-experimental-127e19a",
     "@tabler/icons-react": "^3.38.0",
     "@tanstack/react-table": "^8.21.3",

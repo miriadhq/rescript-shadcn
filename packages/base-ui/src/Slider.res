@@ -3,6 +3,7 @@ module Root = {
     ...Types.BaseUIComponentProps.t,
     minStepsBetweenValues?: float,
     largeStep?: float,
+    locale?: string,
     thumbAlignment?: Types.ThumbAlignment.t,
     thumbCollisionBehavior?: Types.ThumbCollisionBehavior.t,
     onValueChange?: (

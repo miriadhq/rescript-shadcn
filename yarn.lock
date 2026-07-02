@@ -360,12 +360,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@base-ui/react@npm:1.5.0":
-  version: 1.5.0
-  resolution: "@base-ui/react@npm:1.5.0"
+"@base-ui/react@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@base-ui/react@npm:1.6.0"
   dependencies:
     "@babel/runtime": "npm:^7.29.2"
-    "@base-ui/utils": "npm:0.2.9"
+    "@base-ui/utils": "npm:0.3.1"
     "@floating-ui/react-dom": "npm:^2.1.8"
     "@floating-ui/utils": "npm:^0.2.11"
     use-sync-external-store: "npm:^1.6.0"
@@ -382,17 +382,17 @@ __metadata:
       optional: true
     date-fns:
       optional: true
-  checksum: 10c0/ba0f00149d7500d39e0e790b4b6cf19c002f4281508b6076ed1e367ca9a4946eb345e98d4c0dd0ab8e1613807bdcac9d9ad07f6c6d19c3b243a022bb30cbb61b
+  checksum: 10c0/5e5994dc782710eac900d68cc0691aea70a47fabc6ef8d2ea943103d9aa96c4b44f9fd76ba65d29fa2667a5fbd7ea7a1cc02fe111c4bf639d4e3e65a1c281118
   languageName: node
   linkType: hard
 
-"@base-ui/utils@npm:0.2.9":
-  version: 0.2.9
-  resolution: "@base-ui/utils@npm:0.2.9"
+"@base-ui/utils@npm:0.3.1":
+  version: 0.3.1
+  resolution: "@base-ui/utils@npm:0.3.1"
   dependencies:
     "@babel/runtime": "npm:^7.29.2"
     "@floating-ui/utils": "npm:^0.2.11"
-    reselect: "npm:^5.1.1"
+    reselect: "npm:^5.2.0"
     use-sync-external-store: "npm:^1.6.0"
   peerDependencies:
     "@types/react": ^17 || ^18 || ^19
@@ -401,7 +401,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/169a67fb6a4d86d3ce9fb12bc1e8cb02a67ad3d16872c81798cd6a532c9277383c4066c88356a9813499a87b93b4bf255ea035ea3c6f7298c52adeb1e8e846ce
+  checksum: 10c0/4de858c3e2c8a4486a549d51c5e887bba6921e5a7f8db54439ba558feaf1656c3592a873928aee8a1711ee9210be3a65ca43b26713e97f649695ed2fa8c3af2c
   languageName: node
   linkType: hard
 
@@ -1081,14 +1081,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@juspay/rescript-bindgen@npm:1.0.3":
-  version: 1.0.3
-  resolution: "@juspay/rescript-bindgen@npm:1.0.3"
+"@juspay/rescript-bindgen@npm:1.2.4":
+  version: 1.2.4
+  resolution: "@juspay/rescript-bindgen@npm:1.2.4"
   dependencies:
     typescript: "npm:^5.6.0"
   bin:
     rescript-bindgen: src/cli.mjs
-  checksum: 10c0/9539cd9bee083078a33fd64e6809c80d597da85c041cc4218a734c3a78a9d0934d5b452d682f9fd8731060c0fe3729110967a9ae6f443cf78850d41bb8a277a0
+  checksum: 10c0/516600d590ca2ccd781323596bd07e188eb4f81d0f29ea3db36701840082cb796c88d88ef28781aed85156ad6b1499155f8c4e9b2888433714c7996e11b3555d
   languageName: node
   linkType: hard
 
@@ -2275,13 +2275,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rescript/react@npm:^0.14.2":
-  version: 0.14.2
-  resolution: "@rescript/react@npm:0.14.2"
+"@rescript/react@npm:^0.15.0":
+  version: 0.15.0
+  resolution: "@rescript/react@npm:0.15.0"
   peerDependencies:
-    react: ">=19.1.0"
-    react-dom: ">=19.1.0"
-  checksum: 10c0/6fbc0614ac4e4e5ad37abe474dcc137dc8cb7c3351dbc9afa4de92f080614e78809278a034c52da1676e89c299ab07154760d8b80f68f0a5cfd284e22035f713
+    "@rescript/runtime": ">=12.0.0"
+    react: ">=19.2.0"
+    react-dom: ">=19.2.0"
+  checksum: 10c0/e66834c5a290700f0ee586be3c8e65c74248c1f364b32e1a8fcb48d874cf80ec51700dee4cf57d24274b144fc9744e0228c4788422b635ff8008570b17f991df
   languageName: node
   linkType: hard
 
@@ -8386,14 +8387,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rescript-base-ui@workspace:packages/base-ui"
   dependencies:
-    "@juspay/rescript-bindgen": "npm:1.0.3"
-    "@rescript/react": "npm:^0.14.2"
+    "@juspay/rescript-bindgen": "npm:1.2.4"
+    "@rescript/react": "npm:^0.15.0"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
     rescript: "npm:^12.2.0"
   peerDependencies:
-    "@base-ui/react": ^1.5.0
-    "@rescript/react": ^0.14.2
+    "@base-ui/react": ^1.6.0
+    "@rescript/react": ^0.15.0
   languageName: unknown
   linkType: soft
 
@@ -8401,11 +8402,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rescript-shadcn@workspace:."
   dependencies:
-    "@base-ui/react": "npm:1.5.0"
+    "@base-ui/react": "npm:1.6.0"
     "@mdx-js/loader": "npm:^3.1.1"
     "@mdx-js/react": "npm:^3.1.1"
     "@next/mdx": "npm:^16.1.6"
-    "@rescript/react": "npm:^0.14.2"
+    "@rescript/react": "npm:^0.15.0"
     "@rescript/webapi": "npm:0.1.0-experimental-127e19a"
     "@sparticuz/chromium": "npm:^143.0.4"
     "@tabler/icons-react": "npm:^3.38.0"
@@ -8491,10 +8492,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reselect@npm:5.1.1, reselect@npm:^5.1.0, reselect@npm:^5.1.1":
+"reselect@npm:5.1.1, reselect@npm:^5.1.0":
   version: 5.1.1
   resolution: "reselect@npm:5.1.1"
   checksum: 10c0/219c30da122980f61853db3aebd173524a2accd4b3baec770e3d51941426c87648a125ca08d8c57daa6b8b086f2fdd2703cb035dd6231db98cdbe1176a71f489
+  languageName: node
+  linkType: hard
+
+"reselect@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "reselect@npm:5.2.0"
+  checksum: 10c0/d0a8497e404b25a769fe792eacae88b9b576c30870450cd243d76ec9427d91a59c4a2cc00d824d283448b444c4c698a8f961d771c8ae39c759313afb31950e2e
   languageName: node
   linkType: hard
 
