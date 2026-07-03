@@ -1,0 +1,43 @@
+{
+  "name": "rescript-shadcn-react",
+  "version": "0.1.0",
+  "description": "ReScript bindings for @shadcn/react",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "tsnobip",
+    "url": "https://github.com/tsnobip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsnobip/rescript-shadcn-ui.git",
+    "directory": "packages/shadcn-react"
+  },
+  "keywords": [
+    "components",
+    "shadcn",
+    "rescript",
+    "bindings"
+  ],
+  "dependencies": {
+    "@shadcn/react": "0.2.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "rescript": "^12.3.0"
+  },
+  "devDependencies": {
+    "@juspay/rescript-bindgen": "1.2.4",
+    "@rescript/react": "^0.15.0"
+  },
+  "peerDependencies": {
+    "@rescript/react": "^0.15.0",
+    "@shadcn/react": "^0.2.0"
+  },
+  "scripts": {
+    "res:build": "rescript",
+    "res:clean": "rescript clean",
+    "res:dev": "rescript watch"
+  }
+}

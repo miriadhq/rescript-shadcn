@@ -116,6 +116,8 @@ module Reactions = {
     ~side=Side.Bottom,
     ~align=Align.End,
     ~children=?,
+    ~role=?,
+    ~ariaLabel=?,
     ~id=?,
     ~style=?,
     ~onClick=?,
@@ -126,6 +128,8 @@ module Reactions = {
       ?style
       ?onClick
       ?onKeyDown
+      ?role
+      ?ariaLabel
       ?children
       dataSlot="bubble-reactions"
       dataSide={(side :> string)}

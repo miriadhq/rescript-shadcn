@@ -26,6 +26,11 @@ const IMPLICIT_PACKAGES = new Set([
   "tailwind-merge",
 ])
 
+/** ReScript namespaces erased by externals still need package deps in registry */
+const RESCRIPT_NAMESPACE_PACKAGES = [
+  { namespace: "ShadcnReact", packageName: "rescript-shadcn-react" },
+]
+
 /** Extract npm package name: "@base-ui/react/accordion" → "@base-ui/react" */
 function extractNpmPackage(specifier) {
   if (specifier.startsWith("@")) {
@@ -61,6 +66,21 @@ function parseImports(jsPath) {
   }
 
   return { npmPackages, localImports }
+}
+
+function parseSourcePackageDeps(resPath) {
+  const packages = new Set()
+
+  if (!existsSync(resPath)) return packages
+
+  const source = readFileSync(resPath, "utf8")
+  for (const { namespace, packageName } of RESCRIPT_NAMESPACE_PACKAGES) {
+    if (new RegExp(`\\b${namespace}\\.`).test(source)) {
+      packages.add(packageName)
+    }
+  }
+
+  return packages
 }
 
 // ---------------------------------------------------------------------------
@@ -171,6 +191,11 @@ function buildItem(mod, dir, type) {
   const name = mod
 
   const { npmPackages, localImports } = parseImports(jsPath)
+  for (const packageName of parseSourcePackageDeps(
+    path.join(packageRoot, resPath)
+  )) {
+    npmPackages.add(packageName)
+  }
 
   // Resolve local imports to registry dependency names
   const registryDepsSet = new Set()
