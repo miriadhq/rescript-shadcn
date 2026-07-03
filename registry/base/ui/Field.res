@@ -22,13 +22,13 @@ module Variant = {
 
 let fieldOrientationClass = (~orientation: Orientation.t) =>
   switch orientation {
-  | Horizontal => "flex-row items-center *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px"
-  | Responsive => "flex-col *:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:*:data-[slot=field-label]:flex-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px"
-  | Vertical => "flex-col *:w-full [&>.sr-only]:w-auto"
+  | Horizontal => "cn-field-orientation-horizontal flex-row items-center *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px"
+  | Responsive => "cn-field-orientation-responsive flex-col *:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:*:data-[slot=field-label]:flex-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px"
+  | Vertical => "cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto"
   }
 
 let fieldVariants = (~orientation=Orientation.Vertical) => {
-  let base = "data-[invalid=true]:text-destructive gap-2 group/field flex w-full"
+  let base = "cn-field group/field flex w-full"
   `${base} ${fieldOrientationClass(~orientation)}`
 }
 
@@ -43,7 +43,7 @@ module Set = {
       ?onKeyDown
       dataSlot="field-set"
       className={cn(
-        "flex flex-col gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+        "cn-field-set flex flex-col",
         className,
       )}
     />
@@ -69,7 +69,7 @@ module Legend = {
       dataSlot="field-legend"
       dataVariant={(variant :> string)}
       className={cn(
-        "mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base",
+        "cn-field-legend",
         className,
       )}
     />
@@ -83,7 +83,7 @@ module Group = {
       {...props}
       dataSlot="field-group"
       className={cn(
-        "group/field-group @container/field-group flex w-full flex-col gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+        "cn-field-group group/field-group @container/field-group flex w-full flex-col",
         props.className,
       )}
     />
@@ -130,7 +130,7 @@ module Content = {
       ?onClick
       ?onKeyDown
       dataSlot="field-content"
-      className={cn("group/field-content flex flex-1 flex-col gap-0.5 leading-snug", className)}
+      className={cn("cn-field-content group/field-content flex flex-1 flex-col leading-snug", className)}
     />
 }
 
@@ -155,7 +155,7 @@ module Label = {
       ?style
       dataSlot="field-label"
       className={cn(
-        "has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border *:data-[slot=field]:p-2.5 has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
+        "cn-field-label group/field-label peer/field-label flex w-fit has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
         className,
       )}
       ?children
@@ -173,7 +173,7 @@ module Title = {
       ?onKeyDown
       dataSlot="field-label"
       className={cn(
-        "flex w-fit items-center gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50",
+        "cn-field-title flex w-fit items-center",
         className,
       )}
     />
@@ -191,7 +191,7 @@ module Description = {
       ?onKeyDown
       dataSlot="field-description"
       className={cn(
-        "text-muted-foreground text-left text-sm leading-normal font-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5 last:mt-0 nth-last-2:-mt-1 [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
+        "cn-field-description leading-normal font-normal group-has-data-horizontal/field:text-balance last:mt-0 nth-last-2:-mt-1 [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
         className,
       )}
     />
@@ -209,7 +209,7 @@ module Separator = {
       dataSlot="field-separator"
       dataContent={hasContent}
       className={cn(
-        "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+        "cn-field-separator relative",
         className,
       )}
     >
@@ -221,7 +221,7 @@ module Separator = {
       {switch children {
       | Some(value) =>
         <span
-          className="text-muted-foreground bg-background relative mx-auto block w-fit px-2"
+          className="cn-field-separator-content bg-background relative mx-auto block w-fit"
           dataSlot="field-separator-content"
         >
           {value}
@@ -269,7 +269,7 @@ module Error = {
       ?onKeyDown
       role="alert"
       dataSlot="field-error"
-      className={cn("text-sm font-normal text-destructive", className)}
+      className={cn("cn-field-error font-normal", className)}
     >
       {content}
     </div>

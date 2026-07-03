@@ -1,0 +1,35 @@
+---
+title: Bubble
+description: Displays conversational content in a message bubble.
+base: base
+component: true
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Bubble
+```
+
+## Usage
+
+```res showLineNumbers
+<Bubble>
+  <Bubble.Content>
+    {"I checked the registry output and removed the stale route."->React.string}
+  </Bubble.Content>
+  <Bubble.Reactions>
+    <span> {"+1"->React.string} </span>
+  </Bubble.Reactions>
+</Bubble>
+```
+
+## Composition
+
+```text
+Bubble
+├── Bubble.Content
+└── Bubble.Reactions
+```
+
+Use `Bubble.Group` to group consecutive bubbles from the same sender.

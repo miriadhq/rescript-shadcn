@@ -189,7 +189,7 @@ let make = (
     >
       <div
         dataSlot="sidebar-gap"
-        className={`relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180 ${desktopGapClass}`}
+        className={`cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180 ${desktopGapClass}`}
       />
       <div
         ?id
@@ -206,7 +206,7 @@ let make = (
         <div
           dataSidebar="sidebar"
           dataSlot="sidebar-inner"
-          className="bg-sidebar group-data-[variant=floating]:ring-sidebar-border flex size-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1"
+          className="cn-sidebar-inner flex size-full flex-col"
           ?children
         />
       </div>
@@ -342,7 +342,7 @@ module Trigger = {
   ) => {
     let {toggleSidebar} = use()
     <Button
-      className
+      className={cn("cn-sidebar-trigger", Some(className))}
       variant
       size
       ?nativeButton
@@ -383,7 +383,7 @@ module Rail = {
       dataSidebar="rail"
       dataSlot="sidebar-rail"
       className={cn(
-        "hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
+        "cn-sidebar-rail absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
         className,
       )}
       title="Toggle Sidebar"
@@ -402,7 +402,7 @@ module Inset = {
       ?children
       dataSlot="sidebar-inset"
       className={cn(
-        "bg-background relative flex flex-1 flex-col md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+        "cn-sidebar-inset relative flex w-full flex-1 flex-col",
         className,
       )}
     />
@@ -452,7 +452,7 @@ module Input = {
       ?children
       dataSlot="sidebar-input"
       dataSidebar="input"
-      className={cn("bg-background h-8 w-full shadow-none", className)}
+      className={cn("cn-sidebar-input", className)}
     />
 }
 
@@ -467,7 +467,7 @@ module Header = {
       ?children
       dataSlot="sidebar-header"
       dataSidebar="header"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn("cn-sidebar-header flex flex-col", className)}
     />
 }
 
@@ -482,7 +482,7 @@ module Footer = {
       ?children
       dataSlot="sidebar-footer"
       dataSidebar="footer"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn("cn-sidebar-footer flex flex-col", className)}
     />
 }
 
@@ -497,7 +497,7 @@ module Separator = {
       ?children
       dataSlot="sidebar-separator"
       dataSidebar="separator"
-      className={cn("bg-sidebar-border mx-2 w-auto", className)}
+      className={cn("cn-sidebar-separator w-auto", className)}
     />
 }
 
@@ -513,7 +513,7 @@ module Content = {
       dataSlot="sidebar-content"
       dataSidebar="content"
       className={cn(
-        "no-scrollbar flex min-h-0 flex-1 flex-col gap-0 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+        "cn-sidebar-content flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden",
         className,
       )}
     />
@@ -530,7 +530,7 @@ module Group = {
       ?children
       dataSlot="sidebar-group"
       dataSidebar="group"
-      className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
+      className={cn("cn-sidebar-group relative flex w-full min-w-0 flex-col", className)}
     />
 }
 
@@ -555,7 +555,7 @@ module GroupLabel = {
       dataSlot: "sidebar-group-label",
       dataSidebar: "group-label",
       className: cn(
-        "text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4 flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
+        "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
         className,
       ),
     }
@@ -586,7 +586,7 @@ module GroupAction = {
       dataSlot: "sidebar-group-action",
       dataSidebar: "group-action",
       className: cn(
-        "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4 flex aspect-square items-center justify-center outline-hidden transition-transform [&>svg]:shrink-0 after:absolute after:-inset-2 md:after:hidden group-data-[collapsible=icon]:hidden",
+        "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform [&>svg]:shrink-0 after:absolute after:-inset-2 md:after:hidden group-data-[collapsible=icon]:hidden",
         className,
       ),
     }
@@ -605,7 +605,7 @@ module GroupContent = {
       ?children
       dataSlot="sidebar-group-content"
       dataSidebar="group-content"
-      className={cn("w-full text-sm", className)}
+      className={cn("cn-sidebar-group-content w-full", className)}
     />
 }
 
@@ -620,7 +620,7 @@ module Menu = {
       ?children
       dataSlot="sidebar-menu"
       dataSidebar="menu"
-      className={cn("flex w-full min-w-0 flex-col gap-0", className)}
+      className={cn("cn-sidebar-menu flex w-full min-w-0 flex-col", className)}
     />
 }
 
@@ -668,15 +668,15 @@ module MenuButton = {
   }
 
   let sidebarMenuButtonVariants = (~variant=Variant.Default, ~size=Size.Default) => {
-    let base = "ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left text-sm transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&_svg]:size-4 [&_svg]:shrink-0"
+    let base = "cn-sidebar-menu-button peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&_svg]:size-4 [&_svg]:shrink-0"
     let variantClass = switch variant {
-    | Variant.Outline => "bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]"
-    | Default => ""
+    | Variant.Outline => "cn-sidebar-menu-button-variant-outline"
+    | Default => "cn-sidebar-menu-button-variant-default"
     }
     let sizeClass = switch size {
-    | Sm => "h-7 text-xs"
-    | Lg => "h-12 text-sm group-data-[collapsible=icon]:p-0!"
-    | Default => "h-8"
+    | Sm => "cn-sidebar-menu-button-size-sm"
+    | Lg => "cn-sidebar-menu-button-size-lg"
+    | Default => "cn-sidebar-menu-button-size-default"
     }
     `${base} ${variantClass} ${sizeClass}`
   }
@@ -785,7 +785,7 @@ module MenuAction = {
       dataSlot: dataSlot->Option.getOr("sidebar-menu-action"),
       dataSidebar: "menu-action",
       className: cn(
-        `text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4 flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0 ${showOnHoverClass}`,
+        `cn-sidebar-menu-action text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4 flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0 ${showOnHoverClass}`,
         className,
       ),
     }
@@ -818,7 +818,7 @@ module MenuBadge = {
       dataSlot="sidebar-menu-badge"
       dataSidebar="menu-badge"
       className={cn(
-        "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums select-none group-data-[collapsible=icon]:hidden peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
+        "cn-sidebar-menu-badge flex items-center justify-center tabular-nums select-none group-data-[collapsible=icon]:hidden",
         className,
       )}
     />
@@ -848,13 +848,13 @@ module MenuSkeleton = {
       ?onKeyDown
       dataSlot="sidebar-menu-skeleton"
       dataSidebar="menu-skeleton"
-      className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
+      className={cn("cn-sidebar-menu-skeleton flex items-center", className)}
     >
       {showIcon
-        ? <Skeleton className="size-4 rounded-md" dataSidebar="menu-skeleton-icon" />
+        ? <Skeleton className="cn-sidebar-menu-skeleton-icon" dataSidebar="menu-skeleton-icon" />
         : React.null}
       <Skeleton
-        className="h-4 max-w-(--skeleton-width) flex-1"
+        className="cn-sidebar-menu-skeleton-text max-w-(--skeleton-width) flex-1"
         dataSidebar="menu-skeleton-text"
         style={textStyle}
       />
@@ -875,7 +875,7 @@ module MenuSub = {
       dataSlot="sidebar-menu-sub"
       dataSidebar="menu-sub"
       className={cn(
-        "border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
+        "cn-sidebar-menu-sub flex min-w-0 flex-col",
         className,
       )}
     />
@@ -936,7 +936,7 @@ module MenuSubButton = {
       dataSidebar: "menu-sub-button",
       dataSize: (size :> string),
       className: cn(
-        "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4 flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
+        "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
         className,
       ),
     }

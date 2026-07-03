@@ -27,15 +27,15 @@ module StarsCount = {
 @react.component
 let make = () => {
   <Button
-    size=Sm
+    size=Icon
     variant=Ghost
-    className="h-8 shadow-none"
+    className="size-8 shrink-0 shadow-none"
     nativeButton=false
     render={<Next.Link
       href="https://github.com/miriadhq/rescript-shadcn" target="_blank" rel="noreferrer"
     />}
   >
-    <BrandIcons.GitHub />
+    <BrandIcons.GitHub className="size-4" />
     // removed for now because you can't use a server component inside a client component
     // <React.Suspense fallback={<Skeleton className="h-4 w-[42px]" />}>
     //   <StarsCount />

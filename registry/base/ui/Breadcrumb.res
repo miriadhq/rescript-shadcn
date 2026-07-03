@@ -14,7 +14,7 @@ let make = (~className="", ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=
     ?dir
     ariaLabel="breadcrumb"
     dataSlot="breadcrumb"
-    className
+    className={cn("cn-breadcrumb", Some(className))}
   />
 }
 
@@ -29,7 +29,7 @@ module List = {
       ?onKeyDown
       dataSlot="breadcrumb-list"
       className={cn(
-        "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm wrap-break-word",
+        "cn-breadcrumb-list flex flex-wrap items-center wrap-break-word",
         className,
       )}
     />
@@ -45,7 +45,7 @@ module Item = {
       ?onClick
       ?onKeyDown
       dataSlot="breadcrumb-item"
-      className={cn("inline-flex items-center gap-1", className)}
+      className={cn("cn-breadcrumb-item inline-flex items-center", className)}
     />
 }
 
@@ -75,7 +75,7 @@ module Link = {
         ?target,
         render: React.null,
         dataSlot: "breadcrumb-link",
-        className: cn("hover:text-foreground transition-colors", className),
+        className: cn("cn-breadcrumb-link", className),
       },
     })
   }
@@ -94,7 +94,7 @@ module Page = {
       ariaDisabled=true
       role="link"
       dataSlot="breadcrumb-page"
-      className={cn("text-foreground font-normal", className)}
+      className={cn("cn-breadcrumb-page", className)}
     />
 }
 
@@ -113,7 +113,7 @@ module Separator = {
       ariaHidden=true
       role="presentation"
       dataSlot="breadcrumb-separator"
-      className={cn("[&>svg]:size-3.5", className)}
+      className={cn("cn-breadcrumb-separator", className)}
     >
       {content}
     </li>
@@ -131,7 +131,7 @@ module Ellipsis = {
       ariaHidden=true
       role="presentation"
       dataSlot="breadcrumb-ellipsis"
-      className={cn("flex size-5 items-center justify-center [&>svg]:size-4", className)}
+      className={cn("cn-breadcrumb-ellipsis flex items-center justify-center", className)}
     >
       <Icons.MoreHorizontal />
       <span className="sr-only"> {"More"->React.string} </span>

@@ -182,7 +182,7 @@ module HijriCalendar = {
             captionLabelClassName->Some,
             ~additional=defaultClassNames.captionLabel,
           ),
-          table: "w-full border-collapse",
+          monthGrid: "w-full border-collapse",
           weekdays: cn("flex", defaultClassNames.weekdays),
           weekday: cn(
             "text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none",

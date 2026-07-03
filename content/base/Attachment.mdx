@@ -1,0 +1,46 @@
+---
+title: Attachment
+description: Displays a file or image attachment with media, metadata, upload state, and actions.
+base: base
+component: true
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Attachment
+```
+
+## Usage
+
+```res showLineNumbers
+<Attachment>
+  <Attachment.Media>
+    <Icons.FileText />
+  </Attachment.Media>
+  <Attachment.Content>
+    <Attachment.Title> {"sales-dashboard.pdf"->React.string} </Attachment.Title>
+    <Attachment.Description> {"PDF - 2.4 MB"->React.string} </Attachment.Description>
+  </Attachment.Content>
+  <Attachment.Actions>
+    <Attachment.Action ariaLabel="Remove attachment">
+      <Icons.X />
+    </Attachment.Action>
+  </Attachment.Actions>
+</Attachment>
+```
+
+## Composition
+
+```text
+Attachment
+├── Attachment.Media
+├── Attachment.Content
+│   ├── Attachment.Title
+│   └── Attachment.Description
+├── Attachment.Actions
+│   └── Attachment.Action
+└── Attachment.Trigger
+```
+
+Use `Attachment.Group` to lay out multiple attachments in a horizontally scrollable row.

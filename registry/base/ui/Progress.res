@@ -28,15 +28,15 @@ let make = (
     ?onClick
     ?onKeyDown
     dataSlot="progress"
-    className={cn("flex flex-wrap gap-3", className)}
+    className={cn("cn-progress-root flex flex-wrap gap-3", className)}
   >
     {children}
     <BaseUi.Progress.Track
       dataSlot="progress-track"
-      className="bg-muted relative flex h-1 w-full items-center overflow-x-hidden rounded-full"
+      className="cn-progress-track relative flex w-full items-center overflow-x-hidden"
     >
       <BaseUi.Progress.Indicator
-        dataSlot="progress-indicator" className="bg-primary h-full transition-all"
+        dataSlot="progress-indicator" className="cn-progress-indicator h-full transition-all"
       />
     </BaseUi.Progress.Track>
   </BaseUi.Progress.Root>
@@ -52,7 +52,7 @@ module Track = {
       ?onKeyDown
       dataSlot="progress-track"
       className={cn(
-        "bg-muted relative flex h-1 w-full items-center overflow-x-hidden rounded-full",
+        "cn-progress-track relative flex w-full items-center overflow-x-hidden",
         className,
       )}
       ?children
@@ -69,7 +69,7 @@ module Indicator = {
       ?onKeyDown
       ?children
       dataSlot="progress-indicator"
-      className={cn("bg-primary h-full transition-all", className)}
+      className={cn("cn-progress-indicator h-full transition-all", className)}
     />
 }
 
@@ -83,7 +83,7 @@ module Label = {
       ?onKeyDown
       ?children
       dataSlot="progress-label"
-      className={cn("text-sm font-medium", className)}
+      className={cn("cn-progress-label", className)}
     />
 }
 
@@ -97,6 +97,6 @@ module Value = {
       ?onKeyDown
       ?children
       dataSlot="progress-value"
-      className={cn("text-muted-foreground ml-auto text-sm tabular-nums", className)}
+      className={cn("cn-progress-value", className)}
     />
 }

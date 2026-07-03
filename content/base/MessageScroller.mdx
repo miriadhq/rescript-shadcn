@@ -1,0 +1,37 @@
+---
+title: Message Scroller
+description: A chat scroll container for message transcripts.
+base: base
+component: true
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add @rescript-shadcn/MessageScroller
+```
+
+## Usage
+
+```res showLineNumbers
+<MessageScroller.Provider>
+  <MessageScroller>
+    <MessageScroller.Viewport>
+      <MessageScroller.Content>
+        <MessageScroller.Item scrollAnchor=true>
+          <Message>
+            <Message.Content>
+              <Bubble>
+                <Bubble.Content> {"Hello"->React.string} </Bubble.Content>
+              </Bubble>
+            </Message.Content>
+          </Message>
+        </MessageScroller.Item>
+      </MessageScroller.Content>
+    </MessageScroller.Viewport>
+    <MessageScroller.Button ariaLabel="Scroll to latest" />
+  </MessageScroller>
+</MessageScroller.Provider>
+```
+
+`MessageScroller` currently provides the styled ReScript surface. The upstream React implementation also exposes scroll state hooks from `@shadcn/react/message-scroller`; those hooks are not bound in this package yet.

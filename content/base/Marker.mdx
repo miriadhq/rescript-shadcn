@@ -1,0 +1,33 @@
+---
+title: Marker
+description: Displays a marker row with an icon and content.
+base: base
+component: true
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Marker
+```
+
+## Usage
+
+```res showLineNumbers
+<Marker>
+  <Marker.Icon>
+    <Icons.Info />
+  </Marker.Icon>
+  <Marker.Content>
+    {"New messages below"->React.string}
+  </Marker.Content>
+</Marker>
+```
+
+## Composition
+
+```text
+Marker
+├── Marker.Icon
+└── Marker.Content
+```

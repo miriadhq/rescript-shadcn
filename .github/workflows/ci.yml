@@ -21,6 +21,9 @@ jobs:
       - name: check docs links
         run: yarn test:docs
 
+      - name: check className parity
+        run: yarn test:classnames
+
   # test-visual:
   #   runs-on: ubuntu-latest
   #   steps:

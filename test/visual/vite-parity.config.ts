@@ -21,6 +21,7 @@ function rescriptJsx(): Plugin {
 
 export default defineConfig({
   root: harnessRoot,
+  cacheDir: path.resolve(repoRoot, "test/artifacts/pixel-perfect/.vite"),
   plugins: [rescriptJsx()],
   esbuild: {
     jsx: "automatic",
@@ -30,20 +31,30 @@ export default defineConfig({
       // shadcn-ui v4 globals import `shadcn/tailwind.css`; the `shadcn` npm package
       // (CLI v3) no longer exports that path — map to the app's theme file (same role as app/globals.css).
       "shadcn/tailwind.css": path.resolve(repoRoot, "app/tailwind.css"),
+      "shadcn/preset": path.resolve(repoRoot, "shadcn-ui/packages/shadcn/src/preset/index.ts"),
+      "@/app/(app)/create/components/icon-placeholder": path.resolve(
+        harnessRoot,
+        "icon-placeholder.tsx"
+      ),
+      "@/app/(create)/components/icon-placeholder": path.resolve(
+        harnessRoot,
+        "icon-placeholder.tsx"
+      ),
       "@": appRoot,
       "next/image": path.resolve(harnessRoot, "next-image.tsx"),
       "next/link": path.resolve(harnessRoot, "next-link.tsx"),
       "next/font/google": path.resolve(harnessRoot, "next-font-google.ts"),
       react: path.resolve(repoRoot, "node_modules/react"),
-      "react-dom/client": path.resolve(repoRoot, "node_modules/react-dom/client.js"),
-      "react-dom/server": path.resolve(repoRoot, "node_modules/react-dom/server.browser.js"),
-      "react-dom": path.resolve(repoRoot, "node_modules/react-dom"),
     },
   },
   css: {
     postcss: {
       plugins: [tailwindcss()],
     },
+  },
+  optimizeDeps: {
+    noDiscovery: true,
+    include: ["react", "react/jsx-runtime", "react/jsx-dev-runtime", "react-dom", "react-dom/client"],
   },
   server: {
     host: "127.0.0.1",

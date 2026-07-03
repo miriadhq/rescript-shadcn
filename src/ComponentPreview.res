@@ -15,12 +15,15 @@ let make = async (
   @as("type") ~type_: option<Type.t>=?,
   ~className=?,
   ~previewClassName=?,
+  ~styleName=?,
   ~align=ComponentPreviewTabs.Align.Center,
   ~hideCode=false,
   ~chromeLessOnMobile=false,
   ~direction=BaseUi.Types.TextDirection.Ltr,
   ~caption=?,
 ) => {
+  let _ = styleName
+
   switch name {
   | None => React.null
   | Some(name) =>

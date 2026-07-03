@@ -17,7 +17,7 @@ let make = (props: BaseUi.Menubar.props) =>
   <BaseUi.Menubar
     {...props}
     dataSlot="menubar"
-    className={cn("flex h-8 items-center gap-0.5 rounded-lg border p-[3px]", props.className)}
+    className={cn("cn-menubar flex items-center", props.className)}
   />
 
 module Menu = {
@@ -60,7 +60,7 @@ module Trigger = {
       {...props}
       dataSlot="menubar-trigger"
       className={cn(
-        "flex items-center rounded-sm px-1.5 py-[2px] text-sm font-medium outline-hidden select-none hover:bg-muted aria-expanded:bg-muted",
+        "cn-menubar-trigger flex items-center outline-hidden select-none",
         props.className,
       )}
     />
@@ -80,7 +80,7 @@ module Content = {
       alignOffset
       sideOffset
       className={cn(
-        "cn-menu-target cn-menu-translucent min-w-36 rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95",
+        "cn-menubar-content-logical cn-menubar-content cn-menu-target cn-menu-translucent",
         props.className,
       )}
     />
@@ -113,7 +113,7 @@ module Item = {
       ?inset
       variant={(variant :> DropdownMenu.Variant.t)}
       className={cn(
-        "group/menubar-item gap-1.5 rounded-md px-1.5 py-1 text-sm focus:bg-accent focus:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-inset:pl-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 data-[variant=destructive]:*:[svg]:text-destructive!",
+        "cn-menubar-item group/menubar-item",
         className,
       )}
     />
@@ -149,12 +149,12 @@ module CheckboxItem = {
       ?onKeyDown
       dataSlot="menubar-checkbox-item"
       className={cn(
-        "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-1.5 pl-7 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "cn-menubar-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
     >
       <span
-        className="pointer-events-none absolute left-1.5 flex size-4 items-center justify-center [&_svg:not([class*='size-'])]:size-4"
+        className="cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center"
       >
         <BaseUi.Menu.CheckboxItemIndicator>
           <Icons.Check />
@@ -197,12 +197,12 @@ module RadioItem = {
       ?onKeyDown
       dataSlot="menubar-radio-item"
       className={cn(
-        "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-1.5 pl-7 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "cn-menubar-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
     >
       <span
-        className="pointer-events-none absolute left-1.5 flex size-4 items-center justify-center [&_svg:not([class*='size-'])]:size-4"
+        className="cn-menubar-checkbox-item-indicator pointer-events-none absolute flex items-center justify-center"
       >
         <BaseUi.Menu.RadioItemIndicator>
           <Icons.Check />
@@ -223,7 +223,7 @@ module Label = {
       ?inset
       ?children
       dataSlot="menubar-label"
-      className={cn("px-1.5 py-1 text-sm font-medium data-inset:pl-7", className)}
+      className={cn("cn-menubar-label", className)}
     />
 }
 
@@ -235,7 +235,7 @@ module Separator = {
       ?style
       ?children
       dataSlot="menubar-separator"
-      className={cn("-mx-1 my-1 h-px bg-border", className)}
+      className={cn("cn-menubar-separator -mx-1 my-1 h-px", className)}
     />
 }
 
@@ -257,7 +257,7 @@ module Shortcut = {
       ?onKeyDown
       dataSlot
       className={cn(
-        "ml-auto text-xs tracking-widest text-muted-foreground group-focus/menubar-item:text-accent-foreground",
+        "cn-menubar-shortcut ml-auto",
         className,
       )}
       ?children
@@ -287,7 +287,7 @@ module SubTrigger = {
       dataSlot="menubar-sub-trigger"
       dataInset=?props.inset
       className={cn(
-        "gap-1.5 rounded-md px-1.5 py-1 text-sm focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-open:bg-accent data-open:text-accent-foreground [&_svg:not([class*='size-'])]:size-4",
+        "cn-menubar-sub-trigger",
         props.className,
       )}
     />
@@ -301,7 +301,7 @@ module SubContent = {
       {...props}
       dataSlot="menubar-sub-content"
       className={cn(
-        "cn-menu-target cn-menu-translucent min-w-32 rounded-lg bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+        "cn-menubar-sub-content cn-menu-target cn-menu-translucent",
         props.className,
       )}
     />

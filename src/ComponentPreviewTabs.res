@@ -16,6 +16,7 @@ module PreviewWrapper = {
     ~align: Align.t,
     ~chromeLessOnMobile,
     ~previewClassName,
+    ~styleId,
     ~dir: option<BaseUi.Types.TextDirection.t>=?,
     ~children,
   ) => {
@@ -24,7 +25,7 @@ module PreviewWrapper = {
         dataAlign={(align :> string)}
         dataChromeless={chromeLessOnMobile}
         className={Commons.cn(
-          "preview relative flex h-72 w-full justify-center p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start data-[chromeless=true]:h-auto data-[chromeless=true]:p-0",
+          `preview style-${styleId} relative flex h-72 w-full justify-center p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start data-[chromeless=true]:h-auto data-[chromeless=true]:p-0`,
           previewClassName,
         )}
       >
@@ -60,6 +61,7 @@ let make = (
   ~direction=BaseUi.Types.TextDirection.Ltr,
 ) => {
   let (codeVisible, setCodeVisible) = React.useState(() => false)
+  let (selectedStyle, _) = Config.Style.use()
 
   <div
     dataSlot="component-preview"
@@ -69,7 +71,13 @@ let make = (
     )}
   >
     <Direction.Provider>
-      <PreviewWrapper align chromeLessOnMobile previewClassName dir=direction>
+      <PreviewWrapper
+        align
+        chromeLessOnMobile
+        previewClassName
+        styleId={Config.Style.toString(selectedStyle)}
+        dir=direction
+      >
         {component}
       </PreviewWrapper>
     </Direction.Provider>
