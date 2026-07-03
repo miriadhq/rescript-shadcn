@@ -248,7 +248,7 @@ module Previous = {
     }
     <Button
       className={cn(
-        `absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
+        `cn-carousel-previous absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
             ? "top-1/2 -left-12 -translate-y-1/2"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90"}`,
         className,
@@ -288,7 +288,7 @@ module Next = {
     }
     <Button
       className={cn(
-        `absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
+        `cn-carousel-next absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
             ? "top-1/2 -right-12 -translate-y-1/2"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"}`,
         className,

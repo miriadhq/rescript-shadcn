@@ -47,7 +47,7 @@ let make = () => {
       render={<Button
         variant=Ghost
         size=Icon
-        className="group/toggle extend-touch-target size-8"
+        className="group/toggle extend-touch-target size-8 shrink-0"
         onClick={_ => toggleTheme()}
       />}
     >

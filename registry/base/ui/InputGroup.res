@@ -50,21 +50,21 @@ let make = (props: BaseUi.Types.DomProps.t) => {
     dataSlot="input-group"
     role="group"
     className={cn(
-      "group/input-group relative flex h-8 w-full min-w-0 items-center rounded-lg border border-input transition-colors outline-none in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:bg-input/50 has-disabled:opacity-50 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:border-destructive has-[[data-slot][aria-invalid=true]]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto dark:bg-input/30 dark:has-disabled:bg-input/80 dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+      "cn-input-group group/input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
       props.className,
     )}
   />
 }
 
 module Addon = {
-  let baseClass = "flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm font-medium text-muted-foreground select-none group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4"
+  let baseClass = "cn-input-group-addon flex cursor-text items-center justify-center select-none"
 
   let alignClass = (~align=Align.InlineStart) =>
     switch align {
-    | InlineStart => "order-first pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem]"
-    | InlineEnd => "order-last pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem]"
-    | BlockStart => "order-first w-full justify-start px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2"
-    | BlockEnd => "order-last w-full justify-start px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2"
+    | InlineStart => "cn-input-group-addon-align-inline-start order-first"
+    | InlineEnd => "cn-input-group-addon-align-inline-end order-last"
+    | BlockStart => "cn-input-group-addon-align-block-start order-first w-full justify-start"
+    | BlockEnd => "cn-input-group-addon-align-block-end order-last w-full justify-start"
     }
 
   @react.component
@@ -109,13 +109,13 @@ module Button = {
 
   let sizeClass = (~size: Size.t) =>
     switch size {
-    | Xs => "h-6 gap-1 rounded-[calc(var(--radius)-3px)] px-1.5 [&>svg:not([class*='size-'])]:size-3.5"
-    | Sm => ""
-    | IconXs => "size-6 rounded-[calc(var(--radius)-3px)] p-0 has-[>svg]:p-0"
-    | IconSm => "size-8 p-0 has-[>svg]:p-0"
+    | Xs => "cn-input-group-button-size-xs"
+    | Sm => "cn-input-group-button-size-sm"
+    | IconXs => "cn-input-group-button-size-icon-xs"
+    | IconSm => "cn-input-group-button-size-icon-sm"
     }
 
-  let baseClass = "flex items-center gap-2 text-sm shadow-none"
+  let baseClass = "cn-input-group-button flex items-center shadow-none"
 
   @react.component
   let make = (
@@ -167,7 +167,7 @@ module Text = {
       ?onClick
       ?onKeyDown
       className={cn(
-        "text-muted-foreground flex items-center gap-2 text-sm [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
+        "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
         className,
       )}
     />
@@ -180,7 +180,7 @@ module Input = {
       {...props}
       dataSlot="input-group-control"
       className={cn(
-        "flex-1 rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
+        "cn-input-group-input flex-1",
         props.className,
       )}
     />
@@ -222,7 +222,7 @@ module Textarea = {
       ?onKeyDown
       dataSlot="input-group-control"
       className={cn(
-        "flex-1 resize-none rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
+        "cn-input-group-textarea flex-1 resize-none",
         className,
       )}
     />

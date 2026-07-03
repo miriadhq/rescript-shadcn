@@ -1,4 +1,4 @@
-import "../../../shadcn-ui/apps/v4/styles/globals.css"
+import "../../../shadcn-ui/apps/v4/app/globals.css"
 
 import * as React from "react"
 import { createRoot } from "react-dom/client"
@@ -13,7 +13,7 @@ const tsxModules: Record<string, ModuleLoader> = {
     string,
     ModuleLoader
   >),
-  ...(import.meta.glob("../../../shadcn-ui/apps/v4/examples/base/ui/*.tsx") as Record<
+  ...(import.meta.glob("../../../shadcn-ui/apps/v4/registry/bases/base/ui/*.tsx") as Record<
     string,
     ModuleLoader
   >),

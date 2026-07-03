@@ -90,7 +90,7 @@ module Content = {
           ?children
           dataSlot
           className={cn(
-            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 cn-menu-target z-50 max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg p-1 shadow-md ring-1 duration-100 outline-none data-closed:overflow-hidden",
+            "cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
             className,
           )}
         />
@@ -126,7 +126,7 @@ module Label = {
       ?children
       dataSlot
       className={cn(
-        "text-muted-foreground px-1.5 py-1 text-xs font-medium data-inset:pl-7",
+        "cn-dropdown-menu-label",
         className,
       )}
     />
@@ -159,7 +159,7 @@ module Item = {
       dataSlot
       dataVariant={(variant :> string)}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground group/dropdown-menu-item relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "cn-dropdown-menu-item group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
     />
@@ -195,12 +195,12 @@ module CheckboxItem = {
       ?onKeyDown
       dataSlot="dropdown-menu-checkbox-item"
       className={cn(
-        "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "cn-dropdown-menu-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
     >
       <span
-        className="pointer-events-none absolute right-2 flex items-center justify-center"
+        className="cn-dropdown-menu-item-indicator pointer-events-none"
         dataSlot="dropdown-menu-checkbox-item-indicator"
       >
         <BaseUi.Menu.CheckboxItemIndicator>
@@ -249,12 +249,12 @@ module RadioItem = {
       ?onKeyDown
       dataSlot="dropdown-menu-radio-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "cn-dropdown-menu-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
     >
       <span
-        className="pointer-events-none absolute right-2 flex items-center justify-center"
+        className="cn-dropdown-menu-item-indicator pointer-events-none"
         dataSlot="dropdown-menu-radio-item-indicator"
       >
         <BaseUi.Menu.RadioItemIndicator>
@@ -269,7 +269,7 @@ module Separator = {
   @react.component
   let make = (~className=?, ~children=?, ~id=?, ~style=?, ~dataSlot="dropdown-menu-separator") =>
     <BaseUi.Menu.Separator
-      ?id ?style ?children dataSlot className={cn("bg-border -mx-1 my-1 h-px", className)}
+      ?id ?style ?children dataSlot className={cn("cn-dropdown-menu-separator", className)}
     />
 }
 
@@ -291,7 +291,7 @@ module Shortcut = {
       ?onKeyDown
       dataSlot
       className={cn(
-        "text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ml-auto text-xs tracking-widest",
+        "cn-dropdown-menu-shortcut",
         className,
       )}
       ?children
@@ -317,7 +317,7 @@ module SubTrigger = {
       {...props}
       dataSlot={props.dataSlot->Option.getOr("dropdown-menu-sub-trigger")}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-popup-open:bg-accent data-popup-open:text-accent-foreground flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "cn-dropdown-menu-sub-trigger data-popup-open:bg-accent data-popup-open:text-accent-foreground flex cursor-default items-center outline-hidden select-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
       )}
     >
@@ -357,7 +357,7 @@ module SubContent = {
       sideOffset
       dataSlot
       className={cn(
-        "cn-menu-target cn-menu-translucent w-auto min-w-[96px] rounded-lg bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+        "cn-dropdown-menu-sub-content cn-menu-target cn-menu-translucent w-auto",
         className,
       )}
     />

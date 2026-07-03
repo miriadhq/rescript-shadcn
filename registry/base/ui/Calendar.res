@@ -108,7 +108,7 @@ module DayPickerClassNames = {
     @as("dropdown_root") dropdownRoot?: string,
     dropdown?: string,
     @as("caption_label") captionLabel?: string,
-    table?: string,
+    @as("month_grid") monthGrid?: string,
     weekdays?: string,
     weekday?: string,
     week?: string,
@@ -140,9 +140,7 @@ external cn4: (
 ) => string = "twMerge"
 
 module DayButton = {
-  let toButtonProps: DayButtonProps.t => Button.props = %raw(`
-  ({day, modifiers, locale, ...rest}) => rest 
-  `)
+  let toButtonProps: DayButtonProps.t => Button.props = %raw(`({day, modifiers, locale, ...rest}) => rest`)
 
   @react.componentWithProps(DayButtonProps.t)
   let make = (props: DayButtonProps.t) => {
@@ -182,7 +180,7 @@ module DayButton = {
       dataRangeEnd=?{modifiers.rangeEnd}
       dataRangeMiddle=?{modifiers.rangeMiddle}
       className={cn4(
-        "relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
+        "cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
         defaultClassNames.day->Option.getOr(""),
         ~additional=className,
       )}
@@ -368,11 +366,7 @@ module Props = {
   }
 }
 
-let toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<'selected> = %raw(`
-  function({buttonVariant, ...rest}){
-    return rest;
-  }
-`)
+let toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<'selected> = %raw(`function({buttonVariant, ...rest}){ return rest; }`)
 
 @scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
 
@@ -392,7 +386,7 @@ let make = props => {
     {...props}
     showOutsideDays
     className={cn(
-      "bg-background group/calendar p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
+      "cn-calendar bg-background group/calendar in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
       props.className,
     )}
     captionLayout
@@ -444,14 +438,14 @@ let make = props => {
         captionLabel: cn4(
           "select-none font-medium",
           switch captionLayout {
-          | CaptionLayout.Label => "text-sm"
+          | CaptionLayout.Label => "cn-calendar-caption text-sm"
           | Dropdown => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
           | DropdownMonths => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
           | DropdownYears => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
           },
           ~additional=defaultClassNames.captionLabel,
         ),
-        table: cn("w-full border-collapse", defaultClassNames.table),
+        monthGrid: cn("w-full border-collapse", defaultClassNames.monthGrid),
         weekdays: cn("flex", defaultClassNames.weekdays),
         weekday: cn(
           "text-muted-foreground rounded-(--cell-radius) flex-1 font-normal text-[0.8rem] select-none",

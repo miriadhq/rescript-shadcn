@@ -61,7 +61,7 @@ module Overlay = {
       ?onKeyDown
       dataSlot="alert-dialog-overlay"
       className={cn(
-        "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 isolate z-50 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+        "cn-alert-dialog-overlay fixed inset-0 isolate z-50",
         className,
       )}
     />
@@ -95,7 +95,7 @@ module Content = {
         dataSlot="alert-dialog-content"
         dataSize={(size :> string)}
         className={cn(
-          "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-background ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm",
+          "cn-alert-dialog-content data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-background ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm",
           className,
         )}
       />
@@ -114,7 +114,7 @@ module Header = {
       ?onKeyDown
       dataSlot="alert-dialog-header"
       className={cn(
-        "grid grid-rows-[auto_1fr] place-items-center gap-1.5 text-center has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr] has-data-[slot=alert-dialog-media]:gap-x-4 sm:group-data-[size=default]/alert-dialog-content:place-items-start sm:group-data-[size=default]/alert-dialog-content:text-left sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr]",
+        "cn-alert-dialog-header",
         className,
       )}
     />
@@ -131,7 +131,7 @@ module Footer = {
       ?onKeyDown
       dataSlot="alert-dialog-footer"
       className={cn(
-        "bg-muted/50 -mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-xl border-t p-4 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
+        "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
         className,
       )}
     />
@@ -148,7 +148,7 @@ module Media = {
       ?onKeyDown
       dataSlot="alert-dialog-media"
       className={cn(
-        "bg-muted mb-2 inline-flex size-10 items-center justify-center rounded-md sm:group-data-[size=default]/alert-dialog-content:row-span-2 *:[svg:not([class*='size-'])]:size-6",
+        "cn-alert-dialog-media",
         className,
       )}
     />
@@ -165,7 +165,7 @@ module Title = {
       ?children
       dataSlot="alert-dialog-title"
       className={cn(
-        "text-base font-medium sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2",
+        "cn-alert-dialog-title cn-font-heading",
         className,
       )}
     />
@@ -182,7 +182,7 @@ module Description = {
       ?children
       dataSlot="alert-dialog-description"
       className={cn(
-        "text-muted-foreground *:[a]:hover:text-foreground text-sm text-balance md:text-pretty *:[a]:underline *:[a]:underline-offset-3",
+        "cn-alert-dialog-description",
         className,
       )}
     />
@@ -203,7 +203,7 @@ module Action = {
     ~render=?,
   ) =>
     <Button
-      className
+      className={cn("cn-alert-dialog-action", Some(className))}
       variant
       size
       ?nativeButton
@@ -229,7 +229,7 @@ module Cancel = {
     ~onClick=?,
     ~onKeyDown=?,
     ~disabled=?,
-    ~render=<Button variant size className />,
+    ~render=<Button variant size className={cn("cn-alert-dialog-cancel", Some(className))} />,
     ~nativeButton=?,
     ~type_=?,
     ~ariaLabel=?,

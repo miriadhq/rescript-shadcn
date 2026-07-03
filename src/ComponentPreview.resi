@@ -10,6 +10,7 @@ let make: (
   @as("type") ~type_: Type.t=?,
   ~className: string=?,
   ~previewClassName: string=?,
+  ~styleName: string=?,
   ~align: RescriptShadcn.ComponentPreviewTabs.Align.t=?,
   ~hideCode: bool=?,
   ~chromeLessOnMobile: bool=?,

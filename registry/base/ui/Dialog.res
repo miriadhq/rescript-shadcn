@@ -96,7 +96,7 @@ module Overlay = {
       ?onKeyDown
       dataSlot="dialog-overlay"
       className={cn(
-        "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 isolate z-50 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs",
+        "cn-dialog-overlay fixed inset-0 isolate z-50",
         className,
       )}
     />
@@ -126,7 +126,7 @@ module Content = {
         ?onKeyDown
         dataSlot="dialog-content"
         className={cn(
-          "bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 duration-100 outline-none sm:max-w-sm",
+          "cn-dialog-content bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 duration-100 outline-none sm:max-w-sm",
           className,
         )}
       >
@@ -135,7 +135,7 @@ module Content = {
           ? <BaseUi.Dialog.Close
               dataSlot="dialog-close"
               render={<Button
-                variant=Ghost size=IconSm className="absolute top-2 right-2" dataSlot="dialog-close"
+                variant=Ghost size=IconSm className="cn-dialog-close" dataSlot="dialog-close"
               />}
             >
               <Icons.X />
@@ -156,7 +156,7 @@ module Header = {
       ?onClick
       ?onKeyDown
       dataSlot="dialog-header"
-      className={cn("flex flex-col gap-2", className)}
+      className={cn("cn-dialog-header flex flex-col", className)}
     />
 }
 
@@ -171,7 +171,7 @@ module Footer = {
       ?onKeyDown
       dataSlot="dialog-footer"
       className={cn(
-        "bg-muted/50 -mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-xl border-t p-4 sm:flex-row sm:justify-end",
+        "cn-dialog-header cn-dialog-footer flex flex-col-reverse sm:flex-row sm:justify-end",
         className,
       )}
     />
@@ -187,7 +187,7 @@ module Title = {
       ?onKeyDown
       ?children
       dataSlot="dialog-title"
-      className={cn("text-base leading-none font-medium", className)}
+      className={cn("cn-dialog-title cn-font-heading", className)}
     />
 }
 
@@ -202,7 +202,7 @@ module Description = {
       ?children
       dataSlot="dialog-description"
       className={cn(
-        "text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3",
+        "cn-dialog-description",
         className,
       )}
     />

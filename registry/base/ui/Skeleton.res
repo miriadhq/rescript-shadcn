@@ -21,6 +21,6 @@ let make = (
     ?onKeyDown
     ?dataSidebar
     dataSlot="skeleton"
-    className={cn("bg-muted animate-pulse rounded-md", className)}
+    className={cn("cn-skeleton animate-pulse", className)}
   />
 }

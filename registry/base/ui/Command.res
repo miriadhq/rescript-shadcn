@@ -101,7 +101,7 @@ let make = (
     ?dir
     dataSlot="command"
     className={cn(
-      "flex size-full flex-col overflow-hidden rounded-xl! bg-popover p-1 text-popover-foreground",
+      "cn-command flex size-full flex-col overflow-hidden",
       className,
     )}
     ?children
@@ -127,7 +127,7 @@ module Dialog = {
         <Dialog.Description> {description->React.string} </Dialog.Description>
       </Dialog.Header>
       <Dialog.Content
-        className={cn("top-1/3 translate-y-0 overflow-hidden rounded-xl! p-0", className)}
+        className={cn("cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0", className)}
         showCloseButton
       >
         {children}
@@ -150,9 +150,9 @@ module Input = {
     ~placeholder=?,
     ~dir=?,
   ) => {
-    <div dataSlot="command-input-wrapper" className="p-1 pb-0">
+    <div dataSlot="command-input-wrapper" className="cn-command-input-wrapper">
       <InputGroup
-        className="h-8! rounded-lg! border-input/30 bg-input/30 shadow-none! *:data-[slot=input-group-addon]:pl-2!"
+        className="cn-command-input-group"
       >
         <CommandPrimitive.Input
           ?id
@@ -167,12 +167,12 @@ module Input = {
           ?children
           dataSlot="command-input"
           className={cn(
-            "w-full text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+            "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
             className,
           )}
         />
         <InputGroup.Addon>
-          <Icons.Search className="size-4 shrink-0 opacity-50" />
+          <Icons.Search className="cn-command-input-icon" />
         </InputGroup.Addon>
       </InputGroup>
     </div>
@@ -189,7 +189,7 @@ module List = {
       ?onKeyDown
       dataSlot="command-list"
       className={cn(
-        "no-scrollbar max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none",
+        "cn-command-list overflow-x-hidden overflow-y-auto",
         className,
       )}
       ?children
@@ -203,7 +203,7 @@ module Empty = {
       ?id
       ?style
       dataSlot="command-empty"
-      className={cn("py-6 text-center text-sm", className)}
+      className={cn("cn-command-empty", className)}
       ?children
     />
 }
@@ -217,7 +217,7 @@ module Group = {
       ?heading
       dataSlot="command-group"
       className={cn(
-        "text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
+        "cn-command-group",
         className,
       )}
       ?children
@@ -232,7 +232,7 @@ module Separator = {
       ?style
       ?children
       dataSlot="command-separator"
-      className={cn("bg-border -mx-1 h-px", className)}
+      className={cn("cn-command-separator", className)}
     />
 }
 
@@ -259,13 +259,13 @@ module Item = {
       ?onKeyDown
       dataSlot="command-item"
       className={cn(
-        "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground group/command-item relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
     >
       {children}
       <Icons.Check
-        className="ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
+        className="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
       />
     </CommandPrimitive.Item>
 }
@@ -281,7 +281,7 @@ module Shortcut = {
       ?onKeyDown
       dataSlot="command-shortcut"
       className={cn(
-        "text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest",
+        "cn-command-shortcut",
         className,
       )}
     />

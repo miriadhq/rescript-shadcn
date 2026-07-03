@@ -1,0 +1,43 @@
+---
+title: Message
+description: Displays a message in a conversation, with optional avatar, header, footer, and alignment.
+base: base
+component: true
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Message
+```
+
+## Usage
+
+```res showLineNumbers
+<Message>
+  <Message.Avatar>
+    <Avatar>
+      <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
+      <Avatar.Fallback> {"CN"->React.string} </Avatar.Fallback>
+    </Avatar>
+  </Message.Avatar>
+  <Message.Content>
+    <Bubble>
+      <Bubble.Content> {"How can I help you today?"->React.string} </Bubble.Content>
+    </Bubble>
+  </Message.Content>
+</Message>
+```
+
+## Composition
+
+```text
+Message
+├── Message.Avatar
+└── Message.Content
+    ├── Message.Header
+    ├── Bubble
+    └── Message.Footer
+```
+
+Use `Message.Group` to stack consecutive messages from the same sender.

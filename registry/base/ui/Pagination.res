@@ -21,7 +21,7 @@ let make = (~className=?, ~children=?, ~id=?, ~dir=?, ~style=?, ~onClick=?, ~onK
     ?onKeyDown
     role="navigation"
     ariaLabel="pagination"
-    className={cn("mx-auto flex w-full justify-center", className)}
+    className={cn("cn-pagination mx-auto flex w-full justify-center", className)}
     ?children
   />
 }
@@ -35,7 +35,7 @@ module Content = {
       ?style
       ?onClick
       ?onKeyDown
-      className={cn("flex items-center gap-0.5", className)}
+      className={cn("cn-pagination-content flex items-center", className)}
       ?children
     />
   }
@@ -64,7 +64,7 @@ module Link = {
     <Button
       variant={isActive ? Outline : Ghost}
       size={(size :> Button.Size.t)}
-      className={cn("", className)}
+      className={cn("cn-pagination-link", className)}
       nativeButton={false}
       render={<a
         ?id
@@ -88,7 +88,7 @@ module Previous = {
     <Link
       ariaLabel="Go to previous page"
       size={Size.Default}
-      className={cn("pl-1.5!", className)}
+      className={cn("cn-pagination-previous", className)}
       ?href
       ?target
       ?id
@@ -96,7 +96,7 @@ module Previous = {
       ?onClick
     >
       <Icons.ChevronLeft dataIcon="inline-start" className="cn-rtl-flip" />
-      <span className="hidden sm:block"> {text->React.string} </span>
+      <span className="cn-pagination-previous-text hidden sm:block"> {text->React.string} </span>
     </Link>
   }
 }
@@ -107,14 +107,14 @@ module Next = {
     <Link
       ariaLabel="Go to next page"
       size={Size.Default}
-      className={cn("pr-1.5!", className)}
+      className={cn("cn-pagination-next", className)}
       ?href
       ?target
       ?id
       ?style
       ?onClick
     >
-      <span className="hidden sm:block"> {text->React.string} </span>
+      <span className="cn-pagination-next-text hidden sm:block"> {text->React.string} </span>
       <Icons.ChevronRight dataIcon="inline-end" className="cn-rtl-flip" />
     </Link>
   }
@@ -129,7 +129,7 @@ module Ellipsis = {
       ?style
       ariaHidden={true}
       className={cn(
-        "flex size-8 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
+        "cn-pagination-ellipsis flex",
         className,
       )}
     >

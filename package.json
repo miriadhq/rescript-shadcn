@@ -19,8 +19,9 @@
     "loader:generate": "node scripts/generate-demo-loader.mjs",
     "og:generate": "node scripts/generate-og-images.mjs",
     "test:docs": "vitest run test/mdx-links.test.ts",
+    "test:classnames": "vitest run test/classname-parity.test.ts",
     "test:visual": "node test/visual/run-pixel-perfect.mjs",
-    "test": "test:docs && test:visual",
+    "test": "yarn test:docs && yarn test:classnames && yarn test:visual",
     "postInstall": "yarn loader:generate && fumadocs-mdx source.config.mjs .source"
   },
   "dependencies": {

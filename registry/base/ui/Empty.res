@@ -12,12 +12,12 @@ module Variant = {
 
 let emptyMediaVariantClass = (~variant: Variant.t) =>
   switch variant {
-  | Icon => "bg-muted text-foreground flex size-8 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-4"
-  | Default => "bg-transparent"
+  | Icon => "cn-empty-media-icon"
+  | Default => "cn-empty-media-default"
   }
 
 let emptyMediaVariants = (~variant=Variant.Default) => {
-  let base = "mb-2 flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0"
+  let base = "cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0"
   `${base} ${emptyMediaVariantClass(~variant)}`
 }
 
@@ -32,7 +32,7 @@ let make = (~className=?, ~children=?, ~id=?, ~dir=?, ~style=?, ~onClick=?, ~onK
     ?onKeyDown
     dataSlot="empty"
     className={cn(
-      "flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-4 rounded-xl border-dashed p-6 text-center text-balance",
+      "cn-empty flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
       className,
     )}
   />
@@ -48,7 +48,7 @@ module Header = {
       ?onClick
       ?onKeyDown
       dataSlot="empty-header"
-      className={cn("flex max-w-sm flex-col items-center gap-2", className)}
+      className={cn("cn-empty-header flex max-w-sm flex-col items-center", className)}
     />
 }
 
@@ -86,7 +86,7 @@ module Title = {
       ?onClick
       ?onKeyDown
       dataSlot="empty-title"
-      className={cn("text-sm font-medium tracking-tight", className)}
+      className={cn("cn-empty-title cn-font-heading", className)}
     />
 }
 
@@ -101,7 +101,7 @@ module Description = {
       ?onKeyDown
       dataSlot="empty-description"
       className={cn(
-        "text-muted-foreground [&>a:hover]:text-primary text-sm/relaxed [&>a]:underline [&>a]:underline-offset-4",
+        "cn-empty-description text-muted-foreground [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
         className,
       )}
     />
@@ -118,7 +118,7 @@ module Content = {
       ?onKeyDown
       dataSlot="empty-content"
       className={cn(
-        "flex w-full max-w-sm min-w-0 flex-col items-center gap-2.5 text-sm text-balance",
+        "cn-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
         className,
       )}
     />

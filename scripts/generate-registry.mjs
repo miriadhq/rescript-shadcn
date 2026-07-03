@@ -79,6 +79,12 @@ function listResFiles(dir) {
 const uiModules = listResFiles(path.join(baseDir, "ui"))
 const rtlModules = listResFiles(path.join(baseDir, "ui-rtl"))
 const exampleModules = listResFiles(path.join(baseDir, "examples"))
+const styleModules = existsSync(path.join(packageRoot, "registry", "styles"))
+  ? readdirSync(path.join(packageRoot, "registry", "styles"))
+      .filter((f) => /^style-[a-z0-9-]+\.css$/.test(f))
+      .map((f) => f.slice("style-".length, -".css".length))
+      .sort()
+  : []
 
 // Build a map: relative .res path (from rescript/) → registry item name
 // e.g. "ui/Accordion.res" → "accordion"
@@ -194,8 +200,29 @@ function buildItem(mod, dir, type) {
   return item
 }
 
+function toPascalCase(value) {
+  return value
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("")
+}
+
+function buildStyleItem(style) {
+  return {
+    name: `Style${toPascalCase(style)}`,
+    type: "registry:style",
+    files: [
+      {
+        path: `registry/styles/style-${style}.css`,
+        type: "registry:style",
+      },
+    ],
+  }
+}
+
 // Build all items
 const items = [
+  ...styleModules.map(buildStyleItem),
   ...uiModules.map((mod) => buildItem(mod, `${base}/ui`, "registry:ui")),
   ...rtlModules.map((mod) => buildItem(mod, `${base}/ui-rtl`, "registry:ui")),
   ...exampleModules.map((mod) =>

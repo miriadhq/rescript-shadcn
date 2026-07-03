@@ -14,7 +14,7 @@ let make = (~className=?, ~children=?, ~id=?, ~style=?, ~dir=?, ~onClick=?, ~onK
     ?onClick
     ?onKeyDown
     dataSlot="table-container"
-    className="relative w-full overflow-x-auto"
+    className="cn-table-container"
   >
     <table
       ?id
@@ -23,7 +23,7 @@ let make = (~className=?, ~children=?, ~id=?, ~style=?, ~dir=?, ~onClick=?, ~onK
       ?onKeyDown
       ?children
       dataSlot="table"
-      className={cn("w-full caption-bottom text-sm", className)}
+      className={cn("cn-table", className)}
     />
   </div>
 }
@@ -38,7 +38,7 @@ module Header = {
       ?onClick
       ?onKeyDown
       dataSlot="table-header"
-      className={cn("[&_tr]:border-b", className)}
+      className={cn("cn-table-header", className)}
     />
 }
 
@@ -52,7 +52,7 @@ module Body = {
       ?onClick
       ?onKeyDown
       dataSlot="table-body"
-      className={cn("[&_tr:last-child]:border-0", className)}
+      className={cn("cn-table-body", className)}
     />
 }
 
@@ -66,7 +66,7 @@ module Footer = {
       ?onClick
       ?onKeyDown
       dataSlot="table-footer"
-      className={cn("bg-muted/50 border-t font-medium [&>tr]:last:border-b-0", className)}
+      className={cn("cn-table-footer", className)}
     />
 }
 
@@ -82,7 +82,7 @@ module Row = {
       ?dataState
       dataSlot="table-row"
       className={cn(
-        "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors",
+        "cn-table-row",
         className,
       )}
     />
@@ -100,7 +100,7 @@ module Head = {
       ?onKeyDown
       dataSlot="table-head"
       className={cn(
-        "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+        "cn-table-head",
         className,
       )}
     />
@@ -117,7 +117,7 @@ module Cell = {
       ?onClick
       ?onKeyDown
       dataSlot="table-cell"
-      className={cn("p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0", className)}
+      className={cn("cn-table-cell", className)}
     />
 }
 
@@ -131,6 +131,6 @@ module Caption = {
       ?onClick
       ?onKeyDown
       dataSlot="table-caption"
-      className={cn("text-muted-foreground mt-4 text-sm", className)}
+      className={cn("cn-table-caption", className)}
     />
 }

@@ -26,7 +26,7 @@ type context = {
 let toggleGroupContext = React.createContext({
   variant: Variant.Default,
   size: Size.Default,
-  spacing: 0.0,
+  spacing: 2.0,
   orientation: Orientation.Horizontal,
 })
 
@@ -39,7 +39,7 @@ let make = (
   ~className=?,
   ~variant: option<Variant.t>=?,
   ~size: option<Size.t>=?,
-  ~spacing=0.,
+  ~spacing=2.,
   ~orientation=Orientation.Horizontal,
   ~children,
   ~id=?,
@@ -66,7 +66,7 @@ let make = (
     dataOrientation={(orientation :> string)}
     style={ReactDOM.Style.unsafeAddStyle({}, {"--gap": spacing})}
     className={cn(
-      "group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] rounded-lg data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-vertical:flex-col data-vertical:items-stretch",
+      "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
       className,
     )}
     ?id
@@ -122,7 +122,7 @@ module Item = {
       dataSize={(size :> string)}
       dataSpacing=?context.spacing
       className={cn3(
-        "shrink-0 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        "cn-toggle-group-item shrink-0 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
         Toggle.toggleVariants(~variant, ~size),
         className,
       )}

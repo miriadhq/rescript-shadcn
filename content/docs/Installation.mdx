@@ -37,7 +37,19 @@ Add a `jsconfig.json` file and configure the path aliases.
 The `@` alias is a preference. You can use other aliases if you want. This is needed when defining
 aliases in components.json later on.
 
+The `style` field should match the style CSS you imported. Components use shared `cn-*` class names, so switching from `nova` to another style means installing/importing a different `style-*.css` file; the ReScript component files stay the same.
+
 ### Configure styles
+
+Choose one style and install its CSS file:
+
+```bash
+npx shadcn@latest add @rescript-shadcn/StyleNova
+```
+
+Available styles are `StyleVega`, `StyleNova`, `StyleLyra`, `StyleMaia`, `StyleMira`, `StyleLuma`, `StyleSera`, and `StyleRhea`.
+
+Import the chosen style once in your root CSS file, after `shadcn/tailwind.css`.
 
 Add the following to your `styles/globals.css` file (or wherever is your root css file). 
 You can learn more about using CSS variables for theming in [shadcn theming section](https://ui.shadcn.com/docs/theming).
@@ -48,6 +60,7 @@ You can learn more about using CSS variables for theming in [shadcn theming sect
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "./style-nova.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -181,7 +194,7 @@ Create a `components.json` file in the root of your project.
 ```json title="components.json" showLineNumbers
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "base-nova", // or whatever style you want
+  "style": "nova",
   "rsc": false,
   "tsx": true,
   "tailwind": {
