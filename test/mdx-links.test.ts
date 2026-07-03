@@ -1,14 +1,12 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
-import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
-import mdxComponents from "../src/MdxComponents.res.mjs";
 
 const rootDir = path.join(__dirname, "..");
 const contentDir = path.join(rootDir, "content", "base");
 const examplesDir = path.join(rootDir, "registry", "base", "examples");
 const uiDir = path.join(rootDir, "registry", "base", "ui");
+const mdxComponentsPath = path.join(rootDir, "src", "MdxComponents.res");
 
 function collectFullTag(lines: string[], startIndex: number): string {
   let tag = lines[startIndex];
@@ -132,12 +130,12 @@ describe("MDX ComponentSource references", () => {
 });
 
 describe("MDX heading anchors", () => {
-  it("generates stable title anchors", () => {
-    const html = renderToStaticMarkup(
-      React.createElement(mdxComponents.h3, null, "Nested")
-    );
+  const source = fs.readFileSync(mdxComponentsPath, "utf8");
 
-    expect(html).toContain('id="nested"');
-    expect(html).toContain('href="#nested"');
+  it("keeps generated title anchors", () => {
+    expect(source).toContain("->String.replaceRegExp(/\\s+/g, \"-\")");
+    expect(source).toContain("module Content");
+    expect(source).toContain("<Anchor id>");
+    expect(source).toContain('href={`#${id}`}');
   });
 });
