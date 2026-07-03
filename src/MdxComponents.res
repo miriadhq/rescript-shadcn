@@ -117,6 +117,48 @@ module LinkedCard = {
   }
 }
 
+module Heading = {
+  external text: React.element => string = "%identity"
+
+  let toId = children =>
+    children
+    ->text
+    ->String.trim
+    ->String.replaceRegExp(/\s+/g, "-")
+    ->String.replaceRegExp(/'/g, "")
+    ->String.replaceRegExp(/\?/g, "")
+    ->String.toLowerCase
+
+  module Anchor = {
+    @react.component
+    let make = (~id, ~children) =>
+      <a id className="group scroll-m-28 no-underline" href={`#${id}`}>
+        <span className="underline-offset-4 group-hover:underline"> {children} </span>
+        <span
+          ariaHidden=true className="ml-2 text-muted-foreground opacity-0 group-hover:opacity-100"
+        >
+          {"#"->React.string}
+        </span>
+      </a>
+  }
+
+  module Content = {
+    @react.component
+    let make = (~id=?, ~children=?) => {
+      let id = switch id {
+      | Some(id) => Some(id)
+      | None => children->Option.map(toId)
+      }
+
+      switch (id, children) {
+      | (Some(id), Some(children)) => <Anchor id> {children} </Anchor>
+      | (None, Some(children)) => children
+      | _ => React.null
+      }
+    }
+  }
+}
+
 // --- Components export ---
 
 @unboxed
@@ -124,48 +166,66 @@ type rec t = Components({..}): t
 
 let default = Components({
   // HTML element overrides
-  "h1": ({BaseUi.Types.DomProps.className: ?className} as props) =>
+  "h1": ({BaseUi.Types.DomProps.className: ?className, ?id, ?children} as props) => {
     <h1
       {...props}
       className={Commons.cn(
         "font-heading mt-2 scroll-m-28 text-3xl font-bold tracking-tight",
         className,
       )}
-    />,
-  "h2": ({BaseUi.Types.DomProps.className: ?className} as props) =>
+    >
+      <Heading.Content id=?id ?children />
+    </h1>
+  },
+  "h2": ({BaseUi.Types.DomProps.className: ?className, ?id, ?children} as props) => {
     <h2
       {...props}
       className={Commons.cn(
         "font-heading [&+]*:[code]:text-xl mt-10 scroll-m-28 text-xl font-medium tracking-tight first:mt-0 lg:mt-12 [&+.steps]:mt-0! [&+.steps>h3]:mt-4! [&+h3]:mt-6! [&+p]:mt-4!",
         className,
       )}
-    />,
-  "h3": ({BaseUi.Types.DomProps.className: ?className} as props) =>
+    >
+      <Heading.Content id=?id ?children />
+    </h2>
+  },
+  "h3": ({BaseUi.Types.DomProps.className: ?className, ?id, ?children} as props) => {
     <h3
       {...props}
       className={Commons.cn(
         "font-heading mt-12 scroll-m-28 text-lg font-medium tracking-tight [&+p]:mt-4! *:[code]:text-xl",
         className,
       )}
-    />,
-  "h4": ({BaseUi.Types.DomProps.className: ?className} as props) =>
+    >
+      <Heading.Content id=?id ?children />
+    </h3>
+  },
+  "h4": ({BaseUi.Types.DomProps.className: ?className, ?id, ?children} as props) => {
     <h4
       {...props}
       className={Commons.cn(
         "font-heading mt-8 scroll-m-28 text-base font-medium tracking-tight",
         className,
       )}
-    />,
-  "h5": ({BaseUi.Types.DomProps.className: ?className} as props) =>
+    >
+      <Heading.Content id=?id ?children />
+    </h4>
+  },
+  "h5": ({BaseUi.Types.DomProps.className: ?className, ?id, ?children} as props) => {
     <h5
       {...props}
       className={Commons.cn("mt-8 scroll-m-28 text-base font-medium tracking-tight", className)}
-    />,
-  "h6": ({BaseUi.Types.DomProps.className: ?className} as props) =>
+    >
+      <Heading.Content id=?id ?children />
+    </h5>
+  },
+  "h6": ({BaseUi.Types.DomProps.className: ?className, ?id, ?children} as props) => {
     <h6
       {...props}
       className={Commons.cn("mt-8 scroll-m-28 text-base font-medium tracking-tight", className)}
-    />,
+    >
+      <Heading.Content id=?id ?children />
+    </h6>
+  },
   "a": ({BaseUi.Types.DomProps.className: ?className} as props) =>
     <a {...props} className={Commons.cn("font-medium underline underline-offset-4", className)} />,
   "p": ({BaseUi.Types.DomProps.className: ?className} as props) =>
