@@ -174,6 +174,7 @@ function renderSpecialScenario(
 ): ScenarioResult | null {
   if (
     component !== "ui/chart" &&
+    component !== "ui/message-scroller" &&
     component !== "ui/sidebar" &&
     component !== "ui-rtl/chart" &&
     component !== "ui-rtl/sidebar"
@@ -219,6 +220,121 @@ function renderSpecialScenario(
           className: "h-[220px] w-[320px]",
         },
         React.createElement("div", { className: "h-full w-full" })
+      ),
+      error: null,
+    }
+  }
+
+  if (component === "ui/message-scroller") {
+    if (impl === "tsx") {
+      const MessageScrollerProvider = resolveModuleComponent(
+        state.tsxModule,
+        "MessageScrollerProvider"
+      )
+      const MessageScroller = resolveModuleComponent(state.tsxModule, "MessageScroller")
+      const MessageScrollerViewport = resolveModuleComponent(
+        state.tsxModule,
+        "MessageScrollerViewport"
+      )
+      const MessageScrollerContent = resolveModuleComponent(
+        state.tsxModule,
+        "MessageScrollerContent"
+      )
+      const MessageScrollerItem = resolveModuleComponent(state.tsxModule, "MessageScrollerItem")
+      const MessageScrollerButton = resolveModuleComponent(
+        state.tsxModule,
+        "MessageScrollerButton"
+      )
+
+      if (
+        !MessageScrollerProvider ||
+        !MessageScroller ||
+        !MessageScrollerViewport ||
+        !MessageScrollerContent ||
+        !MessageScrollerItem ||
+        !MessageScrollerButton
+      ) {
+        return { node: null, error: "Unable to resolve TSX message scroller scenario components" }
+      }
+
+      return {
+        node: React.createElement(
+          MessageScrollerProvider,
+          { defaultScrollPosition: "last-anchor" },
+          React.createElement(
+            MessageScroller,
+            { className: "h-80 w-96" },
+            React.createElement(
+              MessageScrollerViewport,
+              null,
+              React.createElement(
+                MessageScrollerContent,
+                { className: "gap-4 p-4" },
+                React.createElement(
+                  MessageScrollerItem,
+                  { messageId: "intro", scrollAnchor: true },
+                  React.createElement(
+                    "div",
+                    { className: "rounded-md bg-muted p-3 text-sm" },
+                    "A short anchored transcript row."
+                  )
+                )
+              )
+            ),
+            React.createElement(MessageScrollerButton, { "aria-label": "Scroll to latest" })
+          )
+        ),
+        error: null,
+      }
+    }
+
+    const MessageScrollerProvider = resolveModuleComponent(state.rescriptModule, "Provider")
+    const MessageScroller =
+      state.rescriptModule && typeof state.rescriptModule.make === "function"
+        ? (state.rescriptModule.make as React.ComponentType)
+        : null
+    const MessageScrollerViewport = resolveModuleComponent(state.rescriptModule, "Viewport")
+    const MessageScrollerContent = resolveModuleComponent(state.rescriptModule, "Content")
+    const MessageScrollerItem = resolveModuleComponent(state.rescriptModule, "Item")
+    const MessageScrollerButton = resolveModuleComponent(state.rescriptModule, "Button")
+
+    if (
+      !MessageScrollerProvider ||
+      !MessageScroller ||
+      !MessageScrollerViewport ||
+      !MessageScrollerContent ||
+      !MessageScrollerItem ||
+      !MessageScrollerButton
+    ) {
+      return { node: null, error: "Unable to resolve ReScript message scroller scenario components" }
+    }
+
+    return {
+      node: React.createElement(
+        MessageScrollerProvider,
+        { defaultScrollPosition: "last-anchor" },
+        React.createElement(
+          MessageScroller,
+          { className: "h-80 w-96" },
+          React.createElement(
+            MessageScrollerViewport,
+            null,
+            React.createElement(
+              MessageScrollerContent,
+              { className: "gap-4 p-4" },
+              React.createElement(
+                MessageScrollerItem,
+                { messageId: "intro", scrollAnchor: true },
+                React.createElement(
+                  "div",
+                  { className: "rounded-md bg-muted p-3 text-sm" },
+                  "A short anchored transcript row."
+                )
+              )
+            )
+          ),
+          React.createElement(MessageScrollerButton, { ariaLabel: "Scroll to latest" })
+        )
       ),
       error: null,
     }

@@ -5,60 +5,126 @@ external cn: (string, option<string>) => string = "twMerge"
 
 module Direction = {
   @unboxed
-  type t =
+  type t = ShadcnReact.MessageScroller.Direction.t =
     | @as("start") Start
     | @as("end") End
 }
 
+module DefaultScrollPosition = {
+  @unboxed
+  type t = ShadcnReact.MessageScroller.DefaultScrollPosition.t =
+    | @as("start") Start
+    | @as("end") End
+    | @as("last-anchor") LastAnchor
+}
+
+module ScrollBehavior = {
+  @unboxed
+  type t = ShadcnReact.MessageScroller.ScrollBehavior.t =
+    | @as("auto") Auto
+    | @as("instant") Instant
+    | @as("smooth") Smooth
+}
+
+module UiButton = Button
+
 module Provider = {
   @react.component
-  let make = (~children=React.null) => children
+  let make = (
+    ~autoScroll=?,
+    ~defaultScrollPosition=?,
+    ~scrollEdgeThreshold=?,
+    ~scrollPreviousItemPeek=?,
+    ~scrollMargin=?,
+    ~children=React.null,
+  ) =>
+    <ShadcnReact.MessageScroller.Provider
+      ?autoScroll
+      ?defaultScrollPosition
+      ?scrollEdgeThreshold
+      ?scrollPreviousItemPeek
+      ?scrollMargin
+      children
+    />
 }
 
 @react.component
 let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-  <div
+  <ShadcnReact.MessageScroller.Root
     ?id
     ?style
     ?onClick
     ?onKeyDown
-    ?children
     dataSlot="message-scroller"
     className={cn(
       "cn-message-scroller group/message-scroller relative flex size-full min-h-0 flex-col overflow-hidden",
       className,
     )}
-  />
+  >
+    {children->Option.getOr(React.null)}
+  </ShadcnReact.MessageScroller.Root>
 
 module Viewport = {
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <div
+  let make = (
+    ~className=?,
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~onClick=?,
+    ~onKeyDown=?,
+    ~preserveScrollOnPrepend=?,
+    ~ariaLabel=?,
+    ~role=?,
+    ~tabIndex=?,
+  ) =>
+    <ShadcnReact.MessageScroller.Viewport
       ?id
       ?style
       ?onClick
       ?onKeyDown
-      ?children
+      ?preserveScrollOnPrepend
+      ?ariaLabel
+      ?role
+      ?tabIndex
       dataSlot="message-scroller-viewport"
       className={cn(
         "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent",
         className,
       )}
-    />
+    >
+      {children->Option.getOr(React.null)}
+    </ShadcnReact.MessageScroller.Viewport>
 }
 
 module Content = {
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <div
+  let make = (
+    ~className=?,
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~onClick=?,
+    ~onKeyDown=?,
+    ~spacerClassName=?,
+    ~ariaRelevant=?,
+    ~ariaBusy=?,
+    ~role=?,
+  ) =>
+    <ShadcnReact.MessageScroller.Content
       ?id
       ?style
       ?onClick
       ?onKeyDown
-      ?children
+      ?spacerClassName
+      ?ariaRelevant
+      ?ariaBusy
+      ?role
       dataSlot="message-scroller-content"
       className={cn("cn-message-scroller-content flex h-max min-h-full flex-col", className)}
-    />
+    >
+      {children->Option.getOr(React.null)}
+    </ShadcnReact.MessageScroller.Content>
 }
 
 module Item = {
@@ -67,23 +133,27 @@ module Item = {
     ~className=?,
     ~children=?,
     ~scrollAnchor=false,
+    ~messageId=?,
     ~id=?,
     ~style=?,
     ~onClick=?,
     ~onKeyDown=?,
   ) =>
-    <div
+    <ShadcnReact.MessageScroller.Item
       ?id
       ?style
       ?onClick
       ?onKeyDown
-      ?children
+      ?messageId
+      scrollAnchor
       dataSlot="message-scroller-item"
       className={cn(
         "cn-message-scroller-item min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]",
         className,
       )}
-    />
+    >
+      {children->Option.getOr(React.null)}
+    </ShadcnReact.MessageScroller.Item>
 }
 
 module Button = {
@@ -91,6 +161,9 @@ module Button = {
   let make = (
     ~className=?,
     ~direction=Direction.End,
+    ~variant=UiButton.Variant.Secondary,
+    ~size=UiButton.Size.IconSm,
+    ~behavior=?,
     ~children=?,
     ~ariaLabel=?,
     ~id=?,
@@ -98,12 +171,18 @@ module Button = {
     ~onClick=?,
     ~onKeyDown=?,
   ) =>
-    <button
+    <ShadcnReact.MessageScroller.Button
       ?id
       ?style
       ?onClick
       ?onKeyDown
       ?ariaLabel
+      ?behavior
+      render={<UiButton variant size />}
+      dataDirection=direction
+      dataVariant={(variant :> string)}
+      dataSize={(size :> string)}
+      direction
       type_="button"
       dataSlot="message-scroller-button"
       className={cn(
@@ -111,6 +190,18 @@ module Button = {
         className,
       )}
     >
-      {children->Option.getOr(React.null)}
-    </button>
+      {children->Option.getOr(
+        React.array([
+          <Icons.ArrowDown key="icon" />,
+          <span key="label" className="sr-only">
+            {(
+              switch direction {
+              | End => "Scroll to end"
+              | Start => "Scroll to start"
+              }
+            )->React.string}
+          </span>,
+        ]),
+      )}
+    </ShadcnReact.MessageScroller.Button>
 }

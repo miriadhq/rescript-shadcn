@@ -2491,6 +2491,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shadcn/react@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@shadcn/react@npm:0.2.0"
+  peerDependencies:
+    "@types/react": ">=19"
+    react: ">=19"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 10c0/fcc3997058da19081a0b0c1fafcd2966dc74457446a37b10d03e22ca69b30d71277fb7bcf63dce2e4e7efae6c6ed8e48ff1118fe15ba5d9388f7684de809cfe9
+  languageName: node
+  linkType: hard
+
 "@shikijs/core@npm:4.0.1":
   version: 4.0.1
   resolution: "@shikijs/core@npm:4.0.1"
@@ -8398,6 +8413,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"rescript-shadcn-react@workspace:^, rescript-shadcn-react@workspace:packages/shadcn-react":
+  version: 0.0.0-use.local
+  resolution: "rescript-shadcn-react@workspace:packages/shadcn-react"
+  dependencies:
+    "@juspay/rescript-bindgen": "npm:1.2.4"
+    "@rescript/react": "npm:^0.15.0"
+    "@shadcn/react": "npm:0.2.0"
+    react: "npm:19.2.4"
+    react-dom: "npm:19.2.4"
+    rescript: "npm:^12.3.0"
+  peerDependencies:
+    "@rescript/react": ^0.15.0
+    "@shadcn/react": ^0.2.0
+  languageName: unknown
+  linkType: soft
+
 "rescript-shadcn@workspace:.":
   version: 0.0.0-use.local
   resolution: "rescript-shadcn@workspace:."
@@ -8408,6 +8439,7 @@ __metadata:
     "@next/mdx": "npm:^16.1.6"
     "@rescript/react": "npm:^0.15.0"
     "@rescript/webapi": "npm:0.1.0-experimental-127e19a"
+    "@shadcn/react": "npm:0.2.0"
     "@sparticuz/chromium": "npm:^143.0.4"
     "@tabler/icons-react": "npm:^3.38.0"
     "@tailwindcss/postcss": "npm:^4.2.1"
@@ -8441,6 +8473,7 @@ __metadata:
     rehype-pretty-code: "npm:^0.14.3"
     rescript: "npm:^12.3.0"
     rescript-base-ui: "workspace:^"
+    rescript-shadcn-react: "workspace:^"
     rescript-signals: "npm:^1.3.4"
     shadcn: "npm:^3.0.0"
     sharp: "npm:^0.34.5"

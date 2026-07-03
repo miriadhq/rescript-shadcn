@@ -194,12 +194,22 @@ module Action = {
 
 module Trigger = {
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~type_="button") =>
+  let make = (
+    ~className=?,
+    ~children=?,
+    ~ariaLabel=?,
+    ~id=?,
+    ~style=?,
+    ~onClick=?,
+    ~onKeyDown=?,
+    ~type_="button",
+  ) =>
     <button
       ?id
       ?style
       ?onClick
       ?onKeyDown
+      ?ariaLabel
       type_
       dataSlot="attachment-trigger"
       className={cn("cn-attachment-trigger absolute inset-0 z-10 outline-none", className)}

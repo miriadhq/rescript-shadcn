@@ -5,11 +5,45 @@ base: base
 component: true
 ---
 
+<ComponentPreview name="AttachmentDemo" />
+
+The `Attachment` component displays a file or image attachment, its media, name, metadata, optional actions, and upload state. Use it for chat composers, message threads, and upload lists.
+
 ## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @rescript-shadcn/Attachment
 ```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the required dependencies:</Step>
+
+```bash
+npm install @base-ui/react rescript-base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="Attachment" title="components/ui/Attachment.res" />
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
 
 ## Usage
 
@@ -23,7 +57,7 @@ npx shadcn@latest add @rescript-shadcn/Attachment
     <Attachment.Description> {"PDF - 2.4 MB"->React.string} </Attachment.Description>
   </Attachment.Content>
   <Attachment.Actions>
-    <Attachment.Action ariaLabel="Remove attachment">
+    <Attachment.Action ariaLabel="Remove sales-dashboard.pdf">
       <Icons.X />
     </Attachment.Action>
   </Attachment.Actions>
@@ -44,3 +78,67 @@ Attachment
 ```
 
 Use `Attachment.Group` to lay out multiple attachments in a horizontally scrollable row.
+
+## Features
+
+- Icon and image media through `Attachment.Media`
+- Upload states: `Idle`, `Uploading`, `Processing`, `Error`, and `Done`
+- Three sizes and horizontal or vertical orientation
+- A full-card `Attachment.Trigger` for preview/open interactions
+- Scrollable, snapping `Attachment.Group`
+- Custom styling through `className` on every part
+
+## Examples
+
+### Image
+
+Set `variant=Image` on `Attachment.Media` and render an `<img />` inside it. Use `orientation=Vertical` to stack the media above the content.
+
+<ComponentPreview name="AttachmentImage" />
+
+### States
+
+Set `state` to reflect the upload lifecycle. `Uploading` and `Processing` shimmer the title, and `Error` switches to a destructive treatment.
+
+<ComponentPreview name="AttachmentStates" />
+
+### Group
+
+Wrap attachments in `Attachment.Group` to lay them out in a horizontally scrollable, snapping row.
+
+<ComponentPreview name="AttachmentGroup" />
+
+### Trigger
+
+Add `Attachment.Trigger` to make the whole card clickable while actions stay independently clickable.
+
+<ComponentPreview name="AttachmentTrigger" />
+
+## Accessibility
+
+`Attachment.Action` is usually icon-only, so pass an `ariaLabel` that names the action and target. `Attachment.Trigger` covers the card with no visible text, so it should also receive an `ariaLabel`.
+
+## API Reference
+
+### Attachment
+
+| Prop          | Type                                      | Default      |
+| ------------- | ----------------------------------------- | ------------ |
+| `state`       | `Idle \| Uploading \| Processing \| Error \| Done` | `Done`       |
+| `size`        | `Default \| Sm \| Xs`                    | `Default`    |
+| `orientation` | `Horizontal \| Vertical`                 | `Horizontal` |
+| `className`   | `string`                                  | -            |
+
+### Attachment.Media
+
+| Prop        | Type           | Default |
+| ----------- | -------------- | ------- |
+| `variant`   | `Icon \| Image` | `Icon`  |
+| `className` | `string`       | -       |
+
+### Attachment.Trigger
+
+| Prop        | Type     | Default    |
+| ----------- | -------- | ---------- |
+| `ariaLabel` | `string` | -          |
+| `type_`     | `string` | `"button"` |

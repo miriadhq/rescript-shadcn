@@ -23,6 +23,8 @@ let make = (
   ~className=?,
   ~variant=Variant.Default,
   ~children=?,
+  ~role=?,
+  ~ariaLabel=?,
   ~id=?,
   ~style=?,
   ~onClick=?,
@@ -33,6 +35,8 @@ let make = (
     ?style
     ?onClick
     ?onKeyDown
+    ?role
+    ?ariaLabel
     ?children
     dataSlot="marker"
     dataVariant={(variant :> string)}
