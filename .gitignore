@@ -49,6 +49,8 @@ next-env.d.ts
 *.res.mjs
 
 rescript.lock
+build.lock
+watch.lock
 
 test/artifacts
 

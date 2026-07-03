@@ -24,7 +24,7 @@
   "dependencies": {
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "rescript": "^12.2.0"
+    "rescript": "^12.3.0"
   },
   "devDependencies": {
     "@juspay/rescript-bindgen": "1.2.4",
