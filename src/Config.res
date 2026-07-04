@@ -73,11 +73,13 @@ module Style = {
 
   let atom = Signal.make(default)
 
-  let fromString = (value: string) =>
+  let fromStringOpt = (value: string) =>
     switch (value :> CatchAll.t) {
-    | ...t as style => style
-    | CatchAll.Other(_) => default
+    | ...t as style => style->Some
+    | CatchAll.Other(_) => None
     }
+
+  let fromString = (value: string) => value->fromStringOpt->Option.getOr(default)
 
   let styleParamName = "style"
 
@@ -88,7 +90,7 @@ module Style = {
     WebAPI.Global.window.location.search
     ->WebAPI.URLSearchParams.fromString
     ->getStyleParam
-    ->Option.map(fromString)
+    ->Option.flatMap(fromStringOpt)
 
   let replaceStyleParam = (pathname, style) => {
     let location = WebAPI.Global.window.location
@@ -111,41 +113,24 @@ module Style = {
   }
 
   let use = () => {
-    let (style, setValue) = React.useState(() => Signal.get(atom))
+    let (style, setStyle) = SignalsUtils.useWithLocalStorage(
+      ~key=styleParamName,
+      ~atom,
+      ~valueFromString=fromString,
+      ~valueToString=toString,
+    )
     let pathname = Next.Navigation.usePathname()
-    let setStyle = React.useCallback(updater => {
-      let nextStyle = updater(Signal.get(atom))
-      Signal.set(atom, nextStyle)
-      if pathname->String.startsWith("/components") {
-        replaceStyleParam(pathname, nextStyle)
-      }
-    }, (pathname))
-
-    React.useEffect(() => {
-      let disposer = Effect.run(() => {
-        setValue(_ => Signal.get(atom))
-        None
-      })
-      Some(() => disposer.dispose())
-    }, ())
 
     React.useEffect(() => {
       syncBodyStyleClass(style)
       if pathname->String.startsWith("/components") {
         switch getCurrentStyleParam() {
-        | Some(queryStyle) if queryStyle->toString != style->toString => ()
+        | Some(queryStyle) if queryStyle->toString != style->toString => setStyle(_ => queryStyle)
         | _ => replaceStyleParam(pathname, style)
         }
       }
       None
-    }, (style, pathname))
-
-    React.useEffect(() => {
-      if pathname->String.startsWith("/components") {
-        getCurrentStyleParam()->Option.forEach(queryStyle => Signal.set(atom, queryStyle))
-      }
-      None
-    }, (pathname))
+    }, (style, pathname, setStyle))
 
     (style, setStyle)
   }
