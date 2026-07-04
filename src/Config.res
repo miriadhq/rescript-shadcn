@@ -84,6 +84,12 @@ module Style = {
   let getStyleParam = (searchParams: Next.Navigation.searchParams) =>
     searchParams->WebAPI.URLSearchParams.get(styleParamName)->Null.toOption
 
+  let getCurrentStyleParam = () =>
+    WebAPI.Global.window.location.search
+    ->WebAPI.URLSearchParams.fromString
+    ->getStyleParam
+    ->Option.map(fromString)
+
   let replaceStyleParam = (pathname, style) => {
     let location = WebAPI.Global.window.location
     let params = WebAPI.URLSearchParams.fromString(location.search)
@@ -105,31 +111,41 @@ module Style = {
   }
 
   let use = () => {
-    let (style, setStyle) = SignalsUtils.useWithLocalStorage(
-      ~key=styleParamName,
-      ~atom,
-      ~valueFromString=fromString,
-      ~valueToString=toString,
-    )
+    let (style, setValue) = React.useState(() => Signal.get(atom))
     let pathname = Next.Navigation.usePathname()
+    let setStyle = React.useCallback(updater => {
+      let nextStyle = updater(Signal.get(atom))
+      Signal.set(atom, nextStyle)
+      if pathname->String.startsWith("/components") {
+        replaceStyleParam(pathname, nextStyle)
+      }
+    }, (pathname))
+
+    React.useEffect(() => {
+      let disposer = Effect.run(() => {
+        setValue(_ => Signal.get(atom))
+        None
+      })
+      Some(() => disposer.dispose())
+    }, ())
 
     React.useEffect(() => {
       syncBodyStyleClass(style)
       if pathname->String.startsWith("/components") {
-        replaceStyleParam(pathname, style)
+        switch getCurrentStyleParam() {
+        | Some(queryStyle) if queryStyle->toString != style->toString => ()
+        | _ => replaceStyleParam(pathname, style)
+        }
       }
       None
     }, (style, pathname))
 
     React.useEffect(() => {
       if pathname->String.startsWith("/components") {
-        WebAPI.Global.window.location.search
-        ->WebAPI.URLSearchParams.fromString
-        ->getStyleParam
-        ->Option.forEach(queryStyle => setStyle(_ => queryStyle->fromString))
+        getCurrentStyleParam()->Option.forEach(queryStyle => Signal.set(atom, queryStyle))
       }
       None
-    }, (pathname, setStyle))
+    }, (pathname))
 
     (style, setStyle)
   }
