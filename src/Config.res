@@ -112,7 +112,6 @@ module Style = {
       ~valueToString=toString,
     )
     let pathname = Next.Navigation.usePathname()
-    let searchParams = Next.Navigation.useSearchParams()
 
     React.useEffect(() => {
       syncBodyStyleClass(style)
@@ -123,11 +122,14 @@ module Style = {
     }, (style, pathname))
 
     React.useEffect(() => {
-      searchParams
-      ->getStyleParam
-      ->Option.forEach(queryStyle => setStyle(_ => queryStyle->fromString))
+      if pathname->String.startsWith("/components") {
+        WebAPI.Global.window.location.search
+        ->WebAPI.URLSearchParams.fromString
+        ->getStyleParam
+        ->Option.forEach(queryStyle => setStyle(_ => queryStyle->fromString))
+      }
       None
-    }, (searchParams, setStyle))
+    }, (pathname, setStyle))
 
     (style, setStyle)
   }
