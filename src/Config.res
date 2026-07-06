@@ -113,24 +113,33 @@ module Style = {
   }
 
   let use = () => {
-    let (style, setStyle) = SignalsUtils.useWithLocalStorage(
+    let (style, setStoredStyle) = SignalsUtils.useWithLocalStorage(
       ~key=styleParamName,
       ~atom,
       ~valueFromString=fromString,
       ~valueToString=toString,
     )
     let pathname = Next.Navigation.usePathname()
+    let setStyle = React.useCallback(update => {
+      let nextStyle = update(Signal.get(atom))
+      setStoredStyle(_ => nextStyle)
+      if pathname->String.startsWith("/components") {
+        replaceStyleParam(pathname, nextStyle)
+      }
+    }, (pathname, setStoredStyle))
 
     React.useEffect(() => {
       syncBodyStyleClass(style)
       if pathname->String.startsWith("/components") {
         switch getCurrentStyleParam() {
-        | Some(queryStyle) if queryStyle->toString != style->toString => setStyle(_ => queryStyle)
+        | Some(queryStyle) if queryStyle->toString != style->toString =>
+          setStoredStyle(_ => queryStyle)
+        | None if style->toString == default->toString => ()
         | _ => replaceStyleParam(pathname, style)
         }
       }
       None
-    }, (style, pathname, setStyle))
+    }, (style, pathname, setStoredStyle))
 
     (style, setStyle)
   }
