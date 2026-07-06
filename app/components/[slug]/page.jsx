@@ -1,16 +1,29 @@
 import meta from "@/content/base/meta.json"
 import MdxComponents from "@/src/MdxComponents.res.mjs";
+import { DEFAULT_STYLE, getOgImagePath, getStyleName } from "@/src/OgStyles.js";
 export const generateStaticParams = () => meta.pages.map(slug => ({ "slug": slug }))
 import { make as ComponentTitle } from "@/src/ComponentTitle.res.mjs";
 export const dynamicParams = false;
 
+const PRODUCTION_URL = "https://rescript-shadcn.miriad.studio";
+
+function getMetadataBase() {
+  return new URL(
+    process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : PRODUCTION_URL
+  );
+}
+
 export const generateMetadata = async (props) => {
   const { slug } = await props.params
+  const styleName = getStyleName(await props.searchParams)
   const { frontmatter: doc } = await import(`@/content/base/${slug}.mdx`)
   const title = `ReScript-Shadcn – ${doc.title}`
+  const url = styleName === DEFAULT_STYLE ? `/components/${slug}` : `/components/${slug}?style=${styleName}`
   const images = [
     {
-      url: `/og/components/${slug}.png`,
+      url: getOgImagePath(slug, styleName),
       width: 1200,
       height: 630,
     },
@@ -19,12 +32,12 @@ export const generateMetadata = async (props) => {
   return {
     title,
     description: doc.description,
-    metadataBase: new URL("https://rescript-shadcn.miriad.studio"),
+    metadataBase: getMetadataBase(),
     openGraph: {
       title,
       description: doc.description,
       type: "article",
-      url: `/components/${slug}`,
+      url,
       images,
     },
     twitter: {
