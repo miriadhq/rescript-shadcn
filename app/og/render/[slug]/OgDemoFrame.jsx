@@ -2,9 +2,9 @@
 
 import { make as DemoLoader } from "@/src/generated/DemoLoader.res.mjs";
 
-export default function OgDemoFrame({ demoName }) {
+export default function OgDemoFrame({ demoName, styleName = "vega" }) {
   return (
-    <div data-og-demo className="flex flex-col items-center justify-center bg-background p-8 max-w-[600px] min-h-[315px]">
+    <div data-og-demo className={`style-${styleName} flex flex-col items-center justify-center bg-background p-8 max-w-[600px] min-h-[315px]`}>
       <DemoLoader name={demoName} />
     </div>
   );
