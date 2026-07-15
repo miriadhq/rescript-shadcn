@@ -41,26 +41,37 @@ The `style` field should match the style CSS you imported. Components use shared
 
 ### Configure styles
 
-Choose one style and install its CSS file:
+Available styles are `StyleVega`, `StyleNova`, `StyleLyra`, `StyleMaia`, `StyleMira`, `StyleLuma`, `StyleSera`, and `StyleRhea`.
+
+Choose one style and install its CSS file, for example for style `Nova` do:
 
 ```bash
 npx shadcn@latest add @rescript-shadcn/StyleNova
 ```
 
-Available styles are `StyleVega`, `StyleNova`, `StyleLyra`, `StyleMaia`, `StyleMira`, `StyleLuma`, `StyleSera`, and `StyleRhea`.
+By default this will install it in `@/components` but you can then move it wherever you think 
+it fits better, like in `styles/` for example.
 
-Import the chosen style once in your root CSS file, after `shadcn/tailwind.css`.
+Then add the given style class to the body of your HTML index:
+```html {2} title="index.html" showLineNumbers
+...
+<body class="style-nova">
+...
+```
+
+Import the chosen style in your root CSS file, after `shadcn/tailwind.css`.
 
 Add the following to your `styles/globals.css` file (or wherever is your root css file). 
 You can learn more about using CSS variables for theming in [shadcn theming section](https://ui.shadcn.com/docs/theming).
 
 <CodeCollapsibleWrapper>
 
-```css showLineNumbers title="src/styles/globals.css"
+```css {5} showLineNumbers title="src/styles/globals.css"
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "./style-nova.css";
+
+@import "./style-nova.css"; 
 
 @custom-variant dark (&:is(.dark *));
 
