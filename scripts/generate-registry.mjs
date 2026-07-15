@@ -97,13 +97,12 @@ function listResFiles(dir) {
 }
 
 const uiModules = listResFiles(path.join(baseDir, "ui"))
-const rtlModules = listResFiles(path.join(baseDir, "ui-rtl"))
 const exampleModules = listResFiles(path.join(baseDir, "examples"))
 const styleModules = existsSync(path.join(packageRoot, "registry", "styles"))
   ? readdirSync(path.join(packageRoot, "registry", "styles"))
-      .filter((f) => /^style-[a-z0-9-]+\.css$/.test(f))
-      .map((f) => f.slice("style-".length, -".css".length))
-      .sort()
+    .filter((f) => /^style-[a-z0-9-]+\.css$/.test(f))
+    .map((f) => f.slice("style-".length, -".css".length))
+    .sort()
   : []
 
 // Build a map: relative .res path (from rescript/) → registry item name
@@ -112,9 +111,6 @@ const base = "registry/base"
 const pathToName = new Map()
 for (const mod of uiModules) {
   pathToName.set(`${base}/ui/${mod}.res`, mod)
-}
-for (const mod of rtlModules) {
-  pathToName.set(`${base}/ui-rtl/${mod}.res`, mod)
 }
 for (const mod of exampleModules) {
   pathToName.set(`${base}/examples/${mod}.res`, mod)
@@ -130,7 +126,7 @@ const IGNORED_AST_DEPS = new Set([
 ])
 
 /** Build a set of all known registry module names for matching .ast deps */
-const registryModules = new Set([...uiModules, ...rtlModules, ...exampleModules])
+const registryModules = new Set([...uiModules, ...exampleModules])
 
 /** Parse compile-time dependencies from a .ast file in lib/ocaml/.
  *  Format: 4-byte header, then \n-separated module names, then \n followed
@@ -171,7 +167,7 @@ function parseAstDeps(mod) {
 
 /** Resolve a local import to a registry item name.
  *  importPath: the raw import string, e.g. "../ui/Button.res.mjs" or "./Foo.res.mjs"
- *  fromDir: the directory of the importing file, e.g. "ui", "ui-rtl", "examples"
+ *  fromDir: the directory of the importing file, e.g. "ui", "examples"
  */
 function resolveLocalImport(importPath, fromDir) {
   const toResPath = importPath.replace(suffix, ".res")
@@ -185,7 +181,7 @@ function resolveLocalImport(importPath, fromDir) {
 // ---------------------------------------------------------------------------
 
 /** Build a registry item from a .res file */
-function buildItem(mod, dir, type) {
+function buildItem(mod, dir, type, { fileType = type, target } = {}) {
   const resPath = `${dir}/${mod}.res`
   const jsPath = path.join(packageRoot, `${dir}/${mod}${suffix}`)
   const name = mod
@@ -220,9 +216,19 @@ function buildItem(mod, dir, type) {
   if (registryDeps.length > 0)
     item.registryDependencies = registryDeps.sort()
 
-  item.files = [{ path: resPath, type }]
+  const file = { path: resPath, type: fileType }
+  if (target !== undefined) file.target = target
+  item.files = [file]
 
   return item
+}
+
+/** UI components use registry:file so the CLI copies them verbatim (preserving cn-* classes). */
+function buildUiItem(mod, dir) {
+  return buildItem(mod, dir, "registry:ui", {
+    fileType: "registry:file",
+    target: `@ui/${mod}.res`,
+  })
 }
 
 function toPascalCase(value) {
@@ -248,8 +254,7 @@ function buildStyleItem(style) {
 // Build all items
 const items = [
   ...styleModules.map(buildStyleItem),
-  ...uiModules.map((mod) => buildItem(mod, `${base}/ui`, "registry:ui")),
-  ...rtlModules.map((mod) => buildItem(mod, `${base}/ui-rtl`, "registry:ui")),
+  ...uiModules.map((mod) => buildUiItem(mod, `${base}/ui`)),
   ...exampleModules.map((mod) =>
     buildItem(mod, `${base}/examples`, "registry:example")
   ),
