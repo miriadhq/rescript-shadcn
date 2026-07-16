@@ -223,7 +223,11 @@ function buildItem(mod, dir, type, { fileType = type, target } = {}) {
   return item
 }
 
-/** UI components use registry:file so the CLI copies them verbatim (preserving cn-* classes). */
+/**
+ * UI components use registry:file so the CLI copies them verbatim.
+ * Style utilities are inlined at publish time (per-style registries); this
+ * skips install-time TS transformers that would break ReScript sources.
+ */
 function buildUiItem(mod, dir) {
   return buildItem(mod, dir, "registry:ui", {
     fileType: "registry:file",

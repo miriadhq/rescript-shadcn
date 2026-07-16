@@ -61,5 +61,6 @@ test/artifacts
 src/generated/*
 public/og/*
 public/r/*
+.registry-build
 registry.json
 !.gitkeep
