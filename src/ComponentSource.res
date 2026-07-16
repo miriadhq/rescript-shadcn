@@ -6,6 +6,9 @@ type kind =
 
 let registryRoot = Node.Path.join([Node.cwd(), "registry", "base"])
 
+@module("./lib/format-code.mjs")
+external formatCode: (string, Config.Style.t) => promise<string> = "formatCode"
+
 let fileExists = async (filePath: string) => {
   try {
     await Node.Fs.access(filePath)
@@ -49,6 +52,43 @@ module ComponentCode = {
   }
 }
 
+module RenderCode = {
+  @react.component
+  let make = async (
+    ~rawCode,
+    ~style,
+    ~title=?,
+    ~language=?,
+    ~collapsible=true,
+    ~className=?,
+    ~maxLines=?,
+  ) => {
+    let rawCode =
+      rawCode->String.replaceAll("@react.componentWithProps(Demo.Props.t)", "@react.component")
+    let rawCode = rawCode->String.replaceAll("({}: Demo.Props.t)", "()")
+    let rawCode = await formatCode(rawCode, style)
+
+    let code = switch maxLines {
+    | Some(ml) => rawCode->String.split("\n")->Array.slice(~start=0, ~end=ml)->Array.join("\n")
+    | None => rawCode
+    }
+
+    let language =
+      language
+      ->Option.orElse(title->Option.flatMap(t => String.split(t, ".")->Array.pop))
+      ->Option.getOr("rescript")
+
+    let highlightedCode = await HighlightCode.highlightCode(code, ~language)
+    let codeEl = <ComponentCode code highlightedCode language ?title />
+
+    if !collapsible {
+      <div className={Commons.cn("relative", className)}> codeEl </div>
+    } else {
+      <CodeCollapsibleWrapper className=?className> codeEl </CodeCollapsibleWrapper>
+    }
+  }
+}
+
 @react.component
 let make = async (
   ~name=?,
@@ -59,6 +99,7 @@ let make = async (
   ~className=?,
   ~maxLines=?,
   ~kind=Component,
+  ~style=?,
 ) => {
   let code = switch (name, src) {
   | (None, None) => None
@@ -77,27 +118,19 @@ let make = async (
   switch code {
   | None => React.null
   | Some(rawCode) =>
-    let rawCode =
-      rawCode->String.replaceAll("@react.componentWithProps(Demo.Props.t)", "@react.component")
-    let rawCode = rawCode->String.replaceAll("({}: Demo.Props.t)", "()")
-    let code = switch maxLines {
-    | Some(ml) => rawCode->String.split("\n")->Array.slice(~start=0, ~end=ml)->Array.join("\n")
-    | None => rawCode
-    }
+    switch style {
+    | Some(style) => <RenderCode rawCode style ?title ?language collapsible ?className ?maxLines />
+    | None => {
+        // No explicit style → follow the live switcher (Config.Style.default initially).
+        let sources = Config.Style.all->Array.map(style => {
+          {
+            StyleAwareSource.StyleSource.style,
+            children: <RenderCode rawCode style ?title ?language collapsible ?maxLines />,
+          }
+        })
 
-    let language =
-      language
-      ->Option.orElse(title->Option.flatMap(t => String.split(t, ".")->Array.pop))
-      ->Option.getOr("rescript")
-
-    let highlightedCode = await HighlightCode.highlightCode(code, ~language)
-
-    let codeEl = <ComponentCode code highlightedCode language ?title />
-
-    if !collapsible {
-      <div className={Commons.cn("relative", className)}> codeEl </div>
-    } else {
-      <CodeCollapsibleWrapper className=?className> codeEl </CodeCollapsibleWrapper>
+        <StyleAwareSource sources ?className />
+      }
     }
   }
 }

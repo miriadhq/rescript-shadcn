@@ -12,4 +12,5 @@ let make: (
   ~className: string=?,
   ~maxLines: int=?,
   ~kind: kind=?,
+  ~style: Config.Style.t=?,
 ) => Jsx.element
