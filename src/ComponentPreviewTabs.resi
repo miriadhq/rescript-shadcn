@@ -6,6 +6,14 @@ module Align: {
     | @as("end") End
 }
 
+module StyleSource: {
+  type t = {
+    style: Config.Style.t,
+    source: React.element,
+    sourcePreview: React.element,
+  }
+}
+
 @react.component
 let make: (
   ~className: string=?,
@@ -14,7 +22,6 @@ let make: (
   ~hideCode: bool=?,
   ~chromeLessOnMobile: bool=?,
   ~component: React.element,
-  ~source: React.element,
-  ~sourcePreview: React.element,
+  ~sources: array<StyleSource.t>,
   ~direction: BaseUi.Types.TextDirection.t=?,
 ) => BaseUi.BaseUiJsxDOM.element

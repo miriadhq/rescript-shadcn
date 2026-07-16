@@ -15,15 +15,12 @@ let make = async (
   @as("type") ~type_: option<Type.t>=?,
   ~className=?,
   ~previewClassName=?,
-  ~styleName=?,
   ~align=ComponentPreviewTabs.Align.Center,
   ~hideCode=false,
   ~chromeLessOnMobile=false,
   ~direction=BaseUi.Types.TextDirection.Ltr,
   ~caption=?,
 ) => {
-  let _ = styleName
-
   switch name {
   | None => React.null
   | Some(name) =>
@@ -57,13 +54,13 @@ let make = async (
       // with nested submodule access like Accordion.Item.make)
       let componentElement = <DemoLoader name />
 
-      // Get component name for source lookup
-      let componentName = name
-
-      // Get source code (full and preview)
-      let source = <ComponentSource name={componentName} collapsible=false kind=Example />
-      let sourcePreview =
-        <ComponentSource name={componentName} collapsible=false maxLines=3 kind=Example />
+      let sources = Config.Style.all->Array.map(style => {
+        {
+          ComponentPreviewTabs.StyleSource.style,
+          source: <ComponentSource name collapsible=false kind=Example style />,
+          sourcePreview: <ComponentSource name collapsible=false maxLines=3 kind=Example style />,
+        }
+      })
 
       let content =
         <ComponentPreviewTabs
@@ -73,8 +70,7 @@ let make = async (
           hideCode
           chromeLessOnMobile
           component={componentElement}
-          source
-          sourcePreview
+          sources
           direction
         />
 

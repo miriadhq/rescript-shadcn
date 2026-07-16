@@ -10,6 +10,14 @@ module Align = {
     | @as("end") End
 }
 
+module StyleSource = {
+  type t = {
+    style: Config.Style.t,
+    source: React.element,
+    sourcePreview: React.element,
+  }
+}
+
 module PreviewWrapper = {
   @react.component
   let make = (
@@ -25,7 +33,7 @@ module PreviewWrapper = {
         dataAlign={(align :> string)}
         dataChromeless={chromeLessOnMobile}
         className={Commons.cn(
-          `preview style-${styleId} relative flex h-72 w-full justify-center p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start data-[chromeless=true]:h-auto data-[chromeless=true]:p-0`,
+          `preview style-${styleId->Config.Style.toString} relative flex h-72 w-full justify-center p-10 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start data-[chromeless=true]:h-auto data-[chromeless=true]:p-0`,
           previewClassName,
         )}
       >
@@ -55,13 +63,17 @@ let make = (
   ~align=Align.Center,
   ~hideCode=false,
   ~chromeLessOnMobile=false,
-  ~component: React.element,
-  ~source: React.element,
-  ~sourcePreview: React.element,
+  ~component,
+  ~sources,
   ~direction=BaseUi.Types.TextDirection.Ltr,
 ) => {
   let (codeVisible, setCodeVisible) = React.useState(() => false)
   let (selectedStyle, _) = Config.Style.use()
+
+  let {source, sourcePreview} =
+    sources
+    ->Array.find(item => item.StyleSource.style === selectedStyle)
+    ->Option.getOrThrow
 
   <div
     dataSlot="component-preview"
@@ -71,13 +83,7 @@ let make = (
     )}
   >
     <Direction.Provider>
-      <PreviewWrapper
-        align
-        chromeLessOnMobile
-        previewClassName
-        styleId={Config.Style.toString(selectedStyle)}
-        dir=direction
-      >
+      <PreviewWrapper align chromeLessOnMobile previewClassName styleId=selectedStyle dir=direction>
         {component}
       </PreviewWrapper>
     </Direction.Provider>

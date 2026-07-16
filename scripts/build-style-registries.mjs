@@ -23,7 +23,10 @@ import {
 } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
-import { createStyleMap, transformStyle } from "shadcn/utils"
+import {
+  getStyleMap,
+  transformRescriptSource,
+} from "../src/lib/format-code.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const packageRoot = path.resolve(__dirname, "..")
@@ -33,15 +36,6 @@ const stylesDir = path.join(packageRoot, "registry", "styles")
 const buildRoot = path.join(packageRoot, ".registry-build")
 const publicStylesRoot = path.join(packageRoot, "public", "r", "styles")
 const publicFlatRoot = path.join(packageRoot, "public", "r")
-
-/** Match upstream transform-style-map allowlist — these stay as CSS hooks. */
-const CN_ALLOWLIST = new Set([
-  "cn-menu-target",
-  "cn-menu-translucent",
-  "cn-logical-sides",
-  "cn-rtl-flip",
-  "cn-font-heading",
-])
 
 const DEFAULT_FLAT_STYLE = "nova"
 const STYLE_BUILD_CONCURRENCY = 2
@@ -70,19 +64,6 @@ function parseStyleFilter(argv) {
     process.exit(1)
   }
   return value === "all" ? null : value
-}
-
-async function transformRescriptSource(source, styleMap) {
-  let result = await transformStyle(source, { styleMap })
-
-  // transformStyle only walks className / cva / cn() contexts. ReScript often
-  // keeps cn-* in helper string literals and template heads — inline those too.
-  result = result.replace(/\bcn-[\w-]+\b/g, (cnClass) => {
-    if (CN_ALLOWLIST.has(cnClass)) return cnClass
-    return styleMap[cnClass] ?? ""
-  })
-
-  return result
 }
 
 async function runWithConcurrency(items, concurrency, worker) {
@@ -186,7 +167,7 @@ async function buildStyle(styleName, registry) {
     throw new Error(`Missing style CSS: ${cssPath}`)
   }
 
-  const styleMap = createStyleMap(readFileSync(cssPath, "utf8"))
+  const styleMap = getStyleMap(styleName)
   const { styleBuildDir } = await writeTransformedTree(
     styleName,
     styleMap,
