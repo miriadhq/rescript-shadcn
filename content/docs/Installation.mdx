@@ -35,43 +35,54 @@ Add a `jsconfig.json` file and configure the path aliases.
 ```
 
 The `@` alias is a preference. You can use other aliases if you want. This is needed when defining
-aliases in components.json later on.
+aliases in `components.json` later on.
 
-The `style` field should match the style CSS you imported. Components use shared `cn-*` class names, so switching from `nova` to another style means installing/importing a different `style-*.css` file; the ReScript component files stay the same.
+### Create a `components.json` file
 
-### Configure styles
+Create a `components.json` file in the root of your project.
 
-Available styles are `StyleVega`, `StyleNova`, `StyleLyra`, `StyleMaia`, `StyleMira`, `StyleLuma`, `StyleSera`, and `StyleRhea`.
+Pick one style: `vega`, `nova`, `lyra`, `maia`, `mira`, `luma`, `sera`, or `rhea`. Components are
+published per style with Tailwind utilities already inlined, so the `style` field selects which
+registry variant the CLI installs.
 
-Choose one style and install its CSS file, for example for style `Nova` do:
-
-```bash
-npx shadcn@latest add @rescript-shadcn/StyleNova
+```json {3,20} title="components.json" showLineNumbers
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "nova",
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/utils",
+    "ui": "@/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {
+    "@rescript-shadcn": "https://rescript-shadcn.miriad.studio/r/styles/{style}/{name}.json"
+  }
+}
 ```
 
-By default this will install it in `@/components` but you can then move it wherever you think 
-it fits better, like in `styles/` for example.
+To switch styles later, change `style` and re-add the components you want updated.
 
-Then add the given style class to the body of your HTML index:
-```html {2} title="index.html" showLineNumbers
-...
-<body class="style-nova">
-...
-```
+### Configure your CSS
 
-Import the chosen style in your root CSS file, after `shadcn/tailwind.css`.
-
-Add the following to your `styles/globals.css` file (or wherever is your root css file). 
-You can learn more about using CSS variables for theming in [shadcn theming section](https://ui.shadcn.com/docs/theming).
+Add the following to your `styles/globals.css` file (or wherever your root CSS file is).
+You can learn more about using CSS variables for theming in the [shadcn theming section](https://ui.shadcn.com/docs/theming).
 
 <CodeCollapsibleWrapper>
 
-```css {5} showLineNumbers title="src/styles/globals.css"
+```css showLineNumbers title="src/styles/globals.css"
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-
-@import "./style-nova.css"; 
 
 @custom-variant dark (&:is(.dark *));
 
@@ -198,34 +209,6 @@ You can learn more about using CSS variables for theming in [shadcn theming sect
 
 </CodeCollapsibleWrapper>
 
-### Create a `components.json` file
-
-Create a `components.json` file in the root of your project.
-
-```json title="components.json" showLineNumbers
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "nova",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "src/styles/globals.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide",
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/utils",
-    "ui": "@/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  }
-}
-```
-
 ### Update your `rescript.json` file
 
 Add rescript-base-ui to your dependencies:
@@ -243,6 +226,10 @@ Add rescript-base-ui to your dependencies:
 
 ### That's it
 
-You can now start adding [components](/components) to your project.
+You can now start adding [components](/components) to your project:
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Button
+```
 
 </Steps>
