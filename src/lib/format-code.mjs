@@ -12,15 +12,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const packageRoot = path.resolve(__dirname, "../..")
 const stylesDir = path.join(packageRoot, "registry", "styles")
 
-/** Match upstream transform-style-map allowlist — these stay as CSS hooks. */
-export const CN_ALLOWLIST = new Set([
-  "cn-menu-target",
-  "cn-menu-translucent",
-  "cn-logical-sides",
-  "cn-rtl-flip",
-  "cn-font-heading",
-])
-
 const styleMapCache = new Map()
 
 export function getStyleMap(styleName) {
@@ -51,10 +42,7 @@ export async function transformRescriptSource(source, styleMap) {
 
   // transformStyle only walks className / cva / cn() contexts. ReScript often
   // keeps cn-* in helper string literals and template heads — inline those too.
-  result = result.replace(/\bcn-[\w-]+\b/g, cnClass => {
-    if (CN_ALLOWLIST.has(cnClass)) return cnClass
-    return styleMap[cnClass] ?? ""
-  })
+  result = result.replace(/\bcn-[\w-]+\b/g, cnClass => styleMap[cnClass] ?? "")
 
   return result
 }
