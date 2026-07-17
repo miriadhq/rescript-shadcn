@@ -103,6 +103,16 @@ describe("base ui className parity", () => {
     },
   );
 
+  test.each(components)(
+    "$componentName publishes without cn-* markers",
+    async ({rescriptPath}) => {
+      const source = readFileSync(rescriptPath, "utf8");
+      const transformed = await transformRescriptSource(source, getStyleMap("nova"));
+
+      expect(classHooks(transformed)).toEqual(new Set());
+    },
+  );
+
   test("published menus use upstream's default menu color", async () => {
     const source = readFileSync(join(rescriptDir, "DropdownMenu.res"), "utf8");
     const transformed = await transformRescriptSource(source, getStyleMap("nova"));
