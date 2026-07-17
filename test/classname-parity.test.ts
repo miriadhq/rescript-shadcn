@@ -2,6 +2,11 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { basename, join } from "node:path";
 import { describe, expect, test } from "vitest";
 
+import {
+  getStyleMap,
+  transformRescriptSource,
+} from "../src/lib/format-code.mjs";
+
 const upstreamDir = join(
   process.cwd(),
   "shadcn-ui/apps/v4/registry/bases/base/ui",
@@ -97,4 +102,12 @@ describe("base ui className parity", () => {
       expect(sorted(classHooks(rescriptContent))).toEqual(expect.arrayContaining(requiredHooks));
     },
   );
+
+  test("published menus use upstream's default menu color", async () => {
+    const source = readFileSync(join(rescriptDir, "DropdownMenu.res"), "utf8");
+    const transformed = await transformRescriptSource(source, getStyleMap("nova"));
+
+    expect(transformed).not.toMatch(/\bcn-menu-(?:target|translucent)\b/);
+    expect(transformed).not.toContain("before:backdrop-blur-2xl");
+  });
 });

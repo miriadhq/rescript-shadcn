@@ -44,6 +44,9 @@ export function getStyleMap(styleName) {
 }
 
 export async function transformRescriptSource(source, styleMap) {
+  // registry:file skips shadcn's transformMenu; apply its default menuColor.
+  source = source.replace(/\bcn-menu-(?:target|translucent)\b[ \t]*/g, "")
+
   let result = await transformStyle(source, { styleMap })
 
   // transformStyle only walks className / cva / cn() contexts. ReScript often
