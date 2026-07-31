@@ -1,0 +1,75 @@
+---
+title: Progress
+description: Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+base: aria
+component: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/components.html
+  api: https://react-spectrum.adobe.com/react-aria/components.html
+---
+
+<ComponentPreview name="ProgressDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Progress
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install react-aria-components rescript-react-aria
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria"
+  name="Progress"
+  title="components/ui/Progress.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Progress value=33.0 />
+```
+
+## Examples
+
+### Label
+
+Use `ProgressLabel` and `ProgressValue` to add a label and value display.
+
+<ComponentPreview name="ProgressLabel" />
+
+### Controlled
+
+A progress bar that can be controlled by a slider.
+
+<ComponentPreview name="ProgressControlled" />
+
+
+## API Reference
+
+See the [React Aria Progress](https://react-spectrum.adobe.com/react-aria/components.html) documentation.

@@ -1,0 +1,113 @@
+---
+title: Bubble
+description: Displays conversational content in a message bubble.
+base: aria
+component: true
+---
+
+<ComponentPreview name="BubbleDemo" />
+
+The `Bubble` component displays framed conversational content. Use it for chat text, short structured output, suggestions, and reactions. For full message rows with avatars or metadata, compose it inside [`Message`](/components/base/Message).
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Bubble
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria" name="Bubble" title="components/ui/Bubble.res" />
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Bubble variant=Muted>
+  <Bubble.Content>
+    {"I checked the registry output and removed the stale route."->React.string}
+  </Bubble.Content>
+  <Bubble.Reactions>
+    <span> {"+1"->React.string} </span>
+  </Bubble.Reactions>
+</Bubble>
+```
+
+## Composition
+
+```text
+Bubble
+├── Bubble.Content
+└── Bubble.Reactions
+```
+
+Use `Bubble.Group` to group consecutive bubbles from the same sender.
+
+## Features
+
+- Seven visual variants, from strong primary content to unframed ghost content
+- Start and end alignment for sender and receiver bubbles
+- Reactions that anchor to the bubble edge
+- Bubbles size to their content, up to the style-defined max width
+- Custom styling through `className` on every part
+
+## Examples
+
+### Variants
+
+Use `variant` to change the visual treatment of the bubble.
+
+<ComponentPreview name="BubbleVariants" />
+
+### Group
+
+Use `Bubble.Group` to stack consecutive bubbles from the same sender.
+
+<ComponentPreview name="BubbleGroupDemo" />
+
+### Reactions
+
+Use `Bubble.Reactions` for reaction summaries or quick action buttons.
+
+<ComponentPreview name="BubbleReactions" />
+
+## Accessibility
+
+When reactions are plain emoji, group them with `role="img"` and an `ariaLabel` so assistive technology announces the reaction summary once. When reactions are interactive, render buttons with icon labels.
+
+## API Reference
+
+### Bubble
+
+| Prop        | Type                                                                       | Default   |
+| ----------- | -------------------------------------------------------------------------- | --------- |
+| `variant`   | `Default \| Secondary \| Muted \| Tinted \| Outline \| Ghost \| Destructive` | `Default` |
+| `align`     | `Start \| End`                                                             | `Start`   |
+| `className` | `string`                                                                   | -         |
+
+### Bubble.Reactions
+
+| Prop        | Type           | Default  |
+| ----------- | -------------- | -------- |
+| `side`      | `Top \| Bottom` | `Bottom` |
+| `align`     | `Start \| End` | `End`    |
+| `className` | `string`       | -        |

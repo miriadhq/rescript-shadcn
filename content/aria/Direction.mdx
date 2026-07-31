@@ -1,0 +1,74 @@
+---
+title: Direction
+description: A provider component that sets the text direction for your application.
+base: aria
+component: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/i18n.html
+  api: https://react-spectrum.adobe.com/react-aria/Provider.html
+---
+
+The `DirectionProvider` component is used to set the text direction (`ltr` or `rtl`) for your application. This is essential for supporting right-to-left languages like Arabic, Hebrew, and Persian.
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Direction
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install react-aria-components rescript-react-aria
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria"
+  name="Direction"
+  title="components/ui/Direction.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Direction.DirectionProvider>
+  {"Direction context"->React.string}
+</Direction.DirectionProvider>
+```
+
+## Direction.use
+
+The `Direction.use` hook is used to get the current direction of the application.
+
+```res showLineNumbers
+module MyComponent = {
+  @react.component 
+  let make = () => {
+    let direction = Direction.use()
+
+    <div> {`Current direction: ${(direction :> string)}`->React.string} </div>
+  }
+}
+```

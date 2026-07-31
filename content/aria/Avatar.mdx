@@ -1,0 +1,178 @@
+---
+title: Avatar
+description: An image element with a fallback for representing the user.
+base: aria
+component: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/components.html
+  api: https://react-spectrum.adobe.com/react-aria/components.html
+---
+
+<ComponentPreview
+  name="AvatarDemo"
+  previewClassName="h-72"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Avatar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install react-aria-components rescript-react-aria
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria"
+  name="Avatar"
+  title="components/ui/Avatar.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Avatar>
+  <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
+  <Avatar.Fallback> {"CN"->React.string} </Avatar.Fallback>
+</Avatar>
+```
+
+## Examples
+
+### Basic
+
+A basic avatar component with an image and a fallback.
+
+<ComponentPreview name="AvatarBasic" />
+
+### Badge
+
+Use the `Avatar.Badge` component to add a badge to the avatar. The badge is positioned at the bottom right of the avatar.
+
+<ComponentPreview name="AvatarBadge" />
+
+Use the `className` prop to add custom styles to the badge such as custom colors, sizes, etc.
+
+```res showLineNumbers
+<Avatar>
+  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+  <AvatarFallback> {"CN"->React.string} </AvatarFallback>
+  <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+</Avatar>
+```
+
+### Badge with Icon
+
+You can also use an icon inside `<Avatar.Badge>`.
+
+<ComponentPreview name="AvatarBadgeIcon" />
+
+### Avatar Group
+
+Use the `Avatar.Group` component to add a group of avatars.
+
+<ComponentPreview name="AvatarGroup" />
+
+### Avatar Group Count
+
+Use `<Avatar.GroupCount>` to add a count to the group.
+
+<ComponentPreview name="AvatarGroupCount" />
+
+### Avatar Group with Icon
+
+You can also use an icon inside `<Avatar.GroupCount>`.
+
+<ComponentPreview name="AvatarGroupCountIcon" />
+
+### Sizes
+
+Use the `size` prop to change the size of the avatar.
+
+<ComponentPreview name="AvatarSize" />
+
+### Dropdown
+
+You can use the `Avatar` component as a trigger for a dropdown menu.
+
+<ComponentPreview name="AvatarDropdown" />
+
+
+## API Reference
+
+### Avatar
+
+The `Avatar` component is the root component that wraps the avatar image and fallback.
+
+| Prop        | Type                        | Default     |
+| ----------- | --------------------------- | ----------- |
+| `size`      | `Default \| Sm \| Lg`       | `Default` |
+| `className` | `string`                    | -           |
+
+### AvatarImage
+
+The `Avatar.Image` component displays the avatar image. It accepts all React Aria Avatar Image props.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `src`       | `string` | -       |
+| `alt`       | `string` | -       |
+| `className` | `string` | -       |
+
+### AvatarFallback
+
+The `Avatar.Fallback` component displays a fallback when the image fails to load. It accepts all React Aria Avatar Fallback props.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### AvatarBadge
+
+The `Avatar.Badge` component displays a badge indicator on the avatar, typically positioned at the bottom right.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### Avatar.Group
+
+The `Avatar.Group` component displays a group of avatars with overlapping styling.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### AvatarGroupCount
+
+The `AvatarGroupCount` component displays a count indicator in an avatar group, typically showing the number of additional avatars.
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+For more information about React Aria Avatar props, see the [React Aria documentation](https://react-spectrum.adobe.com/react-aria/components.html).

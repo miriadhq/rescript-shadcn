@@ -139,3 +139,33 @@ describe("MDX heading anchors", () => {
     expect(source).toContain('href={`#${id}`}');
   });
 });
+
+describe("React Aria MDX references", () => {
+  const ariaContentDir = path.join(rootDir, "content", "aria");
+  const ariaExamplesDir = path.join(rootDir, "registry", "aria", "examples");
+  const ariaUiDir = path.join(rootDir, "registry", "aria", "ui");
+  const ariaFiles = fs.readdirSync(ariaContentDir).filter((file) => file.endsWith(".mdx"));
+
+  it("has a ReScript example for every ComponentPreview", () => {
+    const missing = ariaFiles.flatMap((file) => {
+      const content = fs.readFileSync(path.join(ariaContentDir, file), "utf8");
+      return extractComponentPreviewNames(content, file)
+        .filter(({ name }) => !fs.existsSync(path.join(ariaExamplesDir, `${name}.res`)))
+        .map(({ name, line }) => `${file}:${line} (${name})`);
+    });
+
+    expect(missing).toEqual([]);
+  });
+
+  it("has an aria UI source for every ComponentSource", () => {
+    const missing = ariaFiles.flatMap((file) => {
+      const content = fs.readFileSync(path.join(ariaContentDir, file), "utf8");
+      return extractComponentSourceRefs(content, file)
+        .filter((ref): ref is Extract<ComponentSourceRef, { kind: "name" }> => ref.kind === "name")
+        .filter(({ name }) => !fs.existsSync(path.join(ariaUiDir, `${name}.res`)))
+        .map(({ name, line }) => `${file}:${line} (${name})`);
+    });
+
+    expect(missing).toEqual([]);
+  });
+});

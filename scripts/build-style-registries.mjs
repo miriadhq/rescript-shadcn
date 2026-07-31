@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * Builds one shadcn registry per style under public/r/styles/{style}/.
+ * Builds one shadcn registry per lib/style selection under
+ * public/r/styles/{lib}-{style}/.
  *
  * Flow (mirrors upstream shadcn-ui/apps/v4/scripts/build-registry.mts):
- * 1. Read registry.json (metadata + file paths with cn-* source)
+ * 1. Read registry.{base,aria}.json (metadata + file paths with cn-* source)
  * 2. For each style CSS: createStyleMap + transformStyle (+ leftover cn-* pass)
- * 3. Write transformed files to .registry-build/{style}/
- * 4. shadcn build → public/r/styles/{style}/
- * 5. Mirror default style (nova) to public/r/ for the existing flat index URL
+ * 3. Write transformed files to .registry-build/{lib}-{style}/
+ * 4. shadcn build → public/r/styles/{lib}-{style}/
+ * 5. Mirror base-nova to public/r/ for the existing flat index URL
  */
 
 import { spawn } from "node:child_process"
@@ -31,13 +32,13 @@ import {
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const packageRoot = path.resolve(__dirname, "..")
 
-const registryJsonPath = path.join(packageRoot, "registry.json")
+const LIBS = ["base", "aria"]
 const stylesDir = path.join(packageRoot, "registry", "styles")
 const buildRoot = path.join(packageRoot, ".registry-build")
 const publicStylesRoot = path.join(packageRoot, "public", "r", "styles")
 const publicFlatRoot = path.join(packageRoot, "public", "r")
 
-const DEFAULT_FLAT_STYLE = "nova"
+const DEFAULT_FLAT_SELECTION = "base-nova"
 const STYLE_BUILD_CONCURRENCY = 2
 
 function toPascalCase(value) {
@@ -60,7 +61,7 @@ function parseStyleFilter(argv) {
   if (idx === -1) return null
   const value = argv[idx + 1]
   if (!value || value.startsWith("-")) {
-    console.error("Usage: build-style-registries.mjs [--style <name|all>]")
+    console.error("Usage: build-style-registries.mjs [--style <lib>-<style>|all]")
     process.exit(1)
   }
   return value === "all" ? null : value
@@ -126,8 +127,8 @@ function filterRegistryForStyle(registry, styleName) {
   }
 }
 
-async function writeTransformedTree(styleName, styleMap, registry) {
-  const styleBuildDir = path.join(buildRoot, styleName)
+async function writeTransformedTree(selectionName, styleName, styleMap, registry) {
+  const styleBuildDir = path.join(buildRoot, selectionName)
   rmSync(styleBuildDir, { recursive: true, force: true })
   mkdirSync(styleBuildDir, { recursive: true })
 
@@ -161,7 +162,8 @@ async function writeTransformedTree(styleName, styleMap, registry) {
   return { styleBuildDir, registryOutPath }
 }
 
-async function buildStyle(styleName, registry) {
+async function buildSelection({ lib, style: styleName }, registry) {
+  const selectionName = `${lib}-${styleName}`
   const cssPath = path.join(stylesDir, `style-${styleName}.css`)
   if (!existsSync(cssPath)) {
     throw new Error(`Missing style CSS: ${cssPath}`)
@@ -169,17 +171,18 @@ async function buildStyle(styleName, registry) {
 
   const styleMap = getStyleMap(styleName)
   const { styleBuildDir } = await writeTransformedTree(
+    selectionName,
     styleName,
     styleMap,
     registry
   )
 
-  const outputDir = path.join(publicStylesRoot, styleName)
+  const outputDir = path.join(publicStylesRoot, selectionName)
   rmSync(outputDir, { recursive: true, force: true })
   mkdirSync(outputDir, { recursive: true })
 
   await shadcnBuild("registry.json", outputDir, styleBuildDir)
-  console.log(`   ✅ ${styleName} → public/r/styles/${styleName}`)
+  console.log(`   ✅ ${selectionName} → public/r/styles/${selectionName}`)
 }
 
 function mirrorFlatRegistry(styleName) {
@@ -209,14 +212,15 @@ function mirrorFlatRegistry(styleName) {
 }
 
 async function main() {
-  if (!existsSync(registryJsonPath)) {
-    console.error(
-      "registry.json missing. Run `yarn registry:generate` first."
-    )
-    process.exit(1)
+  const registries = new Map()
+  for (const lib of LIBS) {
+    const registryPath = path.join(packageRoot, `registry.${lib}.json`)
+    if (!existsSync(registryPath)) {
+      console.error(`${path.basename(registryPath)} missing. Run \`yarn registry:generate\` first.`)
+      process.exit(1)
+    }
+    registries.set(lib, JSON.parse(readFileSync(registryPath, "utf8")))
   }
-
-  const registry = JSON.parse(readFileSync(registryJsonPath, "utf8"))
   const allStyles = listStyles()
   if (allStyles.length === 0) {
     console.error("No style-*.css files found in registry/styles")
@@ -224,28 +228,31 @@ async function main() {
   }
 
   const styleFilter = parseStyleFilter(process.argv)
-  const styles = styleFilter
-    ? allStyles.filter((s) => s === styleFilter)
-    : allStyles
+  const selections = LIBS.flatMap((lib) =>
+    allStyles.map((style) => ({ lib, style, name: `${lib}-${style}` }))
+  )
+  const selected = styleFilter
+    ? selections.filter(({ name }) => name === styleFilter)
+    : selections
 
-  if (styles.length === 0) {
+  if (selected.length === 0) {
     console.error(
-      `Unknown style "${styleFilter}". Available: ${allStyles.join(", ")}`
+      `Unknown lib/style "${styleFilter}". Available: ${selections.map(({ name }) => name).join(", ")}`
     )
     process.exit(1)
   }
 
-  console.log(`Building ${styles.length} style registries…`)
+  console.log(`Building ${selected.length} lib/style registries…`)
   mkdirSync(publicStylesRoot, { recursive: true })
 
-  await runWithConcurrency(styles, STYLE_BUILD_CONCURRENCY, async (style) => {
-    console.log(`   ⏳ ${style}…`)
-    await buildStyle(style, registry)
+  await runWithConcurrency(selected, STYLE_BUILD_CONCURRENCY, async (selection) => {
+    console.log(`   ⏳ ${selection.name}…`)
+    await buildSelection(selection, registries.get(selection.lib))
   })
 
-  if (styles.includes(DEFAULT_FLAT_STYLE) || !styleFilter) {
-    if (existsSync(path.join(publicStylesRoot, DEFAULT_FLAT_STYLE))) {
-      mirrorFlatRegistry(DEFAULT_FLAT_STYLE)
+  if (selected.some(({ name }) => name === DEFAULT_FLAT_SELECTION) || !styleFilter) {
+    if (existsSync(path.join(publicStylesRoot, DEFAULT_FLAT_SELECTION))) {
+      mirrorFlatRegistry(DEFAULT_FLAT_SELECTION)
     }
   }
 

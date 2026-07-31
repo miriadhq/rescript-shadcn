@@ -44,9 +44,35 @@ module InstallationType = {
     )
 }
 
-module Style = {
-  open Signals
+module Lib = {
+  @unboxed
+  type t =
+    | @as("base") Base
+    | @as("aria") Aria
 
+  let default = Base
+
+  module CatchAll = {
+    @unboxed
+    type t =
+      | ...t
+      | Other(string)
+  }
+
+  let toString = (value: t) => (value :> string)
+  let all = [Base, Aria]
+  let atom = Signals.Signal.make(default)
+
+  let fromStringOpt = (value: string) =>
+    switch (value :> CatchAll.t) {
+    | ...t as lib => Some(lib)
+    | CatchAll.Other(_) => None
+    }
+
+  let fromString = value => value->fromStringOpt->Option.getOr(default)
+}
+
+module Style = {
   @unboxed
   type t =
     | @as("vega") Vega
@@ -71,7 +97,7 @@ module Style = {
 
   let all = [Vega, Nova, Lyra, Maia, Mira, Luma, Sera, Rhea]
 
-  let atom = Signal.make(default)
+  let atom = Signals.Signal.make(default)
 
   let fromStringOpt = (value: string) =>
     switch (value :> CatchAll.t) {
@@ -81,66 +107,123 @@ module Style = {
 
   let fromString = (value: string) => value->fromStringOpt->Option.getOr(default)
 
-  let styleParamName = "style"
+}
 
-  let getStyleParam = (searchParams: Next.Navigation.searchParams) =>
-    searchParams->WebAPI.URLSearchParams.get(styleParamName)->Null.toOption
+module Selection = {
+  open Signals
 
-  let getCurrentStyleParam = () =>
+  type t = {
+    lib: Lib.t,
+    style: Style.t,
+  }
+
+  let default = {lib: Lib.default, style: Style.default}
+  let paramName = "style"
+  let libStorageKey = "lib"
+
+  let toString = selection =>
+    `${selection.lib->Lib.toString}-${selection.style->Style.toString}`
+
+  let fromStringOpt = value => {
+    let parts = value->String.split("-")
+    switch (parts->Array.get(0), parts->Array.get(1)) {
+    | (Some(lib), Some(style)) =>
+      switch (lib->Lib.fromStringOpt, style->Style.fromStringOpt) {
+      | (Some(lib), Some(style)) => Some({lib, style})
+      | _ => None
+      }
+    | (Some(style), None) => style->Style.fromStringOpt->Option.map(style => {lib: Lib.Base, style})
+    | _ => None
+    }
+  }
+
+  let fromString = value => value->fromStringOpt->Option.getOr(default)
+
+  let getParam = (searchParams: Next.Navigation.searchParams) =>
+    searchParams->WebAPI.URLSearchParams.get(paramName)->Null.toOption
+
+  let getCurrentParam = () =>
     WebAPI.Global.window.location.search
     ->WebAPI.URLSearchParams.fromString
-    ->getStyleParam
+    ->getParam
     ->Option.flatMap(fromStringOpt)
 
-  let replaceStyleParam = (pathname, style) => {
+  let hrefFor = (pathname, selection) => {
     let location = WebAPI.Global.window.location
     let params = WebAPI.URLSearchParams.fromString(location.search)
-    params->WebAPI.URLSearchParams.set(~name=styleParamName, ~value=toString(style))
+    params->WebAPI.URLSearchParams.set(~name=paramName, ~value=toString(selection))
 
     let query = params->WebAPI.URLSearchParams.toString
-    let href = switch query {
+    switch query {
     | "" => `${pathname}${location.hash}`
     | query => `${pathname}?${query}${location.hash}`
     }
-
-    WebAPI.Global.history->WebAPI.History.replaceState(~data=JSON.Null, ~unused="", ~url=href)
   }
 
-  let syncBodyStyleClass = style => {
+  let syncBodyClasses = selection => {
     let classList = WebAPI.Global.document.body.classList
-    all->Array.forEach(style => classList->WebAPI.DOMTokenList.remove(`style-${toString(style)}`))
-    classList->WebAPI.DOMTokenList.add(`style-${toString(style)}`)
+    Style.all->Array.forEach(style =>
+      classList->WebAPI.DOMTokenList.remove(`style-${style->Style.toString}`)
+    )
+    Lib.all->Array.forEach(lib =>
+      classList->WebAPI.DOMTokenList.remove(`lib-${lib->Lib.toString}`)
+    )
+    classList->WebAPI.DOMTokenList.add(`style-${selection.style->Style.toString}`)
+    classList->WebAPI.DOMTokenList.add(`lib-${selection.lib->Lib.toString}`)
   }
 
   let use = () => {
+    let (lib, setStoredLib) = SignalsUtils.useWithLocalStorage(
+      ~key=libStorageKey,
+      ~atom=Lib.atom,
+      ~valueFromString=Lib.fromString,
+      ~valueToString=Lib.toString,
+    )
     let (style, setStoredStyle) = SignalsUtils.useWithLocalStorage(
-      ~key=styleParamName,
-      ~atom,
-      ~valueFromString=fromString,
-      ~valueToString=toString,
+      ~key=paramName,
+      ~atom=Style.atom,
+      ~valueFromString=Style.fromString,
+      ~valueToString=Style.toString,
     )
     let pathname = Next.Navigation.usePathname()
-    let setStyle = React.useCallback(update => {
-      let nextStyle = update(Signal.get(atom))
-      setStoredStyle(_ => nextStyle)
+    let searchParams = Next.Navigation.useSearchParams()
+    let router = Next.Navigation.useRouter()
+    let storedSelection = {lib, style}
+    let querySelection = searchParams->getParam->Option.flatMap(fromStringOpt)
+    let selection = querySelection->Option.getOr(storedSelection)
+
+    let navigate = nextSelection =>
       if pathname->String.startsWith("/components") {
-        replaceStyleParam(pathname, nextStyle)
+        router->Next.Navigation.replace(hrefFor(pathname, nextSelection))
       }
-    }, (pathname, setStoredStyle))
+
+    let setLib = React.useCallback(update => {
+      let nextLib = update(Signal.get(Lib.atom))
+      setStoredLib(_ => nextLib)
+      navigate({lib: nextLib, style: selection.style})
+    }, (pathname, router, setStoredLib, selection.style))
+
+    let setStyle = React.useCallback(update => {
+      let nextStyle = update(Signal.get(Style.atom))
+      setStoredStyle(_ => nextStyle)
+      navigate({lib: selection.lib, style: nextStyle})
+    }, (pathname, router, setStoredStyle, selection.lib))
 
     React.useEffect(() => {
-      syncBodyStyleClass(style)
+      syncBodyClasses(selection)
       if pathname->String.startsWith("/components") {
-        switch getCurrentStyleParam() {
-        | Some(queryStyle) if queryStyle->toString != style->toString =>
-          setStoredStyle(_ => queryStyle)
-        | None if style->toString == default->toString => ()
-        | _ => replaceStyleParam(pathname, style)
+        switch querySelection {
+        | Some(querySelection) if querySelection->toString != storedSelection->toString => {
+            setStoredLib(_ => querySelection.lib)
+            setStoredStyle(_ => querySelection.style)
+          }
+        | None => navigate(storedSelection)
+        | _ => ()
         }
       }
       None
-    }, (style, pathname, setStoredStyle))
+    }, (lib, style, selection.lib, selection.style, pathname, router, setStoredLib, setStoredStyle))
 
-    (style, setStyle)
+    (selection, setLib, setStyle)
   }
 }

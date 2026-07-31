@@ -13,11 +13,34 @@ Components are styled using Tailwind CSS. You need to install Tailwind CSS in yo
 
 ### Add dependencies
 
-Add the following dependencies to your project:
+Add the common dependencies to your project:
 
 ```bash
-npm install shadcn @base-ui/react rescript-base-ui tailwind-merge lucide-react tw-animate-css
+npm install shadcn tailwind-merge lucide-react tw-animate-css
 ```
+
+Then choose a component library:
+
+<Tabs defaultValue="base">
+  <TabsList>
+    <TabsTrigger value="base">Base UI</TabsTrigger>
+    <TabsTrigger value="aria">React Aria</TabsTrigger>
+  </TabsList>
+  <TabsContent value="base">
+
+```bash
+npm install @base-ui/react rescript-base-ui
+```
+
+  </TabsContent>
+  <TabsContent value="aria">
+
+```bash
+npm install react-aria-components rescript-react-aria
+```
+
+  </TabsContent>
+</Tabs>
 
 ### Configure path aliases
 
@@ -41,14 +64,15 @@ aliases in `components.json` later on.
 
 Create a `components.json` file in the root of your project.
 
-Pick one style: `vega`, `nova`, `lyra`, `maia`, `mira`, `luma`, `sera`, or `rhea`. Components are
-published per style with Tailwind utilities already inlined, so the `style` field selects which
-registry variant the CLI installs.
+The `style` value combines the component library and visual style. Choose `base` or `aria`, then one
+of `vega`, `nova`, `lyra`, `maia`, `mira`, `luma`, `sera`, or `rhea`. For example, `base-nova` uses
+Base UI with Nova, while `aria-mira` uses React Aria with Mira. Each combination is published with
+its Tailwind utilities already inlined.
 
 ```json {3,20} title="components.json" showLineNumbers
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "nova",
+  "style": "base-nova",
   "tailwind": {
     "config": "",
     "css": "src/styles/globals.css",
@@ -70,7 +94,8 @@ registry variant the CLI installs.
 }
 ```
 
-To switch styles later, change `style` and re-add the components you want updated.
+To switch libraries or styles later, change the combined `style` value and re-add the components you
+want updated.
 
 ### Configure your CSS
 
@@ -211,7 +236,7 @@ You can learn more about using CSS variables for theming in the [shadcn theming 
 
 ### Update your `rescript.json` file
 
-Add rescript-base-ui to your dependencies:
+Add the binding package for your selected library to your dependencies:
 
 ```json {5} title="rescript.json" showLineNumbers
 {
@@ -223,6 +248,8 @@ Add rescript-base-ui to your dependencies:
   ...
 }
 ```
+
+For an `aria-*` style, use `rescript-react-aria` instead of `rescript-base-ui`.
 
 ### That's it
 

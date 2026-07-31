@@ -17,11 +17,23 @@ import chromium from "@sparticuz/chromium";
 import { readFileSync, mkdirSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { DEFAULT_STYLE, STYLES, getOgImagePath, getStyleName } from "../src/OgStyles.js";
+import {
+  DEFAULT_STYLE,
+  STYLES,
+  getOgComponentSlugs,
+  getOgImagePath,
+  getOgRenderLib,
+  getRegistryUiNames,
+  getSelectionName,
+  getStyleName,
+} from "../src/OgStyles.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
-const META_PATH = join(ROOT, "content", "base", "meta.json");
+const BASE_META_PATH = join(ROOT, "content", "base", "meta.json");
+const ARIA_META_PATH = join(ROOT, "content", "aria", "meta.json");
+const BASE_REGISTRY_PATH = join(ROOT, "registry.base.json");
+const ARIA_REGISTRY_PATH = join(ROOT, "registry.aria.json");
 const OUT_DIR = join(ROOT, "public", "og", "components");
 
 const OG_WIDTH = 1200;
@@ -44,10 +56,18 @@ const stylesArg =
 const styles = stylesArg ? stylesArg.split(",").map(getStyleName) : STYLES;
 
 async function main() {
-  const meta = JSON.parse(readFileSync(META_PATH, "utf-8"));
+  const baseMeta = JSON.parse(readFileSync(BASE_META_PATH, "utf-8"));
+  const ariaMeta = JSON.parse(readFileSync(ARIA_META_PATH, "utf-8"));
+  const baseComponents = getRegistryUiNames(
+    JSON.parse(readFileSync(BASE_REGISTRY_PATH, "utf-8")),
+  );
+  const ariaComponents = getRegistryUiNames(
+    JSON.parse(readFileSync(ARIA_REGISTRY_PATH, "utf-8")),
+  );
   mkdirSync(OUT_DIR, { recursive: true });
 
-  const pages = limit ? meta.pages.slice(0, limit) : meta.pages;
+  const componentSlugs = getOgComponentSlugs(baseMeta.pages, ariaMeta.pages);
+  const pages = limit ? componentSlugs.slice(0, limit) : componentSlugs;
   console.log(`Generating OG images for ${pages.length} components${limit ? ` (limit ${limit})` : ""} and ${styles.length} style${styles.length === 1 ? "" : "s"}...`);
   console.log(`Base URL: ${baseUrl}`);
 
@@ -72,7 +92,9 @@ async function main() {
 
     for (const style of styles) {
       for (const slug of pages) {
-        const pageUrl = `${baseUrl}/og/render/${slug}?style=${style}`;
+        const lib = getOgRenderLib(slug, baseComponents, ariaComponents);
+        const selection = getSelectionName(`${lib}-${style}`);
+        const pageUrl = `${baseUrl}/og/render/${slug}?style=${selection}`;
         try {
           const response = await page.goto(pageUrl, {
             waitUntil: "domcontentloaded",
@@ -110,7 +132,9 @@ async function main() {
           const outPath = join(ROOT, "public", getOgImagePath(slug, style));
           mkdirSync(dirname(outPath), { recursive: true });
           writeFileSync(outPath, buffer);
-          console.log(`  ✓ ${style === DEFAULT_STYLE ? slug : `${style}/${slug}`}.png`);
+          console.log(
+            `  ✓ ${style === DEFAULT_STYLE ? slug : `${style}/${slug}`}.png (${lib})`,
+          );
         } catch (err) {
           console.warn(`  ✗ ${style}/${slug}: ${err.message}`);
         }

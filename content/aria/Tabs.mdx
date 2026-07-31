@@ -1,0 +1,93 @@
+---
+title: Tabs
+description: A set of layered sections of content—known as tab panels—that are displayed one at a time.
+base: aria
+component: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/components.html
+  api: https://react-spectrum.adobe.com/react-aria/components.html
+---
+
+<ComponentPreview
+  name="TabsDemo"
+  previewClassName="h-96"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Tabs
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install react-aria-components rescript-react-aria
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria"
+  name="Tabs"
+  title="components/ui/Tabs.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Tabs defaultValue="account" className="w-[400px]">
+  <Tabs.List>
+    <Tabs.Trigger value="account"> {"Account"->React.string} </Tabs.Trigger>
+    <Tabs.Trigger value="password"> {"Password"->React.string} </Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="account"> {"Make changes to your account here."->React.string} </Tabs.Content>
+  <Tabs.Content value="password"> {"Change your password here."->React.string} </Tabs.Content>
+</Tabs>
+```
+
+## Examples
+
+### Line
+
+Use the `variant=Line` prop on `TabsList` for a line style.
+
+<ComponentPreview name="TabsLine" />
+
+### Vertical
+
+Use `orientation="vertical"` for vertical tabs.
+
+<ComponentPreview name="TabsVertical" />
+
+### Disabled
+
+<ComponentPreview name="TabsDisabled" />
+
+### Icons
+
+<ComponentPreview name="TabsIcons" />
+
+
+## API Reference
+
+See the [React Aria Tabs](https://react-spectrum.adobe.com/react-aria/components.html) documentation.

@@ -1,0 +1,6476 @@
+{
+  "name": "rescript-shadcn-aria",
+  "homepage": "https://github.com/miriadhq/rescript-shadcn",
+  "items": [
+    {
+      "name": "StyleLuma",
+      "type": "registry:style",
+      "files": [
+        {
+          "path": "registry/styles/style-luma.css",
+          "type": "registry:style"
+        }
+      ]
+    },
+    {
+      "name": "StyleLyra",
+      "type": "registry:style",
+      "files": [
+        {
+          "path": "registry/styles/style-lyra.css",
+          "type": "registry:style"
+        }
+      ]
+    },
+    {
+      "name": "StyleMaia",
+      "type": "registry:style",
+      "files": [
+        {
+          "path": "registry/styles/style-maia.css",
+          "type": "registry:style"
+        }
+      ]
+    },
+    {
+      "name": "StyleMira",
+      "type": "registry:style",
+      "files": [
+        {
+          "path": "registry/styles/style-mira.css",
+          "type": "registry:style"
+        }
+      ]
+    },
+    {
+      "name": "StyleNova",
+      "type": "registry:style",
+      "files": [
+        {
+          "path": "registry/styles/style-nova.css",
+          "type": "registry:style"
+        }
+      ]
+    },
+    {
+      "name": "StyleRhea",
+      "type": "registry:style",
+      "files": [
+        {
+          "path": "registry/styles/style-rhea.css",
+          "type": "registry:style"
+        }
+      ]
+    },
+    {
+      "name": "StyleSera",
+      "type": "registry:style",
+      "files": [
+        {
+          "path": "registry/styles/style-sera.css",
+          "type": "registry:style"
+        }
+      ]
+    },
+    {
+      "name": "StyleVega",
+      "type": "registry:style",
+      "files": [
+        {
+          "path": "registry/styles/style-vega.css",
+          "type": "registry:style"
+        }
+      ]
+    },
+    {
+      "name": "Accordion",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Render"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Accordion.res",
+          "type": "registry:file",
+          "target": "@ui/Accordion.res"
+        }
+      ]
+    },
+    {
+      "name": "Alert",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Alert.res",
+          "type": "registry:file",
+          "target": "@ui/Alert.res"
+        }
+      ]
+    },
+    {
+      "name": "AlertDialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/AlertDialog.res",
+          "type": "registry:file",
+          "target": "@ui/AlertDialog.res"
+        }
+      ]
+    },
+    {
+      "name": "AspectRatio",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/AspectRatio.res",
+          "type": "registry:file",
+          "target": "@ui/AspectRatio.res"
+        }
+      ]
+    },
+    {
+      "name": "Attachment",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Attachment.res",
+          "type": "registry:file",
+          "target": "@ui/Attachment.res"
+        }
+      ]
+    },
+    {
+      "name": "Avatar",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Avatar.res",
+          "type": "registry:file",
+          "target": "@ui/Avatar.res"
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Render"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Badge.res",
+          "type": "registry:file",
+          "target": "@ui/Badge.res"
+        }
+      ]
+    },
+    {
+      "name": "Breadcrumb",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Render"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Breadcrumb.res",
+          "type": "registry:file",
+          "target": "@ui/Breadcrumb.res"
+        }
+      ]
+    },
+    {
+      "name": "Bubble",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Bubble.res",
+          "type": "registry:file",
+          "target": "@ui/Bubble.res"
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Render"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Button.res",
+          "type": "registry:file",
+          "target": "@ui/Button.res"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroup",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Render",
+        "@rescript-shadcn/Separator"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/ButtonGroup.res",
+          "type": "registry:file",
+          "target": "@ui/ButtonGroup.res"
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-day-picker",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Calendar.res",
+          "type": "registry:file",
+          "target": "@ui/Calendar.res"
+        }
+      ]
+    },
+    {
+      "name": "Card",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Card.res",
+          "type": "registry:file",
+          "target": "@ui/Card.res"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "type": "registry:ui",
+      "dependencies": [
+        "embla-carousel-react",
+        "lucide-react",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Carousel.res",
+          "type": "registry:file",
+          "target": "@ui/Carousel.res"
+        }
+      ]
+    },
+    {
+      "name": "Chart",
+      "type": "registry:ui",
+      "dependencies": [
+        "recharts",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Chart.res",
+          "type": "registry:file",
+          "target": "@ui/Chart.res"
+        }
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Checkbox.res",
+          "type": "registry:file",
+          "target": "@ui/Checkbox.res"
+        }
+      ]
+    },
+    {
+      "name": "Collapsible",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Render"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Collapsible.res",
+          "type": "registry:file",
+          "target": "@ui/Collapsible.res"
+        }
+      ]
+    },
+    {
+      "name": "Combobox",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Combobox.res",
+          "type": "registry:file",
+          "target": "@ui/Combobox.res"
+        }
+      ]
+    },
+    {
+      "name": "Command",
+      "type": "registry:ui",
+      "dependencies": [
+        "cmdk",
+        "lucide-react",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Dialog",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Command.res",
+          "type": "registry:file",
+          "target": "@ui/Command.res"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenu",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/ContextMenu.res",
+          "type": "registry:file",
+          "target": "@ui/ContextMenu.res"
+        }
+      ]
+    },
+    {
+      "name": "Dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Dialog.res",
+          "type": "registry:file",
+          "target": "@ui/Dialog.res"
+        }
+      ]
+    },
+    {
+      "name": "Direction",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Direction.res",
+          "type": "registry:file",
+          "target": "@ui/Direction.res"
+        }
+      ]
+    },
+    {
+      "name": "Drawer",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria",
+        "vaul"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Drawer.res",
+          "type": "registry:file",
+          "target": "@ui/Drawer.res"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenu",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/DropdownMenu.res",
+          "type": "registry:file",
+          "target": "@ui/DropdownMenu.res"
+        }
+      ]
+    },
+    {
+      "name": "Empty",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Empty.res",
+          "type": "registry:file",
+          "target": "@ui/Empty.res"
+        }
+      ]
+    },
+    {
+      "name": "Field",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Label"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Field.res",
+          "type": "registry:file",
+          "target": "@ui/Field.res"
+        }
+      ]
+    },
+    {
+      "name": "Icons",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/aria/ui/Icons.res",
+          "type": "registry:file",
+          "target": "@ui/Icons.res"
+        }
+      ]
+    },
+    {
+      "name": "Input",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Input.res",
+          "type": "registry:file",
+          "target": "@ui/Input.res"
+        }
+      ]
+    },
+    {
+      "name": "InputGroup",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/InputGroup.res",
+          "type": "registry:file",
+          "target": "@ui/InputGroup.res"
+        }
+      ]
+    },
+    {
+      "name": "InputOtp",
+      "type": "registry:ui",
+      "dependencies": [
+        "input-otp",
+        "lucide-react",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/InputOtp.res",
+          "type": "registry:file",
+          "target": "@ui/InputOtp.res"
+        }
+      ]
+    },
+    {
+      "name": "Item",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Render"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Item.res",
+          "type": "registry:file",
+          "target": "@ui/Item.res"
+        }
+      ]
+    },
+    {
+      "name": "Kbd",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Kbd.res",
+          "type": "registry:file",
+          "target": "@ui/Kbd.res"
+        }
+      ]
+    },
+    {
+      "name": "Label",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Label.res",
+          "type": "registry:file",
+          "target": "@ui/Label.res"
+        }
+      ]
+    },
+    {
+      "name": "Marker",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Marker.res",
+          "type": "registry:file",
+          "target": "@ui/Marker.res"
+        }
+      ]
+    },
+    {
+      "name": "Message",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Message.res",
+          "type": "registry:file",
+          "target": "@ui/Message.res"
+        }
+      ]
+    },
+    {
+      "name": "MessageScroller",
+      "type": "registry:ui",
+      "dependencies": [
+        "@shadcn/react",
+        "lucide-react",
+        "rescript-react-aria",
+        "rescript-shadcn-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/MessageScroller.res",
+          "type": "registry:file",
+          "target": "@ui/MessageScroller.res"
+        }
+      ]
+    },
+    {
+      "name": "NativeSelect",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/NativeSelect.res",
+          "type": "registry:file",
+          "target": "@ui/NativeSelect.res"
+        }
+      ]
+    },
+    {
+      "name": "Pagination",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Pagination.res",
+          "type": "registry:file",
+          "target": "@ui/Pagination.res"
+        }
+      ]
+    },
+    {
+      "name": "Popover",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Popover.res",
+          "type": "registry:file",
+          "target": "@ui/Popover.res"
+        }
+      ]
+    },
+    {
+      "name": "Progress",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Progress.res",
+          "type": "registry:file",
+          "target": "@ui/Progress.res"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroup",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/RadioGroup.res",
+          "type": "registry:file",
+          "target": "@ui/RadioGroup.res"
+        }
+      ]
+    },
+    {
+      "name": "Render",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Render.res",
+          "type": "registry:file",
+          "target": "@ui/Render.res"
+        }
+      ]
+    },
+    {
+      "name": "Resizable",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-resizable-panels",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Resizable.res",
+          "type": "registry:file",
+          "target": "@ui/Resizable.res"
+        }
+      ]
+    },
+    {
+      "name": "ScrollArea",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/ScrollArea.res",
+          "type": "registry:file",
+          "target": "@ui/ScrollArea.res"
+        }
+      ]
+    },
+    {
+      "name": "Select",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Select.res",
+          "type": "registry:file",
+          "target": "@ui/Select.res"
+        }
+      ]
+    },
+    {
+      "name": "Separator",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Separator.res",
+          "type": "registry:file",
+          "target": "@ui/Separator.res"
+        }
+      ]
+    },
+    {
+      "name": "Sheet",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Sheet.res",
+          "type": "registry:file",
+          "target": "@ui/Sheet.res"
+        }
+      ]
+    },
+    {
+      "name": "Sidebar",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "react-aria",
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Render",
+        "@rescript-shadcn/Sheet",
+        "@rescript-shadcn/Skeleton",
+        "@rescript-shadcn/Tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Sidebar.res",
+          "type": "registry:file",
+          "target": "@ui/Sidebar.res"
+        }
+      ]
+    },
+    {
+      "name": "Skeleton",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Skeleton.res",
+          "type": "registry:file",
+          "target": "@ui/Skeleton.res"
+        }
+      ]
+    },
+    {
+      "name": "Slider",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Slider.res",
+          "type": "registry:file",
+          "target": "@ui/Slider.res"
+        }
+      ]
+    },
+    {
+      "name": "Sonner",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "next-themes",
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Sonner.res",
+          "type": "registry:file",
+          "target": "@ui/Sonner.res"
+        }
+      ]
+    },
+    {
+      "name": "Spinner",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Spinner.res",
+          "type": "registry:file",
+          "target": "@ui/Spinner.res"
+        }
+      ]
+    },
+    {
+      "name": "Switch",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Switch.res",
+          "type": "registry:file",
+          "target": "@ui/Switch.res"
+        }
+      ]
+    },
+    {
+      "name": "Table",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Table.res",
+          "type": "registry:file",
+          "target": "@ui/Table.res"
+        }
+      ]
+    },
+    {
+      "name": "Tabs",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Tabs.res",
+          "type": "registry:file",
+          "target": "@ui/Tabs.res"
+        }
+      ]
+    },
+    {
+      "name": "Textarea",
+      "type": "registry:ui",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Textarea.res",
+          "type": "registry:file",
+          "target": "@ui/Textarea.res"
+        }
+      ]
+    },
+    {
+      "name": "Toggle",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Toggle.res",
+          "type": "registry:file",
+          "target": "@ui/Toggle.res"
+        }
+      ]
+    },
+    {
+      "name": "ToggleGroup",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/ToggleGroup.res",
+          "type": "registry:file",
+          "target": "@ui/ToggleGroup.res"
+        }
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-aria-components",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/ui/Tooltip.res",
+          "type": "registry:file",
+          "target": "@ui/Tooltip.res"
+        }
+      ]
+    },
+    {
+      "name": "AccordionBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AccordionBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AccordionBorders",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AccordionBorders.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AccordionCard",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Accordion",
+        "@rescript-shadcn/Card"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AccordionCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AccordionDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AccordionDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AccordionDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AccordionDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AccordionMultiple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Accordion"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AccordionMultiple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertAction",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Alert",
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertAction.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertBasic",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Alert",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertColors",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Alert",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertColors.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Alert",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertDestructive",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Alert",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertDialogBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/AlertDialog",
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertDialogBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertDialogDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/AlertDialog",
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertDialogDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertDialogDestructive",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/AlertDialog",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertDialogDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertDialogMedia",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/AlertDialog",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertDialogMedia.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertDialogSmall",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/AlertDialog",
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertDialogSmall.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AlertDialogSmallMedia",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/AlertDialog",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AlertDialogSmallMedia.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AspectRatioDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/AspectRatio"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AspectRatioDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AspectRatioPortrait",
+      "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/AspectRatio"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AspectRatioPortrait.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AspectRatioSquare",
+      "type": "registry:example",
+      "dependencies": [
+        "next"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/AspectRatio"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AspectRatioSquare.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AttachmentDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Attachment",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AttachmentDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AttachmentGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Attachment",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AttachmentGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AttachmentImage",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Attachment"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AttachmentImage.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AttachmentStates",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Attachment",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AttachmentStates.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AttachmentTrigger",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Attachment",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AttachmentTrigger.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarBadge",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarBadge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarBadgeIcon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarBadgeIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarDropdown",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarGroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarGroupCount",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarGroupCount.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarGroupCountIcon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarGroupCountIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "AvatarSize",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/AvatarSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BadgeColors",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Badge"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BadgeColors.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BadgeDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Badge"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BadgeDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BadgeIcon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Badge",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BadgeIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BadgeLink",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Badge",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BadgeLink.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BadgeSpinner",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Badge",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BadgeSpinner.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BadgeVariants",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Badge"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BadgeVariants.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BreadcrumbBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BreadcrumbBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BreadcrumbDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Breadcrumb",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BreadcrumbDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BreadcrumbDropdown",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Breadcrumb",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BreadcrumbDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BreadcrumbEllipsis",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BreadcrumbEllipsis.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BreadcrumbLink",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BreadcrumbLink.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BreadcrumbSeparator",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Breadcrumb",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BreadcrumbSeparator.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BubbleDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Bubble"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BubbleDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BubbleGroupDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Bubble"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BubbleGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BubbleReactions",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Bubble",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BubbleReactions.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "BubbleVariants",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Bubble"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/BubbleVariants.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonDefault",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonDefault.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonDestructive",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGhost",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGhost.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupDropdown",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupInput",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupInput.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupInputGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupNested",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupNested.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupOrientation",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupOrientation.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupPopover",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Popover",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupPopover.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupSelect",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupSelect.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupSeparator",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupSeparator.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupSize",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroupSplit",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonGroupSplit.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonIcon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonLink",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonLink.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonOutline",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonOutline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonRender",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonRender.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonRounded",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonRounded.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonSecondary",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonSecondary.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonSize",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonSpinner",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonSpinner.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ButtonWithIcon",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ButtonWithIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarBookedDates",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Card"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarBookedDates.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarCaption",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarCaption.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarCustomDays",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Card"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarCustomDays.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarHijri",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "next",
+        "react-day-picker",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarHijri.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarPresets",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Card"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarPresets.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarRange",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarRange.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarTime",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarTime.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CalendarWeekNumbers",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Card"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CalendarWeekNumbers.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CardDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Label"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CardDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CardImage",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Badge",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Card"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CardImage.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CardSmall",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CardSmall.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CarouselApi",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CarouselApi.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CarouselDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CarouselDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CarouselOrientation",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CarouselOrientation.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CarouselPlugin",
+      "type": "registry:example",
+      "dependencies": [
+        "embla-carousel-autoplay"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CarouselPlugin.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CarouselSize",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CarouselSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CarouselSpacing",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Carousel"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CarouselSpacing.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ChartDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Card"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ChartDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ChartExample",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Chart"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ChartExample.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ChartExampleAxis",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Chart"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ChartExampleAxis.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ChartExampleGrid",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Chart"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ChartExampleGrid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ChartExampleLegend",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Chart"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ChartExampleLegend.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ChartExampleTooltip",
+      "type": "registry:example",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Chart"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ChartExampleTooltip.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ChartTooltip",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/ChartTooltip.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CheckboxBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Label"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CheckboxDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxDescription",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CheckboxDescription.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CheckboxDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxGroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CheckboxGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxInvalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CheckboxInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxTable",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Table"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CheckboxTable.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CollapsibleBasic",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Collapsible",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CollapsibleBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CollapsibleDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Collapsible",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CollapsibleDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CollapsibleFileTree",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Collapsible",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CollapsibleFileTree.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CollapsibleSettings",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Collapsible",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CollapsibleSettings.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxAutoHighlight",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxAutoHighlight.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxClear",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxClear.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxCustom",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxCustom.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxGroups",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxInputGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxInvalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxMultiple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxMultiple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ComboboxPopup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Combobox"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ComboboxPopup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CommandBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Command"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CommandBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CommandDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Command",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CommandDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CommandGroups",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Command",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CommandGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CommandScrollable",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Command",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CommandScrollable.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "CommandShortcuts",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Command",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/CommandShortcuts.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuCheckboxes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuCheckboxes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuDestructive",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuGroups",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuIcons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuRadio",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuRadio.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuShortcuts",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuShortcuts.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuSides",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuSides.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenuSubmenu",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ContextMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ContextMenuSubmenu.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DataTableDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "@tanstack/react-table",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Table"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DataTableDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DatePickerBasic",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DatePickerBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DatePickerDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DatePickerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DatePickerDob",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DatePickerDob.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DatePickerInput",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DatePickerInput.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DatePickerNaturalLanguage",
+      "type": "registry:example",
+      "dependencies": [
+        "chrono-node",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DatePickerNaturalLanguage.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DatePickerRange",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DatePickerRange.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DatePickerTime",
+      "type": "registry:example",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Calendar",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DatePickerTime.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DialogCloseButton",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Dialog",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Label"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DialogCloseButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DialogDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Dialog",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Label"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DialogDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DialogNoCloseButton",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DialogNoCloseButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DialogScrollableContent",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DialogScrollableContent.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DialogStickyFooter",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DialogStickyFooter.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DrawerDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Drawer",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DrawerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DrawerDialog",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Dialog",
+        "@rescript-shadcn/Drawer",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Label"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DrawerDialog.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DrawerScrollableContent",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Drawer"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DrawerScrollableContent.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DrawerSides",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Drawer"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DrawerSides.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuAvatar",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuCheckboxes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuCheckboxes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuCheckboxesIcons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuCheckboxesIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuComplex",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuComplex.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuDestructive",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuDestructive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuIcons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuRadioGroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuRadioGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuRadioIcons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuRadioIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuShortcuts",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuShortcuts.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenuSubmenu",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/DropdownMenuSubmenu.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "EmptyAvatar",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Empty"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/EmptyAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "EmptyAvatarGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Empty",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/EmptyAvatarGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "EmptyBackground",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Empty",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/EmptyBackground.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "EmptyDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Empty",
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/EmptyDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "EmptyInputGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Empty",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/EmptyInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "EmptyOutline",
+      "type": "registry:example",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Empty"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/EmptyOutline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldCheckbox",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldCheckbox.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldChoiceCard",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/RadioGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldChoiceCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Select",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldFieldset",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldFieldset.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldGroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Field"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldInput",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldInput.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldRadio",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/RadioGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldRadio.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldResponsive",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldResponsive.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldSelect",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldSelect.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldSlider",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Slider"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldSlider.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldSwitch",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Switch"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldSwitch.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "FieldTextarea",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/FieldTextarea.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputBadge",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Badge",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputBadge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputButtonGroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputButtonGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputField",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputField.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputFieldgroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputFieldgroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputFile",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputFile.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputForm",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputForm.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGrid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGrid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupBlockEnd",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupBlockEnd.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupBlockStart",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupBlockStart.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupButton",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupCustom",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupCustom.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupDropdown",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupIcon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupInlineEnd",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupInlineEnd.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupInlineStart",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupInlineStart.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupKbd",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupKbd.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupSpinner",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupSpinner.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupText",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupText.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputGroupTextarea",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputGroupTextarea.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputInline",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputInline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputInputGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputInvalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpAlphanumeric",
+      "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpAlphanumeric.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpControlled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpControlled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpForm",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpForm.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpFourDigits",
+      "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpFourDigits.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpInvalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpPattern",
+      "type": "registry:example",
+      "dependencies": [
+        "input-otp"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpPattern.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputOtpSeparator",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/InputOtp"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputOtpSeparator.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "InputRequired",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/InputRequired.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemAvatar",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemDropdown",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemDropdown.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemHeader",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemHeader.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemIcon",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemIcon.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemImage",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemImage.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemLink",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemLink.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemSize",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ItemVariant",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Item"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ItemVariant.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "KbdButton",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/KbdButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "KbdDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/KbdDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "KbdGroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/KbdGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "KbdInputGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/KbdInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "KbdTooltip",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/ButtonGroup",
+        "@rescript-shadcn/Kbd",
+        "@rescript-shadcn/Tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/KbdTooltip.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "LabelDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Checkbox",
+        "@rescript-shadcn/Label"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/LabelDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MarkerDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Marker",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MarkerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MarkerStatus",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Marker",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MarkerStatus.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MarkerVariants",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Marker"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MarkerVariants.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MessageAttachment",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Attachment",
+        "@rescript-shadcn/Bubble",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Message"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MessageAttachment.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MessageAvatar",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Bubble",
+        "@rescript-shadcn/Message"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MessageAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MessageDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Bubble",
+        "@rescript-shadcn/Message"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MessageDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MessageGroup",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Bubble",
+        "@rescript-shadcn/Message"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MessageGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MessageHeaderFooter",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Bubble",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Message"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MessageHeaderFooter.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "MessageScrollerDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Bubble",
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Marker",
+        "@rescript-shadcn/Message",
+        "@rescript-shadcn/MessageScroller",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/MessageScrollerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "NativeSelectDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/NativeSelect"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/NativeSelectDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "NativeSelectDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/NativeSelect"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/NativeSelectDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "NativeSelectGroups",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/NativeSelect"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/NativeSelectGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "NativeSelectInvalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/NativeSelect"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/NativeSelectInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "PaginationDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Pagination"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/PaginationDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "PaginationIconsOnly",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Pagination",
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/PaginationIconsOnly.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "PaginationSimple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Pagination"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/PaginationSimple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "PopoverAlignments",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/PopoverAlignments.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "PopoverBasic",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/PopoverBasic.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "PopoverDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Label",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/PopoverDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "PopoverForm",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Popover"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/PopoverForm.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ProgressControlled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Progress",
+        "@rescript-shadcn/Slider"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ProgressControlled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ProgressDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Progress"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ProgressDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ProgressLabel",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Progress"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ProgressLabel.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroupChoiceCard",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/RadioGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/RadioGroupChoiceCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroupDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Label",
+        "@rescript-shadcn/RadioGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/RadioGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroupDescription",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/RadioGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/RadioGroupDescription.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroupDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/RadioGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/RadioGroupDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroupFieldset",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/RadioGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/RadioGroupFieldset.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroupInvalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/RadioGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/RadioGroupInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ResizableDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Resizable"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ResizableDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ResizableHandle",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Resizable"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ResizableHandle.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ResizableVertical",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Resizable"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ResizableVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ScrollAreaDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ScrollArea",
+        "@rescript-shadcn/Separator"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ScrollAreaDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ScrollAreaHorizontalDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ScrollArea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ScrollAreaHorizontalDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SelectAlignItem",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Select",
+        "@rescript-shadcn/Switch"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SelectAlignItem.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SelectDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SelectDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SelectDisabled",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SelectDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SelectGroups",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SelectGroups.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SelectInvalid",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SelectInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SelectScrollable",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Select"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SelectScrollable.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SeparatorDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Separator"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SeparatorDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SeparatorList",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Separator"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SeparatorList.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SeparatorMenu",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Separator"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SeparatorMenu.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SeparatorVertical",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Separator"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SeparatorVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SheetDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Input",
+        "@rescript-shadcn/Label",
+        "@rescript-shadcn/Sheet"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SheetDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SheetNoCloseButton",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Sheet"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SheetNoCloseButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SheetSide",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Sheet"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SheetSide.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SidebarDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react",
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Avatar",
+        "@rescript-shadcn/Collapsible",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SidebarDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SkeletonAvatar",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SkeletonAvatar.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SkeletonCard",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SkeletonCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SkeletonDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SkeletonDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SkeletonForm",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SkeletonForm.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SkeletonTable",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SkeletonTable.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SkeletonText",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SkeletonText.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SliderControlled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Label",
+        "@rescript-shadcn/Slider"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SliderControlled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SliderDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Slider"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SliderDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SliderDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Slider"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SliderDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SliderMultiple",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Slider"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SliderMultiple.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SliderRange",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Slider"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SliderRange.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SliderVertical",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Slider"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SliderVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SonnerDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SonnerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SonnerDescription",
+      "type": "registry:example",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SonnerDescription.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SonnerPosition",
+      "type": "registry:example",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SonnerPosition.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SonnerTypes",
+      "type": "registry:example",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SonnerTypes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SpinnerBadge",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Badge",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SpinnerBadge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SpinnerButton",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SpinnerButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SpinnerCustom",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SpinnerCustom.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SpinnerDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Item",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SpinnerDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SpinnerEmpty",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Empty",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SpinnerEmpty.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SpinnerInputGroup",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SpinnerInputGroup.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SpinnerSize",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SpinnerSize.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SwitchChoiceCard",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Switch"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SwitchChoiceCard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SwitchDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Label",
+        "@rescript-shadcn/Switch"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SwitchDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SwitchDescription",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Switch"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SwitchDescription.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SwitchDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Switch"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SwitchDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SwitchInvalid",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Switch"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SwitchInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "SwitchSizes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Switch"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/SwitchSizes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TableActions",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Table"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TableActions.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TableDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Table"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TableDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TableFooter",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Table"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TableFooter.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TabsDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Card",
+        "@rescript-shadcn/Tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TabsDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TabsDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TabsDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TabsIcons",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TabsIcons.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TabsLine",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TabsLine.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TabsVertical",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TabsVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TextareaButton",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TextareaButton.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TextareaDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TextareaDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TextareaDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TextareaDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TextareaField",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TextareaField.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TextareaInvalid",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TextareaInvalid.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleGroupDemo",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/ToggleGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleGroupDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleGroupDisabled",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/ToggleGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleGroupDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleGroupFontWeightSelector",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/ToggleGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleGroupFontWeightSelector.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleGroupOutline",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ToggleGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleGroupOutline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleGroupSizes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ToggleGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleGroupSizes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleGroupSpacing",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/ToggleGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleGroupSpacing.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleGroupVertical",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/ToggleGroup"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleGroupVertical.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleOutline",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleOutline.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleSizes",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleSizes.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "ToggleText",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Icons",
+        "@rescript-shadcn/Toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/ToggleText.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TooltipDemo",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TooltipDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TooltipDisabled",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TooltipDisabled.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TooltipKeyboard",
+      "type": "registry:example",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Kbd",
+        "@rescript-shadcn/Tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TooltipKeyboard.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TooltipSides",
+      "type": "registry:example",
+      "dependencies": [
+        "rescript-react-aria"
+      ],
+      "registryDependencies": [
+        "@rescript-shadcn/Button",
+        "@rescript-shadcn/Tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/aria/examples/TooltipSides.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyBlockquote",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyBlockquote.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyDemo",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyDemo.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyH1",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyH1.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyH2",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyH2.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyH3",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyH3.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyH4",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyH4.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyInlineCode",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyInlineCode.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyLarge",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyLarge.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyLead",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyLead.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyList",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyList.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyMuted",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyMuted.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyP",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyP.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographySmall",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographySmall.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "TypographyTable",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "registry/aria/examples/TypographyTable.res",
+          "type": "registry:example"
+        }
+      ]
+    }
+  ]
+}

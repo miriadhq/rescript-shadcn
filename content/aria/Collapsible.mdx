@@ -1,0 +1,109 @@
+---
+title: Collapsible
+description: An interactive component which expands/collapses a panel.
+base: aria
+component: true
+featured: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/components.html
+  api: https://react-spectrum.adobe.com/react-aria/components.html
+---
+
+<ComponentPreview name="CollapsibleDemo" align="start" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Collapsible
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install react-aria-components rescript-react-aria
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria"
+  name="Collapsible"
+  title="components/ui/Collapsible.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Collapsible>
+  <Collapsible.Trigger render={<Button variant=Ghost size=Icon />}>
+    <Icons.ChevronsUpDown />
+  </Collapsible.Trigger>
+  <Collapsible.Content>
+    {"Content here."->React.string}
+  </Collapsible.Content>
+</Collapsible>
+```
+
+## Controlled State
+
+Use the `open` and `onOpenChange` props to control the state.
+
+```res showLineNumbers
+@react.component
+let make = () => {
+  let (open_, setOpen) = React.useState(() => false)
+
+  <Collapsible open_= onOpenChange={o => setOpen(_ => o)}>
+    <CollapsibleTrigger> {"Toggle"->React.string} </CollapsibleTrigger>
+    <CollapsibleContent> {"Content"->React.string} </CollapsibleContent>
+  </Collapsible>
+}
+```
+
+## Examples
+
+### Basic
+
+<ComponentPreview
+  name="CollapsibleBasic"
+  align="start"
+/>
+
+### Settings Panel
+
+Use a trigger button to reveal additional settings.
+
+<ComponentPreview name="CollapsibleSettings" />
+
+### File Tree
+
+Use nested collapsibles to build a file tree.
+
+<ComponentPreview
+  name="CollapsibleFileTree"
+  previewClassName="h-[36rem]"
+/>
+
+
+## API Reference
+
+See the [React Aria](https://react-spectrum.adobe.com/react-aria/components.html) documentation for more information.

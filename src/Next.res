@@ -30,9 +30,12 @@ module Layout = {
 
 module Navigation = {
   type searchParams = WebAPI.URLAPI.urlSearchParams
+  type router
 
   @module("next/navigation") external usePathname: unit => string = "usePathname"
   @module("next/navigation") external useSearchParams: unit => searchParams = "useSearchParams"
+  @module("next/navigation") external useRouter: unit => router = "useRouter"
+  @send external replace: (router, string) => unit = "replace"
 }
 
 module Link = {

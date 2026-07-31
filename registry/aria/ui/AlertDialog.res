@@ -1,0 +1,252 @@
+@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
+
+@@directive("'use client'")
+
+module Variant = Button.Variant
+module Size = Button.Size
+
+@module("tailwind-merge")
+external cn: (string, option<string>) => string = "twMerge"
+
+@react.component
+let make = (~children=?, ~open_=?, ~defaultOpen=?, ~onOpenChange=?) =>
+  <Dialog ?children ?open_ ?defaultOpen ?onOpenChange />
+
+module Trigger = {
+  @react.component
+  let make = (
+    ~className="",
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~onClick=?,
+    ~onKeyDown=?,
+    ~disabled=?,
+    ~render=?,
+    ~nativeButton=?,
+    ~type_=?,
+    ~ariaLabel=?,
+  ) =>
+    <Dialog.Trigger
+      ?id
+      ?style
+      ?onClick
+      ?onKeyDown
+      ?disabled
+      ?render
+      ?nativeButton
+      ?type_
+      ?ariaLabel
+      ?children
+      dataSlot="alert-dialog-trigger"
+      className
+    />
+}
+
+module Portal = {
+  @react.component
+  let make = (~children=?) => <Dialog.Portal ?children />
+}
+
+module Overlay = {
+  @react.component
+  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+    <ReactAria.Dialog.ModalOverlay
+      ?id
+      ?style
+      ?onClick
+      ?onKeyDown
+      dataSlot="alert-dialog-overlay"
+      className={cn(
+        "cn-alert-dialog-overlay cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50",
+        className,
+      )}
+    />
+}
+
+module Content = {
+  module Size = {
+    @unboxed
+    type t =
+      | @as("default") Default
+      | @as("sm") Sm
+  }
+  @react.component
+  let make = (
+    ~className=?,
+    ~size=Size.Default,
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~onClick=?,
+    ~onKeyDown=?,
+  ) => {
+    <ReactAria.Dialog.ModalOverlay
+      dataSlot="alert-dialog-overlay"
+      className="cn-alert-dialog-overlay cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50"
+    >
+      <ReactAria.Dialog.Modal
+        ?id
+        ?style
+        ?onClick
+        ?onKeyDown
+        dataSlot="alert-dialog-content"
+        dataSize={(size :> string)}
+        className={cn(
+          "cn-alert-dialog-content cn-alert-dialog-content-aria data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-background ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm",
+          className,
+        )}
+      >
+        <ReactAria.Dialog role="alertdialog" ?children />
+      </ReactAria.Dialog.Modal>
+    </ReactAria.Dialog.ModalOverlay>
+  }
+}
+
+module Header = {
+  @react.component
+  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+    <div
+      ?id
+      ?style
+      ?children
+      ?onClick
+      ?onKeyDown
+      dataSlot="alert-dialog-header"
+      className={cn(
+        "cn-alert-dialog-header",
+        className,
+      )}
+    />
+}
+
+module Footer = {
+  @react.component
+  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+    <div
+      ?id
+      ?style
+      ?children
+      ?onClick
+      ?onKeyDown
+      dataSlot="alert-dialog-footer"
+      className={cn(
+        "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
+        className,
+      )}
+    />
+}
+
+module Media = {
+  @react.component
+  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+    <div
+      ?id
+      ?style
+      ?children
+      ?onClick
+      ?onKeyDown
+      dataSlot="alert-dialog-media"
+      className={cn(
+        "cn-alert-dialog-media",
+        className,
+      )}
+    />
+}
+
+module Title = {
+  @react.component
+  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+    <h2
+      ?id
+      ?style
+      ?onClick
+      ?onKeyDown
+      ?children
+      dataSlot="alert-dialog-title"
+      className={cn(
+        "cn-alert-dialog-title cn-font-heading",
+        className,
+      )}
+    />
+}
+
+module Description = {
+  @react.component
+  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+    <p
+      ?id
+      ?style
+      ?onClick
+      ?onKeyDown
+      ?children
+      dataSlot="alert-dialog-description"
+      className={cn(
+        "cn-alert-dialog-description",
+        className,
+      )}
+    />
+}
+
+module Action = {
+  @react.component
+  let make = (
+    ~className="",
+    ~variant=Variant.Default,
+    ~size=Size.Default,
+    ~nativeButton=?,
+    ~disabled=?,
+    ~children=?,
+    ~onClick=?,
+    ~type_=?,
+    ~ariaLabel=?,
+    ~render=?,
+  ) =>
+    <Button
+      className={cn("cn-alert-dialog-action", Some(className))}
+      variant
+      size
+      ?nativeButton
+      ?disabled
+      ?children
+      ?onClick
+      ?type_
+      ?ariaLabel
+      ?render
+      dataSlot="alert-dialog-action"
+    />
+}
+
+module Cancel = {
+  @react.component
+  let make = (
+    ~className="",
+    ~variant=Variant.Outline,
+    ~size=Size.Default,
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~onClick=?,
+    ~onKeyDown=?,
+    ~disabled=?,
+    ~render=<Button variant size className={cn("cn-alert-dialog-cancel", Some(className))} />,
+    ~nativeButton=?,
+    ~type_=?,
+    ~ariaLabel=?,
+  ) => {
+    <Button
+      ?id
+      ?style
+      ?onClick
+      ?onKeyDown
+      ?disabled
+      ?nativeButton
+      ?type_
+      ?ariaLabel
+      ?children
+      dataSlot="alert-dialog-cancel"
+      render
+      slot="close"
+    />
+  }
+}

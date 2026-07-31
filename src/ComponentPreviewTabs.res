@@ -12,6 +12,7 @@ module Align = {
 
 module StyleSource = {
   type t = {
+    lib: Config.Lib.t,
     style: Config.Style.t,
     source: React.element,
     sourcePreview: React.element,
@@ -68,11 +69,15 @@ let make = (
   ~direction=BaseUi.Types.TextDirection.Ltr,
 ) => {
   let (codeVisible, setCodeVisible) = React.useState(() => false)
-  let (selectedStyle, _) = Config.Style.use()
+  let (selection, _, _) = Config.Selection.use()
+  let selectedLib = selection.Config.Selection.lib
+  let selectedStyle = selection.Config.Selection.style
 
   let {source, sourcePreview} =
     sources
-    ->Array.find(item => item.StyleSource.style === selectedStyle)
+    ->Array.find(item =>
+      item.StyleSource.lib === selectedLib && item.StyleSource.style === selectedStyle
+    )
     ->Option.getOrThrow
 
   <div
