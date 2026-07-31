@@ -1,0 +1,98 @@
+---
+title: Marker
+description: Displays an inline status, system note, bordered row, or labeled separator in a conversation.
+base: aria
+component: true
+---
+
+<ComponentPreview name="MarkerDemo" />
+
+The `Marker` component displays conversation markers such as status updates, system notes, bordered rows, and labeled separators. Compose it with [`Message`](/components/base/Message) in a conversation thread.
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Marker
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria" name="Marker" title="components/ui/Marker.res" />
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Marker>
+  <Marker.Icon>
+    <Icons.Info />
+  </Marker.Icon>
+  <Marker.Content>
+    {"New messages below"->React.string}
+  </Marker.Content>
+</Marker>
+```
+
+## Composition
+
+```text
+Marker
+├── Marker.Icon
+└── Marker.Content
+```
+
+## Features
+
+- Inline marker, bordered row, and labeled separator variants
+- Decorative icon slot hidden from assistive technology
+- Status rows with `role="status"`
+- Shimmer utility support for streaming text
+- Custom styling through `className` on every part
+
+## Examples
+
+### Variants
+
+Use `variant` to switch between an inline marker, bordered row, and labeled separator.
+
+<ComponentPreview name="MarkerVariants" />
+
+### Status
+
+Set `role="status"` and include a `Spinner` for streaming or in-progress markers.
+
+<ComponentPreview name="MarkerStatus" />
+
+## Accessibility
+
+`Marker` is presentational by default. For progress updates such as “Thinking...” or “Loading earlier messages,” set `role="status"`. `Marker.Icon` is decorative and hidden with `aria-hidden`, so `Marker.Content` should carry the meaning.
+
+## API Reference
+
+### Marker
+
+| Prop        | Type                            | Default   |
+| ----------- | ------------------------------- | --------- |
+| `variant`   | `Default \| Separator \| Border` | `Default` |
+| `role`      | `string`                        | -         |
+| `ariaLabel` | `string`                        | -         |
+| `className` | `string`                        | -         |

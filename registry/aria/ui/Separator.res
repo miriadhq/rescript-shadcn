@@ -1,0 +1,18 @@
+@@directive("'use client'")
+
+open ReactAria.Types
+
+@module("tailwind-merge")
+external cn: (string, option<string>) => string = "twMerge"
+
+@react.componentWithComponents(BaseUIComponentProps.t)
+let make = (props: BaseUIComponentProps.t) =>
+  <ReactAria.Separator
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("separator")}
+    orientation={props.orientation->Option.getOr(Horizontal)}
+    className={cn(
+      "cn-separator data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
+      props.className,
+    )}
+  />

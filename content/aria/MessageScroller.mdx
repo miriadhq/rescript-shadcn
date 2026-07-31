@@ -1,0 +1,140 @@
+---
+title: Message Scroller
+description: A chat scroll container for message transcripts.
+base: aria
+component: true
+---
+
+<ComponentPreview name="MessageScrollerDemo" />
+
+`MessageScroller` is a chat transcript scroller built on the `@shadcn/react` primitives. It provides the styled ReScript surface for opening position, anchored turns, scroll preservation, and jump controls while leaving message rendering to `Message`, `Bubble`, `Marker`, and `Attachment`.
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/MessageScroller
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @shadcn/react rescript-shadcn-react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria" name="MessageScroller" title="components/ui/MessageScroller.res" />
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<MessageScroller.Provider defaultScrollPosition=LastAnchor>
+  <MessageScroller>
+    <MessageScroller.Viewport>
+      <MessageScroller.Content>
+        <MessageScroller.Item messageId="question" scrollAnchor=true>
+          <Message align=End>
+            <Message.Content>
+              <Bubble>
+                <Bubble.Content> {"Can you check the docs?"->React.string} </Bubble.Content>
+              </Bubble>
+            </Message.Content>
+          </Message>
+        </MessageScroller.Item>
+      </MessageScroller.Content>
+    </MessageScroller.Viewport>
+    <MessageScroller.Button ariaLabel="Scroll to latest" />
+  </MessageScroller>
+</MessageScroller.Provider>
+```
+
+`MessageScroller` fills its parent, so place it inside a height-constrained container.
+
+## Composition
+
+```text
+MessageScroller.Provider
+└── MessageScroller
+    ├── MessageScroller.Viewport
+    │   └── MessageScroller.Content
+    │       ├── MessageScroller.Item
+    │       └── MessageScroller.Item
+    └── MessageScroller.Button
+```
+
+- `MessageScroller.Provider` owns scroll state and behavior props.
+- `MessageScroller` is the styled frame.
+- `MessageScroller.Viewport` is the scrollable element.
+- `MessageScroller.Content` holds transcript rows.
+- `MessageScroller.Item` wraps every direct row so the primitive can measure, anchor, preserve position, and jump to it.
+- `MessageScroller.Button` scrolls to the start or end and is inert when there is no content in that direction.
+
+## Core Concepts
+
+### Anchoring Turns
+
+Mark the row that starts a meaningful turn with `scrollAnchor=true`. Use stable `messageId` values so the scroller can preserve and target rows.
+
+```res showLineNumbers
+<MessageScroller.Item messageId=message.id scrollAnchor={message.role == "user"}>
+  <Message />
+</MessageScroller.Item>
+```
+
+### Opening Position
+
+Set `defaultScrollPosition=LastAnchor` to open a saved transcript at the latest anchored turn instead of the absolute bottom.
+
+### Loading Earlier Messages
+
+`MessageScroller.Viewport` preserves the visible row when older messages are prepended. This is enabled by default with `preserveScrollOnPrepend=true`.
+
+## Accessibility
+
+`MessageScroller.Viewport` is a keyboard-focusable scroll region by default in the upstream primitive. `MessageScroller.Content` uses log-region defaults for additions. Pass `ariaBusy=true` while a turn streams if announcements should wait for the completed row.
+
+## API Reference
+
+### MessageScroller.Provider
+
+| Prop                       | Type                         | Default |
+| -------------------------- | ---------------------------- | ------- |
+| `autoScroll`               | `bool`                       | `false` |
+| `defaultScrollPosition`    | `Start \| End \| LastAnchor` | `End`   |
+| `scrollEdgeThreshold`      | `float`                      | -       |
+| `scrollPreviousItemPeek`   | `float`                      | -       |
+| `scrollMargin`             | `float`                      | -       |
+
+### MessageScroller.Item
+
+| Prop           | Type     | Default |
+| -------------- | -------- | ------- |
+| `messageId`    | `string` | -       |
+| `scrollAnchor` | `bool`   | `false` |
+
+### MessageScroller.Button
+
+| Prop        | Type           | Default |
+| ----------- | -------------- | ------- |
+| `direction` | `Start \| End` | `End`   |
+| `behavior`  | `Auto \| Instant \| Smooth` | - |

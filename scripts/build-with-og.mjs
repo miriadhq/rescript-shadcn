@@ -36,7 +36,7 @@ async function run(cmd, args) {
 
 async function main() {
   console.log("Building Next.js app for OG image generation...");
-  await run("yarn", ["next", "build"]);
+  await run("yarn", ["next", "build", "--webpack"]);
 
   console.log("Starting production server for OG screenshots...");
   const server = spawn("yarn", ["start"], {

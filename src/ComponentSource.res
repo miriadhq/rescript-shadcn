@@ -4,7 +4,7 @@ type kind =
   | Example
   | Component
 
-let registryRoot = Node.Path.join([Node.cwd(), "registry", "base"])
+let registryRoot = lib => Node.Path.join([Node.cwd(), "registry", lib->Config.Lib.toString])
 
 @module("./lib/format-code.mjs")
 external formatCode: (string, Config.Style.t) => promise<string> = "formatCode"
@@ -18,9 +18,9 @@ let fileExists = async (filePath: string) => {
   }
 }
 
-let resolveSourcePath = async (name: string, kind) => {
+let resolveSourcePath = async (name: string, kind, lib) => {
   let examplePath = Node.Path.join([
-    registryRoot,
+    registryRoot(lib),
     switch kind {
     | Example => "examples"
     | Component => "ui"
@@ -99,17 +99,20 @@ let make = async (
   ~className=?,
   ~maxLines=?,
   ~kind=Component,
+  ~lib=Config.Lib.Base,
   ~style=?,
 ) => {
   let code = switch (name, src) {
   | (None, None) => None
   | (_, Some(src)) => {
-      // src is always relative to registry/base (e.g., "/registry/base/examples/Foo.res")
-      let relativePath = src->String.replace("/registry/base/", "")
-      (await Node.Fs.readFile(Node.Path.join([registryRoot, relativePath]), "utf-8"))->Some
+      let relativePath =
+        src
+        ->String.replace("/registry/base/", "")
+        ->String.replace("/registry/aria/", "")
+      (await Node.Fs.readFile(Node.Path.join([registryRoot(lib), relativePath]), "utf-8"))->Some
     }
   | (Some(name), None) =>
-    switch await resolveSourcePath(name, kind) {
+    switch await resolveSourcePath(name, kind, lib) {
     | Some(path) => (await Node.Fs.readFile(path, "utf-8"))->Some
     | None => None
     }

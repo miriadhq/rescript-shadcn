@@ -1,0 +1,118 @@
+---
+title: Message
+description: Displays a message in a conversation, with optional avatar, header, footer, and alignment.
+base: aria
+component: true
+---
+
+<ComponentPreview name="MessageDemo" />
+
+The `Message` component lays out a single message row. It handles the avatar, alignment, header, and footer around the visible message surface. Render the surface with [`Bubble`](/components/base/Bubble), and wrap long transcripts with [`MessageScroller`](/components/base/MessageScroller).
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Message
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria" name="Message" title="components/ui/Message.res" />
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Message>
+  <Message.Avatar>
+    <Avatar>
+      <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
+      <Avatar.Fallback> {"CN"->React.string} </Avatar.Fallback>
+    </Avatar>
+  </Message.Avatar>
+  <Message.Content>
+    <Bubble variant=Muted>
+      <Bubble.Content> {"How can I help you today?"->React.string} </Bubble.Content>
+    </Bubble>
+  </Message.Content>
+</Message>
+```
+
+## Composition
+
+```text
+Message
+├── Message.Avatar
+└── Message.Content
+    ├── Message.Header
+    ├── Bubble
+    └── Message.Footer
+```
+
+Use `Message.Group` to stack consecutive messages from the same sender.
+
+## Features
+
+- Start and end alignment through the `align` prop
+- Avatar slot anchored to the message row
+- Header and footer slots for sender names, timestamps, and actions
+- Group wrapper for consecutive messages
+- Custom styling through `className` on every part
+
+## Examples
+
+### Avatar
+
+Use `Message.Avatar` to render an avatar next to the message. Set `align=End` to align the row to the end of the conversation.
+
+<ComponentPreview name="MessageAvatar" />
+
+### Group
+
+Use `Message.Group` to stack consecutive messages from the same sender.
+
+<ComponentPreview name="MessageGroup" />
+
+### Header and Footer
+
+Use `Message.Header` for a sender name and `Message.Footer` for metadata or actions.
+
+<ComponentPreview name="MessageHeaderFooter" />
+
+### Attachment
+
+Compose `Attachment` inside `Message.Content` to render files attached to a message.
+
+<ComponentPreview name="MessageAttachment" />
+
+## Accessibility
+
+`Message` is a presentational layout wrapper. Accessibility comes from the content you place inside it. Give icon-only action buttons in `Message.Footer` an `ariaLabel`.
+
+## API Reference
+
+### Message
+
+| Prop        | Type           | Default |
+| ----------- | -------------- | ------- |
+| `align`     | `Start \| End` | `Start` |
+| `className` | `string`       | -       |

@@ -54,13 +54,16 @@ let make = async (
       // with nested submodule access like Accordion.Item.make)
       let componentElement = <DemoLoader name />
 
-      let sources = Config.Style.all->Array.map(style => {
-        {
-          ComponentPreviewTabs.StyleSource.style,
-          source: <ComponentSource name collapsible=false kind=Example style />,
-          sourcePreview: <ComponentSource name collapsible=false maxLines=3 kind=Example style />,
-        }
-      })
+      let sources = Config.Lib.all->Array.flatMap(lib =>
+        Config.Style.all->Array.map(style => {
+          {
+            ComponentPreviewTabs.StyleSource.lib,
+            style,
+            source: <ComponentSource name collapsible=false kind=Example lib style />,
+            sourcePreview: <ComponentSource name collapsible=false maxLines=3 kind=Example lib style />,
+          }
+        })
+      )
 
       let content =
         <ComponentPreviewTabs

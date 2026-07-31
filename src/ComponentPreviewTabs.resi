@@ -8,6 +8,7 @@ module Align: {
 
 module StyleSource: {
   type t = {
+    lib: Config.Lib.t,
     style: Config.Style.t,
     source: React.element,
     sourcePreview: React.element,

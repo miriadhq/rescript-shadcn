@@ -1,14 +1,51 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs"
+import { copyFileSync, existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs"
+import { spawnSync } from "node:child_process"
 import path from "node:path"
 import rescriptJson from "../rescript.json" with { type: "json" }
 
 const suffix = rescriptJson.suffix
 
 const packageRoot = new URL("..", import.meta.url).pathname
-const baseDir = path.join(packageRoot, "registry", "base")
-const registryPath = path.join(packageRoot, "registry.json")
+const libIndex = process.argv.indexOf("--lib")
+const registryLib = libIndex === -1 ? null : process.argv[libIndex + 1]
+const isCheck = process.argv.includes("--check")
+
+if (registryLib === null) {
+  for (const lib of ["base", "aria"]) {
+    const result = spawnSync(
+      process.execPath,
+      [new URL(import.meta.url).pathname, "--lib", lib, ...(isCheck ? ["--check"] : [])],
+      { stdio: "inherit" },
+    )
+    if (result.status !== 0) process.exit(result.status ?? 1)
+  }
+
+  const baseRegistryPath = path.join(packageRoot, "registry.base.json")
+  const compatibilityPath = path.join(packageRoot, "registry.json")
+  if (isCheck) {
+    if (
+      !existsSync(compatibilityPath) ||
+      readFileSync(compatibilityPath, "utf8") !== readFileSync(baseRegistryPath, "utf8")
+    ) {
+      console.error("registry.json is not synchronized with registry.base.json")
+      process.exit(1)
+    }
+  } else {
+    copyFileSync(baseRegistryPath, compatibilityPath)
+    console.log(`Wrote ${compatibilityPath} (base compatibility registry)`)
+  }
+  process.exit(0)
+}
+
+if (!["base", "aria"].includes(registryLib)) {
+  console.error("Usage: generate-registry.mjs [--lib base|aria] [--check]")
+  process.exit(1)
+}
+
+const baseDir = path.join(packageRoot, "registry", registryLib)
+const registryPath = path.join(packageRoot, `registry.${registryLib}.json`)
 const registryNamespace = "@rescript-shadcn"
 
 // ---------------------------------------------------------------------------
@@ -29,6 +66,8 @@ const IMPLICIT_PACKAGES = new Set([
 /** ReScript namespaces erased by externals still need package deps in registry */
 const RESCRIPT_NAMESPACE_PACKAGES = [
   { namespace: "ShadcnReact", packageName: "rescript-shadcn-react" },
+  { namespace: "BaseUi", packageName: "rescript-base-ui" },
+  { namespace: "ReactAria", packageName: "rescript-react-aria" },
 ]
 
 /** Extract npm package name: "@base-ui/react/accordion" → "@base-ui/react" */
@@ -107,7 +146,7 @@ const styleModules = existsSync(path.join(packageRoot, "registry", "styles"))
 
 // Build a map: relative .res path (from rescript/) → registry item name
 // e.g. "ui/Accordion.res" → "accordion"
-const base = "registry/base"
+const base = `registry/${registryLib}`
 const pathToName = new Map()
 for (const mod of uiModules) {
   pathToName.set(`${base}/ui/${mod}.res`, mod)
@@ -116,7 +155,7 @@ for (const mod of exampleModules) {
   pathToName.set(`${base}/examples/${mod}.res`, mod)
 }
 
-const astDir = path.join(packageRoot, "lib", "ocaml")
+const astDir = path.join(baseDir, "lib", "ocaml")
 
 /** Modules to ignore in .ast dependency lists */
 const IGNORED_AST_DEPS = new Set([
@@ -265,7 +304,7 @@ const items = [
 ]
 
 const registry = {
-  name: "rescript-shadcn",
+  name: `rescript-shadcn-${registryLib}`,
   homepage: "https://github.com/miriadhq/rescript-shadcn",
   items,
 }
@@ -276,19 +315,17 @@ const output = JSON.stringify(registry, null, 2) + "\n"
 // --check mode or write
 // ---------------------------------------------------------------------------
 
-const isCheck = process.argv.includes("--check")
-
 if (isCheck) {
   const current = existsSync(registryPath)
     ? readFileSync(registryPath, "utf8")
     : ""
   if (current !== output) {
     console.error(
-      "registry.json is out of date. Run `node scripts/generate-registry.mjs` to regenerate."
+      `${path.basename(registryPath)} is out of date. Run \`node scripts/generate-registry.mjs\` to regenerate.`
     )
     process.exit(1)
   }
-  console.log("registry.json is up to date.")
+  console.log(`${path.basename(registryPath)} is up to date.`)
 } else {
   writeFileSync(registryPath, output)
   console.log(`Wrote ${registryPath}`)

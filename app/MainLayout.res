@@ -6,34 +6,40 @@ let make = (~children) => {
 
   pathname->String.startsWith("/og/render")
     ? children
-    : <ThemeProvider>
-        <Sidebar.Provider>
-          <Tooltip.Provider>
-            <NavMenu />
-            <Sidebar.Inset className="w-full min-w-0">
-              <StyleSwitcher.BodyScope />
-              {if pathname->String.startsWith("/components") {
-                <>
-                  <StyleSwitcher className="fixed right-4 top-4 z-30 hidden md:block" />
-                  <StyleSwitcher
-                    className="fixed right-4 bottom-4 z-30 md:hidden"
-                    side=BaseUi.Types.Side.Top
+    : <React.Suspense fallback=React.null>
+        <ThemeProvider>
+          <Sidebar.Provider>
+            <Tooltip.Provider>
+              <NavMenu />
+              <Sidebar.Inset className="w-full min-w-0">
+                <StyleSwitcher.BodyScope />
+                {if pathname->String.startsWith("/components") {
+                  <>
+                    <div className="fixed right-4 top-4 z-30 hidden items-center gap-2 md:flex">
+                      <LibSwitcher />
+                      <StyleSwitcher />
+                    </div>
+                    <div className="fixed right-4 bottom-4 z-30 flex items-center gap-2 md:hidden">
+                      <LibSwitcher side=BaseUi.Types.Side.Top />
+                      <StyleSwitcher side=BaseUi.Types.Side.Top />
+                    </div>
+                  </>
+                } else {
+                  React.null
+                }}
+                <div className="flex flex-col self-center max-w-3xl px-4 pb-8 pt-16 md:py-8 w-full">
+                  <Sidebar.Trigger
+                    className="md:hidden fixed left-4 bottom-4 z-20 rounded-md bg-stone-800 p-1"
                   />
-                </>
-              } else {
-                React.null
-              }}
-              <div className="flex flex-col self-center max-w-3xl px-4 pb-8 pt-16 md:py-8 w-full">
-                <Sidebar.Trigger
-                  className="md:hidden fixed left-4 bottom-4 z-20 rounded-md bg-stone-800 p-1"
-                />
-                {children}
-              </div>
-            </Sidebar.Inset>
-            <Sonner position=TopCenter />
-          </Tooltip.Provider>
-        </Sidebar.Provider>
-      </ThemeProvider>
+                  {children}
+                </div>
+              </Sidebar.Inset>
+              <Sonner position=TopCenter />
+              <Toast.Toaster />
+            </Tooltip.Provider>
+          </Sidebar.Provider>
+        </ThemeProvider>
+      </React.Suspense>
 }
 
 let default = make

@@ -1,0 +1,83 @@
+---
+title: Toggle
+description: A two-state button that can be either on or off.
+base: aria
+component: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/components.html
+  api: https://react-spectrum.adobe.com/react-aria/components.html
+---
+
+<ComponentPreview name="ToggleDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Toggle
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install react-aria-components rescript-react-aria
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria"
+  name="Toggle"
+  title="components/ui/Toggle.res"
+/>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Toggle> {"Toggle"->React.string} </Toggle>
+```
+
+## Examples
+
+### Outline
+
+Use `variant=Outline` for an outline style.
+
+<ComponentPreview name="ToggleOutline" />
+
+### With Text
+
+<ComponentPreview name="ToggleText" />
+
+### Size
+
+Use the `size` prop to change the size of the toggle.
+
+<ComponentPreview name="ToggleSizes" />
+
+### Disabled
+
+<ComponentPreview name="ToggleDisabled" />
+
+
+## API Reference
+
+See the [React Aria Toggle](https://react-spectrum.adobe.com/react-aria/components.html) documentation.

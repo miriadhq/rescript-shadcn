@@ -121,3 +121,49 @@ describe("base ui className parity", () => {
     expect(transformed).not.toContain("before:backdrop-blur-2xl");
   });
 });
+
+const ariaUpstreamDir = join(
+  process.cwd(),
+  "shadcn-ui/apps/v4/registry/bases/aria/ui",
+);
+const ariaRescriptDir = join(process.cwd(), "registry/aria/ui");
+const ariaComponents = readdirSync(ariaUpstreamDir)
+  .filter((file) => file.endsWith(".tsx"))
+  .map((file) => {
+    const componentName = basename(file, ".tsx");
+    return {
+      componentName,
+      upstreamPath: join(ariaUpstreamDir, file),
+      rescriptPath: join(ariaRescriptDir, `${toPascalCase(componentName)}.res`),
+    };
+  });
+
+describe("React Aria UI parity", () => {
+  test("has a ReScript file for every upstream React Aria component", () => {
+    expect(
+      ariaComponents
+        .filter(({ rescriptPath }) => !existsSync(rescriptPath))
+        .map(({ componentName }) => componentName),
+    ).toEqual([]);
+  });
+
+  test.each(ariaComponents)(
+    "$componentName keeps every upstream cn-* class hook",
+    ({ upstreamPath, rescriptPath }) => {
+      const upstreamHooks = classHooks(readFileSync(upstreamPath, "utf8"));
+      const rescriptHooks = classHooks(readFileSync(rescriptPath, "utf8"));
+      expect(sorted(difference(upstreamHooks, rescriptHooks))).toEqual([]);
+    },
+  );
+
+  test.each(ariaComponents)(
+    "$componentName publishes without cn-* markers",
+    async ({ rescriptPath }) => {
+      const transformed = await transformRescriptSource(
+        readFileSync(rescriptPath, "utf8"),
+        getStyleMap("mira"),
+      );
+      expect(classHooks(transformed)).toEqual(new Set());
+    },
+  );
+});

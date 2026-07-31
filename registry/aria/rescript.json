@@ -1,0 +1,38 @@
+{
+  "name": "rescript-shadcn-aria",
+  "namespace": "Aria",
+  "sources": [
+    {
+      "dir": ".",
+      "files": [
+        "Demo.res"
+      ]
+    },
+    {
+      "dir": "ui",
+      "subdirs": true
+    },
+    {
+      "dir": "examples",
+      "subdirs": true
+    }
+  ],
+  "jsx": {
+    "version": 4
+  },
+  "package-specs": {
+    "module": "esmodule",
+    "in-source": true
+  },
+  "suffix": ".res.mjs",
+  "dependencies": [
+    "@rescript/react",
+    "@rescript/webapi",
+    "rescript-react-aria",
+    "rescript-shadcn-react",
+    "rescript-signals"
+  ],
+  "compiler-flags": [
+    "-open WebAPI.Global"
+  ]
+}

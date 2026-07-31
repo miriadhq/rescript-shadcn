@@ -52,7 +52,7 @@ module ListItem = {
     ~onKeyDown=?,
   ) =>
     <li ?id ?style ?className ?onClick ?onKeyDown>
-      <NavigationMenu.Link render={<Next.Link href />}>
+      <NavigationMenu.Link render={<NextLink href />}>
         <div className="flex flex-col gap-1 text-sm">
           <div className="leading-none font-medium"> {title->React.string} </div>
           <div className="text-muted-foreground line-clamp-2"> {children} </div>
@@ -101,19 +101,19 @@ let make = ({}: Demo.Props.t) =>
           <ul className="grid w-[200px]">
             <li>
               <NavigationMenu.Link
-                render={<Next.Link href="#" className="flex-row items-center gap-2" />}
+                render={<NextLink href="#" className="flex-row items-center gap-2" />}
               >
                 <Icons.CircleAlert />
                 {"Backlog"->React.string}
               </NavigationMenu.Link>
               <NavigationMenu.Link
-                render={<Next.Link href="#" className="flex-row items-center gap-2" />}
+                render={<NextLink href="#" className="flex-row items-center gap-2" />}
               >
                 <Icons.CircleDashed />
                 {"To Do"->React.string}
               </NavigationMenu.Link>
               <NavigationMenu.Link
-                render={<Next.Link href="#" className="flex-row items-center gap-2" />}
+                render={<NextLink href="#" className="flex-row items-center gap-2" />}
               >
                 <Icons.CircleCheck />
                 {"Done"->React.string}
@@ -124,7 +124,7 @@ let make = ({}: Demo.Props.t) =>
       </NavigationMenu.Item>
       <NavigationMenu.Item>
         <NavigationMenu.Link
-          render={<Next.Link href="/docs" />}
+          render={<NextLink href="/docs" />}
           className={NavigationMenu.navigationMenuTriggerStyle()}
         >
           {"Docs"->React.string}

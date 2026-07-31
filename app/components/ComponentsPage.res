@@ -1,21 +1,28 @@
 @@directive("'use client'")
 
 type meta = {pages: array<string>}
-@module("@/content/base/meta.json") external meta: meta = "default"
+@module("@/content/base/meta.json") external baseMeta: meta = "default"
+@module("@/content/aria/meta.json") external ariaMeta: meta = "default"
 
 @react.component
 let make = () => {
+  let (selection, _, _) = Config.Selection.use()
+  let pages = switch selection.lib {
+  | Config.Lib.Base => baseMeta.pages
+  | Config.Lib.Aria => ariaMeta.pages
+  }
+
   <>
     <ComponentTitle title="Components" />
     <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance md:max-w-[80%]">
       {"Browse all available components."->React.string}
     </p>
     <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-      {meta.pages
+      {pages
       ->Array.map(slug => {
         <Next.Link
           key={slug}
-          href={`/components/${slug}`}
+          href={`/components/${slug}?style=${selection->Config.Selection.toString}`}
           className="flex items-center rounded-lg border px-4 py-3 text-sm line-clamp-1
             font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
         >

@@ -28,6 +28,13 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      // Upstream examples import the generated base-nova style tree. The parity
+      // harness compares the source Base implementation, so resolve that
+      // virtual/generated path directly to the checked-in Base registry.
+      "@/styles/base-nova": path.resolve(
+        repoRoot,
+        "shadcn-ui/apps/v4/registry/bases/base"
+      ),
       // shadcn-ui v4 globals import `shadcn/tailwind.css`; the `shadcn` npm package
       // (CLI v3) no longer exports that path — map to the app's theme file (same role as app/globals.css).
       "shadcn/tailwind.css": path.resolve(repoRoot, "app/tailwind.css"),
@@ -54,7 +61,15 @@ export default defineConfig({
   },
   optimizeDeps: {
     noDiscovery: true,
-    include: ["react", "react/jsx-runtime", "react/jsx-dev-runtime", "react-dom", "react-dom/client"],
+    include: [
+      "react",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
+      "react-dom",
+      "react-dom/client",
+      "use-sync-external-store/shim",
+      "use-sync-external-store/shim/with-selector",
+    ],
   },
   server: {
     host: "127.0.0.1",

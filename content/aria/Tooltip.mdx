@@ -1,0 +1,121 @@
+---
+title: Tooltip
+description: A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+base: aria
+component: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/components.html
+  api: https://react-spectrum.adobe.com/react-aria/components.html
+---
+
+<ComponentPreview name="TooltipDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Run the following command:</Step>
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Tooltip
+```
+
+<Step>Add the `Tooltip.Provider` to the root of your app.</Step>
+
+```res title="app/layout.res" showLineNumbers {1,7}
+module RootLayout = {
+  @react.component
+  let make = (~children) =>
+    <html lang="en">
+      <body>
+        <Tooltip.Provider>{children}</Tooltip.Provider>
+      </body>
+    </html>
+}
+```
+
+</Steps>
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install react-aria-components rescript-react-aria
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource lib="aria"
+  name="Tooltip"
+  title="components/ui/Tooltip.res"
+/>
+
+<Step>Add the `Tooltip.Provider` to the root of your app.</Step>
+
+```res title="app/layout.res" showLineNumbers {1,7}
+module RootLayout = {
+  @react.component 
+  let make = (~children) => {
+    <html lang="en">
+      <body>
+        <Tooltip.Provider>{children}</Tooltip.Provider>
+      </body>
+    </html>
+  }
+}
+```
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+<Tooltip>
+  <Tooltip.Trigger render={<Button variant=Outline />}>
+    {"Hover"->React.string}
+  </Tooltip.Trigger>
+  <Tooltip.Content>
+    <p> {"Add to library"->React.string} </p>
+  </Tooltip.Content>
+</Tooltip>
+```
+
+## Examples
+
+### Side
+
+Use the `side` prop to change the position of the tooltip.
+
+<ComponentPreview name="TooltipSides" />
+
+### With Keyboard Shortcut
+
+<ComponentPreview name="TooltipKeyboard" />
+
+### Disabled Button
+
+Show a tooltip on a disabled button by wrapping it with a span.
+
+<ComponentPreview name="TooltipDisabled" />
+
+
+## API Reference
+
+See the [React Aria Tooltip](https://react-spectrum.adobe.com/react-aria/components.html) documentation.

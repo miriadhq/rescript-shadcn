@@ -3,6 +3,73 @@ title: Toast
 description: A succinct message that is displayed temporarily.
 base: base
 component: true
+links:
+  doc: https://base-ui.com/react/components/toast
+  api: https://base-ui.com/react/components/toast#api-reference
 ---
 
-The toast component has been deprecated. Use the [sonner](/components/Sonner) component instead.
+<ComponentPreview name="ToastDemo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Toast
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react @rescript-shadcn/base-ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="Toast" title="components/ui/Toast.res" />
+
+<Step>Add the toaster once near the root of your application.</Step>
+
+```res showLineNumbers
+<Toast.Toaster />
+```
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```res showLineNumbers
+let _: string = Toast.toast.add({
+  title: "Event created",
+  description: "Sunday, December 3 at 9:00 AM",
+})
+```
+
+## Types
+
+Set `type_` to `success`, `info`, `warning`, `error`, or `loading` to render a status icon.
+
+<ComponentPreview name="ToastTypes" />
+
+## Asynchronous updates
+
+Keep the returned toast id and update the toast as work progresses.
+
+<ComponentPreview name="ToastPromise" />
