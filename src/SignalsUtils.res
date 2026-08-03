@@ -1,9 +1,10 @@
 // Keep first paint identical to SSR (default signal value), then hydrate from localStorage
 // in an effect so React does not warn about server/client HTML mismatch.
-let useWithLocalStorage = (~key, ~atom, ~valueFromString, ~valueToString) => {
+let useWithLocalStorageHydrated = (~key, ~atom, ~valueFromString, ~valueToString) => {
   open Signals
 
   let (value, setValue) = React.useState(() => Signal.get(atom))
+  let (hydrated, setHydrated) = React.useState(() => false)
 
   React.useEffect(() => {
     switch globalThis["localStorage"] {
@@ -20,12 +21,26 @@ let useWithLocalStorage = (~key, ~atom, ~valueFromString, ~valueToString) => {
         setValue(_ => Signal.get(atom))
         None
       })
+      setHydrated(_ => true)
       Some(() => disposer.dispose())
-    | None => None
+    | None => {
+        setHydrated(_ => true)
+        None
+      }
     }
   }, (key, atom))
 
   let updater = React.useCallback(u => Signal.update(atom, u), [atom])
 
+  (value, updater, hydrated)
+}
+
+let useWithLocalStorage = (~key, ~atom, ~valueFromString, ~valueToString) => {
+  let (value, updater, _) = useWithLocalStorageHydrated(
+    ~key,
+    ~atom,
+    ~valueFromString,
+    ~valueToString,
+  )
   (value, updater)
 }

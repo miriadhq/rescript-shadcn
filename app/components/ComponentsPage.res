@@ -6,8 +6,8 @@ type meta = {pages: array<string>}
 
 @react.component
 let make = () => {
-  let (selection, _, _) = Config.Selection.use()
-  let pages = switch selection.lib {
+  let (libStyle, _, _) = Config.LibStyle.use()
+  let pages = switch libStyle.lib {
   | Config.Lib.Base => baseMeta.pages
   | Config.Lib.Aria => ariaMeta.pages
   }
@@ -22,7 +22,7 @@ let make = () => {
       ->Array.map(slug => {
         <Next.Link
           key={slug}
-          href={`/components/${slug}?style=${selection->Config.Selection.toString}`}
+          href={`/components/${slug}?style=${libStyle->Config.LibStyle.toString}`}
           className="flex items-center rounded-lg border px-4 py-3 text-sm line-clamp-1
             font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
         >

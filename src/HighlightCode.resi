@@ -7,9 +7,16 @@ module Shiki: {
     }
   }
   module Transformer: {
+    module Meta: {
+      type t = {@as("__raw") raw?: string}
+    }
+    module Options: {
+      type t = {meta?: Meta.t}
+    }
     module Base: {
       type t = {
         source: string,
+        options: Options.t,
       }
     }
     type t = {

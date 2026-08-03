@@ -43,8 +43,8 @@ ${makeEntries(ariaNames, "rescript-shadcn-aria")}
 
 @react.component
 let make = (~name: string, ~lib: option<Config.Lib.t>=?) => {
-  let (selection, _, _) = Config.Selection.use()
-  let activeLib = lib->Option.getOr(selection.Config.Selection.lib)
+  let (libStyle, _, _) = Config.LibStyle.use()
+  let activeLib = lib->Option.getOr(libStyle.Config.LibStyle.lib)
   let demos = switch activeLib {
   | Config.Lib.Base => baseDemos
   | Config.Lib.Aria => ariaDemos

@@ -11,8 +11,8 @@ module StyleSource = {
 
 @react.component
 let make = (~sources, ~className=?) => {
-  let (selection, _, _) = Config.Selection.use()
-  let selectedStyle = selection.Config.Selection.style
+  let (libStyle, _, _) = Config.LibStyle.use()
+  let selectedStyle = libStyle.Config.LibStyle.style
 
   let children =
     sources

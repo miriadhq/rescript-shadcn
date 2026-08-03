@@ -1,5 +1,6 @@
 import MdxComponents from "@/src/MdxComponents.res.mjs"
 import { make as ComponentTitle } from "@/src/ComponentTitle.res.mjs"
+import { make as SelectionSwitcher } from "@/src/SelectionSwitcher.res.mjs"
 
 export const generateMetadata = async () => {
   const { frontmatter: doc } = await import("@/content/docs/Installation.mdx")
@@ -37,6 +38,7 @@ export default async function InstallationPage() {
           {doc.description}
         </p>
       )}
+      <SelectionSwitcher className="my-8" />
       <InstallationDocs components={MdxComponents} />
     </>
   )

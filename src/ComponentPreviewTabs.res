@@ -69,9 +69,9 @@ let make = (
   ~direction=BaseUi.Types.TextDirection.Ltr,
 ) => {
   let (codeVisible, setCodeVisible) = React.useState(() => false)
-  let (selection, _, _) = Config.Selection.use()
-  let selectedLib = selection.Config.Selection.lib
-  let selectedStyle = selection.Config.Selection.style
+  let (libStyle, _, _) = Config.LibStyle.use()
+  let selectedLib = libStyle.Config.LibStyle.lib
+  let selectedStyle = libStyle.Config.LibStyle.style
 
   let {source, sourcePreview} =
     sources
