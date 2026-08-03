@@ -2,8 +2,8 @@
 
 @react.component
 let make = (~side=BaseUi.Types.Side.Bottom) => {
-  let (selection, setLib, _) = Config.Selection.use()
-  let lib = selection.Config.Selection.lib
+  let (libStyle, setLib, _) = Config.LibStyle.use()
+  let lib = libStyle.Config.LibStyle.lib
 
   <DropdownMenu>
     <DropdownMenu.Trigger

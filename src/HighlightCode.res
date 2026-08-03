@@ -42,9 +42,16 @@ module Shiki = {
     }
   }
   module Transformer = {
+    module Meta = {
+      type t = {@as("__raw") raw?: string}
+    }
+    module Options = {
+      type t = {meta?: Meta.t}
+    }
     module Base = {
       type t = {
         source: string,
+        options: Options.t,
       }
     }
     type t = {
@@ -146,6 +153,11 @@ let transformers: array<Shiki.Transformer.t> = [
       if tagName === "code" {
         let raw = this.Shiki.Transformer.Base.source
         properties->Dict.set("__raw__", raw)
+
+        this.options.meta
+        ->Option.flatMap(meta => meta.Shiki.Transformer.Meta.raw)
+        ->Option.filter(meta => /\binterpolateLibStyle\b/->RegExp.test(meta))
+        ->Option.forEach(_ => properties->Dict.set("__interpolate_lib_style__", "true"))
 
         if raw->String.startsWith("npm install") {
           properties->Dict.set("__npm__", raw)

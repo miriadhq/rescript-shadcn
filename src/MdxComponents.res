@@ -19,12 +19,15 @@ module Code = {
     @as("__yarn__") yarn?: string,
     @as("__pnpm__") pnpm?: string,
     @as("__bun__") bun?: string,
+    @as("__interpolate_lib_style__") interpolateLibStyle?: string,
   }
 
-  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({className, children, __raw__, __npm__, __yarn__, __pnpm__, __bun__,...rest}) => rest`)
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({className, children, __raw__, __npm__, __yarn__, __pnpm__, __bun__, __interpolate_lib_style__, ...rest}) => rest`)
 
   @react.componentWithProps(props)
-  let make = ({?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun} as props: props) => {
+  let make = (
+    {?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun, ?interpolateLibStyle} as props: props,
+  ) => {
     let props = toDomProps(props)
     // Inline code
     switch children->Type.Classify.classify {
@@ -40,8 +43,11 @@ module Code = {
       </code>
     | _ =>
       // npm command
-      switch (npm, yarn, pnpm, bun) {
-      | (Some(npm), Some(yarn), Some(pnpm), Some(bun)) => <CodeBlockCommand npm yarn pnpm bun />
+      switch (npm, yarn, pnpm, bun, raw, interpolateLibStyle) {
+      | (Some(npm), Some(yarn), Some(pnpm), Some(bun), _, _) =>
+        <CodeBlockCommand npm yarn pnpm bun />
+      | (_, _, _, _, Some(raw), Some(_)) =>
+        <CodeBlockTemplate raw children domProps=props ?className />
       | _ =>
         // Default code block
         <>
@@ -325,6 +331,7 @@ let default = Components({
   "ComponentsList": ComponentsList.make,
   "CopyButton": CopyButton.make,
   "DirectoryList": DirectoryList.make,
+  "LibVariant": LibVariant.make,
   "Link": MdxLink.make,
   "LinkedCard": LinkedCard.make,
   "Kbd": Kbd.make,

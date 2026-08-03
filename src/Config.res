@@ -109,7 +109,7 @@ module Style = {
 
 }
 
-module Selection = {
+module LibStyle = {
   open Signals
 
   type t = {
@@ -121,8 +121,11 @@ module Selection = {
   let paramName = "style"
   let libStorageKey = "lib"
 
-  let toString = selection =>
-    `${selection.lib->Lib.toString}-${selection.style->Style.toString}`
+  let toString = libStyle =>
+    `${libStyle.lib->Lib.toString}-${libStyle.style->Style.toString}`
+
+  let interpolate = (template, libStyle) =>
+    template->String.replaceAll("{{libStyle}}", libStyle->toString)
 
   let fromStringOpt = value => {
     let parts = value->String.split("-")
@@ -148,10 +151,10 @@ module Selection = {
     ->getParam
     ->Option.flatMap(fromStringOpt)
 
-  let hrefFor = (pathname, selection) => {
+  let hrefFor = (pathname, libStyle) => {
     let location = WebAPI.Global.window.location
     let params = WebAPI.URLSearchParams.fromString(location.search)
-    params->WebAPI.URLSearchParams.set(~name=paramName, ~value=toString(selection))
+    params->WebAPI.URLSearchParams.set(~name=paramName, ~value=toString(libStyle))
 
     let query = params->WebAPI.URLSearchParams.toString
     switch query {
@@ -160,7 +163,7 @@ module Selection = {
     }
   }
 
-  let syncBodyClasses = selection => {
+  let syncBodyClasses = libStyle => {
     let classList = WebAPI.Global.document.body.classList
     Style.all->Array.forEach(style =>
       classList->WebAPI.DOMTokenList.remove(`style-${style->Style.toString}`)
@@ -168,18 +171,18 @@ module Selection = {
     Lib.all->Array.forEach(lib =>
       classList->WebAPI.DOMTokenList.remove(`lib-${lib->Lib.toString}`)
     )
-    classList->WebAPI.DOMTokenList.add(`style-${selection.style->Style.toString}`)
-    classList->WebAPI.DOMTokenList.add(`lib-${selection.lib->Lib.toString}`)
+    classList->WebAPI.DOMTokenList.add(`style-${libStyle.style->Style.toString}`)
+    classList->WebAPI.DOMTokenList.add(`lib-${libStyle.lib->Lib.toString}`)
   }
 
   let use = () => {
-    let (lib, setStoredLib) = SignalsUtils.useWithLocalStorage(
+    let (lib, setStoredLib, libHydrated) = SignalsUtils.useWithLocalStorageHydrated(
       ~key=libStorageKey,
       ~atom=Lib.atom,
       ~valueFromString=Lib.fromString,
       ~valueToString=Lib.toString,
     )
-    let (style, setStoredStyle) = SignalsUtils.useWithLocalStorage(
+    let (style, setStoredStyle, styleHydrated) = SignalsUtils.useWithLocalStorageHydrated(
       ~key=paramName,
       ~atom=Style.atom,
       ~valueFromString=Style.fromString,
@@ -188,42 +191,57 @@ module Selection = {
     let pathname = Next.Navigation.usePathname()
     let searchParams = Next.Navigation.useSearchParams()
     let router = Next.Navigation.useRouter()
-    let storedSelection = {lib, style}
-    let querySelection = searchParams->getParam->Option.flatMap(fromStringOpt)
-    let selection = querySelection->Option.getOr(storedSelection)
+    let storedLibStyle = {lib, style}
+    let queryLibStyle = searchParams->getParam->Option.flatMap(fromStringOpt)
+    let libStyle = queryLibStyle->Option.getOr(storedLibStyle)
+    let syncsLibStyle =
+      pathname === "/" ||
+      pathname === "/installation" ||
+      pathname->String.startsWith("/components")
 
-    let navigate = nextSelection =>
-      if pathname->String.startsWith("/components") {
-        router->Next.Navigation.replace(hrefFor(pathname, nextSelection))
+    let navigate = nextLibStyle =>
+      if syncsLibStyle && libHydrated && styleHydrated {
+        router->Next.Navigation.replace(hrefFor(pathname, nextLibStyle))
       }
 
     let setLib = React.useCallback(update => {
       let nextLib = update(Signal.get(Lib.atom))
       setStoredLib(_ => nextLib)
-      navigate({lib: nextLib, style: selection.style})
-    }, (pathname, router, setStoredLib, selection.style))
+      navigate({lib: nextLib, style: libStyle.style})
+    }, (pathname, router, setStoredLib, libStyle.style, libHydrated, styleHydrated))
 
     let setStyle = React.useCallback(update => {
       let nextStyle = update(Signal.get(Style.atom))
       setStoredStyle(_ => nextStyle)
-      navigate({lib: selection.lib, style: nextStyle})
-    }, (pathname, router, setStoredStyle, selection.lib))
+      navigate({lib: libStyle.lib, style: nextStyle})
+    }, (pathname, router, setStoredStyle, libStyle.lib, libHydrated, styleHydrated))
 
     React.useEffect(() => {
-      syncBodyClasses(selection)
-      if pathname->String.startsWith("/components") {
-        switch querySelection {
-        | Some(querySelection) if querySelection->toString != storedSelection->toString => {
-            setStoredLib(_ => querySelection.lib)
-            setStoredStyle(_ => querySelection.style)
+      syncBodyClasses(libStyle)
+      if syncsLibStyle && libHydrated && styleHydrated {
+        switch queryLibStyle {
+        | Some(queryLibStyle) if queryLibStyle->toString != storedLibStyle->toString => {
+            setStoredLib(_ => queryLibStyle.lib)
+            setStoredStyle(_ => queryLibStyle.style)
           }
-        | None => navigate(storedSelection)
+        | None => navigate(storedLibStyle)
         | _ => ()
         }
       }
       None
-    }, (lib, style, selection.lib, selection.style, pathname, router, setStoredLib, setStoredStyle))
+    }, (
+      lib,
+      style,
+      libStyle.lib,
+      libStyle.style,
+      libHydrated,
+      styleHydrated,
+      pathname,
+      router,
+      setStoredLib,
+      setStoredStyle,
+    ))
 
-    (selection, setLib, setStyle)
+    (libStyle, setLib, setStyle)
   }
 }

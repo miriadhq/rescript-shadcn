@@ -7,16 +7,18 @@ type meta = {pages: array<string>}
 @react.component
 let make = () => {
   let pathname = Next.Navigation.usePathname()
-  let (selection, _, _) = Config.Selection.use()
-  let selectionParam = selection->Config.Selection.toString
-  let pages = switch selection.lib {
+  let (libStyle, _, _) = Config.LibStyle.use()
+  let libStyleParam = libStyle->Config.LibStyle.toString
+  let pages = switch libStyle.lib {
   | Config.Lib.Base => baseMeta.pages
   | Config.Lib.Aria => ariaMeta.pages
   }
 
   <Sidebar>
     <Sidebar.Header className="flex-row items-center gap-1">
-      <Sidebar.MenuButton render={<Next.Link href="/" />} className="text-sm">
+      <Sidebar.MenuButton
+        render={<Next.Link href={`/?style=${libStyleParam}`} />} className="text-sm"
+      >
         <BrandIcons.RescriptShadcn className="h-2" />
         {"ReScript Shadcn"->React.string}
       </Sidebar.MenuButton>
@@ -32,7 +34,7 @@ let make = () => {
             <Sidebar.MenuItem>
               <Sidebar.MenuButton
                 render={<Next.Link
-                  href="/installation"
+                  href={`/installation?style=${libStyleParam}`}
                   className={`rounded-md px-3 py-1.5 text-sm transition-colors ${pathname === "/installation"
                       ? "bg-accent text-accent-foreground font-medium"
                       : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"}`}
@@ -45,7 +47,7 @@ let make = () => {
         </Sidebar.GroupContent>
       </Sidebar.Group>
       <Sidebar.Group>
-        <Sidebar.GroupLabel render={<Next.Link href={`/components?style=${selectionParam}`} />}>
+        <Sidebar.GroupLabel render={<Next.Link href={`/components?style=${libStyleParam}`} />}>
           {"Components"->React.string}
         </Sidebar.GroupLabel>
         <Sidebar.GroupContent>
@@ -57,7 +59,7 @@ let make = () => {
               <Sidebar.MenuItem key={slug}>
                 <Sidebar.MenuButton
                   render={<Next.Link
-                    href={`${href}?style=${selectionParam}`}
+                    href={`${href}?style=${libStyleParam}`}
                     className={`rounded-md px-3 py-1.5 text-sm transition-colors ${isActive
                         ? "bg-accent text-accent-foreground font-medium"
                         : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"}`}

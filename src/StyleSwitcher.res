@@ -3,15 +3,15 @@
 module BodyScope = {
   @react.component
   let make = () => {
-    let _ = Config.Selection.use()
+    let _ = Config.LibStyle.use()
     React.null
   }
 }
 
 @react.component
 let make = (~className="", ~side=BaseUi.Types.Side.Bottom) => {
-  let (selection, _, setStyle) = Config.Selection.use()
-  let style = selection.Config.Selection.style
+  let (libStyle, _, setStyle) = Config.LibStyle.use()
+  let style = libStyle.Config.LibStyle.style
 
   <div className>
     <DropdownMenu>

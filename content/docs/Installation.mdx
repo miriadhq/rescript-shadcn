@@ -19,28 +19,26 @@ Add the common dependencies to your project:
 npm install shadcn tailwind-merge lucide-react tw-animate-css
 ```
 
-Then choose a component library:
+Then install the primitive and ReScript binding packages for the component library selected above:
 
-<Tabs defaultValue="base">
-  <TabsList>
-    <TabsTrigger value="base">Base UI</TabsTrigger>
-    <TabsTrigger value="aria">React Aria</TabsTrigger>
-  </TabsList>
-  <TabsContent value="base">
+<LibVariant value="base">
 
 ```bash
 npm install @base-ui/react rescript-base-ui
 ```
 
-  </TabsContent>
-  <TabsContent value="aria">
+</LibVariant>
+
+<LibVariant value="aria">
 
 ```bash
 npm install react-aria-components rescript-react-aria
 ```
 
-  </TabsContent>
-</Tabs>
+</LibVariant>
+
+Base UI and React Aria components share the selected visual style. A small number of components may
+only be available for one library when the other library has no equivalent primitive.
 
 ### Configure path aliases
 
@@ -64,15 +62,14 @@ aliases in `components.json` later on.
 
 Create a `components.json` file in the root of your project.
 
-The `style` value combines the component library and visual style. Choose `base` or `aria`, then one
-of `vega`, `nova`, `lyra`, `maia`, `mira`, `luma`, `sera`, or `rhea`. For example, `base-nova` uses
-Base UI with Nova, while `aria-mira` uses React Aria with Mira. Each combination is published with
-its Tailwind utilities already inlined.
+The `style` value combines the component library and visual style selected above. For example,
+`base-nova` uses Base UI with Nova, while `aria-mira` uses React Aria with Mira. Each combination is
+published with its Tailwind utilities already inlined.
 
-```json {3,20} title="components.json" showLineNumbers
+```json title="components.json" interpolateLibStyle
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "base-nova",
+  "style": "{{libStyle}}",
   "tailwind": {
     "config": "",
     "css": "src/styles/globals.css",
@@ -238,18 +235,35 @@ You can learn more about using CSS variables for theming in the [shadcn theming 
 
 Add the binding package for your selected library to your dependencies:
 
+<LibVariant value="base">
+
 ```json {5} title="rescript.json" showLineNumbers
 {
   ...
-  "dependencies": [ 
+  "dependencies": [
     ...
-    "rescript-base-ui",
+    "rescript-base-ui"
   ],
   ...
 }
 ```
 
-For an `aria-*` style, use `rescript-react-aria` instead of `rescript-base-ui`.
+</LibVariant>
+
+<LibVariant value="aria">
+
+```json {5} title="rescript.json" showLineNumbers
+{
+  ...
+  "dependencies": [
+    ...
+    "rescript-react-aria"
+  ],
+  ...
+}
+```
+
+</LibVariant>
 
 ### That's it
 
