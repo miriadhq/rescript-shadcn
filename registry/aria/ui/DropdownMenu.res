@@ -31,9 +31,9 @@ module Portal = {
 }
 
 module Trigger = {
-  @react.componentWithProps(Button.props)
-  let make = (props: Button.props) =>
-    <Button {...props} dataSlot="dropdown-menu-trigger" />
+  @react.componentWithProps(Button.Primitive.props)
+  let make = (props: Button.Primitive.props) =>
+    <Button.Primitive {...props} dataSlot="dropdown-menu-trigger" />
 }
 
 module Content = {

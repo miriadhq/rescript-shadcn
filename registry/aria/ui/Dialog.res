@@ -32,7 +32,7 @@ module Trigger = {
     ~ariaLabel=?,
     ~dataSlot="dialog-trigger",
   ) =>
-    <Button
+    <Button.Primitive
       ?id
       ?style
       ?onClick
@@ -69,7 +69,7 @@ module Close = {
     ~ariaLabel=?,
     ~dataSlot="dialog-close",
   ) =>
-    <Button
+    <Button.Primitive
       ?id
       ?style
       ?onClick

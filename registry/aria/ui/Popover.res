@@ -22,9 +22,9 @@ let make = (
   }
 
 module Trigger = {
-  @react.componentWithProps(Button.props)
-  let make = (props: Button.props) =>
-    <Button {...props} dataSlot={props.dataSlot->Option.getOr("popover-trigger")} />
+  @react.componentWithProps(Button.Primitive.props)
+  let make = (props: Button.Primitive.props) =>
+    <Button.Primitive {...props} dataSlot={props.dataSlot->Option.getOr("popover-trigger")} />
 }
 
 module Content = {
