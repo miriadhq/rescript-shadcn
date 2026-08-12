@@ -55,7 +55,7 @@ module Trigger = {
     ~render=?,
     ~style=?,
   ) =>
-    <Button
+    <Button.Primitive
       ?className
       ?children
       ?id

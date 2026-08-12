@@ -234,7 +234,7 @@ module Cancel = {
     ~type_=?,
     ~ariaLabel=?,
   ) => {
-    <Button
+    <Button.Primitive
       ?id
       ?style
       ?onClick

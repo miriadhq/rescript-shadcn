@@ -43,7 +43,7 @@ module Trigger = {
     ~onClick=?,
     ~onKeyDown=?,
   ) =>
-    <Button
+    <Button.Primitive
       ?id
       ?style
       ?disabled

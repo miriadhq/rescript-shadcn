@@ -90,3 +90,33 @@ let make = (props: props) => {
     <ReactAria.Button {...props->toAriaProps} dataSlot className />
   }
 }
+
+module Primitive = {
+  type props = {
+    ...ReactAria.Types.BaseUIComponentProps.t,
+    ...ReactAria.Types.NativeButtonProps.t,
+    focusableWhenDisabled?: bool,
+  }
+
+  let toAriaProps: props => ReactAria.Button.props = %raw(`props => {
+    const {disabled, nativeButton, render, focusableWhenDisabled, onClick, ...rest} = props;
+    return {...rest, isDisabled: disabled, allowFocusWhenDisabled: focusableWhenDisabled, onPress: onClick};
+  }`)
+
+  let toDomProps: props => ReactAria.Types.BaseUIComponentProps.t = %raw(`props => {
+    const {nativeButton, focusableWhenDisabled, render, ...rest} = props;
+    return rest;
+  }`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
+    switch props.render {
+    | Some(render) =>
+      Render.use({
+        render,
+        defaultTagName: "button",
+        props: props->toDomProps,
+      })
+    | None => <ReactAria.Button {...props->toAriaProps} />
+    }
+}

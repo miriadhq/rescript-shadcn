@@ -100,7 +100,7 @@ module Trigger = {
     ~ariaLabel=?,
     ~tabIndex=?,
   ) =>
-    <Button
+    <Button.Primitive
       ?id
       ?style
       ?onClick
@@ -116,7 +116,7 @@ module Trigger = {
     >
       {children}
       <Icons.ChevronDown className="cn-combobox-trigger-icon pointer-events-none" />
-    </Button>
+    </Button.Primitive>
 }
 
 module Clear = {

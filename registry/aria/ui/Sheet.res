@@ -33,7 +33,7 @@ module Trigger = {
     ~type_=?,
     ~ariaLabel=?,
   ) =>
-    <Button
+    <Button.Primitive
       ?id
       ?style
       ?onClick
@@ -64,7 +64,7 @@ module Close = {
     ~type_=?,
     ~ariaLabel=?,
   ) =>
-    <Button
+    <Button.Primitive
       ?id
       ?style
       ?onClick
