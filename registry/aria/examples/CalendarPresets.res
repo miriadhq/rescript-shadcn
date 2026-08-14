@@ -1,11 +1,10 @@
 @@directive("'use client'")
 
-type preset = {
-  label: string,
-  value: int,
-}
+module IDate = ReactAria.InternationalizedDate
 
-let presets: array<preset> = [
+type preset = {label: string, value: int}
+
+let presets = [
   {label: "Today", value: 0},
   {label: "Tomorrow", value: 1},
   {label: "In 3 days", value: 3},
@@ -15,27 +14,17 @@ let presets: array<preset> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (date, setDate) = React.useState(() => {
-    let now = Date.make()
-    let year = now->Date.getFullYear
-    Some(Date.makeWithYMD(~year, ~month=1, ~day=12))
-  })
-  let (currentMonth, setCurrentMonth) = React.useState(() => {
-    let now = Date.make()
-    let year = now->Date.getFullYear
-    let month = now->Date.getMonth
-    Date.makeWithYMD(~year, ~month, ~day=1)
-  })
+  let today = IDate.today(IDate.getLocalTimeZone())
+  let (date, setDate) = React.useState(() => today)
+  let (focusedDate, setFocusedDate) = React.useState(() => today)
 
   <Card className="mx-auto w-fit max-w-[300px]" size=Sm>
     <Card.Content>
       <Calendar
-        mode=Single
-        selected=?date
-        onSelect={value => setDate(_ => value)}
-        month=currentMonth
-        onMonthChange={value => setCurrentMonth(_ => value)}
-        fixedWeeks={true}
+        value=date
+        onChange={date => setDate(_ => date)}
+        focusedValue=focusedDate
+        onFocusChange={date => setFocusedDate(_ => date)}
         className="p-0 [--cell-size:--spacing(9.5)]"
       />
     </Card.Content>
@@ -47,21 +36,10 @@ let make = ({}: Demo.Props.t) => {
           variant=Outline
           size=Sm
           className="flex-1"
-          onClick={_ => {
-            let today = Date.make()
-            let newDate = Date.makeWithYMD(
-              ~year=today->Date.getFullYear,
-              ~month=today->Date.getMonth,
-              ~day=today->Date.getDate + preset.value,
-            )
-            setDate(_ => Some(newDate))
-            setCurrentMonth(_ =>
-              Date.makeWithYMD(
-                ~year=newDate->Date.getFullYear,
-                ~month=newDate->Date.getMonth,
-                ~day=1,
-              )
-            )
+          onPress={_ => {
+            let nextDate = today->IDate.add({days: preset.value})
+            setDate(_ => nextDate)
+            setFocusedDate(_ => nextDate)
           }}
         >
           {preset.label->React.string}

@@ -3,31 +3,23 @@ let make = ({}: Demo.Props.t) =>
   <Breadcrumb>
     <Breadcrumb.List>
       <Breadcrumb.Item>
-        <Breadcrumb.Link render={<a href="/" />}> {"Home"->React.string} </Breadcrumb.Link>
+        <Breadcrumb.Link href="/"> {"Home"->React.string} </Breadcrumb.Link>
       </Breadcrumb.Item>
-      <Breadcrumb.Separator>
-        <Icons.Dot />
-      </Breadcrumb.Separator>
       <Breadcrumb.Item>
-        <DropdownMenu>
-          <DropdownMenu.Trigger
-            render={<button className="flex items-center gap-1" type_="button" />}
-          >
+        <DropdownMenu.Trigger>
+          <ReactAria.Button className="flex items-center gap-1">
             {"Components"->React.string}
-            <Icons.ChevronDown dataIcon="inline-end" />
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content align=Start>
+            <Icons.ChevronDown dataIcon="inline-end" className="size-3.5" />
+          </ReactAria.Button>
+          <DropdownMenu placement=ReactAria.Common.BottomStart>
             <DropdownMenu.Group>
               <DropdownMenu.Item> {"Documentation"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Themes"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"GitHub"->React.string} </DropdownMenu.Item>
             </DropdownMenu.Group>
-          </DropdownMenu.Content>
-        </DropdownMenu>
+          </DropdownMenu>
+        </DropdownMenu.Trigger>
       </Breadcrumb.Item>
-      <Breadcrumb.Separator>
-        <Icons.Dot />
-      </Breadcrumb.Separator>
       <Breadcrumb.Item>
         <Breadcrumb.Page> {"Breadcrumb"->React.string} </Breadcrumb.Page>
       </Breadcrumb.Item>

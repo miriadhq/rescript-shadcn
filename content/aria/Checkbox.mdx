@@ -60,16 +60,16 @@ npm install react-aria-components rescript-react-aria
 
 ## Checked State
 
-Use `defaultChecked` for uncontrolled checkboxes, or `checked` and
-`onCheckedChange` to control the state.
+Use `defaultSelected` for an uncontrolled checkbox, or `isSelected` and
+`onChange` to control the state.
 
 ```res showLineNumbers
 module Example = {
   @react.component
   let make = () => {
-    let (checked, setChecked) = React.useState(() => false)
+    let (isSelected, setIsSelected) = React.useState(() => false)
 
-    <Checkbox checked onCheckedChange={v => setChecked(_ => v)} />
+    <Checkbox isSelected onChange={next => setIsSelected(_ => next)} />
   }
 }
 ```
@@ -97,7 +97,8 @@ Use `FieldContent` and `FieldDescription` for helper text.
 
 ### Disabled
 
-Use the `disabled` prop to prevent interaction and add the `data-disabled` attribute to the `<Field>` component for disabled styles.
+Use `isDisabled` to prevent interaction and add `dataDisabled` to the `Field`
+wrapper for its disabled styles.
 
 <ComponentPreview name="CheckboxDisabled" />
 

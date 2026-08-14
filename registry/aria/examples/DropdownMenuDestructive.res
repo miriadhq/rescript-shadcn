@@ -2,11 +2,11 @@
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <DropdownMenu>
-    <DropdownMenu.Trigger render={<Button variant=Outline />}>
+  <DropdownMenu.Trigger>
+<Button variant=Outline>
       {"Actions"->React.string}
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content>
+    </Button>
+<DropdownMenu>
       <DropdownMenu.Group>
         <DropdownMenu.Item>
           <Icons.Pencil />
@@ -24,5 +24,5 @@ let make = ({}: Demo.Props.t) =>
           {"Delete"->React.string}
         </DropdownMenu.Item>
       </DropdownMenu.Group>
-    </DropdownMenu.Content>
-  </DropdownMenu>
+    </DropdownMenu>
+</DropdownMenu.Trigger>

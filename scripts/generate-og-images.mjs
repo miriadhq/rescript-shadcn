@@ -81,8 +81,8 @@ async function main() {
       headless: chromium.headless,
     })
     : await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-gpu"],
+      headless: "shell",
     });
 
   try {

@@ -21,74 +21,52 @@ let alertVariantClass = (~variant: Variant.t) =>
 
 let base = "cn-alert group/alert relative w-full"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~variant=Variant.Default,
-  ~dataVariant=?,
-) => {
+type props = {variant?: Variant.t, ...ReactAria.Types.DomProps.t}
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({variant, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let variant = props.variant->Option.getOr(Default)
   <div
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?children
-    ?dataVariant
-    role="alert"
-    dataSlot="alert"
-    className={cn3(base, alertVariantClass(~variant), className)}
+    {...props->domProps}
+    role={props.role->Option.getOr("alert")}
+    dataSlot={props.dataSlot->Option.getOr("alert")}
+    className={cn3(base, alertVariantClass(~variant), props.className)}
   />
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="alert-title"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-title")}
       className={cn(
         "cn-alert-title [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
-        className,
+        props.className,
       )}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="alert-description"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-description")}
       className={cn(
         "cn-alert-description [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
-        className,
+        props.className,
       )}
     />
 }
 
 module Action = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="alert-action"
-      className={cn("cn-alert-action", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-action")}
+      className={cn("cn-alert-action", props.className)}
     />
 }

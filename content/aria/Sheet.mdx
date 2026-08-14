@@ -52,17 +52,15 @@ npm install react-aria-components rescript-react-aria
 ## Usage
 
 ```res showLineNumbers
-<Sheet>
-  <Sheet.Trigger render={<Button variant=Outline />}>
-    {"Open"->React.string}
-  </Sheet.Trigger>
-  <Sheet.Content>
+<Sheet.Trigger>
+  <Button variant=Outline> {"Open"->React.string} </Button>
+  <Sheet>
     <Sheet.Header>
       <Sheet.Title> {"Are you absolutely sure?"->React.string} </Sheet.Title>
       <Sheet.Description> {"This action cannot be undone."->React.string} </Sheet.Description>
     </Sheet.Header>
-  </Sheet.Content>
-</Sheet>
+  </Sheet>
+</Sheet.Trigger>
 ```
 
 ## Examples

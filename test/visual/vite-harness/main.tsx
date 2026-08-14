@@ -1,9 +1,9 @@
-import "../../../shadcn-ui/apps/v4/app/globals.css"
+import "./globals.css"
 
 import * as React from "react"
 import { createRoot } from "react-dom/client"
 
-type Impl = "tsx" | "rescript"
+type Impl = "tsx" | "rescript" | "aria"
 type AnyModule = Record<string, unknown>
 
 type ModuleLoader = () => Promise<AnyModule>
@@ -37,6 +37,12 @@ const rescriptModules: Record<string, ModuleLoader> = {
   >),
 }
 
+const ariaRescriptModules: Record<string, ModuleLoader> = {
+  ...(import.meta.glob(
+    "../../../registry/aria/examples/*.{jsx,res.mjs}"
+  ) as Record<string, ModuleLoader>),
+}
+
 function toPascalCase(value: string) {
   return value
     .split(/[^A-Za-z0-9]+/)
@@ -46,6 +52,7 @@ function toPascalCase(value: string) {
 }
 
 function getImpl(value: string | null): Impl {
+  if (value === "aria") return "aria"
   return value === "rescript" ? "rescript" : "tsx"
 }
 
@@ -68,13 +75,16 @@ function getTsxModuleLoader(component: string) {
   return findModuleLoader(tsxModules, fileName)
 }
 
-function getRescriptModuleLoader(component: string) {
+function getRescriptModuleLoader(component: string, impl: "rescript" | "aria") {
   const moduleName = component.startsWith("ui/")
     ? toPascalCase(component.replace(/^ui\//, ""))
     : component.startsWith("ui-rtl/")
     ? `Rtl${toPascalCase(component.replace(/^ui-rtl\//, ""))}`
     : toPascalCase(component)
-  return findModuleLoader(rescriptModules, `${moduleName}.res.mjs`)
+  return findModuleLoader(
+    impl === "aria" ? ariaRescriptModules : rescriptModules,
+    `${moduleName}.res.mjs`
+  )
 }
 
 function getExpectedRescriptPath(component: string) {
@@ -484,8 +494,8 @@ function App() {
       let rescriptComponent: React.ComponentType | null = null
       let rescriptModule: AnyModule | null = null
 
-      if (impl === "rescript") {
-        const rescriptLoader = getRescriptModuleLoader(component)
+      if (impl === "rescript" || impl === "aria") {
+        const rescriptLoader = getRescriptModuleLoader(component, impl)
 
         if (!rescriptLoader) {
           fail(`Missing ReScript equivalent for: ${component}`, expectedRescriptPath)
@@ -605,6 +615,7 @@ function App() {
 }
 
 document.documentElement.setAttribute("data-parity-ready", "0")
+document.documentElement.classList.add("style-nova")
 
 const rootElement = document.querySelector("#root")
 

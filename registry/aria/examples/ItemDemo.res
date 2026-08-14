@@ -12,7 +12,7 @@ let make = ({}: Demo.Props.t) =>
         <Button variant=Outline size=Sm> {"Action"->React.string} </Button>
       </Item.Actions>
     </Item>
-    <Item variant=Outline size=Sm render={<a href="#" />}>
+    <Item variant=Outline size=Sm href="#">
       <Item.Media>
         <Icons.BadgeCheck className="size-5" />
       </Item.Media>

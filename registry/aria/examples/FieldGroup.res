@@ -8,7 +8,7 @@ let make = ({}: Demo.Props.t) =>
       </Field.Description>
       <Field.Group dataSlot="checkbox-group">
         <Field orientation=Horizontal>
-          <Checkbox id="push" defaultChecked={true} disabled={true} />
+          <Checkbox id="push" defaultSelected={true} isDisabled={true} />
           <Field.Label htmlFor="push" className="font-normal">
             {"Push notifications"->React.string}
           </Field.Label>

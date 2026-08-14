@@ -3,20 +3,34 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (position, setPosition) = React.useState(() => "bottom")
-
-  <DropdownMenu>
-    <DropdownMenu.Trigger render={<Button variant=Outline />}>
-      {"Open"->React.string}
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content className="w-32">
-      <DropdownMenu.Group>
+  <DropdownMenu.Trigger>
+    <Button variant=Outline className="w-fit"> {"Radio Group"->React.string} </Button>
+    <DropdownMenu>
+      <DropdownMenu.Group
+        selectionMode=Single
+        selectedKeys={[position]}
+        onSelectionChange={selection =>
+          switch selection {
+          | ReactAria.Common.Keys(keys) =>
+            setPosition(_ => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("bottom"))
+          | ReactAria.Common.All => setPosition(_ => "bottom")
+          }
+        }
+      >
         <DropdownMenu.Label> {"Panel Position"->React.string} </DropdownMenu.Label>
-        <DropdownMenu.RadioGroup value={position} onValueChange={(v, _) => setPosition(_ => v)}>
-          <DropdownMenu.RadioItem value="top"> {"Top"->React.string} </DropdownMenu.RadioItem>
-          <DropdownMenu.RadioItem value="bottom"> {"Bottom"->React.string} </DropdownMenu.RadioItem>
-          <DropdownMenu.RadioItem value="right"> {"Right"->React.string} </DropdownMenu.RadioItem>
-        </DropdownMenu.RadioGroup>
+        <DropdownMenu.Item id="top">
+          <Icons.ArrowUp />
+          {"Top"->React.string}
+        </DropdownMenu.Item>
+        <DropdownMenu.Item id="bottom">
+          <Icons.ArrowDown />
+          {"Bottom"->React.string}
+        </DropdownMenu.Item>
+        <DropdownMenu.Item id="right" isDisabled=true>
+          <Icons.ArrowRight />
+          {"Right"->React.string}
+        </DropdownMenu.Item>
       </DropdownMenu.Group>
-    </DropdownMenu.Content>
-  </DropdownMenu>
+    </DropdownMenu>
+  </DropdownMenu.Trigger>
 }

@@ -40,7 +40,7 @@ let make = ({}: Demo.Props.t) => {
     <Table.Header>
       <Table.Row>
         <Table.Head className="w-8">
-          <Checkbox id="select-all-checkbox" name="select-all-checkbox" checked={false} />
+          <Checkbox id="select-all-checkbox" name="select-all-checkbox" isSelected={false} />
         </Table.Head>
         <Table.Head> {"Name"->React.string} </Table.Head>
         <Table.Head> {"Email"->React.string} </Table.Head>
@@ -61,7 +61,7 @@ let make = ({}: Demo.Props.t) => {
         >
           <Table.Cell>
             <Checkbox
-              id={`row-${row.id}-checkbox`} name={`row-${row.id}-checkbox`} checked=isSelected
+              id={`row-${row.id}-checkbox`} name={`row-${row.id}-checkbox`} isSelected
             />
           </Table.Cell>
           <Table.Cell className="font-medium"> {row.name->React.string} </Table.Cell>

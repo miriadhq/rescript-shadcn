@@ -6,23 +6,10 @@
 external cn: (string, option<string>) => string = "twMerge"
 
 module InputOtpPrimitive = {
-  module Props = {
-    type t = {
-      size?: int,
-      ...ReactAria.Types.BaseDomProps.t,
-      ...ReactAria.Types.ExtraDomProps.t,
-      containerClassName?: string,
-      onChange?: string => unit,
-      value?: string,
-      defaultValue?: string,
-    }
-  }
-  @module("input-otp")
-  external make: React.component<Props.t> = "OTPInput"
-
   type slot = {
     isActive: bool,
-    char: Nullable.t<string>,
+    char: nullable<string>,
+    placeholderChar: nullable<string>,
     hasFakeCaret: bool,
   }
 
@@ -32,91 +19,81 @@ module InputOtpPrimitive = {
     isHovering: bool,
   }
 
+  module Props = {
+    type t = {
+      key?: string,
+      ref?: ReactDOM.domRef,
+      className?: string,
+      id?: string,
+      style?: ReactDOM.Style.t,
+      dir?: string,
+      name?: string,
+      value?: string,
+      defaultValue?: string,
+      placeholder?: string,
+      maxLength: int,
+      disabled?: bool,
+      required?: bool,
+      readOnly?: bool,
+      tabIndex?: int,
+      pattern?: string,
+      spellCheck?: bool,
+      autoComplete?: string,
+      inputMode?: string,
+      textAlign?: string,
+      containerClassName?: string,
+      onChange?: string => unit,
+      onComplete?: string => unit,
+      pasteTransformer?: string => string,
+      pushPasswordManagerStrategy?: string,
+      noScriptCSSFallback?: nullable<string>,
+      render?: renderProps => React.element,
+      children?: React.element,
+      onClick?: JsxEvent.Mouse.t => unit,
+      onKeyDown?: JsxEvent.Keyboard.t => unit,
+      @as("aria-label") ariaLabel?: string,
+      @as("data-slot") dataSlot?: string,
+    }
+  }
+  @module("input-otp")
+  external make: React.component<Props.t> = "OTPInput"
+
   @module("input-otp") @val
   external context: React.Context.t<renderProps> = "OTPInputContext"
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~containerClassName=?,
-  ~children=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~maxLength=?,
-  ~disabled=?,
-  ~required=?,
-  ~readOnly=?,
-  ~onChange=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~style=?,
-  ~pattern=?,
-  ~dir=?,
-) => {
+@react.componentWithProps(InputOtpPrimitive.Props.t)
+let make = (props: InputOtpPrimitive.Props.t) => {
   <InputOtpPrimitive
-    ?id
-    ?name
-    ?value
-    ?defaultValue
-    ?maxLength
-    ?disabled
-    ?required
-    ?readOnly
-    ?onClick
-    ?onChange
-    ?onKeyDown
-    ?tabIndex
-    ?ariaLabel
-    ?style
-    ?pattern
-    ?dir
-    ?children
-    dataSlot="input-otp"
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("input-otp")}
     containerClassName={cn(
       "cn-input-otp flex items-center has-disabled:opacity-50",
-      containerClassName,
+      props.containerClassName,
     )}
-    spellCheck={false}
-    className={cn("cn-input-otp-input disabled:cursor-not-allowed", className)}
+    spellCheck={props.spellCheck->Option.getOr(false)}
+    className={cn("cn-input-otp-input disabled:cursor-not-allowed", props.className)}
   />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="input-otp-group"
-      className={cn(
-        "cn-input-otp-group flex items-center",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("input-otp-group")}
+      className={cn("cn-input-otp-group flex items-center", props.className)}
     />
 }
 
 module Slot = {
-  @react.component
-  let make = (
-    ~index,
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaInvalid=?,
-  ) => {
+  type props = {index: int, ...ReactAria.Types.DomProps.t}
+  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({index, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
     let inputOtpContext = React.useContext(InputOtpPrimitive.context)
-    let (char, hasFakeCaret, isActive) = switch inputOtpContext.slots[index] {
+    let (char, hasFakeCaret, isActive) = switch inputOtpContext.slots[props.index] {
     | Some(slot) => (
         slot.char->Nullable.map(React.string)->Nullable.getOr(React.null),
         slot.hasFakeCaret,
@@ -125,16 +102,12 @@ module Slot = {
     | None => (React.null, false, false)
     }
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?ariaInvalid
-      dataSlot="input-otp-slot"
+      {...props->domProps}
+      dataSlot={props.dataSlot->Option.getOr("input-otp-slot")}
       dataActive={isActive}
       className={cn(
         "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
-        className,
+        props.className,
       )}
     >
       {char}
@@ -143,25 +116,20 @@ module Slot = {
             <div className="cn-input-otp-caret-line" />
           </div>
         : React.null}
-      {children}
     </div>
   }
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=React.null, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      role="separator"
-      dataSlot="input-otp-separator"
-      className={cn("cn-input-otp-separator flex items-center", className)}
+      {...props}
+      role={props.role->Option.getOr("separator")}
+      dataSlot={props.dataSlot->Option.getOr("input-otp-separator")}
+      className={props.className->Option.getOr("cn-input-otp-separator flex items-center")}
     >
       <Icons.Minus />
-      {children}
     </div>
 }
 

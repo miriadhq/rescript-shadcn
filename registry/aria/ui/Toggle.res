@@ -32,43 +32,25 @@ let toggleSizeClass = (~size: Size.t) =>
   }
 
 let toggleVariants = (~variant=Variant.Default, ~size=Size.Default) => {
-  let base = "cn-toggle cn-toggle-aria group/toggle hover:bg-muted inline-flex items-center justify-center whitespace-nowrap outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+  let base = "cn-toggle cn-toggle-aria group/toggle inline-flex items-center justify-center whitespace-nowrap outline-none hover:bg-muted focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
   `${base} ${toggleVariantClass(~variant)} ${toggleSizeClass(~size)}`
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~disabled=?,
-  ~pressed=?,
-  ~defaultPressed=?,
-  ~onPressedChange=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=0,
-  ~ariaLabel=?,
-  ~type_=?,
-  ~variant=Variant.Default,
-  ~size=Size.Default,
-) => {
-  let onChange = onPressedChange->Option.map(callback => selected => callback(selected, %raw(`undefined`)))
+type props = {
+  variant?: Variant.t,
+  size?: Size.t,
+  ...ReactAria.ToggleButton.props,
+}
+
+let toggleProps: props => ReactAria.ToggleButton.props = %raw(`({variant, size, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let variant = props.variant->Option.getOr(Default)
+  let size = props.size->Option.getOr(Default)
   <ReactAria.ToggleButton
-    ?id
-    ?dir
-    isDisabled=?disabled
-    isSelected=?pressed
-    defaultSelected=?defaultPressed
-    ?onChange
-    ?onClick
-    ?onKeyDown
-    tabIndex
-    ?ariaLabel
-    ?type_
-    ?children
-    dataSlot="toggle"
-    className={cn(toggleVariants(~variant, ~size), className)}
+    {...props->toggleProps}
+    dataSlot={props.dataSlot->Option.getOr("toggle")}
+    className={cn(toggleVariants(~variant, ~size), props.className)}
   />
 }

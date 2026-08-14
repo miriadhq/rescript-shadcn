@@ -116,7 +116,7 @@ The `Sidebar.Provider` component is used to provide the sidebar context to the `
 | Name           | Type                      | Description                                  |
 | -------------- | ------------------------- | -------------------------------------------- |
 | `defaultOpen`  | `bool`                    | Default open state of the sidebar.           |
-| `open`         | `bool`                    | Open state of the sidebar (controlled).      |
+| `open_`        | `bool`                    | Open state of the sidebar (controlled).      |
 | `onOpenChange` | `(bool) => unit`          | Sets open state of the sidebar (controlled). |
 
 ### Width
@@ -221,17 +221,17 @@ Use the `Sidebar.Header` component to add a sticky header to the sidebar.
   <Sidebar.Header>
     <Sidebar.Menu>
       <Sidebar.MenuItem>
-        <DropdownMenu>
-          <DropdownMenu.Trigger render={<Sidebar.MenuButton/>}>
+        <DropdownMenu.Trigger>
+          <Sidebar.MenuButton>
               {"Select Workspace"->React.string}
               <Icons.ChevronDown className="ml-auto" />
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content className="w-[--radix-popper-anchor-width]">
+          </Sidebar.MenuButton>
+          <DropdownMenu className="w-(--trigger-width)">
             <DropdownMenu.Item>
               <span> {"Acme Inc"->React.string} </span>
             </DropdownMenu.Item>
-          </DropdownMenu.Content>
-        </DropdownMenu>
+          </DropdownMenu>
+        </DropdownMenu.Trigger>
       </Sidebar.MenuItem>
     </Sidebar.Menu>
   </Sidebar.Header>
@@ -288,12 +288,12 @@ A `Sidebar.Group` has a `Sidebar.GroupLabel`, a `Sidebar.GroupContent` and an op
 To make a `Sidebar.Group` collapsible, wrap it in a `Collapsible`.
 
 ```res showLineNumbers
-<Collapsible defaultOpen className="group/collapsible">
+<Collapsible defaultExpanded className="group/collapsible">
   <Sidebar.Group>
-    <Sidebar.GroupLabel render={<Collapsible.Trigger/>}>
+    <Sidebar.MenuButton slot="trigger">
         {"Help"->React.string}
-        <Icons.ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-    </Sidebar.GroupLabel>
+        <Icons.ChevronDown className="ml-auto" />
+    </Sidebar.MenuButton>
     <Collapsible.Content>
       <Sidebar.GroupContent />
     </Collapsible.Content>
@@ -324,7 +324,7 @@ The `Sidebar.Menu` component is used for building a menu within a `Sidebar.Group
 <Sidebar.Menu>
   {projects.map((project) => (
     <Sidebar.MenuItem key={project.name}>
-      <Sidebar.MenuButton render={<a href={project.url}/>}>
+      <Sidebar.MenuButton href={project.url}>
         <Project.Icon />
         <span>{project.name->React.string}</span>
       </Sidebar.MenuButton>
@@ -337,12 +337,13 @@ The `Sidebar.Menu` component is used for building a menu within a `Sidebar.Group
 
 The `Sidebar.MenuButton` component is used to render a menu button within a `Sidebar.MenuItem`.
 
-By default, the `Sidebar.MenuButton` renders a button but you can use the `render` prop to render a different component such as a `Link` or an `a` tag.
+By default, `Sidebar.MenuButton` renders a React Aria button. Pass `href` to
+render a React Aria link instead.
 
 Use the `isActive` prop to mark a menu item as active.
 
 ```res showLineNumbers
-<Sidebar.MenuButton render={<a href="#"/>} isActive>
+<Sidebar.MenuButton href="#" isActive>
   {"Home"->React.string}
 </Sidebar.MenuButton>
 ```
@@ -353,7 +354,7 @@ The `Sidebar.MenuAction` component is used to render a menu action within a `Sid
 
 ```res showLineNumbers
 <Sidebar.MenuItem>
-  <Sidebar.MenuButton render={<a href="#"/>}>
+  <Sidebar.MenuButton href="#">
       <Home />
       <span> {"Home"->React.string} </span>
   </Sidebar.MenuButton>
@@ -498,5 +499,3 @@ Here are some tips for styling the sidebar based on different states.
   <Sidebar.MenuAction className="peer-data-[active=true]/menu-button:opacity-100" />
 </Sidebar.MenuItem>
 ```
-
-

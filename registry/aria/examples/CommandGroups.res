@@ -8,7 +8,7 @@ let make = ({}: Demo.Props.t) => {
     <Button onClick={_ => setOpen(_ => true)} variant=Outline className="w-fit">
       {"Open Menu"->React.string}
     </Button>
-    <Command.Dialog open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>
+    <Command.Dialog open_={open_} onOpenChange={v => setOpen(_ => v)}>
       <Command>
         <Command.Input placeholder="Type a command or search..." />
         <Command.List>

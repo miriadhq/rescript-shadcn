@@ -2,8 +2,6 @@
 
 @@directive("'use client'")
 
-open ReactAria.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
@@ -47,12 +45,7 @@ external removeWindowListener: (browserWindow, string, windowKeyboardEvent => un
 @send external preventDefaultKeyboardEvent: windowKeyboardEvent => unit = "preventDefault"
 @set external setDocumentCookie: (Dom.document, string) => unit = "cookie"
 @val external mathRandom: unit => float = "Math.random"
-@module("react-aria")
-external mergeProps: (
-  ReactAria.Types.BaseUIComponentProps.t,
-  ReactAria.Types.BaseUIComponentProps.t,
-) => ReactAria.Types.BaseUIComponentProps.t = "mergeProps"
-
+@val @scope("Math") external mathFloor: float => int = "floor"
 let sidebarCookieName = "sidebar_state"
 let sidebarCookieMaxAge = 60 * 60 * 24 * 7
 let sidebarWidth = "16rem"
@@ -105,55 +98,51 @@ type collapsible =
   | @as("icon") Icon
   | @as("none") NotCollapsible
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~side=Left,
-  ~variant=Sidebar,
-  ~collapsible=Offcanvas,
-  ~dir: option<string>=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) => {
+type props = {
+  side?: side,
+  variant?: variant,
+  collapsible?: collapsible,
+  ...ReactAria.Common.elementProps,
+}
+let contentDomProps: props => ReactAria.Types.DomProps.t = %raw(
+  `({side, variant, collapsible, className, children, dir, ...props}) => props`
+)
+let mobileSheetProps: props => Sheet.props = %raw(
+  `({side, variant, collapsible, className, children, dir, style, ...props}) => props`
+)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
   let {isMobile, state, openMobile, setOpenMobile} = use()
+  let side = props.side->Option.getOr(Left)
+  let variant = props.variant->Option.getOr(Sidebar)
+  let collapsible = props.collapsible->Option.getOr(Offcanvas)
 
   if collapsible == NotCollapsible {
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar"
+      {...props->contentDomProps}
+      dataSlot={props.dataSlot->Option.getOr("sidebar")}
       className={cn(
         "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col",
-        className,
+        props.className,
       )}
-    />
-  } else if isMobile {
-    let mobileStyle = style
-    ->Option.getOr(ReactDOM.Style._dictToStyle(dict{}))
-    ->ReactDOM.Style.unsafeAddProp("--sidebar-width", sidebarWidthMobile)
-    <Sheet
-      open_={openMobile}
-      onOpenChange={(nextOpen, _) => setOpenMobile(nextOpen)}
     >
-      <Sheet.Content
-        ?id
-        ?dir
-        ?onClick
-        ?onKeyDown
-        dataSidebar="sidebar"
-        dataSlot="sidebar"
-        dataMobile="true"
-        className={cn(
-          "bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden",
-          className,
-        )}
-        side={side == Right ? Side.Right : Side.Left}
+      {props.children->Option.getOr(React.null)}
+    </div>
+  } else if isMobile {
+    let mobileStyle = props.style->Option.getOr(
+      ReactDOM.Style._dictToStyle(dict{"--sidebar-width": sidebarWidthMobile}),
+    )
+    <Sheet
+        {...props->mobileSheetProps}
+        isOpen={openMobile}
+        onOpenChange={nextOpen => setOpenMobile(nextOpen)}
+        dir=?props.dir
+        dataSidebar={props.dataSidebar->Option.getOr("sidebar")}
+        dataSlot={props.dataSlot->Option.getOr("sidebar")}
+        dataMobile={props.dataMobile->Option.getOr("true")}
+        className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+        side={side == Right ? Sheet.Side.Right : Sheet.Side.Left}
         style={mobileStyle}
         showCloseButton={false}
       >
@@ -161,9 +150,8 @@ let make = (
           <Sheet.Title> {"Sidebar"->React.string} </Sheet.Title>
           <Sheet.Description> {"Displays the mobile sidebar."->React.string} </Sheet.Description>
         </Sheet.Header>
-        <div className="flex h-full w-full flex-col" ?children />
-      </Sheet.Content>
-    </Sheet>
+        <div className="flex h-full w-full flex-col"> {props.children->Option.getOr(React.null)} </div>
+      </Sheet>
   } else {
     let desktopGapClass = switch variant {
     | Floating
@@ -192,22 +180,19 @@ let make = (
         className={`cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180 ${desktopGapClass}`}
       />
       <div
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
-        dataSlot="sidebar-container"
+        {...props->contentDomProps}
+        dataSlot={props.dataSlot->Option.getOr("sidebar-container")}
         dataSide={(side :> string)}
         className={cn(
           `fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex ${desktopContainerClass}`,
-          className,
+          props.className,
         )}
       >
         <div
           dataSidebar="sidebar"
           dataSlot="sidebar-inner"
           className="cn-sidebar-inner flex size-full flex-col"
-          ?children
+          children={props.children->Option.getOr(React.null)}
         />
       </div>
     </div>
@@ -215,22 +200,23 @@ let make = (
 }
 
 module Provider = {
-  @react.component
-  let make = (
-    ~defaultOpen=true,
-    ~open_: option<bool>=?,
-    ~onOpenChange: option<bool => unit>=?,
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~style: option<ReactDOM.Style.t>=?,
-  ) => {
+  type props = {
+    defaultOpen?: bool,
+    @as("open") open_?: bool,
+    onOpenChange?: bool => unit,
+    ...ReactAria.Common.elementProps,
+  }
+  let domProps: props => ReactAria.Types.DomProps.t = %raw(
+    `({defaultOpen, open, onOpenChange, ...props}) => props`
+  )
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let defaultOpen = props.defaultOpen->Option.getOr(true)
     let isMobile = useIsMobile()
     let (openMobile, setOpenMobileState) = React.useState(() => false)
     let (internalOpen, setInternalOpenState) = React.useState(() => defaultOpen)
-    let isOpen = open_->Option.getOr(internalOpen)
+    let isOpen = props.open_->Option.getOr(internalOpen)
     let setSidebarCookie = (nextOpen: bool) =>
       browserDocument->setDocumentCookie(
         `${sidebarCookieName}=${nextOpen ? "true" : "false"}; path=/; max-age=${Int.toString(
@@ -239,7 +225,7 @@ module Provider = {
       )
     let setOpenMobile = (nextOpen: bool) => setOpenMobileState(_ => nextOpen)
     let setOpen = (nextOpen: bool) => {
-      switch onOpenChange {
+      switch props.onOpenChange {
       | Some(setOpenProp) => setOpenProp(nextOpen)
       | None => setInternalOpenState(_ => nextOpen)
       }
@@ -249,10 +235,10 @@ module Provider = {
       if isMobile {
         setOpenMobileState(previousOpen => !previousOpen)
       } else {
-        switch open_ {
+        switch props.open_ {
         | Some(currentOpen) =>
           let nextOpen = !currentOpen
-          switch onOpenChange {
+          switch props.onOpenChange {
           | Some(setOpenProp) => setOpenProp(nextOpen)
           | None => ()
           }
@@ -260,7 +246,7 @@ module Provider = {
         | None =>
           setInternalOpenState(previousOpen => {
             let nextOpen = !previousOpen
-            switch onOpenChange {
+            switch props.onOpenChange {
             | Some(setOpenProp) => setOpenProp(nextOpen)
             | None => ()
             }
@@ -301,7 +287,7 @@ module Provider = {
         "--sidebar-width-icon": sidebarWidthIcon,
       },
     )
-    let resolvedStyle = switch style {
+    let resolvedStyle = switch props.style {
     | Some(style) => ReactDOM.Style.combine(baseStyle, style)
     | None => baseStyle
     }
@@ -311,15 +297,12 @@ module Provider = {
 
     <ContextProvider value={contextValue}>
       <div
-        ?id
-        ?onClick
-        ?onKeyDown
-        ?children
+        {...props->domProps}
         style={resolvedStyle}
-        dataSlot="sidebar-wrapper"
+        dataSlot={props.dataSlot->Option.getOr("sidebar-wrapper")}
         className={cn(
           "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
-          className,
+          props.className,
         )}
       />
     </ContextProvider>
@@ -327,36 +310,21 @@ module Provider = {
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~variant=Button.Variant.Ghost,
-    ~size=Button.Size.IconSm,
-    ~nativeButton=?,
-    ~disabled=?,
-    ~style=?,
-    ~onClick=_ => (),
-    ~type_=?,
-    ~ariaLabel=?,
-    ~render=?,
-  ) => {
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) => {
     let {toggleSidebar} = use()
+    let onPress = event => {
+      props.onPress->Option.forEach(onPress => onPress(event))
+      toggleSidebar()
+    }
     <Button
-      className={cn("cn-sidebar-trigger", Some(className))}
-      variant
-      size
-      ?nativeButton
-      ?disabled
-      ?style
-      ?type_
-      ?render
-      ?ariaLabel
+      {...props}
+      className={cn("cn-sidebar-trigger", props.className)}
+      variant={props.variant->Option.getOr(Ghost)}
+      size={props.size->Option.getOr(IconSm)}
       dataSidebar="trigger"
       dataSlot="sidebar-trigger"
-      onClick={event => {
-        onClick(event)
-        toggleSidebar()
-      }}
+      onPress
     >
       <Icons.PanelLeft className="cn-rtl-flip" />
       <span className="sr-only"> {"Toggle Sidebar"->React.string} </span>
@@ -365,26 +333,23 @@ module Trigger = {
 }
 
 module Rail = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) => {
     let {toggleSidebar} = use()
-    let onClick = switch onClick {
+    let onClick = switch props.onClick {
     | Some(onClick) => onClick
     | None => _ => toggleSidebar()
     }
     <button
-      ?id
-      ?style
+      {...props}
       onClick
-      ?onKeyDown
-      ?children
       ariaLabel="Toggle Sidebar"
       tabIndex={-1}
       dataSidebar="rail"
       dataSlot="sidebar-rail"
       className={cn(
         "cn-sidebar-rail absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
-        className,
+        props.className,
       )}
       title="Toggle Sidebar"
     />
@@ -392,264 +357,166 @@ module Rail = {
 }
 
 module Inset = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <main
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-inset"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-inset")}
       className={cn(
         "cn-sidebar-inset relative flex w-full flex-1 flex-col",
-        className,
+        props.className,
       )}
     />
 }
 
 module Input = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~name=?,
-    ~placeholder=?,
-    ~value=?,
-    ~defaultValue=?,
-    ~onValueChange=?,
-    ~disabled=?,
-    ~readOnly=?,
-    ~required=?,
-    ~type_=?,
-    ~maxLength=?,
-    ~spellCheck=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaLabel=?,
-    ~ariaRoledescription=?,
-  ) =>
+  @react.componentWithProps(ReactAria.Input.props)
+  let make = (props: ReactAria.Input.props) =>
     <Aria.Input
-      ?id
-      ?style
-      ?name
-      ?placeholder
-      ?value
-      ?defaultValue
-      ?onValueChange
-      ?disabled
-      ?readOnly
-      ?required
-      ?type_
-      ?maxLength
-      ?spellCheck
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      ?ariaRoledescription
-      ?children
+      {...props}
       dataSlot="sidebar-input"
       dataSidebar="input"
-      className={cn("cn-sidebar-input", className)}
+      className={cn("cn-sidebar-input", props.className)}
     />
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-header"
-      dataSidebar="header"
-      className={cn("cn-sidebar-header flex flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-header")}
+      dataSidebar={props.dataSidebar->Option.getOr("header")}
+      className={cn("cn-sidebar-header flex flex-col", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-footer"
-      dataSidebar="footer"
-      className={cn("cn-sidebar-footer flex flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-footer")}
+      dataSidebar={props.dataSidebar->Option.getOr("footer")}
+      className={cn("cn-sidebar-footer flex flex-col", props.className)}
     />
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Separator.props)
+  let make = (props: ReactAria.Separator.props) =>
     <ReactAria.Separator
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-separator"
-      dataSidebar="separator"
-      className={cn("cn-sidebar-separator w-auto", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-separator")}
+      dataSidebar={props.dataSidebar->Option.getOr("separator")}
+      className={cn("cn-sidebar-separator w-auto", props.className)}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-content"
-      dataSidebar="content"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-content")}
+      dataSidebar={props.dataSidebar->Option.getOr("content")}
       className={cn(
         "cn-sidebar-content flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden",
-        className,
+        props.className,
       )}
     />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-group"
-      dataSidebar="group"
-      className={cn("cn-sidebar-group relative flex w-full min-w-0 flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-group")}
+      dataSidebar={props.dataSidebar->Option.getOr("group")}
+      className={cn(
+        "cn-sidebar-group relative flex w-full min-w-0 flex-col",
+        props.className,
+      )}
     />
 }
 
 module GroupLabel = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~render=?,
-  ) => {
-    let props: ReactAria.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      render: React.null,
-      children,
-      dataSlot: "sidebar-group-label",
-      dataSidebar: "group-label",
+  @module("react")
+  external createElement: (
+    React.component<ReactAria.Button.props>,
+    ReactAria.Button.props,
+  ) => React.element = "createElement"
+
+  type props = {elementType?: React.component<ReactAria.Button.props>, ...ReactAria.Button.props}
+  let buttonProps: props => ReactAria.Button.props = %raw(
+    `({elementType, ...props}) => props`
+  )
+  let domProps: ReactAria.Button.props => ReactAria.Types.DomProps.t = %raw(`props => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let componentProps = {
+      ...props->buttonProps,
+      dataSlot: props.dataSlot->Option.getOr("sidebar-group-label"),
+      dataSidebar: props.dataSidebar->Option.getOr("group-label"),
       className: cn(
         "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
-        className,
+        props.className,
       ),
     }
-    Render.use({defaultTagName: "div", props, ?render})
+    switch props.elementType {
+    | Some(elementType) => createElement(elementType, componentProps)
+    | None => <div {...componentProps->domProps} />
+    }
   }
 }
 
 module GroupAction = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~render=?,
-    ~title=?,
-  ) => {
-    let props: ReactAria.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      ?title,
-      render: React.null,
-      children,
-      dataSlot: "sidebar-group-action",
-      dataSidebar: "group-action",
-      className: cn(
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <button
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-group-action")}
+      dataSidebar={props.dataSidebar->Option.getOr("group-action")}
+      className={cn(
         "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform [&>svg]:shrink-0 after:absolute after:-inset-2 md:after:hidden group-data-[collapsible=icon]:hidden",
-        className,
-      ),
-    }
-    Render.use({defaultTagName: "button", props, ?render})
-  }
+        props.className,
+      )}
+    />
 }
 
 module GroupContent = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-group-content"
-      dataSidebar="group-content"
-      className={cn("cn-sidebar-group-content w-full", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-group-content")}
+      dataSidebar={props.dataSidebar->Option.getOr("group-content")}
+      className={cn("cn-sidebar-group-content w-full", props.className)}
     />
 }
 
 module Menu = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <ul
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu"
-      dataSidebar="menu"
-      className={cn("cn-sidebar-menu flex w-full min-w-0 flex-col", className)}
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <div
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu")}
+      className={cn("cn-sidebar-menu flex w-full min-w-0 flex-col", props.className)}
     />
 }
 
 module MenuItem = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <li
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu-item"
-      dataSidebar="menu-item"
-      className={cn("group/menu-item relative", className)}
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <div
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-item")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-item")}
+      className={cn("group/menu-item relative", props.className)}
     />
-}
-
-type menuButtonTooltipConfig = {
-  children?: React.element,
-  className?: string,
-  id?: string,
-  style?: ReactDOM.Style.t,
-  onClick?: JsxEvent.Mouse.t => unit,
-  onKeyDown?: JsxEvent.Keyboard.t => unit,
-  side?: Side.t,
-  sideOffset?: float,
-  align?: Align.t,
-  alignOffset?: float,
 }
 
 module MenuButton = {
@@ -681,174 +548,145 @@ module MenuButton = {
     `${base} ${variantClass} ${sizeClass}`
   }
 
-  type state = {
-    slot: string,
-    sidebar: string,
-    size: Size.t,
-    active: bool,
+  type props<'tooltip> = {
+    ...ReactAria.Button.props,
+    href?: string,
+    target?: string,
+    rel?: string,
+    download?: string,
+    variant?: Variant.t,
+    size?: Size.t,
+    isActive?: bool,
+    tooltip?: 'tooltip,
+    render?: ReactAria.Button.Link.renderProps => React.element,
   }
 
-  @react.component
-  let make = (
-    ~className=?,
-    ~variant=Variant.Default,
-    ~size=Size.Default,
-    ~isActive=false,
-    ~tooltip: option<Tooltip.contentProps>=?,
-    ~render=?,
-    ~children=React.null,
-    ~ariaDisabled=?,
-    ~ariaExpanded=?,
-    ~ariaHaspopup=?,
-    ~ariaControls=?,
-    ~tabIndex=?,
-    ~dataSlot=?,
-  ) => {
+  let buttonProps: props<'tooltip> => ReactAria.Button.props = %raw(`({
+    href,
+    target,
+    rel,
+    download,
+    variant,
+    size,
+    isActive,
+    tooltip,
+    ...props
+  }) => props`)
+
+  let linkProps: props<'tooltip> => ReactAria.Button.Link.props = %raw(`({
+    variant,
+    size,
+    isActive,
+    tooltip,
+    preventFocusOnPress,
+    allowFocusWhenDisabled,
+    excludeFromTabOrder,
+    type,
+    ...props
+  }) => props`)
+
+  let tooltipProps: 'tooltip => Tooltip.contentProps = %raw(
+    `tooltip => typeof tooltip === "string" ? {children: tooltip} : tooltip`
+  )
+
+  @react.componentWithProps(props)
+  let make = (props: props<'tooltip>) => {
     let {isMobile, state} = use()
-    let comp = Render.use({
-      defaultTagName: "button",
-      props: {
-        children,
-        ?ariaDisabled,
-        ?ariaExpanded,
-        ?ariaHaspopup,
-        ?ariaControls,
-        ?tabIndex,
-        ?dataSlot,
-        className: cn(sidebarMenuButtonVariants(~variant, ~size), className),
-      },
-      render: ?{
-        switch tooltip {
-        | Some(_) => Some(<Tooltip.Trigger />)
-        | None => render
-        }
-      },
-      state: {
-        slot: "sidebar-menu-button",
-        sidebar: "menu-button",
-        size,
-        active: isActive,
-      },
-    })
-    switch tooltip {
+    let variant = props.variant->Option.getOr(Variant.Default)
+    let size = props.size->Option.getOr(Size.Default)
+    let isActive = props.isActive->Option.getOr(false)
+    let className = cn(sidebarMenuButtonVariants(~variant, ~size), props.className)
+    let comp = switch props.href {
+    | Some(_) =>
+      <ReactAria.Button.Link
+        {...props->linkProps}
+        dataSlot="sidebar-menu-button"
+        dataSidebar="menu-button"
+        dataSize={(size :> string)}
+        dataActive={isActive}
+        className
+      />
+    | None =>
+      <ReactAria.Button
+        {...props->buttonProps}
+        dataSlot="sidebar-menu-button"
+        dataSidebar="menu-button"
+        dataSize={(size :> string)}
+        dataActive={isActive}
+        className
+      />
+    }
+    switch props.tooltip {
     | None => comp
     | Some(tooltip) =>
-      <Tooltip>
+      let tooltip = tooltip->tooltipProps
+      <Tooltip.Trigger isDisabled={state !== Collapsed || isMobile}>
         {comp}
-        <Tooltip.Content
+        <Tooltip
           {...tooltip}
-          side={tooltip.side->Option.getOr(Side.Right)}
-          align={tooltip.align->Option.getOr(Align.Center)}
-          hidden={tooltip.hidden->Option.getOr(state !== Collapsed || isMobile)}
+          placement={tooltip.placement->Option.getOr(ReactAria.Common.Right)}
         />
-      </Tooltip>
+      </Tooltip.Trigger>
     }
   }
 }
 
 module MenuAction = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~render=?,
-    ~actionProps: option<ReactAria.Types.BaseUIComponentProps.t>=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~ariaDisabled=?,
-    ~showOnHover=false,
-    ~dataSlot=?,
-    ~ariaExpanded=?,
-    ~ariaHaspopup=?,
-    ~tabIndex=?,
-  ) => {
-    let showOnHoverClass = showOnHover
+  type props = {showOnHover?: bool, ...ReactAria.Button.props}
+
+  let buttonProps: props => ReactAria.Button.props = %raw(`({showOnHover, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let showOnHoverClass = props.showOnHover->Option.getOr(false)
       ? "peer-data-active/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 aria-expanded:opacity-100 md:opacity-0"
       : ""
-    let baseProps: ReactAria.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      ?type_,
-      ?ariaLabel,
-      ?ariaDisabled,
-      ariaExpanded: ariaExpanded->Option.getOr(false),
-      ariaHaspopup: ariaHaspopup->Option.getOr(#menu),
-      tabIndex: tabIndex->Option.getOr(0),
-      render: React.null,
-      children,
-      dataSlot: dataSlot->Option.getOr("sidebar-menu-action"),
-      dataSidebar: "menu-action",
-      className: cn(
-        `cn-sidebar-menu-action text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4 flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0 ${showOnHoverClass}`,
-        className,
-      ),
-    }
-    let mergedProps = switch actionProps {
-    | Some(actionProps) => mergeProps(baseProps, actionProps)
-    | None => baseProps
-    }
-    let props = switch (render, mergedProps.type_) {
-    | (Some(_), _) => mergedProps
-    | (None, Some(_)) => mergedProps
-    | (None, None) => {...mergedProps, type_: "button"}
-    }
-    Render.use({
-      defaultTagName: "button",
-      props,
-      ?render,
-    })
+    <ReactAria.Button
+      {...props->buttonProps}
+      dataSlot="sidebar-menu-action"
+      dataSidebar="menu-action"
+      className={cn(
+        `cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0 ${showOnHoverClass}`,
+        props.className,
+      )}
+    />
   }
 }
 
 module MenuBadge = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu-badge"
-      dataSidebar="menu-badge"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-badge")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-badge")}
       className={cn(
         "cn-sidebar-menu-badge flex items-center justify-center tabular-nums select-none group-data-[collapsible=icon]:hidden",
-        className,
+        props.className,
       )}
     />
 }
 
 module MenuSkeleton = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~showIcon=false,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) => {
-    let (width, _setWidth) = React.useState(() => `${Float.toString(mathRandom() *. 40. +. 50.)}%`)
+  type props = {showIcon?: bool, ...ReactAria.Types.DomProps.t}
+  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({showIcon, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let showIcon = props.showIcon->Option.getOr(false)
+    let (width, _setWidth) = React.useState(() =>
+      `${(mathRandom() *. 40. +. 50.)->mathFloor->Int.toString}%`
+    )
     let textStyle = ReactDOM.Style._dictToStyle(
       dict{
         "--skeleton-width": width,
       },
     )
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="sidebar-menu-skeleton"
-      dataSidebar="menu-skeleton"
-      className={cn("cn-sidebar-menu-skeleton flex items-center", className)}
+      {...props->domProps}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-skeleton")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-skeleton")}
+      className={cn("cn-sidebar-menu-skeleton flex items-center", props.className)}
     >
       {showIcon
         ? <Skeleton className="cn-sidebar-menu-skeleton-icon" dataSidebar="menu-skeleton-icon" />
@@ -858,41 +696,32 @@ module MenuSkeleton = {
         dataSidebar="menu-skeleton-text"
         style={textStyle}
       />
-      {children}
     </div>
   }
 }
 
 module MenuSub = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <ul
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu-sub"
-      dataSidebar="menu-sub"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-sub")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-sub")}
       className={cn(
         "cn-sidebar-menu-sub flex min-w-0 flex-col",
-        className,
+        props.className,
       )}
     />
 }
 
 module MenuSubItem = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <li
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu-sub-item"
-      dataSidebar="menu-sub-item"
-      className={cn("group/menu-sub-item relative", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-sub-item")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-sub-item")}
+      className={cn("group/menu-sub-item relative", props.className)}
     />
 }
 
@@ -904,50 +733,64 @@ module MenuSubButton = {
       | @as("md") Md
   }
 
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~href=?,
-    ~target=?,
-    ~render=?,
-    ~disabled=?,
-    ~size=Size.Md,
-    ~isActive=false,
-    ~dataActive: option<bool>=?,
-    ~linkProps: option<ReactAria.Types.BaseUIComponentProps.t>=?,
-  ) => {
-    let dataActive = dataActive->Option.getOr(isActive)
-    let baseWithoutDataActive: ReactAria.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      ?href,
-      ?target,
-      render: React.null,
-      ?disabled,
-      ?children,
-      dataSlot: "sidebar-menu-sub-button",
-      dataSidebar: "menu-sub-button",
-      dataSize: (size :> string),
-      className: cn(
-        "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
-        className,
-      ),
+  type props = {
+    ...ReactAria.Button.props,
+    href?: string,
+    target?: string,
+    rel?: string,
+    download?: string,
+    size?: Size.t,
+    isActive?: bool,
+    render?: ReactAria.Button.Link.renderProps => React.element,
+  }
+
+  let buttonProps: props => ReactAria.Button.props = %raw(`({
+    href,
+    target,
+    rel,
+    download,
+    size,
+    isActive,
+    ...props
+  }) => props`)
+
+  let linkProps: props => ReactAria.Button.Link.props = %raw(`({
+    size,
+    isActive,
+    preventFocusOnPress,
+    allowFocusWhenDisabled,
+    excludeFromTabOrder,
+    type,
+    ...props
+  }) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let size = props.size->Option.getOr(Size.Md)
+    let isActive = props.isActive->Option.getOr(false)
+    let className = cn(
+      "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
+      props.className,
+    )
+    switch props.href {
+    | Some(_) =>
+      <ReactAria.Button.Link
+        {...props->linkProps}
+        dataSlot="sidebar-menu-sub-button"
+        dataSidebar="menu-sub-button"
+        dataSize={(size :> string)}
+        dataActive={isActive}
+        className
+      />
+    | None =>
+      <ReactAria.Button
+        {...props->buttonProps}
+        dataSlot="sidebar-menu-sub-button"
+        dataSidebar="menu-sub-button"
+        dataSize={(size :> string)}
+        dataActive={isActive}
+        className
+      />
     }
-    let dataActiveOverlay: ReactAria.Types.BaseUIComponentProps.t = dataActive
-      ? {dataActive: true}
-      : {}
-    let baseProps = mergeProps(baseWithoutDataActive, dataActiveOverlay)
-    let props = switch linkProps {
-    | Some(linkProps) => mergeProps(baseProps, linkProps)
-    | None => baseProps
-    }
-    Render.use({defaultTagName: "a", props, ?render})
   }
 }

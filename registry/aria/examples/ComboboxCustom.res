@@ -31,15 +31,15 @@ let countries = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Combobox items={countries} itemToStringValue={(c: country) => c.label}>
+  <Combobox items={countries}>
     <Combobox.Input placeholder="Search countries..." />
     <Combobox.Content>
       <Combobox.List
         renderEmptyState={_ =>
           <Combobox.Empty> {"No countries found."->React.string} </Combobox.Empty>}
       >
-        {(country, _index) =>
-          <Combobox.Item key={country.code} value={country}>
+        {country =>
+          <Combobox.Item key={country.code} value={country} textValue={country.label}>
             <Item size=Item.Size.Xs className="p-0">
               <Item.Content>
                 <Item.Title className="whitespace-nowrap">

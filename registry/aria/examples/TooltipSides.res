@@ -1,8 +1,8 @@
 let tooltipSides = [
-  ReactAria.Types.Side.Left,
-  ReactAria.Types.Side.Top,
-  ReactAria.Types.Side.Bottom,
-  ReactAria.Types.Side.Right,
+  ReactAria.Common.Left,
+  ReactAria.Common.Top,
+  ReactAria.Common.Bottom,
+  ReactAria.Common.Right,
 ]
 
 @react.componentWithProps(Demo.Props.t)
@@ -10,14 +10,14 @@ let make = ({}: Demo.Props.t) => {
   <div className="flex flex-wrap gap-2">
     {tooltipSides
     ->Array.map(side =>
-      <Tooltip key={(side :> string)}>
-        <Tooltip.Trigger render={<Button variant=Outline className="w-fit capitalize" />}>
+      <Tooltip.Trigger key={(side :> string)}>
+        <Button variant=Outline className="w-fit capitalize">
           {(side :> string)->React.string}
-        </Tooltip.Trigger>
-        <Tooltip.Content side>
+        </Button>
+        <Tooltip placement=side>
           <p> {"Add to library"->React.string} </p>
-        </Tooltip.Content>
-      </Tooltip>
+        </Tooltip>
+      </Tooltip.Trigger>
     )
     ->React.array}
   </div>

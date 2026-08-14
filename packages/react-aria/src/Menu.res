@@ -1,11 +1,21 @@
 type props<'item> = {
-  ...Common.baseProps,
+  ...Common.elementProps,
   items?: array<'item>,
   selectionMode?: Common.selectionMode,
   selectedKeys?: array<string>,
   defaultSelectedKeys?: array<string>,
   onSelectionChange?: Common.selection => unit,
   disabledKeys?: array<string>,
+  selectionBehavior?: Common.selectionBehavior,
+  disallowEmptySelection?: bool,
+  disabledBehavior?: Common.disabledBehavior,
+  autoFocus?: Common.autoFocus,
+  shouldFocusWrap?: bool,
+  onAction?: (string, 'item) => unit,
+  onClose?: unit => unit,
+  escapeKeyBehavior?: Common.escapeKeyBehavior,
+  renderEmptyState?: unit => React.element,
+  dependencies?: array<JSON.t>,
   shouldCloseOnSelect?: bool,
 }
 
@@ -14,10 +24,12 @@ external make: React.component<props<'item>> = "Menu"
 
 module Trigger = {
   type props = {
-    children?: React.element,
+    ...Common.elementProps,
     isOpen?: bool,
     defaultOpen?: bool,
     onOpenChange?: bool => unit,
+    isDisabled?: bool,
+    trigger?: string,
   }
 
   @module("react-aria-components")
@@ -26,12 +38,16 @@ module Trigger = {
 
 module Item = {
   type props<'item> = {
-    ...Common.baseProps,
+    ...Common.elementProps,
     value?: 'item,
     textValue?: string,
     isDisabled?: bool,
     onAction?: unit => unit,
     shouldCloseOnSelect?: bool,
+    href?: string,
+    target?: string,
+    rel?: string,
+    download?: string,
   }
 
   @module("react-aria-components")
@@ -39,12 +55,29 @@ module Item = {
 }
 
 module Section = {
+  type componentProps<'item> = {
+    ...Common.baseProps,
+    items?: array<'item>,
+    selectionMode?: Common.selectionMode,
+    selectedKeys?: array<string>,
+    defaultSelectedKeys?: array<string>,
+    onSelectionChange?: Common.selection => unit,
+    disabledKeys?: array<string>,
+    selectionBehavior?: Common.selectionBehavior,
+    disallowEmptySelection?: bool,
+    disabledBehavior?: Common.disabledBehavior,
+    shouldCloseOnSelect?: bool,
+  }
+
+  type props<'item> = {...componentProps<'item>, children?: React.element}
+  external toProps: componentProps<'item> => props<'item> = "%identity"
+
   @module("react-aria-components")
-  external make: React.component<Common.baseProps> = "MenuSection"
+  external make: React.component<props<'item>> = "MenuSection"
 }
 
 module SubmenuTrigger = {
-  type props = {children?: React.element, delay?: float}
+  type props = {...Common.elementProps, delay?: float}
 
   @module("react-aria-components")
   external make: React.component<props> = "SubmenuTrigger"

@@ -1,70 +1,73 @@
 @@directive("'use client'")
 
-let formatDate = (date: option<Date.t>) =>
-  switch date {
-  | None => ""
-  | Some(d) =>
-    d->Date.toLocaleDateStringWithLocaleAndOptions(
-      "en-US",
-      {day: #"2-digit", month: #long, year: #numeric},
-    )
-  }
+module IDate = ReactAria.InternationalizedDate
 
-let isValidDate = (d: Date.t) => {
-  let t = d->Date.getTime
-  !Float.isNaN(t)
-}
+let formatDate = date =>
+  date
+  ->IDate.toDate(IDate.getLocalTimeZone())
+  ->Date.toLocaleDateStringWithLocaleAndOptions(
+    "en-US",
+    {day: #"2-digit", month: #long, year: #numeric},
+  )
+
+let isValidDate = date => !(date->Date.getTime->Float.isNaN)
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
-  let initialDate = Some(Date.fromString("2025-06-01"))
-  let (date, setDate) = React.useState(() => initialDate)
-  let (month, setMonth) = React.useState(() => initialDate->Option.getOr(Date.make()))
-  let (value, setValue) = React.useState(() => formatDate(initialDate))
+  let initialDate = IDate.parseDate("2025-06-01")
+  let (date, setDate) = React.useState(() => Some(initialDate))
+  let (month, setMonth) = React.useState(() => initialDate)
+  let (value, setValue) = React.useState(() => initialDate->formatDate)
 
   <Field className="mx-auto w-48">
     <Field.Label htmlFor="date-required"> {"Subscription Date"->React.string} </Field.Label>
     <InputGroup>
       <InputGroup.Input
         id="date-required"
-        value={value}
+        value
         placeholder="June 01, 2025"
-        onValueChange={(v, _) => {
-          let parsed = Date.fromString(v)
-          setValue(_ => v)
+        onChange={value => {
+          let parsed = Date.fromString(value)
+          setValue(_ => value)
           if parsed->isValidDate {
-            setDate(_ => Some(parsed))
-            setMonth(_ => parsed)
+            let calendarDate = parsed->IDate.fromDate(IDate.getLocalTimeZone())->IDate.toCalendarDate
+            setDate(_ => Some(calendarDate))
+            setMonth(_ => calendarDate)
           }
         }}
+        onKeyDown={event =>
+          if event->ReactEvent.Keyboard.key == "ArrowDown" {
+            event->ReactEvent.Keyboard.preventDefault
+            setOpen(_ => true)
+          }}
       />
       <InputGroup.Addon align=InlineEnd>
-        <Popover open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>
-          <Popover.Trigger
-            render={<InputGroup.Button
-              id="date-picker" ariaLabel="Select date" variant=Ghost size=IconXs
-            />}
+        <Popover.Trigger isOpen={open_} onOpenChange={open_ => setOpen(_ => open_)}>
+          <InputGroup.Button
+            id="date-picker" variant=Ghost size=IconXs ariaLabel="Select date"
           >
             <Icons.Calendar />
             <span className="sr-only"> {"Select date"->React.string} </span>
-          </Popover.Trigger>
-          <Popover.Content
-            className="w-auto overflow-hidden p-0" align=End alignOffset={-8.} sideOffset={10.}
+          </InputGroup.Button>
+          <Popover
+            className="w-auto overflow-hidden p-0"
+            placement=ReactAria.Common.BottomEnd
+            crossOffset={-8.}
+            offset=10.
           >
             <Calendar
-              mode=Single
-              selected=?{date}
-              month={month}
-              onMonthChange={(d: Date.t) => setMonth(_ => d)}
-              onSelect={value => {
-                setDate(_ => value)
-                setValue(_ => formatDate(value))
+              value=?date
+              focusedValue=month
+              onFocusChange={month => setMonth(_ => month)}
+              onChange={date => {
+                setDate(_ => Some(date))
+                setValue(_ => date->formatDate)
                 setOpen(_ => false)
               }}
             />
-          </Popover.Content>
-        </Popover>
+          </Popover>
+        </Popover.Trigger>
       </InputGroup.Addon>
     </InputGroup>
   </Field>

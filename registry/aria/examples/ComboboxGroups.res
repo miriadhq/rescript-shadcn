@@ -50,7 +50,7 @@ let make = ({}: Demo.Props.t) =>
         renderEmptyState={_ =>
           <Combobox.Empty> {"No timezones found."->React.string} </Combobox.Empty>}
       >
-        {(group, index) =>
+        {group =>
           <Combobox.Group key={group.value} id={group.value}>
             <Combobox.Label> {group.value->React.string} </Combobox.Label>
             {group.items
@@ -58,7 +58,7 @@ let make = ({}: Demo.Props.t) =>
               <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>
             )
             ->React.array}
-            {index < Array.length(timezones) - 1 ? <Combobox.Separator /> : React.null}
+            <Combobox.Separator />
           </Combobox.Group>}
       </Combobox.List>
     </Combobox.Content>

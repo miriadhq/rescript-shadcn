@@ -32,10 +32,10 @@ let make = ({}: Demo.Props.t) =>
       </Card.Description>
     </Card.Header>
     <Card.Content>
-      <Accordion defaultValue=["plans"]>
+      <Accordion defaultExpandedKeys=["plans"]>
         {items
         ->Array.map(item =>
-          <Accordion.Item key={item.value} value={item.value}>
+          <Accordion.Item key={item.value} id={item.value}>
             <Accordion.Trigger> {item.trigger->React.string} </Accordion.Trigger>
             <Accordion.Content> {item.content->React.string} </Accordion.Content>
           </Accordion.Item>

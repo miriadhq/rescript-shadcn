@@ -56,11 +56,9 @@ npm install react-aria-components rescript-react-aria
 ## Usage
 
 ```res showLineNumbers
-<AlertDialog>
-  <AlertDialog.Trigger render={<Button variant=Outline />}>
-    {"Show Dialog"->React.string}
-  </AlertDialog.Trigger>
-  <AlertDialog.Content>
+<AlertDialog.Trigger>
+  <Button variant=Outline> {"Show Dialog"->React.string} </Button>
+  <AlertDialog>
     <AlertDialog.Header>
       <AlertDialog.Title> {"Are you absolutely sure?"->React.string} </AlertDialog.Title>
       <AlertDialog.Description>
@@ -71,8 +69,8 @@ npm install react-aria-components rescript-react-aria
       <AlertDialog.Cancel> {"Cancel"->React.string} </AlertDialog.Cancel>
       <AlertDialog.Action> {"Continue"->React.string} </AlertDialog.Action>
     </AlertDialog.Footer>
-  </AlertDialog.Content>
-</AlertDialog>
+  </AlertDialog>
+</AlertDialog.Trigger>
 ```
 
 ## Examples

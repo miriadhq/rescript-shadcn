@@ -148,11 +148,19 @@ describe("React Aria UI parity", () => {
   });
 
   test.each(ariaComponents)(
-    "$componentName keeps every upstream cn-* class hook",
+    "$componentName keeps the upstream cn-* class hooks",
     ({ upstreamPath, rescriptPath }) => {
       const upstreamHooks = classHooks(readFileSync(upstreamPath, "utf8"));
       const rescriptHooks = classHooks(readFileSync(rescriptPath, "utf8"));
       expect(sorted(difference(upstreamHooks, rescriptHooks))).toEqual([]);
+      expect(
+        sorted(
+          difference(
+            difference(difference(rescriptHooks, upstreamHooks), styleHooks),
+            sharedUtilityHooks,
+          ),
+        ),
+      ).toEqual([]);
     },
   );
 

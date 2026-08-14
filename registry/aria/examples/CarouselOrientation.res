@@ -2,7 +2,7 @@
 let make = ({}: Demo.Props.t) =>
   <Carousel
     opts={align: "start"}
-    orientation=ReactAria.Types.DataOrientation.Vertical
+    orientation=Carousel.Orientation.Vertical
     className="w-full max-w-xs"
   >
     <Carousel.Content className="-mt-1 h-[270px]">

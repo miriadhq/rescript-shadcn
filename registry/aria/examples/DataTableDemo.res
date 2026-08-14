@@ -80,7 +80,7 @@ module RT = {
   @send external getCanNextPage: t<'data> => bool = "getCanNextPage"
   @send external previousPage: t<'data> => unit = "previousPage"
   @send external nextPage: t<'data> => unit = "nextPage"
-  @send external getColumn: (t<'data>, string) => Nullable.t<col> = "getColumn"
+  @send external getColumn: (t<'data>, string) => nullable<col> = "getColumn"
   @send external getIsAllPageRowsSelected: t<'data> => bool = "getIsAllPageRowsSelected"
   @send external getIsSomePageRowsSelected: t<'data> => bool = "getIsSomePageRowsSelected"
   @send external toggleAllPageRowsSelected: (t<'data>, bool) => unit = "toggleAllPageRowsSelected"
@@ -103,7 +103,7 @@ module RT = {
   @send external colToggleVisibility: (col, bool) => unit = "toggleVisibility"
   @send external colGetIsSorted: col => string = "getIsSorted"
   @send external colToggleSorting: (col, bool) => unit = "toggleSorting"
-  @send external colGetFilterValue: col => Nullable.t<string> = "getFilterValue"
+  @send external colGetFilterValue: col => nullable<string> = "getFilterValue"
   @send external colSetFilterValue: (col, string) => unit = "setFilterValue"
 
   @get external rowId: row<'data> => string = "id"
@@ -137,16 +137,16 @@ let columns: array<RT.colDef<payment>> = [
     header: ctx => {
       let table = ctx->RT.ctxTable
       <Checkbox
-        checked={table->RT.getIsAllPageRowsSelected || table->RT.getIsSomePageRowsSelected}
-        onCheckedChange={(v, _) => table->RT.toggleAllPageRowsSelected(v)}
+        isSelected={table->RT.getIsAllPageRowsSelected || table->RT.getIsSomePageRowsSelected}
+        onChange={v => table->RT.toggleAllPageRowsSelected(v)}
         ariaLabel="Select all"
       />
     },
     cell: ctx => {
       let row = ctx->RT.ctxRow
       <Checkbox
-        checked={row->RT.rowGetIsSelected}
-        onCheckedChange={(v, _) => row->RT.rowToggleSelected(v)}
+        isSelected={row->RT.rowGetIsSelected}
+        onChange={v => row->RT.rowToggleSelected(v)}
         ariaLabel="Select row"
       />
     },
@@ -196,16 +196,16 @@ let columns: array<RT.colDef<payment>> = [
     enableHiding: false,
     cell: ctx => {
       let payment = ctx->RT.ctxRow->RT.rowOriginal
-      <DropdownMenu>
-        <DropdownMenu.Trigger render={<Button variant=Ghost size=IconXs />}>
+      <DropdownMenu.Trigger>
+<Button variant=Ghost size=IconXs>
           <span className="sr-only"> {"Open menu"->React.string} </span>
           <Icons.MoreHorizontal />
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=End className="w-44">
+        </Button>
+<DropdownMenu placement=ReactAria.Common.BottomEnd className="w-44">
           <DropdownMenu.Group>
             <DropdownMenu.Label> {"Actions"->React.string} </DropdownMenu.Label>
             <DropdownMenu.Item
-              onClick={_ => {
+          onAction={() => {
                 let _ = writeText(payment.id)
               }}
             >
@@ -217,8 +217,8 @@ let columns: array<RT.colDef<payment>> = [
             <DropdownMenu.Item> {"View customer"->React.string} </DropdownMenu.Item>
             <DropdownMenu.Item> {"View payment details"->React.string} </DropdownMenu.Item>
           </DropdownMenu.Group>
-        </DropdownMenu.Content>
-      </DropdownMenu>
+        </DropdownMenu>
+</DropdownMenu.Trigger>
     },
   },
 ]
@@ -261,37 +261,52 @@ let make = ({}: Demo.Props.t) => {
       <Input
         placeholder="Filter emails..."
         value={emailFilterValue}
-        onValueChange={(value, _) =>
+        onChange={value =>
           table
           ->RT.getColumn("email")
           ->Nullable.toOption
           ->Option.forEach(col => col->RT.colSetFilterValue(value))}
         className="max-w-sm"
       />
-      <DropdownMenu>
-        <DropdownMenu.Trigger render={<Button variant=Outline className="ml-auto" />}>
+      <DropdownMenu.Trigger>
+<Button variant=Outline className="ml-auto">
           {"Columns"->React.string}
           <Icons.ChevronDown />
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=End className="w-44">
-          <DropdownMenu.Group>
+        </Button>
+<DropdownMenu placement=ReactAria.Common.BottomEnd className="w-44">
+          <DropdownMenu.Group
+            selectionMode=Multiple
+            selectedKeys={table
+            ->RT.getAllColumns
+            ->Array.filter(col => col->RT.colGetCanHide && col->RT.colGetIsVisible)
+            ->Array.map(RT.colId)}
+            onSelectionChange={selection =>
+              switch selection {
+              | ReactAria.Common.Keys(keys) =>
+                table
+                ->RT.getAllColumns
+                ->Array.filter(RT.colGetCanHide)
+                ->Array.forEach(col => col->RT.colToggleVisibility(keys->Set.has(col->RT.colId)))
+              | ReactAria.Common.All => ()
+              }
+            }
+          >
             {table
             ->RT.getAllColumns
             ->Array.filter(RT.colGetCanHide)
             ->Array.map(col =>
-              <DropdownMenu.CheckboxItem
+              <DropdownMenu.Item
                 key={col->RT.colId}
+                id={col->RT.colId}
                 className="capitalize"
-                checked={col->RT.colGetIsVisible}
-                onCheckedChange={(v, _) => col->RT.colToggleVisibility(v)}
               >
                 {col->RT.colId->React.string}
-              </DropdownMenu.CheckboxItem>
+              </DropdownMenu.Item>
             )
             ->React.array}
           </DropdownMenu.Group>
-        </DropdownMenu.Content>
-      </DropdownMenu>
+        </DropdownMenu>
+</DropdownMenu.Trigger>
     </div>
     <div className="overflow-hidden rounded-md border">
       <Table>
@@ -357,7 +372,7 @@ let make = ({}: Demo.Props.t) => {
           variant=Outline
           size=Sm
           onClick={_ => table->RT.previousPage}
-          disabled={!(table->RT.getCanPreviousPage)}
+          isDisabled={!(table->RT.getCanPreviousPage)}
         >
           {"Previous"->React.string}
         </Button>
@@ -365,7 +380,7 @@ let make = ({}: Demo.Props.t) => {
           variant=Outline
           size=Sm
           onClick={_ => table->RT.nextPage}
-          disabled={!(table->RT.getCanNextPage)}
+          isDisabled={!(table->RT.getCanNextPage)}
         >
           {"Next"->React.string}
         </Button>

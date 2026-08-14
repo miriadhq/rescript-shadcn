@@ -71,13 +71,14 @@ npm install react-aria-components rescript-react-aria
 
 ### Align Item With Trigger
 
-Use `alignItemWithTrigger` on `SelectContent` to control whether the selected item aligns with the trigger. When `true` (default), the popup positions so the selected item appears over the trigger. When `false`, the popup aligns to the trigger edge.
+Use `placement`, `offset`, and `crossOffset` on `Select.Content` to control the
+popover position. This example also demonstrates a default selection.
 
 <ComponentPreview name="SelectAlignItem" />
 
 ### Groups
 
-Use `SelectGroup`, `SelectLabel`, and `SelectSeparator` to organize items.
+Use `Select.Group`, `Select.Label`, and `Select.Separator` to organize items.
 
 <ComponentPreview name="SelectGroups" />
 
@@ -93,14 +94,16 @@ A select with many items that scrolls.
 
 ### Invalid
 
-Add the `data-invalid` attribute to the `Field` component and the `aria-invalid` attribute to the `SelectTrigger` component to show an error state.
+Set `isInvalid` on `Select` and `dataInvalid` on its `Field` wrapper.
 
 ```res /data-invalid/ /aria-invalid/
-<Field data-invalid>
-  <FieldLabel>Fruit</FieldLabel>
-  <SelectTrigger aria-invalid>
-    <SelectValue />
-  </SelectTrigger>
+<Field dataInvalid>
+  <Field.Label> {"Fruit"->React.string} </Field.Label>
+  <Select isInvalid>
+    <Select.Trigger>
+      <Select.Value />
+    </Select.Trigger>
+  </Select>
 </Field>
 ```
 

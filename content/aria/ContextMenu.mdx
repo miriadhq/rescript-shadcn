@@ -55,15 +55,15 @@ npm install react-aria-components rescript-react-aria
 ## Usage
 
 ```res showLineNumbers
-<ContextMenu>
-  <ContextMenu.Trigger> {"Right click here"->React.string} </ContextMenu.Trigger>
-  <ContextMenu.Content>
+<ContextMenu.Trigger>
+  <span> {"Right click here"->React.string} </span>
+  <ContextMenu>
     <ContextMenu.Item> {"Profile"->React.string} </ContextMenu.Item>
     <ContextMenu.Item> {"Billing"->React.string} </ContextMenu.Item>
     <ContextMenu.Item> {"Team"->React.string} </ContextMenu.Item>
     <ContextMenu.Item> {"Subscription"->React.string} </ContextMenu.Item>
-  </ContextMenu.Content>
-</ContextMenu>
+  </ContextMenu>
+</ContextMenu.Trigger>
 ```
 
 ## Examples
@@ -100,13 +100,13 @@ Combine icons with labels for quick scanning.
 
 ### Checkboxes
 
-Use `ContextMenuCheckboxItem` for toggles.
+Set `selectionMode=Multiple` on `ContextMenu` for checkbox selection.
 
 <ComponentPreview name="ContextMenuCheckboxes" />
 
 ### Radio
 
-Use `ContextMenuRadioItem` for exclusive choices.
+Set `selectionMode=Single` on `ContextMenu` for exclusive selection.
 
 <ComponentPreview name="ContextMenuRadio" />
 
@@ -118,7 +118,7 @@ Use `variant=Destructive` to style the menu item as destructive.
 
 ### Sides
 
-Control submenu placement with side and align props.
+Control submenu placement with the `placement`, `offset`, and `crossOffset` props.
 
 <ComponentPreview name="ContextMenuSides" />
 

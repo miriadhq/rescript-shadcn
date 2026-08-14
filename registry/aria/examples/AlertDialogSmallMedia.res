@@ -1,11 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <AlertDialog>
-    <AlertDialog.Trigger
-      render={<Button variant=Outline> {"Show Dialog"->React.string} </Button>}
-    />
-
-    <AlertDialog.Content size=Sm>
+  <AlertDialog.Trigger>
+    <Button variant=Outline> {"Show Dialog"->React.string} </Button>
+    <AlertDialog size=AlertDialog.Size.Sm>
       <AlertDialog.Header>
         <AlertDialog.Media>
           <Icons.Bluetooth />
@@ -19,5 +16,5 @@ let make = ({}: Demo.Props.t) =>
         <AlertDialog.Cancel> {"Don't allow"->React.string} </AlertDialog.Cancel>
         <AlertDialog.Action> {"Allow"->React.string} </AlertDialog.Action>
       </AlertDialog.Footer>
-    </AlertDialog.Content>
-  </AlertDialog>
+    </AlertDialog>
+  </AlertDialog.Trigger>

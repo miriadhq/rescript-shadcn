@@ -1,11 +1,9 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Dialog>
-    <form>
-      <Dialog.Trigger render={<Button variant=Outline />}>
-        {"Open Dialog"->React.string}
-      </Dialog.Trigger>
-      <Dialog.Content className="sm:max-w-sm">
+  <Dialog.Trigger>
+    <Button variant=Outline> {"Open Dialog"->React.string} </Button>
+    <Dialog className="sm:max-w-sm">
+      <form>
         <Dialog.Header>
           <Dialog.Title> {"Edit profile"->React.string} </Dialog.Title>
           <Dialog.Description>
@@ -23,11 +21,11 @@ let make = ({}: Demo.Props.t) =>
           </Field>
         </Field.Group>
         <Dialog.Footer>
-          <Dialog.Close render={<Button variant=Outline />}>
+          <Dialog.Close variant=Outline>
             {"Cancel"->React.string}
           </Dialog.Close>
           <Button type_="submit"> {"Save changes"->React.string} </Button>
         </Dialog.Footer>
-      </Dialog.Content>
-    </form>
-  </Dialog>
+      </form>
+    </Dialog>
+  </Dialog.Trigger>

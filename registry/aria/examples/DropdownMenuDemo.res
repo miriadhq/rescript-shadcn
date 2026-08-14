@@ -2,11 +2,9 @@
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <DropdownMenu>
-    <DropdownMenu.Trigger render={<Button variant=Outline />}>
-      {"Open"->React.string}
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content className="w-40" align=Start>
+  <DropdownMenu.Trigger>
+    <Button variant=Outline> {"Open"->React.string} </Button>
+    <DropdownMenu className="w-40" placement=ReactAria.Common.BottomStart>
       <DropdownMenu.Group>
         <DropdownMenu.Label> {"My Account"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item>
@@ -27,14 +25,13 @@ let make = ({}: Demo.Props.t) =>
         <DropdownMenu.Item> {"Team"->React.string} </DropdownMenu.Item>
         <DropdownMenu.Sub>
           <DropdownMenu.SubTrigger> {"Invite users"->React.string} </DropdownMenu.SubTrigger>
-          <DropdownMenu.Portal>
-            <DropdownMenu.SubContent>
-              <DropdownMenu.Item> {"Email"->React.string} </DropdownMenu.Item>
-              <DropdownMenu.Item> {"Message"->React.string} </DropdownMenu.Item>
-              <DropdownMenu.Separator />
-              <DropdownMenu.Item> {"More..."->React.string} </DropdownMenu.Item>
-            </DropdownMenu.SubContent>
-          </DropdownMenu.Portal>
+
+          <DropdownMenu.SubContent>
+            <DropdownMenu.Item> {"Email"->React.string} </DropdownMenu.Item>
+            <DropdownMenu.Item> {"Message"->React.string} </DropdownMenu.Item>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item> {"More..."->React.string} </DropdownMenu.Item>
+          </DropdownMenu.SubContent>
         </DropdownMenu.Sub>
         <DropdownMenu.Item>
           {"New Team"->React.string}
@@ -45,7 +42,7 @@ let make = ({}: Demo.Props.t) =>
       <DropdownMenu.Group>
         <DropdownMenu.Item> {"GitHub"->React.string} </DropdownMenu.Item>
         <DropdownMenu.Item> {"Support"->React.string} </DropdownMenu.Item>
-        <DropdownMenu.Item disabled=true> {"API"->React.string} </DropdownMenu.Item>
+        <DropdownMenu.Item isDisabled=true> {"API"->React.string} </DropdownMenu.Item>
       </DropdownMenu.Group>
       <DropdownMenu.Separator />
       <DropdownMenu.Group>
@@ -54,5 +51,5 @@ let make = ({}: Demo.Props.t) =>
           <DropdownMenu.Shortcut> {"⇧⌘Q"->React.string} </DropdownMenu.Shortcut>
         </DropdownMenu.Item>
       </DropdownMenu.Group>
-    </DropdownMenu.Content>
-  </DropdownMenu>
+    </DropdownMenu>
+  </DropdownMenu.Trigger>

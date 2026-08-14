@@ -1,10 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <AlertDialog>
-    <AlertDialog.Trigger
-      render={<Button variant=Outline> {"Show Dialog"->React.string} </Button>}
-    />
-    <AlertDialog.Content>
+  <AlertDialog.Trigger>
+    <Button variant=Outline> {"Show Dialog"->React.string} </Button>
+    <AlertDialog>
       <AlertDialog.Header>
         <AlertDialog.Title> {"Are you absolutely sure?"->React.string} </AlertDialog.Title>
         <AlertDialog.Description>
@@ -15,5 +13,5 @@ let make = ({}: Demo.Props.t) =>
         <AlertDialog.Cancel> {"Cancel"->React.string} </AlertDialog.Cancel>
         <AlertDialog.Action> {"Continue"->React.string} </AlertDialog.Action>
       </AlertDialog.Footer>
-    </AlertDialog.Content>
-  </AlertDialog>
+    </AlertDialog>
+  </AlertDialog.Trigger>

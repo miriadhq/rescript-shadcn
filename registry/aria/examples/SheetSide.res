@@ -1,11 +1,8 @@
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
-
 let sheetSides = [
-  (ReactAria.Types.Side.Top, "top"),
-  (ReactAria.Types.Side.Right, "right"),
-  (ReactAria.Types.Side.Bottom, "bottom"),
-  (ReactAria.Types.Side.Left, "left"),
+  (Sheet.Side.Top, "top"),
+  (Sheet.Side.Right, "right"),
+  (Sheet.Side.Bottom, "bottom"),
+  (Sheet.Side.Left, "left"),
 ]
 
 @react.componentWithProps(Demo.Props.t)
@@ -13,11 +10,9 @@ let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap gap-2">
     {sheetSides
     ->Array.map(((side, label)) =>
-      <Sheet key=label>
-        <Sheet.Trigger render={<Button variant=Outline className="capitalize" />}>
-          {label->React.string}
-        </Sheet.Trigger>
-        <Sheet.Content
+      <Sheet.Trigger key=label>
+        <Button variant=Outline className="capitalize"> {label->React.string} </Button>
+        <Sheet
           side className="data-[side=bottom]:max-h-[50vh] data-[side=top]:max-h-[50vh]"
         >
           <Sheet.Header>
@@ -42,12 +37,10 @@ let make = ({}: Demo.Props.t) =>
           </div>
           <Sheet.Footer>
             <Button type_="submit"> {"Save changes"->React.string} </Button>
-            <Sheet.Close render={<Button variant=Outline />}>
-              {"Cancel"->React.string}
-            </Sheet.Close>
+            <Sheet.Close> {"Cancel"->React.string} </Sheet.Close>
           </Sheet.Footer>
-        </Sheet.Content>
-      </Sheet>
+        </Sheet>
+      </Sheet.Trigger>
     )
     ->React.array}
   </div>

@@ -10,7 +10,7 @@ let make = ({}: Demo.Props.t) =>
         <Checkbox
           id="finder-pref-9k2-hard-disks-ljj-checkbox"
           name="finder-pref-9k2-hard-disks-ljj-checkbox"
-          defaultChecked=true
+          defaultSelected=true
         />
         <Field.Label htmlFor="finder-pref-9k2-hard-disks-ljj-checkbox" className="font-normal">
           {"Hard disks"->React.string}
@@ -20,7 +20,7 @@ let make = ({}: Demo.Props.t) =>
         <Checkbox
           id="finder-pref-9k2-external-disks-1yg-checkbox"
           name="finder-pref-9k2-external-disks-1yg-checkbox"
-          defaultChecked=true
+          defaultSelected=true
         />
         <Field.Label htmlFor="finder-pref-9k2-external-disks-1yg-checkbox" className="font-normal">
           {"External disks"->React.string}

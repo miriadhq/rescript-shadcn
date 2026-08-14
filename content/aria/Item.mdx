@@ -90,7 +90,7 @@ Use `Item.Media` with `variant=Icon` to display an icon.
 
 ### Avatar
 
-You can use `Item.Media` with `variant=Avatar` to display an avatar.
+Place an `Avatar` inside `Item.Media` to display an avatar.
 
 <ComponentPreview name="ItemAvatar" />
 
@@ -120,14 +120,15 @@ Use `Item.Header` to add a header above the item content.
 
 ### Link
 
-Use the `render` prop to render the item as a link. The hover and focus states will be applied to the anchor element.
+Pass `href` to render the item as a React Aria link. Hover and focus states are
+applied to the link element.
 
 <ComponentPreview name="ItemLink" />
 
 ```res showLineNumbers
-<Item render={<a href="/dashboard" />}>
+<Item href="/dashboard">
   <Item.Media variant=Icon>
-    <HomeIcon />
+    <Icons.Home />
   </Item.Media>
   <Item.Content>
     <Item.Title>Dashboard</Item.Title>
@@ -150,8 +151,8 @@ The main component for displaying content with media, title, description, and ac
 | Prop      | Type                                | Default     |
 | --------- | ----------------------------------- | ----------- |
 | `variant` | `Default \| Outline \| Muted` | `Default` |
-| `size`    | `"default" \| "sm" \| "xs"`         | `"default"` |
-| `render`  | `React.ReactElement`                |             |
+| `size`    | `Default \| Sm \| Xs`               | `Default`   |
+| `href`    | `string`                            |             |
 
 ### Item.Group
 

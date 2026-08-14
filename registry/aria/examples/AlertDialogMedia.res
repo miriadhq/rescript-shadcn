@@ -1,10 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <AlertDialog>
-    <AlertDialog.Trigger
-      render={<Button variant=Outline> {"Share Project"->React.string} </Button>}
-    />
-    <AlertDialog.Content>
+  <AlertDialog.Trigger>
+    <Button variant=Outline> {"Share Project"->React.string} </Button>
+    <AlertDialog>
       <AlertDialog.Header>
         <AlertDialog.Media>
           <Icons.CircleFadingPlus />
@@ -18,5 +16,5 @@ let make = ({}: Demo.Props.t) =>
         <AlertDialog.Cancel> {"Cancel"->React.string} </AlertDialog.Cancel>
         <AlertDialog.Action> {"Share"->React.string} </AlertDialog.Action>
       </AlertDialog.Footer>
-    </AlertDialog.Content>
-  </AlertDialog>
+    </AlertDialog>
+  </AlertDialog.Trigger>

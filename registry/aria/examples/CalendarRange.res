@@ -1,21 +1,19 @@
 @@directive("'use client'")
 
+module IDate = ReactAria.InternationalizedDate
+
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
+  let year = Date.make()->Date.getFullYear
+  let start = IDate.calendarDate(year, 1, 12)
   let (dateRange, setDateRange) = React.useState(() => {
-    let year = Date.make()->Date.getFullYear
-    let startDate = Date.makeWithYMD(~year, ~month=0, ~day=12)
-    {
-      Calendar.DateRange.from: startDate,
-      to: Date.makeWithYMD(~year, ~month=0, ~day=42),
-    }->Some
+    ReactAria.Calendar.Range.start: start,
+    end_: start->IDate.add({days: 30}),
   })
 
-  <Calendar
-    mode=Range
-    defaultMonth=?{dateRange->Option.map(r => r.from)}
-    selected=?dateRange
-    onSelect={value => setDateRange(_ => value)}
+  <Calendar.Range
+    value=dateRange
+    onChange={range => setDateRange(_ => range)}
     numberOfMonths=2
     className="rounded-lg border"
   />

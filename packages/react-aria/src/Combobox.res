@@ -4,7 +4,7 @@ type selectionMode =
   | @as("multiple") Multiple
 
 type props<'item, 'key> = {
-  ...Common.baseProps,
+  ...Common.elementProps,
   items?: array<'item>,
   value?: 'key,
   defaultValue?: 'key,
@@ -22,29 +22,40 @@ type props<'item, 'key> = {
   name?: string,
   allowsCustomValue?: bool,
   allowsEmptyCollection?: bool,
+  isInvalid?: bool,
 }
 
 @module("react-aria-components")
 external make: React.component<props<'item, 'key>> = "ComboBox"
 
+type state<'value> = {
+  inputValue: string,
+  value: 'value,
+  setValue: nullable<'value> => unit,
+}
+
+@module("react-aria-components")
+external stateContext: React.Context.t<nullable<state<'value>>> = "ComboBoxStateContext"
+
 module Value = {
-  type renderState<'item> = {
+  type renderState<'item, 'value> = {
     selectedItems: array<null<'item>>,
     selectedText: string,
     isPlaceholder: bool,
+    state: state<'value>,
   }
 
-  type props<'item> = {
+  type props<'item, 'value> = {
     className?: string,
     id?: string,
     style?: ReactDOM.Style.t,
     @as("data-slot") dataSlot?: string,
-    children?: renderState<'item> => React.element,
+    children?: renderState<'item, 'value> => React.element,
     placeholder?: React.element,
   }
 
   @module("react-aria-components")
-  external make: React.component<props<'item>> = "ComboBoxValue"
+  external make: React.component<props<'item, 'value>> = "ComboBoxValue"
 }
 
 module List = {
@@ -55,12 +66,10 @@ module List = {
   }
 
   type props<'item> = {
-    children: ('item, int) => React.element,
+    ...Common.baseProps,
     items?: array<'item>,
     renderEmptyState?: renderState => React.element,
-    className?: string,
-    style?: ReactDOM.Style.t,
-    @as("data-slot") dataSlot?: string,
+    children?: 'item => React.element,
   }
 
   @module("react-aria-components")
@@ -68,37 +77,41 @@ module List = {
 }
 
 module Collection = {
-  type props<'item> = {children: ('item, int) => React.element}
+  type props<'item> = {children?: 'item => React.element, items?: array<'item>}
 
   @module("react-aria-components")
   external make: React.component<props<'item>> = "Collection"
+
+  module Static = {
+    type props = {children?: React.element}
+
+    @module("react-aria-components")
+    external make: React.component<props> = "Collection"
+  }
+
+  module Flexible = {
+    type props<'item, 'children> = {children?: 'children, items?: array<'item>}
+
+    @module("react-aria-components")
+    external make: React.component<props<'item, 'children>> = "Collection"
+  }
 }
 
 module Item = {
-  type props<'item> = Select.Item.props<'item>
+  type props<'item, 'key> = Select.Item.props<'item, 'key>
 
   @module("react-aria-components")
-  external make: React.component<props<'item>> = "ListBoxItem"
+  external make: React.component<props<'item, 'key>> = "ListBoxItem"
 }
 
 module Group = {
-  type props<'item> = Select.Group.props<'item>
+  type props<'item, 'children> = Select.Group.props<'item, 'children>
 
   @module("react-aria-components")
-  external make: React.component<props<'item>> = "ListBoxSection"
+  external make: React.component<props<'item, 'children>> = "ListBoxSection"
 }
 
 module GroupLabel = {
   @module("react-aria-components")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Header"
-}
-
-module Chips = {
-  @module("react-aria-components")
-  external make: React.component<Types.BaseUIComponentProps.t> = "TagGroup"
-}
-
-module Chip = {
-  @module("react-aria-components")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Tag"
+  external make: React.component<Common.elementProps> = "Header"
 }

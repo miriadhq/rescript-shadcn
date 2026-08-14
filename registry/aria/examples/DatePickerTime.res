@@ -1,6 +1,6 @@
 @@directive("'use client'")
 
-@module("date-fns") external format: (Date.t, string) => string = "format"
+module IDate = ReactAria.InternationalizedDate
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
@@ -10,40 +10,40 @@ let make = ({}: Demo.Props.t) => {
   <Field.Group className="mx-auto max-w-xs flex-row">
     <Field>
       <Field.Label htmlFor="date-picker-optional"> {"Date"->React.string} </Field.Label>
-      <Popover open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>
-        <Popover.Trigger
-          render={<Button
-            variant=Outline id="date-picker-optional" className="w-32 justify-between font-normal"
-          />}
+      <Popover.Trigger isOpen={open_} onOpenChange={open_ => setOpen(_ => open_)}>
+        <Button
+          variant=Outline id="date-picker-optional" className="w-32 justify-between font-normal"
         >
           {switch date {
-          | Some(d) => d->format("PPP")->React.string
+          | Some(date) =>
+            date
+            ->IDate.toDate(IDate.getLocalTimeZone())
+            ->Date.toLocaleDateString
+            ->React.string
           | None => "Select date"->React.string
           }}
           <Icons.ChevronDown dataIcon="inline-end" />
-        </Popover.Trigger>
-        <Popover.Content className="w-auto overflow-hidden p-0" align=Start>
+        </Button>
+        <Popover className="w-auto overflow-hidden p-0" placement=ReactAria.Common.BottomStart>
           <Calendar
-            mode=Single
-            selected=?date
-            captionLayout={Calendar.CaptionLayout.Dropdown}
-            defaultMonth=?{date}
-            onSelect={value => {
-              setDate(_ => value)
+            value=?date
+            captionLayout=Dropdown
+            onChange={date => {
+              setDate(_ => Some(date))
               setOpen(_ => false)
             }}
           />
-        </Popover.Content>
-      </Popover>
+        </Popover>
+      </Popover.Trigger>
     </Field>
     <Field className="w-32">
       <Field.Label htmlFor="time-picker-optional"> {"Time"->React.string} </Field.Label>
       <Input
         type_="time"
         id="time-picker-optional"
-        step={1.}
+        step=1.
         defaultValue="10:30:00"
-        className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+        className="appearance-none bg-background [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
       />
     </Field>
   </Field.Group>

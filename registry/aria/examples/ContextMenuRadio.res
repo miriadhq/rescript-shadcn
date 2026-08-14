@@ -1,38 +1,47 @@
 @@directive("'use client'")
 
+let firstKey = (selection, fallback) =>
+  switch selection {
+  | ReactAria.Common.Keys(keys) => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(fallback)
+  | ReactAria.Common.All => fallback
+  }
+
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (user, setUser) = React.useState(() => "pedro")
   let (theme, setTheme) = React.useState(() => "light")
-
-  <ContextMenu>
-    <ContextMenu.Trigger
-      className="flex aspect-video w-full max-w-xs items-center justify-center rounded-xl border border-dashed text-sm"
+  <ContextMenu.Trigger>
+    <div
+      role="button"
+      className="flex aspect-[2/0.5] w-full items-center justify-center rounded-lg border text-sm"
     >
-      <span className="hidden pointer-fine:inline-block"> {"Right click here"->React.string} </span>
-      <span className="hidden pointer-coarse:inline-block">
-        {"Long press here"->React.string}
-      </span>
-    </ContextMenu.Trigger>
-    <ContextMenu.Content>
+      {"Right click here"->React.string}
+    </div>
+    <ContextMenu>
       <ContextMenu.Group>
         <ContextMenu.Label> {"People"->React.string} </ContextMenu.Label>
-        <ContextMenu.RadioGroup value={user} onValueChange={(v, _) => setUser(_ => v)}>
-          <ContextMenu.RadioItem value="pedro">
-            {"Pedro Duarte"->React.string}
-          </ContextMenu.RadioItem>
-          <ContextMenu.RadioItem value="colm"> {"Colm Tuite"->React.string} </ContextMenu.RadioItem>
-        </ContextMenu.RadioGroup>
+        <ContextMenu.Group
+          selectionMode=Single
+          selectedKeys={[user]}
+          onSelectionChange={selection => setUser(_ => firstKey(selection, "pedro"))}
+        >
+          <ContextMenu.Item id="pedro"> {"Pedro Duarte"->React.string} </ContextMenu.Item>
+          <ContextMenu.Item id="colm"> {"Colm Tuite"->React.string} </ContextMenu.Item>
+        </ContextMenu.Group>
       </ContextMenu.Group>
       <ContextMenu.Separator />
       <ContextMenu.Group>
         <ContextMenu.Label> {"Theme"->React.string} </ContextMenu.Label>
-        <ContextMenu.RadioGroup value={theme} onValueChange={(v, _) => setTheme(_ => v)}>
-          <ContextMenu.RadioItem value="light"> {"Light"->React.string} </ContextMenu.RadioItem>
-          <ContextMenu.RadioItem value="dark"> {"Dark"->React.string} </ContextMenu.RadioItem>
-          <ContextMenu.RadioItem value="system"> {"System"->React.string} </ContextMenu.RadioItem>
-        </ContextMenu.RadioGroup>
+        <ContextMenu.Group
+          selectionMode=Single
+          selectedKeys={[theme]}
+          onSelectionChange={selection => setTheme(_ => firstKey(selection, "light"))}
+        >
+          <ContextMenu.Item id="light"> {"Light"->React.string} </ContextMenu.Item>
+          <ContextMenu.Item id="dark"> {"Dark"->React.string} </ContextMenu.Item>
+          <ContextMenu.Item id="system"> {"System"->React.string} </ContextMenu.Item>
+        </ContextMenu.Group>
       </ContextMenu.Group>
-    </ContextMenu.Content>
-  </ContextMenu>
+    </ContextMenu>
+  </ContextMenu.Trigger>
 }

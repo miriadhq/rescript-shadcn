@@ -20,7 +20,7 @@ let make = ({}: Demo.Props.t) =>
             {"Receive notifications when focus mode is enabled or disabled."->React.string}
           </Field.Description>
         </Field.Content>
-        <Switch id="switch-notifications" defaultChecked={true} />
+        <Switch id="switch-notifications" defaultSelected={true} />
       </Field>
     </Field.Label>
   </Field.Group>

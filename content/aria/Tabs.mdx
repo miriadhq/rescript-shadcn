@@ -55,13 +55,13 @@ npm install react-aria-components rescript-react-aria
 ## Usage
 
 ```res showLineNumbers
-<Tabs defaultValue="account" className="w-[400px]">
+<Tabs defaultSelectedKey="account" className="w-[400px]">
   <Tabs.List>
-    <Tabs.Trigger value="account"> {"Account"->React.string} </Tabs.Trigger>
-    <Tabs.Trigger value="password"> {"Password"->React.string} </Tabs.Trigger>
+    <Tabs.Trigger id="account"> {"Account"->React.string} </Tabs.Trigger>
+    <Tabs.Trigger id="password"> {"Password"->React.string} </Tabs.Trigger>
   </Tabs.List>
-  <Tabs.Content value="account"> {"Make changes to your account here."->React.string} </Tabs.Content>
-  <Tabs.Content value="password"> {"Change your password here."->React.string} </Tabs.Content>
+  <Tabs.Content id="account"> {"Make changes to your account here."->React.string} </Tabs.Content>
+  <Tabs.Content id="password"> {"Change your password here."->React.string} </Tabs.Content>
 </Tabs>
 ```
 
@@ -69,13 +69,13 @@ npm install react-aria-components rescript-react-aria
 
 ### Line
 
-Use the `variant=Line` prop on `TabsList` for a line style.
+Use the `variant=Line` prop on `Tabs.List` for a line style.
 
 <ComponentPreview name="TabsLine" />
 
 ### Vertical
 
-Use `orientation="vertical"` for vertical tabs.
+Use `orientation=Vertical` for vertical tabs.
 
 <ComponentPreview name="TabsVertical" />
 

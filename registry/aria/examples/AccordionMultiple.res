@@ -24,13 +24,15 @@ let items: array<item> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Accordion.Multiple className="max-w-lg" defaultValue=["notifications"]>
+  <Accordion
+    allowsMultipleExpanded=true className="max-w-lg" defaultExpandedKeys=["notifications"]
+  >
     {items
     ->Array.map(item =>
-      <Accordion.Item key={item.value} value={item.value}>
+      <Accordion.Item key={item.value} id={item.value}>
         <Accordion.Trigger> {item.trigger->React.string} </Accordion.Trigger>
         <Accordion.Content> {item.content->React.string} </Accordion.Content>
       </Accordion.Item>
     )
     ->React.array}
-  </Accordion.Multiple>
+  </Accordion>

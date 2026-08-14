@@ -5,210 +5,119 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~children=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-) => {
-  let onOpenChange = onOpenChange->Option.map(callback => open_ => callback(open_, %raw(`undefined`)))
-  <ReactAria.Dialog.Trigger ?children isOpen=?open_ ?defaultOpen ?onOpenChange />
-}
-
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~dataSlot="dialog-trigger",
-  ) =>
-    <Button
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot
-      className
-    />
-}
-
-module Portal = {
-  @react.component
-  let make = (~children=?) => children->Option.getOr(React.null)
+  @react.componentWithProps(ReactAria.Dialog.Trigger.props)
+  let make = (props: ReactAria.Dialog.Trigger.props) =>
+    <ReactAria.Dialog.Trigger {...props} dataSlot="dialog-trigger" />
 }
 
 module Close = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~dataSlot="dialog-close",
-  ) =>
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) => {
+    let variant = props.variant->Option.getOr(Outline)
+    let size = props.size->Option.getOr(Default)
     <Button
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
+      {...props}
+      variant
+      size
       slot="close"
-      dataSlot
-      className
+      dataSlot="dialog-close"
+      className={cn("", props.className)}
     />
+  }
 }
 
 module Overlay = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Dialog.Modal.props)
+  let make = (props: ReactAria.Dialog.Modal.props) =>
     <ReactAria.Dialog.ModalOverlay
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="dialog-overlay"
-      className={cn(
-        "cn-dialog-overlay cn-dialog-overlay-aria fixed inset-0 isolate z-50",
-        className,
-      )}
+      className={cn("cn-dialog-overlay-aria fixed inset-0 isolate z-50", props.className)}
     />
 }
 
-module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~dir=?,
-    ~dataLang=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~showCloseButton=true,
-  ) =>
-    <ReactAria.Dialog.ModalOverlay
-      dataSlot="dialog-overlay"
-      className="cn-dialog-overlay cn-dialog-overlay-aria fixed inset-0 isolate z-50"
+type props = {showCloseButton?: bool, ...ReactAria.Dialog.Modal.props}
+let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
+  `({showCloseButton, className, children, ...props}) => props`
+)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let showCloseButton = props.showCloseButton->Option.getOr(true)
+  let isDismissable = props.isDismissable->Option.getOr(true)
+  <Overlay
+    {...props->overlayProps}
+    isDismissable
+  >
+    <ReactAria.Dialog.Modal
+      dataSlot="dialog-content"
+      className={cn(
+        "cn-dialog-content-aria fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+        props.className,
+      )}
     >
-      <ReactAria.Dialog.Modal
-        ?id
-        ?dir
-        ?dataLang
-        ?style
-        ?onClick
-        ?onKeyDown
-        dataSlot="dialog-content"
-        className={cn(
-          "cn-dialog-content cn-dialog-content-aria bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 duration-100 outline-none sm:max-w-sm",
-          className,
-        )}
-      >
-        <ReactAria.Dialog dataSlot="dialog-content-inner">
-          {children}
+      <ReactAria.Dialog dataSlot="dialog" className="[display:inherit] [gap:inherit] outline-none">
+        {props.children->Option.getOr(React.null)}
         {showCloseButton
-          ? <Button
-              dataSlot="dialog-close"
-              variant=Ghost
-              size=IconSm
-              className="cn-dialog-close"
-              slot="close"
-            >
+          ? <Close variant=Ghost size=IconSm className="cn-dialog-close">
               <Icons.X />
               <span className="sr-only"> {"Close"->React.string} </span>
-            </Button>
+            </Close>
           : React.null}
-        </ReactAria.Dialog>
-      </ReactAria.Dialog.Modal>
-    </ReactAria.Dialog.ModalOverlay>
+      </ReactAria.Dialog>
+    </ReactAria.Dialog.Modal>
+  </Overlay>
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="dialog-header"
-      className={cn("cn-dialog-header flex flex-col", className)}
+      className={cn("cn-dialog-header flex flex-col", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  type props = {showCloseButton?: bool, ...ReactAria.Types.DomProps.t}
+  let divProps: props => ReactAria.Types.DomProps.t = %raw(`({showCloseButton, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props->divProps}
       dataSlot="dialog-footer"
       className={cn(
-        "cn-dialog-header cn-dialog-footer flex flex-col-reverse sm:flex-row sm:justify-end",
-        className,
+        "cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        props.className,
       )}
-    />
+    >
+      {props.children->Option.getOr(React.null)}
+      {props.showCloseButton->Option.getOr(false)
+        ? <Close variant=Outline> {"Close"->React.string} </Close>
+        : React.null}
+    </div>
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <h2
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+  @react.componentWithProps(ReactAria.Heading.props)
+  let make = (props: ReactAria.Heading.props) =>
+    <ReactAria.Heading
+      {...props}
+      slot="title"
       dataSlot="dialog-title"
-      className={cn("cn-dialog-title cn-font-heading", className)}
+      className={cn("cn-dialog-title cn-font-heading", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <p
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <div
+      {...props}
       dataSlot="dialog-description"
-      className={cn(
-        "cn-dialog-description",
-        className,
-      )}
+      className={cn("cn-dialog-description", props.className)}
     />
 }

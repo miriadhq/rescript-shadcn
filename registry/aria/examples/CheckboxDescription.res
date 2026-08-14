@@ -2,7 +2,7 @@
 let make = ({}: Demo.Props.t) =>
   <Field.Group className="mx-auto w-72">
     <Field orientation=Horizontal>
-      <Checkbox id="terms-checkbox-desc" name="terms-checkbox-desc" defaultChecked=true />
+      <Checkbox id="terms-checkbox-desc" name="terms-checkbox-desc" defaultSelected=true />
       <Field.Content>
         <Field.Label htmlFor="terms-checkbox-desc">
           {"Accept terms and conditions"->React.string}

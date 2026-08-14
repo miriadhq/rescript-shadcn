@@ -58,8 +58,8 @@ let make = ({}: Demo.Props.t) => {
     setGloal(goal => Math.Int.max(200, Math.Int.min(400, goal + adjustment)))
   }
   <Drawer>
-    <Drawer.Trigger asChild={true}>
-      <Button variant=Outline> {"Open Drawer"->React.string} </Button>
+    <Drawer.Trigger render={<Button variant=Outline />}>
+      {"Open Drawer"->React.string}
     </Drawer.Trigger>
     <Drawer.Content>
       <div className="mx-auto w-full max-w-sm">
@@ -72,8 +72,8 @@ let make = ({}: Demo.Props.t) => {
               variant=Outline
               size=Icon
               className="h-8 w-8 shrink-0 rounded-full"
-              onClick={_ => onClick(-10)}
-              disabled={goal <= 200}
+              onPress={_ => onClick(-10)}
+              isDisabled={goal <= 200}
             >
               <Icons.Minus />
               <span className="sr-only"> {"Decrease"->React.string} </span>
@@ -90,8 +90,8 @@ let make = ({}: Demo.Props.t) => {
               variant=Outline
               size=Icon
               className="h-8 w-8 shrink-0 rounded-full"
-              onClick={_ => ()}
-              disabled={goal >= 400}
+              onPress={_ => onClick(10)}
+              isDisabled={goal >= 400}
             >
               <Icons.Plus />
               <span className="sr-only"> {"Increase"->React.string} </span>
@@ -107,8 +107,8 @@ let make = ({}: Demo.Props.t) => {
         </div>
         <Drawer.Footer>
           <Button> {"Submit"->React.string} </Button>
-          <Drawer.Close asChild=true>
-            <Button variant=Outline> {"Cancel"->React.string} </Button>
+          <Drawer.Close render={<Button variant=Outline />}>
+            {"Cancel"->React.string}
           </Drawer.Close>
         </Drawer.Footer>
       </div>

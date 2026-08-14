@@ -2,22 +2,18 @@
 let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap gap-4">
     <ButtonGroup>
-      <Tooltip>
-        <Tooltip.Trigger render={<Button variant=Outline />}>
-          {"Save"->React.string}
-        </Tooltip.Trigger>
-        <Tooltip.Content className="pr-1.5">
+      <Tooltip.Trigger>
+        <Button variant=Outline> {"Save"->React.string} </Button>
+        <Tooltip className="pr-1.5">
           <div className="flex items-center gap-2">
             {"Save Changes "->React.string}
             <Kbd> {"S"->React.string} </Kbd>
           </div>
-        </Tooltip.Content>
-      </Tooltip>
-      <Tooltip>
-        <Tooltip.Trigger render={<Button variant=Outline />}>
-          {"Print"->React.string}
-        </Tooltip.Trigger>
-        <Tooltip.Content className="pr-1.5">
+        </Tooltip>
+      </Tooltip.Trigger>
+      <Tooltip.Trigger>
+        <Button variant=Outline> {"Print"->React.string} </Button>
+        <Tooltip className="pr-1.5">
           <div className="flex items-center gap-2">
             {"Print Document "->React.string}
             <Kbd.Group>
@@ -25,7 +21,7 @@ let make = ({}: Demo.Props.t) =>
               <Kbd> {"P"->React.string} </Kbd>
             </Kbd.Group>
           </div>
-        </Tooltip.Content>
-      </Tooltip>
+        </Tooltip>
+      </Tooltip.Trigger>
     </ButtonGroup>
   </div>

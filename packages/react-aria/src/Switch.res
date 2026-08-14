@@ -1,5 +1,9 @@
 /** Bindings for Switch, SwitchField, and SwitchButton. */
-type props = {
+type renderProps = {
+  isSelected: bool,
+}
+
+type componentProps = {
   ...Common.baseProps,
   name?: string,
   value?: string,
@@ -11,12 +15,15 @@ type props = {
   inputRef?: ReactDOM.domRef,
 }
 
+type props = {...componentProps, children: renderProps => React.element}
+external toProps: componentProps => props = "%identity"
+
 @module("react-aria-components")
 external make: React.component<props> = "Switch"
 
 module Field = {
   type props = {
-    ...Common.baseProps,
+    ...Common.elementProps,
     name?: string,
     value?: string,
     isSelected?: bool,
@@ -35,5 +42,5 @@ module Field = {
 
 module Button = {
   @module("react-aria-components")
-  external make: React.component<Common.baseProps> = "SwitchButton"
+  external make: React.component<Common.elementProps> = "SwitchButton"
 }

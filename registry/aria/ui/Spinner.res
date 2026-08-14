@@ -7,12 +7,30 @@ type dataIcon =
   | @as("inline-end") InlineEnd
 
 @react.component
-let make = (~className=?, ~dataIcon: option<dataIcon>=?, ~dataSlot=?) => {
+let make = (
+  ~className=?,
+  ~dataIcon: option<dataIcon>=?,
+  ~dataSlot="spinner",
+  ~id=?,
+  ~style=?,
+  ~size=?,
+  ~role="status",
+  ~ariaLabel="Loading",
+  ~ariaHidden=?,
+  ~onClick=?,
+  ~onKeyDown=?,
+) => {
   <Icons.Loader2
+    ?id
+    ?style
+    ?size
+    ?ariaHidden
+    ?onClick
+    ?onKeyDown
     dataIcon=?{(dataIcon :> option<string>)}
-    ?dataSlot
-    role="status"
-    ariaLabel="Loading"
+    dataSlot
+    role
+    ariaLabel
     className={cn("size-4 animate-spin", className)}
   />
 }

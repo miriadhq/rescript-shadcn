@@ -1,286 +1,184 @@
-@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
-
 @@directive("'use client'")
 
-open ReactAria.Types
+@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-module CommandPrimitive = {
-  type props = {
-    ...BaseUIComponentProps.t,
-    value?: string,
-    onValueChange?: string => unit,
-    defaultValue?: string,
-  }
-  @module("cmdk")
-  external make: React.component<props> = "Command"
+type props = ReactAria.Autocomplete.props
 
-  module Input = {
-    type props = {
-      ...BaseUIComponentProps.t,
-      value?: string,
-      onValueChange?: string => unit,
-      defaultValue?: string,
-    }
-    @module("cmdk") @scope("Command")
-    external make: React.component<props> = "Input"
-  }
+let autocompleteProps: props => ReactAria.Autocomplete.props = %raw(`({className, dir, style, ...props}) => props`)
 
-  module List = {
-    @module("cmdk") @scope("Command")
-    external make: React.component<BaseUIComponentProps.t> = "List"
-  }
-
-  module Empty = {
-    @module("cmdk") @scope("Command")
-    external make: React.component<BaseUIComponentProps.t> = "Empty"
-  }
-
-  module Group = {
-    type props = {
-      ...BaseUIComponentProps.t,
-      heading?: string,
-      forceMount?: bool,
-    }
-    @module("cmdk") @scope("Command")
-    external make: React.component<props> = "Group"
-  }
-
-  module Separator = {
-    type props = {
-      ...BaseUIComponentProps.t,
-      alwaysRender?: bool,
-    }
-    @module("cmdk") @scope("Command")
-    external make: React.component<props> = "Separator"
-  }
-
-  module Item = {
-    type props = {
-      children?: React.element,
-      className?: string,
-      id?: string,
-      style?: ReactDOM.Style.t,
-      value?: string,
-      onSelect?: string => unit,
-      disabled?: bool,
-      onClick?: JsxEvent.Mouse.t => unit,
-      onKeyDown?: JsxEvent.Keyboard.t => unit,
-      dataSlot?: string,
-      ref?: ReactDOM.domRef,
-      asChild?: bool,
-    }
-    @module("cmdk") @scope("Command")
-    external make: React.component<props> = "Item"
-  }
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let contains = ReactAria.Autocomplete.useFilter({sensitivity: "base"}).contains
+  <div
+    dataSlot="command"
+    dir=?props.dir
+    style=?props.style
+    className={cn("cn-command flex size-full flex-col overflow-hidden", props.className)}
+  >
+    <ReactAria.Autocomplete
+      {...props->autocompleteProps}
+      className=?None
+      style=?None
+      dir=?None
+      filter={props.filter->Option.getOr(contains)}
+    >
+      {props.children->Option.getOr(React.null)}
+    </ReactAria.Autocomplete>
+  </div>
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~dir=?,
-) =>
-  <CommandPrimitive
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?value
-    ?defaultValue
-    ?onValueChange
-    ?dir
-    dataSlot="command"
-    className={cn(
-      "cn-command flex size-full flex-col overflow-hidden",
-      className,
-    )}
-    ?children
-  />
-
 module Dialog = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~open_=?,
-    ~defaultOpen=?,
-    ~onOpenChange=?,
-    ~title="Command Palette",
-    ~description="Search for a command to run...",
-    ~showCloseButton=false,
-  ) =>
-    <Dialog ?open_ ?defaultOpen ?onOpenChange>
+  type props = {title?: string, description?: string, open_?: bool, ...Dialog.props}
+  let dialogProps: props => Dialog.props = %raw(
+    `({title, description, open, className, children, ...props}) => props`
+  )
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
+    <Dialog
+      {...props->dialogProps}
+      isOpen=?{props.open_}
+      className={cn(
+        "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
+        props.className,
+      )}
+      showCloseButton={props.showCloseButton->Option.getOr(false)}
+      isDismissable=true
+    >
       <Dialog.Header className="sr-only">
-        <Dialog.Title> {title->React.string} </Dialog.Title>
-        <Dialog.Description> {description->React.string} </Dialog.Description>
+        <Dialog.Title>
+          {props.title->Option.getOr("Command Palette")->React.string}
+        </Dialog.Title>
+        <Dialog.Description>
+          {props.description->Option.getOr("Search for a command to run...")->React.string}
+        </Dialog.Description>
       </Dialog.Header>
-      <Dialog.Content
-        className={cn("cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0", className)}
-        showCloseButton
-      >
-        {children}
-      </Dialog.Content>
+      {props.children->Option.getOr(React.null)}
     </Dialog>
 }
 
 module Input = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~value=?,
-    ~defaultValue=?,
-    ~onValueChange=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~placeholder=?,
-    ~dir=?,
-  ) => {
-    <div dataSlot="command-input-wrapper" className="cn-command-input-wrapper">
-      <InputGroup
-        className="cn-command-input-group"
-      >
-        <CommandPrimitive.Input
-          ?id
-          ?style
-          ?value
-          ?defaultValue
-          ?onValueChange
-          ?onClick
-          ?onKeyDown
-          ?placeholder
-          ?dir
-          ?children
+  @react.componentWithProps(ReactAria.Input.props)
+  let make = (props: ReactAria.Input.props) =>
+    <ReactAria.SearchField
+      autoFocus=true
+      ariaLabel={props.placeholder->Option.getOr("Search")}
+      dataSlot="command-input-wrapper"
+      className="cn-command-input-wrapper"
+    >
+      <InputGroup className="cn-command-input-group">
+        <ReactAria.Input
+          {...props}
           dataSlot="command-input"
           className={cn(
-            "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
-            className,
+            "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-search-cancel-button]:hidden",
+            props.className,
           )}
         />
         <InputGroup.Addon>
           <Icons.Search className="cn-command-input-icon" />
         </InputGroup.Addon>
       </InputGroup>
-    </div>
-  }
+    </ReactAria.SearchField>
 }
 
 module List = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <CommandPrimitive.List
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+  @react.componentWithProps(ReactAria.Menu.props)
+  let make = (props: ReactAria.Menu.props<'item>) =>
+    <ReactAria.Menu
+      {...props}
       dataSlot="command-list"
-      className={cn(
-        "cn-command-list overflow-x-hidden overflow-y-auto",
-        className,
-      )}
-      ?children
+      className={cn("cn-command-list overflow-x-hidden overflow-y-auto", props.className)}
     />
 }
 
 module Empty = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
-    <CommandPrimitive.Empty
-      ?id
-      ?style
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <div
+      {...props}
       dataSlot="command-empty"
-      className={cn("cn-command-empty", className)}
-      ?children
+      className={cn("cn-command-empty", props.className)}
     />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~heading=?) =>
-    <CommandPrimitive.Group
-      ?id
-      ?style
-      ?heading
+  type props<'item, 'children> = {
+    heading?: string,
+    children?: 'children,
+    ...ReactAria.Menu.Section.componentProps<'item>,
+  }
+  let sectionProps: props<'item, 'children> => ReactAria.Menu.Section.componentProps<'item> = %raw(
+    `({heading, children, items, ...props}) => props`
+  )
+
+  @react.componentWithProps(props)
+  let make = (props: props<'item, 'children>) =>
+    <ReactAria.Menu.Section
+      {...props->sectionProps->ReactAria.Menu.Section.toProps}
       dataSlot="command-group"
-      className={cn(
-        "cn-command-group",
-        className,
-      )}
-      ?children
-    />
+      className={cn("cn-command-group", props.className)}
+    >
+      {switch props.heading {
+      | Some(heading) =>
+        <ReactAria.Header cmdkGroupHeading=""> {heading->React.string} </ReactAria.Header>
+      | None => React.null
+      }}
+      <ReactAria.Combobox.Collection.Flexible
+        items=?{props.items}
+        children=?{props.children}
+      />
+    </ReactAria.Menu.Section>
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
-    <CommandPrimitive.Separator
-      ?id
-      ?style
-      ?children
+  @react.componentWithProps(ReactAria.Separator.props)
+  let make = (props: ReactAria.Separator.props) =>
+    <ReactAria.Separator
+      {...props}
       dataSlot="command-separator"
-      className={cn("cn-command-separator", className)}
+      className={cn("cn-command-separator", props.className)}
     />
 }
 
+let textValueFromChildren: option<React.element> => option<string> = %raw(`children =>
+  typeof children === "string" ? children : undefined
+`)
+
 module Item = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~value=?,
-    ~onSelect=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
-    <CommandPrimitive.Item
-      ?id
-      ?style
-      ?value
-      ?onSelect
-      ?disabled
-      ?onClick
-      ?onKeyDown
+  @react.componentWithProps(ReactAria.Menu.Item.props)
+  let make = (props: ReactAria.Menu.Item.props<'item>) => {
+    let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
+    let children = ReactAria.Common.composeItemRenderProps(props.children, (children, _) =>
+      <>
+        {children}
+        <Icons.Check
+          className="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
+        />
+      </>
+    )
+    <ReactAria.Menu.Item
+      {...props}
+      ?textValue
       dataSlot="command-item"
       className={cn(
         "cn-command-item cn-command-item-aria group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className,
+        props.className,
       )}
-    >
-      {children}
-      <Icons.Check
-        className="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
-      />
-    </CommandPrimitive.Item>
+      children
+    />
+  }
 }
 
 module Shortcut = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <span
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="command-shortcut"
-      className={cn(
-        "cn-command-shortcut cn-command-shortcut-aria",
-        className,
-      )}
+      className={cn("cn-command-shortcut cn-command-shortcut-aria", props.className)}
     />
 }

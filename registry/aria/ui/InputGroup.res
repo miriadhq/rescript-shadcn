@@ -38,19 +38,18 @@ module Variant = {
 
 @get external mouseEventTarget: JsxEvent.Mouse.t => Dom.element = "target"
 @get external mouseEventCurrentTarget: JsxEvent.Mouse.t => Dom.element = "currentTarget"
-@get external parentElement: Dom.element => Nullable.t<Dom.element> = "parentElement"
-@send external closest: (Dom.element, string) => Nullable.t<Dom.element> = "closest"
-@send external querySelector: (Dom.element, string) => Nullable.t<Dom.element> = "querySelector"
+@get external parentElement: Dom.element => nullable<Dom.element> = "parentElement"
+@send external closest: (Dom.element, string) => nullable<Dom.element> = "closest"
+@send external querySelector: (Dom.element, string) => nullable<Dom.element> = "querySelector"
 @send external focusElement: Dom.element => unit = "focus"
 
-@react.componentWithProps(ReactAria.Types.DomProps.t)
-let make = (props: ReactAria.Types.DomProps.t) => {
-  <div
+@react.componentWithProps(ReactAria.Group.props)
+let make = (props: ReactAria.Group.props) => {
+  <ReactAria.Group
     {...props}
     dataSlot="input-group"
-    role="group"
     className={cn(
-      "cn-input-group group/input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
+      "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
       props.className,
     )}
   />
@@ -67,46 +66,36 @@ module Addon = {
     | BlockEnd => "cn-input-group-addon-align-block-end order-last w-full justify-start"
     }
 
-  @react.component
-  let make = (
-    ~align=Align.InlineStart,
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onKeyDown=?,
-  ) => {
+  type props = {align?: Align.t, ...ReactAria.Types.DomProps.t}
+  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({align, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let align = props.align->Option.getOr(Align.InlineStart)
+    let onClick = props.onClick->Option.getOr(event => {
+      let target = event->mouseEventTarget
+      switch target->closest("button") {
+      | Value(_) => ()
+      | Null | Undefined =>
+        event
+        ->mouseEventCurrentTarget
+        ->parentElement
+        ->Nullable.flatMap(parent => parent->querySelector("input"))
+        ->Nullable.forEach(focusElement)
+      }
+    })
     <div
-      ?id
-      ?children
-      ?style
-      onClick={event => {
-        let target = event->mouseEventTarget
-        switch target->closest("button") {
-        | Value(_) => ()
-        | Null | Undefined =>
-          event
-          ->mouseEventCurrentTarget
-          ->parentElement
-          ->Nullable.flatMap(parent => parent->querySelector("input"))
-          ->Nullable.forEach(focusElement)
-        }
-      }}
-      ?onKeyDown
+      {...props->domProps}
+      onClick
       dataSlot="input-group-addon"
       dataAlign={(align :> string)}
       role="group"
-      className={cn3(baseClass, alignClass(~align), className)}
+      className={cn3(baseClass, alignClass(~align), props.className)}
     />
   }
 }
 
 module Button = {
-  type type_ =
-    | @as("button") Button
-    | @as("submit") Submit
-    | @as("reset") Reset
-
   let sizeClass = (~size: Size.t) =>
     switch size {
     | Xs => "cn-input-group-button-size-xs"
@@ -117,71 +106,52 @@ module Button = {
 
   let baseClass = "cn-input-group-button flex items-center shadow-none"
 
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~type_=Button,
-    ~dataSlot="button",
-    ~size=Size.Xs,
-    ~variant=Variant.Ghost,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~dataActive=?,
-    ~ariaPressed=?,
-    ~ariaLabel=?,
-    ~slot=?,
-    ~render=?,
-    ~nativeButton=?,
-  ) => {
+  type props = {
+    variant?: Button.Variant.t,
+    size?: Size.t,
+    ...ReactAria.Button.props,
+  }
+
+  let toButtonProps: props => Button.props = %raw(`props => {
+    const {variant, size, ...rest} = props;
+    return rest;
+  }`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let size = props.size->Option.getOr(Xs)
+    let variant = props.variant->Option.getOr(Button.Variant.Ghost)
     <Button
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?dataActive
-      ?ariaPressed
-      ?ariaLabel
-      ?slot
-      ?render
-      ?nativeButton
-      type_={(type_ :> string)}
-      variant={(variant :> Button.Variant.t)}
-      dataSlot
+      {...props->toButtonProps}
+      type_={props.type_->Option.getOr("button")}
+      variant
+      size={(size :> Button.Size.t)}
       dataSize={(size :> string)}
-      className={cn3(baseClass, sizeClass(~size), className)}
+      className={cn3(baseClass, sizeClass(~size), props.className)}
     />
   }
 }
 
 module Text = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <span
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props}
       className={cn(
         "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
-        className,
+        props.className,
       )}
     />
 }
 
 module Input = {
-  @react.componentWithProps(Input.props)
-  let make = (props: Input.props) =>
-    <Input
+  @react.componentWithProps(ReactAria.Input.props)
+  let make = (props: ReactAria.Input.props) =>
+    <ReactAria.Input
       {...props}
       dataSlot="input-group-control"
-      className={cn(
+      className={cn3(
+        "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
         "cn-input-group-input flex-1",
         props.className,
       )}
@@ -189,43 +159,14 @@ module Input = {
 }
 
 module Textarea = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~name=?,
-    ~placeholder=?,
-    ~value=?,
-    ~defaultValue=?,
-    ~disabled=?,
-    ~readOnly=?,
-    ~required=?,
-    ~maxLength=?,
-    ~spellCheck=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  @react.componentWithProps(ReactAria.Input.props)
+  let make = (props: ReactAria.Input.props) =>
     <Textarea
-      ?id
-      ?children
-      ?style
-      ?name
-      ?placeholder
-      ?value
-      ?defaultValue
-      ?disabled
-      ?readOnly
-      ?required
-      ?maxLength
-      ?spellCheck
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="input-group-control"
       className={cn(
         "cn-input-group-textarea flex-1 resize-none",
-        className,
+        props.className,
       )}
     />
 }

@@ -1,6 +1,6 @@
 @@directive("'use client'")
 
-@module("chrono-node") external parseDate: string => Nullable.t<Date.t> = "parseDate"
+@module("chrono-node") external parseDate: string => nullable<Date.t> = "parseDate"
 
 let formatDate = (date: option<Date.t>) =>
   switch date {

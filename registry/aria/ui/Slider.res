@@ -3,77 +3,34 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@get external unsafeArrayLength: 'a => int = "length"
-
-let lengthIfArray = value =>
-  if Array.isArray(value) {
-    Some(unsafeArrayLength(value))
-  } else {
-    None
-  }
-
-@react.component
-let make = (
-  ~className=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~min=0.0,
-  ~max=100.0,
-  ~step=?,
-  ~disabled=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~dir=?,
-  ~style=?,
-  ~orientation=?,
-) => {
-  let valuesLength =
-    value->lengthIfArray->Option.orElse(defaultValue->lengthIfArray)->Option.getOr(2)
-  let onChange = onValueChange->Option.map(callback => value => callback(value, %raw(`undefined`)))
+@react.componentWithProps(props)
+let make = (props: ReactAria.Slider.componentProps<'value>) =>
   <ReactAria.Slider
-    ?id
-    ?name
-    ?value
-    ?defaultValue
-    ?onChange
-    minValue={min}
-    maxValue={max}
-    ?step
-    isDisabled=?disabled
-    ?onClick
-    ?onKeyDown
-    ?tabIndex
-    ?ariaLabel
-    ?dir
-    ?style
-    ?orientation
+    {...props->ReactAria.Slider.toProps}
     dataSlot="slider"
-    className={cn("data-horizontal:w-full data-vertical:h-full", className)}
+    className={cn(
+      "cn-slider group relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col",
+      props.className,
+    )}
   >
-    <div
-      className="cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col"
-    >
-      <ReactAria.Slider.Track
-        dataSlot="slider-track"
-        className="cn-slider-track relative grow overflow-hidden select-none"
-      >
-        <ReactAria.Slider.Fill
-          dataSlot="slider-range"
-          className="cn-slider-range select-none data-horizontal:h-full data-vertical:w-full"
-        />
-      </ReactAria.Slider.Track>
-      {Array.fromInitializer(~length=valuesLength, index =>
-        <ReactAria.Slider.Thumb
-          dataSlot="slider-thumb"
-          key={Int.toString(index)}
-          className="cn-slider-thumb block shrink-0 select-none data-disabled:pointer-events-none data-disabled:opacity-50"
-        />
-      )->React.array}
-    </div>
+    {({state}) =>
+      <>
+        <ReactAria.Slider.Track
+          dataSlot="slider-track"
+          className="cn-slider-track relative grow overflow-hidden select-none"
+        >
+          <ReactAria.Slider.Fill
+            dataSlot="slider-range"
+            className="cn-slider-range absolute select-none data-horizontal:h-full data-vertical:w-full"
+          />
+        </ReactAria.Slider.Track>
+        {state.values->Array.mapWithIndex((_value, index) =>
+          <ReactAria.Slider.Thumb
+            dataSlot="slider-thumb"
+            key={Int.toString(index)}
+            index
+            className="cn-slider-thumb block shrink-0 select-none group-data-horizontal:top-[50%] group-data-vertical:left-[50%] disabled:pointer-events-none disabled:opacity-50"
+          />
+        )->React.array}
+      </>}
   </ReactAria.Slider>
-}

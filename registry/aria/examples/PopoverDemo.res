@@ -1,10 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Popover>
-    <Popover.Trigger render={<Button variant=Outline />}>
-      {"Open popover"->React.string}
-    </Popover.Trigger>
-    <Popover.Content className="w-80">
+  <Popover.Trigger>
+    <Button variant=Outline> {"Open popover"->React.string} </Button>
+    <Popover className="w-80">
       <div className="grid gap-4">
         <div className="space-y-2">
           <h4 className="leading-none font-medium"> {"Dimensions"->React.string} </h4>
@@ -35,5 +33,5 @@ let make = ({}: Demo.Props.t) =>
           </div>
         </div>
       </div>
-    </Popover.Content>
-  </Popover>
+    </Popover>
+  </Popover.Trigger>

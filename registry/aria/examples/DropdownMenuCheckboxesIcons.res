@@ -1,48 +1,35 @@
 @@directive("'use client'")
 
-type notifications = {
-  email: bool,
-  sms: bool,
-  push: bool,
-}
-
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (notifications, setNotifications) = React.useState(() => {
-    email: true,
-    sms: false,
-    push: true,
-  })
-
-  <DropdownMenu>
-    <DropdownMenu.Trigger render={<Button variant=Outline />}>
-      {"Notifications"->React.string}
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content className="w-48">
-      <DropdownMenu.Group>
+  let (selectedKeys, setSelectedKeys) = React.useState(() => ["email", "push"])
+  <DropdownMenu.Trigger>
+    <Button variant=Outline className="w-fit"> {"Notifications"->React.string} </Button>
+    <DropdownMenu className="min-w-56">
+      <DropdownMenu.Group
+        selectionMode=Multiple
+        selectedKeys
+        onSelectionChange={selection =>
+          switch selection {
+          | ReactAria.Common.Keys(keys) => setSelectedKeys(_ => keys->Set.values->Iterator.toArray)
+          | ReactAria.Common.All => ()
+          }
+        }
+      >
         <DropdownMenu.Label> {"Notification Preferences"->React.string} </DropdownMenu.Label>
-        <DropdownMenu.CheckboxItem
-          checked={notifications.email}
-          onCheckedChange={(v, _) => setNotifications(n => {...n, email: v})}
-        >
+        <DropdownMenu.Item id="email">
           <Icons.Mail />
           {"Email notifications"->React.string}
-        </DropdownMenu.CheckboxItem>
-        <DropdownMenu.CheckboxItem
-          checked={notifications.sms}
-          onCheckedChange={(v, _) => setNotifications(n => {...n, sms: v})}
-        >
+        </DropdownMenu.Item>
+        <DropdownMenu.Item id="sms">
           <Icons.MessageSquare />
           {"SMS notifications"->React.string}
-        </DropdownMenu.CheckboxItem>
-        <DropdownMenu.CheckboxItem
-          checked={notifications.push}
-          onCheckedChange={(v, _) => setNotifications(n => {...n, push: v})}
-        >
+        </DropdownMenu.Item>
+        <DropdownMenu.Item id="push">
           <Icons.Bell />
           {"Push notifications"->React.string}
-        </DropdownMenu.CheckboxItem>
+        </DropdownMenu.Item>
       </DropdownMenu.Group>
-    </DropdownMenu.Content>
-  </DropdownMenu>
+    </DropdownMenu>
+  </DropdownMenu.Trigger>
 }

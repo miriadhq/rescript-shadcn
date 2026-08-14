@@ -1,13 +1,13 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Tabs defaultValue="overview" className="w-[400px]">
+  <Tabs defaultSelectedKey="overview" className="w-[400px]">
     <Tabs.List>
-      <Tabs.Trigger value="overview"> {"Overview"->React.string} </Tabs.Trigger>
-      <Tabs.Trigger value="analytics"> {"Analytics"->React.string} </Tabs.Trigger>
-      <Tabs.Trigger value="reports"> {"Reports"->React.string} </Tabs.Trigger>
-      <Tabs.Trigger value="settings"> {"Settings"->React.string} </Tabs.Trigger>
+      <Tabs.Trigger id="overview"> {"Overview"->React.string} </Tabs.Trigger>
+      <Tabs.Trigger id="analytics"> {"Analytics"->React.string} </Tabs.Trigger>
+      <Tabs.Trigger id="reports"> {"Reports"->React.string} </Tabs.Trigger>
+      <Tabs.Trigger id="settings"> {"Settings"->React.string} </Tabs.Trigger>
     </Tabs.List>
-    <Tabs.Content value="overview">
+    <Tabs.Content id="overview">
       <Card>
         <Card.Header>
           <Card.Title> {"Overview"->React.string} </Card.Title>
@@ -20,7 +20,7 @@ let make = ({}: Demo.Props.t) =>
         </Card.Content>
       </Card>
     </Tabs.Content>
-    <Tabs.Content value="analytics">
+    <Tabs.Content id="analytics">
       <Card>
         <Card.Header>
           <Card.Title> {"Analytics"->React.string} </Card.Title>
@@ -33,7 +33,7 @@ let make = ({}: Demo.Props.t) =>
         </Card.Content>
       </Card>
     </Tabs.Content>
-    <Tabs.Content value="reports">
+    <Tabs.Content id="reports">
       <Card>
         <Card.Header>
           <Card.Title> {"Reports"->React.string} </Card.Title>
@@ -46,7 +46,7 @@ let make = ({}: Demo.Props.t) =>
         </Card.Content>
       </Card>
     </Tabs.Content>
-    <Tabs.Content value="settings">
+    <Tabs.Content id="settings">
       <Card>
         <Card.Header>
           <Card.Title> {"Settings"->React.string} </Card.Title>

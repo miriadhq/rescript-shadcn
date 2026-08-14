@@ -9,12 +9,12 @@ let make = ({}: Demo.Props.t) =>
     <ButtonGroup>
       <InputGroup>
         <InputGroup.Input placeholder="Send a message..." />
-        <Tooltip>
-          <Tooltip.Trigger render={<InputGroup.Addon align=InlineEnd />}>
+        <Tooltip.Trigger>
+          <InputGroup.Addon align=InlineEnd>
             <Icons.AudioLines />
-          </Tooltip.Trigger>
-          <Tooltip.Content> {"Voice Mode"->React.string} </Tooltip.Content>
-        </Tooltip>
+          </InputGroup.Addon>
+          <Tooltip> {"Voice Mode"->React.string} </Tooltip>
+        </Tooltip.Trigger>
       </InputGroup>
     </ButtonGroup>
   </ButtonGroup>

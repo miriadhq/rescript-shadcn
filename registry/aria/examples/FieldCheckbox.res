@@ -35,7 +35,7 @@ let make = ({}: Demo.Props.t) =>
     </Field.Set>
     <Field.Separator />
     <Field orientation=Horizontal>
-      <Checkbox id="finder-pref-9k2-sync-folders-nep" defaultChecked={true} />
+      <Checkbox id="finder-pref-9k2-sync-folders-nep" defaultSelected={true} />
       <Field.Content>
         <Field.Label htmlFor="finder-pref-9k2-sync-folders-nep">
           {"Sync Desktop & Documents folders"->React.string}

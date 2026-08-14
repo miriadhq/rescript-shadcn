@@ -36,11 +36,11 @@ module LocalIcons = {
 let make = ({}: Demo.Props.t) => {
   <ButtonGroup>
     <Button variant=Outline> {"Follow"->React.string} </Button>
-    <DropdownMenu>
-      <DropdownMenu.Trigger render={<Button variant=Outline className="!pl-2" />}>
+    <DropdownMenu.Trigger>
+<Button variant=Outline className="!pl-2">
         <Icons.ChevronDown />
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content align=End className="w-44">
+      </Button>
+<DropdownMenu placement=ReactAria.Common.BottomEnd className="w-44">
         <DropdownMenu.Group>
           <DropdownMenu.Item>
             <LocalIcons.VolumeOff />
@@ -74,7 +74,7 @@ let make = ({}: Demo.Props.t) => {
             {"Delete Conversation"->React.string}
           </DropdownMenu.Item>
         </DropdownMenu.Group>
-      </DropdownMenu.Content>
-    </DropdownMenu>
+      </DropdownMenu>
+</DropdownMenu.Trigger>
   </ButtonGroup>
 }

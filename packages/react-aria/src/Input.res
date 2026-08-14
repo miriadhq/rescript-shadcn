@@ -4,6 +4,8 @@ type props = Common.inputProps
 external make: React.component<props> = "Input"
 
 module TextArea = {
+  type props = Common.inputProps
+
   @module("react-aria-components")
-  external make: React.component<Common.inputProps> = "TextArea"
+  external make: React.component<props> = "TextArea"
 }

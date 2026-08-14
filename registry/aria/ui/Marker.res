@@ -18,59 +18,51 @@ let variantClass = (~variant: Variant.t) =>
   | Border => "cn-marker-variant-border"
   }
 
-@react.component
-let make = (
-  ~className=?,
-  ~variant=Variant.Default,
-  ~children=?,
-  ~role=?,
-  ~ariaLabel=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) =>
-  <div
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?role
-    ?ariaLabel
-    ?children
-    dataSlot="marker"
-    dataVariant={(variant :> string)}
-    className={cn(
+type props = {
+  variant?: Variant.t,
+  render?: ReactAria.Types.DomProps.t => React.element,
+  ...ReactAria.Common.elementProps,
+}
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({variant, render, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let variant = props.variant->Option.getOr(Default)
+  let renderProps = {
+    ...props->domProps,
+    dataSlot: props.dataSlot->Option.getOr("marker"),
+    dataVariant: (variant :> string),
+    className: cn(
       `cn-marker group/marker relative flex w-full items-center ${variantClass(~variant)}`,
-      className,
-    )}
-  />
+      props.className,
+    ),
+  }
+  switch props.render {
+  | Some(render) => render(renderProps)
+  | None =>
+    <div
+      {...renderProps}
+    />
+  }
+}
 
 module Icon = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <span
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="marker-icon"
-      ariaHidden=true
-      className={cn("cn-marker-icon shrink-0", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("marker-icon")}
+      ariaHidden={props.ariaHidden->Option.getOr(true)}
+      className={cn("cn-marker-icon shrink-0", props.className)}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <span
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="marker-content"
-      className={cn("cn-marker-content min-w-0 wrap-break-word", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("marker-content")}
+      className={cn("cn-marker-content min-w-0 wrap-break-word", props.className)}
     />
 }

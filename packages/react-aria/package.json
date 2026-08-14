@@ -1,6 +1,6 @@
 {
   "name": "rescript-react-aria",
-  "version": "1.19.0",
+  "version": "1.19.1",
   "description": "ReScript bindings for React Aria Components",
   "publishConfig": {
     "access": "public"
@@ -31,10 +31,12 @@
     "@rescript/react": "^0.15.0"
   },
   "peerDependencies": {
+    "@internationalized/date": "^3.12.2",
     "@rescript/react": "^0.15.0",
     "react-aria-components": "^1.19.0"
   },
   "scripts": {
+    "bindings:audit": "rescript-bindgen --pkg react-aria-components@1.19.0 --no-install --node-modules ../../node_modules --from react-aria-components --out .bindgen-audit --clean --report --json-summary .bindgen-audit/summary.json --no-webapi --yes",
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:dev": "rescript watch"

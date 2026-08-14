@@ -9,11 +9,13 @@ const STRING_OPTIONS = new Map([
   ["font-wait-timeout-ms", "PARITY_FONT_WAIT_TIMEOUT_MS"],
   ["image-wait-timeout-ms", "PARITY_IMAGE_WAIT_TIMEOUT_MS"],
   ["setup-timeout-ms", "PARITY_SETUP_TIMEOUT_MS"],
+  ["library-ssim-min", "PARITY_LIBRARY_SCREENSHOT_SSIM_MIN"],
 ])
 
 const BOOLEAN_OPTIONS = new Map([
   ["skip-build", "PARITY_SKIP_BUILD"],
   ["allow-missing-equivalent", "PARITY_ALLOW_MISSING_EQUIVALENT"],
+  ["library-parity", "PARITY_LIBRARY_PARITY"],
 ])
 
 const SHORT_ALIASES = new Map([
@@ -38,10 +40,12 @@ function printHelp() {
     "  --font-wait-timeout-ms <number>  -> PARITY_FONT_WAIT_TIMEOUT_MS",
     "  --image-wait-timeout-ms <number> -> PARITY_IMAGE_WAIT_TIMEOUT_MS",
     "  --setup-timeout-ms <number>      -> PARITY_SETUP_TIMEOUT_MS",
+    "  --library-ssim-min <number>      -> PARITY_LIBRARY_SCREENSHOT_SSIM_MIN",
     "  --skip-build[=true|false]        -> PARITY_SKIP_BUILD",
     "  --no-skip-build                  -> PARITY_SKIP_BUILD=0",
     "  --allow-missing-equivalent       -> PARITY_ALLOW_MISSING_EQUIVALENT=1",
     "  --no-allow-missing-equivalent    -> PARITY_ALLOW_MISSING_EQUIVALENT=0",
+    "  --library-parity                 Compare matching Base and Aria ReScript demos",
     "  -h, --help                       Show this help message",
     "",
     "Examples:",

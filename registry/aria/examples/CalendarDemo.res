@@ -1,8 +1,15 @@
 @@directive("'use client'")
 
+module IDate = ReactAria.InternationalizedDate
+
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let date = Date.make()
+  let (date, setDate) = React.useState(() => IDate.today(IDate.getLocalTimeZone()))
 
-  <Calendar mode=Single selected=date className="rounded-lg border" captionLayout=Dropdown />
+  <Calendar
+    value=date
+    onChange={date => setDate(_ => date)}
+    className="rounded-lg border"
+    captionLayout=Dropdown
+  />
 }

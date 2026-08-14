@@ -9,15 +9,15 @@ module LucideIcons = {
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  <Tooltip>
-    <Tooltip.Trigger render={<Button variant=Outline size=IconSm />}>
+  <Tooltip.Trigger>
+    <Button variant=Outline size=IconSm>
       <LucideIcons.Save />
-    </Tooltip.Trigger>
-    <Tooltip.Content className="pr-1.5">
+    </Button>
+    <Tooltip className="pr-1.5">
       <div className="flex items-center gap-2">
         {"Save Changes"->React.string}
         <Kbd> {"S"->React.string} </Kbd>
       </div>
-    </Tooltip.Content>
-  </Tooltip>
+    </Tooltip>
+  </Tooltip.Trigger>
 }

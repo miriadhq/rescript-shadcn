@@ -1,18 +1,18 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <ToggleGroup
-    multiple=true
+    selectionMode=ReactAria.Common.Multiple
     orientation=ToggleGroup.Orientation.Vertical
     spacing=1.
-    defaultValue={["bold", "italic"]}
+    defaultSelectedKeys={["bold", "italic"]}
   >
-    <ToggleGroup.Item value="bold" ariaLabel="Toggle bold">
+    <ToggleGroup.Item id="bold" ariaLabel="Toggle bold">
       <Icons.Bold />
     </ToggleGroup.Item>
-    <ToggleGroup.Item value="italic" ariaLabel="Toggle italic">
+    <ToggleGroup.Item id="italic" ariaLabel="Toggle italic">
       <Icons.Italic />
     </ToggleGroup.Item>
-    <ToggleGroup.Item value="underline" ariaLabel="Toggle underline">
+    <ToggleGroup.Item id="underline" ariaLabel="Toggle underline">
       <Icons.Underline />
     </ToggleGroup.Item>
   </ToggleGroup>

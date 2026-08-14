@@ -36,41 +36,52 @@ let itemVariants = (~variant=Variant.Default, ~size=Size.Default) => {
   `${base} ${variantClass} ${sizeClass}`
 }
 
-type state = {
-  slot: string,
-  variant: Variant.t,
-  size: Size.t,
+type props = {
+  ...ReactAria.Button.Link.props,
+  variant?: Variant.t,
+  size?: Size.t,
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~variant=Variant.Default,
-  ~size=Size.Default,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~style=?,
-  ~onClick=?,
-  ~render=?,
-) => {
-  Render.use({
-    defaultTagName: "div",
-    props: {
-      className: cn(itemVariants(~variant, ~size), className),
-      ?id,
-      ?dir,
-      ?style,
-      ?children,
-      ?onClick,
-    },
-    ?render,
-    state: {
-      slot: "item",
-      variant,
-      size,
-    },
-  })
+let linkProps: props => ReactAria.Button.Link.props = %raw(`({variant, size, ...props}) => props`)
+
+let divProps: props => ReactAria.Common.elementProps = %raw(`({
+  variant,
+  size,
+  href,
+  target,
+  rel,
+  download,
+  isDisabled,
+  render,
+  ...props
+}) => props`)
+
+@module("react")
+external createElement: (string, ReactAria.Common.elementProps) => React.element = "createElement"
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let variant = props.variant->Option.getOr(Variant.Default)
+  let size = props.size->Option.getOr(Size.Default)
+  let className = cn(itemVariants(~variant, ~size), props.className)
+  switch props.href {
+  | Some(_) =>
+    <ReactAria.Button.Link
+      {...props->linkProps}
+      dataSlot="item"
+      dataVariant={(variant :> string)}
+      dataSize={(size :> string)}
+      className
+    />
+  | None =>
+    createElement("div", {
+      ...props->divProps,
+      dataSlot: "item",
+      dataVariant: (variant :> string),
+      dataSize: (size :> string),
+      className,
+    })
+  }
 }
 
 module Media = {
@@ -92,150 +103,117 @@ module Media = {
     `${base} ${variantClass}`
   }
 
-  @react.component
-  let make = (
-    ~className=?,
-    ~variant=Variant.Default,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) => {
+  type props = {variant?: Variant.t, ...DomProps.t}
+  let domProps: props => DomProps.t = %raw(`({variant, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let variant = props.variant->Option.getOr(Variant.Default)
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props->domProps}
       dataSlot="item-media"
       dataVariant={(variant :> string)}
-      className={cn(itemMediaVariants(~variant), className)}
+      className={cn(itemMediaVariants(~variant), props.className)}
     />
   }
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(DomProps.t)
+  let make = (props: DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="item-content"
       className={cn(
         "cn-item-content flex flex-1 flex-col [&+[data-slot=item-content]]:flex-none",
-        className,
+        props.className,
       )}
     />
 }
 
 module Actions = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(DomProps.t)
+  let make = (props: DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="item-actions"
-      className={cn("cn-item-actions flex items-center", className)}
+      className={cn("cn-item-actions flex items-center", props.className)}
     />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(DomProps.t)
+  let make = (props: DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       role="list"
       dataSlot="item-group"
       className={cn(
         "cn-item-group group/item-group flex w-full flex-col",
-        className,
+        props.className,
       )}
     />
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Separator.props)
+  let make = (props: ReactAria.Separator.props) =>
     <ReactAria.Separator
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="item-separator"
       orientation={Orientation.Horizontal}
-      className={cn("cn-item-separator", className)}
+      className={cn("cn-item-separator", props.className)}
     />
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(DomProps.t)
+  let make = (props: DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="item-title"
       className={cn(
         "cn-item-title line-clamp-1 flex w-fit items-center",
-        className,
+        props.className,
       )}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(DomProps.t)
+  let make = (props: DomProps.t) =>
     <p
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="item-description"
       className={cn(
         "cn-item-description [&>a:hover]:text-primary line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4",
-        className,
+        props.className,
       )}
     />
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(DomProps.t)
+  let make = (props: DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="item-header"
-      className={cn("cn-item-header flex basis-full items-center justify-between", className)}
+      className={cn(
+        "cn-item-header flex basis-full items-center justify-between",
+        props.className,
+      )}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(DomProps.t)
+  let make = (props: DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="item-footer"
-      className={cn("cn-item-footer flex basis-full items-center justify-between", className)}
+      className={cn(
+        "cn-item-footer flex basis-full items-center justify-between",
+        props.className,
+      )}
     />
 }

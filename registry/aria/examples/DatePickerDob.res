@@ -1,33 +1,35 @@
 @@directive("'use client'")
 
+module IDate = ReactAria.InternationalizedDate
+
+let formatDate = date =>
+  date
+  ->IDate.toDate(IDate.getLocalTimeZone())
+  ->Date.toLocaleDateStringWithLocaleAndOptions(
+    "en-US",
+    {day: #numeric, month: #long, year: #numeric},
+  )
+
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (open_, setOpen) = React.useState(() => false)
   let (date, setDate) = React.useState(() => None)
 
   <Field className="mx-auto w-44">
     <Field.Label htmlFor="date"> {"Date of birth"->React.string} </Field.Label>
-    <Popover open_={open_} onOpenChange={(v, _) => setOpen(_ => v)}>
-      <Popover.Trigger
-        render={<Button variant=Outline id="date" className="justify-start font-normal" />}
-      >
+    <Popover.Trigger>
+      <Button variant=Outline id="date" className="justify-start font-normal">
         {switch date {
-        | Some(d) => d->Date.toLocaleDateString->React.string
+        | Some(date) => date->formatDate->React.string
         | None => "Select date"->React.string
         }}
-      </Popover.Trigger>
-      <Popover.Content className="w-auto overflow-hidden p-0" align=Start>
+      </Button>
+      <Popover className="w-auto overflow-hidden p-0" placement=ReactAria.Common.BottomStart>
         <Calendar
-          mode=Single
-          selected=?date
-          defaultMonth=?date
-          captionLayout={Calendar.CaptionLayout.Dropdown}
-          onSelect={value => {
-            setDate(_ => value)
-            setOpen(_ => false)
-          }}
+          value=?date
+          captionLayout=Calendar.CaptionLayout.Dropdown
+          onChange={date => setDate(_ => Some(date))}
         />
-      </Popover.Content>
-    </Popover>
+      </Popover>
+    </Popover.Trigger>
   </Field>
 }

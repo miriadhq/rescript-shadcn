@@ -1,229 +1,130 @@
-@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
-
 @@directive("'use client'")
 
-open ReactAria.Types
+@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~children=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-) => {
-  let onOpenChange = onOpenChange->Option.map(callback => open_ => callback(open_, %raw(`undefined`)))
-  <ReactAria.Dialog.Trigger ?children isOpen=?open_ ?defaultOpen ?onOpenChange />
+module Side = {
+  @unboxed
+  type t =
+    | @as("top") Top
+    | @as("right") Right
+    | @as("bottom") Bottom
+    | @as("left") Left
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <Button
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="sheet-trigger"
-      className
-    />
+  @react.componentWithProps(ReactAria.Dialog.Trigger.props)
+  let make = (props: ReactAria.Dialog.Trigger.props) =>
+    <ReactAria.Dialog.Trigger {...props} dataSlot="sheet-trigger" />
 }
 
 module Close = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) => {
+    let variant = props.variant->Option.getOr(Outline)
+    let size = props.size->Option.getOr(Default)
     <Button
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
+      {...props}
       slot="close"
       dataSlot="sheet-close"
-      className
+      variant
+      size
+      className={cn("", props.className)}
     />
-}
-
-module Portal = {
-  @react.component
-  let make = (~children=?) => children->Option.getOr(React.null)
-}
-
-module Overlay = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <ReactAria.Dialog.ModalOverlay
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="sheet-overlay"
-      className={cn(
-        "cn-sheet-overlay data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 z-50 duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0",
-        className,
-      )}
-    />
-}
-
-let sideToString = (side: Side.t) =>
-  switch side {
-  | Top => "top"
-  | Bottom => "bottom"
-  | Left => "left"
-  | Right
-  | InlineStart
-  | InlineEnd => "right"
   }
+}
 
-module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~dir: option<string>=?,
-    ~dataSidebar=?,
-    ~dataSlot="sheet-content",
-    ~dataMobile=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~side=Side.Right,
-    ~showCloseButton=true,
-  ) => {
-    let style = switch (style, dir) {
-    | (Some(style), Some(dir)) => Some(style->ReactDOM.Style.unsafeAddProp("direction", dir))
-    | (None, Some(dir)) => Some(ReactDOM.Style._dictToStyle(dict{"direction": dir}))
-    | (Some(style), None) => Some(style)
-    | (None, None) => None
-    }
-    <ReactAria.Dialog.ModalOverlay
-      dataSlot="sheet-overlay"
-      className="cn-sheet-overlay data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 z-50 duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0"
+type props = {
+  side?: Side.t,
+  showCloseButton?: bool,
+  ...ReactAria.Dialog.Modal.props,
+}
+
+let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
+  `({side, showCloseButton, className, children, ...props}) => props`
+)
+
+let renderSheet = (props: props) => {
+  let side = props.side->Option.getOr(Side.Right)
+  let showCloseButton = props.showCloseButton->Option.getOr(true)
+  let isDismissable = props.isDismissable->Option.getOr(true)
+  <ReactAria.Dialog.ModalOverlay
+    {...props->overlayProps}
+    isDismissable
+    dataSlot="sheet-overlay"
+    className="cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-entering:opacity-0 data-exiting:opacity-0"
+  >
+    <ReactAria.Dialog.Modal
+      dataSlot="sheet-content"
+      dataSide={(side :> string)}
+      className={cn(
+        "cn-sheet-content data-entering:opacity-0 data-exiting:opacity-0 data-[side=bottom]:data-entering:translate-y-[2.5rem] data-[side=bottom]:data-exiting:translate-y-[2.5rem] data-[side=left]:data-entering:translate-x-[-2.5rem] data-[side=left]:data-exiting:translate-x-[-2.5rem] data-[side=right]:data-entering:translate-x-[2.5rem] data-[side=right]:data-exiting:translate-x-[2.5rem] data-[side=top]:data-entering:translate-y-[-2.5rem] data-[side=top]:data-exiting:translate-y-[-2.5rem]",
+        props.className,
+      )}
     >
-      <ReactAria.Dialog.Modal
-        ?id
-        style=?style
-        ?onClick
-        ?onKeyDown
-        dataSlot
-        ?dataSidebar
-        ?dataMobile
-        dataSide={sideToString(side)}
-        className={cn(
-          "cn-sheet-content bg-background data-open:animate-in data-closed:animate-out data-[side=right]:data-closed:slide-out-to-right-10 data-[side=right]:data-open:slide-in-from-right-10 data-[side=left]:data-closed:slide-out-to-left-10 data-[side=left]:data-open:slide-in-from-left-10 data-[side=top]:data-closed:slide-out-to-top-10 data-[side=top]:data-open:slide-in-from-top-10 data-closed:fade-out-0 data-open:fade-in-0 data-[side=bottom]:data-closed:slide-out-to-bottom-10 data-[side=bottom]:data-open:slide-in-from-bottom-10 fixed z-50 flex flex-col gap-4 bg-clip-padding text-sm shadow-lg transition duration-200 ease-in-out data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm",
-          className,
-        )}
+      <ReactAria.Dialog
+        dataSlot="sheet"
+        className="[display:inherit] h-full max-h-[inherit] [flex-direction:inherit] [gap:inherit] outline-none"
       >
-        <ReactAria.Dialog dataSlot="sheet-content-inner">
-          {children}
+        {props.children->Option.getOr(React.null)}
         {showCloseButton
-          ? <Button
-              dataSlot="sheet-close"
-              variant=Ghost
-              size=IconSm
-              className="cn-sheet-close"
-              slot="close"
-            >
+          ? <Close variant=Ghost className="cn-sheet-close" size=IconSm>
               <Icons.X />
               <span className="sr-only"> {"Close"->React.string} </span>
-            </Button>
+            </Close>
           : React.null}
-        </ReactAria.Dialog>
-      </ReactAria.Dialog.Modal>
-    </ReactAria.Dialog.ModalOverlay>
-  }
+      </ReactAria.Dialog>
+    </ReactAria.Dialog.Modal>
+  </ReactAria.Dialog.ModalOverlay>
+}
+
+@react.componentWithProps(props)
+let make = (props: props) => renderSheet(props)
+
+module Content = {
+  @react.componentWithProps(props)
+  let make = (props: props) => renderSheet(props)
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="sheet-header"
-      className={cn("cn-sheet-header flex flex-col", className)}
+      className={cn("cn-sheet-header flex flex-col", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="sheet-footer"
-      className={cn("cn-sheet-footer mt-auto flex flex-col", className)}
+      className={cn("cn-sheet-footer mt-auto flex flex-col", props.className)}
     />
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <h2
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+  @react.componentWithProps(ReactAria.Heading.props)
+  let make = (props: ReactAria.Heading.props) =>
+    <ReactAria.Heading
+      {...props}
+      slot="title"
       dataSlot="sheet-title"
-      className={cn("cn-sheet-title cn-font-heading", className)}
+      className={cn("cn-sheet-title cn-font-heading", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <p
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <div
+      {...props}
       dataSlot="sheet-description"
-      className={cn("cn-sheet-description", className)}
+      className={cn("cn-sheet-description", props.className)}
     />
 }

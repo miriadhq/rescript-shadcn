@@ -1,8 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Dialog>
-    <Dialog.Trigger render={<Button variant=Outline />}> {"Share"->React.string} </Dialog.Trigger>
-    <Dialog.Content className="sm:max-w-md">
+  <Dialog.Trigger>
+    <Button variant=Outline> {"Share"->React.string} </Button>
+    <Dialog className="sm:max-w-md">
       <Dialog.Header>
         <Dialog.Title> {"Share link"->React.string} </Dialog.Title>
         <Dialog.Description>
@@ -16,7 +16,7 @@ let make = ({}: Demo.Props.t) =>
         </div>
       </div>
       <Dialog.Footer className="sm:justify-start">
-        <Dialog.Close render={<Button type_="button" />}> {"Close"->React.string} </Dialog.Close>
+        <Dialog.Close type_="button"> {"Close"->React.string} </Dialog.Close>
       </Dialog.Footer>
-    </Dialog.Content>
-  </Dialog>
+    </Dialog>
+  </Dialog.Trigger>

@@ -1,6 +1,14 @@
 @@directive("'use client'")
 
-@module("date-fns") external format: (Date.t, string) => string = "format"
+module IDate = ReactAria.InternationalizedDate
+
+let formatDate = date =>
+  date
+  ->IDate.toDate(IDate.getLocalTimeZone())
+  ->Date.toLocaleDateStringWithLocaleAndOptions(
+    "en-US",
+    {day: #numeric, month: #long, year: #numeric},
+  )
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
@@ -8,25 +16,16 @@ let make = ({}: Demo.Props.t) => {
 
   <Field className="mx-auto w-44">
     <Field.Label htmlFor="date-picker-simple"> {"Date"->React.string} </Field.Label>
-    <Popover>
-      <Popover.Trigger
-        render={<Button
-          variant=Outline id="date-picker-simple" className="justify-start font-normal"
-        />}
-      >
+    <Popover.Trigger>
+      <Button variant=Outline id="date-picker-simple" className="justify-start font-normal">
         {switch date {
-        | Some(d) => d->format("PPP")->React.string
+        | Some(date) => date->formatDate->React.string
         | None => <span> {"Pick a date"->React.string} </span>
         }}
-      </Popover.Trigger>
-      <Popover.Content className="w-auto p-0" align=Start>
-        <Calendar
-          mode=Single
-          selected=?{date}
-          onSelect={(value: option<Date.t>) => setDate(_ => value)}
-          defaultMonth=?{date}
-        />
-      </Popover.Content>
-    </Popover>
+      </Button>
+      <Popover className="w-auto p-0" placement=ReactAria.Common.BottomStart>
+        <Calendar value=?date onChange={date => setDate(_ => Some(date))} />
+      </Popover>
+    </Popover.Trigger>
   </Field>
 }

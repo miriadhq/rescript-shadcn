@@ -56,11 +56,9 @@ npm install react-aria-components rescript-react-aria
 ## Usage
 
 ```res showLineNumbers
-<DropdownMenu>
-  <DropdownMenu.Trigger render={<Button variant=Outline />}>
-    {"Open"->React.string}
-  </DropdownMenu.Trigger>
-  <DropdownMenu.Content>
+<DropdownMenu.Trigger>
+  <Button variant=Outline> {"Open"->React.string} </Button>
+  <DropdownMenu>
     <DropdownMenu.Group>
       <DropdownMenu.Label> {"My Account"->React.string} </DropdownMenu.Label>
       <DropdownMenu.Item> {"Profile"->React.string} </DropdownMenu.Item>
@@ -71,8 +69,8 @@ npm install react-aria-components rescript-react-aria
       <DropdownMenu.Item> {"Team"->React.string} </DropdownMenu.Item>
       <DropdownMenu.Item> {"Subscription"->React.string} </DropdownMenu.Item>
     </DropdownMenu.Group>
-  </DropdownMenu.Content>
-</DropdownMenu>
+  </DropdownMenu>
+</DropdownMenu.Trigger>
 ```
 
 ## Examples
@@ -103,7 +101,7 @@ Combine icons with labels for quick scanning.
 
 ### Checkboxes
 
-Use `DropdownMenu.CheckboxItem` for toggles.
+Set `selectionMode=Multiple` on `DropdownMenu` to create selectable checkbox items.
 
 <ComponentPreview name="DropdownMenuCheckboxes" />
 
@@ -115,7 +113,7 @@ Add icons to checkbox items.
 
 ### Radio Group
 
-Use `DropdownMenu.RadioGroup` for exclusive choices.
+Set `selectionMode=Single` on `DropdownMenu` for an exclusive selection.
 
 <ComponentPreview name="DropdownMenuRadioGroup" />
 
