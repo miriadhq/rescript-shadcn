@@ -57,35 +57,21 @@ module ResizablePrimitive = {
   }
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~orientation=?,
-) =>
+@react.componentWithProps(ResizablePrimitive.Group.props)
+let make = (props: ResizablePrimitive.Group.props) =>
   <ResizablePrimitive.Group
-    ?id
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
-    ?orientation
-    ?children
+    {...props}
     dataSlot="resizable-panel-group"
-    className={cn("cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col", className)}
+    className={cn(
+      "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",
+      props.className,
+    )}
   />
 
 module Panel = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~defaultSize=?, ~min=?, ~max=?) =>
-    <ResizablePrimitive.Panel
-      ?className ?children ?id ?style ?defaultSize ?min ?max dataSlot="resizable-panel"
-    />
+  @react.componentWithProps(ResizablePrimitive.Panel.props)
+  let make = (props: ResizablePrimitive.Panel.props) =>
+    <ResizablePrimitive.Panel {...props} dataSlot="resizable-panel" />
 }
 
 module Handle = {
@@ -111,9 +97,7 @@ module Handle = {
         className,
       )}
     >
-      {withHandle
-        ? <div className="cn-resizable-handle-icon z-10 flex shrink-0" />
-        : React.null}
+      {withHandle ? <div className="cn-resizable-handle-icon z-10 flex shrink-0" /> : React.null}
     </ResizablePrimitive.Separator>
   }
 }

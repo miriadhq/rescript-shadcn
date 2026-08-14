@@ -1,6 +1,8 @@
 module Root = {
   type props = {
     ...Types.BaseUIComponentProps.t,
+    min?: float,
+    max?: float,
     value?: float,
   }
   @module("@base-ui/react/progress") @scope("Progress")

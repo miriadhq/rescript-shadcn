@@ -16,13 +16,11 @@ let make = (
   ~onClick=?,
   ~onKeyDown=?,
 ) => {
-  let maxStr = max->Option.map(i => i->Int.toString)
-  let minStr = min->Option.map(i => i->Int.toString)
   <BaseUi.Progress.Root
     ?id
     ?value
-    max=?maxStr
-    min=?minStr
+    ?max
+    ?min
     ?dir
     ?style
     ?onClick
