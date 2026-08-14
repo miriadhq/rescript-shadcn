@@ -1,10 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Dialog>
-    <Dialog.Trigger render={<Button variant=Outline />}>
-      {"Scrollable Content"->React.string}
-    </Dialog.Trigger>
-    <Dialog.Content>
+  <Dialog.Trigger>
+    <Button variant=Outline> {"Scrollable Content"->React.string} </Button>
+    <Dialog>
       <Dialog.Header>
         <Dialog.Title> {"Scrollable Content"->React.string} </Dialog.Title>
         <Dialog.Description>
@@ -18,5 +16,5 @@ let make = ({}: Demo.Props.t) =>
           </p>
         )->React.array}
       </div>
-    </Dialog.Content>
-  </Dialog>
+    </Dialog>
+  </Dialog.Trigger>

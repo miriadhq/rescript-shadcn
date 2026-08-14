@@ -11,7 +11,7 @@ module Size = Toggle.Size
 
 module Orientation = {
   @unboxed
-  type t =
+  type t = ReactAria.Common.orientation =
     | @as("horizontal") Horizontal
     | @as("vertical") Vertical
 }
@@ -34,102 +34,73 @@ module ContextProvider = {
   let make = React.Context.provider(toggleGroupContext)
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~variant: option<Variant.t>=?,
-  ~size: option<Size.t>=?,
-  ~spacing=2.,
-  ~orientation=Orientation.Horizontal,
-  ~children,
-  ~id=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~disabled=?,
-  ~multiple=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~dir=?,
-) => {
-  let onSelectionChange = onValueChange->Option.map(callback => values => callback(values, %raw(`undefined`)))
-  let selectionMode = multiple->Option.map(multiple =>
-    multiple ? ReactAria.Common.Multiple : ReactAria.Common.Single
-  )
+type props = {
+  variant?: Variant.t,
+  size?: Size.t,
+  spacing?: float,
+  children?: React.element,
+  ...ReactAria.ToggleButtonGroup.componentProps,
+}
+
+let groupProps: props => ReactAria.ToggleButtonGroup.componentProps = %raw(`({variant, size, spacing, children, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let spacing = props.spacing->Option.getOr(2.)
+  let orientation = props.orientation->Option.getOr(Horizontal)
   <ReactAria.ToggleButtonGroup
+    {...props->groupProps->ReactAria.ToggleButtonGroup.toProps}
     dataSlot="toggle-group"
-    dataVariant=?{(variant :> option<string>)}
-    dataSize=?{(size :> option<string>)}
+    dataVariant=?{(props.variant :> option<string>)}
+    dataSize=?{(props.size :> option<string>)}
     dataSpacing={spacing}
     dataOrientation={(orientation :> string)}
-    style={ReactDOM.Style.unsafeAddStyle({}, {"--gap": spacing})}
-    className={cn(
-      "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
-      className,
+    style={ReactDOM.Style._dictToStyle(
+      dict{"--gap": "calc(var(--spacing) * " ++ spacing->Float.toString ++ ")"},
     )}
-    ?id
-    selectedKeys=?value
-    defaultSelectedKeys=?defaultValue
-    ?onSelectionChange
-    isDisabled=?disabled
-    ?selectionMode
-    ?onClick
-    ?onKeyDown
-    ?tabIndex
-    ?ariaLabel
-    ?dir
+    className={cn(
+      "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-(--gap) data-vertical:flex-col data-vertical:items-stretch",
+      props.className,
+    )}
   >
-    <ContextProvider value={{?variant, ?size, spacing, orientation}}> {children} </ContextProvider>
+    <ContextProvider
+      value={{
+        variant: ?props.variant,
+        size: ?props.size,
+        spacing,
+        orientation: (orientation :> Orientation.t),
+      }}
+    >
+      {props.children->Option.getOr(React.null)}
+    </ContextProvider>
   </ReactAria.ToggleButtonGroup>
 }
 
 module Item = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~variant=Variant.Default,
-    ~size=Size.Default,
-    ~children=?,
-    ~id=?,
-    ~value=?,
-    ~pressed=?,
-    ~defaultPressed=?,
-    ~onPressedChange=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~tabIndex=?,
-    ~ariaLabel=?,
-    ~type_=?,
-  ) => {
-    let context = React.useContext(toggleGroupContext)
-    let variant = context.variant->Option.getOr(variant)
-    let size = context.size->Option.getOr(size)
-    let onChange = onPressedChange->Option.map(callback => selected => callback(selected, %raw(`undefined`)))
+  type props = {
+    variant?: Variant.t,
+    size?: Size.t,
+    ...ReactAria.ToggleButton.props,
+  }
 
+  let itemProps: props => ReactAria.ToggleButton.props = %raw(`({variant, size, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let context = React.useContext(toggleGroupContext)
+    let variant = context.variant->Option.orElse(props.variant)->Option.getOr(Default)
+    let size = context.size->Option.orElse(props.size)->Option.getOr(Default)
     <ReactAria.ToggleButton
+      {...props->itemProps}
       dataSlot="toggle-group-item"
       dataVariant={(variant :> string)}
       dataSize={(size :> string)}
       dataSpacing=?context.spacing
       className={cn3(
-        "cn-toggle-group-item shrink-0 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        "cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
         Toggle.toggleVariants(~variant, ~size),
-        className,
+        props.className,
       )}
-      id=?{value->Option.orElse(id)}
-      isSelected=?pressed
-      defaultSelected=?defaultPressed
-      ?onChange
-      isDisabled=?disabled
-      ?onClick
-      ?onKeyDown
-      ?tabIndex
-      ?ariaLabel
-      ?type_
-      ?children
     />
   }
 }

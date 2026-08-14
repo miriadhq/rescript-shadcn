@@ -20,7 +20,7 @@ let make = ({}: Demo.Props.t) => {
       label: r.label,
       value: r.value,
     })}
-    disabled={true}
+    isDisabled={true}
   >
     <Select.Trigger className="w-full max-w-48">
       <Select.Value />
@@ -29,7 +29,7 @@ let make = ({}: Demo.Props.t) => {
       <Select.Group>
         {rows
         ->Array.map(row =>
-          <Select.Item key={row.label} value={row.value} disabled={row.disabled}>
+          <Select.Item key={row.label} value={row.value} isDisabled={row.disabled}>
             {row.label->React.string}
           </Select.Item>
         )

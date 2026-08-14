@@ -16,13 +16,11 @@ let make = ({}: Demo.Props.t) => {
     </ButtonGroup>
     <ButtonGroup>
       <Button variant=Outline> {"Snooze"->React.string} </Button>
-      <DropdownMenu>
-        <DropdownMenu.Trigger
-          render={<Button variant=Outline size=Icon ariaLabel="More Options" />}
-        >
+      <DropdownMenu.Trigger>
+<Button variant=Outline size=Icon ariaLabel="More Options">
           <Icons.MoreHorizontal />
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content align=End className="w-40">
+        </Button>
+<DropdownMenu placement=ReactAria.Common.BottomEnd className="w-40">
           <DropdownMenu.Group>
             <DropdownMenu.Item>
               <Icons.MailCheck />
@@ -53,19 +51,27 @@ let make = ({}: Demo.Props.t) => {
                 {"Label As..."->React.string}
               </DropdownMenu.SubTrigger>
               <DropdownMenu.SubContent>
-                <DropdownMenu.RadioGroup
-                  value=label onValueChange={(nextLabel, _) => setLabel(_ => nextLabel)}
+                <DropdownMenu.Group
+                  selectionMode=Single
+                  selectedKeys={[label]}
+                  onSelectionChange={selection =>
+                    switch selection {
+                    | ReactAria.Common.Keys(keys) =>
+                      setLabel(_ => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(label))
+                    | ReactAria.Common.All => ()
+                    }
+                  }
                 >
-                  <DropdownMenu.RadioItem value="personal">
+                  <DropdownMenu.Item id="personal">
                     {"Personal"->React.string}
-                  </DropdownMenu.RadioItem>
-                  <DropdownMenu.RadioItem value="work">
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item id="work">
                     {"Work"->React.string}
-                  </DropdownMenu.RadioItem>
-                  <DropdownMenu.RadioItem value="other">
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item id="other">
                     {"Other"->React.string}
-                  </DropdownMenu.RadioItem>
-                </DropdownMenu.RadioGroup>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Group>
               </DropdownMenu.SubContent>
             </DropdownMenu.Sub>
           </DropdownMenu.Group>
@@ -76,8 +82,8 @@ let make = ({}: Demo.Props.t) => {
               {"Trash"->React.string}
             </DropdownMenu.Item>
           </DropdownMenu.Group>
-        </DropdownMenu.Content>
-      </DropdownMenu>
+        </DropdownMenu>
+</DropdownMenu.Trigger>
     </ButtonGroup>
   </ButtonGroup>
 }

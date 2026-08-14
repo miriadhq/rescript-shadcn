@@ -54,9 +54,9 @@ npm install react-aria-components rescript-react-aria
 
 ```res showLineNumbers
 <Collapsible>
-  <Collapsible.Trigger render={<Button variant=Ghost size=Icon />}>
+  <Button slot="trigger" variant=Ghost size=Icon>
     <Icons.ChevronsUpDown />
-  </Collapsible.Trigger>
+  </Button>
   <Collapsible.Content>
     {"Content here."->React.string}
   </Collapsible.Content>
@@ -65,16 +65,16 @@ npm install react-aria-components rescript-react-aria
 
 ## Controlled State
 
-Use the `open` and `onOpenChange` props to control the state.
+Use `isExpanded` and `onExpandedChange` to control the disclosure state.
 
 ```res showLineNumbers
 @react.component
 let make = () => {
-  let (open_, setOpen) = React.useState(() => false)
+  let (isExpanded, setIsExpanded) = React.useState(() => false)
 
-  <Collapsible open_= onOpenChange={o => setOpen(_ => o)}>
-    <CollapsibleTrigger> {"Toggle"->React.string} </CollapsibleTrigger>
-    <CollapsibleContent> {"Content"->React.string} </CollapsibleContent>
+  <Collapsible isExpanded onExpandedChange={next => setIsExpanded(_ => next)}>
+    <Button slot="trigger"> {"Toggle"->React.string} </Button>
+    <Collapsible.Content> {"Content"->React.string} </Collapsible.Content>
   </Collapsible>
 }
 ```
@@ -106,4 +106,4 @@ Use nested collapsibles to build a file tree.
 
 ## API Reference
 
-See the [React Aria](https://react-spectrum.adobe.com/react-aria/components.html) documentation for more information.
+See the [React Aria Disclosure](https://react-spectrum.adobe.com/react-aria/Disclosure.html) documentation for more information.

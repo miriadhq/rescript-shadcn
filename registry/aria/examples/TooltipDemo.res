@@ -1,8 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Tooltip>
-    <Tooltip.Trigger render={<Button variant=Outline />}> {"Hover"->React.string} </Tooltip.Trigger>
-    <Tooltip.Content>
+  <Tooltip.Trigger>
+    <Button variant=Outline> {"Hover"->React.string} </Button>
+    <Tooltip>
       <p> {"Add to library"->React.string} </p>
-    </Tooltip.Content>
-  </Tooltip>
+    </Tooltip>
+  </Tooltip.Trigger>

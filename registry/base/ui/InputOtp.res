@@ -22,7 +22,7 @@ module InputOtpPrimitive = {
 
   type slot = {
     isActive: bool,
-    char: Nullable.t<string>,
+    char: nullable<string>,
     hasFakeCaret: bool,
   }
 

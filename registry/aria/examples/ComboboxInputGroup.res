@@ -49,12 +49,12 @@ let make = ({}: Demo.Props.t) =>
         <Icons.Globe />
       </InputGroup.Addon>
     </Combobox.Input>
-    <Combobox.Content alignOffset={-28.} className="w-60">
+    <Combobox.Content crossOffset={-28.} className="w-60">
       <Combobox.List
         renderEmptyState={_ =>
           <Combobox.Empty> {"No timezones found."->React.string} </Combobox.Empty>}
       >
-        {(group, _index) =>
+        {group =>
           <Combobox.Group key={group.value}>
             <Combobox.Label> {group.value->React.string} </Combobox.Label>
             {group.items

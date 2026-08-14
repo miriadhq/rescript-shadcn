@@ -56,19 +56,17 @@ npm install react-aria-components rescript-react-aria
 ## Usage
 
 ```res showLineNumbers
-<Dialog>
-  <Dialog.Trigger render={<Button variant=Outline />}>
-    {"Open"->React.string}
-  </Dialog.Trigger>
-  <Dialog.Content>
+<Dialog.Trigger>
+  <Button variant=Outline> {"Open"->React.string} </Button>
+  <Dialog>
     <Dialog.Header>
       <Dialog.Title> {"Are you absolutely sure?"->React.string} </Dialog.Title>
       <Dialog.Description>
         {"This action cannot be undone."->React.string}
       </Dialog.Description>
     </Dialog.Header>
-  </Dialog.Content>
-</Dialog>
+  </Dialog>
+</Dialog.Trigger>
 ```
 
 ## Examples

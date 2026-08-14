@@ -42,5 +42,4 @@ let make = ({}: Demo.Props.t) =>
       )
       ->React.array}
     </div>
-    <ScrollArea.ScrollBar orientation=Horizontal />
   </ScrollArea>

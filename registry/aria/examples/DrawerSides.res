@@ -1,13 +1,18 @@
-let sides = [Drawer.Top, Drawer.Right, Drawer.Bottom, Drawer.Left]
+let sides = [
+  Drawer.SwipeDirection.Up,
+  Drawer.SwipeDirection.Right,
+  Drawer.SwipeDirection.Down,
+  Drawer.SwipeDirection.Left,
+]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <div className="flex flex-wrap gap-2">
     {sides
     ->Array.map(side =>
-      <Drawer key={(side :> string)} direction=side>
-        <Drawer.Trigger asChild=true>
-          <Button variant=Outline className="capitalize"> {(side :> string)->React.string} </Button>
+      <Drawer key={(side :> string)} swipeDirection=side showSwipeHandle=true>
+        <Drawer.Trigger render={<Button variant=Outline className="capitalize" />}>
+          {(side :> string)->React.string}
         </Drawer.Trigger>
         <Drawer.Content
           className="data-[swipe-direction=bottom]:max-h-[50vh] data-[swipe-direction=top]:max-h-[50vh]"
@@ -27,8 +32,8 @@ let make = ({}: Demo.Props.t) =>
           </div>
           <Drawer.Footer>
             <Button> {"Submit"->React.string} </Button>
-            <Drawer.Close asChild=true>
-              <Button variant=Outline> {"Cancel"->React.string} </Button>
+            <Drawer.Close render={<Button variant=Outline />}>
+              {"Cancel"->React.string}
             </Drawer.Close>
           </Drawer.Footer>
         </Drawer.Content>

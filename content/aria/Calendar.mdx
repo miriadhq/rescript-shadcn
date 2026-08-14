@@ -4,19 +4,11 @@ description: A calendar component that allows users to select a date or a range 
 base: aria
 component: true
 links:
-  doc: https://react-day-picker.js.org
+  doc: https://react-spectrum.adobe.com/react-aria/Calendar.html
+  api: https://react-spectrum.adobe.com/react-aria/Calendar.html#api
 ---
 
-<ComponentPreview
-  name="CalendarDemo"
-  previewClassName="h-96"
-/>
-
-## Blocks
-
-We have built a collection of 30+ calendar blocks that you can use to build your own calendar components.
-
-See all calendar blocks in the [Blocks Library](/blocks/calendar) page.
+<ComponentPreview name="CalendarDemo" previewClassName="h-96" />
 
 ## Installation
 
@@ -33,196 +25,90 @@ npx shadcn@latest add @rescript-shadcn/Calendar
 ```
 
 </TabsContent>
-
 <TabsContent value="manual">
 
 <Steps className="mb-0 pt-2">
 
-<Step>Install the following dependencies:</Step>
+<Step>Install the React Aria and date dependencies.</Step>
 
 ```bash
-npm install react-day-picker date-fns
+npm install react-aria-components @internationalized/date rescript-react-aria
 ```
 
-<Step>Add the `Button` component to your project.</Step>
+<Step>Copy the component into your project.</Step>
 
-The `Calendar` component uses the `Button` component. Make sure you have it installed in your project.
-
-<Step>Copy and paste the following code into your project.</Step>
-
-<ComponentSource lib="aria"
-  name="Calendar"
-  title="components/ui/Calendar.res"
-/>
+<ComponentSource lib="aria" name="Calendar" title="components/ui/Calendar.res" />
 
 </Steps>
 
 </TabsContent>
-
 </CodeTabs>
 
 ## Usage
 
-```res showLineNumbers
-let (date, setDate) = React.useState(() => Some(Date.make()))
-
-<Calendar
-  mode=Single
-  selected=?date
-  onSelect={value => setDate(_ => value)}
-  className="rounded-lg border"
-/>
-```
-
-See the [React DayPicker](https://react-day-picker.js.org) documentation for more information.
-
-## About
-
-The `Calendar` component is built on top of [React DayPicker](https://react-day-picker.js.org).
-
-## Date Picker
-
-You can use the `<Calendar>` component to build a date picker. See the [Date Picker](/components/base/DatePicker) page for more information.
-
-## Persian / Hijri / Jalali Calendar
-
-To use the Persian calendar, edit `components/ui/Calendar.res` and replace `react-day-picker` with `react-day-picker/persian`.
-
-```diff
-- @module("react-day-picker")
-+ @module("react-day-picker/persian")
-external make: Props.t<'selected> => React.element = "DayPicker"
-```
-
-<ComponentPreview
-  name="CalendarHijri"
-  title="Persian / Hijri / Jalali Calendar"
-  description="A Persian calendar."
-  previewClassName="h-[400px]"
-/>
-
-## Selected Date (With TimeZone)
-
-The Calendar component accepts a `timeZone` prop to ensure dates are displayed and selected in the user's local timezone.
+React Aria calendars use values from `@internationalized/date` rather than
+JavaScript `Date` values.
 
 ```res showLineNumbers
-module CalendarWithTimezone = {
-  @react.component 
-  let make = () => {
-    let (date, setDate) = React.useState(() => None)
-    let (timeZone, setTimeZone) = React.useState(() => None)
+module IDate = ReactAria.InternationalizedDate
 
-    React.useEffect(() => {
-      setTimeZone((Intl.DateTimeFormat.make()->Intl.DateTimeFormat.resolvedOptions).timeZone)
-      None
-    }, [])
+@react.component
+let make = () => {
+  let initialDate = IDate.today(IDate.getLocalTimeZone())
+  let (date, setDate) = React.useState(() => initialDate)
 
-    <Calendar
-      mode=Single
-      selected=date
-      onSelect={date => setDate(_ => date)}
-      timeZone
-    />
-  }
+  <Calendar
+    value=date
+    onChange={nextDate => setDate(_ => nextDate)}
+    className="rounded-lg border"
+  />
 }
 ```
-
-**Note:** If you notice a selected date offset (for example, selecting the 20th highlights the 19th), make sure the `timeZone` prop is set to the user's local timezone.
-
-**Why client-side?** The timezone is detected using `Intl.DateTimeFormat().resolvedOptions().timeZone` inside a `useEffect` to ensure compatibility with server-side rendering. Detecting the timezone during render would cause hydration mismatches, as the server and client may be in different timezones.
 
 ## Examples
 
 ### Basic
 
-A basic calendar component. We used `className="rounded-lg border"` to style the calendar.
-
-<ComponentPreview
-  name="CalendarBasic"
-  previewClassName="h-96"
-/>
+<ComponentPreview name="CalendarBasic" previewClassName="h-96" />
 
 ### Range Calendar
 
-Use the `mode="range"` prop to enable range selection.
+Use `Calendar.Range` with a `{start, end_}` value for range selection.
 
-<ComponentPreview
-  name="CalendarRange"
-  previewClassName="h-[36rem] md:h-96"
-/>
+<ComponentPreview name="CalendarRange" previewClassName="h-[36rem] md:h-96" />
 
-### Month and Year Selector
+### Month and Year Selectors
 
-Use `captionLayout="dropdown"` to show month and year dropdowns.
+Set `captionLayout=Dropdown` to display month and year selectors.
 
-<ComponentPreview
-  name="CalendarCaption"
-  previewClassName="h-96"
-/>
+<ComponentPreview name="CalendarCaption" previewClassName="h-96" />
 
 ### Presets
 
-<ComponentPreview
-  name="CalendarPresets"
-  previewClassName="h-[650px]"
-/>
+<ComponentPreview name="CalendarPresets" previewClassName="h-[650px]" />
 
-### Date and Time Picker
+### Date and Time
 
-<ComponentPreview
-  name="CalendarTime"
-  previewClassName="h-[600px]"
-/>
+<ComponentPreview name="CalendarTime" previewClassName="h-[600px]" />
 
-### Booked dates
+### Unavailable Dates
 
-<ComponentPreview
-  name="CalendarBookedDates"
-  previewClassName="h-96"
-/>
+Pass `isDateUnavailable` to prevent selection of booked dates.
 
-### Custom Cell Size
+<ComponentPreview name="CalendarBookedDates" previewClassName="h-96" />
+
+### Custom Cells
+
+Pass `renderCell` to customize each date cell while retaining React Aria's
+selection and focus behavior.
 
 <ComponentPreview
   name="CalendarCustomDays"
   title="Custom Cell Size"
-  description="A calendar with custom cell size that's responsive."
+  description="A calendar with custom date cells."
   className="**:[.preview]:h-[560px]"
 />
 
-You can customize the size of calendar cells using the `--cell-size` CSS variable. You can also make it responsive by using breakpoint-specific values:
-
-```res showLineNumbers
-<Calendar
-  mode="single"
-  selected={date}
-  onSelect={setDate}
-  className="rounded-lg border [--cell-size:--spacing(11)] md:[--cell-size:--spacing(12)]"
-/>
-```
-
-Or use fixed values:
-
-```res showLineNumbers
-<Calendar
-  mode="single"
-  selected={date}
-  onSelect={setDate}
-  className="rounded-lg border [--cell-size:2.75rem] md:[--cell-size:3rem]"
-/>
-```
-
-### Week Numbers
-
-Use `showWeekNumber` to show week numbers.
-
-<ComponentPreview
-  name="CalendarWeekNumbers"
-  previewClassName="h-96"
-/>
-
-
 ## API Reference
 
-See the [React DayPicker](https://react-day-picker.js.org) documentation for more information on the `Calendar` component.
-
+See the [React Aria Calendar documentation](https://react-spectrum.adobe.com/react-aria/Calendar.html).

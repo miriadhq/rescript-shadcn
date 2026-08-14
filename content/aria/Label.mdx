@@ -11,7 +11,7 @@ links:
 <ComponentPreview name="LabelDemo" />
 
 <Callout>
-  For form fields, use the [Field](/docs/components/base/field) component which
+  For form fields, use the [Field](/components/Field) component which
   includes built-in label, description, and error handling.
 </Callout>
 
@@ -62,12 +62,12 @@ npm install react-aria-components rescript-react-aria
 
 ## Label in Field
 
-For form fields, use the [Field](/docs/components/base/field) component which
+For form fields, use the [Field](/components/Field) component which
 includes built-in `FieldLabel`, `FieldDescription`, and `FieldError` components.
 
 ```res showLineNumbers
 <Field>
-  <Field.Label htmlFor="email"> {"Your email address"->React.string} </FieldLabel>
+  <Field.Label htmlFor="email"> {"Your email address"->React.string} </Field.Label>
   <Input id="email" />
 </Field>
 ```

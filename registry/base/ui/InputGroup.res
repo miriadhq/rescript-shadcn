@@ -38,9 +38,9 @@ module Variant = {
 
 @get external mouseEventTarget: JsxEvent.Mouse.t => Dom.element = "target"
 @get external mouseEventCurrentTarget: JsxEvent.Mouse.t => Dom.element = "currentTarget"
-@get external parentElement: Dom.element => Nullable.t<Dom.element> = "parentElement"
-@send external closest: (Dom.element, string) => Nullable.t<Dom.element> = "closest"
-@send external querySelector: (Dom.element, string) => Nullable.t<Dom.element> = "querySelector"
+@get external parentElement: Dom.element => nullable<Dom.element> = "parentElement"
+@send external closest: (Dom.element, string) => nullable<Dom.element> = "closest"
+@send external querySelector: (Dom.element, string) => nullable<Dom.element> = "querySelector"
 @send external focusElement: Dom.element => unit = "focus"
 
 @react.componentWithProps(BaseUi.Types.DomProps.t)

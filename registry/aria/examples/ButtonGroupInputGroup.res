@@ -18,20 +18,18 @@ let make = ({}: Demo.Props.t) => {
       <InputGroup>
         <InputGroup.Input placeholder disabled=voiceEnabled />
         <InputGroup.Addon align=InlineEnd>
-          <Tooltip>
-            <Tooltip.Trigger
-              render={<InputGroup.Button
+          <Tooltip.Trigger>
+            <InputGroup.Button
                 onClick={_ => setVoiceEnabled(value => !value)}
                 size=IconXs
                 dataActive=voiceEnabled
                 ariaPressed={voiceEnabled ? #"true" : #"false"}
                 className="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
-              />}
             >
               <Icons.AudioLines />
-            </Tooltip.Trigger>
-            <Tooltip.Content> {"Voice Mode"->React.string} </Tooltip.Content>
-          </Tooltip>
+            </InputGroup.Button>
+            <Tooltip> {"Voice Mode"->React.string} </Tooltip>
+          </Tooltip.Trigger>
         </InputGroup.Addon>
       </InputGroup>
     </ButtonGroup>

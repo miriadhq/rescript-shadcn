@@ -1,31 +1,31 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <div className="flex flex-col gap-4">
-    <ToggleGroup size=ToggleGroup.Size.Sm defaultValue={["top"]} variant=Outline>
-      <ToggleGroup.Item value="top" ariaLabel="Toggle top">
+    <ToggleGroup size=ToggleGroup.Size.Sm defaultSelectedKeys={["top"]} variant=Outline>
+      <ToggleGroup.Item id="top" ariaLabel="Toggle top">
         {"Top"->React.string}
       </ToggleGroup.Item>
-      <ToggleGroup.Item value="bottom" ariaLabel="Toggle bottom">
+      <ToggleGroup.Item id="bottom" ariaLabel="Toggle bottom">
         {"Bottom"->React.string}
       </ToggleGroup.Item>
-      <ToggleGroup.Item value="left" ariaLabel="Toggle left">
+      <ToggleGroup.Item id="left" ariaLabel="Toggle left">
         {"Left"->React.string}
       </ToggleGroup.Item>
-      <ToggleGroup.Item value="right" ariaLabel="Toggle right">
+      <ToggleGroup.Item id="right" ariaLabel="Toggle right">
         {"Right"->React.string}
       </ToggleGroup.Item>
     </ToggleGroup>
-    <ToggleGroup defaultValue={["top"]} variant=Outline>
-      <ToggleGroup.Item value="top" ariaLabel="Toggle top">
+    <ToggleGroup defaultSelectedKeys={["top"]} variant=Outline>
+      <ToggleGroup.Item id="top" ariaLabel="Toggle top">
         {"Top"->React.string}
       </ToggleGroup.Item>
-      <ToggleGroup.Item value="bottom" ariaLabel="Toggle bottom">
+      <ToggleGroup.Item id="bottom" ariaLabel="Toggle bottom">
         {"Bottom"->React.string}
       </ToggleGroup.Item>
-      <ToggleGroup.Item value="left" ariaLabel="Toggle left">
+      <ToggleGroup.Item id="left" ariaLabel="Toggle left">
         {"Left"->React.string}
       </ToggleGroup.Item>
-      <ToggleGroup.Item value="right" ariaLabel="Toggle right">
+      <ToggleGroup.Item id="right" ariaLabel="Toggle right">
         {"Right"->React.string}
       </ToggleGroup.Item>
     </ToggleGroup>

@@ -610,12 +610,7 @@ module Style = {
     let colorConfig =
       config
       ->Dict.toArray
-      ->Array.filter(((_, itemConfig)) =>
-        switch itemConfig {
-        | {theme: _} | {color: _} => true
-        | _ => false
-        }
-      )
+      ->Array.filter(((_, itemConfig)) => itemConfig.theme->Option.isSome || itemConfig.color->Option.isSome)
     switch colorConfig {
     | [] => React.null
     | _ =>
@@ -646,39 +641,40 @@ module Style = {
   }
 }
 
-@react.component
-let make = (
-  ~config: chartConfig,
-  ~className=?,
-  ~children,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) => {
+type props = {
+  config: chartConfig,
+  initialDimension?: Recharts.Dimensions.t,
+  ...ReactAria.Types.DomProps.t,
+}
+let domProps: props => ReactAria.Types.DomProps.t = %raw(
+  `({config, initialDimension, id, children, ...props}) => props`
+)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
   let uniqueId = React.useId()->String.replaceAll(":", "")
-  let chartId = switch id {
+  let chartId = switch props.id {
   | Some(id) => `chart-${id}`
   | None => `chart-${uniqueId}`
   }
   module Provider = {
     let make = React.Context.provider(chartContext)
   }
-  <Provider value={Some({config: config})}>
+  <Provider value={Some({config: props.config})}>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props->domProps}
       dataSlot="chart"
       dataChart={chartId}
       className={cn(
         "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
-        className,
+        props.className,
       )}
     >
-      <Style id={chartId} config={config} />
-      <Recharts.ResponsiveContainer children />
+      <Style id={chartId} config={props.config} />
+      <Recharts.ResponsiveContainer
+        initialDimension={props.initialDimension->Option.getOr({width: 320., height: 200.})}
+        children={props.children->Option.getOr(React.null)}
+      />
     </div>
   </Provider>
 }
@@ -694,6 +690,10 @@ module Indicator = {
 }
 
 module TooltipContent = {
+  let formatValue: 'value => string = %raw(
+    `value => typeof value === "number" ? value.toLocaleString() : String(value)`
+  )
+
   @react.component
   let make = (
     ~active=false,
@@ -789,7 +789,7 @@ module TooltipContent = {
             | _ => None
             }
             let rawItemValue = item.value
-            let itemValue = rawItemValue->Option.map(Float.toLocaleString)
+            let itemValue = rawItemValue->Option.map(formatValue)
             let shouldShowValue = rawItemValue->Option.isSome
             let itemLabel =
               itemConfig

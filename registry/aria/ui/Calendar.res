@@ -2,540 +2,273 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@send external focusElement: Dom.element => unit = "focus"
-
-module Locale = {
-  type t = private {
-    code: string,
-  }
-}
-
-module Day = {
-  type t = {date: Date.t}
-}
-
-module DayModifiers = {
-  type t = {
-    focused?: bool,
-    selected?: bool,
-    outside?: bool,
-    @as("range_start") rangeStart?: bool,
-    @as("range_end") rangeEnd?: bool,
-    @as("range_middle") rangeMiddle?: bool,
-  }
-}
-
-module Orientation = {
-  type t =
-    | @as("left") Left
-    | @as("right") Right
-    | @as("up") Up
-    | @as("down") Down
-}
-
-module ChevronProps = {
-  type t = {
-    ...Icons.props,
-    orientation?: Orientation.t,
-  }
-}
-
-module RootProps = {
-  type t = {
-    className?: string,
-    children?: React.element,
-    rootRef?: JsxDOM.domRef,
-    id?: string,
-    style?: ReactDOM.Style.t,
-    onClick?: JsxEvent.Mouse.t => unit,
-    onKeyDown?: JsxEvent.Keyboard.t => unit,
-    @as("data-mode") dataMode?: string,
-    @as("data-week-numbers") dataWeekNumbers?: bool,
-    @as("data-multiple-months") dataMultipleMonths?: bool,
-  }
-}
-
-module WeekNumberProps = {
-  type t = {
-    className?: string,
-    children?: React.element,
-    @as("aria-label") ariaLabel?: string,
-    role?: string,
-    scope?: string,
-    week?: int,
-  }
-}
-
-module Modifiers = {
-  type t = {
-    selected?: bool,
-    disabled?: bool,
-    today?: bool,
-  }
-}
-
-module DayButtonProps = {
-  type t = {
-    className?: string,
-    children: React.element,
-    day: Day.t,
-    modifiers: DayModifiers.t,
-    locale?: Locale.t,
-    id?: string,
-    style?: ReactDOM.Style.t,
-    disabled?: bool,
-    tabIndex?: int,
-    onClick?: JsxEvent.Mouse.t => unit,
-    onKeyDown?: JsxEvent.Keyboard.t => unit,
-    onBlur?: ReactEvent.Focus.t => unit,
-    onFocus?: ReactEvent.Focus.t => unit,
-    onMouseEnter?: ReactEvent.Mouse.t => unit,
-    onMouseLeave?: ReactEvent.Mouse.t => unit,
-    @as("aria-label") ariaLabel?: string,
-  }
-}
-
-module DayPickerClassNames = {
-  type t = {
-    root?: string,
-    months?: string,
-    month?: string,
-    nav?: string,
-    @as("button_previous") buttonPrevious?: string,
-    @as("button_next") buttonNext?: string,
-    @as("month_caption") monthCaption?: string,
-    dropdowns?: string,
-    @as("dropdown_root") dropdownRoot?: string,
-    dropdown?: string,
-    @as("caption_label") captionLabel?: string,
-    @as("month_grid") monthGrid?: string,
-    weekdays?: string,
-    weekday?: string,
-    week?: string,
-    @as("week_number_header") weekNumberHeader?: string,
-    @as("week_number") weekNumber?: string,
-    day?: string,
-    @as("range_start") rangeStart?: string,
-    @as("range_middle") rangeMiddle?: string,
-    @as("range_end") rangeEnd?: string,
-    today?: string,
-    outside?: string,
-    disabled?: string,
-    hidden?: string,
-  }
-}
-
-@module("react-day-picker")
-external getDefaultClassNames: unit => DayPickerClassNames.t = "getDefaultClassNames"
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@module("tailwind-merge")
-external cn4: (
-  string,
-  string,
-  ~additional: option<string>=?,
-  ~additional2: option<string>=?,
-) => string = "twMerge"
-
-module DayButton = {
-  let toButtonProps: DayButtonProps.t => Button.props = %raw(`({day, modifiers, locale, ...rest}) => rest`)
-
-  @react.componentWithProps(DayButtonProps.t)
-  let make = (props: DayButtonProps.t) => {
-    let className = props.className
-    let day = props.day
-    let modifiers = props.modifiers
-    let locale = props.locale
-    let children = props.children
-    let props = props->toButtonProps
-
-    let defaultClassNames = getDefaultClassNames()
-
-    let buttonRef = React.useRef(null)
-    React.useEffect(() => {
-      if modifiers.focused->Option.getOr(false) {
-        buttonRef.current->Nullable.forEach(focusElement)
-      }
-      None
-    }, [modifiers.focused])
-
-    <Button
-      {...props}
-      variant=Ghost
-      size=Icon
-      ref={buttonRef->ReactDOM.Ref.domRef}
-      dataSlot="button"
-      suppressHydrationWarning=true
-      dataDay={switch locale {
-      | Some({code}) => Date.toLocaleDateStringWithLocale(day.Day.date, code)
-      | None => Date.toLocaleDateString(day.Day.date)
-      }}
-      dataSelectedSingle={modifiers.selected->Option.getOr(false) &&
-      !(modifiers.rangeStart->Option.getOr(false)) &&
-      !(modifiers.rangeEnd->Option.getOr(false)) &&
-      !(modifiers.rangeMiddle->Option.getOr(false))}
-      dataRangeStart=?{modifiers.rangeStart}
-      dataRangeEnd=?{modifiers.rangeEnd}
-      dataRangeMiddle=?{modifiers.rangeMiddle}
-      className={cn4(
-        "cn-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
-        defaultClassNames.day->Option.getOr(""),
-        ~additional=className,
-      )}
-    >
-      {children}
-    </Button>
-  }
-}
-
-module ComponentProps = {
-  type t = {
-    modifiers?: Modifiers.t,
-    ...JsxDOM.domProps,
-  }
-}
-
-type componentRenderer = ComponentProps.t => React.element
-
-module DayPickerFormatters = {
-  module DateLibOptions = {
-    type t = {
-      locale?: Locale.t,
-      timeZone?: string,
-      numerals?: string,
-    }
-  }
-  type t = {
-    formatMonthDropdown?: Date.t => string,
-    formatCaption?: (Date.t, ~options: DateLibOptions.t=?) => string,
-    formatDay?: (Date.t, ~options: DateLibOptions.t) => string,
-    formatWeekdayName?: (Date.t, ~options: DateLibOptions.t=?) => string,
-    formatWeekNumber?: int => string,
-    formatYearDropdown?: int => string,
-    formatMonthCaption?: (Date.t, ~options: DateLibOptions.t=?) => string,
-  }
-}
-
-module DayPickerComponents = {
-  type t = {
-    @as("Root") root?: RootProps.t => React.element,
-    @as("Chevron") chevron?: ChevronProps.t => React.element,
-    @as("DayButton") dayButton?: DayButtonProps.t => React.element,
-    @as("WeekNumber") weekNumber?: WeekNumberProps.t => React.element,
-    @as("Months") months?: componentRenderer,
-    @as("Month") month?: componentRenderer,
-    @as("MonthCaption") monthCaption?: componentRenderer,
-    @as("DropdownNav") dropdownNav?: componentRenderer,
-    @as("Dropdown") dropdown?: componentRenderer,
-    @as("CaptionLabel") captionLabel?: componentRenderer,
-    @as("Nav") nav?: componentRenderer,
-    @as("Weekdays") weekdays?: componentRenderer,
-    @as("Weekday") weekday?: componentRenderer,
-    @as("Week") week?: componentRenderer,
-    @as("Day") day?: componentRenderer,
-    @as("Footer") footer?: componentRenderer,
-    @as("PreviousMonthButton") previousMonthButton?: componentRenderer,
-    @as("NextMonthButton") nextMonthButton?: componentRenderer,
-    @as("MonthGrid") monthGrid?: componentRenderer,
-    @as("Select") select?: componentRenderer,
-    @as("Option") option?: componentRenderer,
-    @as("MonthsDropdown") monthsDropdown?: componentRenderer,
-    @as("YearsDropdown") yearsDropdown?: componentRenderer,
-    @as("Weeks") weeks?: componentRenderer,
-    @as("WeekNumberHeader") weekNumberHeader?: componentRenderer,
-    @as("Button") button?: componentRenderer,
-  }
-}
-
 module CaptionLayout = {
+  @unboxed
   type t =
     | @as("label") Label
     | @as("dropdown") Dropdown
-    | @as("dropdown-months") DropdownMonths
-    | @as("dropdown-years") DropdownYears
 }
 
-module Labels = {
-  type t = {
-    labelNav: unit => string,
-    labelGrid: Date.t => string,
-    labelGridcell: (Date.t, ~modifiers: Modifiers.t=?) => string,
-    labelMonthDropdown: unit => string,
-    labelYearDropdown: unit => string,
-    labelNext: (~nextMonth: Date.t=?) => string,
-    labelPrevious: (~previousMonth: Date.t=?) => string,
-    labelDayButton: (Date.t, ~modifiers: Modifiers.t=?) => string,
-    labelWeekday: Date.t => string,
-    labelWeekNumber: int => string,
-    labelWeekNumberHeader: unit => string,
-  }
+type extraProps = {
+  buttonVariant?: Button.Variant.t,
+  captionLayout?: CaptionLayout.t,
+  numberOfMonths?: int,
+  showWeekNumber?: bool,
+  headerFormat?: JSON.t,
+  renderCell?: ReactAria.Calendar.Cell.renderProps => React.element,
 }
 
-module Direction = {
-  @unboxed
-  type t =
-    | @as("ltr") Ltr
-    | @as("rtl") Rtl
+type props<'date> = {
+  ...ReactAria.Calendar.props<'date>,
+  ...extraProps,
 }
 
-module DateRange = {
-  type t = {
-    from: Date.t,
-    to?: Date.t,
-  }
+let calendarProps: props<'date> => ReactAria.Calendar.props<'date> = %raw(`({
+  buttonVariant,
+  captionLayout,
+  numberOfMonths,
+  showWeekNumber,
+  headerFormat,
+  renderCell,
+  ...props
+}) => props`)
+
+let cellClass = (~showWeekNumber, state: ReactAria.Calendar.Cell.renderProps) => {
+  let variants = [
+    showWeekNumber
+      ? "[&:is(:nth-child(2)>[data-selected=true])>div]:rounded-l-(--cell-radius)"
+      : "[&:is(:first-child>[data-selected=true])>div]:rounded-l-(--cell-radius)",
+    state.isToday
+      ? "rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none"
+      : "",
+    state.isSelectionStart
+      ? "relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted"
+      : "",
+    state.isSelectionEnd
+      ? "relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted"
+      : "",
+    state.isUnavailable ? "text-muted-foreground opacity-50 [&>div]:line-through" : "",
+    state.isDisabled ? "text-muted-foreground opacity-50" : "",
+    state.isOutsideMonth
+      ? "text-muted-foreground aria-selected:text-muted-foreground"
+      : "",
+  ]->Array.join(" ")
+  `group/day relative mt-2 aspect-square h-full w-full cursor-default rounded-(--cell-radius) p-0 text-center select-none [&:is(:last-child>[data-selected=true])>div]:rounded-r-(--cell-radius) ${variants}`
 }
 
-module DayPicker = {
-  module SelectionMode = {
-    type rec t<_> =
-      | @as("single") Single: t<Date.t>
-      | @as("multiple") Multiple: t<array<Date.t>>
-      | @as("range") Range: t<DateRange.t>
-      | @as("none") NoSelection: t<unit>
-  }
+let dayButtonClass = Button.buttonVariants(~variant=Ghost, ~size=Icon) ++
+  " cn-calendar-day-button relative isolate z-10 flex aspect-square h-full w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70"
 
-  module Matcher = {
-    @unboxed
-    type t =
-      | Fn(Date.t => bool)
-      | Dates(array<Date.t>)
-  }
-
-  module Props = {
-    type t<'selected> = {
-      showOutsideDays?: bool,
-      className?: string,
-      captionLayout?: CaptionLayout.t,
-      dir?: Direction.t,
-      locale?: Locale.t,
-      formatters?: DayPickerFormatters.t,
-      classNames?: DayPickerClassNames.t,
-      required?: bool,
-      mode?: SelectionMode.t<'selected>,
-      selected?: 'selected,
-      onSelect?: option<'selected> => unit,
-      defaultMonth?: Date.t,
-      month?: Date.t,
-      onMonthChange?: Date.t => unit,
-      startMonth?: Date.t,
-      endMonth?: Date.t,
-      numberOfMonths?: int,
-      reverseMonths?: bool,
-      pagedNavigation?: bool,
-      navLayout?: string,
-      hideNavigation?: bool,
-      disableNavigation?: bool,
-      showWeekNumber?: bool,
-      fixedWeeks?: bool,
-      weekStartsOn?: int,
-      @as("ISOWeek") isoWeek?: bool,
-      fromDate?: Date.t,
-      toDate?: Date.t,
-      fromMonth?: Date.t,
-      toMonth?: Date.t,
-      fromYear?: int,
-      toYear?: int,
-      broadcastCalendar?: bool,
-      timeZone?: string,
-      animate?: bool,
-      autoFocus?: bool,
-      onDayClick?: (Date.t, Modifiers.t, JsxEvent.Mouse.t) => unit,
-      onNextClick?: Date.t => unit,
-      onPrevClick?: Date.t => unit,
-      styles?: dict<ReactDOM.Style.t>,
-      labels?: Labels.t,
-      hidden?: Matcher.t,
-      footer?: React.element,
-      disabled?: Matcher.t,
-      modifiers?: dict<Matcher.t>,
-      modifiersClassNames?: dict<string>,
-      components?: DayPickerComponents.t,
-    }
-  }
-
-  @module("react-day-picker")
-  external make: Props.t<'selected> => React.element = "DayPicker"
+module MonthDropdown = {
+  @react.component
+  let make = (~format=?) =>
+    <ReactAria.Calendar.MonthPicker ?format>
+      {pickerProps =>
+        <Select
+          items={pickerProps.items}
+          value={pickerProps.value}
+          onChange={value => pickerProps.onChange(value->Nullable.make)}
+          ariaLabel={pickerProps.ariaLabel}
+          className="relative"
+        >
+          <Select.Trigger>
+            <Select.Value />
+          </Select.Trigger>
+          <Select.Content className="min-w-0">
+            <Select.Group>
+              {pickerProps.items
+              ->Array.map(item =>
+                <Select.Item key={item.id->Int.toString} id={item.id}>
+                  {item.formatted->React.string}
+                </Select.Item>
+              )
+              ->React.array}
+            </Select.Group>
+          </Select.Content>
+        </Select>}
+    </ReactAria.Calendar.MonthPicker>
 }
 
-module Props = {
-  type t<'selected> = {
-    ...DayPicker.Props.t<'selected>,
-    buttonVariant?: Button.Variant.t,
-  }
+module YearDropdown = {
+  @react.component
+  let make = (~format=?) =>
+    <ReactAria.Calendar.YearPicker ?format>
+      {pickerProps =>
+        <Select
+          items={pickerProps.items}
+          value={pickerProps.value}
+          onChange={value => pickerProps.onChange(value->Nullable.make)}
+          ariaLabel={pickerProps.ariaLabel}
+          className="relative"
+        >
+          <Select.Trigger>
+            <Select.Value />
+          </Select.Trigger>
+          <Select.Content className="min-w-0">
+            {pickerProps.items
+            ->Array.map(item =>
+              <Select.Item key={item.id->Int.toString} id={item.id}>
+                {item.formatted->React.string}
+              </Select.Item>
+            )
+            ->React.array}
+          </Select.Content>
+        </Select>}
+    </ReactAria.Calendar.YearPicker>
 }
 
-let toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<'selected> = %raw(`function({buttonVariant, ...rest}){ return rest; }`)
+@get external getMonthFormat: JSON.t => nullable<string> = "month"
 
-@scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
+module Inner = {
+  @react.component
+  let make = (
+    ~captionLayout=CaptionLayout.Label,
+    ~buttonVariant=Button.Variant.Ghost,
+    ~numberOfMonths=1,
+    ~showWeekNumber=false,
+    ~headerFormat: option<JSON.t>=?,
+    ~renderCell=?,
+    ~isRange=false,
+  ) =>
+    <div className="relative flex flex-col gap-4 md:flex-row">
+      <header className="absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1">
+        <Button
+          variant=buttonVariant
+          slot="previous"
+          className="size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
+        >
+          <Icons.ChevronLeft className="cn-rtl-flip size-4" />
+        </Button>
+        <Button
+          variant=buttonVariant
+          slot="next"
+          className="size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
+        >
+          <Icons.ChevronRight className="cn-rtl-flip size-4" />
+        </Button>
+      </header>
+      {Array.fromInitializer(~length=numberOfMonths, index =>
+        <div key={index->Int.toString} className="flex w-full flex-col gap-4">
+          <div className="flex h-(--cell-size) w-full items-center justify-center gap-1 px-(--cell-size)">
+            {switch captionLayout {
+            | Dropdown =>
+              let monthFormat = headerFormat->Option.flatMap(format =>
+                format->getMonthFormat->Nullable.toOption
+              )
+              <>
+                <MonthDropdown format=?monthFormat />
+                <YearDropdown format=?headerFormat />
+              </>
+            | Label =>
+              <ReactAria.Calendar.Heading
+                offset={{months: index}}
+                format=?headerFormat
+                className="cn-calendar-caption text-sm font-medium select-none"
+              />
+            }}
+          </div>
+          <ReactAria.Calendar.Grid className="w-full border-collapse" offset={{months: index}}>
+            <ReactAria.Calendar.GridHeader>
+              {day =>
+                <ReactAria.Calendar.HeaderCell className="rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none">
+                  {day->React.string}
+                </ReactAria.Calendar.HeaderCell>}
+            </ReactAria.Calendar.GridHeader>
+            <ReactAria.Calendar.GridBody>
+              {date =>
+                <ReactAria.Calendar.Cell
+                  date
+                  className={ReactAria.Calendar.Cell.renderClassName(state =>
+                    cellClass(~showWeekNumber, state)
+                  )}
+                >
+                  {state =>
+                    <div
+                      dataSelectedSingle={state.isSelected && !isRange}
+                      dataRangeStart={state.isSelectionStart && isRange}
+                      dataRangeEnd={state.isSelectionEnd && isRange}
+                      dataRangeMiddle={state.isSelected &&
+                      !state.isSelectionStart &&
+                      !state.isSelectionEnd &&
+                      isRange}
+                      className=dayButtonClass
+                    >
+                      {switch renderCell {
+                      | Some(renderCell) => renderCell(state)
+                      | None => state.defaultChildren
+                      }}
+                    </div>}
+                </ReactAria.Calendar.Cell>}
+            </ReactAria.Calendar.GridBody>
+          </ReactAria.Calendar.Grid>
+        </div>
+      )->React.array}
+    </div>
+}
 
-@react.componentWithProps(Props.t)
-let make = props => {
-  let showOutsideDays = props.Props.showOutsideDays->Option.getOr(true)
-  let captionLayout = props.captionLayout->Option.getOr(CaptionLayout.Label)
-  let buttonVariant = props.buttonVariant->Option.getOr(Button.Variant.Ghost)
-  let formatters = props.formatters->Option.getOr({})
-  let classNames = props.classNames->Option.getOr({})
-  let components = props.components->Option.getOr({})
-  let showWeekNumber = props.showWeekNumber->Option.getOr(false)
-  let defaultClassNames = getDefaultClassNames()
-  let props = props->toDayPickerProps
-
-  <DayPicker
-    {...props}
-    showOutsideDays
+@react.componentWithProps(props)
+let make = (props: props<'date>) => {
+  let numberOfMonths = props.numberOfMonths->Option.getOr(1)
+  <ReactAria.Calendar
+    {...props->calendarProps}
+    dataSlot="calendar"
+    visibleDuration={{months: numberOfMonths}}
     className={cn(
-      "cn-calendar bg-background group/calendar in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
+      "cn-calendar group/calendar w-fit bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
       props.className,
     )}
-    captionLayout
-    formatters={merge(
-      ~defaults={
-        DayPickerFormatters.formatMonthDropdown: date =>
-          date->Date.toLocaleDateStringWithLocaleAndOptions(
-            switch props.locale {
-            | Some({code}) => code
-            | None => "default"
-            },
-            {month: #short},
-          ),
-      },
-      formatters,
-    )}
-    classNames={merge(
-      ~defaults={
-        DayPickerClassNames.root: cn("w-fit", defaultClassNames.root),
-        months: cn("flex gap-4 flex-col md:flex-row relative", defaultClassNames.months),
-        month: cn("flex flex-col w-full gap-4", defaultClassNames.month),
-        nav: cn(
-          "flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between",
-          defaultClassNames.nav,
-        ),
-        buttonPrevious: cn4(
-          Button.buttonVariants(~variant=buttonVariant),
-          "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none",
-          ~additional=defaultClassNames.buttonPrevious,
-        ),
-        buttonNext: cn4(
-          Button.buttonVariants(~variant=buttonVariant),
-          "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none",
-          ~additional=defaultClassNames.buttonNext,
-        ),
-        monthCaption: cn(
-          "flex items-center justify-center h-(--cell-size) w-full px-(--cell-size)",
-          defaultClassNames.monthCaption,
-        ),
-        dropdowns: cn(
-          "w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5",
-          defaultClassNames.dropdowns,
-        ),
-        dropdownRoot: cn(
-          "relative cn-calendar-dropdown-root rounded-(--cell-radius)",
-          defaultClassNames.dropdownRoot,
-        ),
-        dropdown: cn("absolute bg-popover inset-0 opacity-0", defaultClassNames.dropdown),
-        captionLabel: cn4(
-          "select-none font-medium",
-          switch captionLayout {
-          | CaptionLayout.Label => "cn-calendar-caption text-sm"
-          | Dropdown => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
-          | DropdownMonths => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
-          | DropdownYears => "cn-calendar-caption-label rounded-(--cell-radius) flex items-center gap-1 text-sm [&>svg]:text-muted-foreground [&>svg]:size-3.5"
-          },
-          ~additional=defaultClassNames.captionLabel,
-        ),
-        monthGrid: cn("w-full border-collapse", defaultClassNames.monthGrid),
-        weekdays: cn("flex", defaultClassNames.weekdays),
-        weekday: cn(
-          "text-muted-foreground rounded-(--cell-radius) flex-1 font-normal text-[0.8rem] select-none",
-          defaultClassNames.weekday,
-        ),
-        week: cn("flex w-full mt-2", defaultClassNames.week),
-        weekNumberHeader: cn("select-none w-(--cell-size)", defaultClassNames.weekNumberHeader),
-        weekNumber: cn(
-          "text-[0.8rem] select-none text-muted-foreground",
-          defaultClassNames.weekNumber,
-        ),
-        day: cn4(
-          "relative w-full rounded-(--cell-radius) h-full p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius) group/day aspect-square select-none",
-          showWeekNumber
-            ? "[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)"
-            : "[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)",
-          ~additional=defaultClassNames.day,
-        ),
-        rangeStart: cn(
-          "rounded-l-(--cell-radius) bg-muted relative after:bg-muted after:absolute after:inset-y-0 after:w-4 after:right-0 z-0 isolate",
-          defaultClassNames.rangeStart,
-        ),
-        rangeMiddle: cn("rounded-none", defaultClassNames.rangeMiddle),
-        rangeEnd: cn(
-          "rounded-r-(--cell-radius) bg-muted relative after:bg-muted after:absolute after:inset-y-0 after:w-4 after:left-0 z-0 isolate",
-          defaultClassNames.rangeEnd,
-        ),
-        today: cn(
-          "bg-muted text-foreground rounded-(--cell-radius) data-[selected=true]:rounded-none",
-          defaultClassNames.today,
-        ),
-        outside: cn(
-          "text-muted-foreground aria-selected:text-muted-foreground",
-          defaultClassNames.outside,
-        ),
-        disabled: cn("text-muted-foreground opacity-50", defaultClassNames.disabled),
-      },
-      classNames,
-    )}
-    components={merge(
-      ~defaults={
-        DayPickerComponents.root: ({
-          ?className,
-          ?children,
-          ?rootRef,
-          ?id,
-          ?style,
-          ?onClick,
-          ?onKeyDown,
-          ?dataMode,
-          ?dataWeekNumbers,
-          ?dataMultipleMonths,
-        }) =>
-          <div
-            dataSlot="calendar"
-            ref=?rootRef
-            ?className
-            ?children
-            ?id
-            ?style
-            ?onClick
-            ?onKeyDown
-            ?dataMode
-            ?dataWeekNumbers
-            ?dataMultipleMonths
-          />,
-        chevron: (props: ChevronProps.t) => {
-          let className = props.className
-          let orientation = props.orientation
-          let props = ({...props, orientation: ?None} :> Icons.props)
-          switch orientation {
-          | Some(Left) =>
-            <Icons.ChevronLeft {...props} className={cn("cn-rtl-flip size-4", className)} />
-          | Some(Right) =>
-            <Icons.ChevronRight {...props} className={cn("cn-rtl-flip size-4", className)} />
-          | Some(Up | Down) | None =>
-            <Icons.ChevronDown {...props} className={cn("size-4", className)} />
-          }
-        },
-        dayButton: (props: DayButtonProps.t) => <DayButton {...props} locale=?{props.locale} />,
-        weekNumber: ({?children, ?className, ?ariaLabel, ?role, ?scope}) =>
-          <td ?className ?ariaLabel ?role ?scope>
-            <div
-              className="flex size-(--cell-size) items-center justify-center text-center" ?children
-            />
-          </td>,
-        week: ({?children, ?className, ?role}) =>
-          <tr ?className ?role> {children->Option.getOr(React.null)} </tr>,
-      },
-      components,
-    )}
-  />
+  >
+    <Inner
+      captionLayout={props.captionLayout->Option.getOr(Label)}
+      buttonVariant={props.buttonVariant->Option.getOr(Ghost)}
+      numberOfMonths
+      showWeekNumber={props.showWeekNumber->Option.getOr(false)}
+      headerFormat=?props.headerFormat
+      renderCell=?props.renderCell
+    />
+  </ReactAria.Calendar>
+}
+
+module Range = {
+  type props<'date> = {
+    ...ReactAria.Calendar.Range.props<'date>,
+    ...extraProps,
+  }
+
+  let calendarProps: props<'date> => ReactAria.Calendar.Range.props<'date> = %raw(`({
+    buttonVariant,
+    captionLayout,
+    numberOfMonths,
+    showWeekNumber,
+    headerFormat,
+    renderCell,
+    ...props
+  }) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props<'date>) => {
+    let numberOfMonths = props.numberOfMonths->Option.getOr(1)
+    <ReactAria.Calendar.Range
+      {...props->calendarProps}
+      dataSlot="calendar"
+      visibleDuration={{months: numberOfMonths}}
+      className={cn(
+        "cn-calendar group/calendar w-fit bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
+        props.className,
+      )}
+    >
+      <Inner
+        captionLayout={props.captionLayout->Option.getOr(Label)}
+        buttonVariant={props.buttonVariant->Option.getOr(Ghost)}
+        numberOfMonths
+        showWeekNumber={props.showWeekNumber->Option.getOr(false)}
+        headerFormat=?props.headerFormat
+        renderCell=?props.renderCell
+        isRange=true
+      />
+    </ReactAria.Calendar.Range>
+  }
 }

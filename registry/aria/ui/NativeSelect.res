@@ -20,21 +20,19 @@ let make = (
   ~defaultValue=?,
   ~disabled=?,
   ~required=?,
+  ~multiple=?,
+  ~autoComplete=?,
+  ~onChange=?,
   ~onClick=?,
   ~onKeyDown=?,
   ~tabIndex=?,
   ~ariaLabel=?,
-  ~invalid=false,
+  ~ariaInvalid=?,
   ~dir=?,
   ~style=?,
   ~size=Size.Default,
 ) => {
   <div
-    ?id
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
     dataSlot="native-select-wrapper"
     dataSize={(size :> string)}
     className={cn("cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50", className)}
@@ -46,12 +44,16 @@ let make = (
       ?defaultValue
       ?disabled
       ?required
+      ?multiple
+      ?autoComplete
+      ?onChange
       ?onClick
       ?onKeyDown
       ?tabIndex
       ?ariaLabel
-      ariaInvalid=?{invalid ? Some(#"true") : None}
+      ?ariaInvalid
       ?style
+      ?dir
       ?children
       dataSlot="native-select"
       dataSize={(size :> string)}
@@ -66,34 +68,24 @@ let make = (
 }
 
 module Option = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~value=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~style=?,
-  ) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <option
-      ?id
-      ?value
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      ?style
-      ?children
-      ?className
-      dataSlot="native-select-option"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("native-select-option")}
+      className={cn("bg-[Canvas] text-[CanvasText]", props.className)}
     />
 }
 
 module OptGroup = {
-  @react.component
-  let make = (~className="", ~children=?, ~id=?, ~label=?, ~style=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <optgroup
-      ?id ?label ?style ?children dataSlot="native-select-optgroup" className={`${className}`}
+      {...props}
+      dataSlot={switch props.dataSlot {
+      | Some(dataSlot) => dataSlot
+      | None => "native-select-optgroup"
+      }}
+      className={cn("bg-[Canvas] text-[CanvasText]", props.className)}
     />
 }

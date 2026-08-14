@@ -19,9 +19,9 @@ let make = ({}: Demo.Props.t) => {
     </Field.Description>
     <Slider
       value={value}
-      onValueChange={(v, _) => setValue(_ => v)}
-      max={1000.}
-      min={0.}
+      onChange={v => setValue(_ => v)}
+      maxValue={1000.}
+      minValue={0.}
       step={10.}
       className="mt-2 w-full"
       ariaLabel="Price Range"

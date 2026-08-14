@@ -20,6 +20,7 @@ const EXAMPLES_BASE_DIR = path.resolve(repoRoot, "shadcn-ui/apps/v4/examples/bas
 const EXAMPLES_UI_DIR = path.resolve(repoRoot, "shadcn-ui/apps/v4/registry/bases/base/ui")
 const RESCRIPT_EXAMPLES_DIR = path.resolve(repoRoot, "registry/base/examples")
 const RESCRIPT_UI_DIR = path.resolve(repoRoot, "registry/base/ui")
+const ARIA_RESCRIPT_EXAMPLES_DIR = path.resolve(repoRoot, "registry/aria/examples")
 const PAGE_LOAD_TIMEOUT_MS = Number(process.env.PARITY_PAGE_LOAD_TIMEOUT_MS ?? 20_000)
 const COMPONENT_TEST_TIMEOUT_MS = Number(process.env.PARITY_COMPONENT_TIMEOUT_MS ?? 900_000)
 const FONT_WAIT_TIMEOUT_MS = Number(process.env.PARITY_FONT_WAIT_TIMEOUT_MS ?? 2_000)
@@ -28,11 +29,19 @@ const SETUP_TIMEOUT_MS = Number(process.env.PARITY_SETUP_TIMEOUT_MS ?? 240_000)
 const SKIP_BUILD = ["1", "true", "yes"].includes((process.env.PARITY_SKIP_BUILD ?? "").toLowerCase())
 const IS_CI = ["1", "true", "yes"].includes((process.env.CI ?? "").toLowerCase())
 const SCREENSHOT_SSIM_MIN = Number(process.env.PARITY_SCREENSHOT_SSIM_MIN ?? 0.998)
+const LIBRARY_SCREENSHOT_SSIM_MIN = Number(
+  process.env.PARITY_LIBRARY_SCREENSHOT_SSIM_MIN ??
+    process.env.PARITY_SCREENSHOT_SSIM_MIN ??
+    0.99
+)
 const ALLOW_MISSING_RESCRIPT_EQUIVALENT = ["1", "true", "yes"].includes(
   (process.env.PARITY_ALLOW_MISSING_EQUIVALENT ?? "").toLowerCase()
 )
+const LIBRARY_PARITY = ["1", "true", "yes"].includes(
+  (process.env.PARITY_LIBRARY_PARITY ?? "").toLowerCase()
+)
 
-type Impl = "tsx" | "rescript"
+type Impl = "tsx" | "rescript" | "aria"
 
 type RuntimeDiagnostics = {
   httpStatus: number | null
@@ -110,6 +119,11 @@ const COMPONENT_IDS_FOR_PARITY =
 const UNKNOWN_REQUESTED_COMPONENT_IDS = REQUESTED_COMPONENT_IDS.filter(
   (component) => !EXAMPLE_COMPONENT_IDS.includes(component)
 )
+const LIBRARY_PARITY_COMPONENT_IDS = PAIRED_COMPONENT_IDS.filter(
+  (component) =>
+    !component.startsWith("ui/") &&
+    existsSync(path.join(ARIA_RESCRIPT_EXAMPLES_DIR, `${toPascalCase(component)}.res`))
+)
 
 let serverProcess: ChildProcessByStdio<null, Stream.Readable, Stream.Readable> | null = null
 let serverLogs = ""
@@ -123,6 +137,14 @@ async function waitForServer(url: string, timeoutMs = 120_000) {
   const startedAt = Date.now()
 
   while (Date.now() - startedAt < timeoutMs) {
+    if (serverProcess?.exitCode !== null) {
+      throw new Error(
+        [`Vite exited with code ${serverProcess?.exitCode} before ${url} became ready.`, serverLogs]
+          .filter(Boolean)
+          .join("\n\n")
+      )
+    }
+
     try {
       const response = await fetch(url)
       if (response.status < 500) {
@@ -135,7 +157,9 @@ async function waitForServer(url: string, timeoutMs = 120_000) {
     await delay(250)
   }
 
-  throw new Error(`Timed out waiting for Vite server at ${url}`)
+  throw new Error(
+    [`Timed out waiting for Vite server at ${url}`, serverLogs].filter(Boolean).join("\n\n")
+  )
 }
 
 async function runCommand(
@@ -231,6 +255,7 @@ async function computeScreenshotSsim(reference: Buffer, actual: Buffer) {
 
 function startServer() {
   const viteBin = path.resolve(repoRoot, "node_modules/.bin/vite")
+  serverLogs = ""
 
   const child = spawn(
     viteBin,
@@ -266,7 +291,7 @@ function startServer() {
 }
 
 async function stopServer() {
-  if (!serverProcess || serverProcess.killed) {
+  if (!serverProcess || serverProcess.killed || serverProcess.exitCode !== null) {
     return
   }
 
@@ -781,19 +806,48 @@ async function writeArtifacts(component: string, tsx: SnapshotBundle, rescript: 
   ])
 }
 
+async function writeLibraryArtifacts(
+  component: string,
+  base: SnapshotBundle,
+  aria: SnapshotBundle
+) {
+  const componentDir = path.join(ARTIFACTS_DIR, "libraries", component)
+  await fs.mkdir(componentDir, { recursive: true })
+  await Promise.all([
+    fs.writeFile(path.join(componentDir, "base.png"), base.screenshot),
+    fs.writeFile(path.join(componentDir, "aria.png"), aria.screenshot),
+    fs.writeFile(path.join(componentDir, "base.runtime.json"), JSON.stringify(base.runtime, null, 2)),
+    fs.writeFile(path.join(componentDir, "aria.runtime.json"), JSON.stringify(aria.runtime, null, 2)),
+    fs.writeFile(path.join(componentDir, "base.dom.json"), JSON.stringify(base.domSnapshot, null, 2)),
+    fs.writeFile(path.join(componentDir, "aria.dom.json"), JSON.stringify(aria.domSnapshot, null, 2)),
+    fs.writeFile(path.join(componentDir, "base.layout.json"), JSON.stringify(base.layoutSnapshot, null, 2)),
+    fs.writeFile(path.join(componentDir, "aria.layout.json"), JSON.stringify(aria.layoutSnapshot, null, 2)),
+  ])
+}
+
 describe("tsx vs rescript parity (vite harness)", () => {
   beforeAll(async () => {
     await fs.rm(ARTIFACTS_DIR, { recursive: true, force: true })
 
-    if (COMPONENT_IDS_FOR_PARITY.length === 0) {
+    const componentsToCapture = LIBRARY_PARITY
+      ? LIBRARY_PARITY_COMPONENT_IDS
+      : COMPONENT_IDS_FOR_PARITY
+
+    if (componentsToCapture.length === 0) {
       return
     }
 
     if (!SKIP_BUILD) {
-      const rescriptBin = path.resolve(repoRoot, "node_modules/.bin/rescript")
-      await runCommand(rescriptBin, [], {
-        cwd: repoRoot,
-      })
+      if (LIBRARY_PARITY) {
+        await runCommand(process.platform === "win32" ? "yarn.cmd" : "yarn", ["compile"], {
+          cwd: repoRoot,
+        })
+      } else {
+        const rescriptBin = path.resolve(repoRoot, "node_modules/.bin/rescript")
+        await runCommand(rescriptBin, [], {
+          cwd: repoRoot,
+        })
+      }
     }
 
     if (!process.env.PARITY_TEST_BASE_URL) {
@@ -802,8 +856,10 @@ describe("tsx vs rescript parity (vite harness)", () => {
     }
 
     browser = await puppeteer.launch({
+      headless: "shell",
       args: [
         "--lang=en-US",
+        "--disable-gpu",
         // Ubuntu runners (e.g. GitHub Actions) often disallow Chromium’s sandbox.
         ...(IS_CI
           ? ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
@@ -857,7 +913,7 @@ describe("tsx vs rescript parity (vite harness)", () => {
     expect(MISSING_RESCRIPT_COMPONENT_IDS, message).toEqual([])
   })
 
-  for (const component of COMPONENT_IDS_FOR_PARITY) {
+  for (const component of LIBRARY_PARITY ? [] : COMPONENT_IDS_FOR_PARITY) {
     it.concurrent(
       `${component} should match across runtime, DOM, layout, a11y and pixels`,
       async () => {
@@ -949,15 +1005,66 @@ describe("tsx vs rescript parity (vite harness)", () => {
                   `pixel mismatch`,
                   assertionContext,
                   `ssim actual: ${ssim.toFixed(6)}`,
-                  `ssim minimum: ${SCREENSHOT_SSIM_MIN.toFixed(6)}`,
+                  `ssim minimum: ${LIBRARY_SCREENSHOT_SSIM_MIN.toFixed(6)}`,
                 ].join("\n")
               )
-              .toBeGreaterThanOrEqual(SCREENSHOT_SSIM_MIN)
+              .toBeGreaterThanOrEqual(LIBRARY_SCREENSHOT_SSIM_MIN)
           }
         }
       },
       COMPONENT_TEST_TIMEOUT_MS
     )
+  }
+
+  if (LIBRARY_PARITY) {
+    for (const component of LIBRARY_PARITY_COMPONENT_IDS) {
+      it.concurrent(
+        `${component} should render the same with Base and React Aria`,
+        async () => {
+          let base: SnapshotBundle | null = null
+          let aria: SnapshotBundle | null = null
+
+          onTestFailed(async () => {
+            if (base && aria) await writeLibraryArtifacts(component, base, aria)
+          })
+
+          base = await captureBundle(component, "rescript")
+          aria = await captureBundle(component, "aria")
+          const assertionContext = [
+            `component: ${component}`,
+            `artifacts: ${path.join(ARTIFACTS_DIR, "libraries", component)}`,
+            `server: ${BASE_URL}`,
+          ].join("\n")
+
+          expect.soft(smokeIssues(base), [`base smoke failed`, assertionContext].join("\n")).toEqual([])
+          expect.soft(smokeIssues(aria), [`aria smoke failed`, assertionContext].join("\n")).toEqual([])
+          if (smokeIssues(base).length > 0 || smokeIssues(aria).length > 0) return
+
+          const ssim = await computeScreenshotSsim(base.screenshot, aria.screenshot)
+          if (ssim == null) {
+            expect
+              .soft(
+                aria.screenshot.toString("base64"),
+                [`pixel mismatch`, assertionContext, `ssim unavailable; using strict png bytes`].join("\n")
+              )
+              .toBe(base.screenshot.toString("base64"))
+          } else {
+            expect
+              .soft(
+                ssim,
+                [
+                  `pixel mismatch`,
+                  assertionContext,
+                  `ssim actual: ${ssim.toFixed(6)}`,
+                  `ssim minimum: ${LIBRARY_SCREENSHOT_SSIM_MIN.toFixed(6)}`,
+                ].join("\n")
+              )
+              .toBeGreaterThanOrEqual(LIBRARY_SCREENSHOT_SSIM_MIN)
+          }
+        },
+        COMPONENT_TEST_TIMEOUT_MS
+      )
+    }
   }
 
   it(

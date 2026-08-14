@@ -3,23 +3,17 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~ratio,
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=ReactDOM.Style.unsafeAddStyle({}, {"--ratio": ratio}),
-  ~onClick=?,
-  ~onKeyDown=?,
-) => {
+type props = {ratio: float, ...ReactAria.Types.DomProps.t}
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({ratio, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
   <div
-    ?id
-    style
-    ?children
-    ?onClick
-    ?onKeyDown
-    dataSlot="aspect-ratio"
-    className={cn("relative aspect-(--ratio)", className)}
+    {...props->domProps}
+    style={props.style->Option.getOr(
+      ReactDOM.Style.unsafeAddStyle({}, {"--ratio": props.ratio}),
+    )}
+    dataSlot={props.dataSlot->Option.getOr("aspect-ratio")}
+    className={cn("relative aspect-(--ratio)", props.className)}
   />
 }

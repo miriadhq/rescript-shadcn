@@ -63,7 +63,7 @@ let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
       renderEmptyState={_ =>
         <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>}
     >
-      {(item, _index) =>
+      {item =>
         <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
     </Combobox.List>
   </Combobox.Content>
@@ -72,7 +72,7 @@ let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
 ## Custom Items
 
-Use `itemToStringValue` when your items are objects.
+Set `textValue` on each item when its rendered children are not plain text.
 
 ```res showLineNumbers
 type framework = {
@@ -89,18 +89,19 @@ let frameworks = [
 module ExampleComboboxCustomItems = {
   @react.component
   let make = () => {
-    <Combobox
-      items={frameworks}
-      itemToStringValue={(framework) => framework.label}
-    >
+    <Combobox items={frameworks}>
       <Combobox.Input placeholder="Select a framework" />
       <Combobox.Content>
         <Combobox.List
           renderEmptyState={_ =>
             <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>}
         >
-          {(framework, _index) =>
-            <Combobox.Item key={framework.value} value={framework}>
+          {framework =>
+            <Combobox.Item
+              key={framework.value}
+              value={framework}
+              textValue={framework.label}
+            >
               {framework.label->React.string}
             </Combobox.Item>}
         </Combobox.List>
@@ -112,43 +113,36 @@ module ExampleComboboxCustomItems = {
 
 ## Multiple Selection
 
-Use `multiple` with chips for multi-select behavior.
+Use `selectionMode=ReactAria.Combobox.Multiple` with chips for multi-select behavior.
 
 ```res showLineNumbers
 let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
 module ExampleComboboxMultiple = {
   @react.component 
-  let make = () => {
-  let (value, setValue) = React.useState<string[]>([])
-
-    <Combobox.Multiple
+  let make = () =>
+    <Combobox
+      selectionMode=ReactAria.Combobox.Multiple
       items={frameworks}
-      value={value}
-      onValueChange={(v, _details) => setValue(_ => v)}
+      defaultValue={[frameworks->Array.getUnsafe(0)]}
+      allowsEmptyCollection=true
     >
       <Combobox.Chips>
-        <Combobox.Value>
-          {values =>
-            values
-            ->Array.map(item =>
-              <Combobox.Chip key=item> {item->React.string} </Combobox.Chip>
-            )
-            ->React.array}
-        </Combobox.Value>
-        <Combobox.ChipsInput placeholder="Add framework" />
+        <Combobox.ChipList>
+          {item => <Combobox.Chip key=item id=item> {item->React.string} </Combobox.Chip>}
+        </Combobox.ChipList>
+        <Combobox.ChipsInput />
       </Combobox.Chips>
       <Combobox.Content>
         <Combobox.List
           renderEmptyState={_ =>
             <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>}
         >
-          {(item, _index) => 
+          {item =>
             <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
         </Combobox.List>
       </Combobox.Content>
-    </Combobox.Multiple>
-  }
+    </Combobox>
 }
 ```
 
@@ -162,7 +156,7 @@ A simple combobox with a list of frameworks.
 
 ### Multiple
 
-A combobox with multiple selection using `multiple` and `ComboboxChips`.
+A combobox with multiple selection using `selectionMode=Multiple` and chips.
 
 <ComponentPreview name="ComboboxMultiple" />
 
@@ -174,7 +168,7 @@ Use the `showClear` prop to show a clear button.
 
 ### Groups
 
-Use `ComboboxGroup` and `ComboboxSeparator` to group items.
+Use `Combobox.Group`, `Combobox.Label`, and `Combobox.Separator` to group items.
 
 <ComponentPreview name="ComboboxGroups" />
 
@@ -186,25 +180,26 @@ You can render custom component inside `ComboboxItem`.
 
 ### Invalid
 
-Use the `aria-invalid` prop to make the combobox invalid.
+Use `isInvalid` to make the combobox invalid.
 
 <ComponentPreview name="ComboboxInvalid" />
 
 ### Disabled
 
-Use the `disabled` prop to disable the combobox.
+Use `isDisabled` to disable the combobox.
 
 <ComponentPreview name="ComboboxDisabled" />
 
 ### Auto Highlight
 
-Use the `autoHighlight` prop automatically highlight the first item on filter.
+Use React Aria's `menuTrigger` and focus strategy props to control initial highlighting.
 
 <ComponentPreview name="ComboboxAutoHighlight" />
 
 ### Popup
 
-You can trigger the combobox from a button or any other component by using the `render` prop. Move the `ComboboxInput` inside the `Combobox.Content`.
+Use `Combobox.Trigger` with `Combobox.Value`, and move `Combobox.Input` inside
+`Combobox.Content`, to present the combobox as a popup button.
 
 <ComponentPreview name="ComboboxPopup" />
 

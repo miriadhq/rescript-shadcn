@@ -93,8 +93,8 @@ The main select component that wraps the native HTML select element.
 
 ```res showLineNumbers
 <NativeSelect>
-  <NativeSelectOption value="option1">Option 1</NativeSelectOption>
-  <NativeSelectOption value="option2">Option 2</NativeSelectOption>
+  <NativeSelect.Option value="option1">Option 1</NativeSelect.Option>
+  <NativeSelect.Option value="option2">Option 2</NativeSelect.Option>
 </NativeSelect>
 ```
 
@@ -117,8 +117,8 @@ Groups related options together for better organization.
 | `disabled` | `bool` | `false` |
 
 ```res
-<NativeSelectOptGroup label="Fruits">
-  <NativeSelectOption value="apple"> {"Apple"->React.string} </NativeSelectOption>
-  <NativeSelectOption value="banana"> {"Banana"->React.string} </NativeSelectOption>
-</NativeSelectOptGroup>
+<NativeSelect.OptGroup label="Fruits">
+  <NativeSelect.Option value="apple"> {"Apple"->React.string} </NativeSelect.Option>
+  <NativeSelect.Option value="banana"> {"Banana"->React.string} </NativeSelect.Option>
+</NativeSelect.OptGroup>
 ```

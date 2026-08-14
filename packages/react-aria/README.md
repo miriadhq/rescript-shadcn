@@ -6,6 +6,10 @@ The modules mirror the React Aria Components 1.19 API and provide typed props fo
 
 The bindings are audited against the exact upstream TypeScript declarations with `rescript-bindgen`. Generated output is used as an API report rather than checked in because generic React component declarations currently degrade to untyped component signatures; the maintained bindings keep those props typed and tests verify every bound runtime export exists upstream.
 
+Run `yarn workspace rescript-react-aria bindings:audit` after upgrading React
+Aria. The generated API report is written to `.bindgen-audit/` and ignored by
+git.
+
 ```sh
 yarn add react-aria-components rescript-react-aria
 ```

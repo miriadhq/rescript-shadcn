@@ -3,24 +3,11 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~dataSidebar=?,
-) => {
+@react.componentWithProps(ReactAria.Types.DomProps.t)
+let make = (props: ReactAria.Types.DomProps.t) => {
   <div
-    ?id
-    ?children
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?dataSidebar
-    dataSlot="skeleton"
-    className={cn("cn-skeleton animate-pulse", className)}
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("skeleton")}
+    className={cn("cn-skeleton animate-pulse", props.className)}
   />
 }

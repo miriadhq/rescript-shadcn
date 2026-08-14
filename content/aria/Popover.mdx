@@ -52,15 +52,13 @@ npm install react-aria-components rescript-react-aria
 ## Usage
 
 ```res showLineNumbers
-<Popover>
-  <Popover.Trigger render={<Button variant=Outline />}>
-    {"Open Popover"->React.string}
-  </Popover.Trigger>
-  <Popover.Content>
+<Popover.Trigger>
+  <Button variant=Outline> {"Open Popover"->React.string} </Button>
+  <Popover>
     <h4 className="leading-none font-medium"> {"Title"->React.string} </h4>
     <p className="text-muted-foreground text-sm"> {"Description text here."->React.string} </p>
-  </Popover.Content>
-</Popover>
+  </Popover>
+</Popover.Trigger>
 ```
 
 ## Examples
@@ -73,7 +71,7 @@ A simple popover with a header, title, and description.
 
 ### Align
 
-Use the `align` prop on `PopoverContent` to control the horizontal alignment.
+Use the `placement` prop to position the popover relative to its trigger.
 
 <ComponentPreview name="PopoverAlignments" />
 

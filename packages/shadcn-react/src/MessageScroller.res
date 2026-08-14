@@ -42,7 +42,7 @@ type scrollable = {
 }
 
 type visibilityState = {
-  currentAnchorId: Nullable.t<string>,
+  currentAnchorId: nullable<string>,
   visibleMessageIds: array<string>,
 }
 
@@ -81,13 +81,17 @@ type providerProps = {
 }
 
 module Provider = {
+  type props = providerProps
+
   @module("@shadcn/react/message-scroller") @scope("MessageScroller")
-  external make: React.component<providerProps> = "Provider"
+  external make: React.component<props> = "Provider"
 }
 
 module Root = {
+  type props = divProps
+
   @module("@shadcn/react/message-scroller") @scope("MessageScroller")
-  external make: React.component<divProps> = "Root"
+  external make: React.component<props> = "Root"
 }
 
 module Viewport = {

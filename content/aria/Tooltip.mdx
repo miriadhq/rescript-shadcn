@@ -28,20 +28,6 @@ links:
 npx shadcn@latest add @rescript-shadcn/Tooltip
 ```
 
-<Step>Add the `Tooltip.Provider` to the root of your app.</Step>
-
-```res title="app/layout.res" showLineNumbers {1,7}
-module RootLayout = {
-  @react.component
-  let make = (~children) =>
-    <html lang="en">
-      <body>
-        <Tooltip.Provider>{children}</Tooltip.Provider>
-      </body>
-    </html>
-}
-```
-
 </Steps>
 
 </TabsContent>
@@ -63,21 +49,6 @@ npm install react-aria-components rescript-react-aria
   title="components/ui/Tooltip.res"
 />
 
-<Step>Add the `Tooltip.Provider` to the root of your app.</Step>
-
-```res title="app/layout.res" showLineNumbers {1,7}
-module RootLayout = {
-  @react.component 
-  let make = (~children) => {
-    <html lang="en">
-      <body>
-        <Tooltip.Provider>{children}</Tooltip.Provider>
-      </body>
-    </html>
-  }
-}
-```
-
 </Steps>
 
 </TabsContent>
@@ -87,21 +58,19 @@ module RootLayout = {
 ## Usage
 
 ```res showLineNumbers
-<Tooltip>
-  <Tooltip.Trigger render={<Button variant=Outline />}>
-    {"Hover"->React.string}
-  </Tooltip.Trigger>
-  <Tooltip.Content>
+<Tooltip.Trigger>
+  <Button variant=Outline> {"Hover"->React.string} </Button>
+  <Tooltip>
     <p> {"Add to library"->React.string} </p>
-  </Tooltip.Content>
-</Tooltip>
+  </Tooltip>
+</Tooltip.Trigger>
 ```
 
 ## Examples
 
 ### Side
 
-Use the `side` prop to change the position of the tooltip.
+Use the `placement` prop to change the position of the tooltip.
 
 <ComponentPreview name="TooltipSides" />
 
@@ -111,7 +80,8 @@ Use the `side` prop to change the position of the tooltip.
 
 ### Disabled Button
 
-Show a tooltip on a disabled button by wrapping it with a span.
+React Aria keeps the disabled trigger focusable through `Tooltip.Trigger`, so the
+tooltip remains available to keyboard users.
 
 <ComponentPreview name="TooltipDisabled" />
 

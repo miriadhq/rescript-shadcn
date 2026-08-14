@@ -54,19 +54,20 @@ let rec renderItem = (fileItem: fileTreeItem) =>
   switch fileItem {
   | Folder({name, items}) =>
     <Collapsible key=name>
-      <Collapsible.Trigger
-        render={<Button
-          variant=Ghost
-          size=Sm
-          className="group hover:bg-accent hover:text-accent-foreground w-full justify-start transition-none"
-        />}
+      <Button
+        slot="trigger"
+        variant=Ghost
+        size=Sm
+        className="group hover:bg-accent hover:text-accent-foreground w-full justify-start transition-none"
       >
         <Icons.ChevronRight className="transition-transform group-data-[state=open]:rotate-90" />
         <Icons.Folder />
         {name->React.string}
-      </Collapsible.Trigger>
-      <Collapsible.Content className="style-lyra:ml-4 mt-1 ml-5">
-        <div className="flex flex-col gap-1"> {items->Array.map(renderItem)->React.array} </div>
+      </Button>
+      <Collapsible.Content>
+        <div className="style-lyra:ml-4 mt-1 ml-5 flex flex-col gap-1">
+          {items->Array.map(renderItem)->React.array}
+        </div>
       </Collapsible.Content>
     </Collapsible>
   | File({name}) =>
@@ -80,10 +81,10 @@ let rec renderItem = (fileItem: fileTreeItem) =>
 let make = ({}: Demo.Props.t) =>
   <Card className="mx-auto w-full max-w-[16rem] gap-2" size=Sm>
     <Card.Header>
-      <Tabs defaultValue="explorer">
+      <Tabs defaultSelectedKey="explorer">
         <Tabs.List className="w-full">
-          <Tabs.Trigger value="explorer"> {"Explorer"->React.string} </Tabs.Trigger>
-          <Tabs.Trigger value="settings"> {"Outline"->React.string} </Tabs.Trigger>
+          <Tabs.Trigger id="explorer"> {"Explorer"->React.string} </Tabs.Trigger>
+          <Tabs.Trigger id="settings"> {"Outline"->React.string} </Tabs.Trigger>
         </Tabs.List>
       </Tabs>
     </Card.Header>

@@ -14,9 +14,9 @@ let make = ({}: Demo.Props.t) => {
     <Slider
       id="slider-demo-temperature"
       value
-      onValueChange={(v, _) => setValue(_ => v)}
-      min={0.}
-      max={1.}
+      onChange={v => setValue(_ => v)}
+      minValue={0.}
+      maxValue={1.}
       step={0.1}
     />
   </div>

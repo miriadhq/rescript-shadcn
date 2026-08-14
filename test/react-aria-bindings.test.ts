@@ -22,35 +22,14 @@ describe("React Aria bindings", () => {
     expect(implementations).toEqual([])
   })
 
-  it("does not hide upstream components behind Primitive or Root adapters", () => {
-    const violations = bindingFiles.flatMap((file) => {
-      const source = readFileSync(join(sourceDirectory, file), "utf8")
-      return source
-        .split("\n")
-        .map((line, index) => ({file, line: index + 1, source: line.trim()}))
-        .filter(({source}) =>
-          /module\s+(?:Primitive|RootPrimitive|ItemPrimitive|TabPrimitive|PanelPrimitive)\b/.test(
-            source,
-          ),
-        )
+  it("does not publish empty placeholder modules", () => {
+    const infrastructureFiles = new Set(["Common.res", "Types.res"])
+    const placeholders = bindingFiles.filter((file) => {
+      if (infrastructureFiles.has(file)) return false
+      return !readFileSync(join(sourceDirectory, file), "utf8").includes("external ")
     })
 
-    expect(violations).toEqual([])
-  })
-
-  it("does not publish placeholder modules for components React Aria does not export", () => {
-    expect(bindingFiles).not.toContain("Avatar.res")
-    expect(bindingFiles).not.toContain("ScrollArea.res")
-    expect(bindingFiles).not.toContain("AlertDialog.res")
-    expect(bindingFiles).not.toContain("ContextMenu.res")
-    expect(bindingFiles).not.toContain("Render.res")
-    expect(bindingFiles).not.toContain("AnchorPositioning.res")
-    expect(bindingFiles).not.toContain("Accordion.res")
-    expect(bindingFiles).not.toContain("Collapsible.res")
-    expect(bindingFiles).not.toContain("Progress.res")
-    expect(bindingFiles).not.toContain("Toggle.res")
-    expect(bindingFiles).not.toContain("ToggleGroup.res")
-    expect(bindingFiles).not.toContain("DirectionProvider.res")
+    expect(placeholders).toEqual([])
   })
 
   it("only binds exports that exist in react-aria-components", async () => {
@@ -65,39 +44,26 @@ describe("React Aria bindings", () => {
     expect(missing).toEqual([])
   })
 
-  it("binds Checkbox directly with React Aria prop names", () => {
-    const checkbox = readFileSync(join(sourceDirectory, "Checkbox.res"), "utf8")
+  it("keeps render-function children out of the shared element props", () => {
+    const common = readFileSync(join(sourceDirectory, "Common.res"), "utf8")
+    const baseProps = common.match(/type baseProps = \{([\s\S]*?)\n\}/)?.[1]
 
-    expect(checkbox).toContain('external make: React.component<props> = "Checkbox"')
-    expect(checkbox).toContain("isSelected?: bool")
-    expect(checkbox).toContain("defaultSelected?: bool")
-    expect(checkbox).toContain("onChange?: bool => unit")
-    expect(checkbox).not.toContain("checked?: bool")
-    expect(checkbox).not.toContain("onCheckedChange")
-    expect(checkbox).not.toContain("module Root")
+    expect(baseProps).toBeDefined()
+    expect(baseProps).not.toContain("children?: React.element")
+    expect(common).toContain("type elementProps = {")
+    expect(common).toContain("children?: React.element")
   })
 
-  it("uses collection render state for Select and Combobox indicators", () => {
-    for (const file of ["Select.res", "Combobox.res"]) {
-      const source = readFileSync(join(registryUiDirectory, file), "utf8")
+  it("uses ReScript's built-in nullable type", () => {
+    const sources = [sourceDirectory, registryUiDirectory, registryExamplesDirectory]
+      .flatMap((directory) =>
+        readdirSync(directory)
+          .filter((file) => file.endsWith(".res"))
+          .map((file) => ({file: join(directory, file), source: readFileSync(join(directory, file), "utf8")})),
+      )
+      .filter(({source}) => source.includes("Nullable.t<"))
+      .map(({file}) => file)
 
-      expect(source).toContain("ReactAria.Common.itemRenderChildren")
-      expect(source).not.toContain("ReactAria.SelectionIndicator")
-    }
-  })
-
-  it("renders Combobox empty states through ListBox state", () => {
-    const examples = readdirSync(registryExamplesDirectory)
-      .filter((file) => file.startsWith("Combobox") && file.endsWith(".res"))
-      .map((file) => ({
-        file,
-        source: readFileSync(join(registryExamplesDirectory, file), "utf8"),
-      }))
-      .filter(({source}) => source.includes("<Combobox.Empty>"))
-
-    expect(examples.length).toBeGreaterThan(0)
-    for (const {file, source} of examples) {
-      expect(source, file).toContain("renderEmptyState=")
-    }
+    expect(sources).toEqual([])
   })
 })

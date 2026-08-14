@@ -116,7 +116,7 @@ let make = ({}: Demo.Props.t) =>
           </Field.Description>
           <Field.Group>
             <Field orientation=Horizontal>
-              <Checkbox id="checkout-7j9-same-as-shipping-wgm" defaultChecked={true} />
+              <Checkbox id="checkout-7j9-same-as-shipping-wgm" defaultSelected={true} />
               <Field.Label htmlFor="checkout-7j9-same-as-shipping-wgm" className="font-normal">
                 {"Same as shipping address"->React.string}
               </Field.Label>

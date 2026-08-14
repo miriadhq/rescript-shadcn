@@ -68,6 +68,7 @@ export default defineConfig({
       "react-dom",
       "react-dom/client",
       "use-sync-external-store/shim",
+      "use-sync-external-store/shim/index.js",
       "use-sync-external-store/shim/with-selector",
     ],
   },

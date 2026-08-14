@@ -57,18 +57,11 @@ let buttonVariants = (~variant=Variant.Default, ~size=Size.Default, ~className=?
 type props = {
   variant?: Variant.t,
   size?: Size.t,
-  ...ReactAria.Types.BaseUIComponentProps.t,
-  ...ReactAria.Types.NativeButtonProps.t,
-  focusableWhenDisabled?: bool,
+  ...ReactAria.Button.props,
 }
 
 let toAriaProps: props => ReactAria.Button.props = %raw(`props => {
-  const {variant, size, disabled, nativeButton, render, focusableWhenDisabled, onClick, ...rest} = props;
-  return {...rest, isDisabled: disabled, allowFocusWhenDisabled: focusableWhenDisabled, onPress: onClick};
-}`)
-
-let toDomProps: props => ReactAria.Types.BaseUIComponentProps.t = %raw(`props => {
-  const {variant, size, nativeButton, focusableWhenDisabled, render, ...rest} = props;
+  const {variant, size, ...rest} = props;
   return rest;
 }`)
 
@@ -79,14 +72,38 @@ let make = (props: props) => {
   let className = props.className
   let dataSlot = props.dataSlot->Option.getOr("button")
   let className = buttonVariants(~variant, ~size, ~className?)
-  switch props.render {
-  | Some(render) =>
-    Render.use({
-      render,
-      defaultTagName: "button",
-      props: {...props->toDomProps, dataSlot, className},
-    })
-  | None =>
-    <ReactAria.Button {...props->toAriaProps} dataSlot className />
+  <ReactAria.Button
+    {...props->toAriaProps}
+    dataSlot
+    dataVariant={(variant :> string)}
+    dataSize={(size :> string)}
+    className
+  />
+}
+
+module LinkButton = {
+  type props = {
+    variant?: Variant.t,
+    size?: Size.t,
+    ...ReactAria.Button.Link.props,
+  }
+
+  let toAriaProps: props => ReactAria.Button.Link.props = %raw(`props => {
+    const {variant, size, ...rest} = props;
+    return rest;
+  }`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let variant = props.variant->Option.getOr(Default)
+    let size = props.size->Option.getOr(Default)
+    let className = props.className
+    <ReactAria.Button.Link
+      {...props->toAriaProps}
+      dataSlot={props.dataSlot->Option.getOr("button")}
+      dataVariant={(variant :> string)}
+      dataSize={(size :> string)}
+      className={buttonVariants(~variant, ~size, ~className?)}
+    />
   }
 }

@@ -2,10 +2,10 @@
 
 @@directive("'use client'")
 
-open ReactAria.Types
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
+
+module Orientation = ReactAria.Types.Orientation
 
 module Api = {
   type t
@@ -63,7 +63,7 @@ type carouselContext = {
   carouselRef: carouselRef,
   api: option<Api.t>,
   opts: EmblaOptions.t,
-  orientation: DataOrientation.t,
+  orientation: Orientation.t,
   scrollPrev: unit => unit,
   scrollNext: unit => unit,
   canScrollPrev: bool,
@@ -79,30 +79,31 @@ let useCarousel = () =>
   | None => JsError.throwWithMessage("useCarousel must be used within a <Carousel />")
   }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~style=?,
-  ~onClick=?,
-  ~onMouseEnter=?,
-  ~onMouseLeave=?,
-  ~orientation=DataOrientation.Horizontal,
-  ~opts: EmblaOptions.t={},
-  ~plugins=?,
-  ~setApi=?,
-) => {
+type props = {
+  orientation?: Orientation.t,
+  opts?: EmblaOptions.t,
+  plugins?: array<emblaPlugin>,
+  setApi?: Api.t => unit,
+  onKeyDownCapture?: JsxEvent.Keyboard.t => unit,
+  ...ReactAria.Common.elementProps,
+}
+let domProps: props => ReactAria.Types.DomProps.t = %raw(
+  `({orientation, opts, plugins, setApi, ...props}) => props`
+)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let orientation = props.orientation->Option.getOr(Horizontal)
+  let opts = props.opts->Option.getOr({})
   let (carouselRef, api) = useEmblaCarousel(
     ~options={
       ...opts,
       axis: switch orientation {
       | Horizontal => X
-      | Vertical | Responsive => Y
+      | Vertical => Y
       },
     },
-    ~plugins?,
+    ~plugins=?props.plugins,
   )
   let (canScrollPrev, setCanScrollPrev) = React.useState(() => false)
   let (canScrollNext, setCanScrollNext) = React.useState(() => false)
@@ -121,21 +122,13 @@ let make = (
     | None => ()
     }
   React.useEffect(() => {
-    switch (api, setApi) {
+    switch (api, props.setApi) {
     | (Some(api), Some(setApi)) =>
       setApi(api)
       None
     | _ => None
     }
-  }, [api])
-  React.useEffect(() => {
-    switch (api, setApi) {
-    | (Some(api), Some(setApi)) =>
-      setApi(api)
-      None
-    | _ => None
-    }
-  }, [setApi])
+  }, (api, props.setApi))
   React.useEffect(() => {
     api->Option.map(api => {
       onSelect(api)
@@ -170,36 +163,26 @@ let make = (
   }
   <Provider value={providerValue}>
     <div
-      ?id
-      ?dir
-      ?style
-      ?onClick
-      ?onMouseEnter
-      ?onMouseLeave
-      onKeyDownCapture={handleKeyDownCapture}
-      dataSlot="carousel"
-      className={cn("relative", className)}
-      role="region"
-      ariaRoledescription="carousel"
-      ?children
+      {...props->domProps}
+      onKeyDownCapture={props.onKeyDownCapture->Option.getOr(handleKeyDownCapture)}
+      dataSlot={props.dataSlot->Option.getOr("carousel")}
+      className={cn("relative", props.className)}
+      role={props.role->Option.getOr("region")}
+      ariaRoledescription={props.ariaRoledescription->Option.getOr("carousel")}
     />
   </Provider>
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) => {
     let {carouselRef, orientation} = useCarousel()
     <div dataSlot="carousel-content" ref={carouselRef} className="overflow-hidden">
       <div
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
-        ?children
+        {...props}
         className={cn(
-          `flex ${orientation == DataOrientation.Horizontal ? "-ml-4" : "-mt-4 flex-col"}`,
-          className,
+          `flex ${orientation == Orientation.Horizontal ? "-ml-4" : "-mt-4 flex-col"}`,
+          props.className,
         )}
       />
     </div>
@@ -207,61 +190,47 @@ module Content = {
 }
 
 module Item = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) => {
     let {orientation} = useCarousel()
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      role="group"
-      ariaRoledescription="slide"
-      dataSlot="carousel-item"
+      {...props}
+      role={props.role->Option.getOr("group")}
+      ariaRoledescription={props.ariaRoledescription->Option.getOr("slide")}
+      dataSlot={props.dataSlot->Option.getOr("carousel-item")}
       className={cn(
-        `min-w-0 shrink-0 grow-0 basis-full ${orientation == DataOrientation.Horizontal
+        `min-w-0 shrink-0 grow-0 basis-full ${orientation == Orientation.Horizontal
             ? "pl-4"
             : "pt-4"}`,
-        className,
+        props.className,
       )}
     />
   }
 }
 
 module Previous = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~style=?,
-    ~variant=Button.Variant.Outline,
-    ~size=Button.Size.IconSm,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~onClick: option<JsxEvent.Mouse.t => unit>=?,
-  ) => {
+  @react.componentWithProps(props)
+  let make = (props: Button.props) => {
     let {orientation, scrollPrev, canScrollPrev} = useCarousel()
-    let onClick = switch onClick {
+    let variant = props.variant->Option.getOr(Outline)
+    let size = props.size->Option.getOr(IconSm)
+    let onPress = switch props.onPress {
     | Some(handler) => handler
     | None => _ => scrollPrev()
     }
     <Button
+      {...props}
       className={cn(
-        `cn-carousel-previous absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
-            ? "top-1/2 -left-12 -translate-y-1/2"
+        `cn-carousel-previous absolute touch-manipulation ${orientation == Orientation.Horizontal
+            ? "inset-y-0 -left-12 my-auto"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90"}`,
-        className,
+        props.className,
       )}
       variant
       size
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      dataSlot="carousel-previous"
-      disabled={!canScrollPrev}
-      ?style
-      onClick
+      dataSlot={props.dataSlot->Option.getOr("carousel-previous")}
+      isDisabled={props.isDisabled->Option.getOr(!canScrollPrev)}
+      onPress
     >
       <Icons.ChevronLeft className="cn-rtl-flip" />
       <span className="sr-only"> {"Previous slide"->React.string} </span>
@@ -270,38 +239,28 @@ module Previous = {
 }
 
 module Next = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~style=?,
-    ~variant=Button.Variant.Outline,
-    ~size=Button.Size.IconSm,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~onClick: option<JsxEvent.Mouse.t => unit>=?,
-  ) => {
+  @react.componentWithProps(props)
+  let make = (props: Button.props) => {
     let {orientation, scrollNext, canScrollNext} = useCarousel()
-    let onClick = switch onClick {
+    let variant = props.variant->Option.getOr(Outline)
+    let size = props.size->Option.getOr(IconSm)
+    let onPress = switch props.onPress {
     | Some(handler) => handler
     | None => _ => scrollNext()
     }
     <Button
+      {...props}
       className={cn(
-        `cn-carousel-next absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
-            ? "top-1/2 -right-12 -translate-y-1/2"
+        `cn-carousel-next absolute touch-manipulation ${orientation == Orientation.Horizontal
+            ? "inset-y-0 -right-12 my-auto"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"}`,
-        className,
+        props.className,
       )}
       variant
       size
-      ?style
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      dataSlot="carousel-next"
-      disabled={!canScrollNext}
-      onClick
+      dataSlot={props.dataSlot->Option.getOr("carousel-next")}
+      isDisabled={props.isDisabled->Option.getOr(!canScrollNext)}
+      onPress
     >
       <Icons.ChevronRight className="cn-rtl-flip" />
       <span className="sr-only"> {"Next slide"->React.string} </span>

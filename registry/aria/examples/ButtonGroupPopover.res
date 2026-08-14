@@ -5,11 +5,11 @@ let make = ({}: Demo.Props.t) => {
       <Icons.Bot />
       {"Copilot"->React.string}
     </Button>
-    <Popover>
-      <Popover.Trigger render={<Button variant=Outline size=Icon ariaLabel="Open Popover" />}>
+    <Popover.Trigger>
+      <Button variant=Outline size=Icon ariaLabel="Open Popover">
         <Icons.ChevronDown />
-      </Popover.Trigger>
-      <Popover.Content align=End className="rounded-xl text-sm">
+      </Button>
+      <Popover placement=ReactAria.Common.BottomEnd className="rounded-xl text-sm">
         <Popover.Header>
           <Popover.Title> {"Start a new task with Copilot"->React.string} </Popover.Title>
           <Popover.Description>
@@ -25,7 +25,7 @@ let make = ({}: Demo.Props.t) => {
             {"Copilot will open a pull request for review."->React.string}
           </Field.Description>
         </Field>
-      </Popover.Content>
-    </Popover>
+      </Popover>
+    </Popover.Trigger>
   </ButtonGroup>
 }

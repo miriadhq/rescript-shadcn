@@ -9,5 +9,5 @@ let make = ({}: Demo.Props.t) => {
     Some(() => clearTimeout(timer))
   })
 
-  <Progress value=progress className="w-[60%]" />
+  <Progress ariaLabel="Loading" value=progress className="w-[60%]" />
 }

@@ -1,11 +1,11 @@
-@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
+@@directive("'use client'")
 
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.componentWithProps(ReactAria.Types.DomProps.t)
-let make = (props: ReactAria.Types.DomProps.t) => {
-  <textarea
+@react.componentWithProps(ReactAria.Input.TextArea.props)
+let make = (props: ReactAria.Input.TextArea.props) =>
+  <ReactAria.Input.TextArea
     {...props}
     dataSlot="textarea"
     className={cn(
@@ -13,4 +13,3 @@ let make = (props: ReactAria.Types.DomProps.t) => {
       props.className,
     )}
   />
-}

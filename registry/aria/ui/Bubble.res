@@ -40,61 +40,63 @@ let variantClass = (~variant: Variant.t) =>
   | Destructive => "cn-bubble-variant-destructive"
   }
 
-@react.component
-let make = (
-  ~className=?,
-  ~variant=Variant.Default,
-  ~align=Align.Start,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) =>
+type props = {
+  variant?: Variant.t,
+  align?: Align.t,
+  ...ReactAria.Common.elementProps,
+}
+let domProps: props => ReactAria.Types.DomProps.t = %raw(
+  `({variant, align, ...props}) => props`
+)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let variant = props.variant->Option.getOr(Default)
+  let align = props.align->Option.getOr(Start)
   <div
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?children
-    dataSlot="bubble"
+    {...props->domProps}
+    dataSlot={props.dataSlot->Option.getOr("bubble")}
     dataVariant={(variant :> string)}
     dataAlign={(align :> string)}
     className={cn(
       `cn-bubble group/bubble relative flex w-fit min-w-0 flex-col ${variantClass(~variant)}`,
-      className,
+      props.className,
     )}
   />
+}
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="bubble-group"
-      className={cn("cn-bubble-group flex min-w-0 flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("bubble-group")}
+      className={cn("cn-bubble-group flex min-w-0 flex-col", props.className)}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="bubble-content"
-      className={cn(
+  type props = {render?: ReactAria.Types.DomProps.t => React.element, ...ReactAria.Types.DomProps.t}
+  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({render, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let renderProps = {
+      ...props->domProps,
+      dataSlot: props.dataSlot->Option.getOr("bubble-content"),
+      className: cn(
         "cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
-        className,
-      )}
-    />
+        props.className,
+      ),
+    }
+    switch props.render {
+    | Some(render) => render(renderProps)
+    | None =>
+      <div
+        {...renderProps}
+      />
+    }
+  }
 }
 
 module Reactions = {
@@ -110,35 +112,26 @@ module Reactions = {
     | End => "cn-bubble-reactions-align-end"
     }
 
-  @react.component
-  let make = (
-    ~className=?,
-    ~side=Side.Bottom,
-    ~align=Align.End,
-    ~children=?,
-    ~role=?,
-    ~ariaLabel=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  type props = {side?: Side.t, align?: Align.t, ...ReactAria.Common.elementProps}
+  let domProps: props => ReactAria.Types.DomProps.t = %raw(
+    `({side, align, ...props}) => props`
+  )
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let side = props.side->Option.getOr(Bottom)
+    let align = props.align->Option.getOr(End)
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?role
-      ?ariaLabel
-      ?children
-      dataSlot="bubble-reactions"
+      {...props->domProps}
+      dataSlot={props.dataSlot->Option.getOr("bubble-reactions")}
       dataSide={(side :> string)}
       dataAlign={(align :> string)}
       className={cn(
         `cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center ${sideClass(
             ~side,
           )} ${alignClass(~align)}`,
-        className,
+        props.className,
       )}
     />
+  }
 }

@@ -7,14 +7,16 @@ let make = ({}: Demo.Props.t) => {
   <Field>
     <Field.Label> {"Font Weight"->React.string} </Field.Label>
     <ToggleGroup
-      value={[fontWeight]}
-      onValueChange={(value: array<string>, _) => setFontWeight(_ => value->Array.getUnsafe(0))}
+      selectedKeys={[fontWeight]}
+      onSelectionChange={value =>
+        setFontWeight(_ => value->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("normal"))
+      }
       variant=Outline
       spacing=2.
       size=Lg
     >
       <ToggleGroup.Item
-        value="light"
+        id="light"
         ariaLabel="Light"
         className="flex size-16 flex-col items-center justify-center rounded-xl"
       >
@@ -22,7 +24,7 @@ let make = ({}: Demo.Props.t) => {
         <span className="text-muted-foreground text-xs"> {"Light"->React.string} </span>
       </ToggleGroup.Item>
       <ToggleGroup.Item
-        value="normal"
+        id="normal"
         ariaLabel="Normal"
         className="flex size-16 flex-col items-center justify-center rounded-xl"
       >
@@ -30,7 +32,7 @@ let make = ({}: Demo.Props.t) => {
         <span className="text-muted-foreground text-xs"> {"Normal"->React.string} </span>
       </ToggleGroup.Item>
       <ToggleGroup.Item
-        value="medium"
+        id="medium"
         ariaLabel="Medium"
         className="flex size-16 flex-col items-center justify-center rounded-xl"
       >
@@ -38,7 +40,7 @@ let make = ({}: Demo.Props.t) => {
         <span className="text-muted-foreground text-xs"> {"Medium"->React.string} </span>
       </ToggleGroup.Item>
       <ToggleGroup.Item
-        value="bold"
+        id="bold"
         ariaLabel="Bold"
         className="flex size-16 flex-col items-center justify-center rounded-xl"
       >

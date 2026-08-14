@@ -9,8 +9,8 @@ let items: array<ReactAria.Select.Item.t<null<string>>> = [
 let make = ({}: Demo.Props.t) =>
   <Field dataInvalid={true} className="w-full max-w-48">
     <Field.Label> {"Fruit"->React.string} </Field.Label>
-    <Select items>
-      <Select.Trigger render={<button type_="button" ariaInvalid=#"true" />}>
+    <Select items isInvalid={true}>
+      <Select.Trigger>
         <Select.Value />
       </Select.Trigger>
       <Select.Content>

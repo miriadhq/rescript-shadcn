@@ -1,16 +1,17 @@
-let items: array<ReactAria.Select.Item.t<null<string>>> = [
-  {label: "Select a fruit", value: Null.null},
-  {label: "Apple", value: Value("apple")},
-  {label: "Banana", value: Value("banana")},
-  {label: "Blueberry", value: Value("blueberry")},
-  {label: "Grapes", value: Value("grapes")},
-  {label: "Pineapple", value: Value("pineapple")},
+type item = {label: string, value: string}
+
+let items: array<item> = [
+  {label: "Apple", value: "apple"},
+  {label: "Banana", value: "banana"},
+  {label: "Blueberry", value: "blueberry"},
+  {label: "Grapes", value: "grapes"},
+  {label: "Pineapple", value: "pineapple"},
 ]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Select items>
-    <Select.Trigger className="w-full max-w-48">
+  <Select placeholder="Select a fruit" className="w-full max-w-48">
+    <Select.Trigger>
       <Select.Value />
     </Select.Trigger>
     <Select.Content>
@@ -18,7 +19,7 @@ let make = ({}: Demo.Props.t) =>
         <Select.Label> {"Fruits"->React.string} </Select.Label>
         {items
         ->Array.map(item =>
-          <Select.Item key={item.label} value={item.value}>
+          <Select.Item key={item.value} id={item.value}>
             {item.label->React.string}
           </Select.Item>
         )

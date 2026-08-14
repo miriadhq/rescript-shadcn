@@ -80,7 +80,7 @@ module RT = {
   @send external getCanNextPage: t<'data> => bool = "getCanNextPage"
   @send external previousPage: t<'data> => unit = "previousPage"
   @send external nextPage: t<'data> => unit = "nextPage"
-  @send external getColumn: (t<'data>, string) => Nullable.t<col> = "getColumn"
+  @send external getColumn: (t<'data>, string) => nullable<col> = "getColumn"
   @send external getIsAllPageRowsSelected: t<'data> => bool = "getIsAllPageRowsSelected"
   @send external getIsSomePageRowsSelected: t<'data> => bool = "getIsSomePageRowsSelected"
   @send external toggleAllPageRowsSelected: (t<'data>, bool) => unit = "toggleAllPageRowsSelected"
@@ -103,7 +103,7 @@ module RT = {
   @send external colToggleVisibility: (col, bool) => unit = "toggleVisibility"
   @send external colGetIsSorted: col => string = "getIsSorted"
   @send external colToggleSorting: (col, bool) => unit = "toggleSorting"
-  @send external colGetFilterValue: col => Nullable.t<string> = "getFilterValue"
+  @send external colGetFilterValue: col => nullable<string> = "getFilterValue"
   @send external colSetFilterValue: (col, string) => unit = "setFilterValue"
 
   @get external rowId: row<'data> => string = "id"

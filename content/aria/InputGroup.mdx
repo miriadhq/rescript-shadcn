@@ -177,8 +177,8 @@ The main component that wraps inputs and addons.
 
 ```res
 <InputGroup>
-  <InputGroupInput />
-  <InputGroupAddon />
+  <InputGroup.Input />
+  <InputGroup.Addon />
 </InputGroup>
 ```
 
@@ -197,20 +197,20 @@ Displays icons, text, buttons, or other content alongside inputs.
 | `className` | `string`                                                         |                  |
 
 ```res
-<InputGroupAddon align=InlineEnd>
-  <SearchIcon />
-</InputGroupAddon>
+<InputGroup.Addon align=InlineEnd>
+  <Icons.Search />
+</InputGroup.Addon>
 ```
 
-**For `<InputGroupInput />`, use the `InlineStart` or `InlineEnd` alignment. For `<InputGroupTextarea />`, use the `BlockStart` or `BlockEnd` alignment.**
+**For `<InputGroup.Input />`, use the `InlineStart` or `InlineEnd` alignment. For `<InputGroup.Textarea />`, use the `BlockStart` or `BlockEnd` alignment.**
 
 The `InputGroupAddon` component can have multiple `InputGroupButton` components and icons.
 
 ```res
-<InputGroupAddon>
-  <InputGroupButton> {"Button"->React.string} </InputGroupButton>
-  <InputGroupButton> {"Button"->React.string} </InputGroupButton>
-</InputGroupAddon>
+<InputGroup.Addon>
+  <InputGroup.Button> {"Button"->React.string} </InputGroup.Button>
+  <InputGroup.Button> {"Button"->React.string} </InputGroup.Button>
+</InputGroup.Addon>
 ```
 
 ### InputGroupButton
@@ -224,10 +224,10 @@ Displays buttons within input groups.
 | `className` | `string`                                                                      |           |
 
 ```res
-<InputGroupButton> {"Button"->React.string} </InputGroupButton>
-<InputGroupButton size=IconXs ariaLabel="Copy">
-  <CopyIcon />
-</InputGroupButton>
+<InputGroup.Button> {"Button"->React.string} </InputGroup.Button>
+<InputGroup.Button size=IconXs ariaLabel="Copy">
+  <Icons.Copy />
+</InputGroup.Button>
 ```
 
 ### InputGroupInput
@@ -242,10 +242,10 @@ All other props are passed through to the underlying `<Input />` component.
 
 ```res
 <InputGroup>
-  <InputGroupInput placeholder="Enter text..." />
-  <InputGroupAddon>
-    <SearchIcon />
-  </InputGroupAddon>
+  <InputGroup.Input placeholder="Enter text..." />
+  <InputGroup.Addon>
+    <Icons.Search />
+  </InputGroup.Addon>
 </InputGroup>
 ```
 
@@ -261,9 +261,9 @@ All other props are passed through to the underlying `<Textarea />` component.
 
 ```res
 <InputGroup>
-  <InputGroupTextarea placeholder="Enter message..." />
-  <InputGroupAddon align=BlockEnd>
-    <InputGroupButton> {"Send"->React.string} </InputGroupButton>
-  </InputGroupAddon>
+  <InputGroup.Textarea placeholder="Enter message..." />
+  <InputGroup.Addon align=BlockEnd>
+    <InputGroup.Button> {"Send"->React.string} </InputGroup.Button>
+  </InputGroup.Addon>
 </InputGroup>
 ```

@@ -1,48 +1,40 @@
 @@directive("'use client'")
 
-@module("date-fns") external format: (Date.t, string) => string = "format"
-@module("date-fns") external addDays: (Date.t, int) => Date.t = "addDays"
+module IDate = ReactAria.InternationalizedDate
+
+let formatDate = date =>
+  date
+  ->IDate.toDate(IDate.getLocalTimeZone())
+  ->Date.toLocaleDateStringWithLocaleAndOptions(
+    "en-US",
+    {day: #"2-digit", month: #short, year: #numeric},
+  )
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
+  let year = Date.make()->Date.getFullYear
+  let start = IDate.calendarDate(year, 1, 20)
   let (dateRange, setDateRange) = React.useState(() => {
-    let now = Date.make()
-    let fromDate = Date.makeWithYMD(~year=Date.getFullYear(now), ~month=0, ~day=20)
-    Some({
-      Calendar.DateRange.from: fromDate,
-      to: addDays(fromDate, 20),
-    })
+    ReactAria.Calendar.Range.start: start,
+    end_: start->IDate.add({days: 20}),
   })
 
   <Field className="mx-auto w-60">
     <Field.Label htmlFor="date-picker-range"> {"Date Picker Range"->React.string} </Field.Label>
-    <Popover>
-      <Popover.Trigger
-        render={<Button
-          variant=Outline id="date-picker-range" className="justify-start px-2.5 font-normal"
-        />}
-      >
+    <Popover.Trigger>
+      <Button variant=Outline id="date-picker-range" className="justify-start px-2.5 font-normal">
         <Icons.Calendar dataIcon="inline-start" />
-        {switch dateRange {
-        | Some({Calendar.DateRange.from: from, to}) =>
-          <>
-            {from->format("LLL dd, y")->React.string}
-            {" - "->React.string}
-            {to->format("LLL dd, y")->React.string}
-          </>
-        | Some({Calendar.DateRange.from: from}) => from->format("LLL dd, y")->React.string
-        | _ => <span> {"Pick a date"->React.string} </span>
-        }}
-      </Popover.Trigger>
-      <Popover.Content className="w-auto p-0" align=Start>
-        <Calendar
-          mode=Range
-          defaultMonth=?{dateRange->Option.map(r => r.from)}
-          selected=?dateRange
-          onSelect={value => setDateRange(_ => value)}
-          numberOfMonths={2}
+        {dateRange.start->formatDate->React.string}
+        {" - "->React.string}
+        {dateRange.end_->formatDate->React.string}
+      </Button>
+      <Popover className="w-auto p-0" placement=ReactAria.Common.BottomStart>
+        <Calendar.Range
+          value=dateRange
+          onChange={range => setDateRange(_ => range)}
+          numberOfMonths=2
         />
-      </Popover.Content>
-    </Popover>
+      </Popover>
+    </Popover.Trigger>
   </Field>
 }

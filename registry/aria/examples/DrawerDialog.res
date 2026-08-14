@@ -54,11 +54,9 @@ let make = ({}: Demo.Props.t) => {
   let isDesktop = useMediaQuery("(min-width: 768px)")
 
   if isDesktop {
-    <Dialog open_ onOpenChange={(nextOpen, _) => setOpen(_ => nextOpen)}>
-      <Dialog.Trigger render={<Button variant=Outline />}>
-        {"Edit Profile"->React.string}
-      </Dialog.Trigger>
-      <Dialog.Content className="sm:max-w-[425px]">
+    <Dialog.Trigger isOpen=open_ onOpenChange={nextOpen => setOpen(_ => nextOpen)}>
+      <Button variant=Outline> {"Edit Profile"->React.string} </Button>
+      <Dialog className="sm:max-w-[425px]">
         <Dialog.Header>
           <Dialog.Title> {"Edit profile"->React.string} </Dialog.Title>
           <Dialog.Description>
@@ -66,12 +64,12 @@ let make = ({}: Demo.Props.t) => {
           </Dialog.Description>
         </Dialog.Header>
         <ProfileForm />
-      </Dialog.Content>
-    </Dialog>
+      </Dialog>
+    </Dialog.Trigger>
   } else {
-    <Drawer open_ onOpenChange={nextOpen => setOpen(_ => nextOpen)}>
-      <Drawer.Trigger asChild={true}>
-        <Button variant=Outline> {"Edit Profile"->React.string} </Button>
+    <Drawer open_ onOpenChange={(nextOpen, _) => setOpen(_ => nextOpen)}>
+      <Drawer.Trigger render={<Button variant=Outline />}>
+        {"Edit Profile"->React.string}
       </Drawer.Trigger>
       <Drawer.Content>
         <Drawer.Header className="text-left">
@@ -82,8 +80,8 @@ let make = ({}: Demo.Props.t) => {
         </Drawer.Header>
         <ProfileForm className="px-4" />
         <Drawer.Footer className="pt-2">
-          <Drawer.Close asChild=true>
-            <Button variant=Outline> {"Cancel"->React.string} </Button>
+          <Drawer.Close render={<Button variant=Outline />}>
+            {"Cancel"->React.string}
           </Drawer.Close>
         </Drawer.Footer>
       </Drawer.Content>

@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <div className="flex w-full max-w-md flex-col gap-4">
-    <Item render={<a href="#" />}>
+    <Item href="#">
       <Item.Content>
         <Item.Title> {"Visit our documentation"->React.string} </Item.Title>
         <Item.Description>
@@ -13,7 +13,7 @@ let make = ({}: Demo.Props.t) =>
       </Item.Actions>
     </Item>
     <Item
-      variant=Item.Variant.Outline render={<a href="#" target="_blank" rel="noopener noreferrer" />}
+      variant=Item.Variant.Outline href="#" target="_blank" rel="noopener noreferrer"
     >
       <Item.Content>
         <Item.Title> {"External resource"->React.string} </Item.Title>

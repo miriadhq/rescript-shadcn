@@ -2,35 +2,34 @@
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (showStatusBar, setShowStatusBar) = React.useState(() => true)
-  let (showActivityBar, setShowActivityBar) = React.useState(() => false)
-  let (showPanel, setShowPanel) = React.useState(() => false)
-
-  <DropdownMenu>
-    <DropdownMenu.Trigger render={<Button variant=Outline />}>
-      {"Open"->React.string}
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content className="w-40">
-      <DropdownMenu.Group>
+  let (selectedKeys, setSelectedKeys) = React.useState(() => ["status-bar"])
+  <DropdownMenu.Trigger>
+    <Button variant=Outline className="w-fit"> {"Checkboxes"->React.string} </Button>
+    <DropdownMenu className="min-w-40">
+      <DropdownMenu.Group
+        selectionMode=Multiple
+        selectedKeys
+        onSelectionChange={selection =>
+          switch selection {
+          | ReactAria.Common.Keys(keys) => setSelectedKeys(_ => keys->Set.values->Iterator.toArray)
+          | ReactAria.Common.All => ()
+          }
+        }
+      >
         <DropdownMenu.Label> {"Appearance"->React.string} </DropdownMenu.Label>
-        <DropdownMenu.CheckboxItem
-          checked={showStatusBar} onCheckedChange={(v, _) => setShowStatusBar(_ => v)}
-        >
+        <DropdownMenu.Item id="status-bar">
+          <Icons.Layout />
           {"Status Bar"->React.string}
-        </DropdownMenu.CheckboxItem>
-        <DropdownMenu.CheckboxItem
-          checked={showActivityBar}
-          onCheckedChange={(v, _) => setShowActivityBar(_ => v)}
-          disabled={true}
-        >
+        </DropdownMenu.Item>
+        <DropdownMenu.Item id="activity-bar" isDisabled=true>
+          <Icons.Circle />
           {"Activity Bar"->React.string}
-        </DropdownMenu.CheckboxItem>
-        <DropdownMenu.CheckboxItem
-          checked={showPanel} onCheckedChange={(v, _) => setShowPanel(_ => v)}
-        >
+        </DropdownMenu.Item>
+        <DropdownMenu.Item id="panel">
+          <Icons.PanelLeft />
           {"Panel"->React.string}
-        </DropdownMenu.CheckboxItem>
+        </DropdownMenu.Item>
       </DropdownMenu.Group>
-    </DropdownMenu.Content>
-  </DropdownMenu>
+    </DropdownMenu>
+  </DropdownMenu.Trigger>
 }

@@ -1,8 +1,8 @@
 /** Direct binding for React Aria's DisclosureGroup export. */
 type props = {
-  ...Common.baseProps,
-  expandedKeys?: Set.t<string>,
-  defaultExpandedKeys?: Set.t<string>,
+  ...Common.elementProps,
+  expandedKeys?: array<string>,
+  defaultExpandedKeys?: array<string>,
   onExpandedChange?: Set.t<string> => unit,
   isDisabled?: bool,
   allowsMultipleExpanded?: bool,

@@ -10,102 +10,81 @@ module Align = {
     | @as("end") End
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~align=Align.Start,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) =>
+type props = {align?: Align.t, ...ReactAria.Common.elementProps}
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({align, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let align = props.align->Option.getOr(Start)
   <div
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?children
-    dataSlot="message"
+    {...props->domProps}
+    dataSlot={props.dataSlot->Option.getOr("message")}
     dataAlign={(align :> string)}
     className={cn(
       "cn-message group/message relative flex w-full min-w-0 data-[align=end]:flex-row-reverse",
-      className,
+      props.className,
     )}
   />
+}
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="message-group"
-      className={cn("cn-message-group flex min-w-0 flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("message-group")}
+      className={cn("cn-message-group flex min-w-0 flex-col", props.className)}
     />
 }
 
 module Avatar = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="message-avatar"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("message-avatar")}
       className={cn(
         "cn-message-avatar flex w-fit shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted",
-        className,
+        props.className,
       )}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="message-content"
-      className={cn("cn-message-content flex w-full min-w-0 flex-col wrap-break-word", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("message-content")}
+      className={cn(
+        "cn-message-content flex w-full min-w-0 flex-col wrap-break-word",
+        props.className,
+      )}
     />
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="message-header"
-      className={cn("cn-message-header flex max-w-full min-w-0 items-center", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("message-header")}
+      className={cn(
+        "cn-message-header flex max-w-full min-w-0 items-center",
+        props.className,
+      )}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="message-footer"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("message-footer")}
       className={cn(
         "cn-message-footer flex max-w-full min-w-0 items-center group-data-[align=end]/message:justify-end",
-        className,
+        props.className,
       )}
     />
 }

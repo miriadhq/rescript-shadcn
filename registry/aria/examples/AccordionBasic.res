@@ -24,10 +24,10 @@ let items: array<item> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Accordion defaultValue=["item-1"] className="max-w-lg">
+  <Accordion defaultExpandedKeys=["item-1"] className="max-w-lg">
     {items
     ->Array.map(item =>
-      <Accordion.Item key={item.value} value={item.value}>
+      <Accordion.Item key={item.value} id={item.value}>
         <Accordion.Trigger> {item.trigger->React.string} </Accordion.Trigger>
         <Accordion.Content> {item.content->React.string} </Accordion.Content>
       </Accordion.Item>

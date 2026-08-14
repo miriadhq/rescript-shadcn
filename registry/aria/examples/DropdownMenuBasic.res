@@ -2,11 +2,11 @@
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <DropdownMenu>
-    <DropdownMenu.Trigger render={<Button variant=Outline />}>
+  <DropdownMenu.Trigger>
+<Button variant=Outline>
       {"Open"->React.string}
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content>
+    </Button>
+<DropdownMenu>
       <DropdownMenu.Group>
         <DropdownMenu.Label> {"My Account"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item> {"Profile"->React.string} </DropdownMenu.Item>
@@ -16,6 +16,6 @@ let make = ({}: Demo.Props.t) =>
       <DropdownMenu.Separator />
       <DropdownMenu.Item> {"GitHub"->React.string} </DropdownMenu.Item>
       <DropdownMenu.Item> {"Support"->React.string} </DropdownMenu.Item>
-      <DropdownMenu.Item disabled={true}> {"API"->React.string} </DropdownMenu.Item>
-    </DropdownMenu.Content>
-  </DropdownMenu>
+      <DropdownMenu.Item isDisabled={true}> {"API"->React.string} </DropdownMenu.Item>
+    </DropdownMenu>
+</DropdownMenu.Trigger>

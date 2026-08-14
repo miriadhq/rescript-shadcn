@@ -1,136 +1,89 @@
-@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
-
 @@directive("'use client'")
+
+@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (~className=?, ~children=?, ~id=?, ~style=?, ~dir=?, ~onClick=?, ~onKeyDown=?) => {
-  <div
-    ?id
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
-    dataSlot="table-container"
-    className="cn-table-container"
-  >
-    <table
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+@react.componentWithProps(ReactAria.Table.props)
+let make = (props: ReactAria.Table.props) =>
+  <div dataSlot="table-container" className="cn-table-container">
+    <ReactAria.Table
+      {...props}
       dataSlot="table"
-      className={cn("cn-table", className)}
+      className={cn("cn-table", props.className)}
     />
   </div>
-}
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <thead
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
+  @react.componentWithProps(ReactAria.Table.Header.props)
+  let make = (props: ReactAria.Table.Header.props<'item>) =>
+    <ReactAria.Table.Header
+      {...props}
       dataSlot="table-header"
-      className={cn("cn-table-header", className)}
+      className={cn("cn-table-header", props.className)}
     />
 }
 
 module Body = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <tbody
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
+  @react.componentWithProps(ReactAria.Table.Body.props)
+  let make = (props: ReactAria.Table.Body.props<'item>) =>
+    <ReactAria.Table.Body
+      {...props}
       dataSlot="table-body"
-      className={cn("cn-table-body", className)}
+      className={cn("cn-table-body data-empty:h-24 data-empty:text-center", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <tfoot
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
+  @react.componentWithProps(ReactAria.Table.Footer.props)
+  let make = (props: ReactAria.Table.Footer.props<'item>) =>
+    <ReactAria.Table.Footer
+      {...props}
       dataSlot="table-footer"
-      className={cn("cn-table-footer", className)}
+      className={cn("cn-table-footer", props.className)}
     />
 }
 
 module Row = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~dataState=?) =>
-    <tr
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?dataState
+  @react.componentWithProps(ReactAria.Table.Row.props)
+  let make = (props: ReactAria.Table.Row.props<'item>) =>
+    <ReactAria.Table.Row
+      {...props}
       dataSlot="table-row"
       className={cn(
-        "cn-table-row cn-table-row-aria",
-        className,
+        "cn-table-row cn-table-row-aria has-aria-expanded:bg-muted/50",
+        props.className,
       )}
     />
 }
 
 module Head = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~colSpan=?, ~onClick=?, ~onKeyDown=?) =>
-    <th
-      ?id
-      ?children
-      ?style
-      ?colSpan
-      ?onClick
-      ?onKeyDown
+  @react.componentWithProps(ReactAria.Table.Column.props)
+  let make = (props: ReactAria.Table.Column.props) =>
+    <ReactAria.Table.Column
+      {...props}
       dataSlot="table-head"
-      className={cn(
-        "cn-table-head cn-table-head-aria",
-        className,
-      )}
+      className={cn("cn-table-head cn-table-head-aria", props.className)}
     />
 }
 
 module Cell = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~colSpan=?, ~onClick=?, ~onKeyDown=?) =>
-    <td
-      ?id
-      ?children
-      ?style
-      ?colSpan
-      ?onClick
-      ?onKeyDown
+  @react.componentWithProps(ReactAria.Table.Cell.props)
+  let make = (props: ReactAria.Table.Cell.props) =>
+    <ReactAria.Table.Cell
+      {...props}
       dataSlot="table-cell"
-      className={cn("cn-table-cell cn-table-cell-aria", className)}
+      className={cn("cn-table-cell cn-table-cell-aria", props.className)}
     />
 }
 
 module Caption = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <caption
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <figcaption
+      {...props}
       dataSlot="table-caption"
-      className={cn("cn-table-caption", className)}
+      className={cn("cn-table-caption text-center", props.className)}
     />
 }

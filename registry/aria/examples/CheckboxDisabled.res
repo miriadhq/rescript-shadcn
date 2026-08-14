@@ -2,7 +2,7 @@
 let make = ({}: Demo.Props.t) =>
   <Field.Group className="mx-auto w-56">
     <Field orientation=Horizontal dataDisabled={true}>
-      <Checkbox id="toggle-checkbox-disabled" name="toggle-checkbox-disabled" disabled={true} />
+      <Checkbox id="toggle-checkbox-disabled" name="toggle-checkbox-disabled" isDisabled={true} />
       <Field.Label htmlFor="toggle-checkbox-disabled">
         {"Enable notifications"->React.string}
       </Field.Label>

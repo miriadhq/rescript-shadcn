@@ -14,13 +14,13 @@ module LucideIcons = {
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Tabs defaultValue="preview">
+  <Tabs defaultSelectedKey="preview">
     <Tabs.List>
-      <Tabs.Trigger value="preview">
+      <Tabs.Trigger id="preview">
         <LucideIcons.AppWindow />
         {"Preview"->React.string}
       </Tabs.Trigger>
-      <Tabs.Trigger value="code">
+      <Tabs.Trigger id="code">
         <LucideIcons.Code />
         {"Code"->React.string}
       </Tabs.Trigger>

@@ -2,11 +2,11 @@
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <DropdownMenu>
-    <DropdownMenu.Trigger render={<Button variant=Outline />}>
+  <DropdownMenu.Trigger>
+<Button variant=Outline>
       {"Open"->React.string}
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content>
+    </Button>
+<DropdownMenu>
       <DropdownMenu.Item>
         <Icons.User />
         {"Profile"->React.string}
@@ -24,5 +24,5 @@ let make = ({}: Demo.Props.t) =>
         <Icons.LogOut />
         {"Log out"->React.string}
       </DropdownMenu.Item>
-    </DropdownMenu.Content>
-  </DropdownMenu>
+    </DropdownMenu>
+</DropdownMenu.Trigger>

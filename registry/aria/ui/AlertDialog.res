@@ -2,251 +2,147 @@
 
 @@directive("'use client'")
 
-module Variant = Button.Variant
-module Size = Button.Size
-
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (~children=?, ~open_=?, ~defaultOpen=?, ~onOpenChange=?) =>
-  <Dialog ?children ?open_ ?defaultOpen ?onOpenChange />
-
-module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <Dialog.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="alert-dialog-trigger"
-      className
-    />
+module Size = {
+  @unboxed
+  type t =
+    | @as("default") Default
+    | @as("sm") Sm
 }
 
-module Portal = {
-  @react.component
-  let make = (~children=?) => <Dialog.Portal ?children />
+module Trigger = {
+  @react.componentWithProps(ReactAria.Dialog.Trigger.props)
+  let make = (props: ReactAria.Dialog.Trigger.props) =>
+    <ReactAria.Dialog.Trigger {...props} dataSlot="alert-dialog-trigger" />
 }
 
 module Overlay = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Dialog.Modal.props)
+  let make = (props: ReactAria.Dialog.Modal.props) =>
     <ReactAria.Dialog.ModalOverlay
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="alert-dialog-overlay"
       className={cn(
-        "cn-alert-dialog-overlay cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50",
-        className,
+        "cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50",
+        props.className,
       )}
     />
 }
 
-module Content = {
-  module Size = {
-    @unboxed
-    type t =
-      | @as("default") Default
-      | @as("sm") Sm
-  }
-  @react.component
-  let make = (
-    ~className=?,
-    ~size=Size.Default,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) => {
-    <ReactAria.Dialog.ModalOverlay
-      dataSlot="alert-dialog-overlay"
-      className="cn-alert-dialog-overlay cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50"
+type props = {size?: Size.t, ...ReactAria.Dialog.Modal.props}
+let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
+  `({size, className, children, ...props}) => props`
+)
+
+let render = (props: props) => {
+  let size = props.size->Option.getOr(Size.Default)
+  <Overlay {...props->overlayProps}>
+    <ReactAria.Dialog.Modal
+      dataSlot="alert-dialog-content"
+      dataSize={(size :> string)}
+      className={cn(
+        "cn-alert-dialog-content-aria group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+        props.className,
+      )}
     >
-      <ReactAria.Dialog.Modal
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
-        dataSlot="alert-dialog-content"
-        dataSize={(size :> string)}
-        className={cn(
-          "cn-alert-dialog-content cn-alert-dialog-content-aria data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-background ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm",
-          className,
-        )}
+      <ReactAria.Dialog
+        dataSlot="alert-dialog"
+        role="alertdialog"
+        className="[display:inherit] [gap:inherit] outline-none"
       >
-        <ReactAria.Dialog role="alertdialog" ?children />
-      </ReactAria.Dialog.Modal>
-    </ReactAria.Dialog.ModalOverlay>
-  }
+        {props.children->Option.getOr(React.null)}
+      </ReactAria.Dialog>
+    </ReactAria.Dialog.Modal>
+  </Overlay>
+}
+
+@react.componentWithProps(props)
+let make = (props: props) => render(props)
+
+module Content = {
+  @react.componentWithProps(props)
+  let make = (props: props) => render(props)
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="alert-dialog-header"
-      className={cn(
-        "cn-alert-dialog-header",
-        className,
-      )}
+      className={cn("cn-alert-dialog-header", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="alert-dialog-footer"
       className={cn(
         "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
-        className,
+        props.className,
       )}
     />
 }
 
 module Media = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
+      {...props}
       dataSlot="alert-dialog-media"
-      className={cn(
-        "cn-alert-dialog-media",
-        className,
-      )}
+      className={cn("cn-alert-dialog-media", props.className)}
     />
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <h2
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+  @react.componentWithProps(ReactAria.Heading.props)
+  let make = (props: ReactAria.Heading.props) =>
+    <ReactAria.Heading
+      {...props}
+      slot="title"
       dataSlot="alert-dialog-title"
-      className={cn(
-        "cn-alert-dialog-title cn-font-heading",
-        className,
-      )}
+      className={cn("cn-alert-dialog-title cn-font-heading", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <p
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <div
+      {...props}
       dataSlot="alert-dialog-description"
-      className={cn(
-        "cn-alert-dialog-description",
-        className,
-      )}
+      className={cn("cn-alert-dialog-description", props.className)}
     />
 }
 
 module Action = {
-  @react.component
-  let make = (
-    ~className="",
-    ~variant=Variant.Default,
-    ~size=Size.Default,
-    ~nativeButton=?,
-    ~disabled=?,
-    ~children=?,
-    ~onClick=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~render=?,
-  ) =>
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) =>
     <Button
-      className={cn("cn-alert-dialog-action", Some(className))}
-      variant
-      size
-      ?nativeButton
-      ?disabled
-      ?children
-      ?onClick
-      ?type_
-      ?ariaLabel
-      ?render
+      {...props}
+      slot="close"
       dataSlot="alert-dialog-action"
+      className={cn("cn-alert-dialog-action", props.className)}
     />
 }
 
 module Cancel = {
-  @react.component
-  let make = (
-    ~className="",
-    ~variant=Variant.Outline,
-    ~size=Size.Default,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=<Button variant size className={cn("cn-alert-dialog-cancel", Some(className))} />,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) => {
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) => {
+    let variant = props.variant->Option.getOr(Outline)
+    let size = props.size->Option.getOr(Default)
     <Button
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="alert-dialog-cancel"
-      render
+      {...props}
+      variant
+      size
       slot="close"
+      dataSlot="alert-dialog-cancel"
+      className={cn("cn-alert-dialog-cancel", props.className)}
     />
   }
 }

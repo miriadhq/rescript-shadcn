@@ -1,11 +1,6 @@
 type props = {
-  className?: string,
   size?: int,
-  role?: string,
-  @as("aria-label") ariaLabel?: string,
-  @as("aria-hidden") ariaHidden?: bool,
-  @as("data-icon") dataIcon?: string,
-  @as("data-slot") dataSlot?: string,
+  ...ReactAria.Common.baseProps,
 }
 
 module type Icon = {
@@ -497,6 +492,31 @@ module RefreshCcw = {
   external make: React.component<props> = "RefreshCcwIcon"
 }
 
+module RotateCcw = {
+  @module("lucide-react")
+  external make: React.component<props> = "RotateCcwIcon"
+}
+
+module GitBranch = {
+  @module("lucide-react")
+  external make: React.component<props> = "GitBranchIcon"
+}
+
+module BookOpenCheck = {
+  @module("lucide-react")
+  external make: React.component<props> = "BookOpenCheckIcon"
+}
+
+module ThumbsUp = {
+  @module("lucide-react")
+  external make: React.component<props> = "ThumbsUpIcon"
+}
+
+module ThumbsDown = {
+  @module("lucide-react")
+  external make: React.component<props> = "ThumbsDownIcon"
+}
+
 module Copy = {
   @module("lucide-react")
   external make: React.component<props> = "CopyIcon"
@@ -515,6 +535,21 @@ module ClipboardPaste = {
 module RotateCw = {
   @module("lucide-react")
   external make: React.component<props> = "RotateCwIcon"
+}
+
+module MessageCircleDashed = {
+  @module("lucide-react")
+  external make: React.component<props> = "MessageCircleDashedIcon"
+}
+
+module Paperclip = {
+  @module("lucide-react")
+  external make: React.component<props> = "PaperclipIcon"
+}
+
+module Telescope = {
+  @module("lucide-react")
+  external make: React.component<props> = "TelescopeIcon"
 }
 
 module Globe = {

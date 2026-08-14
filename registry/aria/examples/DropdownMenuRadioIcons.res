@@ -3,31 +3,34 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (paymentMethod, setPaymentMethod) = React.useState(() => "card")
-
-  <DropdownMenu>
-    <DropdownMenu.Trigger render={<Button variant=Outline />}>
-      {"Payment Method"->React.string}
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content className="min-w-56">
-      <DropdownMenu.Group>
+  <DropdownMenu.Trigger>
+    <Button variant=Outline className="w-fit"> {"Payment Method"->React.string} </Button>
+    <DropdownMenu className="min-w-56">
+      <DropdownMenu.Group
+        selectionMode=Single
+        selectedKeys={[paymentMethod]}
+        onSelectionChange={selection =>
+          switch selection {
+          | ReactAria.Common.Keys(keys) =>
+            setPaymentMethod(_ => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("card"))
+          | ReactAria.Common.All => setPaymentMethod(_ => "card")
+          }
+        }
+      >
         <DropdownMenu.Label> {"Select Payment Method"->React.string} </DropdownMenu.Label>
-        <DropdownMenu.RadioGroup
-          value={paymentMethod} onValueChange={(v, _) => setPaymentMethod(_ => v)}
-        >
-          <DropdownMenu.RadioItem value="card">
-            <Icons.CreditCard />
-            {"Credit Card"->React.string}
-          </DropdownMenu.RadioItem>
-          <DropdownMenu.RadioItem value="paypal">
-            <Icons.Wallet />
-            {"PayPal"->React.string}
-          </DropdownMenu.RadioItem>
-          <DropdownMenu.RadioItem value="bank">
-            <Icons.Building2 />
-            {"Bank Transfer"->React.string}
-          </DropdownMenu.RadioItem>
-        </DropdownMenu.RadioGroup>
+        <DropdownMenu.Item id="card">
+          <Icons.CreditCard />
+          {"Credit Card"->React.string}
+        </DropdownMenu.Item>
+        <DropdownMenu.Item id="paypal">
+          <Icons.Wallet />
+          {"PayPal"->React.string}
+        </DropdownMenu.Item>
+        <DropdownMenu.Item id="bank">
+          <Icons.Building2 />
+          {"Bank Transfer"->React.string}
+        </DropdownMenu.Item>
       </DropdownMenu.Group>
-    </DropdownMenu.Content>
-  </DropdownMenu>
+    </DropdownMenu>
+  </DropdownMenu.Trigger>
 }

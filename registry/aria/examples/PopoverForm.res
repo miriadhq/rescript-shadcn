@@ -1,10 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  <Popover>
-    <Popover.Trigger render={<Button variant=Outline />}>
-      {"Open Popover"->React.string}
-    </Popover.Trigger>
-    <Popover.Content className="w-64" align=Start>
+  <Popover.Trigger>
+    <Button variant=Outline> {"Open Popover"->React.string} </Button>
+    <Popover className="w-64" placement=ReactAria.Common.BottomStart>
       <Popover.Header>
         <Popover.Title> {"Dimensions"->React.string} </Popover.Title>
         <Popover.Description>
@@ -21,6 +19,6 @@ let make = ({}: Demo.Props.t) => {
           <Input id="height" defaultValue="25px" />
         </Field>
       </Field.Group>
-    </Popover.Content>
-  </Popover>
+    </Popover>
+  </Popover.Trigger>
 }

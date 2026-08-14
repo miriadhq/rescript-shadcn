@@ -175,7 +175,7 @@ The `ButtonGroupSeparator` component visually divides buttons within a group.
 ```res showLineNumbers
 <ButtonGroup>
   <Button>Button 1</Button>
-  <ButtonGroupSeparator />
+  <ButtonGroup.Separator />
   <Button>Button 2</Button>
 </ButtonGroup>
 ```
@@ -186,16 +186,16 @@ Use this component to display text within a button group.
 
 | Prop      | Type            | Default |
 | --------- | --------------- | ------- |
-| `render`  | `React.element` |         |
+| `render`  | `ButtonGroup.Text.renderProps => React.element` |         |
 
 ```res showLineNumbers
 <ButtonGroup>
-  <ButtonGroupText>Text</ButtonGroupText>
+  <ButtonGroup.Text>Text</ButtonGroup.Text>
   <Button>Button</Button>
 </ButtonGroup>
 ```
 
-Use the `render` prop to render a custom component as the text, for example a label.
+Use the `render` callback to render a custom component as the text, for example a label.
 
 ```res showLineNumbers
 
@@ -204,9 +204,17 @@ module ButtonGroupTextDemo = {
   @react.component
   let make = () => {
     <ButtonGroup>
-      <ButtonGroupText render={<Label htmlFor="name"/>}>
+      <ButtonGroup.Text render={props =>
+        <Label
+          htmlFor="name"
+          className=?props.className
+          id=?props.id
+          style=?props.style
+        >
+          {props.children->Option.getOr(React.null)}
+        </Label>}>
         {"Text"->React.string}
-      </ButtonGroupText>
+      </ButtonGroup.Text>
       <Input placeholder="Type something here..." id="name" />
     </ButtonGroup>
   }

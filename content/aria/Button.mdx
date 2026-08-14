@@ -124,15 +124,14 @@ Render a `<Spinner />` component inside the button to show a loading state. Reme
 
 ### Button Group
 
-To create a button group, use the `ButtonGroup` component. See the [Button Group](/components/base/ButtonGroup) documentation for more details.
+To create a button group, use the `ButtonGroup` component. See the [Button Group](/components/ButtonGroup) documentation for more details.
 
 <ComponentPreview name="ButtonGroupDemo" />
 
 ### Link
 
-You can use the `render` prop on `<Button />` to make another component look like a button. Here's an example of a link that looks like a button.
-
-Remember to set the `nativeButton` prop to `false` if you're returning an element that is not a button.
+Use `Button.LinkButton` for a React Aria link styled as a button. For another
+element type, apply `Button.buttonVariants` to that element as shown below.
 
 <ComponentPreview name="ButtonRender" />
 

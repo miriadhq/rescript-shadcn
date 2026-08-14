@@ -58,7 +58,7 @@ external cn: (string, option<string>) => string = "twMerge"
 
 @react.component
 let make = (~className=?, ~dataIcon=?, ~dataSlot=?) => {
-  <LoaderIcon
+  <Icons.LoaderCircle
     ?dataIcon
     ?dataSlot
     role="status"
@@ -96,4 +96,3 @@ Add a spinner to a badge to indicate a loading state. Remember to use the `dataI
 ### Empty
 
 <ComponentPreview name="SpinnerEmpty" />
-

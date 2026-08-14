@@ -1,21 +1,18 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <ContextMenu>
-    <ContextMenu.Trigger
-      className="flex aspect-video w-full max-w-xs items-center justify-center rounded-xl border border-dashed text-sm"
-    >
-      <span className="hidden pointer-fine:inline-block"> {"Right click here"->React.string} </span>
-      <span className="hidden pointer-coarse:inline-block">
-        {"Long press here"->React.string}
-      </span>
-    </ContextMenu.Trigger>
-    <ContextMenu.Content className="w-48">
+  <ContextMenu.Trigger
+    className="flex aspect-video w-full max-w-xs items-center justify-center rounded-xl border border-dashed text-sm"
+  >
+    <span className="hidden pointer-fine:inline-block"> {"Right click here"->React.string} </span>
+    <span className="hidden pointer-coarse:inline-block"> {"Long press here"->React.string} </span>
+
+    <ContextMenu className="w-48">
       <ContextMenu.Group>
         <ContextMenu.Item>
           {"Back"->React.string}
           <ContextMenu.Shortcut> {"⌘["->React.string} </ContextMenu.Shortcut>
         </ContextMenu.Item>
-        <ContextMenu.Item disabled=true>
+        <ContextMenu.Item isDisabled=true>
           {"Forward"->React.string}
           <ContextMenu.Shortcut> {"⌘]"->React.string} </ContextMenu.Shortcut>
         </ContextMenu.Item>
@@ -45,21 +42,15 @@ let make = ({}: Demo.Props.t) =>
         </ContextMenu.Sub>
       </ContextMenu.Group>
       <ContextMenu.Separator />
-      <ContextMenu.Group>
-        <ContextMenu.CheckboxItem checked=true>
-          {"Show Bookmarks"->React.string}
-        </ContextMenu.CheckboxItem>
-        <ContextMenu.CheckboxItem> {"Show Full URLs"->React.string} </ContextMenu.CheckboxItem>
+      <ContextMenu.Group selectionMode=Multiple defaultSelectedKeys={["bookmarks"]}>
+        <ContextMenu.Item id="bookmarks"> {"Show Bookmarks"->React.string} </ContextMenu.Item>
+        <ContextMenu.Item id="full-urls"> {"Show Full URLs"->React.string} </ContextMenu.Item>
       </ContextMenu.Group>
       <ContextMenu.Separator />
-      <ContextMenu.Group>
-        <ContextMenu.RadioGroup value="pedro">
-          <ContextMenu.Label> {"People"->React.string} </ContextMenu.Label>
-          <ContextMenu.RadioItem value="pedro">
-            {"Pedro Duarte"->React.string}
-          </ContextMenu.RadioItem>
-          <ContextMenu.RadioItem value="colm"> {"Colm Tuite"->React.string} </ContextMenu.RadioItem>
-        </ContextMenu.RadioGroup>
+      <ContextMenu.Group selectionMode=Single defaultSelectedKeys={["pedro"]}>
+        <ContextMenu.Label> {"People"->React.string} </ContextMenu.Label>
+        <ContextMenu.Item id="pedro"> {"Pedro Duarte"->React.string} </ContextMenu.Item>
+        <ContextMenu.Item id="colm"> {"Colm Tuite"->React.string} </ContextMenu.Item>
       </ContextMenu.Group>
-    </ContextMenu.Content>
-  </ContextMenu>
+    </ContextMenu>
+  </ContextMenu.Trigger>

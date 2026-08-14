@@ -1,29 +1,13 @@
 @@directive("'use client'")
 
-@module("date-fns") external format: (Date.t, string) => string = "format"
-
 @react.componentWithProps(Demo.Props.t)
-let make = ({}: Demo.Props.t) => {
-  let (date, setDate) = React.useState(() => None)
-
-  <Popover>
-    <Popover.Trigger
-      render={<Button
-        variant=Outline
-        dataEmpty=?{date->Option.isNone ? Some(true) : None}
-        className="data-[empty=true]:text-muted-foreground w-[212px] justify-between text-left font-normal"
-      />}
-    >
-      {switch date {
-      | Some(d) => d->format("PPP")->React.string
-      | None => <span> {"Pick a date"->React.string} </span>
-      }}
-      <Icons.ChevronDown dataIcon="inline-end" />
-    </Popover.Trigger>
-    <Popover.Content className="w-auto p-0" align=Start>
-      <Calendar
-        mode=Single selected=?date onSelect={value => setDate(_ => value)} defaultMonth=?date
-      />
-    </Popover.Content>
-  </Popover>
-}
+let make = ({}: Demo.Props.t) =>
+  <Popover.Trigger>
+    <Button variant=Outline className="px-2.5 font-normal">
+      <Icons.Calendar dataIcon="inline-start" />
+      {"Open Calendar"->React.string}
+    </Button>
+    <Popover className="w-auto p-0" placement=ReactAria.Common.BottomStart>
+      <Calendar />
+    </Popover>
+  </Popover.Trigger>

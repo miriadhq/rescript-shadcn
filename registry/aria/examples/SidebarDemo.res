@@ -110,12 +110,10 @@ module TeamSwitcher = {
     | Some({logo: module(Logo), name, plan}) =>
       <Sidebar.Menu>
         <Sidebar.MenuItem>
-          <DropdownMenu>
-            <DropdownMenu.Trigger
-              render={<Sidebar.MenuButton
-                size=Sidebar.MenuButton.Size.Lg
-                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-              />}
+          <DropdownMenu.Trigger>
+            <Sidebar.MenuButton
+              size=Sidebar.MenuButton.Size.Lg
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div
                 className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
@@ -127,12 +125,13 @@ module TeamSwitcher = {
                 <span className="truncate text-xs"> {plan->React.string} </span>
               </div>
               <Icons.ChevronsUpDown className="ml-auto" />
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content
+            </Sidebar.MenuButton>
+            <DropdownMenu
               className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-              align=Start
-              side={isMobile ? ReactAria.Types.Side.Bottom : ReactAria.Types.Side.Right}
-              sideOffset={4.}
+              placement={isMobile
+                ? ReactAria.Common.BottomStart
+                : ReactAria.Common.RightTop}
+              offset={4.}
             >
               <DropdownMenu.Group>
                 <DropdownMenu.Label className="text-muted-foreground text-xs">
@@ -141,7 +140,7 @@ module TeamSwitcher = {
                 {teams
                 ->Array.mapWithIndex(({name, logo: module(Logo)}, index) =>
                   <DropdownMenu.Item
-                    key={name} onClick={_ => setActiveTeamIndex(_ => index)} className="gap-2 p-2"
+                    key={name} onAction={() => setActiveTeamIndex(_ => index)} className="gap-2 p-2"
                   >
                     <div className="flex size-6 items-center justify-center rounded-md border">
                       <Logo className="size-3.5 shrink-0" />
@@ -167,8 +166,8 @@ module TeamSwitcher = {
                   </div>
                 </DropdownMenu.Item>
               </DropdownMenu.Group>
-            </DropdownMenu.Content>
-          </DropdownMenu>
+            </DropdownMenu>
+          </DropdownMenu.Trigger>
         </Sidebar.MenuItem>
       </Sidebar.Menu>
     }
@@ -183,23 +182,21 @@ module NavMainSection = {
       <Sidebar.Menu>
         {items
         ->Array.map(item =>
-          <Collapsible key={item.title} defaultOpen={item.isActive} className="group/collapsible">
+          <Collapsible key={item.title} defaultExpanded={item.isActive} className="group/collapsible">
             <Sidebar.MenuItem>
-              <Collapsible.Trigger
-                render={<Sidebar.MenuButton ariaDisabled={false} dataSlot="collapsible-trigger" />}
-              >
+              <Sidebar.MenuButton slot="trigger">
                 {item.icon}
                 <span> {item.title->React.string} </span>
                 <Icons.ChevronRight
-                  className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                  className="ml-auto transition-transform duration-200 group-data-expanded/collapsible:rotate-90"
                 />
-              </Collapsible.Trigger>
+              </Sidebar.MenuButton>
               <Collapsible.Content>
                 <Sidebar.MenuSub>
                   {item.items
                   ->Array.map(subItem =>
                     <Sidebar.MenuSubItem key={subItem.title}>
-                      <Sidebar.MenuSubButton render={<a href={subItem.url} />}>
+                      <Sidebar.MenuSubButton href={subItem.url}>
                         <span> {subItem.title->React.string} </span>
                       </Sidebar.MenuSubButton>
                     </Sidebar.MenuSubItem>
@@ -227,19 +224,18 @@ module NavProjectsSection = {
         {projects
         ->Array.map(project =>
           <Sidebar.MenuItem key={project.name}>
-            <Sidebar.MenuButton render={<a href={project.url} />}>
+            <Sidebar.MenuButton href={project.url}>
               {project.icon}
               <span> {project.name->React.string} </span>
             </Sidebar.MenuButton>
-            <DropdownMenu>
-              <DropdownMenu.Trigger render={<Sidebar.MenuAction showOnHover=true />}>
+            <DropdownMenu.Trigger>
+              <Sidebar.MenuAction showOnHover=true>
                 <Icons.MoreHorizontal />
                 <span className="sr-only"> {"More"->React.string} </span>
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content
+              </Sidebar.MenuAction>
+              <DropdownMenu
                 className="w-48 rounded-lg"
-                side={isMobile ? ReactAria.Types.Side.Bottom : ReactAria.Types.Side.Right}
-                align={isMobile ? ReactAria.Types.Align.End : ReactAria.Types.Align.Start}
+                placement={isMobile ? ReactAria.Common.BottomEnd : ReactAria.Common.RightTop}
               >
                 <DropdownMenu.Item>
                   {<Icons.Folder className="text-muted-foreground" />}
@@ -254,8 +250,8 @@ module NavProjectsSection = {
                   {<Icons.Trash2 className="text-muted-foreground" />}
                   <span> {"Delete Project"->React.string} </span>
                 </DropdownMenu.Item>
-              </DropdownMenu.Content>
-            </DropdownMenu>
+              </DropdownMenu>
+            </DropdownMenu.Trigger>
           </Sidebar.MenuItem>
         )
         ->React.array}
@@ -278,12 +274,10 @@ module NavUserSection = {
 
     <Sidebar.Menu>
       <Sidebar.MenuItem>
-        <DropdownMenu>
-          <DropdownMenu.Trigger
-            render={<Sidebar.MenuButton
-              size=Sidebar.MenuButton.Size.Lg
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            />}
+        <DropdownMenu.Trigger>
+          <Sidebar.MenuButton
+            size=Sidebar.MenuButton.Size.Lg
+            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
             <Avatar className="h-8 w-8 rounded-lg">
               <Avatar.Image src={user.avatar} alt={user.name} />
@@ -294,12 +288,11 @@ module NavUserSection = {
               <span className="truncate text-xs"> {user.email->React.string} </span>
             </div>
             <Icons.ChevronsUpDown className="ml-auto size-4" />
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content
+          </Sidebar.MenuButton>
+          <DropdownMenu
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            side={isMobile ? ReactAria.Types.Side.Bottom : ReactAria.Types.Side.Right}
-            align=End
-            sideOffset={4.}
+            placement={isMobile ? ReactAria.Common.BottomEnd : ReactAria.Common.RightBottom}
+            offset={4.}
           >
             <DropdownMenu.Group>
               <DropdownMenu.Label className="p-0 font-normal">
@@ -344,8 +337,8 @@ module NavUserSection = {
                 {"Log out"->React.string}
               </DropdownMenu.Item>
             </DropdownMenu.Group>
-          </DropdownMenu.Content>
-        </DropdownMenu>
+          </DropdownMenu>
+        </DropdownMenu.Trigger>
       </Sidebar.MenuItem>
     </Sidebar.Menu>
   }

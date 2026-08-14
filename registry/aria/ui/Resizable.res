@@ -7,9 +7,7 @@ external cn: (string, option<string>) => string = "twMerge"
 
 module ResizablePrimitive = {
   module Layout = {
-    type t = {
-      id: int,
-    }
+    type t = dict<float>
   }
   module ResizeTargetMinimumSize = {
     type t = {
@@ -18,13 +16,25 @@ module ResizablePrimitive = {
     }
   }
   module Group = {
+    type divProps = {
+      children?: React.element,
+      className?: string,
+      id?: string,
+      style?: ReactDOM.Style.t,
+      onClick?: JsxEvent.Mouse.t => unit,
+      onKeyDown?: JsxEvent.Keyboard.t => unit,
+      @as("data-slot") dataSlot?: string,
+    }
+
     type props = {
-      ...DomProps.t,
+      ...divProps,
       defaultLayout?: Layout.t,
       disableCursor?: bool,
+      disabled?: bool,
       elementRef?: ReactDOM.domRef,
       onLayoutChange?: Layout.t => unit,
       onLayoutChanged?: Layout.t => unit,
+      orientation?: Orientation.t,
       resizeTargetMinimumSize?: ResizeTargetMinimumSize.t,
     }
     @module("react-resizable-panels")
@@ -33,10 +43,11 @@ module ResizablePrimitive = {
 
   module Panel = {
     type props = {
-      ...DomProps.t,
+      ...Group.divProps,
       collapsedSize?: string,
       collapsible?: bool,
       defaultSize?: string,
+      disabled?: bool,
       elementRef?: ReactDOM.domRef,
       groupResizeBehavior?: [#"preserve-relative-size" | #"preserve-pixel-size"],
       minSize?: string,
@@ -49,7 +60,8 @@ module ResizablePrimitive = {
 
   module Separator = {
     type props = {
-      ...DomProps.t,
+      ...Group.divProps,
+      disabled?: bool,
       elementRef?: ReactDOM.domRef,
     }
     @module("react-resizable-panels")
@@ -57,61 +69,39 @@ module ResizablePrimitive = {
   }
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~orientation=?,
-) =>
+@react.componentWithProps(ResizablePrimitive.Group.props)
+let make = (props: ResizablePrimitive.Group.props) =>
   <ResizablePrimitive.Group
-    ?id
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
-    ?orientation
-    ?children
+    {...props}
     dataSlot="resizable-panel-group"
-    className={cn("cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col", className)}
+    className={cn(
+      "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",
+      props.className,
+    )}
   />
 
 module Panel = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~defaultSize=?, ~min=?, ~max=?) =>
-    <ResizablePrimitive.Panel
-      ?className ?children ?id ?style ?defaultSize ?min ?max dataSlot="resizable-panel"
-    />
+  @react.componentWithProps(ResizablePrimitive.Panel.props)
+  let make = (props: ResizablePrimitive.Panel.props) =>
+    <ResizablePrimitive.Panel {...props} dataSlot="resizable-panel" />
 }
 
 module Handle = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~orientation=?,
-    ~withHandle=false,
-  ) => {
+  type props = {withHandle?: bool, ...ResizablePrimitive.Separator.props}
+
+  let separatorProps: props => ResizablePrimitive.Separator.props = %raw(`({withHandle, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
     <ResizablePrimitive.Separator
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?orientation
+      {...props->separatorProps}
       dataSlot="resizable-handle"
       className={cn(
         "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
-        className,
+        props.className,
       )}
     >
-      {withHandle
+      {props.withHandle->Option.getOr(false)
         ? <div className="cn-resizable-handle-icon z-10 flex shrink-0" />
         : React.null}
     </ResizablePrimitive.Separator>

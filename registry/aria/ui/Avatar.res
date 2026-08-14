@@ -13,118 +13,96 @@ module Size = {
     | @as("lg") Lg
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~size=Size.Default,
-) => {
-  <span
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?children
-    dataSlot="avatar"
+type props = {size?: Size.t, ...ReactAria.Common.elementProps}
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({size, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let size = props.size->Option.getOr(Default)
+  <div
+    {...props->domProps}
+    dataSlot={props.dataSlot->Option.getOr("avatar")}
     dataSize={(size :> string)}
     className={cn(
-      "cn-avatar after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten",
-      className,
+      "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten",
+      props.className,
     )}
   />
 }
 
 module Image = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~id=?,
-    ~src=?,
-    ~alt=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  @unboxed
+  type state =
+    | @as("loading") Loading
+    | @as("loaded") Loaded
+    | @as("error") Error
+
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let (state, setState) = React.useState(() => props.src->Option.mapOr(Error, _ => Loading))
     <img
-      ?id
-      ?src
-      ?alt
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="avatar-image"
-      className={cn("cn-avatar-image aspect-square size-full object-cover", className)}
+      {...props}
+      alt={props.alt->Option.getOr("")}
+      dataSlot={props.dataSlot->Option.getOr("avatar-image")}
+      dataState={props.dataState->Option.getOr((state :> string))}
+      onLoad={props.onLoad->Option.getOr(_event => setState(_ => Loaded))}
+      onError={props.onError->Option.getOr(_event => setState(_ => Error))}
+      className={cn(
+        "cn-avatar-image peer aspect-square size-full object-cover data-[state=error]:hidden",
+        props.className,
+      )}
     />
+  }
 }
 
 module Fallback = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <span
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="avatar-fallback"
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
+    <div
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("avatar-fallback")}
       className={cn(
-        "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs",
-        className,
+        "cn-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs peer-data-[state=error]:flex peer-[*]:hidden",
+        props.className,
       )}
     />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="avatar-group"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("avatar-group")}
       className={cn(
-        "cn-avatar-group *:data-[slot=avatar]:ring-background group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2",
-        className,
+        "cn-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background",
+        props.className,
       )}
-      ?children
     />
 }
 
 module GroupCount = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="avatar-group-count"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("avatar-group-count")}
       className={cn(
-        "cn-avatar-group-count ring-background relative flex shrink-0 items-center justify-center ring-2",
-        className,
+        "cn-avatar-group-count relative flex shrink-0 items-center justify-center ring-2 ring-background",
+        props.className,
       )}
-      ?children
     />
 }
 
 module Badge = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <span
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="avatar-badge"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("avatar-badge")}
       className={cn(
-        "cn-avatar-image cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
-        className,
+        "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
+        props.className,
       )}
-      ?children
     />
 }

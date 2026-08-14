@@ -5,79 +5,36 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~disabled=?,
-  ~required=?,
-  ~readOnly=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~ariaLabel=?,
-  ~dir=?,
-  ~style=?,
-) => {
-  let onChange = onValueChange->Option.map(callback => value => callback(value, %raw(`undefined`)))
+@react.componentWithProps(props)
+let make = (props: ReactAria.RadioGroup.props) =>
   <ReactAria.RadioGroup
-    ?id
-    ?name
-    ?value
-    ?defaultValue
-    ?onChange
-    isDisabled=?disabled
-    isRequired=?required
-    isReadOnly=?readOnly
-    ?onClick
-    ?onKeyDown
-    ?ariaLabel
-    ?dir
-    ?style
-    ?children
+    {...props}
     dataSlot="radio-group"
-    className={cn("cn-radio-group w-full", className)}
+    className={cn("cn-radio-group w-full", props.className)}
   />
-}
 
 module Item = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~value,
-    ~disabled=?,
-    ~ariaLabel=?,
-    ~ariaInvalid=?,
-    ~dir=?,
-    ~style=?,
-  ) =>
+  type props<'children> = {children?: 'children, ...ReactAria.Radio.componentProps}
+
+  let radioProps: props<'children> => ReactAria.Radio.componentProps = %raw(`({children, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props<'children>) =>
     <ReactAria.Radio
-      ?id
-      value
-      isDisabled=?disabled
-      ?ariaLabel
-      ?ariaInvalid
-      ?dir
-      ?style
+      {...props->radioProps->ReactAria.Radio.toProps}
       dataSlot="radio-group-item"
       className={cn(
-        "cn-radio-group-item cn-radio-group-item-aria group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
-        className,
+        "cn-radio-group-item cn-radio-group-item-aria group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+        props.className,
       )}
     >
-      <span
-        dataSlot="radio-group-indicator" className="cn-radio-group-indicator"
-      >
-        <span
-          className="cn-radio-group-indicator-icon"
-        />
-      </span>
-      {children}
+      {ReactAria.Common.composeRenderProps(props.children, (children, state: ReactAria.Radio.renderProps) =>
+        <>
+          <span dataSlot="radio-group-indicator" className="cn-radio-group-indicator">
+            {state.isSelected ? <span className="cn-radio-group-indicator-icon" /> : React.null}
+          </span>
+          {children}
+        </>
+      )}
     </ReactAria.Radio>
 }

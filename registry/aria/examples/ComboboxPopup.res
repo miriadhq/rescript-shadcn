@@ -34,7 +34,10 @@ let countries = [
 let make = ({}: Demo.Props.t) =>
   <Combobox items={countries} defaultValue={countries->Array.getUnsafe(0)}>
     <Combobox.Trigger
-      render={<Button variant=Outline className="w-64 justify-between font-normal" />}
+      className={Button.buttonVariants(
+        ~variant=Outline,
+        ~className="w-64 justify-between font-normal",
+      )}
     >
       <Combobox.Value />
     </Combobox.Trigger>
@@ -43,7 +46,7 @@ let make = ({}: Demo.Props.t) =>
       <Combobox.List
         renderEmptyState={_ => <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>}
       >
-        {(item, _index) =>
+        {item =>
           <Combobox.Item key={item.code} value={item}> {item.label->React.string} </Combobox.Item>}
       </Combobox.List>
     </Combobox.Content>

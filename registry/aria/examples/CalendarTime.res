@@ -1,19 +1,15 @@
 @@directive("'use client'")
 
+module IDate = ReactAria.InternationalizedDate
+
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (date, setDate) = React.useState(() => {
-    let now = Date.make()
-    let year = now->Date.getFullYear
-    let month = now->Date.getMonth
-    Some(Date.makeWithYMD(~year, ~month, ~day=12))
-  })
+  let year = Date.make()->Date.getFullYear
+  let (date, setDate) = React.useState(() => IDate.calendarDate(year, 1, 12))
 
   <Card size=Sm className="mx-auto w-fit">
     <Card.Content>
-      <Calendar
-        mode=Single selected=?date onSelect={value => setDate(_ => value)} className="p-0"
-      />
+      <Calendar value=date onChange={date => setDate(_ => date)} className="p-0" />
     </Card.Content>
     <Card.Footer className="bg-card border-t">
       <Field.Group>

@@ -1,183 +1,89 @@
-@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
-
 @@directive("'use client'")
 
-open ReactAria.Types
+@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-type rootProps<'item, 'value> = {
-  ...ReactAria.Common.baseProps,
-  items?: array<'item>,
-  value?: 'value,
-  defaultValue?: 'value,
-  onValueChange?: ('value, JSON.t) => unit,
-  inputValue?: string,
-  defaultInputValue?: string,
-  onInputValueChange?: (string, JSON.t) => unit,
-  disabled?: bool,
-  required?: bool,
-  readOnly?: bool,
-  name?: string,
-  openOnInputClick?: bool,
-  grid?: bool,
-  filteredItems?: array<'item>,
-  virtualized?: bool,
-  inline?: bool,
-  limit?: float,
-  locale?: string,
-  autoHighlight?: bool,
-  highlightItemOnHover?: bool,
-  itemToStringLabel?: 'item => string,
-  itemToStringValue?: 'item => string,
-  isItemEqualToValue?: ('item, 'item) => bool,
-  allowsEmptyCollection?: bool,
-}
-
-let toAriaProps: rootProps<'item, 'value> => ReactAria.Combobox.props<'item, 'value> = %raw(`props => {
-  const {value, defaultValue, onValueChange, onInputValueChange, disabled, required, readOnly,
-    openOnInputClick, grid, filteredItems, virtualized, inline, limit, locale, autoHighlight,
-    highlightItemOnHover, itemToStringLabel, itemToStringValue, isItemEqualToValue, ...rest} = props;
-  return {...rest, value, defaultValue,
-    onChange: onValueChange == null ? undefined : value => onValueChange(value, undefined),
-    onInputChange: onInputValueChange == null ? undefined : value => onInputValueChange(value, undefined),
-    isDisabled: disabled, isRequired: required, isReadOnly: readOnly};
-}`)
+type rootProps<'item, 'value> = ReactAria.Combobox.props<'item, 'value>
 
 @react.componentWithProps(rootProps)
-let make = (props: rootProps<'item, 'value>) => <ReactAria.Combobox {...props->toAriaProps} />
-
-module Multiple = {
-  type props<'item> = rootProps<'item, array<'item>>
-
-  let toMultipleProps: props<'item> => ReactAria.Combobox.props<'item, array<'item>> = %raw(`props => {
-    const {value, defaultValue, onValueChange, onInputValueChange, disabled, required, readOnly,
-      openOnInputClick, grid, filteredItems, virtualized, inline, limit, locale, autoHighlight,
-      highlightItemOnHover, itemToStringLabel, itemToStringValue, isItemEqualToValue, ...rest} = props;
-    return {...rest, value, defaultValue, selectionMode: "multiple",
-      onChange: onValueChange == null ? undefined : value => onValueChange(value, undefined),
-      onInputChange: onInputValueChange == null ? undefined : value => onInputValueChange(value, undefined),
-      isDisabled: disabled, isRequired: required, isReadOnly: readOnly};
-  }`)
-
-  @react.componentWithProps(props)
-  let make = (props: props<'item>) => <ReactAria.Combobox {...props->toMultipleProps} />
-}
+let make = (props: rootProps<'item, 'value>) => <ReactAria.Combobox {...props} />
 
 module Value = {
-  type props<'value> = {
-    children?: array<'value> => React.element,
-    placeholder?: React.element,
-    className?: string,
-    id?: string,
-    style?: ReactDOM.Style.t,
-  }
-
-  let toAriaProps: props<'value> => ReactAria.Combobox.Value.props<'value> = %raw(`props => ({
-    ...props,
-    children: props.children == null ? undefined : state => props.children(state.selectedItems.filter(value => value != null))
-  })`)
-
-  @react.componentWithProps(props)
-  let make = (props: props<'value>) =>
-    <ReactAria.Combobox.Value {...props->toAriaProps} dataSlot="combobox-value" />
+  @react.componentWithProps(ReactAria.Combobox.Value.props)
+  let make = (props: ReactAria.Combobox.Value.props<'item, 'value>) =>
+    <ReactAria.Combobox.Value {...props} dataSlot="combobox-value" />
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~tabIndex=?,
-  ) =>
-    <Button
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?tabIndex
+  @react.componentWithProps(ReactAria.Button.props)
+  let make = (props: ReactAria.Button.props) =>
+    <ReactAria.Button
+      {...props}
       dataSlot="combobox-trigger"
-      className={cn("cn-combobox-trigger", className)}
+      className={cn("cn-combobox-trigger", props.className)}
     >
-      {children}
+      {props.children->Option.getOr(React.null)}
       <Icons.ChevronDown className="cn-combobox-trigger-icon pointer-events-none" />
-    </Button>
+    </ReactAria.Button>
 }
 
 module Clear = {
-  @react.component
-  let make = (
-    ~className="",
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <InputGroup.Button
-      dataSlot="combobox-clear"
-      variant=Ghost
-      size=IconXs
-      className={cn("cn-combobox-clear", Some(className))}
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      slot="clear"
-    >
-      <Icons.X className="cn-combobox-clear-icon pointer-events-none" />
-    </InputGroup.Button>
+  let noSlot: string = %raw(`null`)
+
+  @react.componentWithProps(InputGroup.Button.props)
+  let make = (props: InputGroup.Button.props) => {
+    let state = React.useContext(ReactAria.Combobox.stateContext)
+    switch state {
+    | Null | Undefined => React.null
+    | Value(state) if state.inputValue == "" => React.null
+    | Value(state) =>
+      <InputGroup.Button
+        {...props}
+        dataSlot="combobox-clear"
+        variant={props.variant->Option.getOr(Ghost)}
+        size={props.size->Option.getOr(IconXs)}
+        ariaLabel={props.ariaLabel->Option.getOr("Clear")}
+        className={cn("cn-combobox-clear", props.className)}
+        onPress={props.onPress->Option.getOr(_ => state.setValue(Null))}
+        slot=noSlot
+      >
+        <Icons.X className="cn-combobox-clear-icon pointer-events-none" />
+      </InputGroup.Button>
+    }
+  }
 }
 
 module Input = {
-  type inputProps = {
+  type props = {
     showTrigger?: bool,
     showClear?: bool,
-    ...Aria.Input.props,
+    ...ReactAria.Input.props,
   }
-  let toInputProps: inputProps => Aria.Input.props = %raw(`({className, children, showTrigger, showClear,...rest}) => rest`)
-  @react.componentWithProps(inputProps)
-  let make = (props: inputProps) => {
+
+  let inputProps: props => ReactAria.Input.props = %raw(`({className, children, showTrigger, showClear, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
     let disabled = props.disabled->Option.getOr(false)
     let showTrigger = props.showTrigger->Option.getOr(true)
     let showClear = props.showClear->Option.getOr(false)
-    let inputProps = toInputProps(props)
     <InputGroup className={cn("cn-combobox-input w-auto", props.className)}>
-      <InputGroup.Input {...inputProps} disabled />
+      <InputGroup.Input {...props->inputProps} disabled />
       <InputGroup.Addon align=InlineEnd>
         {showTrigger
           ? <InputGroup.Button
               size=IconXs
               variant=Ghost
-              render={<Trigger />}
-              dataSlot="input-group-button"
-              className="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
-              disabled
-            />
+              dataSlot="combobox-trigger"
+              className="cn-combobox-trigger group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
+              isDisabled=disabled
+            >
+              <Icons.ChevronDown className="cn-combobox-trigger-icon pointer-events-none" />
+            </InputGroup.Button>
           : React.null}
-        {showClear ? <Clear disabled /> : React.null}
+        {showClear ? <Clear isDisabled=disabled /> : React.null}
       </InputGroup.Addon>
       {props.children->Option.getOr(React.null)}
     </InputGroup>
@@ -185,186 +91,158 @@ module Input = {
 }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~side=Side.Bottom,
-    ~sideOffset=6.,
-    ~align=Align.Start,
-    ~alignOffset=0.,
-    ~anchor=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dir=?,
-    ~dataLang=?,
-    ~children=?,
-  ) => {
-    let placement: ReactAria.Common.placement = switch (side, align) {
-    | (Top, Start) => ReactAria.Common.TopStart
-    | (Top, End) => ReactAria.Common.TopEnd
-    | (Top, _) => ReactAria.Common.Top
-    | (Bottom, Start) => ReactAria.Common.BottomStart
-    | (Bottom, End) => ReactAria.Common.BottomEnd
-    | (Bottom, _) => ReactAria.Common.Bottom
-    | (Left, Start) => ReactAria.Common.LeftTop
-    | (Left, End) => ReactAria.Common.LeftBottom
-    | (Left, _) => ReactAria.Common.Left
-    | (Right, Start) => ReactAria.Common.RightTop
-    | (Right, End) => ReactAria.Common.RightBottom
-    | (Right, _) => ReactAria.Common.Right
-    | _ => ReactAria.Common.Bottom
-    }
+  type props = {anchor?: ReactDOM.domRef, ...ReactAria.Popover.props}
+  let popoverProps: props => ReactAria.Popover.props = %raw(`({anchor, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
     <ReactAria.Popover
-          ?id
-          ?style
-          ?onClick
-          ?onKeyDown
-          ?dir
-          ?dataLang
-          dataSlot="combobox-content"
-          dataChips={anchor->Option.isSome}
-          triggerRef=?anchor
-          placement
-          offset={sideOffset}
-          crossOffset={alignOffset}
-          className={cn(
-            "cn-combobox-content cn-combobox-content-aria cn-combobox-content-logical cn-menu-target cn-menu-translucent cn-menu-translucent-aria group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) overflow-hidden rounded-lg bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[chips=true]:min-w-(--anchor-width) data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:border-input/30 *:data-[slot=input-group]:bg-input/30 *:data-[slot=input-group]:shadow-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
-            className,
-          )}
-          ?children
-        />
-  }
+      {...props->popoverProps}
+      dataSlot="combobox-content"
+      triggerRef=?{props.anchor}
+      placement={props.placement->Option.getOr(ReactAria.Common.Bottom)}
+      offset={props.offset->Option.getOr(6.)}
+      crossOffset={props.crossOffset->Option.getOr(0.)}
+      className={cn(
+        "cn-combobox-content-aria cn-menu-target cn-menu-translucent cn-menu-translucent-aria relative isolate z-50 w-(--trigger-width) origin-(--trigger-anchor-point)",
+        props.className,
+      )}
+    />
 }
 
 module List = {
   @react.componentWithProps(ReactAria.Combobox.List.props)
-  let make = (props: ReactAria.Combobox.List.props<'item>) => {
+  let make = (props: ReactAria.Combobox.List.props<'item>) =>
     <ReactAria.Combobox.List
       {...props}
       dataSlot="combobox-list"
       className={cn(
-        "cn-combobox-list overscroll-contain",
+        "cn-combobox-list group/combobox-content max-h-[inherit] overflow-y-auto overscroll-contain",
         props.className,
       )}
     />
-  }
 }
+
+let textValueFromChildren: option<React.element> => option<string> = %raw(`children =>
+  typeof children === "string" ? children : undefined
+`)
 
 module Item = {
   @react.componentWithProps(ReactAria.Combobox.Item.props)
-  let make = (props: ReactAria.Combobox.Item.props<'value>) => {
-    let renderedChildren = ReactAria.Common.itemRenderChildren(state =>
-      <span className="contents">
-        {props.children->Option.getOr(React.null)}
+  let make = (props: ReactAria.Combobox.Item.props<'item, 'key>) => {
+    let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
+    let children = ReactAria.Common.composeItemRenderProps(props.children, (children, {isSelected}) =>
+      <>
+        {children}
         <span className="cn-combobox-item-indicator">
-          {state.isSelected
+          {isSelected
             ? <Icons.Check className="cn-combobox-item-indicator-icon pointer-events-none" />
             : React.null}
         </span>
-      </span>
+      </>
     )
-
     <ReactAria.Combobox.Item
       {...props}
+      ?textValue
       dataSlot="combobox-item"
       className={cn(
         "cn-combobox-item cn-combobox-item-aria relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
       )}
-    >
-      {renderedChildren}
-    </ReactAria.Combobox.Item>
+      children
+    />
   }
 }
 
 module Group = {
   @react.componentWithProps(ReactAria.Combobox.Group.props)
-  let make = (props: ReactAria.Combobox.Group.props<'item>) => {
+  let make = (props: ReactAria.Combobox.Group.props<'item, 'children>) =>
     <ReactAria.Combobox.Group
       {...props}
       dataSlot="combobox-group"
       className={cn("cn-combobox-group", props.className)}
     />
-  }
 }
 
 module Label = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
-    <ReactAria.Combobox.GroupLabel
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+  @react.componentWithProps(ReactAria.Header.props)
+  let make = (props: ReactAria.Header.props) =>
+    <ReactAria.Header
+      {...props}
       dataSlot="combobox-label"
-      className={cn("cn-combobox-label", className)}
+      className={cn("cn-combobox-label", props.className)}
     />
 }
 
 module Collection = {
-  @react.component
-  let make = (~children) =>
-    <ReactAria.Combobox.Collection>
-      {children}
-    </ReactAria.Combobox.Collection>
+  @react.componentWithProps(ReactAria.Combobox.Collection.props)
+  let make = (props: ReactAria.Combobox.Collection.props<'item>) =>
+    <ReactAria.Combobox.Collection {...props} />
 }
 
 module Empty = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
+  @react.componentWithProps(ReactAria.Types.DomProps.t)
+  let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
+      {...props}
       dataSlot="combobox-empty"
-      className={cn(
-        "cn-combobox-empty",
-        className,
-      )}
+      className={cn("cn-combobox-empty", props.className)}
     />
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
+  @react.componentWithProps(ReactAria.Separator.props)
+  let make = (props: ReactAria.Separator.props) =>
     <ReactAria.Separator
-      ?id
-      ?style
-      ?children
+      {...props}
       dataSlot="combobox-separator"
-      className={cn("cn-combobox-separator", className)}
+      className={cn("cn-combobox-separator", props.className)}
     />
 }
 
 module Chips = {
-  @react.componentWithProps(ReactAria.Types.BaseUIComponentProps.t)
-  let make = (props: ReactAria.Types.BaseUIComponentProps.t) =>
-    <ReactAria.Combobox.Chips
+  @react.componentWithProps(ReactAria.Group.props)
+  let make = (props: ReactAria.Group.props) =>
+    <ReactAria.Group
       {...props}
       dataSlot="combobox-chips"
-      className={cn(
-        "cn-combobox-chips",
-        props.className,
-      )}
+      className={cn("cn-combobox-chips", props.className)}
     />
 }
 
-type chipProps = {
-  ...ReactAria.Types.BaseUIComponentProps.t,
-  showRemove?: bool,
+module ChipList = {
+  @react.componentWithProps(ReactAria.TagGroup.List.props)
+  let make = (props: ReactAria.TagGroup.List.props<'item>) =>
+    <ReactAria.Combobox.Value
+      className="contents"
+      children={state => {
+        let selectedItems = state.selectedItems->Array.filterMap(Null.toOption)
+        <ReactAria.TagGroup
+          dataSlot="combobox-chip-list"
+          className={cn("contents", props.className)}
+          onRemove={keys => {
+            let value = state.state.value->Array.filter(key => keys->Set.has(key) == false)
+            state.state.setValue(value->Nullable.make)
+          }}
+        >
+          <ReactAria.TagGroup.List
+            {...props}
+            className="contents"
+            items={selectedItems}
+          />
+        </ReactAria.TagGroup>
+      }}
+    />
 }
 
-let comboboxChipToBase: chipProps => ReactAria.Types.BaseUIComponentProps.t = %raw(`({ showRemove, ...rest }) => rest`)
-
 module Chip = {
-  @react.componentWithProps(chipProps)
-  let make = (props: chipProps) => {
-    let showRemove = props.showRemove->Option.getOr(true)
-    <ReactAria.Combobox.Chip
-      {...props->comboboxChipToBase}
+  type props = {showRemove?: bool, ...ReactAria.TagGroup.Item.props}
+  let itemProps: props => ReactAria.TagGroup.Item.props = %raw(`({showRemove, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
+    <ReactAria.TagGroup.Item
+      {...props->itemProps}
       dataSlot="combobox-chip"
       className={cn(
         "cn-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50",
@@ -372,29 +250,48 @@ module Chip = {
       )}
     >
       {props.children->Option.getOr(React.null)}
-      {showRemove
+      {props.showRemove->Option.getOr(true)
         ? <Button
+            slot="remove"
             variant=Ghost
             size=IconXs
-            slot="remove"
             className="cn-combobox-chip-remove"
             dataSlot="combobox-chip-remove"
           >
             <Icons.X className="cn-combobox-chip-indicator-icon pointer-events-none" />
           </Button>
         : React.null}
-    </ReactAria.Combobox.Chip>
-  }
+    </ReactAria.TagGroup.Item>
 }
 
+@get external keyboardKey: JsxEvent.Keyboard.t => string = "key"
+@send external preventDefault: JsxEvent.Keyboard.t => unit = "preventDefault"
+let currentTargetValue: JsxEvent.Keyboard.t => string = %raw(`event => event.currentTarget.value`)
+
 module ChipsInput = {
-  @react.componentWithProps(Aria.Input.props)
-  let make = (props: Aria.Input.props) =>
-    <Aria.Input
+  @react.componentWithProps(ReactAria.Input.props)
+  let make = (props: ReactAria.Input.props) => {
+    let state: nullable<ReactAria.Combobox.state<array<string>>> = React.useContext(
+      ReactAria.Combobox.stateContext,
+    )
+    let onKeyDown = props.onKeyDown->Option.getOr(event => {
+        if event->keyboardKey == "Backspace" && event->currentTargetValue == "" {
+          switch state {
+          | Value(state) if state.value->Array.length > 0 => {
+              event->preventDefault
+              state.setValue(state.value->Array.slice(~start=0, ~end=-1)->Nullable.make)
+            }
+          | _ => ()
+          }
+        }
+      })
+    <ReactAria.Input
       {...props}
       dataSlot="combobox-chip-input"
       className={cn("cn-combobox-chip-input min-w-16 flex-1 outline-none", props.className)}
+      onKeyDown
     />
+  }
 }
 
 let useAnchor = () => React.useRef(null)->ReactDOM.Ref.domRef
