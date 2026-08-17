@@ -2,74 +2,78 @@
 
 @@directive("'use client'")
 
-type chartDatum = {
-  date: string,
-  desktop: int,
-  mobile: int,
+module ChartDatum = {
+  type t = {
+    date: string,
+    desktop: int,
+    mobile: int,
+  }
 }
 
 module Recharts = {
-  type margin = {left: int, right: int}
-
-  type barChartProps = {
-    accessibilityLayer?: bool,
-    data: array<chartDatum>,
-    margin: margin,
-    children: React.element,
+  module Margin = {
+    type t = {left: int, right: int}
   }
 
   module BarChart = {
-    @module("recharts")
-    external make: React.component<barChartProps> = "BarChart"
-  }
+    type props = {
+      accessibilityLayer?: bool,
+      data: array<ChartDatum.t>,
+      margin: Margin.t,
+      children: React.element,
+    }
 
-  type barProps = {
-    dataKey: string,
-    fill: string,
+    @module("recharts")
+    external make: React.component<props> = "BarChart"
   }
 
   module Bar = {
-    @module("recharts")
-    external make: React.component<barProps> = "Bar"
-  }
+    type props = {
+      dataKey: string,
+      fill: string,
+    }
 
-  type cartesianGridProps = {vertical: bool}
+    @module("recharts")
+    external make: React.component<props> = "Bar"
+  }
 
   module CartesianGrid = {
-    @module("recharts")
-    external make: React.component<cartesianGridProps> = "CartesianGrid"
-  }
+    type props = {vertical: bool}
 
-  type xAxisProps = {
-    dataKey: string,
-    tickLine: bool,
-    axisLine: bool,
-    tickMargin: int,
-    minTickGap: int,
-    tickFormatter?: string => string,
+    @module("recharts")
+    external make: React.component<props> = "CartesianGrid"
   }
 
   module XAxis = {
-    @module("recharts")
-    external make: React.component<xAxisProps> = "XAxis"
-  }
+    type props = {
+      dataKey: string,
+      tickLine: bool,
+      axisLine: bool,
+      tickMargin: int,
+      minTickGap: int,
+      tickFormatter?: string => string,
+    }
 
-  type tooltipProps = {content: React.element}
+    @module("recharts")
+    external make: React.component<props> = "XAxis"
+  }
 
   module Tooltip = {
+    type props = {content: React.element}
+
     @module("recharts")
-    external make: React.component<tooltipProps> = "Tooltip"
+    external make: React.component<props> = "Tooltip"
   }
 
-  type responsiveContainerProps = {children: React.element}
-
   module ResponsiveContainer = {
+    type props = {children: React.element}
+
     @module("recharts")
-    external make: React.component<responsiveContainerProps> = "ResponsiveContainer"
+    external make: React.component<props> = "ResponsiveContainer"
   }
 }
 
-let chartData: array<chartDatum> = [
+let chartData: array<ChartDatum.t> = [
   {date: "2024-04-01", desktop: 222, mobile: 150},
   {date: "2024-04-02", desktop: 97, mobile: 180},
   {date: "2024-04-03", desktop: 167, mobile: 120},

@@ -1,15 +1,20 @@
 @@directive("'use client'")
 
-type browserWindow
-type mediaQueryList
+module BrowserWindow = {
+  type t
+}
+module MediaQueryList = {
+  type t
+}
 
-@val external browserWindow: browserWindow = "window"
-@send external windowMatchMedia: (browserWindow, string) => mediaQueryList = "matchMedia"
-@get external mediaQueryMatches: mediaQueryList => bool = "matches"
+@val external browserWindow: BrowserWindow.t = "window"
+@send external windowMatchMedia: (BrowserWindow.t, string) => MediaQueryList.t = "matchMedia"
+@get external mediaQueryMatches: MediaQueryList.t => bool = "matches"
 @send
-external addMediaQueryListener: (mediaQueryList, string, unit => unit) => unit = "addEventListener"
+external addMediaQueryListener: (MediaQueryList.t, string, unit => unit) => unit =
+  "addEventListener"
 @send
-external removeMediaQueryListener: (mediaQueryList, string, unit => unit) => unit =
+external removeMediaQueryListener: (MediaQueryList.t, string, unit => unit) => unit =
   "removeEventListener"
 
 @module("tailwind-merge")

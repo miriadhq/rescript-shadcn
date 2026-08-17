@@ -9,9 +9,15 @@ let make = ({}: Demo.Props.t) =>
           </Bubble.Content>
         </Bubble>
         <Message.Footer>
-          <Button variant=Ghost size=Icon ariaLabel="Copy"> <Icons.Copy /> </Button>
-          <Button variant=Ghost size=Icon ariaLabel="Like"> <Icons.ThumbsUp /> </Button>
-          <Button variant=Ghost size=Icon ariaLabel="Dislike"> <Icons.ThumbsDown /> </Button>
+          <Button variant=Ghost size=Icon ariaLabel="Copy">
+            <Icons.Copy />
+          </Button>
+          <Button variant=Ghost size=Icon ariaLabel="Like">
+            <Icons.ThumbsUp />
+          </Button>
+          <Button variant=Ghost size=Icon ariaLabel="Dislike">
+            <Icons.ThumbsDown />
+          </Button>
         </Message.Footer>
       </Message.Content>
     </Message>
@@ -22,7 +28,9 @@ let make = ({}: Demo.Props.t) =>
         </Bubble>
         <Message.Footer className="gap-2">
           <span className="font-normal text-destructive"> {"Failed to send"->React.string} </span>
-          <Button variant=Ghost size=IconXs ariaLabel="Retry"> <Icons.RefreshCcw /> </Button>
+          <Button variant=Ghost size=IconXs ariaLabel="Retry">
+            <Icons.RefreshCcw />
+          </Button>
         </Message.Footer>
       </Message.Content>
     </Message>

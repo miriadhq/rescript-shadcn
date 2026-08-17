@@ -4,7 +4,7 @@
 let make = ({}: Demo.Props.t) =>
   <DropdownMenu.Trigger>
     <Button variant=Outline> {"Open"->React.string} </Button>
-    <DropdownMenu className="w-40" placement=ReactAria.Common.BottomStart>
+    <DropdownMenu className="w-40" placement=ReactAria.Common.Placement.BottomStart>
       <DropdownMenu.Group>
         <DropdownMenu.Label> {"My Account"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item>

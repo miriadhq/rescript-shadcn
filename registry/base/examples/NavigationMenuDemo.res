@@ -1,12 +1,14 @@
 @@directive("'use client'")
 
-type componentInfo = {
-  title: string,
-  href: string,
-  description: string,
+module ComponentInfo = {
+  type t = {
+    title: string,
+    href: string,
+    description: string,
+  }
 }
 
-let components: array<componentInfo> = [
+let components: array<ComponentInfo.t> = [
   {
     title: "Alert Dialog",
     href: "/docs/primitives/alert-dialog",
@@ -124,8 +126,7 @@ let make = ({}: Demo.Props.t) =>
       </NavigationMenu.Item>
       <NavigationMenu.Item>
         <NavigationMenu.Link
-          render={<NextLink href="/docs" />}
-          className={NavigationMenu.navigationMenuTriggerStyle()}
+          render={<NextLink href="/docs" />} className={NavigationMenu.navigationMenuTriggerStyle()}
         >
           {"Docs"->React.string}
         </NavigationMenu.Link>

@@ -12,19 +12,19 @@ module Size = {
     | @as("sm") Sm
 }
 
-type rootProps<'item, 'value> = ReactAria.Select.props<'item, 'value>
+type props<'item, 'value> = {...ReactAria.Select.props<'item, 'value>}
 
-@react.componentWithProps(rootProps)
-let make = (props: rootProps<'item, 'value>) =>
+@react.componentWithProps(props)
+let make = ({...ReactAria.Select.props as props}) =>
   <ReactAria.Select {...props} dataSlot="select" className={cn("w-fit", props.className)} />
 
 module Group = {
-  @react.componentWithProps(ReactAria.Select.Group.props)
-  let make = (props: ReactAria.Select.Group.props<'item, 'children>) =>
+  type props<'item, 'children> = {...ReactAria.Select.Group.props<'item, 'children>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Select.Group.props as props}) =>
     <ReactAria.Select.Group
-      {...props}
-      dataSlot="select-group"
-      className={cn("cn-select-group", props.className)}
+      {...props} dataSlot="select-group" className={cn("cn-select-group", props.className)}
     />
 }
 
@@ -36,8 +36,10 @@ let selectValueChildren: option<React.element> => React.element = %raw(`children
 `)
 
 module Value = {
-  @react.componentWithProps(ReactAria.Select.Value.props)
-  let make = (props: ReactAria.Select.Value.props<'item>) =>
+  type props<'item> = {...ReactAria.Select.Value.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Select.Value.props as props}) =>
     <ReactAria.Select.Value
       {...props}
       dataSlot="select-value"
@@ -49,13 +51,11 @@ module Value = {
 module Trigger = {
   type props = {size?: Size.t, ...ReactAria.Button.props}
 
-  let toButtonProps: props => ReactAria.Button.props = %raw(`({size, ...props}) => props`)
-
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let size = props.size->Option.getOr(Size.Default)
+  let make = ({?size, ...ReactAria.Button.props as props}) => {
+    let size = size->Option.getOr(Size.Default)
     <ReactAria.Button
-      {...props->toButtonProps}
+      {...props}
       dataSlot="select-trigger"
       dataSize={(size :> string)}
       className={cn(
@@ -75,7 +75,7 @@ module Popover = {
     <ReactAria.Popover
       {...props}
       dataSlot="select-content"
-      placement={props.placement->Option.getOr(ReactAria.Common.BottomStart)}
+      placement={props.placement->Option.getOr(ReactAria.Common.Placement.BottomStart)}
       offset={props.offset->Option.getOr(4.)}
       crossOffset={props.crossOffset->Option.getOr(0.)}
       className={cn(
@@ -86,8 +86,10 @@ module Popover = {
 }
 
 module List = {
-  @react.componentWithProps(ReactAria.Select.List.props)
-  let make = (props: ReactAria.Select.List.props<'item>) =>
+  type props<'item> = {...ReactAria.Select.List.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Select.List.props as props}) =>
     <ReactAria.Select.List
       {...props}
       dataSlot="select-list"
@@ -103,7 +105,7 @@ module Content = {
   let make = (props: ReactAria.Popover.props) =>
     <Popover
       {...props}
-      placement={props.placement->Option.getOr(ReactAria.Common.Bottom)}
+      placement={props.placement->Option.getOr(ReactAria.Common.Placement.Bottom)}
       offset={props.offset->Option.getOr(4.)}
       crossOffset={props.crossOffset->Option.getOr(0.)}
     >
@@ -137,9 +139,7 @@ module Label = {
   @react.componentWithProps(ReactAria.Header.props)
   let make = (props: ReactAria.Header.props) =>
     <ReactAria.Header
-      {...props}
-      dataSlot="select-label"
-      className={cn("cn-select-label", props.className)}
+      {...props} dataSlot="select-label" className={cn("cn-select-label", props.className)}
     />
 }
 
@@ -148,14 +148,17 @@ let textValueFromChildren: option<React.element> => option<string> = %raw(`child
 `)
 
 module Item = {
-  @react.componentWithProps(ReactAria.Select.Item.props)
-  let make = (props: ReactAria.Select.Item.props<'item, 'key>) => {
+  type props<'item, 'key> = {...ReactAria.Select.Item.props<'item, 'key>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Select.Item.props as props}) => {
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
-    let children = ReactAria.Common.composeItemRenderProps(props.children, (children, {isSelected}) =>
+    let children = ReactAria.Common.composeItemRenderProps(props.children, (
+      children,
+      {isSelected},
+    ) =>
       <>
-        <span className="cn-select-item-text shrink-0 whitespace-nowrap">
-          {children}
-        </span>
+        <span className="cn-select-item-text shrink-0 whitespace-nowrap"> {children} </span>
         <span className="cn-select-item-indicator">
           {isSelected
             ? <Icons.Check className="cn-select-item-indicator-icon pointer-events-none" />
@@ -190,8 +193,6 @@ module Empty = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
   let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      {...props}
-      dataSlot="select-empty"
-      className={cn("cn-select-empty-aria", props.className)}
+      {...props} dataSlot="select-empty" className={cn("cn-select-empty-aria", props.className)}
     />
 }

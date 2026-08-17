@@ -1,13 +1,15 @@
 @@directive("'use client'")
 
-type country = {
-  code: string,
-  value: string,
-  label: string,
-  continent: string,
+module Country = {
+  type t = {
+    code: string,
+    value: string,
+    label: string,
+    continent: string,
+  }
 }
 
-let countries = [
+let countries: array<Country.t> = [
   {code: "ar", value: "argentina", label: "Argentina", continent: "South America"},
   {code: "au", value: "australia", label: "Australia", continent: "Oceania"},
   {code: "br", value: "brazil", label: "Brazil", continent: "South America"},
@@ -31,12 +33,12 @@ let countries = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Combobox items={countries} itemToStringValue={(c: country) => c.label}>
+  <Combobox items={countries} itemToStringValue={(c: Country.t) => c.label}>
     <Combobox.Input placeholder="Search countries..." />
     <Combobox.Content>
       <Combobox.Empty> {"No countries found."->React.string} </Combobox.Empty>
       <Combobox.List>
-        {(country, _index) =>
+        {(country: Country.t, _index) =>
           <Combobox.Item key={country.code} value={country}>
             <Item size=Item.Size.Xs className="p-0">
               <Item.Content>

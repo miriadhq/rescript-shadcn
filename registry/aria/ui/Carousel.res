@@ -5,6 +5,8 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@module("react") external createElement: (string, 'props) => React.element = "createElement"
+
 module Orientation = ReactAria.Types.Orientation
 
 module Api = {
@@ -19,7 +21,9 @@ module Api = {
   @send external off: (t, string, t => unit) => unit = "off"
 }
 
-type carouselRef = ReactDOM.domRef
+module CarouselRef = {
+  type t = ReactDOM.domRef
+}
 
 module EmblaOptions = {
   module AxisOptionType = {
@@ -51,26 +55,30 @@ module EmblaOptions = {
   }
 }
 
-type emblaPlugin
+module EmblaPlugin = {
+  type t
+}
 
 @module("embla-carousel-react")
 external useEmblaCarousel: (
   ~options: EmblaOptions.t=?,
-  ~plugins: array<emblaPlugin>=?,
-) => (carouselRef, option<Api.t>) = "default"
+  ~plugins: array<EmblaPlugin.t>=?,
+) => (CarouselRef.t, option<Api.t>) = "default"
 
-type carouselContext = {
-  carouselRef: carouselRef,
-  api: option<Api.t>,
-  opts: EmblaOptions.t,
-  orientation: Orientation.t,
-  scrollPrev: unit => unit,
-  scrollNext: unit => unit,
-  canScrollPrev: bool,
-  canScrollNext: bool,
+module CarouselContext = {
+  type t = {
+    carouselRef: CarouselRef.t,
+    api: option<Api.t>,
+    opts: EmblaOptions.t,
+    orientation: Orientation.t,
+    scrollPrev: unit => unit,
+    scrollNext: unit => unit,
+    canScrollPrev: bool,
+    canScrollNext: bool,
+  }
 }
 
-let context: React.Context.t<option<carouselContext>> = React.createContext(None)
+let context: React.Context.t<option<CarouselContext.t>> = React.createContext(None)
 
 @throws(JsExn)
 let useCarousel = () =>
@@ -82,19 +90,22 @@ let useCarousel = () =>
 type props = {
   orientation?: Orientation.t,
   opts?: EmblaOptions.t,
-  plugins?: array<emblaPlugin>,
+  plugins?: array<EmblaPlugin.t>,
   setApi?: Api.t => unit,
-  onKeyDownCapture?: JsxEvent.Keyboard.t => unit,
-  ...ReactAria.Common.elementProps,
+  ...ReactAria.Common.ElementProps.t,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({orientation, opts, plugins, setApi, ...props}) => props`
-)
 
-@react.componentWithProps(props)
-let make = (props: props) => {
-  let orientation = props.orientation->Option.getOr(Horizontal)
-  let opts = props.opts->Option.getOr({})
+@warning("-112") @react.componentWithProps(props)
+let make = ({
+  ?orientation,
+  ?opts,
+  ?plugins,
+  ?setApi,
+  ?onKeyDownCapture,
+  ...ReactAria.Common.ElementProps.t as props,
+}) => {
+  let orientation = orientation->Option.getOr(Horizontal)
+  let opts = opts->Option.getOr({})
   let (carouselRef, api) = useEmblaCarousel(
     ~options={
       ...opts,
@@ -103,7 +114,7 @@ let make = (props: props) => {
       | Vertical => Y
       },
     },
-    ~plugins=?props.plugins,
+    ~plugins?,
   )
   let (canScrollPrev, setCanScrollPrev) = React.useState(() => false)
   let (canScrollNext, setCanScrollNext) = React.useState(() => false)
@@ -122,13 +133,13 @@ let make = (props: props) => {
     | None => ()
     }
   React.useEffect(() => {
-    switch (api, props.setApi) {
+    switch (api, setApi) {
     | (Some(api), Some(setApi)) =>
       setApi(api)
       None
     | _ => None
     }
-  }, (api, props.setApi))
+  }, (api, setApi))
   React.useEffect(() => {
     api->Option.map(api => {
       onSelect(api)
@@ -149,7 +160,7 @@ let make = (props: props) => {
     }
   }, [scrollPrev, scrollNext])
   let providerValue = Some({
-    carouselRef,
+    CarouselContext.carouselRef,
     api,
     opts,
     orientation,
@@ -162,14 +173,17 @@ let make = (props: props) => {
     let make = React.Context.provider(context)
   }
   <Provider value={providerValue}>
-    <div
-      {...props->domProps}
-      onKeyDownCapture={props.onKeyDownCapture->Option.getOr(handleKeyDownCapture)}
-      dataSlot={props.dataSlot->Option.getOr("carousel")}
-      className={cn("relative", props.className)}
-      role={props.role->Option.getOr("region")}
-      ariaRoledescription={props.ariaRoledescription->Option.getOr("carousel")}
-    />
+    {createElement(
+      "div",
+      {
+        ...props,
+        onKeyDownCapture: onKeyDownCapture->Option.getOr(handleKeyDownCapture),
+        dataSlot: props.dataSlot->Option.getOr("carousel"),
+        className: cn("relative", props.className),
+        role: props.role->Option.getOr("region"),
+        ariaRoledescription: props.ariaRoledescription->Option.getOr("carousel"),
+      },
+    )}
   </Provider>
 }
 

@@ -15,9 +15,7 @@ module Item = {
   @react.componentWithProps(ReactAria.Disclosure.props)
   let make = (props: ReactAria.Disclosure.props) =>
     <ReactAria.Disclosure
-      {...props}
-      dataSlot="accordion-item"
-      className={cn("cn-accordion-item", props.className)}
+      {...props} dataSlot="accordion-item" className={cn("cn-accordion-item", props.className)}
     />
 }
 
@@ -48,21 +46,21 @@ module Trigger = {
 }
 
 module Content = {
-  let panelProps: ReactAria.Disclosure.Panel.props => ReactAria.Disclosure.Panel.props = %raw(`({className, children, ...props}) => props`)
+  type props = {...ReactAria.Disclosure.Panel.props}
 
-  @react.componentWithProps(ReactAria.Disclosure.Panel.props)
-  let make = (props: ReactAria.Disclosure.Panel.props) =>
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({?className, ?children, ...ReactAria.Disclosure.Panel.props as props}) =>
     <ReactAria.Disclosure.Panel
-      {...props->panelProps}
+      {...props}
       dataSlot="accordion-content"
       className="cn-accordion-content h-(--disclosure-panel-height) overflow-clip transition-[height]"
     >
       <div
         className={cn(
           "cn-accordion-content-inner [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
-          props.className,
+          className,
         )}
-        children=?props.children
+        children=?children
       />
     </ReactAria.Disclosure.Panel>
 }

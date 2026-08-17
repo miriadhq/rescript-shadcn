@@ -1,10 +1,12 @@
-type item = {
-  value: string,
-  trigger: string,
-  content: string,
+module Item = {
+  type t = {
+    value: string,
+    trigger: string,
+    content: string,
+  }
 }
 
-let items: array<item> = [
+let items: array<Item.t> = [
   {
     value: "notifications",
     trigger: "Notification Settings",
@@ -24,9 +26,7 @@ let items: array<item> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Accordion
-    allowsMultipleExpanded=true className="max-w-lg" defaultExpandedKeys=["notifications"]
-  >
+  <Accordion allowsMultipleExpanded=true className="max-w-lg" defaultExpandedKeys=["notifications"]>
     {items
     ->Array.map(item =>
       <Accordion.Item key={item.value} id={item.value}>

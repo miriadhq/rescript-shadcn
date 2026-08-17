@@ -1,11 +1,13 @@
-type invoice = {
-  invoice: string,
-  paymentStatus: string,
-  totalAmount: string,
-  paymentMethod: string,
+module Invoice = {
+  type t = {
+    invoice: string,
+    paymentStatus: string,
+    totalAmount: string,
+    paymentMethod: string,
+  }
 }
 
-let invoices: array<invoice> = [
+let invoices: array<Invoice.t> = [
   {
     invoice: "INV001",
     paymentStatus: "Paid",
@@ -55,12 +57,10 @@ let make = ({}: Demo.Props.t) =>
   <Table>
     <Table.Caption> {"A list of your recent invoices."->React.string} </Table.Caption>
     <Table.Header>
-      <Table.Row>
-        <Table.Head className="w-[100px]"> {"Invoice"->React.string} </Table.Head>
-        <Table.Head> {"Status"->React.string} </Table.Head>
-        <Table.Head> {"Method"->React.string} </Table.Head>
-        <Table.Head className="text-right"> {"Amount"->React.string} </Table.Head>
-      </Table.Row>
+      <Table.Head className="w-[100px]"> {"Invoice"->React.string} </Table.Head>
+      <Table.Head> {"Status"->React.string} </Table.Head>
+      <Table.Head> {"Method"->React.string} </Table.Head>
+      <Table.Head className="text-right"> {"Amount"->React.string} </Table.Head>
     </Table.Header>
     <Table.Body>
       {invoices

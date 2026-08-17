@@ -11,24 +11,30 @@ module Image = {
 
 module Code = {
   type props = {
-    className?: string,
-    children: React.element,
     @as("__raw__") raw?: string,
-    @as("__src__") src?: string,
+    @as("__src__") source?: string,
     @as("__npm__") npm?: string,
     @as("__yarn__") yarn?: string,
     @as("__pnpm__") pnpm?: string,
     @as("__bun__") bun?: string,
     @as("__interpolate_lib_style__") interpolateLibStyle?: string,
+    ...BaseUi.Types.DomProps.t,
   }
 
-  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({className, children, __raw__, __npm__, __yarn__, __pnpm__, __bun__, __interpolate_lib_style__, ...rest}) => rest`)
-
-  @react.componentWithProps(props)
-  let make = (
-    {?className, children, ?raw, ?npm, ?yarn, ?pnpm, ?bun, ?interpolateLibStyle} as props: props,
-  ) => {
-    let props = toDomProps(props)
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({
+    ?className,
+    ?children,
+    ?raw,
+    source: ?_,
+    ?npm,
+    ?yarn,
+    ?pnpm,
+    ?bun,
+    ?interpolateLibStyle,
+    ...BaseUi.Types.DomProps.t as props,
+  }) => {
+    let children = children->Option.getOr(React.null)
     // Inline code
     switch children->Type.Classify.classify {
     | String(_) =>

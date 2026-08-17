@@ -44,33 +44,36 @@ module Link = {
     size?: Size.t,
     ...ReactAria.Button.Link.props,
   }
-  let buttonProps: props => Button.LinkButton.props = %raw(`({isActive, ...props}) => props`)
-
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let isActive = props.isActive->Option.getOr(false)
-    let size = props.size->Option.getOr(Icon)
-    <Button.LinkButton
-      {...props->buttonProps}
-      variant={isActive ? Outline : Ghost}
-      size={(size :> Button.Size.t)}
-      className={cn("cn-pagination-link", props.className)}
-      ariaCurrent=?{isActive ? Some(#page) : None}
+  let make = ({?isActive, ?size, ...ReactAria.Button.Link.props as props}) => {
+    let isActive = isActive->Option.getOr(false)
+    let size = size->Option.getOr(Icon)
+    let variant = isActive ? Button.Variant.Outline : Button.Variant.Ghost
+    let size = (size :> Button.Size.t)
+    <ReactAria.Button.Link
+      {...props}
       dataSlot={props.dataSlot->Option.getOr("pagination-link")}
+      dataVariant={(variant :> string)}
+      dataSize={(size :> string)}
       dataActive=?{isActive ? Some(true) : None}
+      ariaCurrent=?{isActive ? Some(#page) : None}
+      className={Button.buttonVariants(
+        ~variant,
+        ~size,
+        ~className=cn("cn-pagination-link", props.className),
+      )}
     />
   }
 }
 
 module Previous = {
   type props = {text?: string, ...Link.props}
-  let linkProps: props => Link.props = %raw(`({text, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let text = props.text->Option.getOr("Previous")
+  let make = ({?text, ...Link.props as props}) => {
+    let text = text->Option.getOr("Previous")
     <Link
-      {...props->linkProps}
+      {...props}
       ariaLabel={props.ariaLabel->Option.getOr("Go to previous page")}
       size={Size.Default}
       className={cn("cn-pagination-previous", props.className)}
@@ -83,13 +86,12 @@ module Previous = {
 
 module Next = {
   type props = {text?: string, ...Link.props}
-  let linkProps: props => Link.props = %raw(`({text, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let text = props.text->Option.getOr("Next")
+  let make = ({?text, ...Link.props as props}) => {
+    let text = text->Option.getOr("Next")
     <Link
-      {...props->linkProps}
+      {...props}
       ariaLabel={props.ariaLabel->Option.getOr("Go to next page")}
       size={Size.Default}
       className={cn("cn-pagination-next", props.className)}
@@ -107,10 +109,7 @@ module Ellipsis = {
       {...props}
       dataSlot={props.dataSlot->Option.getOr("pagination-ellipsis")}
       ariaHidden={props.ariaHidden->Option.getOr(true)}
-      className={cn(
-        "cn-pagination-ellipsis flex items-center justify-center",
-        props.className,
-      )}
+      className={cn("cn-pagination-ellipsis flex items-center justify-center", props.className)}
     >
       <Icons.MoreHorizontal />
       <span className="sr-only"> {"More pages"->React.string} </span>

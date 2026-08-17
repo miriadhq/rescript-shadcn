@@ -32,7 +32,7 @@ let make = ({}: Demo.Props.t) => {
             | _ => false
             }
             <Calendar.DayButton {...props}>
-              {props.children}
+              {props.children->Option.getOr(React.null)}
               {if props.modifiers.outside->Option.getOr(false) {
                 React.null
               } else {

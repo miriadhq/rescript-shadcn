@@ -1,22 +1,24 @@
 module ChangeEvent = {
-  type details = Types.BaseUIChangeEventDetail.t<
-    [
-      | #"trigger-hover"
-      | #"trigger-focus"
-      | #"trigger-press"
-      | #"outside-press"
-      | #"focus-out"
-      | #"list-navigation"
-      | #"escape-key"
-      | #"item-press"
-      | #"close-press"
-      | #"sibling-open"
-      | #"cancel-open"
-      | #"imperative-action"
-      | #none
-    ],
-    unknown,
-  >
+  module Details = {
+    type t = Types.BaseUIChangeEventDetail.t<
+      [
+        | #"trigger-hover"
+        | #"trigger-focus"
+        | #"trigger-press"
+        | #"outside-press"
+        | #"focus-out"
+        | #"list-navigation"
+        | #"escape-key"
+        | #"item-press"
+        | #"close-press"
+        | #"sibling-open"
+        | #"cancel-open"
+        | #"imperative-action"
+        | #none
+      ],
+      unknown,
+    >
+  }
 }
 
 module Root = {
@@ -27,7 +29,9 @@ module Root = {
     }
   }
 
-  type handle<'payload>
+  module Handle = {
+    type t<'payload>
+  }
 
   type props<'payload> = {
     ...Types.BaseUIComponentProps.t,
@@ -35,13 +39,13 @@ module Root = {
     loopFocus?: bool,
     highlightItemOnHover?: bool,
     modal?: bool,
-    onOpenChange?: (bool, ChangeEvent.details) => unit,
+    onOpenChange?: (bool, ChangeEvent.Details.t) => unit,
     onOpenChangeComplete?: bool => unit,
     closeParentOnEsc?: bool,
     actionsRef?: React.ref<Actions.t>,
     triggerId?: string,
     defaultTriggerId?: string,
-    handle?: handle<'payload>,
+    handle?: Handle.t<'payload>,
   }
   @module("@base-ui/react/menu") @scope("Menu")
   external make: React.component<props<'payload>> = "Root"
@@ -106,7 +110,7 @@ module CheckboxItem = {
     ...Types.NonNativeButtonProps.t,
     checked?: bool,
     defaultChecked?: bool,
-    onCheckedChange?: (bool, ChangeEvent.details) => unit,
+    onCheckedChange?: (bool, ChangeEvent.Details.t) => unit,
     closeOnClick?: bool,
   }
   @module("@base-ui/react/menu") @scope("Menu")
@@ -123,7 +127,7 @@ module RadioGroup = {
     ...Types.BaseUIComponentProps.t,
     value?: 'value,
     defaultValue?: 'value,
-    onValueChange?: ('value, ChangeEvent.details) => unit,
+    onValueChange?: ('value, ChangeEvent.Details.t) => unit,
   }
   @module("@base-ui/react/menu") @scope("Menu")
   external make: React.component<props<'value>> = "RadioGroup"
@@ -151,13 +155,13 @@ module SubmenuRoot = {
     defaultOpen?: bool,
     loopFocus?: bool,
     highlightItemOnHover?: bool,
-    onOpenChange?: (bool, ChangeEvent.details) => unit,
+    onOpenChange?: (bool, ChangeEvent.Details.t) => unit,
     onOpenChangeComplete?: bool => unit,
     closeParentOnEsc?: bool,
     actionsRef?: React.ref<Root.Actions.t>,
     triggerId?: string,
     defaultTriggerId?: string,
-    handle?: Root.handle<'payload>,
+    handle?: Root.Handle.t<'payload>,
   }
   @module("@base-ui/react/menu") @scope("Menu")
   external make: React.component<props<'payload>> = "SubmenuRoot"

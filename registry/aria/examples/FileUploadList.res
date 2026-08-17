@@ -1,15 +1,17 @@
 @@directive("'use client'")
 
-type fileItem = {
-  id: string,
-  name: string,
-  progress: float,
-  timeRemaining: string,
+module FileItem = {
+  type t = {
+    id: string,
+    name: string,
+    progress: float,
+    timeRemaining: string,
+  }
 }
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let files = [
+  let files: array<FileItem.t> = [
     {id: "1", name: "document.pdf", progress: 45., timeRemaining: "2m 30s"},
     {id: "2", name: "presentation.pptx", progress: 78., timeRemaining: "45s"},
     {id: "3", name: "spreadsheet.xlsx", progress: 12., timeRemaining: "5m 12s"},

@@ -1,13 +1,15 @@
 @@directive("'use client'")
 
-type country = {
-  code: string,
-  value: string,
-  label: string,
-  continent: string,
+module Country = {
+  type t = {
+    code: string,
+    value: string,
+    label: string,
+    continent: string,
+  }
 }
 
-let countries = [
+let countries: array<Country.t> = [
   {code: "ar", value: "argentina", label: "Argentina", continent: "South America"},
   {code: "au", value: "australia", label: "Australia", continent: "Oceania"},
   {code: "br", value: "brazil", label: "Brazil", continent: "South America"},
@@ -38,7 +40,7 @@ let make = ({}: Demo.Props.t) =>
         renderEmptyState={_ =>
           <Combobox.Empty> {"No countries found."->React.string} </Combobox.Empty>}
       >
-        {country =>
+        {(country: Country.t) =>
           <Combobox.Item key={country.code} value={country} textValue={country.label}>
             <Item size=Item.Size.Xs className="p-0">
               <Item.Content>

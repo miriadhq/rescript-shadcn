@@ -13,9 +13,7 @@ let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
 
   <Field className="mx-auto w-72">
-    <Field.Label htmlFor="date-picker-with-dropdowns-desktop">
-      {"Date"->React.string}
-    </Field.Label>
+    <Field.Label htmlFor="date-picker-with-dropdowns-desktop"> {"Date"->React.string} </Field.Label>
     <Popover.Trigger isOpen={open_} onOpenChange={open_ => setOpen(_ => open_)}>
       <Button
         variant=Outline
@@ -28,12 +26,8 @@ let make = ({}: Demo.Props.t) => {
         | None => <span> {"Pick a date"->React.string} </span>
         }}
       </Button>
-      <Popover className="w-auto p-0" placement=ReactAria.Common.BottomStart>
-        <Calendar
-          value=?date
-          onChange={date => setDate(_ => Some(date))}
-          captionLayout=Dropdown
-        />
+      <Popover className="w-auto p-0" placement=ReactAria.Common.Placement.BottomStart>
+        <Calendar value=?date onChange={date => setDate(_ => Some(date))} captionLayout=Dropdown />
         <div className="flex gap-2 border-t p-2">
           <Button variant=Outline size=Sm className="w-full" onPress={_ => setOpen(_ => false)}>
             {"Done"->React.string}

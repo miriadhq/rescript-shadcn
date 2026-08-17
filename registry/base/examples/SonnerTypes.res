@@ -1,6 +1,8 @@
 @@directive("'use client'")
 
-type res = {name: string}
+module Res = {
+  type t = {name: string}
+}
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
@@ -32,7 +34,7 @@ let make = ({}: Demo.Props.t) =>
         Sonner.promise(
           () =>
             Promise.make((resolve, _reject) => {
-              let _ = setTimeout(~handler=() => resolve({name: "Event"}), ~timeout=2000)
+              let _ = setTimeout(() => resolve(({name: "Event"}: Res.t)), 2000)
             }),
           {
             loading: "Loading..."->React.string,

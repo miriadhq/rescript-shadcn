@@ -11,11 +11,12 @@ let make = ({}: Demo.Props.t) => {
         selectedKeys={[paymentMethod]}
         onSelectionChange={selection =>
           switch selection {
-          | ReactAria.Common.Keys(keys) =>
-            setPaymentMethod(_ => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("card"))
-          | ReactAria.Common.All => setPaymentMethod(_ => "card")
-          }
-        }
+          | ReactAria.Common.Selection.Keys(keys) =>
+            setPaymentMethod(_ =>
+              keys->Set.values->IteratorObject.toArray->Array.get(0)->Option.getOr("card")
+            )
+          | ReactAria.Common.Selection.All => setPaymentMethod(_ => "card")
+          }}
       >
         <DropdownMenu.Label> {"Select Payment Method"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item id="card">

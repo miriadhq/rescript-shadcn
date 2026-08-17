@@ -1,14 +1,16 @@
 @@directive("'use client'")
 
-type notifications = {
-  email: bool,
-  sms: bool,
-  push: bool,
+module Notifications = {
+  type t = {
+    email: bool,
+    sms: bool,
+    push: bool,
+  }
 }
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (notifications, setNotifications) = React.useState(() => {
+  let (notifications, setNotifications) = React.useState((): Notifications.t => {
     email: true,
     sms: false,
     push: true,
@@ -95,13 +97,13 @@ let make = ({}: Demo.Props.t) => {
         ]->Array.filter(key => key != "")}
         onSelectionChange={selection =>
           switch selection {
-          | ReactAria.Common.Keys(keys) =>
+          | ReactAria.Common.Selection.Keys(keys) =>
             setNotifications(value => {
               ...value,
               email: keys->Set.has("sidebar"),
               sms: keys->Set.has("status"),
             })
-          | ReactAria.Common.All => ()
+          | ReactAria.Common.Selection.All => ()
           }}
       >
         <DropdownMenu.Label> {"View"->React.string} </DropdownMenu.Label>
@@ -125,11 +127,11 @@ let make = ({}: Demo.Props.t) => {
               selectedKeys={[theme]}
               onSelectionChange={selection =>
                 switch selection {
-                | ReactAria.Common.Keys(keys) =>
+                | ReactAria.Common.Selection.Keys(keys) =>
                   setTheme(_ =>
-                    keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("system")
+                    keys->Set.values->IteratorObject.toArray->Array.get(0)->Option.getOr("system")
                   )
-                | ReactAria.Common.All => setTheme(_ => "system")
+                | ReactAria.Common.Selection.All => setTheme(_ => "system")
                 }}
             >
               <DropdownMenu.Label> {"Appearance"->React.string} </DropdownMenu.Label>
@@ -193,13 +195,13 @@ let make = ({}: Demo.Props.t) => {
                     ]->Array.filter(key => key != "")}
                     onSelectionChange={selection =>
                       switch selection {
-                      | ReactAria.Common.Keys(keys) =>
+                      | ReactAria.Common.Selection.Keys(keys) =>
                         setNotifications(value => {
                           ...value,
                           push: keys->Set.has("push"),
                           email: keys->Set.has("email"),
                         })
-                      | ReactAria.Common.All => ()
+                      | ReactAria.Common.Selection.All => ()
                       }}
                   >
                     <DropdownMenu.Label> {"Notification Types"->React.string} </DropdownMenu.Label>

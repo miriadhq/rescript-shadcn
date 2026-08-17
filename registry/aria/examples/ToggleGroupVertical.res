@@ -1,7 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <ToggleGroup
-    selectionMode=ReactAria.Common.Multiple
+    selectionMode=ReactAria.Common.SelectionMode.Multiple
     orientation=ToggleGroup.Orientation.Vertical
     spacing=1.
     defaultSelectedKeys={["bold", "italic"]}

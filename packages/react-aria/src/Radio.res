@@ -1,22 +1,25 @@
-type renderProps = {
-  isSelected: bool,
+module RenderProps = {
+  type t = {
+    isSelected: bool,
+  }
 }
 
-type componentProps = {
-  ...Common.baseProps,
-  value: string,
-  isDisabled?: bool,
+module ComponentProps = {
+  type t = {
+    ...Common.BaseProps.t,
+    value: string,
+    isDisabled?: bool,
+  }
 }
 
-type props = {...componentProps, children: renderProps => React.element}
-external toProps: componentProps => props = "%identity"
+type props = {...ComponentProps.t, children?: React.element}
 
 @module("react-aria-components")
 external make: React.component<props> = "Radio"
 
 module Field = {
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     value: string,
     isDisabled?: bool,
   }
@@ -27,5 +30,5 @@ module Field = {
 
 module Button = {
   @module("react-aria-components")
-  external make: React.component<Common.elementProps> = "RadioButton"
+  external make: React.component<Common.ElementProps.t> = "RadioButton"
 }

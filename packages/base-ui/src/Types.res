@@ -1,5 +1,7 @@
 /** Shared types for Base UI ReScript bindings. */
-type eventDetails = JSON.t
+module EventDetails = {
+  type t = JSON.t
+}
 
 module Side = {
   @unboxed
@@ -259,7 +261,9 @@ module ExtraDomProps = {
   }
 }
 
-type dangerouslySetInnerHTML = {"__html": string}
+module DangerouslySetInnerHTML = {
+  type t = {"__html": string}
+}
 
 module BaseDomProps = {
   type t = {
@@ -752,7 +756,7 @@ module BaseDomProps = {
     typeof?: string,
     vocab?: string,
     /* react-specific */
-    dangerouslySetInnerHTML?: dangerouslySetInnerHTML,
+    dangerouslySetInnerHTML?: DangerouslySetInnerHTML.t,
     suppressContentEditableWarning?: bool,
   }
 }

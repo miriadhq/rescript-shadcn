@@ -1,8 +1,10 @@
 @@directive("'use client'")
 
-type country = {code: string, value: string, label: string, continent: string}
+module Country = {
+  type t = {code: string, value: string, label: string, continent: string}
+}
 
-let countries: array<country> = [
+let countries: array<Country.t> = [
   {code: "ar", value: "argentina", label: "Argentina", continent: "South America"},
   {code: "au", value: "australia", label: "Australia", continent: "Oceania"},
   {code: "br", value: "brazil", label: "Brazil", continent: "South America"},
@@ -28,7 +30,9 @@ let countries: array<country> = [
 let make = ({}: Demo.Props.t) => {
   let contains = ReactAria.Autocomplete.useFilter({sensitivity: "base"}).contains
   <Select placeholder="Select country" className="w-full max-w-48">
-    <Select.Trigger> <Select.Value /> </Select.Trigger>
+    <Select.Trigger>
+      <Select.Value />
+    </Select.Trigger>
     <ReactAria.Autocomplete filter=contains>
       <Select.Popover>
         <Select.Input />
@@ -36,7 +40,7 @@ let make = ({}: Demo.Props.t) => {
           renderEmptyState={() => <Select.Empty> {"No items found."->React.string} </Select.Empty>}
         >
           <Select.Group items=countries>
-            {country =>
+            {(country: Country.t) =>
               <Select.Item id={country.value}> {country.label->React.string} </Select.Item>}
           </Select.Group>
         </Select.List>

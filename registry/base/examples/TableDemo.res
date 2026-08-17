@@ -1,11 +1,13 @@
-type invoice = {
-  invoice: string,
-  paymentStatus: string,
-  totalAmount: string,
-  paymentMethod: string,
+module Invoice = {
+  type t = {
+    invoice: string,
+    paymentStatus: string,
+    totalAmount: string,
+    paymentMethod: string,
+  }
 }
 
-let invoices: array<invoice> = [
+let invoices: array<Invoice.t> = [
   {
     invoice: "INV001",
     paymentStatus: "Paid",

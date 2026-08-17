@@ -1,15 +1,17 @@
-@unboxed
-type selectionMode =
-  | @as("single") Single
-  | @as("multiple") Multiple
+module SelectionMode = {
+  @unboxed
+  type t =
+    | @as("single") Single
+    | @as("multiple") Multiple
+}
 
 type props<'item, 'key> = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   items?: array<'item>,
   value?: 'key,
   defaultValue?: 'key,
   onChange?: 'key => unit,
-  selectionMode?: selectionMode,
+  selectionMode?: SelectionMode.t,
   selectedKey?: 'key,
   defaultSelectedKey?: 'key,
   onSelectionChange?: 'key => unit,
@@ -28,21 +30,25 @@ type props<'item, 'key> = {
 @module("react-aria-components")
 external make: React.component<props<'item, 'key>> = "ComboBox"
 
-type state<'value> = {
-  inputValue: string,
-  value: 'value,
-  setValue: nullable<'value> => unit,
+module State = {
+  type t<'value> = {
+    inputValue: string,
+    value: 'value,
+    setValue: nullable<'value> => unit,
+  }
 }
 
 @module("react-aria-components")
-external stateContext: React.Context.t<nullable<state<'value>>> = "ComboBoxStateContext"
+external stateContext: React.Context.t<nullable<State.t<'value>>> = "ComboBoxStateContext"
 
 module Value = {
-  type renderState<'item, 'value> = {
-    selectedItems: array<null<'item>>,
-    selectedText: string,
-    isPlaceholder: bool,
-    state: state<'value>,
+  module RenderState = {
+    type t<'item, 'value> = {
+      selectedItems: array<null<'item>>,
+      selectedText: string,
+      isPlaceholder: bool,
+      state: State.t<'value>,
+    }
   }
 
   type props<'item, 'value> = {
@@ -50,7 +56,7 @@ module Value = {
     id?: string,
     style?: ReactDOM.Style.t,
     @as("data-slot") dataSlot?: string,
-    children?: renderState<'item, 'value> => React.element,
+    children?: RenderState.t<'item, 'value> => React.element,
     placeholder?: React.element,
   }
 
@@ -59,16 +65,18 @@ module Value = {
 }
 
 module List = {
-  type renderState = {
-    isEmpty: bool,
-    isFocused: bool,
-    isFocusVisible: bool,
+  module RenderState = {
+    type t = {
+      isEmpty: bool,
+      isFocused: bool,
+      isFocusVisible: bool,
+    }
   }
 
   type props<'item> = {
-    ...Common.baseProps,
+    ...Common.BaseProps.t,
     items?: array<'item>,
-    renderEmptyState?: renderState => React.element,
+    renderEmptyState?: RenderState.t => React.element,
     children?: 'item => React.element,
   }
 
@@ -113,5 +121,5 @@ module Group = {
 
 module GroupLabel = {
   @module("react-aria-components")
-  external make: React.component<Common.elementProps> = "Header"
+  external make: React.component<Common.ElementProps.t> = "Header"
 }

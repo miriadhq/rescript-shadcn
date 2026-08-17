@@ -1,67 +1,84 @@
-type toastObject = {
-  id: string,
-  title?: string,
-  @as("type") type_?: string,
-  description?: string,
+module ToastObject = {
+  type t = {
+    id: string,
+    title?: string,
+    @as("type") type_?: string,
+    description?: string,
+  }
 }
 
-@unboxed
-type priority =
-  | @as("low") Low
-  | @as("high") High
-
-type actionProps = {
-  children?: React.element,
-  onClick?: unit => unit,
+module Priority = {
+  @unboxed
+  type t =
+    | @as("low") Low
+    | @as("high") High
 }
 
-type addOptions = {
-  id?: string,
-  title?: string,
-  @as("type") type_?: string,
-  description?: string,
-  timeout?: int,
-  priority?: priority,
-  actionProps?: actionProps,
+module ActionProps = {
+  type t = {
+    children?: React.element,
+    onClick?: unit => unit,
+  }
 }
 
-type manager = {
-  add: addOptions => string,
-  close: option<string> => unit,
-  update: (string, addOptions) => unit,
+module AddOptions = {
+  type t = {
+    id?: string,
+    title?: string,
+    @as("type") type_?: string,
+    description?: string,
+    timeout?: int,
+    priority?: Priority.t,
+    actionProps?: ActionProps.t,
+  }
 }
 
-type managerState = {
-  toasts: array<toastObject>,
-  add: addOptions => string,
-  close: option<string> => unit,
-  update: (string, addOptions) => unit,
+module Manager = {
+  type t = {
+    add: AddOptions.t => string,
+    close: option<string> => unit,
+    update: (string, AddOptions.t) => unit,
+  }
 }
 
-@unboxed
-type promiseMessage<'value> =
-  | Text(string)
-  | Resolve('value => string)
+module ManagerState = {
+  type t = {
+    toasts: array<ToastObject.t>,
+    add: AddOptions.t => string,
+    close: option<string> => unit,
+    update: (string, AddOptions.t) => unit,
+  }
+}
 
-type promiseOptions<'value> = {
-  loading: string,
-  success: promiseMessage<'value>,
-  error: string,
+module PromiseMessage = {
+  @unboxed
+  type t<'value> =
+    | Text(string)
+    | Resolve('value => string)
+}
+
+module PromiseOptions = {
+  type t<'value> = {
+    loading: string,
+    success: PromiseMessage.t<'value>,
+    error: string,
+  }
 }
 
 @send
-external promise: (manager, promise<'value>, promiseOptions<'value>) => promise<'value> = "promise"
+external promise: (Manager.t, promise<'value>, PromiseOptions.t<'value>) => promise<'value> =
+  "promise"
 
 @module("@base-ui/react/toast") @scope("Toast")
-external createToastManager: unit => manager = "createToastManager"
+external createToastManager: unit => Manager.t = "createToastManager"
 
 @module("@base-ui/react/toast") @scope("Toast")
-external useToastManager: unit => managerState = "useToastManager"
+external useToastManager: unit => ManagerState.t = "useToastManager"
 
 module Root = {
   type props = {
     ...Types.BaseUIComponentProps.t,
-    toast?: toastObject,
+    toast?: ToastObject.t,
   }
   @module("@base-ui/react/toast") @scope("Toast")
   external make: React.component<props> = "Root"
@@ -72,7 +89,7 @@ module Provider = {
     ...Types.BaseUIComponentProps.t,
     timeout?: int,
     limit?: int,
-    toastManager?: manager,
+    toastManager?: Manager.t,
   }
   @module("@base-ui/react/toast") @scope("Toast")
   external make: React.component<props> = "Provider"

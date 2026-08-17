@@ -10,14 +10,18 @@ external cn: (string, option<string>) => string = "twMerge"
 let make = BaseUi.Combobox.Root.make
 
 module Multiple = {
-  @react.componentWithProps(BaseUi.Combobox.Root.Multiple.props)
-  let make = (props: BaseUi.Combobox.Root.Multiple.props<'item>) =>
+  type props = {...BaseUi.Combobox.Root.Multiple.props<string>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Combobox.Root.Multiple.props<string> as props}) =>
     <BaseUi.Combobox.Root.Multiple {...props} multiple=True />
 }
 
 module Value = {
-  @react.componentWithProps(BaseUi.Combobox.Value.props)
-  let make = (props: BaseUi.Combobox.Value.props<'value>) =>
+  type props<'value> = {...BaseUi.Combobox.Value.props<'value>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Combobox.Value.props as props}) =>
     <BaseUi.Combobox.Value {...props} dataSlot="combobox-value" />
 }
 
@@ -90,20 +94,25 @@ module Clear = {
 }
 
 module Input = {
-  type inputProps = {
+  type props = {
     showTrigger?: bool,
     showClear?: bool,
     ...BaseUi.Combobox.Input.props,
   }
-  let toBaseUiProps: inputProps => BaseUi.Combobox.Input.props = %raw(`({className, children, disabled, showTrigger, showClear,...rest}) => rest`)
-  @react.componentWithProps(inputProps)
-  let make = (props: inputProps) => {
-    let disabled = props.disabled->Option.getOr(false)
-    let showTrigger = props.showTrigger->Option.getOr(true)
-    let showClear = props.showClear->Option.getOr(false)
-    let baseUiProps = toBaseUiProps(props)
-    <InputGroup className={cn("cn-combobox-input w-auto", props.className)}>
-      <BaseUi.Combobox.Input {...baseUiProps} render={<InputGroup.Input disabled />} />
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({
+    ?className,
+    ?children,
+    ?disabled,
+    ?showTrigger,
+    ?showClear,
+    ...BaseUi.Combobox.Input.props as props,
+  }) => {
+    let disabled = disabled->Option.getOr(false)
+    let showTrigger = showTrigger->Option.getOr(true)
+    let showClear = showClear->Option.getOr(false)
+    <InputGroup className={cn("cn-combobox-input w-auto", className)}>
+      <BaseUi.Combobox.Input {...props} render={<InputGroup.Input disabled />} />
       <InputGroup.Addon align=InlineEnd>
         {showTrigger
           ? <InputGroup.Button
@@ -117,7 +126,7 @@ module Input = {
           : React.null}
         {showClear ? <Clear disabled /> : React.null}
       </InputGroup.Addon>
-      {props.children->Option.getOr(React.null)}
+      {children->Option.getOr(React.null)}
     </InputGroup>
   }
 }
@@ -169,24 +178,22 @@ module Content = {
 }
 
 module List = {
-  @react.component
-  let make = (~className=?, ~children, ~style=?, ~render=?) =>
+  type props<'item> = {...BaseUi.Combobox.List.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Combobox.List.props as props}) =>
     <BaseUi.Combobox.List
-      ?style
-      ?render
+      {...props}
       dataSlot="combobox-list"
-      className={cn(
-        "cn-combobox-list overscroll-contain",
-        className,
-      )}
-    >
-      {children}
-    </BaseUi.Combobox.List>
+      className={cn("cn-combobox-list overscroll-contain", props.className)}
+    />
 }
 
 module Item = {
-  @react.componentWithProps(BaseUi.Combobox.Item.props)
-  let make = (props: BaseUi.Combobox.Item.props<'value>) =>
+  type props<'value> = {...BaseUi.Combobox.Item.props<'value>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Combobox.Item.props as props}) =>
     <BaseUi.Combobox.Item
       {...props}
       dataSlot="combobox-item"
@@ -196,28 +203,20 @@ module Item = {
       )}
     >
       {props.children->Option.getOr(React.null)}
-      <BaseUi.Combobox.ItemIndicator
-        render={<span
-          className="cn-combobox-item-indicator"
-        />}
-      >
+      <BaseUi.Combobox.ItemIndicator render={<span className="cn-combobox-item-indicator" />}>
         <Icons.Check className="cn-combobox-item-indicator-icon pointer-events-none" />
       </BaseUi.Combobox.ItemIndicator>
     </BaseUi.Combobox.Item>
 }
 
 module Group = {
-  @react.component
-  let make = (~children, ~items=?, ~className=?, ~style=?, ~render=?) =>
+  type props<'value> = {...BaseUi.Combobox.Group.props<'value>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Combobox.Group.props as props}) =>
     <BaseUi.Combobox.Group
-      ?items
-      ?style
-      ?render
-      dataSlot="combobox-group"
-      className={cn("cn-combobox-group", className)}
-    >
-      {children}
-    </BaseUi.Combobox.Group>
+      {...props} dataSlot="combobox-group" className={cn("cn-combobox-group", props.className)}
+    />
 }
 
 module Label = {
@@ -235,25 +234,18 @@ module Label = {
 }
 
 module Collection = {
-  @react.component
-  let make = (~children) =>
-    <BaseUi.Combobox.Collection dataSlot="combobox-collection">
-      {children}
-    </BaseUi.Combobox.Collection>
+  type props<'item> = {...BaseUi.Combobox.Collection.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Combobox.Collection.props as props}) =>
+    <BaseUi.Combobox.Collection {...props} dataSlot="combobox-collection" />
 }
 
 module Empty = {
   @react.component
   let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
     <BaseUi.Combobox.Empty
-      ?id
-      ?style
-      ?children
-      dataSlot="combobox-empty"
-      className={cn(
-        "cn-combobox-empty",
-        className,
-      )}
+      ?id ?style ?children dataSlot="combobox-empty" className={cn("cn-combobox-empty", className)}
     />
 }
 
@@ -273,28 +265,21 @@ module Chips = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
   let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Combobox.Chips
-      {...props}
-      dataSlot="combobox-chips"
-      className={cn(
-        "cn-combobox-chips",
-        props.className,
-      )}
+      {...props} dataSlot="combobox-chips" className={cn("cn-combobox-chips", props.className)}
     />
 }
 
-type chipProps = {
-  ...BaseUi.Types.BaseUIComponentProps.t,
-  showRemove?: bool,
-}
-
-let comboboxChipToBase: chipProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({ showRemove, ...rest }) => rest`)
-
 module Chip = {
-  @react.componentWithProps(chipProps)
-  let make = (props: chipProps) => {
-    let showRemove = props.showRemove->Option.getOr(true)
+  type props = {
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    showRemove?: bool,
+  }
+
+  @react.componentWithProps(props)
+  let make = ({?showRemove, ...BaseUi.Types.BaseUIComponentProps.t as props}) => {
+    let showRemove = showRemove->Option.getOr(true)
     <BaseUi.Combobox.Chip
-      {...props->comboboxChipToBase}
+      {...props}
       dataSlot="combobox-chip"
       className={cn(
         "cn-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50",

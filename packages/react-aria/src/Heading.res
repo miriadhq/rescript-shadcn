@@ -1,6 +1,6 @@
 /** Direct binding for React Aria's Heading export. */
 type props = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   level?: int,
 }
 

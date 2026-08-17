@@ -11,10 +11,10 @@ let make = ({}: Demo.Props.t) => {
         selectedKeys
         onSelectionChange={selection =>
           switch selection {
-          | ReactAria.Common.Keys(keys) => setSelectedKeys(_ => keys->Set.values->Iterator.toArray)
-          | ReactAria.Common.All => ()
-          }
-        }
+          | ReactAria.Common.Selection.Keys(keys) =>
+            setSelectedKeys(_ => keys->Set.values->IteratorObject.toArray)
+          | ReactAria.Common.Selection.All => ()
+          }}
       >
         <DropdownMenu.Label> {"Appearance"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item id="status-bar">

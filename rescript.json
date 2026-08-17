@@ -30,7 +30,6 @@
     "rescript-signals"
   ],
   "compiler-flags": [
-    "-open WebAPI.Global",
     "-open Base"
   ],
   "reanalyze": {

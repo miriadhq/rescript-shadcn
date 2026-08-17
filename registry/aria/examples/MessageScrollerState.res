@@ -1,16 +1,22 @@
 @@directive("'use client'")
 
-let messages: array<MessageScrollerExample.message> = Array.fromInitializer(~length=12, index => {
-  let number = index + 1
-  let isUser = mod(index, 2) == 0
-  ({
-    id: `state-${number->Int.toString}`,
-    role: isUser ? User : Assistant,
-    text: isUser
-      ? `Check section ${number->Int.toString} of the transcript.`
-      : `Section ${number->Int.toString} is ready. Scroll state updates without rerendering the rows.`,
-  }: MessageScrollerExample.message)
-})
+let messages: array<MessageScrollerExample.MessageData.t> = Array.fromInitializer(
+  ~length=12,
+  index => {
+    let number = index + 1
+    let isUser = mod(index, 2) == 0
+
+    (
+      {
+        id: `state-${number->Int.toString}`,
+        role: isUser ? MessageScrollerExample.Role.User : MessageScrollerExample.Role.Assistant,
+        text: isUser
+          ? `Check section ${number->Int.toString} of the transcript.`
+          : `Section ${number->Int.toString} is ready. Scroll state updates without rerendering the rows.`,
+      }: MessageScrollerExample.MessageData.t
+    )
+  },
+)
 
 module StatusBar = {
   @react.component
@@ -54,9 +60,7 @@ let make = ({}: Demo.Props.t) =>
           <StatusBar />
           <MessageScroller.Viewport>
             <MessageScroller.Content className="gap-4 p-4 pt-12">
-              <MessageScrollerExample.Transcript
-                messages assistantVariant=Bubble.Variant.Muted
-              />
+              <MessageScrollerExample.Transcript messages assistantVariant=Bubble.Variant.Muted />
             </MessageScroller.Content>
           </MessageScroller.Viewport>
           <MessageScroller.Button />

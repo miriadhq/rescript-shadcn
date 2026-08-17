@@ -4,9 +4,17 @@ open ReactAria.Types
 let make = ({}: Demo.Props.t) =>
   <div className="mx-auto flex w-full max-w-xs items-center justify-center gap-6">
     <Slider
-      defaultValue={[50.]} maxValue={100.} step={1.} orientation=Orientation.Vertical className="h-40"
+      defaultValue={[50.]}
+      maxValue={100.}
+      step={1.}
+      orientation=Orientation.Vertical
+      className="h-40"
     />
     <Slider
-      defaultValue={[25.]} maxValue={100.} step={1.} orientation=Orientation.Vertical className="h-40"
+      defaultValue={[25.]}
+      maxValue={100.}
+      step={1.}
+      orientation=Orientation.Vertical
+      className="h-40"
     />
   </div>

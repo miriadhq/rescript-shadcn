@@ -5,32 +5,42 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-type colorTheme = {
-  light?: string,
-  dark?: string,
+module ColorTheme = {
+  type t = {
+    light?: string,
+    dark?: string,
+  }
 }
 
-type chartConfigItem = {
-  label?: React.element,
-  icon?: unit => React.element,
-  color?: string,
-  theme?: colorTheme,
+module ChartConfigItem = {
+  type t = {
+    label?: React.element,
+    icon?: unit => React.element,
+    color?: string,
+    theme?: ColorTheme.t,
+  }
 }
 
-type chartConfig = dict<chartConfigItem>
-
-type chartContext = {config: chartConfig}
-
-type payloadItem<'value> = {
-  @as("type") type_?: string,
-  dataKey?: string,
-  name?: string,
-  color?: string,
-  value?: 'value,
-  payload: dict<string>,
+module ChartConfig = {
+  type t = dict<ChartConfigItem.t>
 }
 
-let chartContext: React.Context.t<option<chartContext>> = React.createContext(None)
+module ChartContext = {
+  type t = {config: ChartConfig.t}
+}
+
+module PayloadItem = {
+  type t<'value> = {
+    @as("type") type_?: string,
+    dataKey?: string,
+    name?: string,
+    color?: string,
+    value?: 'value,
+    payload: dict<string>,
+  }
+}
+
+let chartContext: React.Context.t<option<ChartContext.t>> = React.createContext(None)
 
 @throws(JsExn)
 let use = () =>
@@ -39,7 +49,7 @@ let use = () =>
   | None => JsError.throwWithMessage("useChart must be used within a <ChartContainer />")
   }
 
-let themeColor = (~itemConfig: chartConfigItem, ~themeName: string) =>
+let themeColor = (~itemConfig: ChartConfigItem.t, ~themeName: string) =>
   switch itemConfig.theme {
   | Some(theme) =>
     switch themeName {
@@ -51,8 +61,8 @@ let themeColor = (~itemConfig: chartConfigItem, ~themeName: string) =>
   }
 
 let getPayloadConfigFromPayload = (
-  ~config: chartConfig,
-  ~payload: payloadItem<'value>,
+  ~config: ChartConfig.t,
+  ~payload: PayloadItem.t<'value>,
   ~key: string,
 ) => {
   let configLabelKey = switch key {
@@ -210,7 +220,9 @@ module Recharts = {
       | @as("click") Click
   }
 
-  type mouseEvent<'element>
+  module MouseEvent = {
+    type t<'element>
+  }
 
   module Tooltip = {
     @module("recharts") @react.component
@@ -485,7 +497,7 @@ module Recharts = {
       ~onMouseEnter: (
         ~data: 'legendPayload,
         ~index: int,
-        ~event: mouseEvent<Dom.htmlElement>,
+        ~event: MouseEvent.t<Dom.htmlElement>,
       ) => unit=?,
       /**
    * The customized event handler of mouseleave on the items in this group
@@ -494,12 +506,16 @@ module Recharts = {
       ~onMouseLeave: (
         ~data: 'legendPayload,
         ~index: int,
-        ~event: mouseEvent<Dom.htmlElement>,
+        ~event: MouseEvent.t<Dom.htmlElement>,
       ) => unit=?,
       /**
    * The customized event handler of click on the items in this group
    */
-      ~onClick: (~data: 'legendPayload, ~index: int, ~event: mouseEvent<Dom.htmlElement>) => unit=?,
+      ~onClick: (
+        ~data: 'legendPayload,
+        ~index: int,
+        ~event: MouseEvent.t<Dom.htmlElement>,
+      ) => unit=?,
       /**
    * The style of each text label which is a span element.
    * @defaultValue {}
@@ -606,11 +622,13 @@ module Recharts = {
 
 module Style = {
   @react.component
-  let make = (~id: string, ~config: chartConfig) => {
+  let make = (~id: string, ~config: ChartConfig.t) => {
     let colorConfig =
       config
       ->Dict.toArray
-      ->Array.filter(((_, itemConfig)) => itemConfig.theme->Option.isSome || itemConfig.color->Option.isSome)
+      ->Array.filter(((_, itemConfig)) =>
+        itemConfig.theme->Option.isSome || itemConfig.color->Option.isSome
+      )
     switch colorConfig {
     | [] => React.null
     | _ =>
@@ -642,27 +660,30 @@ module Style = {
 }
 
 type props = {
-  config: chartConfig,
+  config: ChartConfig.t,
   initialDimension?: Recharts.Dimensions.t,
   ...ReactAria.Types.DomProps.t,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({config, initialDimension, id, children, ...props}) => props`
-)
 
-@react.componentWithProps(props)
-let make = (props: props) => {
+@warning("-112") @react.componentWithProps(props)
+let make = ({
+  config,
+  ?initialDimension,
+  ?id,
+  ?children,
+  ...ReactAria.Types.DomProps.t as props,
+}) => {
   let uniqueId = React.useId()->String.replaceAll(":", "")
-  let chartId = switch props.id {
+  let chartId = switch id {
   | Some(id) => `chart-${id}`
   | None => `chart-${uniqueId}`
   }
   module Provider = {
     let make = React.Context.provider(chartContext)
   }
-  <Provider value={Some({config: props.config})}>
+  <Provider value={Some({config: config})}>
     <div
-      {...props->domProps}
+      {...props}
       dataSlot="chart"
       dataChart={chartId}
       className={cn(
@@ -670,10 +691,10 @@ let make = (props: props) => {
         props.className,
       )}
     >
-      <Style id={chartId} config={props.config} />
+      <Style id={chartId} config />
       <Recharts.ResponsiveContainer
-        initialDimension={props.initialDimension->Option.getOr({width: 320., height: 200.})}
-        children={props.children->Option.getOr(React.null)}
+        initialDimension={initialDimension->Option.getOr({width: 320., height: 200.})}
+        children={children->Option.getOr(React.null)}
       />
     </div>
   </Provider>
@@ -690,22 +711,22 @@ module Indicator = {
 }
 
 module TooltipContent = {
-  let formatValue: 'value => string = %raw(
-    `value => typeof value === "number" ? value.toLocaleString() : String(value)`
-  )
+  let formatValue: 'value => string = %raw(`value => typeof value === "number" ? value.toLocaleString() : String(value)`)
 
   @react.component
   let make = (
     ~active=false,
-    ~payload: array<payloadItem<'value>>=[],
+    ~payload: array<PayloadItem.t<float>>=[],
     ~className=?,
     ~indicator=Indicator.Dot,
     ~hideLabel=false,
     ~hideIndicator=false,
     ~label=?,
-    ~labelFormatter: option<(option<React.element>, array<payloadItem<'value>>) => React.element>=?,
+    ~labelFormatter: option<
+      (option<React.element>, array<PayloadItem.t<float>>) => React.element,
+    >=?,
     ~labelClassName=?,
-    ~formatter: option<('value, string, payloadItem<'value>, int, dict<string>) => React.element>=?,
+    ~formatter: option<(float, string, PayloadItem.t<float>, int, dict<string>) => React.element>=?,
     ~color=?,
     ~nameKey=?,
     ~labelKey=?,
@@ -765,10 +786,7 @@ module TooltipContent = {
         ?style
         ?onClick
         ?onKeyDown
-        className={cn(
-          "cn-chart-tooltip grid min-w-32 items-start",
-          className,
-        )}
+        className={cn("cn-chart-tooltip grid min-w-32 items-start", className)}
       >
         {switch (nestLabel, tooltipLabel) {
         | (false, Some(labelElement)) => labelElement
@@ -884,7 +902,7 @@ module LegendContent = {
   let make = (
     ~className=?,
     ~hideIcon=false,
-    ~payload: array<payloadItem<'value>>=[],
+    ~payload: array<PayloadItem.t<float>>=[],
     ~verticalAlign="bottom",
     ~nameKey="",
     ~id=?,

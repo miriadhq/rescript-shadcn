@@ -3,19 +3,23 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-type plugin
+module Plugin = {
+  type t
+}
 
 @module("@streamdown/code")
-external code: plugin = "code"
+external code: Plugin.t = "code"
 
-type plugins = {code: plugin}
+module Plugins = {
+  type t = {code: Plugin.t}
+}
 
 module Streamdown = {
   type props = {
     children?: React.element,
     className?: string,
     controls?: bool,
-    plugins?: plugins,
+    plugins?: Plugins.t,
     @as("data-slot") dataSlot?: string,
   }
 

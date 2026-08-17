@@ -1,33 +1,36 @@
 /** Bindings for Checkbox, CheckboxField, CheckboxButton, and CheckboxGroup. */
-type renderProps = {
-  isSelected: bool,
-  isIndeterminate: bool,
+module RenderProps = {
+  type t = {
+    isSelected: bool,
+    isIndeterminate: bool,
+  }
 }
 
-type componentProps = {
-  ...Common.baseProps,
-  name?: string,
-  value?: string,
-  isSelected?: bool,
-  defaultSelected?: bool,
-  onChange?: bool => unit,
-  isIndeterminate?: bool,
-  isDisabled?: bool,
-  isRequired?: bool,
-  isReadOnly?: bool,
-  isInvalid?: bool,
-  inputRef?: ReactDOM.domRef,
+module ComponentProps = {
+  type t = {
+    ...Common.BaseProps.t,
+    name?: string,
+    value?: string,
+    isSelected?: bool,
+    defaultSelected?: bool,
+    onChange?: bool => unit,
+    isIndeterminate?: bool,
+    isDisabled?: bool,
+    isRequired?: bool,
+    isReadOnly?: bool,
+    isInvalid?: bool,
+    inputRef?: ReactDOM.domRef,
+  }
 }
 
-type props = {...componentProps, children: renderProps => React.element}
-external toProps: componentProps => props = "%identity"
+type props = {...ComponentProps.t, children?: React.element}
 
 @module("react-aria-components")
 external make: React.component<props> = "Checkbox"
 
 module Field = {
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     name?: string,
     value?: string,
     isSelected?: bool,
@@ -47,12 +50,12 @@ module Field = {
 
 module Button = {
   @module("react-aria-components")
-  external make: React.component<Common.elementProps> = "CheckboxButton"
+  external make: React.component<Common.ElementProps.t> = "CheckboxButton"
 }
 
 module Group = {
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     name?: string,
     value?: array<string>,
     defaultValue?: array<string>,

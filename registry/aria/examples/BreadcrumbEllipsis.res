@@ -9,9 +9,7 @@ let make = ({}: Demo.Props.t) =>
         <Breadcrumb.Ellipsis />
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <Breadcrumb.Link href="/docs/components">
-          {"Components"->React.string}
-        </Breadcrumb.Link>
+        <Breadcrumb.Link href="/docs/components"> {"Components"->React.string} </Breadcrumb.Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         <Breadcrumb.Page> {"Breadcrumb"->React.string} </Breadcrumb.Page>

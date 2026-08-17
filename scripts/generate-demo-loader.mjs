@@ -21,9 +21,9 @@ const makeEntries = (names, packageName) => names
   .map(
     (name) =>
       `  "${name}": module({
-      let load: unit => promise<React.component<RescriptShadcn.Demo.Props.t>> = %raw(\`() => import("${packageName}/examples/${name}.res.mjs").then(m => m.make)\`)
+      let load: unit => promise<React.component<Demo.Props.t>> = %raw(\`() => import("${packageName}/examples/${name}.res.mjs").then(m => m.make)\`)
       let make = React.lazy_(load)
-    }: RescriptShadcn.Demo.Component),`
+    }: Demo.Component),`
   )
   .join("\n");
 

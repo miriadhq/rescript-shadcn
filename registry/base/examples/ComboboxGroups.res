@@ -1,11 +1,13 @@
 @@directive("'use client'")
 
-type timezone = {
-  value: string,
-  items: array<string>,
+module Timezone = {
+  type t = {
+    value: string,
+    items: array<string>,
+  }
 }
 
-let timezones = [
+let timezones: array<Timezone.t> = [
   {
     value: "Americas",
     items: [
@@ -48,7 +50,7 @@ let make = ({}: Demo.Props.t) =>
     <Combobox.Content>
       <Combobox.Empty> {"No timezones found."->React.string} </Combobox.Empty>
       <Combobox.List>
-        {(group, index) =>
+        {(group: Timezone.t, index) =>
           <React.Fragment key={group.value}>
             <Combobox.Group>
               <Combobox.Label> {group.value->React.string} </Combobox.Label>

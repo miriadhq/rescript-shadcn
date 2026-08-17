@@ -1,5 +1,7 @@
 module Shiki: {
-  type highlighter
+  module Highlighter: {
+    type t
+  }
   module Node: {
     type t = {
       tagName: string,
@@ -27,7 +29,7 @@ module Shiki: {
   }
 }
 
-let getHighlighter: unit => promise<Shiki.highlighter>
+let getHighlighter: unit => promise<Shiki.Highlighter.t>
 
 let transformers: array<Shiki.Transformer.t>
 

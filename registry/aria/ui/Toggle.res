@@ -42,14 +42,12 @@ type props = {
   ...ReactAria.ToggleButton.props,
 }
 
-let toggleProps: props => ReactAria.ToggleButton.props = %raw(`({variant, size, ...props}) => props`)
-
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let variant = props.variant->Option.getOr(Default)
-  let size = props.size->Option.getOr(Default)
+let make = ({?variant, ?size, ...ReactAria.ToggleButton.props as props}) => {
+  let variant = variant->Option.getOr(Default)
+  let size = size->Option.getOr(Default)
   <ReactAria.ToggleButton
-    {...props->toggleProps}
+    {...props}
     dataSlot={props.dataSlot->Option.getOr("toggle")}
     className={cn(toggleVariants(~variant, ~size), props.className)}
   />

@@ -1,11 +1,13 @@
-type model = {
-  name: string,
-  description: string,
-  image: string,
-  credit: string,
+module Model = {
+  type t = {
+    name: string,
+    description: string,
+    image: string,
+    credit: string,
+  }
 }
 
-let models = [
+let models: array<Model.t> = [
   {
     name: "v0-1.5-sm",
     description: "Everyday tasks and UI generation.",

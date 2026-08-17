@@ -1,20 +1,17 @@
-type item<'value> = {
-  label: string,
-  value: 'value,
+module SelectionMode = {
+  @unboxed
+  type t =
+    | @as("single") Single
+    | @as("multiple") Multiple
 }
 
-@unboxed
-type selectionMode =
-  | @as("single") Single
-  | @as("multiple") Multiple
-
 type props<'item, 'key> = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   items?: array<'item>,
   value?: 'key,
   defaultValue?: 'key,
   onChange?: 'key => unit,
-  selectionMode?: selectionMode,
+  selectionMode?: SelectionMode.t,
   selectedKey?: 'key,
   defaultSelectedKey?: 'key,
   onSelectionChange?: 'key => unit,
@@ -29,17 +26,17 @@ type props<'item, 'key> = {
 external make: React.component<props<'item, 'key>> = "Select"
 
 module Value = {
-  type renderProps<'item> = {
-    defaultChildren: React.element,
-    isPlaceholder: bool,
-    selectedItems: array<'item>,
-    selectedText: string,
+  module RenderProps = {
+    type t<'item> = {
+      defaultChildren: React.element,
+      isPlaceholder: bool,
+      selectedItems: array<'item>,
+      selectedText: string,
+    }
   }
 
-  external renderChildren: (renderProps<'item> => React.element) => React.element = "%identity"
-
   type props<'item> = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     placeholder?: string,
   }
 
@@ -48,7 +45,10 @@ module Value = {
 }
 
 module Item = {
-  type t<'value> = item<'value>
+  type t<'value> = {
+    label: string,
+    value: 'value,
+  }
   type props<'value, 'key> = {
     key?: string,
     ref?: ReactDOM.domRef,
@@ -66,7 +66,7 @@ module Item = {
     onFocus?: JsxEvent.Focus.t => unit,
     onMouseEnter?: JsxEvent.Mouse.t => unit,
     onMouseLeave?: JsxEvent.Mouse.t => unit,
-    onPress?: Common.pressEvent => unit,
+    onPress?: Common.PressEvent.t => unit,
     value?: 'value,
     textValue?: string,
     isDisabled?: bool,
@@ -83,12 +83,12 @@ module Item = {
 
 module List = {
   type props<'item> = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     items?: array<'item>,
-    selectionMode?: Common.selectionMode,
+    selectionMode?: Common.SelectionMode.t,
     selectedKeys?: array<string>,
     defaultSelectedKeys?: array<string>,
-    onSelectionChange?: Common.selection => unit,
+    onSelectionChange?: Common.Selection.t => unit,
     disabledKeys?: array<string>,
     renderEmptyState?: unit => React.element,
   }
@@ -99,7 +99,7 @@ module List = {
 
 module Group = {
   type props<'item, 'children> = {
-    ...Common.baseProps,
+    ...Common.BaseProps.t,
     children?: 'children,
     items?: array<'item>,
     value?: 'item,
@@ -111,5 +111,5 @@ module Group = {
 
 module GroupLabel = {
   @module("react-aria-components")
-  external make: React.component<Common.elementProps> = "Header"
+  external make: React.component<Common.ElementProps.t> = "Header"
 }

@@ -28,10 +28,7 @@ module List = {
       ?onClick
       ?onKeyDown
       dataSlot="breadcrumb-list"
-      className={cn(
-        "cn-breadcrumb-list flex flex-wrap items-center wrap-break-word",
-        className,
-      )}
+      className={cn("cn-breadcrumb-list flex flex-wrap items-center wrap-break-word", className)}
     />
 }
 

@@ -46,12 +46,13 @@ describe("React Aria bindings", () => {
 
   it("keeps render-function children out of the shared element props", () => {
     const common = readFileSync(join(sourceDirectory, "Common.res"), "utf8")
-    const baseProps = common.match(/type baseProps = \{([\s\S]*?)\n\}/)?.[1]
+    const baseProps = common.match(/module BaseProps = \{\n  type t = \{([\s\S]*?)\n  \}\n\}/)?.[1]
+    const elementProps = common.match(/module ElementProps = \{\n  type t = \{([\s\S]*?)\n  \}\n\}/)?.[1]
 
     expect(baseProps).toBeDefined()
     expect(baseProps).not.toContain("children?: React.element")
-    expect(common).toContain("type elementProps = {")
-    expect(common).toContain("children?: React.element")
+    expect(elementProps).toBeDefined()
+    expect(elementProps).toContain("children?: React.element")
   })
 
   it("uses ReScript's built-in nullable type", () => {

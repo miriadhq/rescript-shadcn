@@ -5,6 +5,9 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@module("react")
+external createElement: (string, ReactAria.Common.ElementProps.t) => React.element = "createElement"
+
 module Size = {
   @unboxed
   type t =
@@ -13,40 +16,46 @@ module Size = {
     | @as("lg") Lg
 }
 
-type props = {size?: Size.t, ...ReactAria.Common.elementProps}
-let domProps: props => ReactAria.Types.DomProps.t = %raw(`({size, ...props}) => props`)
+type props = {size?: Size.t, ...ReactAria.Common.ElementProps.t}
 
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let size = props.size->Option.getOr(Default)
-  <div
-    {...props->domProps}
-    dataSlot={props.dataSlot->Option.getOr("avatar")}
-    dataSize={(size :> string)}
-    className={cn(
-      "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten",
-      props.className,
-    )}
-  />
+let make = ({?size, ...ReactAria.Common.ElementProps.t as props}) => {
+  let size = size->Option.getOr(Default)
+  createElement(
+    "div",
+    {
+      ...props,
+      dataSlot: props.dataSlot->Option.getOr("avatar"),
+      dataSize: (size :> string),
+      className: cn(
+        "cn-avatar group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten",
+        props.className,
+      ),
+    },
+  )
 }
 
 module Image = {
-  @unboxed
-  type state =
-    | @as("loading") Loading
-    | @as("loaded") Loaded
-    | @as("error") Error
+  module State = {
+    @unboxed
+    type t =
+      | @as("loading") Loading
+      | @as("loaded") Loaded
+      | @as("error") Error
+  }
 
   @react.componentWithProps(ReactAria.Types.DomProps.t)
   let make = (props: ReactAria.Types.DomProps.t) => {
-    let (state, setState) = React.useState(() => props.src->Option.mapOr(Error, _ => Loading))
+    let (state, setState) = React.useState(() =>
+      props.src->Option.mapOr(State.Error, _ => State.Loading)
+    )
     <img
       {...props}
       alt={props.alt->Option.getOr("")}
       dataSlot={props.dataSlot->Option.getOr("avatar-image")}
       dataState={props.dataState->Option.getOr((state :> string))}
-      onLoad={props.onLoad->Option.getOr(_event => setState(_ => Loaded))}
-      onError={props.onError->Option.getOr(_event => setState(_ => Error))}
+      onLoad={props.onLoad->Option.getOr(_event => setState(_ => State.Loaded))}
+      onError={props.onError->Option.getOr(_event => setState(_ => State.Error))}
       className={cn(
         "cn-avatar-image peer aspect-square size-full object-cover data-[state=error]:hidden",
         props.className,

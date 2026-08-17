@@ -29,13 +29,18 @@ module Layout = {
 }
 
 module Navigation = {
-  type searchParams = WebAPI.URLAPI.urlSearchParams
-  type router
+  module SearchParams = {
+    type t = WebAPI.URLSearchParams.t
+  }
+
+  module Router = {
+    type t
+  }
 
   @module("next/navigation") external usePathname: unit => string = "usePathname"
-  @module("next/navigation") external useSearchParams: unit => searchParams = "useSearchParams"
-  @module("next/navigation") external useRouter: unit => router = "useRouter"
-  @send external replace: (router, string) => unit = "replace"
+  @module("next/navigation") external useSearchParams: unit => SearchParams.t = "useSearchParams"
+  @module("next/navigation") external useRouter: unit => Router.t = "useRouter"
+  @send external replace: (Router.t, string) => unit = "replace"
 }
 
 module Link = {
@@ -62,15 +67,20 @@ module Image = {
 }
 
 module Fetch = {
-  type nextOptions = {
-    revalidate: int,
+  module NextOptions = {
+    type t = {
+      revalidate: int,
+    }
   }
-  type requestInit = {
-    next: nextOptions,
+
+  module RequestInit = {
+    type t = {
+      next: NextOptions.t,
+    }
   }
 }
 
-external fetch: (string, ~init: Fetch.requestInit=?) => promise<WebAPI.FetchAPI.response> = "fetch"
+external fetch: (string, ~init: Fetch.RequestInit.t=?) => promise<WebAPI.Response.t> = "fetch"
 
 module Themes = {
   @unboxed
@@ -78,11 +88,13 @@ module Themes = {
     | @as("light") Light
     | @as("dark") Dark
 
-  type hookResult = {
-    setTheme: t => unit,
-    resolvedTheme: t,
+  module HookResult = {
+    type t = {
+      setTheme: t => unit,
+      resolvedTheme: t,
+    }
   }
-  @module("next-themes") external use: unit => hookResult = "useTheme"
+  @module("next-themes") external use: unit => HookResult.t = "useTheme"
 
   module Provider = {
     @module("next-themes") @react.component

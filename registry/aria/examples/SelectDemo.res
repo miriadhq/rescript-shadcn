@@ -1,6 +1,8 @@
-type item = {label: string, value: string}
+module Item = {
+  type t = {label: string, value: string}
+}
 
-let items: array<item> = [
+let items: array<Item.t> = [
   {label: "Apple", value: "apple"},
   {label: "Banana", value: "banana"},
   {label: "Blueberry", value: "blueberry"},
@@ -19,9 +21,7 @@ let make = ({}: Demo.Props.t) =>
         <Select.Label> {"Fruits"->React.string} </Select.Label>
         {items
         ->Array.map(item =>
-          <Select.Item key={item.value} id={item.value}>
-            {item.label->React.string}
-          </Select.Item>
+          <Select.Item key={item.value} id={item.value}> {item.label->React.string} </Select.Item>
         )
         ->React.array}
       </Select.Group>

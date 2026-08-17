@@ -35,7 +35,7 @@ let make = ({}: Demo.Props.t) => {
               <Icons.ChevronDown />
             </InputGroup.Button>
             <DropdownMenu
-              placement=ReactAria.Common.BottomStart
+              placement=ReactAria.Common.Placement.BottomStart
               className="min-w-16"
               offset=10.
               crossOffset={-8.}
@@ -66,7 +66,7 @@ let make = ({}: Demo.Props.t) => {
               <Icons.Info />
             </InputGroup.Button>
           </InputGroup.Addon>
-          <Popover placement=ReactAria.Common.BottomStart>
+          <Popover placement=ReactAria.Common.Placement.BottomStart>
             <Popover.Header>
               <Popover.Title> {"Your connection is not secure."->React.string} </Popover.Title>
               <Popover.Description>

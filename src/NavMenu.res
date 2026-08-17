@@ -1,8 +1,10 @@
 @@directive("'use client'")
 
-type meta = {pages: array<string>}
-@module("@/content/base/meta.json") external baseMeta: meta = "default"
-@module("@/content/aria/meta.json") external ariaMeta: meta = "default"
+module Meta = {
+  type t = {pages: array<string>}
+}
+@module("@/content/base/meta.json") external baseMeta: Meta.t = "default"
+@module("@/content/aria/meta.json") external ariaMeta: Meta.t = "default"
 
 @react.component
 let make = () => {

@@ -1,38 +1,48 @@
 @@directive("'use client'")
 
 @unboxed
-type anchorRole =
-  | @as("user") UserAnchor
-  | @as("assistant") AssistantAnchor
+module AnchorRole = {
+  type t =
+    | @as("user") UserAnchor
+    | @as("assistant") AssistantAnchor
+}
 
-let scriptedMessages: array<MessageScrollerExample.message> = [
+let scriptedMessages: array<MessageScrollerExample.MessageData.t> = [
   {
     id: "anchor-1-user",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "Can you show me how anchoring behaves when a new prompt starts the turn?",
   },
   {
     id: "anchor-1-assistant",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Append the user prompt first, then append the assistant response. With User selected, the prompt settles near the top and the assistant response fills in below it.",
   },
-  {id: "anchor-2-user", role: User, text: "What changes when assistant messages are the anchor?"},
+  {
+    id: "anchor-2-user",
+    role: MessageScrollerExample.Role.User,
+    text: "What changes when assistant messages are the anchor?",
+  },
   {
     id: "anchor-2-assistant",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Now each assistant response is the item `MessageScroller` keeps in view. This is useful when the reply is the moment you want readers to land on after each turn.",
   },
-  {id: "anchor-3-user", role: User, text: "Can I switch roles and keep adding turns?"},
+  {
+    id: "anchor-3-user",
+    role: MessageScrollerExample.Role.User,
+    text: "Can I switch roles and keep adding turns?",
+  },
   {
     id: "anchor-3-assistant",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Yes. The next appended message with the selected role becomes the anchor, so you can compare user and assistant anchoring without resetting the demo.",
   },
 ]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (anchorRole, setAnchorRole) = React.useState(() => UserAnchor)
+  let (anchorRole, setAnchorRole) = React.useState(() => AnchorRole.UserAnchor)
   let (messageIndex, setMessageIndex) = React.useState(() => 0)
   let messages = scriptedMessages->Array.slice(~start=0, ~end=messageIndex)
   let nextMessage = scriptedMessages->Array.get(messageIndex)
@@ -81,8 +91,9 @@ let make = ({}: Demo.Props.t) => {
                       key={message.id}
                       message
                       scrollAnchor={switch anchorRole {
-                      | UserAnchor => message.role == User
-                      | AssistantAnchor => message.role == Assistant
+                      | AnchorRole.UserAnchor => message.role == MessageScrollerExample.Role.User
+                      | AnchorRole.AssistantAnchor =>
+                        message.role == MessageScrollerExample.Role.Assistant
                       }}
                     />
                   )
@@ -97,15 +108,15 @@ let make = ({}: Demo.Props.t) => {
       <Card.Footer>
         <ToggleGroup
           ariaLabel="Select scroll anchor role"
-          selectionMode=ReactAria.Common.Single
+          selectionMode=ReactAria.Common.SelectionMode.Single
           selectedKeys={[(anchorRole :> string)]}
           onSelectionChange={keys =>
             switch keys->Set.toArray->Array.get(0) {
             | Some("assistant") =>
-              setAnchorRole(_ => AssistantAnchor)
+              setAnchorRole(_ => AnchorRole.AssistantAnchor)
               setMessageIndex(_ => 0)
             | Some("user") =>
-              setAnchorRole(_ => UserAnchor)
+              setAnchorRole(_ => AnchorRole.UserAnchor)
               setMessageIndex(_ => 0)
             | _ => ()
             }}

@@ -1,5 +1,5 @@
 type props = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   selectedKey?: string,
   defaultSelectedKey?: string,
   onSelectionChange?: string => unit,
@@ -13,14 +13,14 @@ type props = {
 external make: React.component<props> = "Tabs"
 
 module List = {
-  type props<'item> = {...Common.elementProps, items?: array<'item>}
+  type props<'item> = {...Common.ElementProps.t, items?: array<'item>}
   @module("react-aria-components")
   external make: React.component<props<'item>> = "TabList"
 }
 
 module Tab = {
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     isDisabled?: bool,
     href?: string,
     target?: string,
@@ -34,11 +34,11 @@ module Tab = {
 
 module Panels = {
   @module("react-aria-components")
-  external make: React.component<Common.elementProps> = "TabPanels"
+  external make: React.component<Common.ElementProps.t> = "TabPanels"
 }
 
 module Panel = {
-  type props = {...Common.elementProps, shouldForceMount?: bool}
+  type props = {...Common.ElementProps.t, shouldForceMount?: bool}
 
   @module("react-aria-components")
   external make: React.component<props> = "TabPanel"

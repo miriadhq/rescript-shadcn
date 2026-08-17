@@ -3,7 +3,9 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-type contentProps = ReactAria.Tooltip.props
+module ContentProps = {
+  type t = ReactAria.Tooltip.props
+}
 
 module Trigger = {
   @react.componentWithProps(ReactAria.Tooltip.Trigger.props)
@@ -12,9 +14,7 @@ module Trigger = {
     let triggerElement = children->Array.get(0)->Option.getOr(React.null)
     let tooltip = children->Array.get(1)->Option.getOr(React.null)
     <ReactAria.Tooltip.Trigger
-      {...props}
-      dataSlot="tooltip-trigger"
-      delay={props.delay->Option.getOr(0.)}
+      {...props} dataSlot="tooltip-trigger" delay={props.delay->Option.getOr(0.)}
     >
       <ReactAria.Focusable> {triggerElement} </ReactAria.Focusable>
       {tooltip}
@@ -24,22 +24,9 @@ module Trigger = {
 
 @react.componentWithProps(ReactAria.Tooltip.props)
 let make = (props: ReactAria.Tooltip.props) => {
-  let arrowStyle = ReactAria.Tooltip.Arrow.renderStyle(({placement, defaultStyle}) => {
-    let transform = switch placement {
-    | "bottom" => "translate(-50%, calc(50% + 2px)) rotate(45deg)"
-    | "top" => "translate(-50%, calc(-50% - 2px)) rotate(45deg)"
-    | "left" => "translate(calc(-50% - 2px), -50%) rotate(45deg)"
-    | _ => "translate(calc(50% + 2px), -50%) rotate(45deg)"
-    }
-    defaultStyle
-    ->ReactDOM.Style.unsafeAddProp("rotate", "0deg")
-    ->ReactDOM.Style.unsafeAddProp("translate", "0 0")
-    ->ReactDOM.Style.unsafeAddProp("transform", transform)
-  })
-
   <ReactAria.Tooltip
     {...props}
-    placement={props.placement->Option.getOr(ReactAria.Common.Top)}
+    placement={props.placement->Option.getOr(ReactAria.Common.Placement.Top)}
     offset={props.offset->Option.getOr(4.)}
     crossOffset={props.crossOffset->Option.getOr(0.)}
     dataSlot="tooltip-content"
@@ -50,7 +37,19 @@ let make = (props: ReactAria.Tooltip.props) => {
   >
     {props.children->Option.getOr(React.null)}
     <ReactAria.Tooltip.Arrow
-      className="cn-tooltip-arrow z-50 bg-foreground fill-foreground" style=arrowStyle
+      className="cn-tooltip-arrow z-50 bg-foreground fill-foreground"
+      style={({placement, defaultStyle}) => {
+        let transform = switch placement {
+        | "bottom" => "translate(-50%, calc(50% + 2px)) rotate(45deg)"
+        | "top" => "translate(-50%, calc(-50% - 2px)) rotate(45deg)"
+        | "left" => "translate(calc(-50% - 2px), -50%) rotate(45deg)"
+        | _ => "translate(calc(50% + 2px), -50%) rotate(45deg)"
+        }
+        defaultStyle
+        ->ReactDOM.Style.unsafeAddProp("rotate", "0deg")
+        ->ReactDOM.Style.unsafeAddProp("translate", "0 0")
+        ->ReactDOM.Style.unsafeAddProp("transform", transform)
+      }}
     />
   </ReactAria.Tooltip>
 }

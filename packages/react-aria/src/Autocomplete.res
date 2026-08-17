@@ -1,8 +1,10 @@
-type filter = (string, string) => bool
+module Filter = {
+  type t = (string, string) => bool
+}
 
 type props = {
-  ...Common.elementProps,
-  filter?: filter,
+  ...Common.ElementProps.t,
+  filter?: Filter.t,
   inputValue?: string,
   defaultInputValue?: string,
   onInputChange?: string => unit,
@@ -11,12 +13,17 @@ type props = {
 @module("react-aria-components")
 external make: React.component<props> = "Autocomplete"
 
-type filterOptions = {sensitivity: string}
-type filterResult = {
-  contains: filter,
-  startsWith: filter,
-  endsWith: filter,
+module FilterOptions = {
+  type t = {sensitivity: string}
+}
+
+module FilterResult = {
+  type t = {
+    contains: Filter.t,
+    startsWith: Filter.t,
+    endsWith: Filter.t,
+  }
 }
 
 @module("react-aria-components")
-external useFilter: filterOptions => filterResult = "useFilter"
+external useFilter: FilterOptions.t => FilterResult.t = "useFilter"

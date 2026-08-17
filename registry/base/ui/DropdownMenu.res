@@ -41,22 +41,24 @@ module Trigger = {
 }
 
 module Content = {
-  type contentProps = {
-    className?: string,
-    children?: React.element,
-    id?: string,
-    dir?: string,
-    dataLang?: string,
-    style?: ReactDOM.Style.t,
-    onClick?: JsxEvent.Mouse.t => unit,
-    onKeyDown?: JsxEvent.Keyboard.t => unit,
-    align?: Align.t,
-    alignOffset?: float,
-    side?: Side.t,
-    sideOffset?: float,
-    dataSlot?: string,
+  module ContentProps = {
+    type t = {
+      className?: string,
+      children?: React.element,
+      id?: string,
+      dir?: string,
+      dataLang?: string,
+      style?: ReactDOM.Style.t,
+      onClick?: JsxEvent.Mouse.t => unit,
+      onKeyDown?: JsxEvent.Keyboard.t => unit,
+      align?: Align.t,
+      alignOffset?: float,
+      side?: Side.t,
+      sideOffset?: float,
+      dataSlot?: string,
+    }
   }
-  @react.component(: contentProps)
+  @react.component(: ContentProps.t)
   let make = (
     ~align=Align.Start,
     ~alignOffset=0.,
@@ -125,10 +127,7 @@ module Label = {
       dataInset=?inset
       ?children
       dataSlot
-      className={cn(
-        "cn-dropdown-menu-label",
-        className,
-      )}
+      className={cn("cn-dropdown-menu-label", className)}
     />
 }
 
@@ -218,7 +217,7 @@ module RadioGroup = {
     ~children=?,
     ~id=?,
     ~style=?,
-    ~value=?,
+    ~value: option<string>=?,
     ~onValueChange=?,
     ~dataSlot="dropdown-menu-radio-group",
   ) => <BaseUi.Menu.RadioGroup ?id ?style ?value ?onValueChange ?children dataSlot ?className />
@@ -231,7 +230,7 @@ module RadioItem = {
     ~children=React.null,
     ~id=?,
     ~style=?,
-    ~value,
+    ~value: string,
     ~disabled=?,
     ~closeOnClick=?,
     ~dataInset=?,
@@ -290,10 +289,7 @@ module Shortcut = {
       ?onClick
       ?onKeyDown
       dataSlot
-      className={cn(
-        "cn-dropdown-menu-shortcut",
-        className,
-      )}
+      className={cn("cn-dropdown-menu-shortcut", className)}
       ?children
     />
 }
@@ -327,7 +323,7 @@ module SubTrigger = {
 }
 
 module SubContent = {
-  @react.component(: Content.contentProps)
+  @react.component(: Content.ContentProps.t)
   let make = (
     ~align=Align.Start,
     ~alignOffset=-3.,

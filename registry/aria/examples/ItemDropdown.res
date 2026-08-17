@@ -1,12 +1,14 @@
 @@directive("'use client'")
 
-type person = {
-  username: string,
-  avatar: string,
-  email: string,
+module Person = {
+  type t = {
+    username: string,
+    avatar: string,
+    email: string,
+  }
 }
 
-let people = [
+let people: array<Person.t> = [
   {username: "shadcn", avatar: "https://github.com/shadcn.png", email: "shadcn@vercel.com"},
   {
     username: "maxleiter",
@@ -23,11 +25,11 @@ let people = [
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <DropdownMenu.Trigger>
-<Button variant=Outline>
+    <Button variant=Outline>
       {"Select "->React.string}
       <Icons.ChevronDown />
     </Button>
-<DropdownMenu className="w-48" placement=ReactAria.Common.BottomEnd>
+    <DropdownMenu className="w-48" placement=ReactAria.Common.Placement.BottomEnd>
       <DropdownMenu.Group>
         {people
         ->Array.map(person =>
@@ -53,4 +55,4 @@ let make = ({}: Demo.Props.t) =>
         ->React.array}
       </DropdownMenu.Group>
     </DropdownMenu>
-</DropdownMenu.Trigger>
+  </DropdownMenu.Trigger>

@@ -1,39 +1,53 @@
 @@directive("'use client'")
 
-type toastOptions = {description: string}
+module ToastOptions = {
+  type t = {description: string}
+}
 
 @module("sonner")
-external toast: (string, toastOptions) => unit = "toast"
+external toast: (string, ToastOptions.t) => unit = "toast"
 
-let history: array<MessageScrollerExample.message> = [
-  {id: "history-1", role: User, text: "Can you summarize the incident channel?"},
+let history: array<MessageScrollerExample.MessageData.t> = [
+  {
+    id: "history-1",
+    role: MessageScrollerExample.Role.User,
+    text: "Can you summarize the incident channel?",
+  },
   {
     id: "history-2",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "The first alert was a delayed export job. It started backing up around 09:42 UTC and triggered the warning once the retry queue crossed the threshold.\n\nNo customer-facing checkout paths were affected, but exports for larger workspaces were running about 12 minutes behind.",
   },
-  {id: "history-3", role: User, text: "Was checkout affected?"},
+  {id: "history-3", role: MessageScrollerExample.Role.User, text: "Was checkout affected?"},
   {
     id: "history-4",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "No checkout errors were reported. Payment authorization, order creation, and confirmation emails stayed inside their normal latency bands.\n\nThe only elevated metric was export queue depth, which maps to analytics downloads instead of checkout.",
   },
-  {id: "history-5", role: User, text: "What changed in the last deploy?"},
+  {
+    id: "history-5",
+    role: MessageScrollerExample.Role.User,
+    text: "What changed in the last deploy?",
+  },
   {
     id: "history-6",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Only the export queue worker changed. The deploy moved large CSV jobs onto the shared retry policy, which made each failed attempt hold a worker slot longer than before.\n\nThe app deploy did not include checkout, pricing, or billing API changes.",
   },
-  {id: "history-7", role: User, text: "Do we need to roll back?"},
+  {id: "history-7", role: MessageScrollerExample.Role.User, text: "Do we need to roll back?"},
   {
     id: "history-8",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Not yet. Queue depth is recovering after we reduced retry concurrency, and the oldest pending job is now under five minutes old.\n\nKeep rollback ready if the queue starts climbing again, but the current trend points toward recovery.",
   },
-  {id: "history-9", role: User, text: "Keep watching for customer-visible issues."},
+  {
+    id: "history-9",
+    role: MessageScrollerExample.Role.User,
+    text: "Keep watching for customer-visible issues.",
+  },
   {
     id: "history-10",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "I will watch the queue and support tags for another 15 minutes. I am tracking export failures, delayed download requests, and any support thread that mentions missing reports.\n\nIf those stay quiet through the next batch window, we can close this as an internal degradation.",
   },
 ]

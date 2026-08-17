@@ -1,8 +1,10 @@
 module Crypto = {
-  type hash
-  @module("crypto") external createHash: string => hash = "createHash"
-  @send external update: (hash, string) => hash = "update"
-  @send external digest: (hash, string) => string = "digest"
+  module Hash = {
+    type t
+  }
+  @module("crypto") external createHash: string => Hash.t = "createHash"
+  @send external update: (Hash.t, string) => Hash.t = "update"
+  @send external digest: (Hash.t, string) => string = "digest"
 }
 
 module LRUCache = {
@@ -13,7 +15,9 @@ module LRUCache = {
 }
 
 module Shiki = {
-  type highlighter
+  module Highlighter = {
+    type t
+  }
   module LanguageRegistration = {
     type t = {
       name: string,
@@ -75,7 +79,7 @@ module Shiki = {
   }
 
   @module("shiki")
-  external createHighlighter: CreateHighlighterOptions.t => promise<highlighter> =
+  external createHighlighter: CreateHighlighterOptions.t => promise<Highlighter.t> =
     "createHighlighter"
 
   module CodeToHtmlOptions = {
@@ -87,7 +91,7 @@ module Shiki = {
   }
 
   @send
-  external codeToHtml: (highlighter, string, CodeToHtmlOptions.t) => string = "codeToHtml"
+  external codeToHtml: (Highlighter.t, string, CodeToHtmlOptions.t) => string = "codeToHtml"
 }
 
 @module("../grammars/rescript.tmLanguage.json")

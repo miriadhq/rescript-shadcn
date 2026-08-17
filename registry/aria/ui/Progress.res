@@ -5,13 +5,19 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-type contextValue = {
-  percentage: option<float>,
-  isIndeterminate: bool,
-  valueText: option<string>,
+@module("react")
+external createElementWithChildren: (string, 'props, React.element) => React.element =
+  "createElement"
+
+module ContextValue = {
+  type t = {
+    percentage: option<float>,
+    isIndeterminate: bool,
+    valueText: option<string>,
+  }
 }
 
-let context: React.Context.t<option<contextValue>> = React.createContext(None)
+let context: React.Context.t<option<ContextValue.t>> = React.createContext(None)
 
 module Context = {
   let make = React.Context.provider(context)
@@ -55,31 +61,34 @@ module Indicator = {
   }
 }
 
-type props = {children?: React.element, ...ReactAria.ProgressBar.componentProps}
+type props = {...ReactAria.ProgressBar.props}
 
-let progressProps: props => ReactAria.ProgressBar.componentProps = %raw(`({children, ...props}) => props`)
-
-@react.componentWithProps(props)
-let make = (props: props) =>
+@warning("-112") @react.componentWithProps(props)
+let make = ({?children, ...ReactAria.ProgressBar.props as props}) => {
+  let children = ReactAria.Common.composeRenderElement(children, (
+    _children,
+    {percentage, valueText, isIndeterminate}: ReactAria.ProgressBar.RenderProps.t,
+  ) =>
+    <Context
+      value={Some({
+        ContextValue.percentage: percentage->Nullable.toOption,
+        valueText: valueText->Nullable.toOption,
+        isIndeterminate,
+      })}
+    >
+      {children->Option.getOr(React.null)}
+      <Track>
+        <Indicator />
+      </Track>
+    </Context>
+  )
   <ReactAria.ProgressBar
-    {...props->progressProps->ReactAria.ProgressBar.toProps}
+    {...props}
     dataSlot="progress"
     className={cn("cn-progress-root flex flex-wrap gap-3", props.className)}
-  >
-    {({percentage, valueText, isIndeterminate}) =>
-      <Context
-        value={Some({
-          percentage: percentage->Nullable.toOption,
-          valueText: valueText->Nullable.toOption,
-          isIndeterminate,
-        })}
-      >
-        {props.children->Option.getOr(React.null)}
-        <Track>
-          <Indicator />
-        </Track>
-      </Context>}
-  </ReactAria.ProgressBar>
+    children
+  />
+}
 
 module Label = {
   @react.componentWithProps(ReactAria.Label.props)
@@ -90,23 +99,24 @@ module Label = {
 }
 
 module Value = {
-  type props = {children?: string => React.element, ...ReactAria.Common.baseProps}
-  let spanProps: props => ReactAria.Types.DomProps.t = %raw(`({children, ...props}) => props`)
+  type props = {children?: string => React.element, ...ReactAria.Common.BaseProps.t}
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
+  let make = ({?children, ...ReactAria.Common.BaseProps.t as props}) => {
     let {valueText} = use()
-    let content = switch (props.children, valueText) {
+    let content = switch (children, valueText) {
     | (Some(render), Some(value)) => render(value)
     | (_, Some(value)) => value->React.string
     | _ => React.null
     }
-    <span
-      {...props->spanProps}
-      dataSlot="progress-value"
-      className={cn("cn-progress-value", props.className)}
-    >
-      {content}
-    </span>
+    createElementWithChildren(
+      "span",
+      {
+        ...props,
+        dataSlot: "progress-value",
+        className: cn("cn-progress-value", props.className),
+      },
+      content,
+    )
   }
 }

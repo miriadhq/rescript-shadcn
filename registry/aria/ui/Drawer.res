@@ -7,7 +7,7 @@ external cn: (string, option<string>) => string = "twMerge"
 
 module SwipeDirection = {
   @unboxed
-  type t = BaseUi.Drawer.swipeDirection =
+  type t = BaseUi.Drawer.SwipeDirection.t =
     | @as("down") Down
     | @as("up") Up
     | @as("left") Left
@@ -16,19 +16,21 @@ module SwipeDirection = {
 
 module SnapPoint = {
   @unboxed
-  type t = BaseUi.Drawer.snapPoint =
+  type t = BaseUi.Drawer.SnapPoint.t =
     | Pixels(string)
     | Ratio(float)
 }
 
-type context = {
-  hasSnapPoints: bool,
-  modal: BaseUi.Types.Modal.t,
-  showSwipeHandle: bool,
-  swipeDirection: SwipeDirection.t,
+module Context = {
+  type t = {
+    hasSnapPoints: bool,
+    modal: BaseUi.Types.Modal.t,
+    showSwipeHandle: bool,
+    swipeDirection: SwipeDirection.t,
+  }
 }
 
-let drawerContext = React.createContext(Nullable.null)
+let drawerContext: React.Context.t<nullable<Context.t>> = React.createContext(Nullable.null)
 
 module ContextProvider = {
   let make = React.Context.provider(drawerContext)
@@ -45,23 +47,17 @@ type props = {
   showSwipeHandle?: bool,
 }
 
-let rootProps: props => BaseUi.Drawer.Root.props = %raw(`({showSwipeHandle, ...props}) => props`)
-
 @react.componentWithProps(props)
-let make = (props: props) => {
+let make = ({?showSwipeHandle, ...BaseUi.Drawer.Root.props as props}) => {
   let modal = props.modal->Option.getOr(BaseUi.Types.Modal.True)
-  let showSwipeHandle = props.showSwipeHandle->Option.getOr(false)
+  let showSwipeHandle = showSwipeHandle->Option.getOr(false)
   let swipeDirection = props.swipeDirection->Option.getOr(SwipeDirection.Down)
-  let hasSnapPoints = props.snapPoints->Option.mapOr(false, snapPoints => snapPoints->Array.length > 0)
-  let value = {hasSnapPoints, modal, showSwipeHandle, swipeDirection}
+  let hasSnapPoints =
+    props.snapPoints->Option.mapOr(false, snapPoints => snapPoints->Array.length > 0)
+  let value: Context.t = {hasSnapPoints, modal, showSwipeHandle, swipeDirection}
 
   <ContextProvider value={value->Nullable.make}>
-    <BaseUi.Drawer.Root
-      {...props->rootProps}
-      dataSlot="drawer"
-      modal
-      swipeDirection
-    />
+    <BaseUi.Drawer.Root {...props} dataSlot="drawer" modal swipeDirection />
   </ContextProvider>
 }
 
@@ -172,10 +168,7 @@ module Footer = {
     <div
       {...props}
       dataSlot={props.dataSlot->Option.getOr("drawer-footer")}
-      className={cn(
-        "cn-drawer-footer-base mt-auto flex shrink-0 flex-col",
-        props.className,
-      )}
+      className={cn("cn-drawer-footer-base mt-auto flex shrink-0 flex-col", props.className)}
     />
 }
 

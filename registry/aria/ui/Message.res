@@ -10,14 +10,13 @@ module Align = {
     | @as("end") End
 }
 
-type props = {align?: Align.t, ...ReactAria.Common.elementProps}
-let domProps: props => ReactAria.Types.DomProps.t = %raw(`({align, ...props}) => props`)
+type props = {align?: Align.t, ...ReactAria.Types.DomProps.t}
 
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let align = props.align->Option.getOr(Start)
+let make = ({?align, ...ReactAria.Types.DomProps.t as props}) => {
+  let align = align->Option.getOr(Start)
   <div
-    {...props->domProps}
+    {...props}
     dataSlot={props.dataSlot->Option.getOr("message")}
     dataAlign={(align :> string)}
     className={cn(
@@ -69,10 +68,7 @@ module Header = {
     <div
       {...props}
       dataSlot={props.dataSlot->Option.getOr("message-header")}
-      className={cn(
-        "cn-message-header flex max-w-full min-w-0 items-center",
-        props.className,
-      )}
+      className={cn("cn-message-header flex max-w-full min-w-0 items-center", props.className)}
     />
 }
 

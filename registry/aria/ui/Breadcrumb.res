@@ -15,8 +15,10 @@ let make = (props: ReactAria.Types.DomProps.t) =>
   />
 
 module List = {
-  @react.componentWithProps(ReactAria.Breadcrumbs.props)
-  let make = (props: ReactAria.Breadcrumbs.props<'item>) =>
+  type props<'item> = {...ReactAria.Breadcrumbs.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Breadcrumbs.props as props}) =>
     <ReactAria.Breadcrumbs
       {...props}
       dataSlot="breadcrumb-list"
@@ -28,24 +30,20 @@ module List = {
 }
 
 module Item = {
-  type props<'children> = {
+  type props = {
     separatorClassName?: string,
-    children?: 'children,
-    ...ReactAria.Breadcrumbs.Item.componentProps,
+    ...ReactAria.Breadcrumbs.Item.props,
   }
-  let itemProps: props<'children> => ReactAria.Breadcrumbs.Item.componentProps = %raw(
-    `({separatorClassName, children, ...props}) => props`
-  )
-
-  @react.componentWithProps(props)
-  let make = (props: props<'children>) =>
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({?separatorClassName, ?children, ...ReactAria.Breadcrumbs.Item.props as props}) =>
     <ReactAria.Breadcrumbs.Item
-      {...props->itemProps->ReactAria.Breadcrumbs.Item.toProps}
+      {...props}
       dataSlot="breadcrumb-item"
       className={cn("cn-breadcrumb-item inline-flex items-center", props.className)}
-      children={ReactAria.Common.composeRenderProps(
-        props.children,
-        (children, {isCurrent}: ReactAria.Breadcrumbs.Item.renderProps) =>
+      children={ReactAria.Common.composeRenderElement(children, (
+        children,
+        {isCurrent}: ReactAria.Breadcrumbs.Item.RenderProps.t,
+      ) =>
         <>
           {children}
           {isCurrent
@@ -54,11 +52,11 @@ module Item = {
                 dataSlot="breadcrumb-separator"
                 role="presentation"
                 ariaHidden=true
-                className={cn("cn-breadcrumb-separator", props.separatorClassName)}
+                className={cn("cn-breadcrumb-separator", separatorClassName)}
               >
                 <Icons.ChevronRight className="cn-rtl-flip" />
               </span>}
-        </>,
+        </>
       )}
     />
 }
@@ -67,9 +65,7 @@ module Link = {
   @react.componentWithProps(ReactAria.Button.Link.props)
   let make = (props: ReactAria.Button.Link.props) =>
     <ReactAria.Button.Link
-      {...props}
-      dataSlot="breadcrumb-link"
-      className={cn("cn-breadcrumb-link", props.className)}
+      {...props} dataSlot="breadcrumb-link" className={cn("cn-breadcrumb-link", props.className)}
     />
 }
 
@@ -94,10 +90,7 @@ module Ellipsis = {
       dataSlot="breadcrumb-ellipsis"
       role="presentation"
       ariaHidden=true
-      className={cn(
-        "cn-breadcrumb-ellipsis flex items-center justify-center",
-        props.className,
-      )}
+      className={cn("cn-breadcrumb-ellipsis flex items-center justify-center", props.className)}
     >
       <Icons.MoreHorizontal />
       <span className="sr-only"> {"More"->React.string} </span>

@@ -38,27 +38,26 @@ module Overlay = {
 }
 
 type props = {showCloseButton?: bool, ...ReactAria.Dialog.Modal.props}
-let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
-  `({showCloseButton, className, children, ...props}) => props`
-)
 
-@react.componentWithProps(props)
-let make = (props: props) => {
-  let showCloseButton = props.showCloseButton->Option.getOr(true)
+@warning("-112") @react.componentWithProps(props)
+let make = ({
+  ?showCloseButton,
+  ?className,
+  ?children,
+  ...ReactAria.Dialog.Modal.props as props,
+}) => {
+  let showCloseButton = showCloseButton->Option.getOr(true)
   let isDismissable = props.isDismissable->Option.getOr(true)
-  <Overlay
-    {...props->overlayProps}
-    isDismissable
-  >
+  <Overlay {...props} isDismissable>
     <ReactAria.Dialog.Modal
       dataSlot="dialog-content"
       className={cn(
         "cn-dialog-content-aria fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
-        props.className,
+        className,
       )}
     >
       <ReactAria.Dialog dataSlot="dialog" className="[display:inherit] [gap:inherit] outline-none">
-        {props.children->Option.getOr(React.null)}
+        {children->Option.getOr(React.null)}
         {showCloseButton
           ? <Close variant=Ghost size=IconSm className="cn-dialog-close">
               <Icons.X />
@@ -82,12 +81,11 @@ module Header = {
 
 module Footer = {
   type props = {showCloseButton?: bool, ...ReactAria.Types.DomProps.t}
-  let divProps: props => ReactAria.Types.DomProps.t = %raw(`({showCloseButton, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) =>
+  let make = ({?showCloseButton, ...ReactAria.Types.DomProps.t as props}) =>
     <div
-      {...props->divProps}
+      {...props}
       dataSlot="dialog-footer"
       className={cn(
         "cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
@@ -95,7 +93,7 @@ module Footer = {
       )}
     >
       {props.children->Option.getOr(React.null)}
-      {props.showCloseButton->Option.getOr(false)
+      {showCloseButton->Option.getOr(false)
         ? <Close variant=Outline> {"Close"->React.string} </Close>
         : React.null}
     </div>

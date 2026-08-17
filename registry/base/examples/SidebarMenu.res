@@ -1,12 +1,14 @@
 @@directive("'use client'")
 
-type project = {
-  name: string,
-  url: string,
-  icon: React.element,
+module Project = {
+  type t = {
+    name: string,
+    url: string,
+    icon: React.element,
+  }
 }
 
-let projects: array<project> = [
+let projects: array<Project.t> = [
   {name: "Design Engineering", url: "#", icon: <Icons.Frame />},
   {name: "Sales & Marketing", url: "#", icon: <Icons.PieChart />},
   {name: "Travel", url: "#", icon: <Icons.Map />},

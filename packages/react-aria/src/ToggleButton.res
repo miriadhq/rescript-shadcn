@@ -1,5 +1,5 @@
 type props = {
-  ...Common.buttonProps,
+  ...Common.ButtonProps.t,
   isDisabled?: bool,
   isSelected?: bool,
   defaultSelected?: bool,

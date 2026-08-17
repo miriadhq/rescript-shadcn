@@ -15,7 +15,7 @@ let make = (
   ~style=?,
   ~onClick=?,
   ~onKeyDown=?,
-  ~value=?,
+  ~value: option<string>=?,
   ~defaultValue=?,
   ~onValueChange=?,
   ~align=Align.Start,
@@ -63,7 +63,10 @@ module List = {
       ?onKeyDown
       ?children
       dataSlot="navigation-menu-list"
-      className={cn("cn-navigation-menu-list group flex flex-1 list-none items-center justify-center", className)}
+      className={cn(
+        "cn-navigation-menu-list group flex flex-1 list-none items-center justify-center",
+        className,
+      )}
     />
 }
 
@@ -105,10 +108,7 @@ module Trigger = {
     let content =
       <>
         {children}
-        <Icons.ChevronDown
-          ariaHidden=true
-          className="cn-navigation-menu-trigger-icon"
-        />
+        <Icons.ChevronDown ariaHidden=true className="cn-navigation-menu-trigger-icon" />
       </>
     if shouldSetDefaultType {
       <BaseUi.NavigationMenu.Trigger
@@ -237,10 +237,7 @@ module Link = {
       ?ariaCurrent
       ?dataLang
       dataSlot="navigation-menu-link"
-      className={cn(
-        "cn-navigation-menu-link",
-        className,
-      )}
+      className={cn("cn-navigation-menu-link", className)}
     />
 }
 

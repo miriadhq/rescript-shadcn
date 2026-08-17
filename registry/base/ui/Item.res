@@ -36,10 +36,12 @@ let itemVariants = (~variant=Variant.Default, ~size=Size.Default) => {
   `${base} ${variantClass} ${sizeClass}`
 }
 
-type state = {
-  slot: string,
-  variant: Variant.t,
-  size: Size.t,
+module State = {
+  type t = {
+    slot: string,
+    variant: Variant.t,
+    size: Size.t,
+  }
 }
 
 @react.component
@@ -65,11 +67,13 @@ let make = (
       ?onClick,
     },
     ?render,
-    state: {
-      slot: "item",
-      variant,
-      size,
-    },
+    state: (
+      {
+        slot: "item",
+        variant,
+        size,
+      }: State.t
+    ),
   })
 }
 
@@ -157,10 +161,7 @@ module Group = {
       ?onKeyDown
       role="list"
       dataSlot="item-group"
-      className={cn(
-        "cn-item-group group/item-group flex w-full flex-col",
-        className,
-      )}
+      className={cn("cn-item-group group/item-group flex w-full flex-col", className)}
     />
 }
 
@@ -188,10 +189,7 @@ module Title = {
       ?onClick
       ?onKeyDown
       dataSlot="item-title"
-      className={cn(
-        "cn-item-title line-clamp-1 flex w-fit items-center",
-        className,
-      )}
+      className={cn("cn-item-title line-clamp-1 flex w-fit items-center", className)}
     />
 }
 

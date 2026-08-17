@@ -24,27 +24,21 @@ module Overlay = {
     <ReactAria.Dialog.ModalOverlay
       {...props}
       dataSlot="alert-dialog-overlay"
-      className={cn(
-        "cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50",
-        props.className,
-      )}
+      className={cn("cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50", props.className)}
     />
 }
 
 type props = {size?: Size.t, ...ReactAria.Dialog.Modal.props}
-let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
-  `({size, className, children, ...props}) => props`
-)
 
-let render = (props: props) => {
-  let size = props.size->Option.getOr(Size.Default)
-  <Overlay {...props->overlayProps}>
+let render = (~size, ~className, ~children, props) => {
+  let size = size->Option.getOr(Size.Default)
+  <Overlay {...props}>
     <ReactAria.Dialog.Modal
       dataSlot="alert-dialog-content"
       dataSize={(size :> string)}
       className={cn(
         "cn-alert-dialog-content-aria group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 outline-none",
-        props.className,
+        className,
       )}
     >
       <ReactAria.Dialog
@@ -52,18 +46,20 @@ let render = (props: props) => {
         role="alertdialog"
         className="[display:inherit] [gap:inherit] outline-none"
       >
-        {props.children->Option.getOr(React.null)}
+        {children->Option.getOr(React.null)}
       </ReactAria.Dialog>
     </ReactAria.Dialog.Modal>
   </Overlay>
 }
 
-@react.componentWithProps(props)
-let make = (props: props) => render(props)
+@warning("-112") @react.componentWithProps(props)
+let make = ({?size, ?className, ?children, ...ReactAria.Dialog.Modal.props as props}) =>
+  render(~size, ~className, ~children, props)
 
 module Content = {
-  @react.componentWithProps(props)
-  let make = (props: props) => render(props)
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({?size, ?className, ?children, ...ReactAria.Dialog.Modal.props as props}) =>
+    render(~size, ~className, ~children, props)
 }
 
 module Header = {

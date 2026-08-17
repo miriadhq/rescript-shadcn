@@ -1,6 +1,6 @@
 /** Direct binding for React Aria's Focusable export. */
 type props = {
-  ...Common.baseProps,
+  ...Common.BaseProps.t,
   children: React.element,
   isDisabled?: bool,
   excludeFromTabOrder?: bool,

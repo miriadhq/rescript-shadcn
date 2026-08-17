@@ -1,49 +1,59 @@
 @@directive("'use client'")
 
-type team = {
-  name: string,
-  logo: module(Icons.Icon),
-  plan: string,
+module Team = {
+  type t = {
+    name: string,
+    logo: module(Icons.Icon),
+    plan: string,
+  }
 }
 
-type navSubItem = {
-  title: string,
-  url: string,
+module NavSubItem = {
+  type t = {
+    title: string,
+    url: string,
+  }
 }
 
-type navMainItem = {
-  title: string,
-  url: string,
-  icon: React.element,
-  isActive: bool,
-  items: array<navSubItem>,
+module NavMainItem = {
+  type t = {
+    title: string,
+    url: string,
+    icon: React.element,
+    isActive: bool,
+    items: array<NavSubItem.t>,
+  }
 }
 
-type project = {
-  name: string,
-  url: string,
-  icon: React.element,
+module Project = {
+  type t = {
+    name: string,
+    url: string,
+    icon: React.element,
+  }
 }
 
-type user = {
-  name: string,
-  email: string,
-  avatar: string,
+module User = {
+  type t = {
+    name: string,
+    email: string,
+    avatar: string,
+  }
 }
 
-let userData: user = {
+let userData: User.t = {
   name: "shadcn",
   email: "m@example.com",
   avatar: "/avatars/shadcn.jpg",
 }
 
-let teams: array<team> = [
+let teams: array<Team.t> = [
   {name: "Acme Inc", logo: module(Icons.GalleryVerticalEnd), plan: "Enterprise"},
   {name: "Acme Corp.", logo: module(Icons.AudioWaveform), plan: "Startup"},
   {name: "Evil Corp.", logo: module(Icons.Command), plan: "Free"},
 ]
 
-let navMain: array<navMainItem> = [
+let navMain: array<NavMainItem.t> = [
   {
     title: "Playground",
     url: "#",
@@ -92,7 +102,7 @@ let navMain: array<navMainItem> = [
   },
 ]
 
-let projects: array<project> = [
+let projects: array<Project.t> = [
   {name: "Design Engineering", url: "#", icon: <Icons.Frame />},
   {name: "Sales & Marketing", url: "#", icon: <Icons.PieChart />},
   {name: "Travel", url: "#", icon: <Icons.Map />},
@@ -100,7 +110,7 @@ let projects: array<project> = [
 
 module TeamSwitcher = {
   @react.component
-  let make = (~teams: array<team>) => {
+  let make = (~teams: array<Team.t>) => {
     let sidebar = Sidebar.use()
     let isMobile = sidebar.isMobile
     let (activeTeamIndex, setActiveTeamIndex) = React.useState(() => 0)
@@ -129,8 +139,8 @@ module TeamSwitcher = {
             <DropdownMenu
               className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
               placement={isMobile
-                ? ReactAria.Common.BottomStart
-                : ReactAria.Common.RightTop}
+                ? ReactAria.Common.Placement.BottomStart
+                : ReactAria.Common.Placement.RightTop}
               offset={4.}
             >
               <DropdownMenu.Group>
@@ -176,13 +186,15 @@ module TeamSwitcher = {
 
 module NavMainSection = {
   @react.component
-  let make = (~items: array<navMainItem>) =>
+  let make = (~items: array<NavMainItem.t>) =>
     <Sidebar.Group>
       <Sidebar.GroupLabel> {"Platform"->React.string} </Sidebar.GroupLabel>
       <Sidebar.Menu>
         {items
         ->Array.map(item =>
-          <Collapsible key={item.title} defaultExpanded={item.isActive} className="group/collapsible">
+          <Collapsible
+            key={item.title} defaultExpanded={item.isActive} className="group/collapsible"
+          >
             <Sidebar.MenuItem>
               <Sidebar.MenuButton slot="trigger">
                 {item.icon}
@@ -214,7 +226,7 @@ module NavMainSection = {
 
 module NavProjectsSection = {
   @react.component
-  let make = (~projects: array<project>) => {
+  let make = (~projects: array<Project.t>) => {
     let sidebar = Sidebar.use()
     let isMobile = sidebar.isMobile
 
@@ -235,7 +247,9 @@ module NavProjectsSection = {
               </Sidebar.MenuAction>
               <DropdownMenu
                 className="w-48 rounded-lg"
-                placement={isMobile ? ReactAria.Common.BottomEnd : ReactAria.Common.RightTop}
+                placement={isMobile
+                  ? ReactAria.Common.Placement.BottomEnd
+                  : ReactAria.Common.Placement.RightTop}
               >
                 <DropdownMenu.Item>
                   {<Icons.Folder className="text-muted-foreground" />}
@@ -268,7 +282,7 @@ module NavProjectsSection = {
 
 module NavUserSection = {
   @react.component
-  let make = (~user: user) => {
+  let make = (~user: User.t) => {
     let sidebar = Sidebar.use()
     let isMobile = sidebar.isMobile
 
@@ -291,7 +305,9 @@ module NavUserSection = {
           </Sidebar.MenuButton>
           <DropdownMenu
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            placement={isMobile ? ReactAria.Common.BottomEnd : ReactAria.Common.RightBottom}
+            placement={isMobile
+              ? ReactAria.Common.Placement.BottomEnd
+              : ReactAria.Common.Placement.RightBottom}
             offset={4.}
           >
             <DropdownMenu.Group>

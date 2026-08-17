@@ -23,22 +23,26 @@ module Root = {
     }
   }
 
-  type changeEventReason = [
-    | #"trigger-hover"
-    | #"trigger-focus"
-    | #"trigger-press"
-    | #"outside-press"
-    | #"escape-key"
-    | #"close-press"
-    | #"focus-out"
-    | #"imperative-action"
-    | #none
-  ]
+  module ChangeEventReason = {
+    type t = [
+      | #"trigger-hover"
+      | #"trigger-focus"
+      | #"trigger-press"
+      | #"outside-press"
+      | #"escape-key"
+      | #"close-press"
+      | #"focus-out"
+      | #"imperative-action"
+      | #none
+    ]
+  }
 
   /** Base UI extends [Types.BaseUIChangeEventDetail] with [preventUnmountOnClose]. */
-  type changeEventDetails = {
-    ...Types.BaseUIChangeEventDetail.t<changeEventReason, unknown>,
-    preventUnmountOnClose: unit => unit,
+  module ChangeEventDetails = {
+    type t = {
+      ...Types.BaseUIChangeEventDetail.t<ChangeEventReason.t, unknown>,
+      preventUnmountOnClose: unit => unit,
+    }
   }
 
   type props<'payload> = {
@@ -46,7 +50,7 @@ module Root = {
     defaultOpen?: bool,
     @as("open")
     open_?: bool,
-    onOpenChange?: (bool, changeEventDetails) => unit,
+    onOpenChange?: (bool, ChangeEventDetails.t) => unit,
     onOpenChangeComplete?: bool => unit,
     actionsRef?: React.ref<Actions.t>,
     modal?: Types.Modal.t,

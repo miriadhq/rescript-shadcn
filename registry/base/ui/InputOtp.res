@@ -20,20 +20,24 @@ module InputOtpPrimitive = {
   @module("input-otp")
   external make: React.component<Props.t> = "OTPInput"
 
-  type slot = {
-    isActive: bool,
-    char: nullable<string>,
-    hasFakeCaret: bool,
+  module Slot = {
+    type t = {
+      isActive: bool,
+      char: nullable<string>,
+      hasFakeCaret: bool,
+    }
   }
 
-  type renderProps = {
-    slots: array<slot>,
-    isFocused: bool,
-    isHovering: bool,
+  module RenderProps = {
+    type t = {
+      slots: array<Slot.t>,
+      isFocused: bool,
+      isHovering: bool,
+    }
   }
 
   @module("input-otp") @val
-  external context: React.Context.t<renderProps> = "OTPInputContext"
+  external context: React.Context.t<RenderProps.t> = "OTPInputContext"
 }
 
 @react.component
@@ -96,10 +100,7 @@ module Group = {
       ?onKeyDown
       ?children
       dataSlot="input-otp-group"
-      className={cn(
-        "cn-input-otp-group flex items-center",
-        className,
-      )}
+      className={cn("cn-input-otp-group flex items-center", className)}
     />
 }
 
@@ -139,7 +140,9 @@ module Slot = {
     >
       {char}
       {hasFakeCaret
-        ? <div className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center">
+        ? <div
+            className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
             <div className="cn-input-otp-caret-line" />
           </div>
         : React.null}

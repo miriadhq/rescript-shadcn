@@ -6,9 +6,11 @@ module IDate = ReactAria.InternationalizedDate
 let make = ({}: Demo.Props.t) => {
   let year = Date.make()->Date.getFullYear
   let start = IDate.calendarDate(year, 1, 12)
-  let (dateRange, setDateRange) = React.useState(() => {
-    ReactAria.Calendar.Range.start: start,
-    end_: start->IDate.add({days: 30}),
+  let (dateRange, setDateRange) = React.useState((): ReactAria.Calendar.Range.Value.t<
+    ReactAria.Calendar.CalendarDate.t,
+  > => {
+    start,
+    end: start->IDate.add({days: 30}),
   })
 
   <Calendar.Range

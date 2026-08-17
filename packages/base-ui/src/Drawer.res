@@ -1,14 +1,18 @@
-@unboxed
-type swipeDirection =
-  | @as("down") Down
-  | @as("up") Up
-  | @as("left") Left
-  | @as("right") Right
+module SwipeDirection = {
+  @unboxed
+  type t =
+    | @as("down") Down
+    | @as("up") Up
+    | @as("left") Left
+    | @as("right") Right
+}
 
-@unboxed
-type snapPoint =
-  | Pixels(string)
-  | Ratio(float)
+module SnapPoint = {
+  @unboxed
+  type t =
+    | Pixels(string)
+    | Ratio(float)
+}
 
 module Root = {
   type props = {
@@ -17,8 +21,8 @@ module Root = {
     onOpenChange?: (bool, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
     onOpenChangeComplete?: bool => unit,
     modal?: Types.Modal.t,
-    snapPoints?: array<snapPoint>,
-    swipeDirection?: swipeDirection,
+    snapPoints?: array<SnapPoint.t>,
+    swipeDirection?: SwipeDirection.t,
     disablePointerDismissal?: bool,
   }
   @module("@base-ui/react/drawer") @scope("Drawer")

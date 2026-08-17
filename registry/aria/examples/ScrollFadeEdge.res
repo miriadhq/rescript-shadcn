@@ -1,5 +1,21 @@
-let items = ["Inbox triage", "Design review", "API contract", "QA pass", "Launch notes", "Metrics follow-up"]
-let tags = ["Design", "Engineering", "Marketing", "Product", "Research", "Sales", "Support", "Operations"]
+let items = [
+  "Inbox triage",
+  "Design review",
+  "API contract",
+  "QA pass",
+  "Launch notes",
+  "Metrics follow-up",
+]
+let tags = [
+  "Design",
+  "Engineering",
+  "Marketing",
+  "Product",
+  "Research",
+  "Sales",
+  "Support",
+  "Operations",
+]
 
 module Items = {
   @react.component
@@ -38,9 +54,7 @@ module Vertical = {
           <Items />
         </div>
       </div>
-      <p className="text-center font-mono text-xs text-muted-foreground">
-        {label->React.string}
-      </p>
+      <p className="text-center font-mono text-xs text-muted-foreground"> {label->React.string} </p>
     </div>
 }
 
@@ -53,9 +67,7 @@ module Horizontal = {
           <Tags />
         </div>
       </div>
-      <p className="text-center font-mono text-xs text-muted-foreground">
-        {label->React.string}
-      </p>
+      <p className="text-center font-mono text-xs text-muted-foreground"> {label->React.string} </p>
     </div>
 }
 

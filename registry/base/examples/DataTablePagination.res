@@ -1,15 +1,22 @@
 module RT = DataTableDemo.RT
 
-type paginationState = {pageSize: int, pageIndex: int}
-type tableState = {pagination: paginationState}
+module PaginationState = {
+  type t = {pageSize: int, pageIndex: int}
+}
 
-@send external getState: RT.t<'data> => tableState = "getState"
+module TableState = {
+  type t = {pagination: PaginationState.t}
+}
+
+@send external getState: RT.t<'data> => TableState.t = "getState"
 @send external getPageCount: RT.t<'data> => int = "getPageCount"
 @send external setPageIndex: (RT.t<'data>, int) => unit = "setPageIndex"
 @send external setPageSize: (RT.t<'data>, int) => unit = "setPageSize"
 
-@react.component
-let make = (~table: RT.t<'data>) => {
+type props<'data> = {table: RT.t<'data>}
+
+@react.componentWithProps(props)
+let make = ({table}) => {
   let state = table->getState
   let pageCount = table->getPageCount
 

@@ -20,7 +20,9 @@ let make = ({}: Demo.Props.t) =>
     <Message>
       <Message.Content>
         <Bubble variant=Muted>
-          <Bubble.Content> {"The structure looks right. I left two comments."->React.string} </Bubble.Content>
+          <Bubble.Content>
+            {"The structure looks right. I left two comments."->React.string}
+          </Bubble.Content>
         </Bubble>
       </Message.Content>
     </Message>

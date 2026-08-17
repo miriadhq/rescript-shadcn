@@ -2,7 +2,7 @@
 let make = ({}: Demo.Props.t) => {
   <Popover.Trigger>
     <Button variant=Outline> {"Open Popover"->React.string} </Button>
-    <Popover className="w-64" placement=ReactAria.Common.BottomStart>
+    <Popover className="w-64" placement=ReactAria.Common.Placement.BottomStart>
       <Popover.Header>
         <Popover.Title> {"Dimensions"->React.string} </Popover.Title>
         <Popover.Description>

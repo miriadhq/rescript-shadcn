@@ -2,8 +2,9 @@
 
 let firstKey = (selection, fallback) =>
   switch selection {
-  | ReactAria.Common.Keys(keys) => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(fallback)
-  | ReactAria.Common.All => fallback
+  | ReactAria.Common.Selection.Keys(keys) =>
+    keys->Set.values->IteratorObject.toArray->Array.get(0)->Option.getOr(fallback)
+  | ReactAria.Common.Selection.All => fallback
   }
 
 @react.componentWithProps(Demo.Props.t)

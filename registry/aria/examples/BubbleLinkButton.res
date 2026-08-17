@@ -1,11 +1,11 @@
 @@directive("'use client'")
 
 @module("sonner") external toast: string => unit = "toast"
+@module("react")
+external createElement: (string, ReactAria.Types.DomProps.t) => React.element = "createElement"
 
 let button = (message, props: ReactAria.Types.DomProps.t) =>
-  <button
-    {...(props :> JsxDOM.domProps)} type_="button" onClick={_ => toast(message)}
-  />
+  createElement("button", {...props, type_: "button", onClick: _ => toast(message)})
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>

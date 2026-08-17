@@ -20,11 +20,11 @@ let make = ({}: Demo.Props.t) => {
         <InputGroup.Addon align=InlineEnd>
           <Tooltip.Trigger>
             <InputGroup.Button
-                onClick={_ => setVoiceEnabled(value => !value)}
-                size=IconXs
-                dataActive=voiceEnabled
-                ariaPressed={voiceEnabled ? #"true" : #"false"}
-                className="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
+              onClick={_ => setVoiceEnabled(value => !value)}
+              size=IconXs
+              dataActive=voiceEnabled
+              ariaPressed={voiceEnabled ? #"true" : #"false"}
+              className="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
             >
               <Icons.AudioLines />
             </InputGroup.Button>

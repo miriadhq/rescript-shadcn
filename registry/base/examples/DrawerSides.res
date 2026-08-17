@@ -1,4 +1,9 @@
-let sides = [Drawer.Top, Drawer.Right, Drawer.Bottom, Drawer.Left]
+let sides = [
+  Drawer.Direction.Top,
+  Drawer.Direction.Right,
+  Drawer.Direction.Bottom,
+  Drawer.Direction.Left,
+]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>

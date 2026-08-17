@@ -1,12 +1,14 @@
-type row = {
-  label: string,
-  value: null<string>,
-  disabled: bool,
+module Row = {
+  type t = {
+    label: string,
+    value: null<string>,
+    disabled: bool,
+  }
 }
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let rows = [
+  let rows: array<Row.t> = [
     {label: "Select a fruit", value: Null.null, disabled: false},
     {label: "Apple", value: Value("apple"), disabled: false},
     {label: "Banana", value: Value("banana"), disabled: false},
@@ -16,7 +18,7 @@ let make = ({}: Demo.Props.t) => {
   ]
 
   <Select
-    items={rows->Array.map((r: row): ReactAria.Select.Item.t<null<string>> => {
+    items={rows->Array.map((r: Row.t): ReactAria.Select.Item.t<null<string>> => {
       label: r.label,
       value: r.value,
     })}

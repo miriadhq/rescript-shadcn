@@ -6,17 +6,21 @@
 external cn: (string, option<string>) => string = "twMerge"
 
 module InputOtpPrimitive = {
-  type slot = {
-    isActive: bool,
-    char: nullable<string>,
-    placeholderChar: nullable<string>,
-    hasFakeCaret: bool,
+  module Slot = {
+    type t = {
+      isActive: bool,
+      char: nullable<string>,
+      placeholderChar: nullable<string>,
+      hasFakeCaret: bool,
+    }
   }
 
-  type renderProps = {
-    slots: array<slot>,
-    isFocused: bool,
-    isHovering: bool,
+  module RenderProps = {
+    type t = {
+      slots: array<Slot.t>,
+      isFocused: bool,
+      isHovering: bool,
+    }
   }
 
   module Props = {
@@ -47,7 +51,7 @@ module InputOtpPrimitive = {
       pasteTransformer?: string => string,
       pushPasswordManagerStrategy?: string,
       noScriptCSSFallback?: nullable<string>,
-      render?: renderProps => React.element,
+      render?: RenderProps.t => React.element,
       children?: React.element,
       onClick?: JsxEvent.Mouse.t => unit,
       onKeyDown?: JsxEvent.Keyboard.t => unit,
@@ -59,7 +63,7 @@ module InputOtpPrimitive = {
   external make: React.component<Props.t> = "OTPInput"
 
   @module("input-otp") @val
-  external context: React.Context.t<renderProps> = "OTPInputContext"
+  external context: React.Context.t<RenderProps.t> = "OTPInputContext"
 }
 
 @react.componentWithProps(InputOtpPrimitive.Props.t)
@@ -88,12 +92,11 @@ module Group = {
 
 module Slot = {
   type props = {index: int, ...ReactAria.Types.DomProps.t}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({index, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
+  let make = ({index, ...ReactAria.Types.DomProps.t as props}) => {
     let inputOtpContext = React.useContext(InputOtpPrimitive.context)
-    let (char, hasFakeCaret, isActive) = switch inputOtpContext.slots[props.index] {
+    let (char, hasFakeCaret, isActive) = switch inputOtpContext.slots[index] {
     | Some(slot) => (
         slot.char->Nullable.map(React.string)->Nullable.getOr(React.null),
         slot.hasFakeCaret,
@@ -102,7 +105,7 @@ module Slot = {
     | None => (React.null, false, false)
     }
     <div
-      {...props->domProps}
+      {...props}
       dataSlot={props.dataSlot->Option.getOr("input-otp-slot")}
       dataActive={isActive}
       className={cn(
@@ -112,7 +115,9 @@ module Slot = {
     >
       {char}
       {hasFakeCaret
-        ? <div className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center">
+        ? <div
+            className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
             <div className="cn-input-otp-caret-line" />
           </div>
         : React.null}

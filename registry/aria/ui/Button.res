@@ -60,24 +60,15 @@ type props = {
   ...ReactAria.Button.props,
 }
 
-let toAriaProps: props => ReactAria.Button.props = %raw(`props => {
-  const {variant, size, ...rest} = props;
-  return rest;
-}`)
-
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let variant = props.variant->Option.getOr(Default)
-  let size = props.size->Option.getOr(Default)
+let make = ({?variant, ?size, ...ReactAria.Button.props as props}) => {
+  let variant = variant->Option.getOr(Default)
+  let size = size->Option.getOr(Default)
   let className = props.className
   let dataSlot = props.dataSlot->Option.getOr("button")
   let className = buttonVariants(~variant, ~size, ~className?)
   <ReactAria.Button
-    {...props->toAriaProps}
-    dataSlot
-    dataVariant={(variant :> string)}
-    dataSize={(size :> string)}
-    className
+    {...props} dataSlot dataVariant={(variant :> string)} dataSize={(size :> string)} className
   />
 }
 
@@ -88,18 +79,13 @@ module LinkButton = {
     ...ReactAria.Button.Link.props,
   }
 
-  let toAriaProps: props => ReactAria.Button.Link.props = %raw(`props => {
-    const {variant, size, ...rest} = props;
-    return rest;
-  }`)
-
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let variant = props.variant->Option.getOr(Default)
-    let size = props.size->Option.getOr(Default)
+  let make = ({?variant, ?size, ...ReactAria.Button.Link.props as props}) => {
+    let variant = variant->Option.getOr(Default)
+    let size = size->Option.getOr(Default)
     let className = props.className
     <ReactAria.Button.Link
-      {...props->toAriaProps}
+      {...props}
       dataSlot={props.dataSlot->Option.getOr("button")}
       dataVariant={(variant :> string)}
       dataSize={(size :> string)}

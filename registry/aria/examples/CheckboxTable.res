@@ -1,13 +1,15 @@
 @@directive("'use client'")
 
-type row = {
-  id: string,
-  name: string,
-  email: string,
-  role: string,
+module Row = {
+  type t = {
+    id: string,
+    name: string,
+    email: string,
+    role: string,
+  }
 }
 
-let tableData: array<row> = [
+let tableData: array<Row.t> = [
   {
     id: "1",
     name: "Sarah Chen",
@@ -38,14 +40,14 @@ let tableData: array<row> = [
 let make = ({}: Demo.Props.t) => {
   <Table>
     <Table.Header>
-      <Table.Row>
-        <Table.Head className="w-8">
-          <Checkbox id="select-all-checkbox" name="select-all-checkbox" isSelected={false} />
-        </Table.Head>
-        <Table.Head> {"Name"->React.string} </Table.Head>
-        <Table.Head> {"Email"->React.string} </Table.Head>
-        <Table.Head> {"Role"->React.string} </Table.Head>
-      </Table.Row>
+      <Table.Head className="w-8">
+        <Checkbox
+          id="select-all-checkbox" name="select-all-checkbox" slot="selection" isSelected={false}
+        />
+      </Table.Head>
+      <Table.Head> {"Name"->React.string} </Table.Head>
+      <Table.Head> {"Email"->React.string} </Table.Head>
+      <Table.Head> {"Role"->React.string} </Table.Head>
     </Table.Header>
     <Table.Body>
       {tableData
@@ -61,7 +63,10 @@ let make = ({}: Demo.Props.t) => {
         >
           <Table.Cell>
             <Checkbox
-              id={`row-${row.id}-checkbox`} name={`row-${row.id}-checkbox`} isSelected
+              id={`row-${row.id}-checkbox`}
+              name={`row-${row.id}-checkbox`}
+              slot="selection"
+              isSelected
             />
           </Table.Cell>
           <Table.Cell className="font-medium"> {row.name->React.string} </Table.Cell>

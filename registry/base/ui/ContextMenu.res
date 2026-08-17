@@ -120,10 +120,7 @@ module Label = {
       ?dataInset
       ?children
       dataSlot="context-menu-label"
-      className={cn(
-        "cn-context-menu-label",
-        className,
-      )}
+      className={cn("cn-context-menu-label", className)}
     />
 }
 
@@ -204,7 +201,14 @@ module CheckboxItem = {
 
 module RadioGroup = {
   @react.component
-  let make = (~className="", ~children=?, ~id=?, ~style=?, ~value=?, ~onValueChange=?) =>
+  let make = (
+    ~className="",
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~value: option<string>=?,
+    ~onValueChange=?,
+  ) =>
     <BaseUi.ContextMenu.RadioGroup
       ?id ?style ?value ?onValueChange ?children dataSlot="context-menu-radio-group" className
     />
@@ -217,7 +221,7 @@ module RadioItem = {
     ~children=React.null,
     ~id=?,
     ~style=?,
-    ~value,
+    ~value: string,
     ~disabled=?,
     ~closeOnClick=?,
     ~dataInset=?,
@@ -239,7 +243,9 @@ module RadioItem = {
         className,
       )}
     >
-      <span className="cn-context-menu-item-indicator pointer-events-none flex items-center justify-center">
+      <span
+        className="cn-context-menu-item-indicator pointer-events-none flex items-center justify-center"
+      >
         <BaseUi.ContextMenu.RadioItemIndicator>
           <Icons.Check />
         </BaseUi.ContextMenu.RadioItemIndicator>
@@ -269,10 +275,7 @@ module Shortcut = {
       ?onClick
       ?onKeyDown
       dataSlot="context-menu-shortcut"
-      className={cn(
-        "cn-context-menu-shortcut",
-        className,
-      )}
+      className={cn("cn-context-menu-shortcut", className)}
       ?children
     />
 }

@@ -1,9 +1,9 @@
 type props = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   isOpen?: bool,
   defaultOpen?: bool,
   onOpenChange?: bool => unit,
-  placement?: Common.placement,
+  placement?: Common.Placement.t,
   offset?: float,
   crossOffset?: float,
   containerPadding?: float,

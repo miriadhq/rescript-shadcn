@@ -1,19 +1,19 @@
 type props<'item> = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   items?: array<'item>,
-  selectionMode?: Common.selectionMode,
+  selectionMode?: Common.SelectionMode.t,
   selectedKeys?: array<string>,
   defaultSelectedKeys?: array<string>,
-  onSelectionChange?: Common.selection => unit,
+  onSelectionChange?: Common.Selection.t => unit,
   disabledKeys?: array<string>,
-  selectionBehavior?: Common.selectionBehavior,
+  selectionBehavior?: Common.SelectionBehavior.t,
   disallowEmptySelection?: bool,
-  disabledBehavior?: Common.disabledBehavior,
-  autoFocus?: Common.autoFocus,
+  disabledBehavior?: Common.DisabledBehavior.t,
+  autoFocus?: Common.AutoFocus.t,
   shouldFocusWrap?: bool,
   onAction?: (string, 'item) => unit,
   onClose?: unit => unit,
-  escapeKeyBehavior?: Common.escapeKeyBehavior,
+  escapeKeyBehavior?: Common.EscapeKeyBehavior.t,
   renderEmptyState?: unit => React.element,
   dependencies?: array<JSON.t>,
   shouldCloseOnSelect?: bool,
@@ -24,7 +24,7 @@ external make: React.component<props<'item>> = "Menu"
 
 module Trigger = {
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     isOpen?: bool,
     defaultOpen?: bool,
     onOpenChange?: bool => unit,
@@ -38,7 +38,8 @@ module Trigger = {
 
 module Item = {
   type props<'item> = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
+    @as("className") renderClassName?: Common.ItemRenderProps.t => string,
     value?: 'item,
     textValue?: string,
     isDisabled?: bool,
@@ -55,29 +56,30 @@ module Item = {
 }
 
 module Section = {
-  type componentProps<'item> = {
-    ...Common.baseProps,
-    items?: array<'item>,
-    selectionMode?: Common.selectionMode,
-    selectedKeys?: array<string>,
-    defaultSelectedKeys?: array<string>,
-    onSelectionChange?: Common.selection => unit,
-    disabledKeys?: array<string>,
-    selectionBehavior?: Common.selectionBehavior,
-    disallowEmptySelection?: bool,
-    disabledBehavior?: Common.disabledBehavior,
-    shouldCloseOnSelect?: bool,
+  module ComponentProps = {
+    type t<'item> = {
+      ...Common.BaseProps.t,
+      items?: array<'item>,
+      selectionMode?: Common.SelectionMode.t,
+      selectedKeys?: array<string>,
+      defaultSelectedKeys?: array<string>,
+      onSelectionChange?: Common.Selection.t => unit,
+      disabledKeys?: array<string>,
+      selectionBehavior?: Common.SelectionBehavior.t,
+      disallowEmptySelection?: bool,
+      disabledBehavior?: Common.DisabledBehavior.t,
+      shouldCloseOnSelect?: bool,
+    }
   }
 
-  type props<'item> = {...componentProps<'item>, children?: React.element}
-  external toProps: componentProps<'item> => props<'item> = "%identity"
+  type props<'item> = {...ComponentProps.t<'item>, children?: React.element}
 
   @module("react-aria-components")
   external make: React.component<props<'item>> = "MenuSection"
 }
 
 module SubmenuTrigger = {
-  type props = {...Common.elementProps, delay?: float}
+  type props = {...Common.ElementProps.t, delay?: float}
 
   @module("react-aria-components")
   external make: React.component<props> = "SubmenuTrigger"

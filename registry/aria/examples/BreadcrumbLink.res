@@ -1,5 +1,9 @@
-external renderAnchor: (string, ReactAria.Button.Link.renderProps) => React.element =
-  "createElement"
+@@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
+
+module NextLink = {
+  @module("next/link")
+  external make: React.component<ReactAria.Button.Link.RenderProps.t> = "default"
+}
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
@@ -8,7 +12,8 @@ let make = ({}: Demo.Props.t) =>
       <Breadcrumb.Item>
         <Breadcrumb.Link
           href="#link-component"
-          render={props => renderAnchor("a", props)}
+          render={props =>
+            props.href->Option.isSome ? <NextLink {...props} /> : <span {...props} />}
         >
           {"Home"->React.string}
         </Breadcrumb.Link>
@@ -16,7 +21,8 @@ let make = ({}: Demo.Props.t) =>
       <Breadcrumb.Item>
         <Breadcrumb.Link
           href="#link-component"
-          render={props => renderAnchor("a", props)}
+          render={props =>
+            props.href->Option.isSome ? <NextLink {...props} /> : <span {...props} />}
         >
           {"Components"->React.string}
         </Breadcrumb.Link>

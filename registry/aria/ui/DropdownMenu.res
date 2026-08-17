@@ -19,71 +19,79 @@ module Trigger = {
 }
 
 type props<'item> = {
-  placement?: ReactAria.Common.placement,
+  placement?: ReactAria.Common.Placement.t,
   offset?: float,
   crossOffset?: float,
   ...ReactAria.Menu.props<'item>,
 }
 
-let menuProps: props<'item> => ReactAria.Menu.props<'item> = %raw(
-  `({placement, offset, crossOffset, className, children, ...props}) => props`
-)
-
-let renderContent = (props: props<'item>, ~subContent=false) => {
-  let dataSlot = props.dataSlot->Option.getOr(
-    subContent ? "dropdown-menu-sub-content" : "dropdown-menu-content",
-  )
+let renderContent = (
+  ~placement,
+  ~offset,
+  ~crossOffset,
+  ~className,
+  ~children,
+  props: ReactAria.Menu.props<'item>,
+  ~subContent=false,
+) => {
+  let dataSlot =
+    props.dataSlot->Option.getOr(subContent ? "dropdown-menu-sub-content" : "dropdown-menu-content")
   <ReactAria.Popover
     dataSlot
-    placement={props.placement->Option.getOr(
-      subContent ? ReactAria.Common.EndTop : ReactAria.Common.BottomStart,
+    placement={placement->Option.getOr(
+      subContent ? ReactAria.Common.Placement.EndTop : ReactAria.Common.Placement.BottomStart,
     )}
-    offset={props.offset->Option.getOr(subContent ? 0. : 4.)}
-    crossOffset={props.crossOffset->Option.getOr(subContent ? -3. : 0.)}
+    offset={offset->Option.getOr(subContent ? 0. : 4.)}
+    crossOffset={crossOffset->Option.getOr(subContent ? -3. : 0.)}
     className={cn(
       subContent
         ? "cn-dropdown-menu-content-aria cn-menu-target cn-menu-translucent cn-menu-translucent-aria z-50 w-(--trigger-width) origin-(--trigger-anchor-point) overflow-x-hidden overflow-y-auto outline-none data-exiting:overflow-hidden cn-dropdown-menu-sub-content-aria cn-menu-target cn-menu-translucent w-auto"
         : "cn-dropdown-menu-content-aria cn-menu-target cn-menu-translucent cn-menu-translucent-aria z-50 w-(--trigger-width) origin-(--trigger-anchor-point) overflow-x-hidden overflow-y-auto outline-none data-exiting:overflow-hidden",
-      props.className,
+      className,
     )}
   >
     <ReactAria.Menu
-      {...props->menuProps}
-      className="max-h-[inherit] overflow-x-hidden overflow-y-auto outline-hidden"
+      {...props} className="max-h-[inherit] overflow-x-hidden overflow-y-auto outline-hidden"
     >
-      {props.children->Option.getOr(React.null)}
+      {children->Option.getOr(React.null)}
     </ReactAria.Menu>
   </ReactAria.Popover>
 }
 
 @react.componentWithProps(props)
-let make = (props: props<'item>) => renderContent(props)
+let make = ({?placement, ?offset, ?crossOffset, ...ReactAria.Menu.props as props}) =>
+  renderContent(
+    ~placement,
+    ~offset,
+    ~crossOffset,
+    ~className=props.className,
+    ~children=props.children,
+    props,
+  )
 
 module Group = {
   @react.componentWithProps(ReactAria.Menu.Section.props)
-  let make = (props: ReactAria.Menu.Section.props<'item>) =>
-    <ReactAria.Menu.Section {...props} dataSlot="dropdown-menu-group" />
+  let make = props => <ReactAria.Menu.Section {...props} dataSlot="dropdown-menu-group" />
 }
 
 module Label = {
   type props = {inset?: bool, ...ReactAria.Header.props}
-  let headerProps: props => ReactAria.Header.props = %raw(`({inset, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) =>
+  let make = ({?inset, ...ReactAria.Header.props as props}) =>
     <ReactAria.Header
-      {...props->headerProps}
+      {...props}
       dataSlot="dropdown-menu-label"
-      dataInset=?{props.inset}
+      dataInset=?inset
       className={cn("cn-dropdown-menu-label", props.className)}
     />
 }
 
-let itemClass = (selectionMode: ReactAria.Common.itemSelectionMode) =>
+let itemClass = (selectionMode: ReactAria.Common.ItemSelectionMode.t) =>
   switch selectionMode {
-  | ReactAria.Common.None => "cn-dropdown-menu-item"
-  | ReactAria.Common.Single => "cn-dropdown-menu-radio-item"
-  | ReactAria.Common.Multiple => "cn-dropdown-menu-checkbox-item"
+  | ReactAria.Common.ItemSelectionMode.None => "cn-dropdown-menu-item"
+  | ReactAria.Common.ItemSelectionMode.Single => "cn-dropdown-menu-radio-item"
+  | ReactAria.Common.ItemSelectionMode.Multiple => "cn-dropdown-menu-checkbox-item"
   }
 
 let textValueFromChildren: option<React.element> => option<string> = %raw(`children =>
@@ -92,25 +100,24 @@ let textValueFromChildren: option<React.element> => option<string> = %raw(`child
 
 module Item = {
   type props<'item> = {inset?: bool, variant?: Variant.t, ...ReactAria.Menu.Item.props<'item>}
-  let itemProps: props<'item> => ReactAria.Menu.Item.props<'item> = %raw(
-    `({inset, variant, className, children, ...props}) => props`
-  )
 
   @react.componentWithProps(props)
-  let make = (props: props<'item>) => {
+  let make = ({?inset, ?variant, ...ReactAria.Menu.Item.props as props}) => {
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
-    let className = ReactAria.Common.itemRenderClassName(({selectionMode}) =>
+    let renderClassName = ({selectionMode}: ReactAria.Common.ItemRenderProps.t) =>
       cn(
-        `group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 ${itemClass(selectionMode)}`,
+        `group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 ${itemClass(
+            selectionMode,
+          )}`,
         props.className,
       )
-    )
-    let children = ReactAria.Common.composeItemRenderProps(
-      props.children,
-      (children, {isSelected, selectionMode}) =>
+    let children = ReactAria.Common.composeItemRenderProps(props.children, (
+      children,
+      {isSelected, selectionMode},
+    ) =>
       <>
         {switch selectionMode {
-        | ReactAria.Common.None => React.null
+        | ReactAria.Common.ItemSelectionMode.None => React.null
         | Single | Multiple =>
           <span
             className="cn-dropdown-menu-item-indicator pointer-events-none"
@@ -127,12 +134,12 @@ module Item = {
       </>
     )
     <ReactAria.Menu.Item
-      {...props->itemProps}
+      {...props}
       ?textValue
       dataSlot="dropdown-menu-item"
-      dataInset=?{props.inset}
-      dataVariant={(props.variant->Option.getOr(Variant.Default) :> string)}
-      className
+      dataInset=?inset
+      dataVariant={(variant->Option.getOr(Variant.Default) :> string)}
+      renderClassName
       children
     />
   }
@@ -146,12 +153,9 @@ module Sub = {
 
 module SubTrigger = {
   type props<'item> = {inset?: bool, ...ReactAria.Menu.Item.props<'item>}
-  let itemProps: props<'item> => ReactAria.Menu.Item.props<'item> = %raw(
-    `({inset, className, children, ...props}) => props`
-  )
 
   @react.componentWithProps(props)
-  let make = (props: props<'item>) => {
+  let make = ({?inset, ...ReactAria.Menu.Item.props as props}) => {
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
     let children = ReactAria.Common.composeItemRenderProps(props.children, (children, _) =>
       <>
@@ -160,10 +164,10 @@ module SubTrigger = {
       </>
     )
     <ReactAria.Menu.Item
-      {...props->itemProps}
+      {...props}
       ?textValue
       dataSlot="dropdown-menu-sub-trigger"
-      dataInset=?{props.inset}
+      dataInset=?inset
       className={cn(
         "cn-dropdown-menu-sub-trigger flex cursor-default items-center outline-hidden select-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
@@ -175,7 +179,16 @@ module SubTrigger = {
 
 module SubContent = {
   @react.componentWithProps(props)
-  let make = (props: props<'item>) => renderContent(props, ~subContent=true)
+  let make = ({?placement, ?offset, ?crossOffset, ...ReactAria.Menu.props as props}) =>
+    renderContent(
+      ~placement,
+      ~offset,
+      ~crossOffset,
+      ~className=props.className,
+      ~children=props.children,
+      props,
+      ~subContent=true,
+    )
 }
 
 module Separator = {

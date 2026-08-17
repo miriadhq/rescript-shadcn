@@ -7,18 +7,18 @@ let make = ({}: Demo.Props.t) =>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         <DropdownMenu.Trigger>
-<Button size=IconSm variant=Ghost>
+          <Button size=IconSm variant=Ghost>
             <Breadcrumb.Ellipsis />
             <span className="sr-only"> {"Toggle menu"->React.string} </span>
           </Button>
-<DropdownMenu placement=ReactAria.Common.BottomStart>
+          <DropdownMenu placement=ReactAria.Common.Placement.BottomStart>
             <DropdownMenu.Group>
               <DropdownMenu.Item> {"Documentation"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"Themes"->React.string} </DropdownMenu.Item>
               <DropdownMenu.Item> {"GitHub"->React.string} </DropdownMenu.Item>
             </DropdownMenu.Group>
           </DropdownMenu>
-</DropdownMenu.Trigger>
+        </DropdownMenu.Trigger>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         <Breadcrumb.Link href="#"> {"Components"->React.string} </Breadcrumb.Link>

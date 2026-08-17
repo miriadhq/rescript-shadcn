@@ -2,12 +2,14 @@
 
 @@directive("'use client'")
 
-@unboxed
-type direction =
-  | @as("bottom") Bottom
-  | @as("left") Left
-  | @as("right") Right
-  | @as("top") Top
+module Direction = {
+  @unboxed
+  type t =
+    | @as("bottom") Bottom
+    | @as("left") Left
+    | @as("right") Right
+    | @as("top") Top
+}
 
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
@@ -29,14 +31,16 @@ module DrawerPrimitive = {
     external make: React.component<props> = "Root"
   }
 
-  type chromeProps = {
-    ...BaseUi.Types.DomProps.t,
-    asChild?: bool,
+  module ChromeProps = {
+    type t = {
+      ...BaseUi.Types.DomProps.t,
+      asChild?: bool,
+    }
   }
 
   module Trigger = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<chromeProps> = "Trigger"
+    external make: React.component<ChromeProps.t> = "Trigger"
   }
 
   module Portal = {
@@ -51,7 +55,7 @@ module DrawerPrimitive = {
 
   module Close = {
     @module("vaul") @scope("Drawer")
-    external make: React.component<chromeProps> = "Close"
+    external make: React.component<ChromeProps.t> = "Close"
   }
 
   module Overlay = {
@@ -83,7 +87,7 @@ let make = (
   ~onOpenChange=?,
   ~onOpenChangeComplete=?,
   ~modal=?,
-  ~direction=Bottom,
+  ~direction=Direction.Bottom,
 ) =>
   <DrawerPrimitive.Root
     ?children

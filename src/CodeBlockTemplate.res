@@ -2,10 +2,12 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-type elementProps = {children?: React.element}
+module ElementProps = {
+  type t = {children?: React.element}
+}
 
 @get
-external getProps: React.element => elementProps = "props"
+external getProps: React.element => ElementProps.t = "props"
 
 let rec interpolateChildren = (children, libStyle) =>
   React.Children.map(children, child =>
@@ -15,7 +17,10 @@ let rec interpolateChildren = (children, libStyle) =>
       let {?children} = child->getProps
       switch children {
       | Some(children) =>
-        React.cloneElement(child, {children: children->interpolateChildren(libStyle)})
+        React.cloneElement(
+          child,
+          ({children: children->interpolateChildren(libStyle)}: ElementProps.t),
+        )
       | None => child
       }
     | _ => child

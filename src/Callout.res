@@ -1,11 +1,13 @@
-@unboxed
-type variant =
-  | @as("default") Default
-  | @as("info") Info
-  | @as("warning") Warning
+module Variant = {
+  @unboxed
+  type t =
+    | @as("default") Default
+    | @as("info") Info
+    | @as("warning") Warning
+}
 
 @react.component
-let make = (~title=?, ~children, ~icon, ~className=?, ~variant=Default) => {
+let make = (~title=?, ~children, ~icon, ~className=?, ~variant=Variant.Default) => {
   <Alert
     dataVariant={(variant :> string)}
     className={Commons.cn(
