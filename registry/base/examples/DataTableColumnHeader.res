@@ -1,12 +1,12 @@
 module RT = DataTableDemo.RT
 
-@send external colGetCanSort: RT.col => bool = "getCanSort"
+@send external colGetCanSort: RT.Column.t => bool = "getCanSort"
 
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
 @react.component
-let make = (~column: RT.col, ~title: string, ~className="") => {
+let make = (~column: RT.Column.t, ~title: string, ~className="") => {
   if !(column->colGetCanSort) {
     <div className={cn("", Some(className))}> {title->React.string} </div>
   } else {

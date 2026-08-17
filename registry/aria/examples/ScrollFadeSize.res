@@ -19,9 +19,7 @@ module Example = {
           <Items />
         </div>
       </div>
-      <p className="text-center font-mono text-xs text-muted-foreground">
-        {label->React.string}
-      </p>
+      <p className="text-center font-mono text-xs text-muted-foreground"> {label->React.string} </p>
     </div>
 }
 

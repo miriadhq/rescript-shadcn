@@ -5,8 +5,7 @@ let make = ({}: Demo.Props.t) =>
   <Command className="max-w-sm rounded-lg border">
     <Command.Input placeholder="Type a command or search..." />
     <Command.List
-      renderEmptyState={() =>
-        <Command.Empty> {"No results found."->React.string} </Command.Empty>}
+      renderEmptyState={() => <Command.Empty> {"No results found."->React.string} </Command.Empty>}
     >
       <Command.Group heading="Suggestions">
         <Command.Item textValue="Calendar">

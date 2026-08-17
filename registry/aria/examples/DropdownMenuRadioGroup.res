@@ -11,11 +11,12 @@ let make = ({}: Demo.Props.t) => {
         selectedKeys={[position]}
         onSelectionChange={selection =>
           switch selection {
-          | ReactAria.Common.Keys(keys) =>
-            setPosition(_ => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("bottom"))
-          | ReactAria.Common.All => setPosition(_ => "bottom")
-          }
-        }
+          | ReactAria.Common.Selection.Keys(keys) =>
+            setPosition(_ =>
+              keys->Set.values->IteratorObject.toArray->Array.get(0)->Option.getOr("bottom")
+            )
+          | ReactAria.Common.Selection.All => setPosition(_ => "bottom")
+          }}
       >
         <DropdownMenu.Label> {"Panel Position"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item id="top">

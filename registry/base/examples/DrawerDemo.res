@@ -1,41 +1,43 @@
 @@directive("'use client'")
 
-type drawerDatum = {goal: int}
+module DrawerDatum = {
+  type t = {goal: int}
+}
 
 module Recharts = {
-  type responsiveContainerProps = {
-    width: string,
-    height: string,
-    children: React.element,
-  }
-
   module ResponsiveContainer = {
-    @module("recharts")
-    external make: React.component<responsiveContainerProps> = "ResponsiveContainer"
-  }
+    type props = {
+      width: string,
+      height: string,
+      children: React.element,
+    }
 
-  type barChartProps = {
-    data: array<drawerDatum>,
-    children: React.element,
+    @module("recharts")
+    external make: React.component<props> = "ResponsiveContainer"
   }
 
   module BarChart = {
-    @module("recharts")
-    external make: React.component<barChartProps> = "BarChart"
-  }
+    type props = {
+      data: array<DrawerDatum.t>,
+      children: React.element,
+    }
 
-  type barProps = {
-    dataKey: string,
-    style?: ReactDOM.Style.t,
+    @module("recharts")
+    external make: React.component<props> = "BarChart"
   }
 
   module Bar = {
+    type props = {
+      dataKey: string,
+      style?: ReactDOM.Style.t,
+    }
+
     @module("recharts")
-    external make: React.component<barProps> = "Bar"
+    external make: React.component<props> = "Bar"
   }
 }
 
-let data: array<drawerDatum> = [
+let data: array<DrawerDatum.t> = [
   {goal: 400},
   {goal: 300},
   {goal: 200},

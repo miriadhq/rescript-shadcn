@@ -1,15 +1,17 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@unboxed
-type dataIcon =
-  | @as("inline-start") InlineStart
-  | @as("inline-end") InlineEnd
+module DataIcon = {
+  @unboxed
+  type t =
+    | @as("inline-start") InlineStart
+    | @as("inline-end") InlineEnd
+}
 
 @react.component
 let make = (
   ~className=?,
-  ~dataIcon: option<dataIcon>=?,
+  ~dataIcon: option<DataIcon.t>=?,
   ~dataSlot="spinner",
   ~id=?,
   ~style=?,

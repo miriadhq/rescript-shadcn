@@ -4,8 +4,7 @@
   "private": true,
   "dependencies": {
     "@base-ui/react": "1.6.0",
-    "@rescript/react": "^0.15.0",
-    "@rescript/webapi": "0.1.0-experimental-127e19a",
+    "@rescript/react": "^0.16.0-beta.1",
     "@shadcn/react": "0.2.0",
     "@tabler/icons-react": "^3.38.0",
     "@tanstack/react-table": "^8.21.3",
@@ -23,7 +22,7 @@
     "react-dom": "19.2.4",
     "react-resizable-panels": "^4.7.1",
     "recharts": "^3.7.0",
-    "rescript": "^12.3.0",
+    "rescript": "^13.0.0-alpha.5",
     "rescript-base-ui": "workspace:^",
     "rescript-shadcn-react": "workspace:^",
     "rescript-signals": "^1.3.4",

@@ -23,12 +23,7 @@ let make = ({}: Demo.Props.t) =>
       <Button> {"Create Project"->React.string} </Button>
       <Button variant=Outline> {"Import Project"->React.string} </Button>
     </Empty.Content>
-    <Button.LinkButton
-      variant=Link
-      href="#"
-      className="text-muted-foreground"
-      size=Sm
-    >
+    <Button.LinkButton variant=Link href="#" className="text-muted-foreground" size=Sm>
       {"Learn More "->React.string}
       <Icons.ArrowUpRight />
     </Button.LinkButton>

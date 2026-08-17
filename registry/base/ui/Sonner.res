@@ -1,14 +1,18 @@
 @@directive("'use client'")
 
 module NextThemes = {
-  type theme =
-    | @as("system") System
-    | @as("light") Light
-    | @as("dark") Dark
-  type themeState = {theme: option<theme>}
+  module Theme = {
+    type t =
+      | @as("system") System
+      | @as("light") Light
+      | @as("dark") Dark
+  }
+  module ThemeState = {
+    type t = {theme: option<Theme.t>}
+  }
 
   @module("next-themes")
-  external useTheme: unit => themeState = "useTheme"
+  external useTheme: unit => ThemeState.t = "useTheme"
 }
 
 module Position = {
@@ -106,7 +110,7 @@ module SonnerPrimitive = {
   external make: (
     ~id: string=?,
     ~invert: bool=?,
-    ~theme: NextThemes.theme=?,
+    ~theme: NextThemes.Theme.t=?,
     ~position: Position.t=?,
     ~hotkey: array<string>=?,
     ~richColors: bool=?,
@@ -164,7 +168,7 @@ let make = (
   ~containerAriaLabel=?,
 ) => {
   let {theme: defaultTheme} = NextThemes.useTheme()
-  let theme = theme->Option.getOr(defaultTheme)->Option.getOr(System)
+  let theme = theme->Option.getOr(defaultTheme)->Option.getOr(NextThemes.Theme.System)
 
   <SonnerPrimitive
     ?id

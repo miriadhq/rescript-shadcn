@@ -7,44 +7,55 @@ open BaseUi.Types
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@unboxed
-type state =
-  | @as("expanded") Expanded
-  | @as("collapsed") Collapsed
-
-type sidebar = {
-  state: state,
-  @as("open") open_: bool,
-  setOpen: bool => unit,
-  openMobile: bool,
-  setOpenMobile: bool => unit,
-  isMobile: bool,
-  toggleSidebar: unit => unit,
+module State = {
+  @unboxed
+  type t =
+    | @as("expanded") Expanded
+    | @as("collapsed") Collapsed
 }
 
-type browserWindow
-type mediaQueryList
-type windowKeyboardEvent
+module ContextValue = {
+  type t = {
+    state: State.t,
+    @as("open") open_: bool,
+    setOpen: bool => unit,
+    openMobile: bool,
+    setOpenMobile: bool => unit,
+    isMobile: bool,
+    toggleSidebar: unit => unit,
+  }
+}
 
-@val external browserWindow: browserWindow = "window"
+module BrowserWindow = {
+  type t
+}
+module MediaQueryList = {
+  type t
+}
+module WindowKeyboardEvent = {
+  type t
+}
+
+@val external browserWindow: BrowserWindow.t = "window"
 @val external browserDocument: Dom.document = "document"
-@get external windowInnerWidth: browserWindow => int = "innerWidth"
-@send external windowMatchMedia: (browserWindow, string) => mediaQueryList = "matchMedia"
+@get external windowInnerWidth: BrowserWindow.t => int = "innerWidth"
+@send external windowMatchMedia: (BrowserWindow.t, string) => MediaQueryList.t = "matchMedia"
 @send
-external addMediaQueryListener: (mediaQueryList, string, unit => unit) => unit = "addEventListener"
-@send
-external removeMediaQueryListener: (mediaQueryList, string, unit => unit) => unit =
-  "removeEventListener"
-@send
-external addWindowListener: (browserWindow, string, windowKeyboardEvent => unit) => unit =
+external addMediaQueryListener: (MediaQueryList.t, string, unit => unit) => unit =
   "addEventListener"
 @send
-external removeWindowListener: (browserWindow, string, windowKeyboardEvent => unit) => unit =
+external removeMediaQueryListener: (MediaQueryList.t, string, unit => unit) => unit =
   "removeEventListener"
-@get external keyboardEventKey: windowKeyboardEvent => string = "key"
-@get external keyboardEventMetaKey: windowKeyboardEvent => bool = "metaKey"
-@get external keyboardEventCtrlKey: windowKeyboardEvent => bool = "ctrlKey"
-@send external preventDefaultKeyboardEvent: windowKeyboardEvent => unit = "preventDefault"
+@send
+external addWindowListener: (BrowserWindow.t, string, WindowKeyboardEvent.t => unit) => unit =
+  "addEventListener"
+@send
+external removeWindowListener: (BrowserWindow.t, string, WindowKeyboardEvent.t => unit) => unit =
+  "removeEventListener"
+@get external keyboardEventKey: WindowKeyboardEvent.t => string = "key"
+@get external keyboardEventMetaKey: WindowKeyboardEvent.t => bool = "metaKey"
+@get external keyboardEventCtrlKey: WindowKeyboardEvent.t => bool = "ctrlKey"
+@send external preventDefaultKeyboardEvent: WindowKeyboardEvent.t => unit = "preventDefault"
 @set external setDocumentCookie: (Dom.document, string) => unit = "cookie"
 @val external mathRandom: unit => float = "Math.random"
 @module("@base-ui/react/merge-props")
@@ -61,7 +72,7 @@ let sidebarWidthIcon = "3rem"
 let sidebarKeyboardShortcut = "b"
 let mobileBreakpoint = 768
 
-let context: React.Context.t<option<sidebar>> = React.createContext(None)
+let context: React.Context.t<option<ContextValue.t>> = React.createContext(None)
 
 @throws(JsExn)
 let use = () =>
@@ -88,30 +99,36 @@ let useIsMobile = () => {
   isMobile
 }
 
-@unboxed
-type variant =
-  | @as("sidebar") Sidebar
-  | @as("floating") Floating
-  | @as("inset") Inset
+module Variant = {
+  @unboxed
+  type t =
+    | @as("sidebar") Sidebar
+    | @as("floating") Floating
+    | @as("inset") Inset
+}
 
-@unboxed
-type side =
-  | @as("left") Left
-  | @as("right") Right
+module Side = {
+  @unboxed
+  type t =
+    | @as("left") Left
+    | @as("right") Right
+}
 
-@unboxed
-type collapsible =
-  | @as("offcanvas") Offcanvas
-  | @as("icon") Icon
-  | @as("none") NotCollapsible
+module Collapsible = {
+  @unboxed
+  type t =
+    | @as("offcanvas") Offcanvas
+    | @as("icon") Icon
+    | @as("none") NotCollapsible
+}
 
 @react.component
 let make = (
   ~className=?,
   ~children=?,
-  ~side=Left,
-  ~variant=Sidebar,
-  ~collapsible=Offcanvas,
+  ~side=Side.Left,
+  ~variant=Variant.Sidebar,
+  ~collapsible=Collapsible.Offcanvas,
   ~dir: option<string>=?,
   ~id=?,
   ~style=?,
@@ -120,7 +137,7 @@ let make = (
 ) => {
   let {isMobile, state, openMobile, setOpenMobile} = use()
 
-  if collapsible == NotCollapsible {
+  if collapsible == Collapsible.NotCollapsible {
     <div
       ?id
       ?style
@@ -153,7 +170,7 @@ let make = (
         dataSlot="sidebar"
         dataMobile="true"
         className="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
-        side={side == Right ? Side.Right : Side.Left}
+        side={side == Side.Right ? BaseUi.Types.Side.Right : BaseUi.Types.Side.Left}
         style={mobileStyle}
         showCloseButton={false}
       >
@@ -166,21 +183,21 @@ let make = (
     </Sheet>
   } else {
     let desktopGapClass = switch variant {
-    | Floating
-    | Inset => "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
-    | Sidebar => "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
+    | Variant.Floating
+    | Variant.Inset => "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
+    | Variant.Sidebar => "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
     }
     let desktopContainerClass = switch variant {
-    | Floating
-    | Inset => "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
-    | Sidebar => "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l"
+    | Variant.Floating
+    | Variant.Inset => "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
+    | Variant.Sidebar => "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l"
     }
 
     <div
       dataState={(state :> string)}
       dataCollapsible={switch state {
-      | Collapsed => (collapsible :> string)
-      | Expanded => ""
+      | State.Collapsed => (collapsible :> string)
+      | State.Expanded => ""
       }}
       dataSide={(side :> string)}
       dataVariant={(variant :> string)}
@@ -271,7 +288,7 @@ module Provider = {
       }
 
     React.useEffect(() => {
-      let handleKeyDown = (event: windowKeyboardEvent) => {
+      let handleKeyDown = (event: WindowKeyboardEvent.t) => {
         if (
           event->keyboardEventKey == sidebarKeyboardShortcut &&
             (event->keyboardEventMetaKey || event->keyboardEventCtrlKey)
@@ -285,8 +302,8 @@ module Provider = {
       Some(() => browserWindow->removeWindowListener("keydown", handleKeyDown))
     }, [isMobile, isOpen, openMobile])
 
-    let contextValue = Some({
-      state: isOpen ? Expanded : Collapsed,
+    let contextValue: option<ContextValue.t> = Some({
+      state: isOpen ? State.Expanded : State.Collapsed,
       open_: isOpen,
       setOpen,
       openMobile,
@@ -401,10 +418,7 @@ module Inset = {
       ?onKeyDown
       ?children
       dataSlot="sidebar-inset"
-      className={cn(
-        "cn-sidebar-inset relative flex w-full flex-1 flex-col",
-        className,
-      )}
+      className={cn("cn-sidebar-inset relative flex w-full flex-1 flex-col", className)}
     />
 }
 
@@ -639,19 +653,6 @@ module MenuItem = {
     />
 }
 
-type menuButtonTooltipConfig = {
-  children?: React.element,
-  className?: string,
-  id?: string,
-  style?: ReactDOM.Style.t,
-  onClick?: JsxEvent.Mouse.t => unit,
-  onKeyDown?: JsxEvent.Keyboard.t => unit,
-  side?: Side.t,
-  sideOffset?: float,
-  align?: Align.t,
-  alignOffset?: float,
-}
-
 module MenuButton = {
   module Variant = {
     @unboxed
@@ -665,6 +666,15 @@ module MenuButton = {
       | @as("default") Default
       | @as("sm") Sm
       | @as("lg") Lg
+  }
+
+  module RenderState = {
+    type t = {
+      slot: string,
+      sidebar: string,
+      size: Size.t,
+      active: bool,
+    }
   }
 
   let sidebarMenuButtonVariants = (~variant=Variant.Default, ~size=Size.Default) => {
@@ -681,20 +691,13 @@ module MenuButton = {
     `${base} ${variantClass} ${sizeClass}`
   }
 
-  type state = {
-    slot: string,
-    sidebar: string,
-    size: Size.t,
-    active: bool,
-  }
-
   @react.component
   let make = (
     ~className=?,
     ~variant=Variant.Default,
     ~size=Size.Default,
     ~isActive=false,
-    ~tooltip: option<Tooltip.contentProps>=?,
+    ~tooltip: option<Tooltip.ContentProps.t>=?,
     ~render=?,
     ~children=React.null,
     ~ariaDisabled=?,
@@ -723,12 +726,14 @@ module MenuButton = {
         | None => render
         }
       },
-      state: {
-        slot: "sidebar-menu-button",
-        sidebar: "menu-button",
-        size,
-        active: isActive,
-      },
+      state: (
+        {
+          slot: "sidebar-menu-button",
+          sidebar: "menu-button",
+          size,
+          active: isActive,
+        }: RenderState.t
+      ),
     })
     switch tooltip {
     | None => comp
@@ -737,9 +742,9 @@ module MenuButton = {
         {comp}
         <Tooltip.Content
           {...tooltip}
-          side={tooltip.side->Option.getOr(Side.Right)}
+          side={tooltip.side->Option.getOr(BaseUi.Types.Side.Right)}
           align={tooltip.align->Option.getOr(Align.Center)}
-          hidden={tooltip.hidden->Option.getOr(state !== Collapsed || isMobile)}
+          hidden={tooltip.hidden->Option.getOr(state !== State.Collapsed || isMobile)}
         />
       </Tooltip>
     }
@@ -874,10 +879,7 @@ module MenuSub = {
       ?children
       dataSlot="sidebar-menu-sub"
       dataSidebar="menu-sub"
-      className={cn(
-        "cn-sidebar-menu-sub flex min-w-0 flex-col",
-        className,
-      )}
+      className={cn("cn-sidebar-menu-sub flex min-w-0 flex-col", className)}
     />
 }
 

@@ -46,15 +46,13 @@ let make = ({}: Demo.Props.t) => {
       />
       <InputGroup.Addon align=InlineEnd>
         <Popover.Trigger isOpen={open_} onOpenChange={open_ => setOpen(_ => open_)}>
-          <InputGroup.Button
-            id="date-picker" variant=Ghost size=IconXs ariaLabel="Select date"
-          >
+          <InputGroup.Button id="date-picker" variant=Ghost size=IconXs ariaLabel="Select date">
             <Icons.Calendar />
             <span className="sr-only"> {"Select date"->React.string} </span>
           </InputGroup.Button>
           <Popover
             className="w-auto overflow-hidden p-0"
-            placement=ReactAria.Common.BottomEnd
+            placement=ReactAria.Common.Placement.BottomEnd
             offset=8.
           >
             <Calendar
@@ -72,9 +70,7 @@ let make = ({}: Demo.Props.t) => {
     </InputGroup>
     <div className="px-1 text-sm text-muted-foreground">
       {"Your post will be published on "->React.string}
-      <span className="font-medium">
-        {date->Option.mapOr("", formatDate)->React.string}
-      </span>
+      <span className="font-medium"> {date->Option.mapOr("", formatDate)->React.string} </span>
       {"."->React.string}
     </div>
   </Field>

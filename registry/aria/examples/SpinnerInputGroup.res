@@ -8,7 +8,7 @@ let make = ({}: Demo.Props.t) =>
       </InputGroup.Addon>
     </InputGroup>
     <InputGroup>
-    <InputGroup.Textarea placeholder="Send a message..." disabled={true} />
+      <InputGroup.Textarea placeholder="Send a message..." disabled={true} />
       <InputGroup.Addon align=BlockEnd>
         <Spinner />
         {"Validating..."->React.string}

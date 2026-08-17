@@ -1,13 +1,13 @@
 type props = {
-  ...Common.elementProps,
-  selectionMode?: Common.selectionMode,
+  ...Common.ElementProps.t,
+  selectionMode?: Common.SelectionMode.t,
   selectedKeys?: array<string>,
   defaultSelectedKeys?: array<string>,
-  onSelectionChange?: Common.selection => unit,
+  onSelectionChange?: Common.Selection.t => unit,
   disabledKeys?: array<string>,
-  selectionBehavior?: Common.selectionBehavior,
+  selectionBehavior?: Common.SelectionBehavior.t,
   disallowEmptySelection?: bool,
-  disabledBehavior?: Common.disabledBehavior,
+  disabledBehavior?: Common.DisabledBehavior.t,
   onRowAction?: string => unit,
   sortDescriptor?: JSON.t,
   onSortChange?: JSON.t => unit,
@@ -21,7 +21,7 @@ external make: React.component<props> = "Table"
 
 module Header = {
   type props<'item> = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     items?: array<'item>,
     dependencies?: array<JSON.t>,
   }
@@ -32,7 +32,7 @@ module Header = {
 
 module Body = {
   type props<'item> = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     items?: array<'item>,
     renderEmptyState?: unit => React.element,
   }
@@ -42,7 +42,7 @@ module Body = {
 }
 
 module Footer = {
-  type props<'item> = {...Common.elementProps, items?: array<'item>}
+  type props<'item> = {...Common.ElementProps.t, items?: array<'item>}
 
   @module("react-aria-components")
   external make: React.component<props<'item>> = "TableFooter"
@@ -50,13 +50,13 @@ module Footer = {
 
 module Row = {
   type props<'item> = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     value?: 'item,
     columns?: array<'item>,
     dependencies?: array<JSON.t>,
     textValue?: string,
     isDisabled?: bool,
-    disabledBehavior?: Common.disabledBehavior,
+    disabledBehavior?: Common.DisabledBehavior.t,
     hasChildItems?: bool,
     href?: string,
     target?: string,
@@ -70,18 +70,20 @@ module Row = {
 }
 
 module Column = {
-  @unboxed
-  type size = Number(float) | String(string)
+  module Size = {
+    @unboxed
+    type t = Number(float) | String(string)
+  }
 
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     textValue?: string,
     isRowHeader?: bool,
     allowsSorting?: bool,
-    width?: size,
-    defaultWidth?: size,
-    minWidth?: size,
-    maxWidth?: size,
+    width?: Size.t,
+    defaultWidth?: Size.t,
+    minWidth?: Size.t,
+    maxWidth?: Size.t,
   }
 
   @module("react-aria-components")
@@ -89,7 +91,7 @@ module Column = {
 }
 
 module Cell = {
-  type props = {...Common.elementProps, textValue?: string, colSpan?: int}
+  type props = {...Common.ElementProps.t, textValue?: string, colSpan?: int}
 
   @module("react-aria-components")
   external make: React.component<props> = "Cell"

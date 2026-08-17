@@ -63,23 +63,25 @@ module Trigger = {
     />
 }
 
-type contentProps = {
-  className?: string,
-  children: React.element,
-  id?: string,
-  dir?: BaseUi.Types.TextDirection.t,
-  style?: ReactDOM.style,
-  onClick?: ReactEvent.Mouse.t => unit,
-  onKeyDown?: ReactEvent.Keyboard.t => unit,
-  align?: Align.t,
-  alignOffset?: float,
-  side?: Side.t,
-  sideOffset?: float,
-  hidden?: bool,
+module ContentProps = {
+  type t = {
+    className?: string,
+    children: React.element,
+    id?: string,
+    dir?: BaseUi.Types.TextDirection.t,
+    style?: ReactDOM.style,
+    onClick?: ReactEvent.Mouse.t => unit,
+    onKeyDown?: ReactEvent.Keyboard.t => unit,
+    align?: Align.t,
+    alignOffset?: float,
+    side?: Side.t,
+    sideOffset?: float,
+    hidden?: bool,
+  }
 }
 
 module Content = {
-  @react.component(: contentProps)
+  @react.component(: ContentProps.t)
   let make = (
     ~className=?,
     ~children,

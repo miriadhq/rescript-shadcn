@@ -42,45 +42,45 @@ type props = {
   size?: Size.t,
 }
 
-let linkProps: props => ReactAria.Button.Link.props = %raw(`({variant, size, ...props}) => props`)
-
-let divProps: props => ReactAria.Common.elementProps = %raw(`({
-  variant,
-  size,
-  href,
-  target,
-  rel,
-  download,
-  isDisabled,
-  render,
-  ...props
-}) => props`)
-
 @module("react")
-external createElement: (string, ReactAria.Common.elementProps) => React.element = "createElement"
+external createElement: (string, ReactAria.Common.ElementProps.t) => React.element = "createElement"
 
-@react.componentWithProps(props)
-let make = (props: props) => {
-  let variant = props.variant->Option.getOr(Variant.Default)
-  let size = props.size->Option.getOr(Size.Default)
-  let className = cn(itemVariants(~variant, ~size), props.className)
-  switch props.href {
+@react.componentWithProps(props) @warning("-112")
+let make = ({?variant, ?size, ...ReactAria.Button.Link.props as linkProps} as allProps) => {
+  let variant = variant->Option.getOr(Variant.Default)
+  let size = size->Option.getOr(Size.Default)
+  let className = cn(itemVariants(~variant, ~size), linkProps.className)
+  switch linkProps.href {
   | Some(_) =>
     <ReactAria.Button.Link
-      {...props->linkProps}
+      {...linkProps}
       dataSlot="item"
       dataVariant={(variant :> string)}
       dataSize={(size :> string)}
       className
     />
   | None =>
-    createElement("div", {
-      ...props->divProps,
-      dataSlot: "item",
-      dataVariant: (variant :> string),
-      dataSize: (size :> string),
-      className,
-    })
+    let {
+      variant: ?_,
+      size: ?_,
+      href: ?_,
+      target: ?_,
+      rel: ?_,
+      download: ?_,
+      isDisabled: ?_,
+      render: ?_,
+      ...ReactAria.Common.ElementProps.t as props,
+    } = allProps
+    createElement(
+      "div",
+      {
+        ...props,
+        dataSlot: "item",
+        dataVariant: (variant :> string),
+        dataSize: (size :> string),
+        className,
+      },
+    )
   }
 }
 
@@ -104,13 +104,12 @@ module Media = {
   }
 
   type props = {variant?: Variant.t, ...DomProps.t}
-  let domProps: props => DomProps.t = %raw(`({variant, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let variant = props.variant->Option.getOr(Variant.Default)
+  let make = ({?variant, ...DomProps.t as props}) => {
+    let variant = variant->Option.getOr(Variant.Default)
     <div
-      {...props->domProps}
+      {...props}
       dataSlot="item-media"
       dataVariant={(variant :> string)}
       className={cn(itemMediaVariants(~variant), props.className)}
@@ -148,10 +147,7 @@ module Group = {
       {...props}
       role="list"
       dataSlot="item-group"
-      className={cn(
-        "cn-item-group group/item-group flex w-full flex-col",
-        props.className,
-      )}
+      className={cn("cn-item-group group/item-group flex w-full flex-col", props.className)}
     />
 }
 
@@ -172,10 +168,7 @@ module Title = {
     <div
       {...props}
       dataSlot="item-title"
-      className={cn(
-        "cn-item-title line-clamp-1 flex w-fit items-center",
-        props.className,
-      )}
+      className={cn("cn-item-title line-clamp-1 flex w-fit items-center", props.className)}
     />
 }
 
@@ -198,10 +191,7 @@ module Header = {
     <div
       {...props}
       dataSlot="item-header"
-      className={cn(
-        "cn-item-header flex basis-full items-center justify-between",
-        props.className,
-      )}
+      className={cn("cn-item-header flex basis-full items-center justify-between", props.className)}
     />
 }
 
@@ -211,9 +201,6 @@ module Footer = {
     <div
       {...props}
       dataSlot="item-footer"
-      className={cn(
-        "cn-item-footer flex basis-full items-center justify-between",
-        props.className,
-      )}
+      className={cn("cn-item-footer flex basis-full items-center justify-between", props.className)}
     />
 }

@@ -1,58 +1,66 @@
 @@directive("'use client'")
 
-@unboxed
-type turn =
-  | @as("idle") Idle
-  | @as("marker") Marker
-  | @as("message") Message
+module Turn = {
+  @unboxed
+  type t =
+    | @as("idle") Idle
+    | @as("marker") Marker
+    | @as("message") Message
+}
 
-type chatMessage = {
-  id: string,
-  sender: string,
-  role: MessageScrollerExample.role,
-  text: string,
-  scrollAnchor: bool,
+module ChatMessageData = {
+  type t = {
+    id: string,
+    sender: string,
+    role: MessageScrollerExample.Role.t,
+    text: string,
+    scrollAnchor: bool,
+  }
 }
 
 let currentUser = "Grace"
 
-let initialMessages: array<chatMessage> = [
+let initialMessages: array<ChatMessageData.t> = [
   {
     id: "group-1",
     sender: "Grace",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "@mary, the astrophage line keeps matching Venus energy output. Can you check my math?",
     scrollAnchor: false,
   },
   {
     id: "group-2",
     sender: "Mary (Agent)",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Yes. Confirmed. The curve points to a microorganism harvesting stellar energy and breeding near carbon dioxide. If @rocky agrees, this is the clue we need.",
     scrollAnchor: false,
   },
   {
     id: "group-3",
     sender: "Grace",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "ping @rocky",
     scrollAnchor: true,
   },
 ]
 
-let rockyMessage: chatMessage = {
+let rockyMessage: ChatMessageData.t = {
   id: "group-5",
   sender: "Rocky",
-  role: User,
+  role: MessageScrollerExample.Role.User,
   text: "Amaze. Astrophage eats light, makes heat, goes to carbon dioxide. Rocky has fuel model. Grace is smart.",
   scrollAnchor: false,
 }
 
 module ChatMessage = {
   @react.component
-  let make = (~item: chatMessage) => {
+  let make = (~item: ChatMessageData.t) => {
     let isCurrentUser = item.sender == currentUser
-    let variant = isCurrentUser ? Bubble.Variant.Muted : item.role == Assistant ? Ghost : Tinted
+    let variant = isCurrentUser
+      ? Bubble.Variant.Muted
+      : item.role == MessageScrollerExample.Role.Assistant
+      ? Ghost
+      : Tinted
     <MessageScroller.Item messageId={item.id} scrollAnchor={item.scrollAnchor}>
       <Message align={isCurrentUser ? Message.Align.End : Start}>
         <Message.Content>
@@ -81,9 +89,9 @@ module JoinMarker = {
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (demoKey, setDemoKey) = React.useState(() => 0)
-  let (rockyTurn, setRockyTurn) = React.useState(() => Idle)
-  let buttonLabel = rockyTurn == Idle ? "Add Rocky" : "Send Message as Rocky"
-  let isComplete = rockyTurn == Message
+  let (rockyTurn, setRockyTurn) = React.useState(() => Turn.Idle)
+  let buttonLabel = rockyTurn == Turn.Idle ? "Add Rocky" : "Send Message as Rocky"
+  let isComplete = rockyTurn == Turn.Message
 
   <MessageScroller.Provider>
     <div className="relative flex flex-col gap-4">
@@ -100,9 +108,9 @@ let make = ({}: Demo.Props.t) => {
                 variant=Outline
                 size=Icon
                 ariaLabel="Reset conversation"
-                isDisabled={rockyTurn == Idle}
+                isDisabled={rockyTurn == Turn.Idle}
                 onPress={_ => {
-                  setRockyTurn(_ => Idle)
+                  setRockyTurn(_ => Turn.Idle)
                   setDemoKey(key => key + 1)
                 }}
               >
@@ -122,8 +130,8 @@ let make = ({}: Demo.Props.t) => {
                   {initialMessages
                   ->Array.map(item => <ChatMessage key={item.id} item />)
                   ->React.array}
-                  {rockyTurn == Idle ? React.null : <JoinMarker />}
-                  {rockyTurn == Message ? <ChatMessage item=rockyMessage /> : React.null}
+                  {rockyTurn == Turn.Idle ? React.null : <JoinMarker />}
+                  {rockyTurn == Turn.Message ? <ChatMessage item=rockyMessage /> : React.null}
                 </MessageScroller.Content>
               </MessageScroller.Viewport>
               <MessageScroller.Button />
@@ -134,7 +142,7 @@ let make = ({}: Demo.Props.t) => {
           <Button
             type_="button"
             isDisabled=isComplete
-            onPress={_ => setRockyTurn(turn => turn == Idle ? Marker : Message)}
+            onPress={_ => setRockyTurn(turn => turn == Turn.Idle ? Turn.Marker : Turn.Message)}
             className="w-full"
             variant=Secondary
           >
@@ -142,7 +150,7 @@ let make = ({}: Demo.Props.t) => {
           </Button>
           <p className="text-xs text-muted-foreground">
             {(
-              rockyTurn == Idle
+              rockyTurn == Turn.Idle
                 ? "This will create a marker and make it the anchor"
                 : "Now send Rocky's reply into the conversation"
             )->React.string}

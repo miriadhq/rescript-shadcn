@@ -50,7 +50,7 @@ let make = ({}: Demo.Props.t) =>
         let _: string = Toast.toast.add({
           type_: "error",
           description: "The event could not be created.",
-          priority: BaseUi.Toast.High,
+          priority: BaseUi.Toast.Priority.High,
         })
       }}
     >

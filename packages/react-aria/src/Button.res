@@ -1,5 +1,5 @@
 type props = {
-  ...Common.buttonProps,
+  ...Common.ButtonProps.t,
   isDisabled?: bool,
   preventFocusOnPress?: bool,
   allowFocusWhenDisabled?: bool,
@@ -18,24 +18,18 @@ type props = {
 external make: React.component<props> = "Button"
 
 module Link = {
-  type renderProps = {
-    children?: React.element,
-    className?: string,
-    href?: string,
-    target?: string,
-    rel?: string,
-    @as("aria-current") ariaCurrent?: string,
-    @as("data-slot") dataSlot?: string,
+  module RenderProps = {
+    type t = Types.DomProps.t
   }
 
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     isDisabled?: bool,
     href?: string,
     target?: string,
     rel?: string,
     download?: string,
-    render?: renderProps => React.element,
+    render?: RenderProps.t => React.element,
   }
 
   @module("react-aria-components")

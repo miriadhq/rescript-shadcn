@@ -21,15 +21,13 @@ let variantClass = (~variant: Variant.t) =>
 type props = {
   variant?: Variant.t,
   render?: ReactAria.Types.DomProps.t => React.element,
-  ...ReactAria.Common.elementProps,
+  ...ReactAria.Types.DomProps.t,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(`({variant, render, ...props}) => props`)
-
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let variant = props.variant->Option.getOr(Default)
+let make = ({?variant, ?render, ...ReactAria.Types.DomProps.t as props}) => {
+  let variant = variant->Option.getOr(Default)
   let renderProps = {
-    ...props->domProps,
+    ...props,
     dataSlot: props.dataSlot->Option.getOr("marker"),
     dataVariant: (variant :> string),
     className: cn(
@@ -37,12 +35,9 @@ let make = (props: props) => {
       props.className,
     ),
   }
-  switch props.render {
+  switch render {
   | Some(render) => render(renderProps)
-  | None =>
-    <div
-      {...renderProps}
-    />
+  | None => <div {...renderProps} />
   }
 }
 

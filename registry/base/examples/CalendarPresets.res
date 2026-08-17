@@ -1,11 +1,13 @@
 @@directive("'use client'")
 
-type preset = {
-  label: string,
-  value: int,
+module Preset = {
+  type t = {
+    label: string,
+    value: int,
+  }
 }
 
-let presets: array<preset> = [
+let presets: array<Preset.t> = [
   {label: "Today", value: 0},
   {label: "Tomorrow", value: 1},
   {label: "In 3 days", value: 3},

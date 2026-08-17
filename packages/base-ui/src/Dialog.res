@@ -6,30 +6,34 @@ module Root = {
     }
   }
 
-  type handle<'payload>
+  module Handle = {
+    type t<'payload>
+  }
 
-  type changeEventDetails = Types.BaseUIChangeEventDetail.t<
-    [
-      | #"trigger-press"
-      | #"outside-press"
-      | #"escape-key"
-      | #"close-press"
-      | #"focus-out"
-      | #"imperative-action"
-      | #none
-    ],
-    unknown,
-  >
+  module ChangeEventDetails = {
+    type t = Types.BaseUIChangeEventDetail.t<
+      [
+        | #"trigger-press"
+        | #"outside-press"
+        | #"escape-key"
+        | #"close-press"
+        | #"focus-out"
+        | #"imperative-action"
+        | #none
+      ],
+      unknown,
+    >
+  }
 
   type props<'payload> = {
     ...Types.BaseUIComponentProps.t,
     defaultOpen?: bool,
     modal?: Types.Modal.t,
-    onOpenChange?: (bool, changeEventDetails) => unit,
+    onOpenChange?: (bool, ChangeEventDetails.t) => unit,
     onOpenChangeComplete?: bool => unit,
     disablePointerDismissal?: bool,
     actionsRef?: React.ref<Actions.t>,
-    handle?: handle<'payload>,
+    handle?: Handle.t<'payload>,
     triggerId?: string,
     defaultTriggerId?: string,
   }
@@ -41,7 +45,7 @@ module Trigger = {
   type props<'payload> = {
     ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
-    handle?: Root.handle<'payload>,
+    handle?: Root.Handle.t<'payload>,
     payload?: 'payload,
   }
   @module("@base-ui/react/dialog") @scope("Dialog")

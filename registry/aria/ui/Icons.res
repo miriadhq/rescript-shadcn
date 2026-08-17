@@ -1,6 +1,6 @@
 type props = {
   size?: int,
-  ...ReactAria.Common.baseProps,
+  ...ReactAria.Common.BaseProps.t,
 }
 
 module type Icon = {

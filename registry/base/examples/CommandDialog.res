@@ -1,24 +1,26 @@
 @@directive("'use client'")
 
-type keyboardEvent
+module KeyboardEvent = {
+  type t
+}
 @val external document: Dom.document = "document"
 @send
-external addKeyDownListener: (Dom.document, string, keyboardEvent => unit) => unit =
+external addKeyDownListener: (Dom.document, string, KeyboardEvent.t => unit) => unit =
   "addEventListener"
 @send
-external removeKeyDownListener: (Dom.document, string, keyboardEvent => unit) => unit =
+external removeKeyDownListener: (Dom.document, string, KeyboardEvent.t => unit) => unit =
   "removeEventListener"
-@get external eventKey: keyboardEvent => string = "key"
-@get external eventMetaKey: keyboardEvent => bool = "metaKey"
-@get external eventCtrlKey: keyboardEvent => bool = "ctrlKey"
-@send external eventPreventDefault: keyboardEvent => unit = "preventDefault"
+@get external eventKey: KeyboardEvent.t => string = "key"
+@get external eventMetaKey: KeyboardEvent.t => bool = "metaKey"
+@get external eventCtrlKey: KeyboardEvent.t => bool = "ctrlKey"
+@send external eventPreventDefault: KeyboardEvent.t => unit = "preventDefault"
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (open_, setOpen) = React.useState(() => false)
 
   React.useEffect(() => {
-    let down = (e: keyboardEvent) => {
+    let down = (e: KeyboardEvent.t) => {
       if e->eventKey == "j" && (e->eventMetaKey || e->eventCtrlKey) {
         e->eventPreventDefault
         setOpen(prev => !prev)

@@ -95,10 +95,7 @@ module Overlay = {
       ?onClick
       ?onKeyDown
       dataSlot="dialog-overlay"
-      className={cn(
-        "cn-dialog-overlay fixed inset-0 isolate z-50",
-        className,
-      )}
+      className={cn("cn-dialog-overlay fixed inset-0 isolate z-50", className)}
     />
 }
 
@@ -201,9 +198,6 @@ module Description = {
       ?onKeyDown
       ?children
       dataSlot="dialog-description"
-      className={cn(
-        "cn-dialog-description",
-        className,
-      )}
+      className={cn("cn-dialog-description", className)}
     />
 }

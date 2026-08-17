@@ -12,12 +12,16 @@ let _autocomplete = <Autocomplete.Root value="one"> {React.null} </Autocomplete.
 let _checkboxGroup = <CheckboxGroup value={["one"]}> {React.null} </CheckboxGroup>
 let _drawer = <Drawer.Root open_=false> {React.null} </Drawer.Root>
 let _drawerSwipeArea = <Drawer.SwipeArea />
-let _drawerVirtualKeyboardProvider = <Drawer.VirtualKeyboardProvider> {React.null} </Drawer.VirtualKeyboardProvider>
+let _drawerVirtualKeyboardProvider =
+  <Drawer.VirtualKeyboardProvider> {React.null} </Drawer.VirtualKeyboardProvider>
 let _field = <Field.Root name="email"> {React.null} </Field.Root>
 let _form = <Form validationMode=Form.ValidationMode.OnSubmit> {React.null} </Form>
 let _meter = <Meter.Root value=50.0> {React.null} </Meter.Root>
 let _numberField = <NumberField.Root value=1.0> {React.null} </NumberField.Root>
-let _otpField = <OTPField.Root length=6> <OTPField.Input /> </OTPField.Root>
+let _otpField =
+  <OTPField.Root length=6>
+    <OTPField.Input />
+  </OTPField.Root>
 let _toast = <Toast.Provider> {React.null} </Toast.Provider>
 let _toolbar = <Toolbar.Root> {React.null} </Toolbar.Root>
 

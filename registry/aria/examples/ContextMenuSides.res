@@ -11,7 +11,7 @@ let make = ({}: Demo.Props.t) =>
         {"Long press (top)"->React.string}
       </span>
 
-      <ContextMenu placement=ReactAria.Common.Top>
+      <ContextMenu placement=ReactAria.Common.Placement.Top>
         <ContextMenu.Group>
           <ContextMenu.Item> {"Back"->React.string} </ContextMenu.Item>
           <ContextMenu.Item> {"Forward"->React.string} </ContextMenu.Item>
@@ -29,7 +29,7 @@ let make = ({}: Demo.Props.t) =>
         {"Long press (right)"->React.string}
       </span>
 
-      <ContextMenu placement=ReactAria.Common.Right>
+      <ContextMenu placement=ReactAria.Common.Placement.Right>
         <ContextMenu.Group>
           <ContextMenu.Item> {"Back"->React.string} </ContextMenu.Item>
           <ContextMenu.Item> {"Forward"->React.string} </ContextMenu.Item>
@@ -47,7 +47,7 @@ let make = ({}: Demo.Props.t) =>
         {"Long press (bottom)"->React.string}
       </span>
 
-      <ContextMenu placement=ReactAria.Common.Bottom>
+      <ContextMenu placement=ReactAria.Common.Placement.Bottom>
         <ContextMenu.Group>
           <ContextMenu.Item> {"Back"->React.string} </ContextMenu.Item>
           <ContextMenu.Item> {"Forward"->React.string} </ContextMenu.Item>
@@ -65,7 +65,7 @@ let make = ({}: Demo.Props.t) =>
         {"Long press (left)"->React.string}
       </span>
 
-      <ContextMenu placement=ReactAria.Common.Left>
+      <ContextMenu placement=ReactAria.Common.Placement.Left>
         <ContextMenu.Group>
           <ContextMenu.Item> {"Back"->React.string} </ContextMenu.Item>
           <ContextMenu.Item> {"Forward"->React.string} </ContextMenu.Item>

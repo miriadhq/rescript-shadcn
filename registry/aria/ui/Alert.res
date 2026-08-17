@@ -22,13 +22,12 @@ let alertVariantClass = (~variant: Variant.t) =>
 let base = "cn-alert group/alert relative w-full"
 
 type props = {variant?: Variant.t, ...ReactAria.Types.DomProps.t}
-let domProps: props => ReactAria.Types.DomProps.t = %raw(`({variant, ...props}) => props`)
 
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let variant = props.variant->Option.getOr(Default)
+let make = ({?variant, ...ReactAria.Types.DomProps.t as props}) => {
+  let variant = variant->Option.getOr(Default)
   <div
-    {...props->domProps}
+    {...props}
     role={props.role->Option.getOr("alert")}
     dataSlot={props.dataSlot->Option.getOr("alert")}
     className={cn3(base, alertVariantClass(~variant), props.className)}

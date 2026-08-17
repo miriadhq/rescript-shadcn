@@ -45,13 +45,12 @@ module Header = {
 
 module Media = {
   type props = {variant?: Variant.t, ...ReactAria.Types.DomProps.t}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({variant, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let variant = props.variant->Option.getOr(Default)
+  let make = ({?variant, ...ReactAria.Types.DomProps.t as props}) => {
+    let variant = variant->Option.getOr(Default)
     <div
-      {...props->domProps}
+      {...props}
       dataSlot={props.dataSlot->Option.getOr("empty-icon")}
       dataVariant={(variant :> string)}
       className={cn(emptyMediaVariants(~variant), props.className)}

@@ -5,25 +5,19 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-type props = ReactAria.Autocomplete.props
+type props = {...ReactAria.Autocomplete.props}
 
-let autocompleteProps: props => ReactAria.Autocomplete.props = %raw(`({className, dir, style, ...props}) => props`)
-
-@react.componentWithProps(props)
-let make = (props: props) => {
+@warning("-112") @react.componentWithProps(props)
+let make = ({?className, ?dir, ?style, ...ReactAria.Autocomplete.props as props}) => {
   let contains = ReactAria.Autocomplete.useFilter({sensitivity: "base"}).contains
   <div
     dataSlot="command"
-    dir=?props.dir
-    style=?props.style
-    className={cn("cn-command flex size-full flex-col overflow-hidden", props.className)}
+    ?dir
+    ?style
+    className={cn("cn-command flex size-full flex-col overflow-hidden", className)}
   >
     <ReactAria.Autocomplete
-      {...props->autocompleteProps}
-      className=?None
-      style=?None
-      dir=?None
-      filter={props.filter->Option.getOr(contains)}
+      {...props} className=?None style=?None dir=?None filter={props.filter->Option.getOr(contains)}
     >
       {props.children->Option.getOr(React.null)}
     </ReactAria.Autocomplete>
@@ -32,31 +26,23 @@ let make = (props: props) => {
 
 module Dialog = {
   type props = {title?: string, description?: string, open_?: bool, ...Dialog.props}
-  let dialogProps: props => Dialog.props = %raw(
-    `({title, description, open, className, children, ...props}) => props`
-  )
 
-  @react.componentWithProps(props)
-  let make = (props: props) =>
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({?title, ?description, ?open_, ?className, ?children, ...Dialog.props as props}) =>
     <Dialog
-      {...props->dialogProps}
-      isOpen=?{props.open_}
-      className={cn(
-        "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
-        props.className,
-      )}
+      {...props}
+      isOpen=?open_
+      className={cn("cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0", className)}
       showCloseButton={props.showCloseButton->Option.getOr(false)}
       isDismissable=true
     >
       <Dialog.Header className="sr-only">
-        <Dialog.Title>
-          {props.title->Option.getOr("Command Palette")->React.string}
-        </Dialog.Title>
+        <Dialog.Title> {title->Option.getOr("Command Palette")->React.string} </Dialog.Title>
         <Dialog.Description>
-          {props.description->Option.getOr("Search for a command to run...")->React.string}
+          {description->Option.getOr("Search for a command to run...")->React.string}
         </Dialog.Description>
       </Dialog.Header>
-      {props.children->Option.getOr(React.null)}
+      {children->Option.getOr(React.null)}
     </Dialog>
 }
 
@@ -86,8 +72,10 @@ module Input = {
 }
 
 module List = {
-  @react.componentWithProps(ReactAria.Menu.props)
-  let make = (props: ReactAria.Menu.props<'item>) =>
+  type props<'item> = {...ReactAria.Menu.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Menu.props as props}) =>
     <ReactAria.Menu
       {...props}
       dataSlot="command-list"
@@ -98,39 +86,25 @@ module List = {
 module Empty = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
   let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="command-empty"
-      className={cn("cn-command-empty", props.className)}
-    />
+    <div {...props} dataSlot="command-empty" className={cn("cn-command-empty", props.className)} />
 }
 
 module Group = {
-  type props<'item, 'children> = {
+  type props<'item> = {
     heading?: string,
-    children?: 'children,
-    ...ReactAria.Menu.Section.componentProps<'item>,
+    ...ReactAria.Menu.Section.props<'item>,
   }
-  let sectionProps: props<'item, 'children> => ReactAria.Menu.Section.componentProps<'item> = %raw(
-    `({heading, children, items, ...props}) => props`
-  )
-
   @react.componentWithProps(props)
-  let make = (props: props<'item, 'children>) =>
+  let make = ({?heading, ...ReactAria.Menu.Section.props as props}) =>
     <ReactAria.Menu.Section
-      {...props->sectionProps->ReactAria.Menu.Section.toProps}
-      dataSlot="command-group"
-      className={cn("cn-command-group", props.className)}
+      {...props} dataSlot="command-group" className={cn("cn-command-group", props.className)}
     >
-      {switch props.heading {
+      {switch heading {
       | Some(heading) =>
         <ReactAria.Header cmdkGroupHeading=""> {heading->React.string} </ReactAria.Header>
       | None => React.null
       }}
-      <ReactAria.Combobox.Collection.Flexible
-        items=?{props.items}
-        children=?{props.children}
-      />
+      <ReactAria.Combobox.Collection.Flexible items=?props.items children=?props.children />
     </ReactAria.Menu.Section>
 }
 
@@ -149,8 +123,10 @@ let textValueFromChildren: option<React.element> => option<string> = %raw(`child
 `)
 
 module Item = {
-  @react.componentWithProps(ReactAria.Menu.Item.props)
-  let make = (props: ReactAria.Menu.Item.props<'item>) => {
+  type props<'item> = {...ReactAria.Menu.Item.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Menu.Item.props as props}) => {
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
     let children = ReactAria.Common.composeItemRenderProps(props.children, (children, _) =>
       <>

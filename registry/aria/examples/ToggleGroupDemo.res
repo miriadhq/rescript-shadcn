@@ -1,6 +1,6 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <ToggleGroup variant=Outline selectionMode=ReactAria.Common.Multiple>
+  <ToggleGroup variant=Outline selectionMode=ReactAria.Common.SelectionMode.Multiple>
     <ToggleGroup.Item id="bold" ariaLabel="Toggle bold">
       <Icons.Bold />
     </ToggleGroup.Item>

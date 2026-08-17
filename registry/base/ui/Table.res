@@ -8,13 +8,7 @@ external cn: (string, option<string>) => string = "twMerge"
 @react.component
 let make = (~className=?, ~children=?, ~id=?, ~style=?, ~dir=?, ~onClick=?, ~onKeyDown=?) => {
   <div
-    ?id
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
-    dataSlot="table-container"
-    className="cn-table-container"
+    ?id ?style ?dir ?onClick ?onKeyDown dataSlot="table-container" className="cn-table-container"
   >
     <table
       ?id
@@ -81,10 +75,7 @@ module Row = {
       ?onKeyDown
       ?dataState
       dataSlot="table-row"
-      className={cn(
-        "cn-table-row",
-        className,
-      )}
+      className={cn("cn-table-row", className)}
     />
 }
 
@@ -99,10 +90,7 @@ module Head = {
       ?onClick
       ?onKeyDown
       dataSlot="table-head"
-      className={cn(
-        "cn-table-head",
-        className,
-      )}
+      className={cn("cn-table-head", className)}
     />
 }
 

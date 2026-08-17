@@ -60,10 +60,7 @@ module Overlay = {
       ?onClick
       ?onKeyDown
       dataSlot="alert-dialog-overlay"
-      className={cn(
-        "cn-alert-dialog-overlay fixed inset-0 isolate z-50",
-        className,
-      )}
+      className={cn("cn-alert-dialog-overlay fixed inset-0 isolate z-50", className)}
     />
 }
 
@@ -113,10 +110,7 @@ module Header = {
       ?onClick
       ?onKeyDown
       dataSlot="alert-dialog-header"
-      className={cn(
-        "cn-alert-dialog-header",
-        className,
-      )}
+      className={cn("cn-alert-dialog-header", className)}
     />
 }
 
@@ -147,10 +141,7 @@ module Media = {
       ?onClick
       ?onKeyDown
       dataSlot="alert-dialog-media"
-      className={cn(
-        "cn-alert-dialog-media",
-        className,
-      )}
+      className={cn("cn-alert-dialog-media", className)}
     />
 }
 
@@ -164,10 +155,7 @@ module Title = {
       ?onKeyDown
       ?children
       dataSlot="alert-dialog-title"
-      className={cn(
-        "cn-alert-dialog-title cn-font-heading",
-        className,
-      )}
+      className={cn("cn-alert-dialog-title cn-font-heading", className)}
     />
 }
 
@@ -181,10 +169,7 @@ module Description = {
       ?onKeyDown
       ?children
       dataSlot="alert-dialog-description"
-      className={cn(
-        "cn-alert-dialog-description",
-        className,
-      )}
+      className={cn("cn-alert-dialog-description", className)}
     />
 }
 

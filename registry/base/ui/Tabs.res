@@ -21,37 +21,19 @@ let tabsListVariants = (~variant=Variant.Default) => {
   `${base} ${variantClass}`
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~orientation=Orientation.Horizontal,
-  ~disabled=?,
-  ~dir=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~style=?,
-) =>
+type props = {...BaseUi.Tabs.Root.props<string>}
+
+@warning("-112") @react.componentWithProps(props)
+let make = ({?className, ?orientation, ...BaseUi.Tabs.Root.props<string> as props}) => {
+  let orientation = orientation->Option.getOr(Orientation.Horizontal)
   <BaseUi.Tabs.Root
-    ?id
-    ?value
-    ?defaultValue
-    ?onValueChange
-    ?disabled
-    ?dir
-    ?onClick
-    ?onKeyDown
-    ?style
-    ?children
+    {...props}
     orientation
     dataOrientation={(orientation :> string)}
     dataSlot="tabs"
     className={cn("cn-tabs group/tabs flex data-horizontal:flex-col", className)}
   />
+}
 
 module List = {
   @react.component
@@ -80,27 +62,12 @@ module List = {
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~value,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaLabel=?,
-    ~style=?,
-  ) =>
+  type props = {...BaseUi.Tabs.Tab.props<string>}
+
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({?className, ...BaseUi.Tabs.Tab.props<string> as props}) =>
     <BaseUi.Tabs.Tab
-      ?id
-      value
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      ?style
-      ?children
+      {...props}
       dataSlot="tabs-trigger"
       className={cn(
         "cn-tabs-trigger relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
@@ -110,15 +77,12 @@ module Trigger = {
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~value, ~onClick=?, ~onKeyDown=?, ~style=?) =>
+  type props = {...BaseUi.Tabs.Panel.props<string>}
+
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({?className, ...BaseUi.Tabs.Panel.props<string> as props}) =>
     <BaseUi.Tabs.Panel
-      ?id
-      value
-      ?onClick
-      ?onKeyDown
-      ?style
-      ?children
+      {...props}
       dataSlot="tabs-content"
       className={cn("cn-tabs-content flex-1 outline-none", className)}
     />

@@ -42,16 +42,18 @@ type props = {
   ...ReactAria.Dialog.Modal.props,
 }
 
-let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
-  `({side, showCloseButton, className, children, ...props}) => props`
-)
-
-let renderSheet = (props: props) => {
-  let side = props.side->Option.getOr(Side.Right)
-  let showCloseButton = props.showCloseButton->Option.getOr(true)
+let renderSheet = (
+  ~side,
+  ~showCloseButton,
+  ~className,
+  ~children,
+  props: ReactAria.Dialog.Modal.props,
+) => {
+  let side = side->Option.getOr(Side.Right)
+  let showCloseButton = showCloseButton->Option.getOr(true)
   let isDismissable = props.isDismissable->Option.getOr(true)
   <ReactAria.Dialog.ModalOverlay
-    {...props->overlayProps}
+    {...props}
     isDismissable
     dataSlot="sheet-overlay"
     className="cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-entering:opacity-0 data-exiting:opacity-0"
@@ -61,14 +63,14 @@ let renderSheet = (props: props) => {
       dataSide={(side :> string)}
       className={cn(
         "cn-sheet-content data-entering:opacity-0 data-exiting:opacity-0 data-[side=bottom]:data-entering:translate-y-[2.5rem] data-[side=bottom]:data-exiting:translate-y-[2.5rem] data-[side=left]:data-entering:translate-x-[-2.5rem] data-[side=left]:data-exiting:translate-x-[-2.5rem] data-[side=right]:data-entering:translate-x-[2.5rem] data-[side=right]:data-exiting:translate-x-[2.5rem] data-[side=top]:data-entering:translate-y-[-2.5rem] data-[side=top]:data-exiting:translate-y-[-2.5rem]",
-        props.className,
+        className,
       )}
     >
       <ReactAria.Dialog
         dataSlot="sheet"
         className="[display:inherit] h-full max-h-[inherit] [flex-direction:inherit] [gap:inherit] outline-none"
       >
-        {props.children->Option.getOr(React.null)}
+        {children->Option.getOr(React.null)}
         {showCloseButton
           ? <Close variant=Ghost className="cn-sheet-close" size=IconSm>
               <Icons.X />
@@ -80,12 +82,24 @@ let renderSheet = (props: props) => {
   </ReactAria.Dialog.ModalOverlay>
 }
 
-@react.componentWithProps(props)
-let make = (props: props) => renderSheet(props)
+@warning("-112") @react.componentWithProps(props)
+let make = ({
+  ?side,
+  ?showCloseButton,
+  ?className,
+  ?children,
+  ...ReactAria.Dialog.Modal.props as props,
+}) => renderSheet(~side, ~showCloseButton, ~className, ~children, props)
 
 module Content = {
-  @react.componentWithProps(props)
-  let make = (props: props) => renderSheet(props)
+  @warning("-112") @react.componentWithProps(props)
+  let make = ({
+    ?side,
+    ?showCloseButton,
+    ?className,
+    ?children,
+    ...ReactAria.Dialog.Modal.props as props,
+  }) => renderSheet(~side, ~showCloseButton, ~className, ~children, props)
 }
 
 module Header = {

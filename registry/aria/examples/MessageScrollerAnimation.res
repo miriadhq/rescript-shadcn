@@ -1,8 +1,10 @@
 @@directive("'use client'")
 
-type preset = {id: string, name: string, className: string}
+module Preset = {
+  type t = {id: string, name: string, className: string}
+}
 
-let presets: array<preset> = [
+let presets: array<Preset.t> = [
   {id: "fade", name: "Fade", className: "animate-in fade-in duration-200"},
   {
     id: "slide-up",
@@ -24,31 +26,35 @@ let presets: array<preset> = [
   {id: "scale-fade", name: "Scale Fade", className: "animate-in fade-in zoom-in-95 duration-200"},
 ]
 
-let messages: array<MessageScrollerExample.message> = [
+let messages: array<MessageScrollerExample.MessageData.t> = [
   {
     id: "animation-1",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "Can user messages pop in like iMessage without breaking anchoring?",
   },
   {
     id: "animation-2",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Yes. Animate the user row with transform and opacity, and let the assistant response stream normally below it.\n\nThat keeps the row measurement predictable while still giving the newly sent bubble a more tactile entrance.",
   },
-  {id: "animation-3", role: User, text: "What makes the animation feel more like iMessage?"},
+  {
+    id: "animation-3",
+    role: MessageScrollerExample.Role.User,
+    text: "What makes the animation feel more like iMessage?",
+  },
   {
     id: "animation-4",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Use a quick spring from the trailing edge: a little scale, a small upward move, and no layout animation.\n\nThe bubble feels tactile, but the measured row stays predictable, so anchoring and auto-scroll do not have to fight a changing layout.",
   },
   {
     id: "animation-5",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "Can I switch between presets while testing the same thread?",
   },
   {
     id: "animation-6",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "Yes. Keep the conversation in place while you change the preset, then send the next message to compare the new entrance against the same context.",
   },
 ]
@@ -106,7 +112,8 @@ let make = ({}: Demo.Props.t) => {
                   ->Array.mapWithIndex((message, index) =>
                     <div
                       key={message.id}
-                      className={index == messageCount - 1 && message.role == User
+                      className={index == messageCount - 1 &&
+                        message.role == MessageScrollerExample.Role.User
                         ? preset.className
                         : ""}
                     >
@@ -126,7 +133,7 @@ let make = ({}: Demo.Props.t) => {
           <Select.Trigger ariaLabel="Animation preset">
             <Select.Value> {preset.name->React.string} </Select.Value>
           </Select.Trigger>
-          <Select.Content placement=ReactAria.Common.TopStart>
+          <Select.Content placement=ReactAria.Common.Placement.TopStart>
             <Select.Group>
               {presets
               ->Array.map(item =>

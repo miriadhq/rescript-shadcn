@@ -8,26 +8,24 @@ external cn: (string, option<string>) => string = "twMerge"
 @react.componentWithProps(ReactAria.Table.props)
 let make = (props: ReactAria.Table.props) =>
   <div dataSlot="table-container" className="cn-table-container">
-    <ReactAria.Table
-      {...props}
-      dataSlot="table"
-      className={cn("cn-table", props.className)}
-    />
+    <ReactAria.Table {...props} dataSlot="table" className={cn("cn-table", props.className)} />
   </div>
 
 module Header = {
-  @react.componentWithProps(ReactAria.Table.Header.props)
-  let make = (props: ReactAria.Table.Header.props<'item>) =>
+  type props<'item> = {...ReactAria.Table.Header.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Table.Header.props as props}) =>
     <ReactAria.Table.Header
-      {...props}
-      dataSlot="table-header"
-      className={cn("cn-table-header", props.className)}
+      {...props} dataSlot="table-header" className={cn("cn-table-header", props.className)}
     />
 }
 
 module Body = {
-  @react.componentWithProps(ReactAria.Table.Body.props)
-  let make = (props: ReactAria.Table.Body.props<'item>) =>
+  type props<'item> = {...ReactAria.Table.Body.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Table.Body.props as props}) =>
     <ReactAria.Table.Body
       {...props}
       dataSlot="table-body"
@@ -36,18 +34,20 @@ module Body = {
 }
 
 module Footer = {
-  @react.componentWithProps(ReactAria.Table.Footer.props)
-  let make = (props: ReactAria.Table.Footer.props<'item>) =>
+  type props<'item> = {...ReactAria.Table.Footer.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Table.Footer.props as props}) =>
     <ReactAria.Table.Footer
-      {...props}
-      dataSlot="table-footer"
-      className={cn("cn-table-footer", props.className)}
+      {...props} dataSlot="table-footer" className={cn("cn-table-footer", props.className)}
     />
 }
 
 module Row = {
-  @react.componentWithProps(ReactAria.Table.Row.props)
-  let make = (props: ReactAria.Table.Row.props<'item>) =>
+  type props<'item> = {...ReactAria.Table.Row.props<'item>}
+
+  @react.componentWithProps(props)
+  let make = ({...ReactAria.Table.Row.props as props}) =>
     <ReactAria.Table.Row
       {...props}
       dataSlot="table-row"

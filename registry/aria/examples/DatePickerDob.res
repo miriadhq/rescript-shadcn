@@ -23,7 +23,9 @@ let make = ({}: Demo.Props.t) => {
         | None => "Select date"->React.string
         }}
       </Button>
-      <Popover className="w-auto overflow-hidden p-0" placement=ReactAria.Common.BottomStart>
+      <Popover
+        className="w-auto overflow-hidden p-0" placement=ReactAria.Common.Placement.BottomStart
+      >
         <Calendar
           value=?date
           captionLayout=Calendar.CaptionLayout.Dropdown

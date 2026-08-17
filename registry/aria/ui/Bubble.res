@@ -43,18 +43,14 @@ let variantClass = (~variant: Variant.t) =>
 type props = {
   variant?: Variant.t,
   align?: Align.t,
-  ...ReactAria.Common.elementProps,
+  ...ReactAria.Types.DomProps.t,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({variant, align, ...props}) => props`
-)
-
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let variant = props.variant->Option.getOr(Default)
-  let align = props.align->Option.getOr(Start)
+let make = ({?variant, ?align, ...ReactAria.Types.DomProps.t as props}) => {
+  let variant = variant->Option.getOr(Default)
+  let align = align->Option.getOr(Start)
   <div
-    {...props->domProps}
+    {...props}
     dataSlot={props.dataSlot->Option.getOr("bubble")}
     dataVariant={(variant :> string)}
     dataAlign={(align :> string)}
@@ -77,24 +73,20 @@ module Group = {
 
 module Content = {
   type props = {render?: ReactAria.Types.DomProps.t => React.element, ...ReactAria.Types.DomProps.t}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({render, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
+  let make = ({?render, ...ReactAria.Types.DomProps.t as props}) => {
     let renderProps = {
-      ...props->domProps,
+      ...props,
       dataSlot: props.dataSlot->Option.getOr("bubble-content"),
       className: cn(
         "cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
         props.className,
       ),
     }
-    switch props.render {
+    switch render {
     | Some(render) => render(renderProps)
-    | None =>
-      <div
-        {...renderProps}
-      />
+    | None => <div {...renderProps} />
     }
   }
 }
@@ -112,17 +104,14 @@ module Reactions = {
     | End => "cn-bubble-reactions-align-end"
     }
 
-  type props = {side?: Side.t, align?: Align.t, ...ReactAria.Common.elementProps}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(
-    `({side, align, ...props}) => props`
-  )
+  type props = {side?: Side.t, align?: Align.t, ...ReactAria.Types.DomProps.t}
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let side = props.side->Option.getOr(Bottom)
-    let align = props.align->Option.getOr(End)
+  let make = ({?side, ?align, ...ReactAria.Types.DomProps.t as props}) => {
+    let side = side->Option.getOr(Bottom)
+    let align = align->Option.getOr(End)
     <div
-      {...props->domProps}
+      {...props}
       dataSlot={props.dataSlot->Option.getOr("bubble-reactions")}
       dataSide={(side :> string)}
       dataAlign={(align :> string)}

@@ -1,17 +1,21 @@
 @@directive("'use client'")
 
-type subItem = {
-  title: string,
-  url: string,
+module SubItem = {
+  type t = {
+    title: string,
+    url: string,
+  }
 }
 
-type item = {
-  title: string,
-  url: string,
-  items: array<subItem>,
+module Item = {
+  type t = {
+    title: string,
+    url: string,
+    items: array<SubItem.t>,
+  }
 }
 
-let items: array<item> = [
+let items: array<Item.t> = [
   {
     title: "Getting Started",
     url: "#",

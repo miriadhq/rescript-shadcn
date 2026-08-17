@@ -1,19 +1,24 @@
-type dateValue
-type calendarDate = dateValue
-
-type duration = {
-  months?: int,
-  weeks?: int,
-  days?: int,
+module CalendarDate = {
+  type t
 }
 
-@unboxed
-type selectionMode =
-  | @as("single") Single
-  | @as("multiple") Multiple
+module Duration = {
+  type t = {
+    months?: int,
+    weeks?: int,
+    days?: int,
+  }
+}
+
+module SelectionMode = {
+  @unboxed
+  type t =
+    | @as("single") Single
+    | @as("multiple") Multiple
+}
 
 type props<'date> = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   value?: 'date,
   defaultValue?: 'date,
   onChange?: 'date => unit,
@@ -27,21 +32,23 @@ type props<'date> = {
   isReadOnly?: bool,
   isInvalid?: bool,
   autoFocus?: bool,
-  selectionMode?: selectionMode,
-  visibleDuration?: duration,
+  selectionMode?: SelectionMode.t,
+  visibleDuration?: Duration.t,
 }
 
 @module("react-aria-components")
 external make: React.component<props<'date>> = "Calendar"
 
 module Range = {
-  type value<'date> = {start: 'date, @as("end") end_: 'date}
+  module Value = {
+    type t<'date> = {start: 'date, end: 'date}
+  }
 
   type props<'date> = {
-    ...Common.elementProps,
-    value?: value<'date>,
-    defaultValue?: value<'date>,
-    onChange?: value<'date> => unit,
+    ...Common.ElementProps.t,
+    value?: Value.t<'date>,
+    defaultValue?: Value.t<'date>,
+    onChange?: Value.t<'date> => unit,
     focusedValue?: 'date,
     defaultFocusedValue?: 'date,
     onFocusChange?: 'date => unit,
@@ -52,7 +59,7 @@ module Range = {
     isReadOnly?: bool,
     isInvalid?: bool,
     autoFocus?: bool,
-    visibleDuration?: duration,
+    visibleDuration?: Duration.t,
   }
 
   @module("react-aria-components")
@@ -61,8 +68,8 @@ module Range = {
 
 module Grid = {
   type props = {
-    ...Common.elementProps,
-    offset?: duration,
+    ...Common.ElementProps.t,
+    offset?: Duration.t,
     weekdayStyle?: string,
   }
 
@@ -71,7 +78,7 @@ module Grid = {
 }
 
 module GridHeader = {
-  type props = {...Common.baseProps, children: string => React.element}
+  type props = {...Common.BaseProps.t, children: string => React.element}
 
   @module("react-aria-components")
   external make: React.component<props> = "CalendarGridHeader"
@@ -79,34 +86,36 @@ module GridHeader = {
 
 module HeaderCell = {
   @module("react-aria-components")
-  external make: React.component<Common.elementProps> = "CalendarHeaderCell"
+  external make: React.component<Common.ElementProps.t> = "CalendarHeaderCell"
 }
 
 module GridBody = {
-  type props = {...Common.baseProps, children: calendarDate => React.element}
+  type props = {...Common.BaseProps.t, children: CalendarDate.t => React.element}
 
   @module("react-aria-components")
   external make: React.component<props> = "CalendarGridBody"
 }
 
 module Cell = {
-  type renderProps = {
-    date: calendarDate,
-    formattedDate: string,
-    defaultChildren: React.element,
-    isHovered: bool,
-    isPressed: bool,
-    isSelected: bool,
-    isSelectionStart: bool,
-    isSelectionEnd: bool,
-    isFocused: bool,
-    isFocusVisible: bool,
-    isDisabled: bool,
-    isOutsideVisibleRange: bool,
-    isOutsideMonth: bool,
-    isUnavailable: bool,
-    isInvalid: bool,
-    isToday: bool,
+  module RenderProps = {
+    type t = {
+      date: CalendarDate.t,
+      formattedDate: string,
+      defaultChildren: React.element,
+      isHovered: bool,
+      isPressed: bool,
+      isSelected: bool,
+      isSelectionStart: bool,
+      isSelectionEnd: bool,
+      isFocused: bool,
+      isFocusVisible: bool,
+      isDisabled: bool,
+      isOutsideVisibleRange: bool,
+      isOutsideMonth: bool,
+      isUnavailable: bool,
+      isInvalid: bool,
+      isToday: bool,
+    }
   }
 
   type props = {
@@ -115,12 +124,10 @@ module Cell = {
     id?: string,
     style?: ReactDOM.Style.t,
     @as("data-slot") dataSlot?: string,
-    date: calendarDate,
-    className?: renderProps => string,
-    children?: renderProps => React.element,
+    date: CalendarDate.t,
+    className?: RenderProps.t => string,
+    children?: RenderProps.t => React.element,
   }
-
-  external renderClassName: (renderProps => string) => renderProps => string = "%identity"
 
   @module("react-aria-components")
   external make: React.component<props> = "CalendarCell"
@@ -128,8 +135,8 @@ module Cell = {
 
 module Heading = {
   type props = {
-    ...Common.elementProps,
-    offset?: duration,
+    ...Common.ElementProps.t,
+    offset?: Duration.t,
     format?: JSON.t,
   }
 
@@ -138,24 +145,33 @@ module Heading = {
 }
 
 module Picker = {
-  type item = {id: int, date: calendarDate, formatted: string}
-  type renderProps = {
-    @as("aria-label") ariaLabel: string,
-    value: int,
-    onChange: nullable<int> => unit,
-    items: array<item>,
+  module Item = {
+    type t = {id: int, date: CalendarDate.t, formatted: string}
+  }
+
+  module RenderProps = {
+    type t = {
+      @as("aria-label") ariaLabel: string,
+      value: int,
+      onChange: nullable<int> => unit,
+      items: array<Item.t>,
+    }
   }
 }
 
 module MonthPicker = {
-  type props = {format?: string, children: Picker.renderProps => React.element}
+  type props = {format?: string, children: Picker.RenderProps.t => React.element}
 
   @module("react-aria-components")
   external make: React.component<props> = "CalendarMonthPicker"
 }
 
 module YearPicker = {
-  type props = {format?: JSON.t, visibleYears?: int, children: Picker.renderProps => React.element}
+  type props = {
+    format?: JSON.t,
+    visibleYears?: int,
+    children: Picker.RenderProps.t => React.element,
+  }
 
   @module("react-aria-components")
   external make: React.component<props> = "CalendarYearPicker"

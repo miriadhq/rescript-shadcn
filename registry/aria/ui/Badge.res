@@ -4,7 +4,7 @@
 external cn: (string, string, option<string>) => string = "twMerge"
 
 @module("react")
-external createElement: (string, ReactAria.Common.elementProps) => React.element = "createElement"
+external createElement: (string, ReactAria.Types.DomProps.t) => React.element = "createElement"
 
 module Variant = {
   @unboxed
@@ -30,23 +30,21 @@ let variantClass = variant =>
 let badgeClass = "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none"
 
 type props = {
-  ...ReactAria.Common.elementProps,
+  ...ReactAria.Types.DomProps.t,
   variant?: Variant.t,
-  render?: ReactAria.Common.elementProps => React.element,
+  render?: ReactAria.Types.DomProps.t => React.element,
 }
 
-let domProps: props => ReactAria.Common.elementProps = %raw(`({variant, render, ...props}) => props`)
-
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let variant = props.variant->Option.getOr(Variant.Default)
+let make = ({?variant, ?render, ...ReactAria.Types.DomProps.t as props}) => {
+  let variant = variant->Option.getOr(Variant.Default)
   let domProps = {
-    ...props->domProps,
+    ...props,
     dataSlot: "badge",
     dataVariant: (variant :> string),
     className: cn(badgeClass, variant->variantClass, props.className),
   }
-  switch props.render {
+  switch render {
   | Some(render) => render(domProps)
   | None => createElement("span", domProps)
   }

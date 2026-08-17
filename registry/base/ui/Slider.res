@@ -5,51 +5,26 @@ external cn: (string, option<string>) => string = "twMerge"
 
 @get external unsafeArrayLength: 'a => int = "length"
 
-@react.component
-let make = (
-  ~className=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~min=0.0,
-  ~max=100.0,
-  ~step=?,
-  ~largeStep=?,
-  ~disabled=?,
-  ~required=?,
-  ~readOnly=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~dir=?,
-  ~style=?,
-  ~render=?,
-  ~orientation=?,
-) => {
+type props = {...BaseUi.Slider.Root.props<array<float>>}
+
+@warning("-112") @react.componentWithProps(props)
+let make = ({
+  ?className,
+  ?value,
+  ?defaultValue,
+  ?min,
+  ?max,
+  thumbAlignment: ?_,
+  ...BaseUi.Slider.Root.props<array<float>> as props,
+}) => {
+  let min = min->Option.getOr(0.)
+  let max = max->Option.getOr(100.)
   <BaseUi.Slider.Root
-    ?id
-    ?name
+    {...props}
     ?value
     ?defaultValue
-    ?onValueChange
     min
     max
-    ?step
-    ?largeStep
-    ?disabled
-    ?required
-    ?readOnly
-    ?onClick
-    ?onKeyDown
-    ?tabIndex
-    ?ariaLabel
-    ?dir
-    ?style
-    ?render
-    ?orientation
     dataSlot="slider"
     thumbAlignment=Edge
     className={cn("data-horizontal:w-full data-vertical:h-full", className)}

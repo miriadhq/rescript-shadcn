@@ -1,32 +1,34 @@
 @@directive("'use client'")
 
-type chartDatum = {month: string, desktop: int, mobile: int}
+module ChartDatum = {
+  type t = {month: string, desktop: int, mobile: int}
+}
 
 module Recharts = {
-  type barChartProps = {
-    accessibilityLayer?: bool,
-    data: array<chartDatum>,
-    children?: React.element,
-  }
-
   module BarChart = {
-    @module("recharts")
-    external make: React.component<barChartProps> = "BarChart"
-  }
+    type props = {
+      accessibilityLayer?: bool,
+      data: array<ChartDatum.t>,
+      children?: React.element,
+    }
 
-  type barProps = {
-    dataKey: string,
-    fill: string,
-    radius?: int,
+    @module("recharts")
+    external make: React.component<props> = "BarChart"
   }
 
   module Bar = {
+    type props = {
+      dataKey: string,
+      fill: string,
+      radius?: int,
+    }
+
     @module("recharts")
-    external make: React.component<barProps> = "Bar"
+    external make: React.component<props> = "Bar"
   }
 }
 
-let chartData = [
+let chartData: array<ChartDatum.t> = [
   {month: "January", desktop: 186, mobile: 80},
   {month: "February", desktop: 305, mobile: 200},
   {month: "March", desktop: 237, mobile: 120},
@@ -35,10 +37,10 @@ let chartData = [
   {month: "June", desktop: 214, mobile: 140},
 ]
 
-let chartConfig: Chart.chartConfig = Dict.fromArray([
-  ("desktop", ({color: "#2563eb"}: Chart.chartConfigItem)),
-  ("mobile", ({color: "#60a5fa"}: Chart.chartConfigItem)),
-])
+let chartConfig: Chart.ChartConfig.t = dict{
+  "desktop": {color: "#2563eb"},
+  "mobile": {color: "#60a5fa"},
+}
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>

@@ -1,6 +1,6 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Drawer direction=Right>
+  <Drawer direction=Drawer.Direction.Right>
     <Drawer.Trigger asChild=true>
       <Button variant=Outline> {"Scrollable Content"->React.string} </Button>
     </Drawer.Trigger>

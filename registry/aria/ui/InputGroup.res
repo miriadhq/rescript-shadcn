@@ -17,24 +17,9 @@ module Align = {
     | @as("block-end") BlockEnd
 }
 
-module Size = {
-  @unboxed
-  type t =
-    | @as("xs") Xs
-    | @as("sm") Sm
-    | @as("icon-xs") IconXs
-    | @as("icon-sm") IconSm
-}
+module Size = Button.Size
 
-module Variant = {
-  @unboxed
-  type t =
-    | @as("ghost") Ghost
-    | @as("default") Default
-    | @as("secondary") Secondary
-    | @as("outline") Outline
-    | @as("destructive") Destructive
-}
+module Variant = Button.Variant
 
 @get external mouseEventTarget: JsxEvent.Mouse.t => Dom.element = "target"
 @get external mouseEventCurrentTarget: JsxEvent.Mouse.t => Dom.element = "currentTarget"
@@ -67,11 +52,10 @@ module Addon = {
     }
 
   type props = {align?: Align.t, ...ReactAria.Types.DomProps.t}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({align, ...props}) => props`)
 
-  @react.componentWithProps(props)
-  let make = (props: props) => {
-    let align = props.align->Option.getOr(Align.InlineStart)
+  @react.componentWithProps(props) @warning("-112")
+  let make = ({?align, ...ReactAria.Types.DomProps.t as props}) => {
+    let align = align->Option.getOr(Align.InlineStart)
     let onClick = props.onClick->Option.getOr(event => {
       let target = event->mouseEventTarget
       switch target->closest("button") {
@@ -85,7 +69,7 @@ module Addon = {
       }
     })
     <div
-      {...props->domProps}
+      {...props}
       onClick
       dataSlot="input-group-addon"
       dataAlign={(align :> string)}
@@ -102,6 +86,7 @@ module Button = {
     | Sm => "cn-input-group-button-size-sm"
     | IconXs => "cn-input-group-button-size-icon-xs"
     | IconSm => "cn-input-group-button-size-icon-sm"
+    | Default | Lg | Icon | IconLg => ""
     }
 
   let baseClass = "cn-input-group-button flex items-center shadow-none"
@@ -112,17 +97,12 @@ module Button = {
     ...ReactAria.Button.props,
   }
 
-  let toButtonProps: props => Button.props = %raw(`props => {
-    const {variant, size, ...rest} = props;
-    return rest;
-  }`)
-
-  @react.componentWithProps(props)
-  let make = (props: props) => {
-    let size = props.size->Option.getOr(Xs)
-    let variant = props.variant->Option.getOr(Button.Variant.Ghost)
+  @react.componentWithProps(props) @warning("-112")
+  let make = ({?size, ?variant, ...Button.props as props}) => {
+    let size = size->Option.getOr(Xs)
+    let variant = variant->Option.getOr(Button.Variant.Ghost)
     <Button
-      {...props->toButtonProps}
+      {...props}
       type_={props.type_->Option.getOr("button")}
       variant
       size={(size :> Button.Size.t)}
@@ -164,9 +144,6 @@ module Textarea = {
     <Textarea
       {...props}
       dataSlot="input-group-control"
-      className={cn(
-        "cn-input-group-textarea flex-1 resize-none",
-        props.className,
-      )}
+      className={cn("cn-input-group-textarea flex-1 resize-none", props.className)}
     />
 }

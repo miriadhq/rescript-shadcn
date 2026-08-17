@@ -1,8 +1,10 @@
 @@directive("'use client'")
 
-type spacingOption = {className: string, label: string, value: string}
+module SpacingOption = {
+  type t = {className: string, label: string, value: string}
+}
 
-let spacingOptions: array<spacingOption> = [
+let spacingOptions: array<SpacingOption.t> = [
   {className: "[--card-spacing:--spacing(4)]", label: "16px", value: "4"},
   {className: "[--card-spacing:--spacing(5)]", label: "20px", value: "5"},
   {className: "[--card-spacing:--spacing(6)]", label: "24px", value: "6"},
@@ -20,7 +22,7 @@ let make = ({}: Demo.Props.t) => {
       onSelectionChange={keys =>
         keys
         ->Set.values
-        ->Iterator.toArray
+        ->IteratorObject.toArray
         ->Array.get(0)
         ->Option.forEach(spacing => setSpacing(_ => spacing))}
       variant=Outline
@@ -50,9 +52,7 @@ let make = ({}: Demo.Props.t) => {
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="email-spacing"> {"Email"->React.string} </Label>
-              <Input
-                id="email-spacing" type_="email" placeholder="m@example.com" required={true}
-              />
+              <Input id="email-spacing" type_="email" placeholder="m@example.com" required={true} />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">

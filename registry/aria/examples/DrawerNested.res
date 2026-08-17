@@ -4,7 +4,9 @@ module Placeholder = {
   @react.component
   let make = () =>
     <div className="flex-1 p-4">
-      <div className="bg-muted group-data-[swipe-axis=x]/drawer-popup:size-full group-data-[swipe-axis=y]/drawer-popup:aspect-video group-data-[swipe-axis=y]/drawer-popup:w-full" />
+      <div
+        className="bg-muted group-data-[swipe-axis=x]/drawer-popup:size-full group-data-[swipe-axis=y]/drawer-popup:aspect-video group-data-[swipe-axis=y]/drawer-popup:w-full"
+      />
     </div>
 }
 

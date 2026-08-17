@@ -52,20 +52,24 @@ module CollisionAvoidance = {
 }
 
 module Offset = {
-  type dimensions = {
-    width: float,
-    height: float,
+  module Dimensions = {
+    type t = {
+      width: float,
+      height: float,
+    }
   }
-  type data = {
-    side: Types.Side.t,
-    align: Types.Align.t,
-    anchor: dimensions,
-    positioner: dimensions,
+  module Data = {
+    type t = {
+      side: Types.Side.t,
+      align: Types.Align.t,
+      anchor: Dimensions.t,
+      positioner: Dimensions.t,
+    }
   }
   @unboxed
   type t =
     | Const(float)
-    | Fn(data => float)
+    | Fn(Data.t => float)
 }
 
 module SharedParameters = {

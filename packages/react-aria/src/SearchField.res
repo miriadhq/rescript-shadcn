@@ -1,5 +1,5 @@
 type props = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   value?: string,
   defaultValue?: string,
   onChange?: string => unit,

@@ -34,25 +34,11 @@ module PersianDayPicker = {
 @scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
 
 module CalendarDayButton = {
-  @react.componentWithProps
-  let make = ({
-    Calendar.DayButtonProps.className: ?className,
-    children,
-    day,
-    modifiers,
-    ?locale,
-    ?id,
-    ?style,
-    ?disabled,
-    ?tabIndex,
-    ?onClick,
-    ?onKeyDown,
-    ?onBlur,
-    ?onFocus,
-    ?onMouseEnter,
-    ?onMouseLeave,
-    ?ariaLabel,
-  }) => {
+  type props = {...Calendar.DayButton.props}
+
+  @react.componentWithProps(props) @warning("-112")
+  let make = ({day, modifiers, ?locale, ?children, ...Button.props as props}) => {
+    let className = props.className
     let defaultClassNames = Calendar.getDefaultClassNames()
     let buttonRef = React.useRef(null)
 
@@ -74,17 +60,7 @@ module CalendarDayButton = {
     }
 
     <Button
-      ?id
-      ?style
-      ?disabled
-      ?tabIndex
-      ?onClick
-      ?onKeyDown
-      ?onBlur
-      ?onFocus
-      ?onMouseEnter
-      ?onMouseLeave
-      ?ariaLabel
+      {...props}
       ref={buttonRef->ReactDOM.Ref.domRef}
       dataDay={switch locale {
       | Some({code}) => Date.toLocaleDateStringWithLocale(day.Calendar.Day.date, code)
@@ -103,13 +79,13 @@ module CalendarDayButton = {
       )}
       suppressHydrationWarning=true
     >
-      {children}
+      {children->Option.getOr(React.null)}
     </Button>
   }
 }
 
 module HijriCalendar = {
-  @react.component
+  @react.component @warning("-112")
   let make = (
     ~className=?,
     ~classNames: Calendar.DayPickerClassNames.t={},
@@ -241,18 +217,16 @@ module HijriCalendar = {
               ?dataWeekNumbers
               ?dataMultipleMonths
             />,
-          chevron: (props: Calendar.ChevronProps.t) => {
-            let className = props.className->Option.getOr("")
-            let orientation = props.orientation
-            let iconProps = ({...props, orientation: ?None} :> Icons.props)
+          chevron: ({?className, ?orientation, ...Icons.props as props}) => {
+            let className = className->Option.getOr("")
             switch orientation {
-            | Some(Left) => <Icons.ChevronLeft {...iconProps} className={`size-4 ${className}`} />
-            | Some(Right) => <Icons.ChevronRight {...iconProps} className={`size-4 ${className}`} />
+            | Some(Left) => <Icons.ChevronLeft {...props} className={`size-4 ${className}`} />
+            | Some(Right) => <Icons.ChevronRight {...props} className={`size-4 ${className}`} />
             | Some(Up | Down) | None =>
-              <Icons.ChevronDown {...iconProps} className={`size-4 ${className}`} />
+              <Icons.ChevronDown {...props} className={`size-4 ${className}`} />
             }
           },
-          dayButton: (props: Calendar.DayButtonProps.t) => <CalendarDayButton {...props} />,
+          dayButton: ({...CalendarDayButton.props as props}) => <CalendarDayButton {...props} />,
           weekNumber: ({?children, ?className, ?ariaLabel, ?role, ?scope}) =>
             <td ?className ?ariaLabel ?role ?scope>
               <div

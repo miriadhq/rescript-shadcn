@@ -1,6 +1,8 @@
-type kind =
-  | Example
-  | Component
+module Kind: {
+  type t =
+    | Example
+    | Component
+}
 
 @react.component
 let make: (
@@ -11,7 +13,7 @@ let make: (
   ~collapsible: bool=?,
   ~className: string=?,
   ~maxLines: int=?,
-  ~kind: kind=?,
+  ~kind: Kind.t=?,
   ~lib: Config.Lib.t=?,
   ~style: Config.Style.t=?,
 ) => Jsx.element

@@ -1,18 +1,44 @@
 @@directive("'use client'")
 
-let messages: array<MessageScrollerExample.message> = [
-  {id: "vis-brief", role: User, text: "Review the incident handoff and tell me what to read first."},
-  {id: "vis-brief-answer", role: Assistant, text: "Start with the summary and the impact section. The regression affected the upload queue, but the recovery path completed for every queued job."},
-  {id: "vis-impact", role: User, text: "What was the customer impact?"},
-  {id: "vis-impact-answer", role: Assistant, text: "Impact was limited to delayed processing.\n\nNo records were dropped, and the reconciliation worker confirmed each retry batch. Support saw confusion from two customers, but there were no checkout or billing errors."},
-  {id: "vis-actions", role: User, text: "What actions are open?"},
-  {id: "vis-actions-answer", role: Assistant, text: "Keep the retry window enabled until the next deploy, then add a queue-depth alert as the long-term fix.\n\nThe alert should fire on sustained queue growth, not a single short spike."},
-  {id: "vis-checklist", role: User, text: "Give me the follow-up checklist."},
-  {id: "vis-checklist-answer", role: Assistant, text: "After that, compare the queue recovery graph with the deploy timeline so the handoff shows exactly when processing returned to baseline.\n\nI would also add a short owner note beside each follow-up item.\n\nKeep the retry window enabled until the next deploy, then add a queue-depth alert as the long-term fix."},
+let messages: array<MessageScrollerExample.MessageData.t> = [
+  {
+    id: "vis-brief",
+    role: MessageScrollerExample.Role.User,
+    text: "Review the incident handoff and tell me what to read first.",
+  },
+  {
+    id: "vis-brief-answer",
+    role: MessageScrollerExample.Role.Assistant,
+    text: "Start with the summary and the impact section. The regression affected the upload queue, but the recovery path completed for every queued job.",
+  },
+  {id: "vis-impact", role: MessageScrollerExample.Role.User, text: "What was the customer impact?"},
+  {
+    id: "vis-impact-answer",
+    role: MessageScrollerExample.Role.Assistant,
+    text: "Impact was limited to delayed processing.\n\nNo records were dropped, and the reconciliation worker confirmed each retry batch. Support saw confusion from two customers, but there were no checkout or billing errors.",
+  },
+  {id: "vis-actions", role: MessageScrollerExample.Role.User, text: "What actions are open?"},
+  {
+    id: "vis-actions-answer",
+    role: MessageScrollerExample.Role.Assistant,
+    text: "Keep the retry window enabled until the next deploy, then add a queue-depth alert as the long-term fix.\n\nThe alert should fire on sustained queue growth, not a single short spike.",
+  },
+  {
+    id: "vis-checklist",
+    role: MessageScrollerExample.Role.User,
+    text: "Give me the follow-up checklist.",
+  },
+  {
+    id: "vis-checklist-answer",
+    role: MessageScrollerExample.Role.Assistant,
+    text: "After that, compare the queue recovery graph with the deploy timeline so the handoff shows exactly when processing returned to baseline.\n\nI would also add a short owner note beside each follow-up item.\n\nKeep the retry window enabled until the next deploy, then add a queue-depth alert as the long-term fix.",
+  },
 ]
 
-let userMessages = messages->Array.filter(message => message.role == User)
-let trimmed = text => text->String.length > 42 ? `${text->String.slice(~start=0, ~end=39)}...` : text
+let userMessages =
+  messages->Array.filter(message => message.role == MessageScrollerExample.Role.User)
+let trimmed = text =>
+  text->String.length > 42 ? `${text->String.slice(~start=0, ~end=39)}...` : text
 
 module Outline = {
   @react.component
@@ -37,7 +63,7 @@ module Outline = {
         ->React.array}
       </ReactAria.Button>
       <Popover
-        placement=ReactAria.Common.Left
+        placement=ReactAria.Common.Placement.Left
         offset={-28.}
         className="flex w-64 flex-col gap-1 rounded-2xl p-1"
       >
@@ -51,9 +77,7 @@ module Outline = {
             onClick={_ =>
               scrollToMessage(message.id, Some({align: Start, behavior: Smooth}))->ignore}
           >
-            <span className="line-clamp-1 min-w-0">
-              {message.text->trimmed->React.string}
-            </span>
+            <span className="line-clamp-1 min-w-0"> {message.text->trimmed->React.string} </span>
           </button>
         )
         ->React.array}
@@ -70,7 +94,9 @@ let make = ({}: Demo.Props.t) =>
         <Card className="h-140 w-full gap-0">
           <Card.Header className="gap-1 border-b">
             <Card.Title> {"Transcript Outline"->React.string} </Card.Title>
-            <Card.Description> {"Track the current anchored turn."->React.string} </Card.Description>
+            <Card.Description>
+              {"Track the current anchored turn."->React.string}
+            </Card.Description>
           </Card.Header>
           <Card.Content className="flex-1 overflow-hidden p-0">
             <MessageScroller>
@@ -83,7 +109,9 @@ let make = ({}: Demo.Props.t) =>
             </MessageScroller>
           </Card.Content>
         </Card>
-        <div className="absolute top-1/2 -right-12 -translate-y-1/2"> <Outline /> </div>
+        <div className="absolute top-1/2 -right-12 -translate-y-1/2">
+          <Outline />
+        </div>
       </div>
       <div className="mx-auto max-w-sm px-0.5 text-center text-xs text-muted-foreground">
         {"Open the outline to jump between anchored turns as you read."->React.string}

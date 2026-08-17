@@ -1,11 +1,13 @@
-type song = {
-  title: string,
-  artist: string,
-  album: string,
-  duration: string,
+module Song = {
+  type t = {
+    title: string,
+    artist: string,
+    album: string,
+    duration: string,
+  }
 }
 
-let music = [
+let music: array<Song.t> = [
   {
     title: "Midnight City Lights",
     artist: "Neon Dreams",

@@ -5,7 +5,7 @@ open BaseUi.Types
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.componentWithComponents(BaseUIComponentProps.t)
+@react.componentWithProps(BaseUIComponentProps.t)
 let make = (props: BaseUIComponentProps.t) =>
   <BaseUi.Separator
     {...props}

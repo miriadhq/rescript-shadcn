@@ -106,7 +106,6 @@ module Style = {
     }
 
   let fromString = (value: string) => value->fromStringOpt->Option.getOr(default)
-
 }
 
 module LibStyle = {
@@ -121,8 +120,7 @@ module LibStyle = {
   let paramName = "style"
   let libStorageKey = "lib"
 
-  let toString = libStyle =>
-    `${libStyle.lib->Lib.toString}-${libStyle.style->Style.toString}`
+  let toString = libStyle => `${libStyle.lib->Lib.toString}-${libStyle.style->Style.toString}`
 
   let interpolate = (template, libStyle) =>
     template->String.replaceAll("{{libStyle}}", libStyle->toString)
@@ -142,17 +140,16 @@ module LibStyle = {
 
   let fromString = value => value->fromStringOpt->Option.getOr(default)
 
-  let getParam = (searchParams: Next.Navigation.searchParams) =>
+  let getParam = (searchParams: Next.Navigation.SearchParams.t) =>
     searchParams->WebAPI.URLSearchParams.get(paramName)->Null.toOption
 
-  let getCurrentParam = () =>
-    WebAPI.Global.window.location.search
-    ->WebAPI.URLSearchParams.fromString
-    ->getParam
-    ->Option.flatMap(fromStringOpt)
+  let getCurrentParam = () => {
+    let location = WebAPI.Window.current->WebAPI.Window.location
+    location.search->WebAPI.URLSearchParams.fromString->getParam->Option.flatMap(fromStringOpt)
+  }
 
   let hrefFor = (pathname, libStyle) => {
-    let location = WebAPI.Global.window.location
+    let location = WebAPI.Window.current->WebAPI.Window.location
     let params = WebAPI.URLSearchParams.fromString(location.search)
     params->WebAPI.URLSearchParams.set(~name=paramName, ~value=toString(libStyle))
 
@@ -164,15 +161,20 @@ module LibStyle = {
   }
 
   let syncBodyClasses = libStyle => {
-    let classList = WebAPI.Global.document.body.classList
-    Style.all->Array.forEach(style =>
-      classList->WebAPI.DOMTokenList.remove(`style-${style->Style.toString}`)
-    )
-    Lib.all->Array.forEach(lib =>
-      classList->WebAPI.DOMTokenList.remove(`lib-${lib->Lib.toString}`)
-    )
-    classList->WebAPI.DOMTokenList.add(`style-${libStyle.style->Style.toString}`)
-    classList->WebAPI.DOMTokenList.add(`lib-${libStyle.lib->Lib.toString}`)
+    let document = WebAPI.Window.current->WebAPI.Window.document
+    document
+    ->WebAPI.Document.querySelector("body")
+    ->Null.forEach(body => {
+      let classList = body.classList
+      Style.all->Array.forEach(style =>
+        classList->WebAPI.DOMTokenList.remove(`style-${style->Style.toString}`)
+      )
+      Lib.all->Array.forEach(lib =>
+        classList->WebAPI.DOMTokenList.remove(`lib-${lib->Lib.toString}`)
+      )
+      classList->WebAPI.DOMTokenList.add(`style-${libStyle.style->Style.toString}`)
+      classList->WebAPI.DOMTokenList.add(`lib-${libStyle.lib->Lib.toString}`)
+    })
   }
 
   let use = () => {
@@ -195,9 +197,7 @@ module LibStyle = {
     let queryLibStyle = searchParams->getParam->Option.flatMap(fromStringOpt)
     let libStyle = queryLibStyle->Option.getOr(storedLibStyle)
     let syncsLibStyle =
-      pathname === "/" ||
-      pathname === "/installation" ||
-      pathname->String.startsWith("/components")
+      pathname === "/" || pathname === "/installation" || pathname->String.startsWith("/components")
 
     let navigate = nextLibStyle =>
       if syncsLibStyle && libHydrated && styleHydrated {

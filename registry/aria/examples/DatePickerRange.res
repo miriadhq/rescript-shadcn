@@ -14,9 +14,11 @@ let formatDate = date =>
 let make = ({}: Demo.Props.t) => {
   let year = Date.make()->Date.getFullYear
   let start = IDate.calendarDate(year, 1, 20)
-  let (dateRange, setDateRange) = React.useState(() => {
-    ReactAria.Calendar.Range.start: start,
-    end_: start->IDate.add({days: 20}),
+  let (dateRange, setDateRange) = React.useState((): ReactAria.Calendar.Range.Value.t<
+    ReactAria.Calendar.CalendarDate.t,
+  > => {
+    ReactAria.Calendar.Range.Value.start,
+    end: start->IDate.add({days: 20}),
   })
 
   <Field className="mx-auto w-60">
@@ -26,13 +28,11 @@ let make = ({}: Demo.Props.t) => {
         <Icons.Calendar dataIcon="inline-start" />
         {dateRange.start->formatDate->React.string}
         {" - "->React.string}
-        {dateRange.end_->formatDate->React.string}
+        {dateRange.end->formatDate->React.string}
       </Button>
-      <Popover className="w-auto p-0" placement=ReactAria.Common.BottomStart>
+      <Popover className="w-auto p-0" placement=ReactAria.Common.Placement.BottomStart>
         <Calendar.Range
-          value=dateRange
-          onChange={range => setDateRange(_ => range)}
-          numberOfMonths=2
+          value=dateRange onChange={range => setDateRange(_ => range)} numberOfMonths=2
         />
       </Popover>
     </Popover.Trigger>

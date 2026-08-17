@@ -23,7 +23,7 @@ let make = ({}: Demo.Props.t) => {
         | None => <span> {"Pick a date"->React.string} </span>
         }}
       </Button>
-      <Popover className="w-auto p-0" placement=ReactAria.Common.BottomStart>
+      <Popover className="w-auto p-0" placement=ReactAria.Common.Placement.BottomStart>
         <Calendar value=?date onChange={date => setDate(_ => Some(date))} />
       </Popover>
     </Popover.Trigger>

@@ -3,6 +3,9 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@module("react")
+external createElement: (string, ReactAria.Common.ElementProps.t) => React.element = "createElement"
+
 module Size = {
   @unboxed
   type t =
@@ -10,18 +13,20 @@ module Size = {
     | @as("sm") Sm
 }
 
-type props = {size?: Size.t, ...ReactAria.Common.elementProps}
-let domProps: props => ReactAria.Types.DomProps.t = %raw(`({size, ...props}) => props`)
+type props = {size?: Size.t, ...ReactAria.Common.ElementProps.t}
 
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let size = props.size->Option.getOr(Default)
-  <div
-    {...props->domProps}
-    dataSlot={props.dataSlot->Option.getOr("card")}
-    dataSize={(size :> string)}
-    className={cn("cn-card group/card flex flex-col", props.className)}
-  />
+let make = ({?size, ...ReactAria.Common.ElementProps.t as props}) => {
+  let size = size->Option.getOr(Default)
+  createElement(
+    "div",
+    {
+      ...props,
+      dataSlot: props.dataSlot->Option.getOr("card"),
+      dataSize: (size :> string),
+      className: cn("cn-card group/card flex flex-col", props.className),
+    },
+  )
 }
 
 module Header = {

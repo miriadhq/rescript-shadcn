@@ -30,10 +30,7 @@ let make = (
     ?onKeyDown
     dataSlot="card"
     dataSize={(size :> string)}
-    className={cn(
-      "cn-card group/card flex flex-col",
-      className,
-    )}
+    className={cn("cn-card group/card flex flex-col", className)}
   />
 }
 
@@ -65,10 +62,7 @@ module Title = {
       ?onClick
       ?onKeyDown
       dataSlot="card-title"
-      className={cn(
-        "cn-card-title cn-font-heading",
-        className,
-      )}
+      className={cn("cn-card-title cn-font-heading", className)}
     />
   }
 }
@@ -98,7 +92,10 @@ module Action = {
       ?onClick
       ?onKeyDown
       dataSlot="card-action"
-      className={cn("cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end", className)}
+      className={cn(
+        "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        className,
+      )}
     />
   }
 }
@@ -128,10 +125,7 @@ module Footer = {
       ?onClick
       ?onKeyDown
       dataSlot="card-footer"
-      className={cn(
-        "cn-card-footer flex items-center",
-        className,
-      )}
+      className={cn("cn-card-footer flex items-center", className)}
     />
   }
 }

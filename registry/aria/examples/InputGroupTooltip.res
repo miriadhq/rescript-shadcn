@@ -35,7 +35,7 @@ let make = ({}: Demo.Props.t) =>
             <Icons.HelpCircle />
           </InputGroup.Button>
         </InputGroup.Addon>
-        <Tooltip placement=ReactAria.Common.Left>
+        <Tooltip placement=ReactAria.Common.Placement.Left>
           <p> {"Click for help with API keys"->React.string} </p>
         </Tooltip>
       </Tooltip.Trigger>

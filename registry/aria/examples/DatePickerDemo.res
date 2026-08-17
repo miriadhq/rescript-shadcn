@@ -7,7 +7,7 @@ let make = ({}: Demo.Props.t) =>
       <Icons.Calendar dataIcon="inline-start" />
       {"Open Calendar"->React.string}
     </Button>
-    <Popover className="w-auto p-0" placement=ReactAria.Common.BottomStart>
+    <Popover className="w-auto p-0" placement=ReactAria.Common.Placement.BottomStart>
       <Calendar />
     </Popover>
   </Popover.Trigger>

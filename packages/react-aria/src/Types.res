@@ -1,5 +1,4 @@
 /** Shared types used by the React Aria bindings and their JSX runtime. */
-
 module Orientation = {
   @unboxed
   type t =

@@ -1,8 +1,8 @@
 let tooltipSides = [
-  ReactAria.Common.Left,
-  ReactAria.Common.Top,
-  ReactAria.Common.Bottom,
-  ReactAria.Common.Right,
+  ReactAria.Common.Placement.Left,
+  ReactAria.Common.Placement.Top,
+  ReactAria.Common.Placement.Bottom,
+  ReactAria.Common.Placement.Right,
 ]
 
 @react.componentWithProps(Demo.Props.t)

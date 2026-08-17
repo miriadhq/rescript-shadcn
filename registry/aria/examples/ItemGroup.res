@@ -1,10 +1,12 @@
-type person = {
-  username: string,
-  avatar: string,
-  email: string,
+module Person = {
+  type t = {
+    username: string,
+    avatar: string,
+    email: string,
+  }
 }
 
-let people = [
+let people: array<Person.t> = [
   {username: "shadcn", avatar: "https://github.com/shadcn.png", email: "shadcn@vercel.com"},
   {
     username: "maxleiter",

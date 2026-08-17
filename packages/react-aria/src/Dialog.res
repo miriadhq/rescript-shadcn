@@ -1,11 +1,11 @@
-type props = Common.elementProps
+type props = Common.ElementProps.t
 
 @module("react-aria-components")
 external make: React.component<props> = "Dialog"
 
 module Trigger = {
   type props = {
-    ...Common.baseProps,
+    ...Common.BaseProps.t,
     children?: React.element,
     isOpen?: bool,
     defaultOpen?: bool,
@@ -18,7 +18,7 @@ module Trigger = {
 
 module Modal = {
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     isOpen?: bool,
     defaultOpen?: bool,
     onOpenChange?: bool => unit,

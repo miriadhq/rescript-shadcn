@@ -19,8 +19,10 @@ let make = (
   <BaseUi.Popover.Root ?children ?open_ ?defaultOpen ?onOpenChange ?onOpenChangeComplete ?modal />
 
 module Trigger = {
-  @react.componentWithProps(BaseUi.Popover.Trigger.props)
-  let make = (props: BaseUi.Popover.Trigger.props<'payload>) =>
+  type props<'payload> = {...BaseUi.Popover.Trigger.props<'payload>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Popover.Trigger.props as props}) =>
     <BaseUi.Popover.Trigger {...props} dataSlot={props.dataSlot->Option.getOr("popover-trigger")} />
 }
 

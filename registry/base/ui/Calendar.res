@@ -74,27 +74,6 @@ module Modifiers = {
   }
 }
 
-module DayButtonProps = {
-  type t = {
-    className?: string,
-    children: React.element,
-    day: Day.t,
-    modifiers: DayModifiers.t,
-    locale?: Locale.t,
-    id?: string,
-    style?: ReactDOM.Style.t,
-    disabled?: bool,
-    tabIndex?: int,
-    onClick?: JsxEvent.Mouse.t => unit,
-    onKeyDown?: JsxEvent.Keyboard.t => unit,
-    onBlur?: ReactEvent.Focus.t => unit,
-    onFocus?: ReactEvent.Focus.t => unit,
-    onMouseEnter?: ReactEvent.Mouse.t => unit,
-    onMouseLeave?: ReactEvent.Mouse.t => unit,
-    @as("aria-label") ariaLabel?: string,
-  }
-}
-
 module DayPickerClassNames = {
   type t = {
     root?: string,
@@ -140,16 +119,16 @@ external cn4: (
 ) => string = "twMerge"
 
 module DayButton = {
-  let toButtonProps: DayButtonProps.t => Button.props = %raw(`({day, modifiers, locale, ...rest}) => rest`)
+  type props = {
+    day: Day.t,
+    modifiers: DayModifiers.t,
+    locale?: Locale.t,
+    ...Button.props,
+  }
 
-  @react.componentWithProps(DayButtonProps.t)
-  let make = (props: DayButtonProps.t) => {
+  @react.componentWithProps(props) @warning("-112")
+  let make = ({day, modifiers, ?locale, ?children, ...Button.props as props}) => {
     let className = props.className
-    let day = props.day
-    let modifiers = props.modifiers
-    let locale = props.locale
-    let children = props.children
-    let props = props->toButtonProps
 
     let defaultClassNames = getDefaultClassNames()
 
@@ -185,7 +164,7 @@ module DayButton = {
         ~additional=className,
       )}
     >
-      {children}
+      {children->Option.getOr(React.null)}
     </Button>
   }
 }
@@ -197,7 +176,9 @@ module ComponentProps = {
   }
 }
 
-type componentRenderer = ComponentProps.t => React.element
+module ComponentRenderer = {
+  type t = ComponentProps.t => React.element
+}
 
 module DayPickerFormatters = {
   module DateLibOptions = {
@@ -222,30 +203,30 @@ module DayPickerComponents = {
   type t = {
     @as("Root") root?: RootProps.t => React.element,
     @as("Chevron") chevron?: ChevronProps.t => React.element,
-    @as("DayButton") dayButton?: DayButtonProps.t => React.element,
+    @as("DayButton") dayButton?: DayButton.props => React.element,
     @as("WeekNumber") weekNumber?: WeekNumberProps.t => React.element,
-    @as("Months") months?: componentRenderer,
-    @as("Month") month?: componentRenderer,
-    @as("MonthCaption") monthCaption?: componentRenderer,
-    @as("DropdownNav") dropdownNav?: componentRenderer,
-    @as("Dropdown") dropdown?: componentRenderer,
-    @as("CaptionLabel") captionLabel?: componentRenderer,
-    @as("Nav") nav?: componentRenderer,
-    @as("Weekdays") weekdays?: componentRenderer,
-    @as("Weekday") weekday?: componentRenderer,
-    @as("Week") week?: componentRenderer,
-    @as("Day") day?: componentRenderer,
-    @as("Footer") footer?: componentRenderer,
-    @as("PreviousMonthButton") previousMonthButton?: componentRenderer,
-    @as("NextMonthButton") nextMonthButton?: componentRenderer,
-    @as("MonthGrid") monthGrid?: componentRenderer,
-    @as("Select") select?: componentRenderer,
-    @as("Option") option?: componentRenderer,
-    @as("MonthsDropdown") monthsDropdown?: componentRenderer,
-    @as("YearsDropdown") yearsDropdown?: componentRenderer,
-    @as("Weeks") weeks?: componentRenderer,
-    @as("WeekNumberHeader") weekNumberHeader?: componentRenderer,
-    @as("Button") button?: componentRenderer,
+    @as("Months") months?: ComponentRenderer.t,
+    @as("Month") month?: ComponentRenderer.t,
+    @as("MonthCaption") monthCaption?: ComponentRenderer.t,
+    @as("DropdownNav") dropdownNav?: ComponentRenderer.t,
+    @as("Dropdown") dropdown?: ComponentRenderer.t,
+    @as("CaptionLabel") captionLabel?: ComponentRenderer.t,
+    @as("Nav") nav?: ComponentRenderer.t,
+    @as("Weekdays") weekdays?: ComponentRenderer.t,
+    @as("Weekday") weekday?: ComponentRenderer.t,
+    @as("Week") week?: ComponentRenderer.t,
+    @as("Day") day?: ComponentRenderer.t,
+    @as("Footer") footer?: ComponentRenderer.t,
+    @as("PreviousMonthButton") previousMonthButton?: ComponentRenderer.t,
+    @as("NextMonthButton") nextMonthButton?: ComponentRenderer.t,
+    @as("MonthGrid") monthGrid?: ComponentRenderer.t,
+    @as("Select") select?: ComponentRenderer.t,
+    @as("Option") option?: ComponentRenderer.t,
+    @as("MonthsDropdown") monthsDropdown?: ComponentRenderer.t,
+    @as("YearsDropdown") yearsDropdown?: ComponentRenderer.t,
+    @as("Weeks") weeks?: ComponentRenderer.t,
+    @as("WeekNumberHeader") weekNumberHeader?: ComponentRenderer.t,
+    @as("Button") button?: ComponentRenderer.t,
   }
 }
 
@@ -356,32 +337,26 @@ module DayPicker = {
   }
 
   @module("react-day-picker")
-  external make: Props.t<'selected> => React.element = "DayPicker"
+  external make: React.component<Props.t<'selected>> = "DayPicker"
 }
 
-module Props = {
-  type t<'selected> = {
-    ...DayPicker.Props.t<'selected>,
-    buttonVariant?: Button.Variant.t,
-  }
+type props<'selected> = {
+  ...DayPicker.Props.t<'selected>,
+  buttonVariant?: Button.Variant.t,
 }
-
-let toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<'selected> = %raw(`function({buttonVariant, ...rest}){ return rest; }`)
 
 @scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
 
-@react.componentWithProps(Props.t)
-let make = props => {
-  let showOutsideDays = props.Props.showOutsideDays->Option.getOr(true)
+@react.componentWithProps(props)
+let make = ({?buttonVariant, ...DayPicker.Props.t as props}) => {
+  let showOutsideDays = props.showOutsideDays->Option.getOr(true)
   let captionLayout = props.captionLayout->Option.getOr(CaptionLayout.Label)
-  let buttonVariant = props.buttonVariant->Option.getOr(Button.Variant.Ghost)
+  let buttonVariant = buttonVariant->Option.getOr(Button.Variant.Ghost)
   let formatters = props.formatters->Option.getOr({})
   let classNames = props.classNames->Option.getOr({})
   let components = props.components->Option.getOr({})
   let showWeekNumber = props.showWeekNumber->Option.getOr(false)
   let defaultClassNames = getDefaultClassNames()
-  let props = props->toDayPickerProps
-
   <DayPicker
     {...props}
     showOutsideDays
@@ -525,7 +500,7 @@ let make = props => {
             <Icons.ChevronDown {...props} className={cn("size-4", className)} />
           }
         },
-        dayButton: (props: DayButtonProps.t) => <DayButton {...props} locale=?{props.locale} />,
+        dayButton: props => <DayButton {...props} />,
         weekNumber: ({?children, ?className, ?ariaLabel, ?role, ?scope}) =>
           <td ?className ?ariaLabel ?role ?scope>
             <div

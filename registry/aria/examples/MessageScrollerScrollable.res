@@ -1,16 +1,22 @@
 @@directive("'use client'")
 
-let messages: array<MessageScrollerExample.message> = Array.fromInitializer(~length=12, index => {
-  let number = index + 1
-  let isUser = mod(index, 2) == 0
-  ({
-    id: `scrollable-${number->Int.toString}`,
-    role: isUser ? User : Assistant,
-    text: isUser
-      ? `Review scroll checkpoint ${number->Int.toString}.`
-      : `Checkpoint ${number->Int.toString} is synced. The scrollable hook updates as the viewport moves.\n\nWhen the reader is at the first message, the footer should only point them down. Once they move into the middle of the transcript, it should explain that both directions are available.\n\nAt the latest message, the footer should switch again and only point them back up.`,
-  }: MessageScrollerExample.message)
-})
+let messages: array<MessageScrollerExample.MessageData.t> = Array.fromInitializer(
+  ~length=12,
+  index => {
+    let number = index + 1
+    let isUser = mod(index, 2) == 0
+
+    (
+      {
+        id: `scrollable-${number->Int.toString}`,
+        role: isUser ? MessageScrollerExample.Role.User : MessageScrollerExample.Role.Assistant,
+        text: isUser
+          ? `Review scroll checkpoint ${number->Int.toString}.`
+          : `Checkpoint ${number->Int.toString} is synced. The scrollable hook updates as the viewport moves.\n\nWhen the reader is at the first message, the footer should only point them down. Once they move into the middle of the transcript, it should explain that both directions are available.\n\nAt the latest message, the footer should switch again and only point them back up.`,
+      }: MessageScrollerExample.MessageData.t
+    )
+  },
+)
 
 module Footer = {
   @react.component

@@ -1,5 +1,7 @@
-type hook = {
-  metaColor: string,
-  setMetaColor: string => unit,
+module Result: {
+  type t = {
+    metaColor: string,
+    setMetaColor: string => unit,
+  }
 }
-let use: unit => hook
+let use: unit => Result.t

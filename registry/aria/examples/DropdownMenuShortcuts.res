@@ -3,10 +3,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <DropdownMenu.Trigger>
-<Button variant=Outline>
-      {"Open"->React.string}
-    </Button>
-<DropdownMenu>
+    <Button variant=Outline> {"Open"->React.string} </Button>
+    <DropdownMenu>
       <DropdownMenu.Group>
         <DropdownMenu.Label> {"My Account"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item>
@@ -28,4 +26,4 @@ let make = ({}: Demo.Props.t) =>
         <DropdownMenu.Shortcut> {"⇧⌘Q"->React.string} </DropdownMenu.Shortcut>
       </DropdownMenu.Item>
     </DropdownMenu>
-</DropdownMenu.Trigger>
+  </DropdownMenu.Trigger>

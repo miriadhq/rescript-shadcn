@@ -1,8 +1,10 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-type kind =
-  | Example
-  | Component
+module Kind = {
+  type t =
+    | Example
+    | Component
+}
 
 let registryRoot = lib => Node.Path.join([Node.cwd(), "registry", lib->Config.Lib.toString])
 
@@ -22,8 +24,8 @@ let resolveSourcePath = async (name: string, kind, lib) => {
   let examplePath = Node.Path.join([
     registryRoot(lib),
     switch kind {
-    | Example => "examples"
-    | Component => "ui"
+    | Kind.Example => "examples"
+    | Kind.Component => "ui"
     },
     `${name}.res`,
   ])
@@ -98,7 +100,7 @@ let make = async (
   ~collapsible=true,
   ~className=?,
   ~maxLines=?,
-  ~kind=Component,
+  ~kind=Kind.Component,
   ~lib=Config.Lib.Base,
   ~style=?,
 ) => {

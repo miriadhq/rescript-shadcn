@@ -3,6 +3,9 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@module("react")
+external createElement: (string, ReactAria.Common.ElementProps.t) => React.element = "createElement"
+
 module State = {
   @unboxed
   type t =
@@ -52,30 +55,29 @@ type props = {
   state?: State.t,
   size?: Size.t,
   orientation?: Orientation.t,
-  ...ReactAria.Common.elementProps,
+  ...ReactAria.Common.ElementProps.t,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({state, size, orientation, ...props}) => props`
-)
-
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let state = props.state->Option.getOr(Done)
-  let size = props.size->Option.getOr(Default)
-  let orientation = props.orientation->Option.getOr(Horizontal)
-  <div
-    {...props->domProps}
-    dataSlot={props.dataSlot->Option.getOr("attachment")}
-    dataState={(state :> string)}
-    dataSize={(size :> string)}
-    dataOrientation={(orientation :> string)}
-    className={cn(
-      `cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed ${sizeClass(
-          ~size,
-        )} ${orientationClass(~orientation)}`,
-      props.className,
-    )}
-  />
+let make = ({?state, ?size, ?orientation, ...ReactAria.Common.ElementProps.t as props}) => {
+  let state = state->Option.getOr(Done)
+  let size = size->Option.getOr(Default)
+  let orientation = orientation->Option.getOr(Horizontal)
+  createElement(
+    "div",
+    {
+      ...props,
+      dataSlot: props.dataSlot->Option.getOr("attachment"),
+      dataState: (state :> string),
+      dataSize: (size :> string),
+      dataOrientation: (orientation :> string),
+      className: cn(
+        `cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed ${sizeClass(
+            ~size,
+          )} ${orientationClass(~orientation)}`,
+        props.className,
+      ),
+    },
+  )
 }
 
 module Media = {
@@ -86,13 +88,12 @@ module Media = {
     }
 
   type props = {variant?: MediaVariant.t, ...ReactAria.Types.DomProps.t}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({variant, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let variant = props.variant->Option.getOr(Icon)
+  let make = ({?variant, ...ReactAria.Types.DomProps.t as props}) => {
+    let variant = variant->Option.getOr(Icon)
     <div
-      {...props->domProps}
+      {...props}
       dataSlot={props.dataSlot->Option.getOr("attachment-media")}
       dataVariant={(variant :> string)}
       className={cn(
@@ -168,25 +169,17 @@ module Action = {
 
 module Trigger = {
   type props = {render?: ReactAria.Types.DomProps.t => React.element, ...ReactAria.Types.DomProps.t}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({render, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
+  let make = ({?render, ...ReactAria.Types.DomProps.t as props}) => {
     let renderProps = {
-      ...props->domProps,
+      ...props,
       dataSlot: props.dataSlot->Option.getOr("attachment-trigger"),
-      className: cn(
-        "cn-attachment-trigger absolute inset-0 z-10 outline-none",
-        props.className,
-      ),
+      className: cn("cn-attachment-trigger absolute inset-0 z-10 outline-none", props.className),
     }
-    switch props.render {
+    switch render {
     | Some(render) => render(renderProps)
-    | None =>
-      <button
-        {...renderProps}
-        type_={props.type_->Option.getOr("button")}
-      />
+    | None => <button {...renderProps} type_={props.type_->Option.getOr("button")} />
     }
   }
 }

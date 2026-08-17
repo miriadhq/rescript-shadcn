@@ -2,8 +2,10 @@
 
 module RT = DataTableDemo.RT
 
-@react.component
-let make = (~table: RT.t<'data>) => {
+type props<'data> = {table: RT.t<'data>}
+
+@react.componentWithProps(props)
+let make = ({table}) => {
   <DropdownMenu>
     <DropdownMenu.Trigger
       render={<Button variant=Outline size=Sm className="ml-auto hidden h-8 lg:flex" />}

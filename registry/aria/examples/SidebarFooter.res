@@ -17,7 +17,8 @@ let make = ({}: Demo.Props.t) =>
                 <Icons.ChevronUp className="ml-auto" />
               </Sidebar.MenuButton>
               <DropdownMenu
-                placement=ReactAria.Common.TopStart className="w-(--radix-popper-anchor-width)"
+                placement=ReactAria.Common.Placement.TopStart
+                className="w-(--radix-popper-anchor-width)"
               >
                 <DropdownMenu.Item>
                   <span> {"Account"->React.string} </span>

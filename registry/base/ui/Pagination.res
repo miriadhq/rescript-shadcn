@@ -128,10 +128,7 @@ module Ellipsis = {
       ?id
       ?style
       ariaHidden={true}
-      className={cn(
-        "cn-pagination-ellipsis flex",
-        className,
-      )}
+      className={cn("cn-pagination-ellipsis flex", className)}
     >
       <Icons.MoreHorizontal />
       <span className="sr-only"> {"More pages"->React.string} </span>

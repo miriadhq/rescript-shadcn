@@ -1,21 +1,25 @@
 @@directive("'use client'")
 
-type payloadEntry = {
-  name: string,
-  value: int,
-  fill: string,
+module PayloadEntry = {
+  type t = {
+    name: string,
+    value: int,
+    fill: string,
+  }
 }
 
-type indicator = Dot | Line | Dashed
+module Indicator = {
+  type t = Dot | Line | Dashed
+}
 
 module TooltipDemo = {
   @react.component
   let make = (
     ~label: string,
-    ~payload: array<payloadEntry>,
+    ~payload: array<PayloadEntry.t>,
     ~hideLabel=false,
     ~hideIndicator=false,
-    ~indicator: indicator=Dot,
+    ~indicator: Indicator.t=Dot,
     ~className="",
   ) => {
     let nestLabel = payload->Array.length == 1 && indicator != Dot

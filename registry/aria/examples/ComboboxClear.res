@@ -10,8 +10,7 @@ let make = ({}: Demo.Props.t) =>
       <Combobox.List
         renderEmptyState={_ => <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>}
       >
-        {item =>
-          <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
+        {item => <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

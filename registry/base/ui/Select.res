@@ -15,8 +15,10 @@ module Size = {
 let make = BaseUi.Select.Root.make
 
 module Multiple = {
-  @react.componentWithProps(BaseUi.Select.Root.Multiple.props)
-  let make = (props: BaseUi.Select.Root.Multiple.props<'value>) =>
+  type props<'value> = {...BaseUi.Select.Root.Multiple.props<'value>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Select.Root.Multiple.props as props}) =>
     <BaseUi.Select.Root.Multiple {...props} multiple=True />
 }
 
@@ -52,10 +54,7 @@ module ScrollUpButton = {
       ?onClick
       ?onKeyDown
       dataSlot="select-scroll-up-button"
-      className={cn(
-        "cn-select-scroll-up-button top-0 w-full",
-        className,
-      )}
+      className={cn("cn-select-scroll-up-button top-0 w-full", className)}
     >
       <Icons.ChevronUp />
     </BaseUi.Select.ScrollUpArrow>
@@ -70,27 +69,22 @@ module ScrollDownButton = {
       ?onClick
       ?onKeyDown
       dataSlot="select-scroll-down-button"
-      className={cn(
-        "cn-select-scroll-down-button bottom-0 w-full",
-        className,
-      )}
+      className={cn("cn-select-scroll-down-button bottom-0 w-full", className)}
     >
       <Icons.ChevronDown />
     </BaseUi.Select.ScrollDownArrow>
 }
 
 module Trigger = {
-  type triggerProps = {
+  type props = {
     size?: Size.t,
     ...BaseUi.Types.BaseUIComponentProps.t,
   }
-  let toBaseUiProps: triggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({size, ...rest}) => rest`)
-  @react.componentWithProps(triggerProps)
-  let make = (props: triggerProps) => {
-    let size = props.size->Option.getOr(Default)
-    let baseUiProps = props->toBaseUiProps
+  @react.componentWithProps(props)
+  let make = ({?size, ...BaseUi.Types.BaseUIComponentProps.t as props}) => {
+    let size = size->Option.getOr(Default)
     <BaseUi.Select.Trigger
-      {...baseUiProps}
+      {...props}
       dataSlot={props.dataSlot->Option.getOr("select-trigger")}
       dataSize={(size :> string)}
       className={cn(
@@ -167,38 +161,22 @@ module Label = {
 }
 
 module Item = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~value=?,
-    ~label=?,
-  ) =>
+  type props<'value> = {...BaseUi.Select.Item.props<'value>}
+
+  @react.componentWithProps(props)
+  let make = ({...BaseUi.Select.Item.props as props}) =>
     <BaseUi.Select.Item
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?value
-      ?label
+      {...props}
       dataSlot="select-item"
       className={cn(
         "cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className,
+        props.className,
       )}
     >
-      <BaseUi.Select.ItemText className="cn-select-item-text shrink-0 whitespace-nowrap" ?children />
-      <BaseUi.Select.ItemIndicator
-        render={<span
-          className="cn-select-item-indicator"
-        />}
-      >
+      <BaseUi.Select.ItemText
+        className="cn-select-item-text shrink-0 whitespace-nowrap" children=?props.children
+      />
+      <BaseUi.Select.ItemIndicator render={<span className="cn-select-item-indicator" />}>
         <Icons.Check className="cn-select-item-indicator-icon pointer-events-none" />
       </BaseUi.Select.ItemIndicator>
     </BaseUi.Select.Item>

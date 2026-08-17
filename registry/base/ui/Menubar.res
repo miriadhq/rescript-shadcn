@@ -15,9 +15,7 @@ module Variant = {
 @react.componentWithProps(BaseUi.Menubar.props)
 let make = (props: BaseUi.Menubar.props) =>
   <BaseUi.Menubar
-    {...props}
-    dataSlot="menubar"
-    className={cn("cn-menubar flex items-center", props.className)}
+    {...props} dataSlot="menubar" className={cn("cn-menubar flex items-center", props.className)}
   />
 
 module Menu = {
@@ -68,8 +66,8 @@ module Trigger = {
 }
 
 module Content = {
-  @react.componentWithProps(DropdownMenu.Content.contentProps)
-  let make = (props: DropdownMenu.Content.contentProps) => {
+  @react.componentWithProps(DropdownMenu.Content.ContentProps.t)
+  let make = (props: DropdownMenu.Content.ContentProps.t) => {
     let align = props.align->Option.getOr(BaseUi.Types.Align.Start)
     let alignOffset = props.alignOffset->Option.getOr(-4.)
     let sideOffset = props.sideOffset->Option.getOr(8.)
@@ -112,10 +110,7 @@ module Item = {
       dataSlot="menubar-item"
       ?inset
       variant={(variant :> DropdownMenu.Variant.t)}
-      className={cn(
-        "cn-menubar-item group/menubar-item",
-        className,
-      )}
+      className={cn("cn-menubar-item group/menubar-item", className)}
     />
   }
 }
@@ -166,7 +161,14 @@ module CheckboxItem = {
 
 module RadioGroup = {
   @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~value=?, ~onValueChange=?) =>
+  let make = (
+    ~className=?,
+    ~children=?,
+    ~id=?,
+    ~style=?,
+    ~value: option<string>=?,
+    ~onValueChange=?,
+  ) =>
     <DropdownMenu.RadioGroup
       dataSlot="menubar-radio-group" ?id ?style ?value ?onValueChange ?children ?className
     />
@@ -180,7 +182,7 @@ module RadioItem = {
     ~inset=?,
     ~id=?,
     ~style=?,
-    ~value,
+    ~value: string,
     ~disabled=?,
     ~closeOnClick=?,
     ~onClick=?,
@@ -256,10 +258,7 @@ module Shortcut = {
       ?onClick
       ?onKeyDown
       dataSlot
-      className={cn(
-        "cn-menubar-shortcut ml-auto",
-        className,
-      )}
+      className={cn("cn-menubar-shortcut ml-auto", className)}
       ?children
     />
 }
@@ -273,36 +272,28 @@ module Sub = {
 }
 
 module SubTrigger = {
-  type subTriggerProps = {
+  type props = {
     inset?: bool,
     ...BaseUi.Types.BaseUIComponentProps.t,
   }
-  let toBaseUiProps: subTriggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({inset, ...props}) => props`)
 
-  @react.componentWithProps(subTriggerProps)
-  let make = (props: subTriggerProps) => {
-    let baseUiProps = toBaseUiProps(props)
+  @react.componentWithProps(props)
+  let make = ({?inset, ...BaseUi.Types.BaseUIComponentProps.t as props}) => {
     <DropdownMenu.SubTrigger
-      {...baseUiProps}
+      {...props}
       dataSlot="menubar-sub-trigger"
-      dataInset=?props.inset
-      className={cn(
-        "cn-menubar-sub-trigger",
-        props.className,
-      )}
+      dataInset=?inset
+      className={cn("cn-menubar-sub-trigger", props.className)}
     />
   }
 }
 
 module SubContent = {
-  @react.componentWithProps(DropdownMenu.Content.contentProps)
-  let make = (props: DropdownMenu.Content.contentProps) =>
+  @react.componentWithProps(DropdownMenu.Content.ContentProps.t)
+  let make = (props: DropdownMenu.Content.ContentProps.t) =>
     <DropdownMenu.SubContent
       {...props}
       dataSlot="menubar-sub-content"
-      className={cn(
-        "cn-menubar-sub-content cn-menu-target cn-menu-translucent",
-        props.className,
-      )}
+      className={cn("cn-menubar-sub-content cn-menu-target cn-menu-translucent", props.className)}
     />
 }

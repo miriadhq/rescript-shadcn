@@ -5,6 +5,9 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@module("react")
+external createElement: (string, ReactAria.Common.ElementProps.t) => React.element = "createElement"
+
 module Orientation = {
   @unboxed
   type t =
@@ -44,13 +47,12 @@ module Set = {
 
 module Legend = {
   type props = {variant?: Variant.t, ...ReactAria.Types.DomProps.t}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({variant, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
-    let variant = props.variant->Option.getOr(Legend)
+  let make = ({?variant, ...ReactAria.Types.DomProps.t as props}) => {
+    let variant = variant->Option.getOr(Legend)
     <legend
-      {...props->domProps}
+      {...props}
       dataSlot={props.dataSlot->Option.getOr("field-legend")}
       dataVariant={(variant :> string)}
       className={cn("cn-field-legend", props.className)}
@@ -71,19 +73,21 @@ module Group = {
     />
 }
 
-type props = {orientation?: Orientation.t, ...ReactAria.Common.elementProps}
-let domProps: props => ReactAria.Types.DomProps.t = %raw(`({orientation, ...props}) => props`)
+type props = {orientation?: Orientation.t, ...ReactAria.Common.ElementProps.t}
 
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let orientation = props.orientation->Option.getOr(Vertical)
-  <div
-    {...props->domProps}
-    role={props.role->Option.getOr("group")}
-    dataSlot={props.dataSlot->Option.getOr("field")}
-    dataOrientation={(orientation :> string)}
-    className={cn(fieldVariants(~orientation), props.className)}
-  />
+let make = ({?orientation, ...ReactAria.Common.ElementProps.t as props}) => {
+  let orientation = orientation->Option.getOr(Vertical)
+  createElement(
+    "div",
+    {
+      ...props,
+      role: props.role->Option.getOr("group"),
+      dataSlot: props.dataSlot->Option.getOr("field"),
+      dataOrientation: (orientation :> string),
+      className: cn(fieldVariants(~orientation), props.className),
+    },
+  )
 }
 
 module Content = {
@@ -165,30 +169,30 @@ module Error = {
     message?: string,
   }
   type props = {errors?: array<t>, ...ReactAria.Types.DomProps.t}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({errors, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) => {
+  let make = ({?errors, ...ReactAria.Types.DomProps.t as props}) => {
     let content = React.useMemo(() => {
       props.children->Option.getOr(
-        switch props.errors {
+        switch errors {
         | None | Some([]) => React.null
         | Some(errors) =>
           let uniqueErrors =
             Map.fromArray(
-              errors
-              ->Array.filterMap(error => error.message->Option.map(message => (message, error))),
+              errors->Array.filterMap(error =>
+                error.message->Option.map(message => (message, error))
+              ),
             )
             ->Map.values
-            ->Iterator.toArray
+            ->IteratorObject.toArray
           switch uniqueErrors {
           | [{message}] => message->React.string
           | errors =>
             <ul className="ml-4 flex list-disc flex-col gap-1">
               {errors
               ->Array.filterMapWithIndex((error, index) =>
-                error.message->Option.map(message =>
-                  <li key={index->Int.toString}> {message->React.string} </li>
+                error.message->Option.map(
+                  message => <li key={index->Int.toString}> {message->React.string} </li>,
                 )
               )
               ->React.array}
@@ -196,12 +200,12 @@ module Error = {
           }
         },
       )
-    }, (props.children, props.errors))
+    }, (props.children, errors))
 
     content == React.null
       ? React.null
       : <div
-          {...props->domProps}
+          {...props}
           role={props.role->Option.getOr("alert")}
           dataSlot={props.dataSlot->Option.getOr("field-error")}
           className={cn("cn-field-error font-normal", props.className)}

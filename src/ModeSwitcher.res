@@ -1,6 +1,6 @@
 @@directive("'use client'")
 
-let isTargetEditable: WebAPI.UIEventsAPI.keyboardEvent => bool = %raw(`
+let isTargetEditable = %raw(`
 function(e){
   return (e.target instanceof HTMLElement && e.target.isContentEditable) ||
           e.target instanceof HTMLInputElement ||
@@ -29,7 +29,7 @@ let make = () => {
   }, (resolvedTheme, setTheme))
 
   React.useEffect(() => {
-    let down = (e: WebAPI.UIEventsAPI.keyboardEvent) => {
+    let down = (e: WebAPI.UiEventsTypes.keyboardEvent) => {
       switch e.key {
       | "d" | "D" if !e.metaKey && !e.ctrlKey && !e.altKey && !isTargetEditable(e) =>
         e->WebAPI.KeyboardEvent.preventDefault
@@ -38,6 +38,7 @@ let make = () => {
       }
     }
 
+    let document = WebAPI.Window.current->WebAPI.Window.document
     document->WebAPI.Document.addEventListener(Keydown, down)
     Some(() => document->WebAPI.Document.removeEventListener(Keydown, down))
   }, [toggleTheme])

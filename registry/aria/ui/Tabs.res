@@ -30,13 +30,11 @@ let make = (props: ReactAria.Tabs.props) =>
 module List = {
   type props<'item> = {variant?: Variant.t, ...ReactAria.Tabs.List.props<'item>}
 
-  let listProps: props<'item> => ReactAria.Tabs.List.props<'item> = %raw(`({variant, ...props}) => props`)
-
-  @react.componentWithProps(props)
-  let make = (props: props<'item>) => {
-    let variant = props.variant->Option.getOr(Default)
+  @react.componentWithProps(ReactAria.Tabs.List.props)
+  let make = ({?variant, ...ReactAria.Tabs.List.props<'item> as props}) => {
+    let variant = variant->Option.getOr(Default)
     <ReactAria.Tabs.List
-      {...props->listProps}
+      {...props}
       dataSlot="tabs-list"
       dataVariant={(variant :> string)}
       className={cn(tabsListVariants(~variant), props.className)}

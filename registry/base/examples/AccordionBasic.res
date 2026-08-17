@@ -1,10 +1,12 @@
-type item = {
-  value: string,
-  trigger: string,
-  content: string,
+module Item = {
+  type t = {
+    value: string,
+    trigger: string,
+    content: string,
+  }
 }
 
-let items: array<item> = [
+let items: array<Item.t> = [
   {
     value: "item-1",
     trigger: "How do I reset my password?",

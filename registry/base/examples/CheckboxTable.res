@@ -1,13 +1,15 @@
 @@directive("'use client'")
 
-type row = {
-  id: string,
-  name: string,
-  email: string,
-  role: string,
+module Row = {
+  type t = {
+    id: string,
+    name: string,
+    email: string,
+    role: string,
+  }
 }
 
-let tableData: array<row> = [
+let tableData: array<Row.t> = [
   {
     id: "1",
     name: "Sarah Chen",

@@ -1,40 +1,44 @@
 @@directive("'use client'")
 
-let messages: array<MessageScrollerExample.message> = [
+let messages: array<MessageScrollerExample.MessageData.t> = [
   {
     id: "stream-1",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "I'm building a chat for our app and the scroll behavior is driving me nuts. Every time the AI streams a reply, the whole thread jumps around.",
   },
   {
     id: "stream-2",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "That's the classic streaming scroll problem. Wrap your message list in `MessageScroller` and turn on `autoScroll` — the viewport pins to the bottom as tokens arrive, so users always see the latest text land in place.\n\nThe important part: it only auto-scrolls while the reader is already at the bottom. The moment they scroll up to read something earlier, auto-scroll backs off and their position is preserved.",
   },
   {
     id: "stream-3",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "Okay, but when someone sends a new message the view still feels jarring — like the whole conversation reloads from the top.",
   },
   {
     id: "stream-4",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "MessageScrollerItem fixes that with turn anchoring. Set `scrollAnchor` on the turn that should settle near the top instead of blindly snapping to the document bottom.",
   },
   {
     id: "stream-5",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "And if they've scrolled up to re-read an older answer? I don't want to yank them back down.",
   },
   {
     id: "stream-6",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "You won't. Auto-scroll only runs when the viewport is already pinned to the bottom, so scrolling up is a deliberate opt-out — their place in the thread stays put even as new tokens keep arriving below.",
   },
-  {id: "stream-7", role: User, text: "Last one — does this work with assistive tech?"},
+  {
+    id: "stream-7",
+    role: MessageScrollerExample.Role.User,
+    text: "Last one — does this work with assistive tech?",
+  },
   {
     id: "stream-8",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "`MessageScrollerContent` sets `role=\"log\"` and `aria-relevant=\"additions\"` by default, so screen readers announce new messages as they stream in.",
   },
 ]
@@ -121,7 +125,7 @@ let make = ({}: Demo.Props.t) => {
                   >
                     <Icons.Plus />
                   </InputGroup.Button>
-                  <DropdownMenu placement=ReactAria.Common.TopStart className="w-44">
+                  <DropdownMenu placement=ReactAria.Common.Placement.TopStart className="w-44">
                     <DropdownMenu.Item>
                       <Icons.Paperclip />
                       {"Add Photos & Files"->React.string}

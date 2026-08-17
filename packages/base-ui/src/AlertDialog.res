@@ -1,12 +1,14 @@
 module Root = {
-  type changeEventDetails = Dialog.Root.changeEventDetails
+  module ChangeEventDetails = {
+    type t = Dialog.Root.ChangeEventDetails.t
+  }
   type props<'payload> = {
     ...Types.BaseUIComponentProps.t,
     defaultOpen?: bool,
-    onOpenChange?: (bool, changeEventDetails) => unit,
+    onOpenChange?: (bool, ChangeEventDetails.t) => unit,
     onOpenChangeComplete?: bool => unit,
     actionsRef?: React.ref<Dialog.Root.Actions.t>,
-    handle?: Dialog.Root.handle<'payload>,
+    handle?: Dialog.Root.Handle.t<'payload>,
     triggerId?: string,
     defaultTriggerId?: string,
   }

@@ -6,9 +6,7 @@ let make = ({}: Demo.Props.t) =>
         <Breadcrumb.Link href="/"> {"Home"->React.string} </Breadcrumb.Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <Breadcrumb.Link href="/components">
-          {"Components"->React.string}
-        </Breadcrumb.Link>
+        <Breadcrumb.Link href="/components"> {"Components"->React.string} </Breadcrumb.Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         <Breadcrumb.Page> {"Breadcrumb"->React.string} </Breadcrumb.Page>

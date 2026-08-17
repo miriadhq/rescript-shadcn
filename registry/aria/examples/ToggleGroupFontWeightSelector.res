@@ -9,8 +9,9 @@ let make = ({}: Demo.Props.t) => {
     <ToggleGroup
       selectedKeys={[fontWeight]}
       onSelectionChange={value =>
-        setFontWeight(_ => value->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("normal"))
-      }
+        setFontWeight(_ =>
+          value->Set.values->IteratorObject.toArray->Array.get(0)->Option.getOr("normal")
+        )}
       variant=Outline
       spacing=2.
       size=Lg

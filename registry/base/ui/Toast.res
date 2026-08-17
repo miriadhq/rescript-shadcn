@@ -158,7 +158,9 @@ module Toaster = {
     <Provider toastManager ?timeout ?limit>
       {children->Option.getOr(React.null)}
       <Portal>
-        <Viewport> <List /> </Viewport>
+        <Viewport>
+          <List />
+        </Viewport>
       </Portal>
     </Provider>
 }

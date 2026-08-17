@@ -24,7 +24,9 @@ let make = ({}: Demo.Props.t) => {
           }}
           <Icons.ChevronDown dataIcon="inline-end" />
         </Button>
-        <Popover className="w-auto overflow-hidden p-0" placement=ReactAria.Common.BottomStart>
+        <Popover
+          className="w-auto overflow-hidden p-0" placement=ReactAria.Common.Placement.BottomStart
+        >
           <Calendar
             value=?date
             captionLayout=Dropdown

@@ -6,7 +6,9 @@ module Root = {
     }
   }
 
-  type handle<'payload>
+  module Handle = {
+    type t<'payload>
+  }
 
   type props<'payload> = {
     ...Types.BaseUIComponentProps.t,
@@ -40,7 +42,7 @@ module Root = {
     actionsRef?: React.ref<Actions.t>,
     triggerId?: string,
     defaultTriggerId?: string,
-    handle?: handle<'payload>,
+    handle?: Handle.t<'payload>,
   }
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
   external make: React.component<props<'payload>> = "Root"

@@ -42,10 +42,7 @@ module Set = {
       ?onClick
       ?onKeyDown
       dataSlot="field-set"
-      className={cn(
-        "cn-field-set flex flex-col",
-        className,
-      )}
+      className={cn("cn-field-set flex flex-col", className)}
     />
 }
 
@@ -68,10 +65,7 @@ module Legend = {
       ?onKeyDown
       dataSlot="field-legend"
       dataVariant={(variant :> string)}
-      className={cn(
-        "cn-field-legend",
-        className,
-      )}
+      className={cn("cn-field-legend", className)}
     />
   }
 }
@@ -130,7 +124,10 @@ module Content = {
       ?onClick
       ?onKeyDown
       dataSlot="field-content"
-      className={cn("cn-field-content group/field-content flex flex-1 flex-col leading-snug", className)}
+      className={cn(
+        "cn-field-content group/field-content flex flex-1 flex-col leading-snug",
+        className,
+      )}
     />
 }
 
@@ -172,10 +169,7 @@ module Title = {
       ?onClick
       ?onKeyDown
       dataSlot="field-label"
-      className={cn(
-        "cn-field-title flex w-fit items-center",
-        className,
-      )}
+      className={cn("cn-field-title flex w-fit items-center", className)}
     />
 }
 
@@ -208,10 +202,7 @@ module Separator = {
       ?onKeyDown
       dataSlot="field-separator"
       dataContent={hasContent}
-      className={cn(
-        "cn-field-separator relative",
-        className,
-      )}
+      className={cn("cn-field-separator relative", className)}
     >
       <BaseUi.Separator
         orientation=Horizontal
@@ -246,7 +237,7 @@ module Error = {
           let uniqueErrors =
             Map.fromArray(errors->Array.map(error => (error.message, error)))
             ->Map.values
-            ->Iterator.toArray
+            ->IteratorObject.toArray
           switch uniqueErrors {
           | [{message}] => message->React.string
           | errors =>

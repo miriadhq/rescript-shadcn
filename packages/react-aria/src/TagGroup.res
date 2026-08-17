@@ -1,5 +1,5 @@
 type props = {
-  ...Common.elementProps,
+  ...Common.ElementProps.t,
   onRemove?: Set.t<string> => unit,
 }
 
@@ -8,10 +8,10 @@ external make: React.component<props> = "TagGroup"
 
 module List = {
   type props<'item> = {
-    ...Common.baseProps,
+    ...Common.BaseProps.t,
     items?: array<'item>,
     children?: 'item => React.element,
-    renderEmptyState?: Common.renderState => React.element,
+    renderEmptyState?: Common.RenderState.t => React.element,
   }
 
   @module("react-aria-components")
@@ -20,7 +20,7 @@ module List = {
 
 module Item = {
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     textValue?: string,
     isDisabled?: bool,
     onAction?: unit => unit,

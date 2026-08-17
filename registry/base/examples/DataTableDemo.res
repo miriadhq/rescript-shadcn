@@ -1,8 +1,10 @@
 @@directive("'use client'")
 
-type payment = {id: string, amount: float, status: string, email: string}
+module Payment = {
+  type t = {id: string, amount: float, status: string, email: string}
+}
 
-let tableData: array<payment> = [
+let tableData: array<Payment.t> = [
   {id: "m5gr84i9", amount: 316., status: "success", email: "ken99@example.com"},
   {id: "3u1reuv4", amount: 242., status: "success", email: "Abe45@example.com"},
   {id: "derv1ws0", amount: 837., status: "processing", email: "Monserrat44@example.com"},
@@ -12,126 +14,167 @@ let tableData: array<payment> = [
 
 module RT = {
   type t<'data>
-  type col
-  type row<'data>
-  type cell
-  type hdr
-  type hdrGroup
-  type rowModel<'data> = {rows: array<row<'data>>}
-  type rowModelGetter
-  type colDef_
-  type colFilter = {id: string, value: string}
-  type colFilters = array<colFilter>
-  type colVisibility = dict<bool>
-  type rowSel = dict<bool>
-  type sortItem = {id: string, desc: bool}
-  type sorting = array<sortItem>
-  type hdrCtx<'data>
-  type cellCtx<'data>
-
-  type colDef<'data> = {
-    id?: string,
-    accessorKey?: string,
-    header?: hdrCtx<'data> => React.element,
-    cell?: cellCtx<'data> => React.element,
-    enableSorting?: bool,
-    enableHiding?: bool,
+  module Column = {
+    type t
   }
-
-  type state = {
-    sorting: sorting,
-    columnFilters: colFilters,
-    columnVisibility: colVisibility,
-    rowSelection: rowSel,
+  module Row = {
+    type t<'data>
   }
-
-  type options<'data> = {
-    data: array<'data>,
-    columns: array<colDef<'data>>,
-    getCoreRowModel: rowModelGetter,
-    getFilteredRowModel: rowModelGetter,
-    getPaginationRowModel: rowModelGetter,
-    getSortedRowModel: rowModelGetter,
-    onSortingChange: (sorting => sorting) => unit,
-    onColumnFiltersChange: (colFilters => colFilters) => unit,
-    onColumnVisibilityChange: (colVisibility => colVisibility) => unit,
-    onRowSelectionChange: (rowSel => rowSel) => unit,
-    state: state,
+  module Cell = {
+    type t
+  }
+  module Header = {
+    type t
+  }
+  module HeaderGroup = {
+    type t
+  }
+  module RowModel = {
+    type t<'data> = {rows: array<Row.t<'data>>}
+  }
+  module RowModelGetter = {
+    type t
+  }
+  module ColumnDefValue = {
+    type t
+  }
+  module ColumnFilter = {
+    type t = {id: string, value: string}
+  }
+  module ColumnFilters = {
+    type t = array<ColumnFilter.t>
+  }
+  module ColumnVisibility = {
+    type t = dict<bool>
+  }
+  module RowSelection = {
+    type t = dict<bool>
+  }
+  module SortItem = {
+    type t = {id: string, desc: bool}
+  }
+  module Sorting = {
+    type t = array<SortItem.t>
+  }
+  module HeaderContext = {
+    type t<'data>
+  }
+  module CellContext = {
+    type t<'data>
+  }
+  module ColumnDef = {
+    type t<'data> = {
+      id?: string,
+      accessorKey?: string,
+      header?: HeaderContext.t<'data> => React.element,
+      cell?: CellContext.t<'data> => React.element,
+      enableSorting?: bool,
+      enableHiding?: bool,
+    }
+  }
+  module State = {
+    type t = {
+      sorting: Sorting.t,
+      columnFilters: ColumnFilters.t,
+      columnVisibility: ColumnVisibility.t,
+      rowSelection: RowSelection.t,
+    }
+  }
+  module Options = {
+    type t<'data> = {
+      data: array<'data>,
+      columns: array<ColumnDef.t<'data>>,
+      getCoreRowModel: RowModelGetter.t,
+      getFilteredRowModel: RowModelGetter.t,
+      getPaginationRowModel: RowModelGetter.t,
+      getSortedRowModel: RowModelGetter.t,
+      onSortingChange: (Sorting.t => Sorting.t) => unit,
+      onColumnFiltersChange: (ColumnFilters.t => ColumnFilters.t) => unit,
+      onColumnVisibilityChange: (ColumnVisibility.t => ColumnVisibility.t) => unit,
+      onRowSelectionChange: (RowSelection.t => RowSelection.t) => unit,
+      state: State.t,
+    }
   }
 
   @module("@tanstack/react-table") external flexRender: ('a, 'b) => React.element = "flexRender"
-  @module("@tanstack/react-table") external coreRowModel: unit => rowModelGetter = "getCoreRowModel"
   @module("@tanstack/react-table")
-  external filteredRowModelGetter: unit => rowModelGetter = "getFilteredRowModel"
+  external coreRowModel: unit => RowModelGetter.t = "getCoreRowModel"
   @module("@tanstack/react-table")
-  external paginationRowModelGetter: unit => rowModelGetter = "getPaginationRowModel"
+  external filteredRowModelGetter: unit => RowModelGetter.t = "getFilteredRowModel"
   @module("@tanstack/react-table")
-  external sortedRowModelGetter: unit => rowModelGetter = "getSortedRowModel"
+  external paginationRowModelGetter: unit => RowModelGetter.t = "getPaginationRowModel"
   @module("@tanstack/react-table")
-  external useReactTable: options<'data> => t<'data> = "useReactTable"
+  external sortedRowModelGetter: unit => RowModelGetter.t = "getSortedRowModel"
+  @module("@tanstack/react-table")
+  external useReactTable: Options.t<'data> => t<'data> = "useReactTable"
 
-  @send external getHeaderGroups: t<'data> => array<hdrGroup> = "getHeaderGroups"
-  @send external getRowModel: t<'data> => rowModel<'data> = "getRowModel"
-  @send external getFilteredRowModel: t<'data> => rowModel<'data> = "getFilteredRowModel"
+  @send external getHeaderGroups: t<'data> => array<HeaderGroup.t> = "getHeaderGroups"
+  @send external getRowModel: t<'data> => RowModel.t<'data> = "getRowModel"
+  @send external getFilteredRowModel: t<'data> => RowModel.t<'data> = "getFilteredRowModel"
   @send
-  external getFilteredSelectedRowModel: t<'data> => rowModel<'data> = "getFilteredSelectedRowModel"
-  @send external getAllColumns: t<'data> => array<col> = "getAllColumns"
+  external getFilteredSelectedRowModel: t<'data> => RowModel.t<'data> =
+    "getFilteredSelectedRowModel"
+  @send external getAllColumns: t<'data> => array<Column.t> = "getAllColumns"
   @send external getCanPreviousPage: t<'data> => bool = "getCanPreviousPage"
   @send external getCanNextPage: t<'data> => bool = "getCanNextPage"
   @send external previousPage: t<'data> => unit = "previousPage"
   @send external nextPage: t<'data> => unit = "nextPage"
-  @send external getColumn: (t<'data>, string) => nullable<col> = "getColumn"
+  @send external getColumn: (t<'data>, string) => nullable<Column.t> = "getColumn"
   @send external getIsAllPageRowsSelected: t<'data> => bool = "getIsAllPageRowsSelected"
   @send external getIsSomePageRowsSelected: t<'data> => bool = "getIsSomePageRowsSelected"
   @send external toggleAllPageRowsSelected: (t<'data>, bool) => unit = "toggleAllPageRowsSelected"
 
-  @get external hdrGroupId: hdrGroup => string = "id"
-  @get external hdrGroupHeaders: hdrGroup => array<hdr> = "headers"
+  @get external hdrGroupId: HeaderGroup.t => string = "id"
+  @get external hdrGroupHeaders: HeaderGroup.t => array<Header.t> = "headers"
 
-  @get external hdrId: hdr => string = "id"
-  @get external hdrIsPlaceholder: hdr => bool = "isPlaceholder"
-  @send external getHdrCtx: hdr => hdrCtx<'data> = "getContext"
-  @get external hdrCol: hdr => col = "column"
+  @get external hdrId: Header.t => string = "id"
+  @get external hdrIsPlaceholder: Header.t => bool = "isPlaceholder"
+  @send external getHdrCtx: Header.t => HeaderContext.t<'data> = "getContext"
+  @get external hdrCol: Header.t => Column.t = "column"
 
-  @get external colColDef: col => colDef_ = "columnDef"
-  @get external colDefHdr: colDef_ => 'a = "header"
-  @get external colDefCell: colDef_ => 'a = "cell"
+  @get external colColDef: Column.t => ColumnDefValue.t = "columnDef"
+  @get external colDefHdr: ColumnDefValue.t => 'a = "header"
+  @get external colDefCell: ColumnDefValue.t => 'a = "cell"
 
-  @get external colId: col => string = "id"
-  @send external colGetCanHide: col => bool = "getCanHide"
-  @send external colGetIsVisible: col => bool = "getIsVisible"
-  @send external colToggleVisibility: (col, bool) => unit = "toggleVisibility"
-  @send external colGetIsSorted: col => string = "getIsSorted"
-  @send external colToggleSorting: (col, bool) => unit = "toggleSorting"
-  @send external colGetFilterValue: col => nullable<string> = "getFilterValue"
-  @send external colSetFilterValue: (col, string) => unit = "setFilterValue"
+  @get external colId: Column.t => string = "id"
+  @send external colGetCanHide: Column.t => bool = "getCanHide"
+  @send external colGetIsVisible: Column.t => bool = "getIsVisible"
+  @send external colToggleVisibility: (Column.t, bool) => unit = "toggleVisibility"
+  @send external colGetIsSorted: Column.t => string = "getIsSorted"
+  @send external colToggleSorting: (Column.t, bool) => unit = "toggleSorting"
+  @send external colGetFilterValue: Column.t => nullable<string> = "getFilterValue"
+  @send external colSetFilterValue: (Column.t, string) => unit = "setFilterValue"
 
-  @get external rowId: row<'data> => string = "id"
-  @send external rowGetIsSelected: row<'data> => bool = "getIsSelected"
-  @send external rowToggleSelected: (row<'data>, bool) => unit = "toggleSelected"
-  @send external rowGetVisibleCells: row<'data> => array<cell> = "getVisibleCells"
-  @get external rowOriginal: row<'data> => 'data = "original"
-  @send external rowGetValue: (row<'data>, string) => 'a = "getValue"
+  @get external rowId: Row.t<'data> => string = "id"
+  @send external rowGetIsSelected: Row.t<'data> => bool = "getIsSelected"
+  @send external rowToggleSelected: (Row.t<'data>, bool) => unit = "toggleSelected"
+  @send external rowGetVisibleCells: Row.t<'data> => array<Cell.t> = "getVisibleCells"
+  @get external rowOriginal: Row.t<'data> => 'data = "original"
+  @send external rowGetValue: (Row.t<'data>, string) => 'a = "getValue"
 
-  @get external cellId: cell => string = "id"
-  @send external getCellCtx: cell => cellCtx<'data> = "getContext"
-  @get external cellCol: cell => col = "column"
+  @get external cellId: Cell.t => string = "id"
+  @send external getCellCtx: Cell.t => CellContext.t<'data> = "getContext"
+  @get external cellCol: Cell.t => Column.t = "column"
 
-  @get external ctxRow: cellCtx<'data> => row<'data> = "row"
-  @get external ctxCol: hdrCtx<'data> => col = "column"
-  @get external ctxTable: hdrCtx<'data> => t<'data> = "table"
+  @get external ctxRow: CellContext.t<'data> => Row.t<'data> = "row"
+  @get external ctxCol: HeaderContext.t<'data> => Column.t = "column"
+  @get external ctxTable: HeaderContext.t<'data> => t<'data> = "table"
 }
 
-type numberFormat
-type numberFormatOpts = {style: string, currency: string}
+module NumberFormat = {
+  type t
+}
+module NumberFormatOpts = {
+  type t = {style: string, currency: string}
+}
 @scope("Intl") @new
-external makeNumberFormat: (string, numberFormatOpts) => numberFormat = "NumberFormat"
-@send external formatAmount: (numberFormat, float) => string = "format"
+external makeNumberFormat: (string, NumberFormatOpts.t) => NumberFormat.t = "NumberFormat"
+@send external formatAmount: (NumberFormat.t, float) => string = "format"
 
 @scope(("navigator", "clipboard")) @val
 external writeText: string => promise<unit> = "writeText"
 
-let columns: array<RT.colDef<payment>> = [
+let columns: array<RT.ColumnDef.t<Payment.t>> = [
   {
     id: "select",
     header: ctx => {
@@ -186,7 +229,7 @@ let columns: array<RT.colDef<payment>> = [
       let formatted =
         makeNumberFormat(
           "en-US",
-          ({style: "currency", currency: "USD"}: numberFormatOpts),
+          ({style: "currency", currency: "USD"}: NumberFormatOpts.t),
         )->formatAmount(amount)
       <div className="text-right font-medium"> {formatted->React.string} </div>
     },

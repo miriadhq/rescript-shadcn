@@ -11,20 +11,22 @@ module Size = Toggle.Size
 
 module Orientation = {
   @unboxed
-  type t = ReactAria.Common.orientation =
+  type t = ReactAria.Common.Orientation.t =
     | @as("horizontal") Horizontal
     | @as("vertical") Vertical
 }
 
-type context = {
-  variant?: Variant.t,
-  size?: Size.t,
-  spacing?: float,
-  orientation?: Orientation.t,
+module Context = {
+  type t = {
+    variant?: Variant.t,
+    size?: Size.t,
+    spacing?: float,
+    orientation?: Orientation.t,
+  }
 }
 
 let toggleGroupContext = React.createContext({
-  variant: Variant.Default,
+  Context.variant: Variant.Default,
   size: Size.Default,
   spacing: 2.0,
   orientation: Orientation.Horizontal,
@@ -38,21 +40,24 @@ type props = {
   variant?: Variant.t,
   size?: Size.t,
   spacing?: float,
-  children?: React.element,
-  ...ReactAria.ToggleButtonGroup.componentProps,
+  ...ReactAria.ToggleButtonGroup.props,
 }
 
-let groupProps: props => ReactAria.ToggleButtonGroup.componentProps = %raw(`({variant, size, spacing, children, ...props}) => props`)
-
-@react.componentWithProps(props)
-let make = (props: props) => {
-  let spacing = props.spacing->Option.getOr(2.)
+@warning("-112") @react.componentWithProps(props)
+let make = ({
+  ?variant,
+  ?size,
+  ?spacing,
+  ?children,
+  ...ReactAria.ToggleButtonGroup.props as props,
+}) => {
+  let spacing = spacing->Option.getOr(2.)
   let orientation = props.orientation->Option.getOr(Horizontal)
   <ReactAria.ToggleButtonGroup
-    {...props->groupProps->ReactAria.ToggleButtonGroup.toProps}
+    {...props}
     dataSlot="toggle-group"
-    dataVariant=?{(props.variant :> option<string>)}
-    dataSize=?{(props.size :> option<string>)}
+    dataVariant=?{(variant :> option<string>)}
+    dataSize=?{(size :> option<string>)}
     dataSpacing={spacing}
     dataOrientation={(orientation :> string)}
     style={ReactDOM.Style._dictToStyle(
@@ -65,13 +70,13 @@ let make = (props: props) => {
   >
     <ContextProvider
       value={{
-        variant: ?props.variant,
-        size: ?props.size,
+        ?variant,
+        ?size,
         spacing,
         orientation: (orientation :> Orientation.t),
       }}
     >
-      {props.children->Option.getOr(React.null)}
+      {children->Option.getOr(React.null)}
     </ContextProvider>
   </ReactAria.ToggleButtonGroup>
 }
@@ -83,15 +88,13 @@ module Item = {
     ...ReactAria.ToggleButton.props,
   }
 
-  let itemProps: props => ReactAria.ToggleButton.props = %raw(`({variant, size, ...props}) => props`)
-
   @react.componentWithProps(props)
-  let make = (props: props) => {
+  let make = ({?variant, ?size, ...ReactAria.ToggleButton.props as props}) => {
     let context = React.useContext(toggleGroupContext)
-    let variant = context.variant->Option.orElse(props.variant)->Option.getOr(Default)
-    let size = context.size->Option.orElse(props.size)->Option.getOr(Default)
+    let variant = context.variant->Option.orElse(variant)->Option.getOr(Default)
+    let size = context.size->Option.orElse(size)->Option.getOr(Default)
     <ReactAria.ToggleButton
-      {...props->itemProps}
+      {...props}
       dataSlot="toggle-group-item"
       dataVariant={(variant :> string)}
       dataSize={(size :> string)}

@@ -25,14 +25,14 @@
     "@shadcn/react": "0.2.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "rescript": "^12.3.0"
+    "rescript": "^13.0.0-alpha.5"
   },
   "devDependencies": {
     "@juspay/rescript-bindgen": "1.2.4",
-    "@rescript/react": "^0.15.0"
+    "@rescript/react": "^0.16.0-beta.1"
   },
   "peerDependencies": {
-    "@rescript/react": "^0.15.0",
+    "@rescript/react": "^0.16.0-beta.1",
     "@shadcn/react": "^0.2.0"
   },
   "scripts": {

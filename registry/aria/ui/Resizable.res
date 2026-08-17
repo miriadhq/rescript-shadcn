@@ -16,18 +16,20 @@ module ResizablePrimitive = {
     }
   }
   module Group = {
-    type divProps = {
-      children?: React.element,
-      className?: string,
-      id?: string,
-      style?: ReactDOM.Style.t,
-      onClick?: JsxEvent.Mouse.t => unit,
-      onKeyDown?: JsxEvent.Keyboard.t => unit,
-      @as("data-slot") dataSlot?: string,
+    module DivProps = {
+      type t = {
+        children?: React.element,
+        className?: string,
+        id?: string,
+        style?: ReactDOM.Style.t,
+        onClick?: JsxEvent.Mouse.t => unit,
+        onKeyDown?: JsxEvent.Keyboard.t => unit,
+        @as("data-slot") dataSlot?: string,
+      }
     }
 
     type props = {
-      ...divProps,
+      ...DivProps.t,
       defaultLayout?: Layout.t,
       disableCursor?: bool,
       disabled?: bool,
@@ -43,7 +45,7 @@ module ResizablePrimitive = {
 
   module Panel = {
     type props = {
-      ...Group.divProps,
+      ...Group.DivProps.t,
       collapsedSize?: string,
       collapsible?: bool,
       defaultSize?: string,
@@ -60,7 +62,7 @@ module ResizablePrimitive = {
 
   module Separator = {
     type props = {
-      ...Group.divProps,
+      ...Group.DivProps.t,
       disabled?: bool,
       elementRef?: ReactDOM.domRef,
     }
@@ -89,19 +91,17 @@ module Panel = {
 module Handle = {
   type props = {withHandle?: bool, ...ResizablePrimitive.Separator.props}
 
-  let separatorProps: props => ResizablePrimitive.Separator.props = %raw(`({withHandle, ...props}) => props`)
-
   @react.componentWithProps(props)
-  let make = (props: props) => {
+  let make = ({?withHandle, ...ResizablePrimitive.Separator.props as props}) => {
     <ResizablePrimitive.Separator
-      {...props->separatorProps}
+      {...props}
       dataSlot="resizable-handle"
       className={cn(
         "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
         props.className,
       )}
     >
-      {props.withHandle->Option.getOr(false)
+      {withHandle->Option.getOr(false)
         ? <div className="cn-resizable-handle-icon z-10 flex shrink-0" />
         : React.null}
     </ResizablePrimitive.Separator>

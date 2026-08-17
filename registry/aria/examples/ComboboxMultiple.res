@@ -6,7 +6,7 @@ let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 let make = ({}: Demo.Props.t) => {
   let anchor = Combobox.useAnchor()
   <Combobox
-    selectionMode=ReactAria.Combobox.Multiple
+    selectionMode=ReactAria.Combobox.SelectionMode.Multiple
     items={frameworks}
     defaultValue={[frameworks->Array.getUnsafe(0)]}
     allowsEmptyCollection=true
@@ -21,8 +21,7 @@ let make = ({}: Demo.Props.t) => {
       <Combobox.List
         renderEmptyState={_ => <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>}
       >
-        {item =>
-          <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
+        {item => <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

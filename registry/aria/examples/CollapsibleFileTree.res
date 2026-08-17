@@ -1,8 +1,10 @@
-type rec fileTreeItem =
-  | File({name: string})
-  | Folder({name: string, items: array<fileTreeItem>})
+module FileTreeItem = {
+  type rec t =
+    | File({name: string})
+    | Folder({name: string, items: array<t>})
+}
 
-let fileTree: array<fileTreeItem> = [
+let fileTree: array<FileTreeItem.t> = [
   Folder({
     name: "components",
     items: [
@@ -50,7 +52,7 @@ let fileTree: array<fileTreeItem> = [
   File({name: ".gitignore"}),
 ]
 
-let rec renderItem = (fileItem: fileTreeItem) =>
+let rec renderItem = (fileItem: FileTreeItem.t) =>
   switch fileItem {
   | Folder({name, items}) =>
     <Collapsible key=name>

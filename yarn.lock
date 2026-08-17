@@ -2334,64 +2334,64 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rescript/darwin-arm64@npm:12.3.0":
-  version: 12.3.0
-  resolution: "@rescript/darwin-arm64@npm:12.3.0"
+"@rescript/darwin-arm64@npm:13.0.0-alpha.5":
+  version: 13.0.0-alpha.5
+  resolution: "@rescript/darwin-arm64@npm:13.0.0-alpha.5"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rescript/darwin-x64@npm:12.3.0":
-  version: 12.3.0
-  resolution: "@rescript/darwin-x64@npm:12.3.0"
+"@rescript/darwin-x64@npm:13.0.0-alpha.5":
+  version: 13.0.0-alpha.5
+  resolution: "@rescript/darwin-x64@npm:13.0.0-alpha.5"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@rescript/linux-arm64@npm:12.3.0":
-  version: 12.3.0
-  resolution: "@rescript/linux-arm64@npm:12.3.0"
+"@rescript/linux-arm64@npm:13.0.0-alpha.5":
+  version: 13.0.0-alpha.5
+  resolution: "@rescript/linux-arm64@npm:13.0.0-alpha.5"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rescript/linux-x64@npm:12.3.0":
-  version: 12.3.0
-  resolution: "@rescript/linux-x64@npm:12.3.0"
+"@rescript/linux-x64@npm:13.0.0-alpha.5":
+  version: 13.0.0-alpha.5
+  resolution: "@rescript/linux-x64@npm:13.0.0-alpha.5"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@rescript/react@npm:^0.15.0":
-  version: 0.15.0
-  resolution: "@rescript/react@npm:0.15.0"
+"@rescript/react@npm:^0.16.0-beta.1":
+  version: 0.16.0-beta.1
+  resolution: "@rescript/react@npm:0.16.0-beta.1"
   peerDependencies:
-    "@rescript/runtime": ">=12.0.0"
+    "@rescript/runtime": ">=13.0.0-alpha.5"
     react: ">=19.2.0"
     react-dom: ">=19.2.0"
-  checksum: 10c0/e66834c5a290700f0ee586be3c8e65c74248c1f364b32e1a8fcb48d874cf80ec51700dee4cf57d24274b144fc9744e0228c4788422b635ff8008570b17f991df
+  checksum: 10c0/bcf008bfb91d07a15dbec273de633104c56147c56e84c8deebb14a2f6cc95eea8a0ff90c19be6ce272f0e768e0f1f6122386e8ac348beb04bffff84ee49d4ec4
   languageName: node
   linkType: hard
 
-"@rescript/runtime@npm:12.3.0":
-  version: 12.3.0
-  resolution: "@rescript/runtime@npm:12.3.0"
-  checksum: 10c0/6d7b58078cec4444a3abd50fdb2ef35dfcc155c45cf824219dbc20180caef1aa891b10f4edf0c13396f7438023014eff0ab9289c9c8fae31d1a6e9d3849924a4
+"@rescript/runtime@npm:13.0.0-alpha.5":
+  version: 13.0.0-alpha.5
+  resolution: "@rescript/runtime@npm:13.0.0-alpha.5"
+  checksum: 10c0/e3dceca9effec8046e75002bbd9098dfd56207d24ac506631b5d07d3a7a804163ef65e41208f3424635bbc26e22f2ae8b266711bf7a45177ff86ce80aaf8548f
   languageName: node
   linkType: hard
 
-"@rescript/webapi@npm:0.1.0-experimental-127e19a":
-  version: 0.1.0-experimental-127e19a
-  resolution: "@rescript/webapi@npm:0.1.0-experimental-127e19a"
+"@rescript/webapi@https://codeload.github.com/rescript-lang/experimental-rescript-webapi/tar.gz/b1ef21b5a843354b9ce61d8a701f31ed7f7ca599":
+  version: 0.1.0
+  resolution: "@rescript/webapi@https://codeload.github.com/rescript-lang/experimental-rescript-webapi/tar.gz/b1ef21b5a843354b9ce61d8a701f31ed7f7ca599"
   peerDependencies:
-    rescript: ">=12.0.0 <13"
-  checksum: 10c0/caebcbaa979230209aa8511684653c9d16255524eac8ed5a0b1cb42ef1583e1560fb9014d042c205b701c3c75c56410519915eed2ea261c4986e7d6c94963cd9
+    rescript: ">=13"
+  checksum: 10c0/91ff04a84fea540c3d0163bd43231c607dff636c33c7e1b64da04bdc1a2cbd6fd1d839c708a748cffa774309d2d209f688ae03bb4fb9b8c5092f2818aa350fdf
   languageName: node
   linkType: hard
 
-"@rescript/win32-x64@npm:12.3.0":
-  version: 12.3.0
-  resolution: "@rescript/win32-x64@npm:12.3.0"
+"@rescript/win32-x64@npm:13.0.0-alpha.5":
+  version: 13.0.0-alpha.5
+  resolution: "@rescript/win32-x64@npm:13.0.0-alpha.5"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -9413,13 +9413,13 @@ __metadata:
   resolution: "rescript-base-ui@workspace:packages/base-ui"
   dependencies:
     "@juspay/rescript-bindgen": "npm:1.2.4"
-    "@rescript/react": "npm:^0.15.0"
+    "@rescript/react": "npm:^0.16.0-beta.1"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
-    rescript: "npm:^12.3.0"
+    rescript: "npm:^13.0.0-alpha.5"
   peerDependencies:
     "@base-ui/react": ^1.6.0
-    "@rescript/react": ^0.15.0
+    "@rescript/react": ^0.16.0-beta.1
   languageName: unknown
   linkType: soft
 
@@ -9428,13 +9428,13 @@ __metadata:
   resolution: "rescript-react-aria@workspace:packages/react-aria"
   dependencies:
     "@juspay/rescript-bindgen": "npm:1.2.4"
-    "@rescript/react": "npm:^0.15.0"
+    "@rescript/react": "npm:^0.16.0-beta.1"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
-    rescript: "npm:^12.3.0"
+    rescript: "npm:^13.0.0-alpha.5"
   peerDependencies:
     "@internationalized/date": ^3.12.2
-    "@rescript/react": ^0.15.0
+    "@rescript/react": ^0.16.0-beta.1
     react-aria-components: ^1.19.0
   languageName: unknown
   linkType: soft
@@ -9443,8 +9443,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rescript-shadcn-aria@workspace:registry/aria"
   dependencies:
-    "@rescript/react": "npm:^0.15.0"
-    "@rescript/webapi": "npm:0.1.0-experimental-127e19a"
+    "@rescript/react": "npm:^0.16.0-beta.1"
     "@shadcn/react": "npm:0.2.0"
     "@tabler/icons-react": "npm:^3.38.0"
     "@tanstack/react-table": "npm:^8.21.3"
@@ -9464,7 +9463,7 @@ __metadata:
     react-dom: "npm:19.2.4"
     react-resizable-panels: "npm:^4.7.1"
     recharts: "npm:^3.7.0"
-    rescript: "npm:^12.3.0"
+    rescript: "npm:^13.0.0-alpha.5"
     rescript-react-aria: "workspace:^"
     rescript-shadcn-react: "workspace:^"
     rescript-signals: "npm:^1.3.4"
@@ -9478,8 +9477,7 @@ __metadata:
   resolution: "rescript-shadcn-base@workspace:registry/base"
   dependencies:
     "@base-ui/react": "npm:1.6.0"
-    "@rescript/react": "npm:^0.15.0"
-    "@rescript/webapi": "npm:0.1.0-experimental-127e19a"
+    "@rescript/react": "npm:^0.16.0-beta.1"
     "@shadcn/react": "npm:0.2.0"
     "@tabler/icons-react": "npm:^3.38.0"
     "@tanstack/react-table": "npm:^8.21.3"
@@ -9497,7 +9495,7 @@ __metadata:
     react-dom: "npm:19.2.4"
     react-resizable-panels: "npm:^4.7.1"
     recharts: "npm:^3.7.0"
-    rescript: "npm:^12.3.0"
+    rescript: "npm:^13.0.0-alpha.5"
     rescript-base-ui: "workspace:^"
     rescript-shadcn-react: "workspace:^"
     rescript-signals: "npm:^1.3.4"
@@ -9511,13 +9509,13 @@ __metadata:
   resolution: "rescript-shadcn-react@workspace:packages/shadcn-react"
   dependencies:
     "@juspay/rescript-bindgen": "npm:1.2.4"
-    "@rescript/react": "npm:^0.15.0"
+    "@rescript/react": "npm:^0.16.0-beta.1"
     "@shadcn/react": "npm:0.2.0"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
-    rescript: "npm:^12.3.0"
+    rescript: "npm:^13.0.0-alpha.5"
   peerDependencies:
-    "@rescript/react": ^0.15.0
+    "@rescript/react": ^0.16.0-beta.1
     "@shadcn/react": ^0.2.0
   languageName: unknown
   linkType: soft
@@ -9531,8 +9529,8 @@ __metadata:
     "@mdx-js/loader": "npm:^3.1.1"
     "@mdx-js/react": "npm:^3.1.1"
     "@next/mdx": "npm:^16.1.6"
-    "@rescript/react": "npm:^0.15.0"
-    "@rescript/webapi": "npm:0.1.0-experimental-127e19a"
+    "@rescript/react": "npm:^0.16.0-beta.1"
+    "@rescript/webapi": "https://codeload.github.com/rescript-lang/experimental-rescript-webapi/tar.gz/b1ef21b5a843354b9ce61d8a701f31ed7f7ca599"
     "@shadcn/react": "npm:0.2.0"
     "@sparticuz/chromium": "npm:^143.0.4"
     "@streamdown/code": "npm:^1.1.1"
@@ -9567,7 +9565,7 @@ __metadata:
     react-textarea-autosize: "npm:^8.5.9"
     recharts: "npm:^3.7.0"
     rehype-pretty-code: "npm:^0.14.3"
-    rescript: "npm:^12.3.0"
+    rescript: "npm:^13.0.0-alpha.5"
     rescript-base-ui: "workspace:^"
     rescript-react-aria: "workspace:^"
     rescript-shadcn-aria: "workspace:^"
@@ -9594,16 +9592,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rescript@npm:^12.3.0":
-  version: 12.3.0
-  resolution: "rescript@npm:12.3.0"
+"rescript@npm:^13.0.0-alpha.5":
+  version: 13.0.0-alpha.5
+  resolution: "rescript@npm:13.0.0-alpha.5"
   dependencies:
-    "@rescript/darwin-arm64": "npm:12.3.0"
-    "@rescript/darwin-x64": "npm:12.3.0"
-    "@rescript/linux-arm64": "npm:12.3.0"
-    "@rescript/linux-x64": "npm:12.3.0"
-    "@rescript/runtime": "npm:12.3.0"
-    "@rescript/win32-x64": "npm:12.3.0"
+    "@rescript/darwin-arm64": "npm:13.0.0-alpha.5"
+    "@rescript/darwin-x64": "npm:13.0.0-alpha.5"
+    "@rescript/linux-arm64": "npm:13.0.0-alpha.5"
+    "@rescript/linux-x64": "npm:13.0.0-alpha.5"
+    "@rescript/runtime": "npm:13.0.0-alpha.5"
+    "@rescript/win32-x64": "npm:13.0.0-alpha.5"
   dependenciesMeta:
     "@rescript/darwin-arm64":
       optional: true
@@ -9617,11 +9615,9 @@ __metadata:
       optional: true
   bin:
     bsc: cli/bsc.js
-    bstracing: cli/bstracing.js
     rescript: cli/rescript.js
-    rescript-legacy: cli/rescript-legacy.js
     rescript-tools: cli/rescript-tools.js
-  checksum: 10c0/f16231ef95bb4371e531485c33dfd9227cbddc079c06dab9a8395d444b5e8a8cfb844e018667dfaf36465138eb832cf219f6f71c7c37b65621a5fe0db781809c
+  checksum: 10c0/aa1677a1d9de0981cde9facef5a212852dc32b24c4340c2184d5d319832ab9e23e5267d9ebc03f6b94e8ac0610df5f7533ba3cabf01ad447a8e7a826eb1e0d82
   languageName: node
   linkType: hard
 

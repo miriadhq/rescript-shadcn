@@ -17,7 +17,7 @@ module Trigger = {
 let make = (props: ReactAria.Popover.props) =>
   <ReactAria.Popover
     {...props}
-    placement={props.placement->Option.getOr(ReactAria.Common.Bottom)}
+    placement={props.placement->Option.getOr(ReactAria.Common.Placement.Bottom)}
     offset={props.offset->Option.getOr(4.)}
     crossOffset={props.crossOffset->Option.getOr(0.)}
     dataSlot="popover-content"
@@ -41,9 +41,7 @@ module Title = {
   @react.componentWithProps(ReactAria.Heading.props)
   let make = (props: ReactAria.Heading.props) =>
     <ReactAria.Heading
-      {...props}
-      dataSlot="popover-title"
-      className={cn("cn-popover-title", props.className)}
+      {...props} dataSlot="popover-title" className={cn("cn-popover-title", props.className)}
     />
 }
 

@@ -5,7 +5,7 @@ external cn: (string, option<string>) => string = "twMerge"
 
 @react.component
 let make = (
-  ~ratio,
+  ~ratio: float,
   ~className=?,
   ~children=?,
   ~id=?,

@@ -1,12 +1,14 @@
 @@directive("'use client'")
 
-type autoplayOptions = {delay: int, stopOnInteraction: bool}
+module AutoplayOptions = {
+  type t = {delay: int, stopOnInteraction: bool}
+}
 
 @module("embla-carousel-autoplay")
-external autoplay: autoplayOptions => Carousel.emblaPlugin = "default"
+external autoplay: AutoplayOptions.t => Carousel.EmblaPlugin.t = "default"
 
-@send external stopAutoplay: Carousel.emblaPlugin => unit = "stop"
-@send external resetAutoplay: Carousel.emblaPlugin => unit = "reset"
+@send external stopAutoplay: Carousel.EmblaPlugin.t => unit = "stop"
+@send external resetAutoplay: Carousel.EmblaPlugin.t => unit = "reset"
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {

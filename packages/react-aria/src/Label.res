@@ -1,4 +1,4 @@
-type props = {...Common.elementProps, htmlFor?: string}
+type props = {...Common.ElementProps.t, htmlFor?: string}
 
 @module("react-aria-components")
 external context: React.Context.t<nullable<JSON.t>> = "LabelContext"

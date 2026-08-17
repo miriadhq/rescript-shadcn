@@ -62,16 +62,13 @@ type props = {
   focusableWhenDisabled?: bool,
 }
 
-let toBaseUiProps: props => BaseUi.Button.props = %raw(`({variant, size, ...rest}) => rest`)
-
 @react.componentWithProps(props)
-let make = (props: props) => {
-  let variant = props.variant->Option.getOr(Default)
-  let size = props.size->Option.getOr(Default)
+let make = ({?variant, ?size, ...BaseUi.Button.props as props}) => {
+  let variant = variant->Option.getOr(Default)
+  let size = size->Option.getOr(Default)
   let className = props.className
-  let baseUiProps = props->toBaseUiProps
   <BaseUi.Button
-    {...baseUiProps}
+    {...props}
     dataSlot={props.dataSlot->Option.getOr("button")}
     className={buttonVariants(~variant, ~size, ~className?)}
   />

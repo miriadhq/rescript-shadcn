@@ -14,7 +14,7 @@ let make = ({}: Demo.Props.t) => {
     <ButtonGroup>
       <Select items=currencies value=currency onChange={value => setCurrency(_ => value)}>
         <Select.Trigger className="font-mono"> {currency->React.string} </Select.Trigger>
-        <Select.Content placement=ReactAria.Common.BottomStart>
+        <Select.Content placement=ReactAria.Common.Placement.BottomStart>
           <Select.Group>
             {currencies
             ->Array.map(item =>

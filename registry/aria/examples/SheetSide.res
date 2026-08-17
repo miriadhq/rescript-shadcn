@@ -12,9 +12,7 @@ let make = ({}: Demo.Props.t) =>
     ->Array.map(((side, label)) =>
       <Sheet.Trigger key=label>
         <Button variant=Outline className="capitalize"> {label->React.string} </Button>
-        <Sheet
-          side className="data-[side=bottom]:max-h-[50vh] data-[side=top]:max-h-[50vh]"
-        >
+        <Sheet side className="data-[side=bottom]:max-h-[50vh] data-[side=top]:max-h-[50vh]">
           <Sheet.Header>
             <Sheet.Title> {"Edit profile"->React.string} </Sheet.Title>
             <Sheet.Description>

@@ -37,10 +37,10 @@ let make = ({}: Demo.Props.t) => {
   <ButtonGroup>
     <Button variant=Outline> {"Follow"->React.string} </Button>
     <DropdownMenu.Trigger>
-<Button variant=Outline className="!pl-2">
+      <Button variant=Outline className="!pl-2">
         <Icons.ChevronDown />
       </Button>
-<DropdownMenu placement=ReactAria.Common.BottomEnd className="w-44">
+      <DropdownMenu placement=ReactAria.Common.Placement.BottomEnd className="w-44">
         <DropdownMenu.Group>
           <DropdownMenu.Item>
             <LocalIcons.VolumeOff />
@@ -75,6 +75,6 @@ let make = ({}: Demo.Props.t) => {
           </DropdownMenu.Item>
         </DropdownMenu.Group>
       </DropdownMenu>
-</DropdownMenu.Trigger>
+    </DropdownMenu.Trigger>
   </ButtonGroup>
 }

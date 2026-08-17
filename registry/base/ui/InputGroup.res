@@ -102,10 +102,12 @@ module Addon = {
 }
 
 module Button = {
-  type type_ =
-    | @as("button") Button
-    | @as("submit") Submit
-    | @as("reset") Reset
+  module Type = {
+    type t =
+      | @as("button") Button
+      | @as("submit") Submit
+      | @as("reset") Reset
+  }
 
   let sizeClass = (~size: Size.t) =>
     switch size {
@@ -121,7 +123,7 @@ module Button = {
   let make = (
     ~className=?,
     ~children=?,
-    ~type_=Button,
+    ~type_=Type.Button,
     ~dataSlot="button",
     ~size=Size.Xs,
     ~variant=Variant.Ghost,
@@ -166,10 +168,7 @@ module Text = {
       ?style
       ?onClick
       ?onKeyDown
-      className={cn(
-        "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
-        className,
-      )}
+      className={cn("cn-input-group-text flex items-center [&_svg]:pointer-events-none", className)}
     />
 }
 
@@ -179,10 +178,7 @@ module Input = {
     <Input
       {...props}
       dataSlot="input-group-control"
-      className={cn(
-        "cn-input-group-input flex-1",
-        props.className,
-      )}
+      className={cn("cn-input-group-input flex-1", props.className)}
     />
 }
 
@@ -221,9 +217,6 @@ module Textarea = {
       ?onClick
       ?onKeyDown
       dataSlot="input-group-control"
-      className={cn(
-        "cn-input-group-textarea flex-1 resize-none",
-        className,
-      )}
+      className={cn("cn-input-group-textarea flex-1 resize-none", className)}
     />
 }

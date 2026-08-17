@@ -1,27 +1,42 @@
 @@directive("'use client'")
 
-type position = MessageScroller.DefaultScrollPosition.t
+module Position = {
+  type t = MessageScroller.DefaultScrollPosition.t
+}
 
-let messages: array<MessageScrollerExample.message> = [
-  {id: "open-1", role: User, text: "This is the first message the user sent in the conversation."},
-  {id: "open-2", role: Assistant, text: "Workspace creation rose 8%, but first invite completion only rose 2%."},
-  {id: "open-3", role: User, text: "This is the last message the user sent in the conversation."},
-  {id: "open-4", role: Assistant, text: "Start with the invite step. Teams are creating workspaces but waiting to add collaborators.\n\nRecommended follow-up:\n\n1. Compare invite drop-off by account size.\n2. Check whether users who skip invites still return within 24 hours.\n3. Review the empty-state copy on the first project screen.\n4. Segment activation by template, since template users may not need invites right away.\n\nIf that pattern holds, the next experiment should make collaboration useful earlier instead of prompting for invites harder."},
+let messages: array<MessageScrollerExample.MessageData.t> = [
+  {
+    id: "open-1",
+    role: MessageScrollerExample.Role.User,
+    text: "This is the first message the user sent in the conversation.",
+  },
+  {
+    id: "open-2",
+    role: MessageScrollerExample.Role.Assistant,
+    text: "Workspace creation rose 8%, but first invite completion only rose 2%.",
+  },
+  {
+    id: "open-3",
+    role: MessageScrollerExample.Role.User,
+    text: "This is the last message the user sent in the conversation.",
+  },
+  {
+    id: "open-4",
+    role: MessageScrollerExample.Role.Assistant,
+    text: "Start with the invite step. Teams are creating workspaces but waiting to add collaborators.\n\nRecommended follow-up:\n\n1. Compare invite drop-off by account size.\n2. Check whether users who skip invites still return within 24 hours.\n3. Review the empty-state copy on the first project screen.\n4. Segment activation by template, since template users may not need invites right away.\n\nIf that pattern holds, the next experiment should make collaboration useful earlier instead of prompting for invites harder.",
+  },
 ]
 
 module Scroller = {
   @react.component
-  let make = (~position: position, ~positionKey: int) => {
+  let make = (~position: Position.t, ~positionKey: int) => {
     let {scrollToEnd, scrollToMessage, scrollToStart} = MessageScroller.useMessageScroller()
     React.useEffect(() => {
       switch position {
       | Start => scrollToStart(Some({behavior: Auto}))->ignore
       | End => scrollToEnd(Some({behavior: Auto}))->ignore
       | LastAnchor =>
-        scrollToMessage(
-          "open-3",
-          Some({align: Start, behavior: Auto, scrollMargin: 64.}),
-        )->ignore
+        scrollToMessage("open-3", Some({align: Start, behavior: Auto, scrollMargin: 64.}))->ignore
       }
       None
     }, [positionKey])
@@ -39,12 +54,16 @@ module Scroller = {
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let (positionKey, setPositionKey) = React.useState(() => 0)
-  let (position, setPosition) = React.useState(() => MessageScroller.DefaultScrollPosition.LastAnchor)
+  let (position, setPosition) = React.useState(() =>
+    MessageScroller.DefaultScrollPosition.LastAnchor
+  )
   <div className="relative flex flex-col gap-4">
     <Card className="mx-auto h-140 w-full max-w-sm gap-0">
       <Card.Header className="gap-1 border-b">
         <Card.Title> {"Opening Position"->React.string} </Card.Title>
-        <Card.Description> {"Choose where a saved transcript opens."->React.string} </Card.Description>
+        <Card.Description>
+          {"Choose where a saved transcript opens."->React.string}
+        </Card.Description>
       </Card.Header>
       <Card.Content className="flex-1 overflow-hidden p-0">
         <MessageScroller.Provider>

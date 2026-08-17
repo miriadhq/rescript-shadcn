@@ -4,6 +4,8 @@ type component<'props> = Jsx.component<'props>
 
 type componentLike<'props, 'return> = Jsx.componentLike<'props, 'return>
 
+external component: componentLike<'props, element> => component<'props> = "%component_identity"
+
 @module("react/jsx-runtime")
 external jsx: (component<'props>, 'props) => element = "jsx"
 

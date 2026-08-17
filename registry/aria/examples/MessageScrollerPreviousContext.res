@@ -2,35 +2,35 @@
 
 let defaultPeek = 64.
 
-let scriptedMessages: array<MessageScrollerExample.message> = [
+let scriptedMessages: array<MessageScrollerExample.MessageData.t> = [
   {
     id: "context-1",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "I'm building a chat for our app and the scroll behavior is driving me nuts. Every time the AI streams a reply, the whole thread jumps around.",
   },
   {
     id: "context-2",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "That's the classic streaming scroll problem. Wrap your message list in `MessageScroller` and turn on `autoScroll` — the viewport pins to the bottom as tokens arrive, so users always see the latest text land in place.\n\nThe important part: it only auto-scrolls while the reader is already at the bottom. The moment they scroll up to read something earlier, auto-scroll backs off and their position is preserved. You get smooth streaming without fighting the user's intent.",
   },
   {
     id: "context-3",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "Okay, but when someone sends a new message the view still feels jarring — like the whole conversation reloads from the top.",
   },
   {
     id: "context-4",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "MessageScrollerItem fixes that with turn anchoring. Set `scrollAnchor` on the turn that should settle near the top instead of blindly snapping to the document bottom.\n\nIt also leaves a small peek of the previous exchange visible above the anchor, so context isn't lost. The reply starts in view without that disorienting jump you get from a plain overflow container.",
   },
   {
     id: "context-5",
-    role: User,
+    role: MessageScrollerExample.Role.User,
     text: "And if they've scrolled up to re-read an older answer? I don't want to yank them back down.",
   },
   {
     id: "context-6",
-    role: Assistant,
+    role: MessageScrollerExample.Role.Assistant,
     text: "You won't. Auto-scroll only runs when the viewport is already pinned to the bottom, so scrolling up is a deliberate opt-out — their place in the thread stays put even as new tokens keep arriving below.",
   },
 ]
@@ -110,7 +110,7 @@ let make = ({}: Demo.Props.t) => {
                   >
                     <Icons.Plus />
                   </InputGroup.Button>
-                  <DropdownMenu placement=ReactAria.Common.TopStart className="w-44">
+                  <DropdownMenu placement=ReactAria.Common.Placement.TopStart className="w-44">
                     <DropdownMenu.Item>
                       <Icons.Paperclip />
                       {"Add Photos & Files"->React.string}

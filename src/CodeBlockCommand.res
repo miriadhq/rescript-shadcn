@@ -29,7 +29,7 @@ let make = (~npm, ~yarn, ~pnpm, ~bun) => {
 
   React.useEffect(() => {
     if hasCopied {
-      let timer = setTimeout(~handler=() => setHasCopied(_ => false), ~timeout=2000)
+      let timer = setTimeout(() => setHasCopied(_ => false), 2000)
       Some(() => clearTimeout(timer))
     } else {
       None
@@ -52,9 +52,9 @@ let make = (~npm, ~yarn, ~pnpm, ~bun) => {
 
   <div className="overflow-x-auto">
     <Tabs
-      value={packageManager}
+      value={packageManager->Config.PackageManager.toString}
       className="gap-0"
-      onValueChange={(value, _) => setPackageManager(_ => value)}
+      onValueChange={(value, _) => setPackageManager(_ => value->Config.PackageManager.fromString)}
     >
       <div className="flex items-center gap-2 border-b border-border/50 px-3 py-1">
         <div

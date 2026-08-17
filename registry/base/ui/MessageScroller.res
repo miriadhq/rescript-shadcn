@@ -194,12 +194,10 @@ module Button = {
         React.array([
           <Icons.ArrowDown key="icon" />,
           <span key="label" className="sr-only">
-            {(
-              switch direction {
-              | End => "Scroll to end"
-              | Start => "Scroll to start"
-              }
-            )->React.string}
+            {switch direction {
+            | End => "Scroll to end"
+            | Start => "Scroll to start"
+            }->React.string}
           </span>,
         ]),
       )}

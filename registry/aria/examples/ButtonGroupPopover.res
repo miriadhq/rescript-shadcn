@@ -9,7 +9,7 @@ let make = ({}: Demo.Props.t) => {
       <Button variant=Outline size=Icon ariaLabel="Open Popover">
         <Icons.ChevronDown />
       </Button>
-      <Popover placement=ReactAria.Common.BottomEnd className="rounded-xl text-sm">
+      <Popover placement=ReactAria.Common.Placement.BottomEnd className="rounded-xl text-sm">
         <Popover.Header>
           <Popover.Title> {"Start a new task with Copilot"->React.string} </Popover.Title>
           <Popover.Description>

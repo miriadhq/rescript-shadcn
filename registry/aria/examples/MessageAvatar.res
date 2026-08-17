@@ -17,13 +17,17 @@ let make = ({}: Demo.Props.t) =>
     <Message align=End>
       <Message.Avatar>
         <Avatar>
-          <Avatar.Image src="https://github.com/evilrabbit.png" alt="@evilrabbit" className="grayscale" />
+          <Avatar.Image
+            src="https://github.com/evilrabbit.png" alt="@evilrabbit" className="grayscale"
+          />
           <Avatar.Fallback> {"ER"->React.string} </Avatar.Fallback>
         </Avatar>
       </Message.Avatar>
       <Message.Content>
         <Bubble>
-          <Bubble.Content> {"I found the failed dependency install."->React.string} </Bubble.Content>
+          <Bubble.Content>
+            {"I found the failed dependency install."->React.string}
+          </Bubble.Content>
         </Bubble>
       </Message.Content>
     </Message>

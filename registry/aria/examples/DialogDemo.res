@@ -21,9 +21,7 @@ let make = ({}: Demo.Props.t) =>
           </Field>
         </Field.Group>
         <Dialog.Footer>
-          <Dialog.Close variant=Outline>
-            {"Cancel"->React.string}
-          </Dialog.Close>
+          <Dialog.Close variant=Outline> {"Cancel"->React.string} </Dialog.Close>
           <Button type_="submit"> {"Save changes"->React.string} </Button>
         </Dialog.Footer>
       </form>

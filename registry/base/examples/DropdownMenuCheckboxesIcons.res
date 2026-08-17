@@ -1,14 +1,16 @@
 @@directive("'use client'")
 
-type notifications = {
-  email: bool,
-  sms: bool,
-  push: bool,
+module Notifications = {
+  type t = {
+    email: bool,
+    sms: bool,
+    push: bool,
+  }
 }
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let (notifications, setNotifications) = React.useState(() => {
+  let (notifications, setNotifications) = React.useState((): Notifications.t => {
     email: true,
     sms: false,
     push: true,

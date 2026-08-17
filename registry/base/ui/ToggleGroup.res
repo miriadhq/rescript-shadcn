@@ -9,22 +9,19 @@ external cn3: (string, string, option<string>) => string = "twMerge"
 module Variant = Toggle.Variant
 module Size = Toggle.Size
 
-module Orientation = {
-  @unboxed
-  type t =
-    | @as("horizontal") Horizontal
-    | @as("vertical") Vertical
+module Orientation = BaseUi.Types.Orientation
+
+module Context = {
+  type t = {
+    variant?: Variant.t,
+    size?: Size.t,
+    spacing?: float,
+    orientation?: Orientation.t,
+  }
 }
 
-type context = {
-  variant?: Variant.t,
-  size?: Size.t,
-  spacing?: float,
-  orientation?: Orientation.t,
-}
-
-let toggleGroupContext = React.createContext({
-  variant: Variant.Default,
+let toggleGroupContext: React.Context.t<Context.t> = React.createContext({
+  Context.variant: Variant.Default,
   size: Size.Default,
   spacing: 2.0,
   orientation: Orientation.Horizontal,
@@ -44,7 +41,7 @@ let make = (
   ~children,
   ~id=?,
   ~name=?,
-  ~value=?,
+  ~value: option<array<string>>=?,
   ~defaultValue=?,
   ~onValueChange=?,
   ~disabled=?,
@@ -85,7 +82,9 @@ let make = (
     ?dir
     ?type_
   >
-    <ContextProvider value={{?variant, ?size, spacing, orientation}}> {children} </ContextProvider>
+    <ContextProvider value={{?Context.variant, ?size, spacing, orientation}}>
+      {children}
+    </ContextProvider>
   </BaseUi.ToggleGroup>
 }
 
@@ -98,7 +97,7 @@ module Item = {
     ~children=?,
     ~id=?,
     ~name=?,
-    ~value=?,
+    ~value: option<string>=?,
     ~pressed=?,
     ~defaultPressed=?,
     ~onPressedChange=?,

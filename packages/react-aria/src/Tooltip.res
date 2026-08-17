@@ -7,7 +7,7 @@ external make: React.component<props> = "Tooltip"
 
 module Trigger = {
   type props = {
-    ...Common.elementProps,
+    ...Common.ElementProps.t,
     isOpen?: bool,
     defaultOpen?: bool,
     onOpenChange?: bool => unit,
@@ -23,13 +23,19 @@ module Trigger = {
 }
 
 module Arrow = {
-  type renderProps = {
-    placement: string,
-    defaultStyle: ReactDOM.Style.t,
+  module RenderProps = {
+    type t = {
+      placement: string,
+      defaultStyle: ReactDOM.Style.t,
+    }
   }
 
-  external renderStyle: (renderProps => ReactDOM.Style.t) => ReactDOM.Style.t = "%identity"
+  type props = {
+    className?: string,
+    style?: RenderProps.t => ReactDOM.Style.t,
+    children?: React.element,
+  }
 
   @module("react-aria-components")
-  external make: React.component<Common.elementProps> = "OverlayArrow"
+  external make: React.component<props> = "OverlayArrow"
 }

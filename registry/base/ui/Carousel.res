@@ -19,7 +19,9 @@ module Api = {
   @send external off: (t, string, t => unit) => unit = "off"
 }
 
-type carouselRef = ReactDOM.domRef
+module CarouselRef = {
+  type t = ReactDOM.domRef
+}
 
 module EmblaOptions = {
   module AxisOptionType = {
@@ -51,26 +53,30 @@ module EmblaOptions = {
   }
 }
 
-type emblaPlugin
+module EmblaPlugin = {
+  type t
+}
 
 @module("embla-carousel-react")
 external useEmblaCarousel: (
   ~options: EmblaOptions.t=?,
-  ~plugins: array<emblaPlugin>=?,
-) => (carouselRef, option<Api.t>) = "default"
+  ~plugins: array<EmblaPlugin.t>=?,
+) => (CarouselRef.t, option<Api.t>) = "default"
 
-type carouselContext = {
-  carouselRef: carouselRef,
-  api: option<Api.t>,
-  opts: EmblaOptions.t,
-  orientation: DataOrientation.t,
-  scrollPrev: unit => unit,
-  scrollNext: unit => unit,
-  canScrollPrev: bool,
-  canScrollNext: bool,
+module CarouselContext = {
+  type t = {
+    carouselRef: CarouselRef.t,
+    api: option<Api.t>,
+    opts: EmblaOptions.t,
+    orientation: DataOrientation.t,
+    scrollPrev: unit => unit,
+    scrollNext: unit => unit,
+    canScrollPrev: bool,
+    canScrollNext: bool,
+  }
 }
 
-let context: React.Context.t<option<carouselContext>> = React.createContext(None)
+let context: React.Context.t<option<CarouselContext.t>> = React.createContext(None)
 
 @throws(JsExn)
 let useCarousel = () =>
@@ -155,7 +161,7 @@ let make = (
     | _ => ()
     }
   }, [scrollPrev, scrollNext])
-  let providerValue = Some({
+  let providerValue: option<CarouselContext.t> = Some({
     carouselRef,
     api,
     opts,
@@ -248,7 +254,8 @@ module Previous = {
     }
     <Button
       className={cn(
-        `cn-carousel-previous absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
+        `cn-carousel-previous absolute touch-manipulation rounded-full ${orientation ==
+            DataOrientation.Horizontal
             ? "top-1/2 -left-12 -translate-y-1/2"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90"}`,
         className,
@@ -288,7 +295,8 @@ module Next = {
     }
     <Button
       className={cn(
-        `cn-carousel-next absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
+        `cn-carousel-next absolute touch-manipulation rounded-full ${orientation ==
+            DataOrientation.Horizontal
             ? "top-1/2 -right-12 -translate-y-1/2"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"}`,
         className,
