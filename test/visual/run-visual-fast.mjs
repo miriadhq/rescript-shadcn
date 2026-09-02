@@ -566,7 +566,10 @@ const pairedIds = selectedIds.filter((id) => hasRescriptEquivalent(id));
 const excludedIds = pairedIds.filter((id) => SKIPPED.includes(id));
 const comparedIds = pairedIds.filter((id) => !excludedIds.includes(id));
 
-const build = spawnSync(path.join(repoRoot, "node_modules/.bin/rescript"), [], { cwd: repoRoot, encoding: "utf8" });
+const build = spawnSync(path.join(repoRoot, "node_modules/.bin/rescript"), [], {
+  cwd: path.join(repoRoot, "registry/base"),
+  encoding: "utf8",
+});
 if (build.status !== 0) {
   console.error(`rescript build failed (exit ${build.status})\n${build.stdout}${build.stderr}`);
   process.exit(2);
