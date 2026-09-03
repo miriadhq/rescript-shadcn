@@ -26,6 +26,9 @@ jobs:
       - name: check className parity
         run: yarn test:classnames
 
+      - name: check DOM parity
+        run: yarn test:visual-fast
+
   # test-visual:
   #   runs-on: ubuntu-latest
   #   steps:

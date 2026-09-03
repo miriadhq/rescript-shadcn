@@ -7,7 +7,7 @@ external cn: (string, option<string>) => string = "twMerge"
 let make = (props: BaseUi.Types.DomProps.t) => {
   <textarea
     {...props}
-    dataSlot="textarea"
+    dataSlot={props.dataSlot->Option.getOr("textarea")}
     className={cn(
       "cn-textarea flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
       props.className,
