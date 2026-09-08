@@ -207,6 +207,8 @@ type inputProps = {
   maxLength?: int,
   rows?: int,
   step?: float,
+  min?: string,
+  max?: string,
   pattern?: string,
   spellCheck?: bool,
   disabled?: bool,

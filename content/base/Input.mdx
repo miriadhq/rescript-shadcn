@@ -58,6 +58,18 @@ npx shadcn@latest add @rescript-shadcn/Input
   previewClassName="*:max-w-xs"
 />
 
+### Number
+
+Use `type_="number"` with `min` and `max` to set numeric bounds. Pass the bounds
+as strings. Enter a value below 1 or above 10 to see the error message and
+invalid input styling. Native `:out-of-range` styling shows the error without React
+state or event handlers. The error clears when the value returns to the allowed range.
+
+<ComponentPreview
+  name="InputNumber"
+  previewClassName="*:max-w-xs"
+/>
+
 ### Field
 
 Use `Field`, `FieldLabel`, and `FieldDescription` to create an input with a
@@ -167,4 +179,3 @@ A full form example with multiple inputs, a select, and a button.
   name="InputForm"
   previewClassName="h-[32rem]"
 />
-

@@ -1,6 +1,6 @@
 {
   "name": "rescript-react-aria",
-  "version": "1.19.1",
+  "version": "1.19.2",
   "description": "ReScript bindings for React Aria Components",
   "publishConfig": {
     "access": "public"
