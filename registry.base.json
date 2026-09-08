@@ -4794,6 +4794,20 @@
       ]
     },
     {
+      "name": "InputNumber",
+      "type": "registry:example",
+      "registryDependencies": [
+        "@rescript-shadcn/Field",
+        "@rescript-shadcn/Input"
+      ],
+      "files": [
+        {
+          "path": "registry/base/examples/InputNumber.res",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "InputOtpAlphanumeric",
       "type": "registry:example",
       "dependencies": [
