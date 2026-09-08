@@ -26,7 +26,9 @@
     "test:registry": "vitest run test/lib-style-registry.test.ts",
     "test:bindings": "vitest run test/react-aria-bindings.test.ts",
     "test:visual": "node test/visual/run-pixel-perfect.mjs",
-    "test:visual-fast": "node test/visual/run-visual-fast.mjs",
+    "test:visual-fast:base": "node test/visual/run-visual-fast.mjs --variant base",
+    "test:visual-fast:aria": "node test/visual/run-visual-fast.mjs --variant aria",
+    "test:visual-fast": "yarn test:visual-fast:base && yarn test:visual-fast:aria",
     "test": "yarn test:docs && yarn test:classnames && yarn test:registry && yarn test:bindings && yarn test:visual",
     "postInstall": "yarn loader:generate && fumadocs-mdx source.config.mjs .source"
   },
