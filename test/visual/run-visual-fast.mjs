@@ -27,185 +27,281 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
 const appRoot = path.join(repoRoot, "shadcn-ui/apps/v4");
 const harnessRoot = path.join(__dirname, "vite-harness");
-const EXAMPLES_BASE_DIR = path.join(appRoot, "examples/base");
-const EXAMPLES_UI_DIR = path.join(appRoot, "registry/bases/base/ui");
-const RESCRIPT_EXAMPLES_DIR = path.join(repoRoot, "registry/base/examples");
-const RESCRIPT_UI_DIR = path.join(repoRoot, "registry/base/ui");
 const MAX_DIFFS_PER_COMPONENT = 5;
 
-// Known test failures are tracked here in order to validate a known set. Goal is to reduce this list to zero items over time.
-const SKIPPED = [
-  "alert-dialog-basic",
-  "alert-dialog-demo",
-  "alert-dialog-destructive",
-  "alert-dialog-media",
-  "alert-dialog-small",
-  "alert-dialog-small-media",
-  "attachment-demo",
-  "attachment-group",
-  "attachment-image",
-  "attachment-states",
-  "attachment-trigger",
-  "avatar-badge",
-  "avatar-badge-icon",
-  "avatar-demo",
-  "badge-spinner",
-  "breadcrumb-dropdown",
-  "bubble-demo",
-  "bubble-group-demo",
-  "bubble-reactions",
-  "bubble-variants",
-  "button-group-nested",
-  "button-group-orientation",
-  "button-group-select",
-  "button-group-separator",
-  "button-group-split",
-  "button-render",
-  "button-spinner",
-  "calendar-custom-days",
-  "calendar-hijri",
-  "calendar-time",
-  "carousel-api",
-  "carousel-demo",
-  "carousel-multiple",
-  "carousel-orientation",
-  "carousel-plugin",
-  "carousel-size",
-  "carousel-spacing",
-  "chart-demo",
-  "chart-example",
-  "chart-example-axis",
-  "chart-example-grid",
-  "chart-example-legend",
-  "chart-example-tooltip",
-  "chart-tooltip",
-  "checkbox-table",
-  "collapsible-basic",
-  "collapsible-demo",
-  "collapsible-file-tree",
-  "collapsible-settings",
-  "combobox-auto-highlight",
-  "combobox-basic",
-  "combobox-clear",
-  "combobox-custom",
-  "combobox-demo",
-  "combobox-disabled",
-  "combobox-groups",
-  "combobox-input-group",
-  "combobox-invalid",
-  "combobox-popup",
-  "command-demo",
-  "context-menu-basic",
-  "context-menu-checkboxes",
-  "context-menu-demo",
-  "context-menu-destructive",
-  "context-menu-groups",
-  "context-menu-icons",
-  "context-menu-radio",
-  "context-menu-shortcuts",
-  "context-menu-sides",
-  "context-menu-submenu",
-  "data-table-demo",
-  "date-picker-input",
-  "date-picker-natural-language",
-  "dialog-close-button",
-  "dialog-demo",
-  "dialog-no-close-button",
-  "dialog-scrollable-content",
-  "dialog-sticky-footer",
-  "drawer-demo",
-  "drawer-dialog",
-  "drawer-sides",
-  "field-demo",
-  "field-group",
-  "field-select",
-  "input-form",
-  "input-group-button",
-  "input-group-button-group",
-  "input-group-custom",
-  "input-group-icon",
-  "input-group-spinner",
-  "input-group-textarea",
-  "input-group-textarea-examples",
-  "input-group-tooltip",
-  "input-group-with-kbd",
-  "input-group-with-tooltip",
-  "input-otp-form",
-  "marker-demo",
-  "marker-status",
-  "marker-variants",
-  "message-attachment",
-  "message-avatar",
-  "message-demo",
-  "message-group",
-  "message-header-footer",
-  "message-scroller-demo", // tsx load: Cannot find module '@ai-sdk/react' imported from 'shadcn-ui/apps/v4/examples/base/message-
-  "native-select-demo",
-  "native-select-disabled",
-  "native-select-groups",
-  "native-select-invalid",
-  "navigation-menu-demo",
-  "pagination-demo",
-  "pagination-icons-only",
-  "progress-controlled",
-  "scroll-area-demo",
-  "select-align-item",
-  "select-demo",
-  "select-disabled",
-  "select-groups",
-  "select-invalid",
-  "select-scrollable",
-  "separator-demo",
-  "separator-list",
-  "separator-menu",
-  "separator-vertical",
-  "sheet-demo",
-  "sheet-no-close-button",
-  "sheet-side",
-  "sidebar-demo",
-  "sidebar-footer",
-  "sidebar-group-collapsible",
-  "sidebar-header",
-  "sidebar-menu-action",
-  "sidebar-menu-badge",
-  "sidebar-menu-collapsible",
-  "sidebar-rsc",
-  "spinner-badge",
-  "spinner-button",
-  "spinner-demo",
-  "spinner-empty",
-  "spinner-input-group",
-  "spinner-size",
-  "table-actions",
-  "table-demo",
-  "table-footer",
-  "tabs-vertical",
-  "toggle-group-demo",
-  "toggle-group-disabled",
-  "toggle-group-font-weight-selector",
-  "toggle-group-outline",
-  "toggle-group-sizes",
-  "toggle-group-spacing",
-  "toggle-group-vertical",
-  "ui/chart", // tsx render: Cannot convert undefined or null to object
-  "ui/direction", // rescript resolve: no component export found
-  "ui/message-scroller", // tsx render: useMessageScroller must be used within a MessageScroller.
-  "ui/navigation-menu",
-  "ui/separator",
-  "ui/sidebar", // tsx render: useSidebar must be used within a SidebarProvider.
-  "ui/spinner",
-  "ui/toast", // tsx render: Cannot read properties of undefined (reading 'positionerProps')
+const rootPackageJson = JSON.parse(fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"));
+const DEDUPED_PACKAGES = Object.keys(rootPackageJson.dependencies ?? {});
+
+const VARIANTS = {
+  base: {
+    examplesDir: path.join(appRoot, "examples/base"),
+    uiDir: path.join(appRoot, "registry/bases/base/ui"),
+    rescriptExamplesDir: path.join(repoRoot, "registry/base/examples"),
+    rescriptUiDir: path.join(repoRoot, "registry/base/ui"),
+  },
+  aria: {
+    examplesDir: path.join(appRoot, "examples/aria"),
+    uiDir: path.join(appRoot, "registry/bases/aria/ui"),
+    rescriptExamplesDir: path.join(repoRoot, "registry/aria/examples"),
+    rescriptUiDir: path.join(repoRoot, "registry/aria/ui"),
+  },
+};
+
+// Not rendered at all, unlike SKIPPED.
+const EXCLUDED = [
+  "message-scroller-anchoring" // depends on MessageAnimated, which itself depends on "radix", which we don't support
 ];
+
+// Components known to fail DOM parity, keyed by the variant(s) they fail in. Goal is zero.
+//
+// Skipped means "not counted as a failure", not "not run": every entry is still rendered and
+// compared, and the run fails if one of them starts passing. That way the lists can only ever shrink.
+const SKIPPED = {
+  both: [
+    // DOM diffs
+    "attachment-demo",
+    "attachment-group",
+    "attachment-image",
+    "attachment-states",
+    "attachment-trigger",
+    "bubble-demo",
+    "bubble-group-demo",
+    "bubble-reactions",
+    "bubble-variants",
+    "button-group-nested",
+    "button-group-select",
+    "button-group-separator",
+    "button-group-split",
+    "calendar-custom-days",
+    "calendar-hijri",
+    "chart-demo",
+    "chart-tooltip",
+    "checkbox-table",
+    "combobox-basic",
+    "combobox-clear",
+    "combobox-custom",
+    "combobox-demo",
+    "combobox-disabled",
+    "combobox-groups",
+    "combobox-input-group",
+    "combobox-invalid",
+    "context-menu-basic",
+    "context-menu-checkboxes",
+    "context-menu-demo",
+    "context-menu-destructive",
+    "context-menu-groups",
+    "context-menu-icons",
+    "context-menu-radio",
+    "context-menu-shortcuts",
+    "context-menu-sides",
+    "context-menu-submenu",
+    "data-table-demo",
+    "dialog-demo",
+    "drawer-demo",
+    "drawer-sides",
+    "field-demo",
+    "field-select",
+    "input-form",
+    "input-group-button",
+    "input-group-button-group",
+    "input-group-custom",
+    "input-group-icon",
+    "input-group-textarea",
+    "input-group-textarea-examples",
+    "input-group-tooltip",
+    "input-group-with-kbd",
+    "input-group-with-tooltip",
+    "marker-demo",
+    "marker-status",
+    "marker-variants",
+    "message-attachment",
+    "message-avatar",
+    "message-demo",
+    "message-group",
+    "message-header-footer",
+    "pagination-icons-only",
+    "select-disabled",
+    "select-groups",
+    "select-invalid",
+    "select-scrollable",
+    "sidebar-demo",
+    "sidebar-group-collapsible",
+    "sidebar-menu-badge",
+    "sidebar-rsc",
+    "spinner-input-group",
+    "table-actions",
+    "table-demo",
+    "table-footer",
+
+    // tsx render failures
+    "message-scroller-demo", // render: Cannot read properties of null (reading 'useRef')
+    "ui/chart", // render: Cannot convert undefined or null to object
+    "ui/message-scroller", // render: useMessageScroller must be used within a MessageScroller.
+    "ui/sidebar", // render: useSidebar must be used within a SidebarProvider.
+  ],
+  base: [
+    // DOM diffs
+    "alert-dialog-basic",
+    "alert-dialog-demo",
+    "alert-dialog-destructive",
+    "alert-dialog-media",
+    "alert-dialog-small",
+    "alert-dialog-small-media",
+    "avatar-badge",
+    "avatar-badge-icon",
+    "avatar-demo",
+    "badge-spinner",
+    "breadcrumb-dropdown",
+    "button-group-orientation",
+    "button-render",
+    "button-spinner",
+    "carousel-api",
+    "carousel-demo",
+    "carousel-multiple",
+    "carousel-orientation",
+    "carousel-plugin",
+    "carousel-size",
+    "carousel-spacing",
+    "chart-example",
+    "chart-example-axis",
+    "chart-example-grid",
+    "chart-example-legend",
+    "chart-example-tooltip",
+    "collapsible-basic",
+    "collapsible-demo",
+    "collapsible-file-tree",
+    "collapsible-settings",
+    "combobox-auto-highlight",
+    "combobox-popup",
+    "command-demo",
+    "dialog-close-button",
+    "dialog-no-close-button",
+    "dialog-scrollable-content",
+    "dialog-sticky-footer",
+    "drawer-dialog",
+    "field-group",
+    "input-group-spinner",
+    "input-otp-form",
+    "native-select-demo",
+    "native-select-disabled",
+    "native-select-groups",
+    "native-select-invalid",
+    "navigation-menu-demo",
+    "pagination-demo",
+    "progress-controlled",
+    "scroll-area-demo",
+    "select-align-item",
+    "select-demo",
+    "separator-demo",
+    "separator-list",
+    "separator-menu",
+    "separator-vertical",
+    "sheet-demo",
+    "sheet-no-close-button",
+    "sheet-side",
+    "sidebar-footer",
+    "sidebar-header",
+    "sidebar-menu-action",
+    "sidebar-menu-collapsible",
+    "spinner-badge",
+    "spinner-button",
+    "spinner-demo",
+    "spinner-empty",
+    "spinner-size",
+    "tabs-vertical",
+    "toggle-group-demo",
+    "toggle-group-disabled",
+    "toggle-group-font-weight-selector",
+    "toggle-group-outline",
+    "toggle-group-sizes",
+    "toggle-group-spacing",
+    "toggle-group-vertical",
+    "ui/navigation-menu",
+    "ui/separator",
+    "ui/spinner",
+
+    // tsx render failures
+    "ui/toast", // render: Cannot read properties of undefined (reading 'positionerProps')
+
+    // rescript resolve failures
+    "ui/direction", // resolve: no component export found
+  ],
+  aria: [
+    // DOM diffs
+    "bubble-link-button",
+    "button-group-demo",
+    "button-group-dropdown",
+    "button-group-input",
+    "button-group-input-group",
+    "button-group-popover",
+    "button-group-size",
+    "calendar-booked-dates",
+    "calendar-demo",
+    "calendar-presets",
+    "calendar-time",
+    "checkbox-invalid",
+    "combobox-multiple",
+    "date-picker-demo",
+    "date-picker-input",
+    "date-picker-natural-language",
+    "date-picker-range",
+    "dropdown-menu-checkboxes",
+    "dropdown-menu-checkboxes-icons",
+    "dropdown-menu-radio-group",
+    "dropdown-menu-radio-icons",
+    "input-button-group",
+    "input-group-block-end",
+    "input-group-block-start",
+    "input-group-dropdown",
+    "input-group-label",
+    "input-group-with-addons",
+    "input-group-with-buttons",
+    "item-group",
+    "kbd-tooltip",
+    "message-scroller-commands",
+    "message-scroller-load-history",
+    "message-scroller-state",
+    "message-scroller-visibility",
+    "popover-basic",
+    "radio-fields",
+    "radio-group-choice-card",
+    "radio-group-demo",
+    "radio-group-description",
+    "radio-group-disabled",
+    "radio-group-fieldset",
+    "radio-group-invalid",
+    "slider-controlled",
+    "slider-demo",
+    "slider-disabled",
+    "slider-multiple",
+    "slider-range",
+    "slider-vertical",
+    "ui/button-group",
+    "ui/combobox",
+
+    // tsx render failures
+    "message-scroller-animation", // render: Cannot read properties of null (reading 'useRef')
+    "message-scroller-previous-context", // render: Cannot read properties of null (reading 'useRef')
+    "message-scroller-scrollable", // render: Cannot read properties of null (reading 'useState')
+    "message-scroller-streaming", // render: Cannot read properties of null (reading 'useRef')
+
+    // rescript render failures
+    "breadcrumb-link", // render: createElement is not defined
+  ],
+};
 
 const printHelp = () => {
   console.log(`DOM parity between upstream TSX examples and the ReScript port, rendered with react-dom/server.
 
 Usage:
-  yarn test:visual-fast [pattern] [options]
+  yarn test:visual-fast                            both variants; takes no arguments
+  yarn test:visual-fast:base [pattern] [options]   one variant
+  yarn test:visual-fast:aria [pattern] [options]
 
   pattern              regex matched against component ids, e.g. ^input-group- or ui/button$
                        (default: every paired component)
-  --verbose            also list passes, missing ports and render warnings
+  --variant <base|aria>  which library variant to test; the yarn scripts above set it for you
+  --verbose            also list passes, skipped, missing ports and render warnings
   --json <file>        write machine-readable results
   -h, --help           show this help`);
 };
@@ -224,6 +320,7 @@ const parseCli = (argv) => {
       strict: true,
       allowPositionals: true,
       options: {
+        variant: { type: "string" },
         verbose: { type: "boolean", default: false },
         json: { type: "string" },
         help: { type: "boolean", short: "h", default: false },
@@ -239,6 +336,8 @@ const parseCli = (argv) => {
     printHelp();
     process.exit(0);
   }
+  if (!values.variant) usageError("Missing required --variant <base|aria>");
+  if (!(values.variant in VARIANTS)) usageError(`Unknown --variant '${values.variant}', expected one of: ${Object.keys(VARIANTS).join(", ")}`);
   if (positionals.length > 1) usageError(`Expected at most one pattern, got: ${positionals.join(" ")}`);
   let pattern = null;
   try {
@@ -248,6 +347,7 @@ const parseCli = (argv) => {
   }
   return {
     pattern,
+    variantName: values.variant,
     verbose: values.verbose,
     jsonPath: values.json ?? null,
   };
@@ -260,26 +360,26 @@ const toPascalCase = (value) =>
     .map((segment) => segment[0].toUpperCase() + segment.slice(1))
     .join("");
 
-const listUpstreamIds = () => {
+const listUpstreamIds = (variant) => {
   const examples = fs
-    .readdirSync(EXAMPLES_BASE_DIR)
+    .readdirSync(variant.examplesDir)
     .filter((f) => f.endsWith(".tsx"))
     .map((f) => f.replace(/\.tsx$/, ""));
   const ui = fs
-    .readdirSync(EXAMPLES_UI_DIR)
+    .readdirSync(variant.uiDir)
     .filter((f) => f.endsWith(".tsx"))
     .map((f) => `ui/${f.replace(/\.tsx$/, "")}`);
   return [...examples, ...ui].sort((a, b) => a.localeCompare(b));
 };
 
-const tsxPath = (id) =>
-  id.startsWith("ui/") ? path.join(EXAMPLES_UI_DIR, `${id.slice(3)}.tsx`) : path.join(EXAMPLES_BASE_DIR, `${id}.tsx`);
-const rescriptBase = (id) =>
+const tsxPath = (variant, id) =>
+  id.startsWith("ui/") ? path.join(variant.uiDir, `${id.slice(3)}.tsx`) : path.join(variant.examplesDir, `${id}.tsx`);
+const rescriptBase = (variant, id) =>
   id.startsWith("ui/")
-    ? path.join(RESCRIPT_UI_DIR, toPascalCase(id.slice(3)))
-    : path.join(RESCRIPT_EXAMPLES_DIR, toPascalCase(id));
-const hasRescriptEquivalent = (id) => fs.existsSync(`${rescriptBase(id)}.res`);
-const rescriptPath = (id) => `${rescriptBase(id)}.res.mjs`;
+    ? path.join(variant.rescriptUiDir, toPascalCase(id.slice(3)))
+    : path.join(variant.rescriptExamplesDir, toPascalCase(id));
+const hasRescriptEquivalent = (variant, id) => fs.existsSync(`${rescriptBase(variant, id)}.res`);
+const rescriptPath = (variant, id) => `${rescriptBase(variant, id)}.res.mjs`;
 
 // Same export resolution as vite-harness/main.tsx.
 const resolveTsxComponent = (mod, id) => {
@@ -411,20 +511,19 @@ const normalizeNode = (node) => {
   for (const key of STRIPPED_ATTRIBUTES) delete attributes[key];
   if (attributes.alt === "") delete attributes.alt;
   if (typeof attributes["data-slot"] === "string") {
-    if (attributes["data-slot"] === "combobox-trigger" || attributes["data-slot"] === "input-group-button") {
+    if (attributes["data-slot"] === "combobox-trigger") {
+      // Would otherwise fall through the generic `-trigger` rule below and become "button".
       attributes["data-slot"] = "input-group-button";
-    }
-    if (["sidebar-menu-button", "sidebar-menu-action", "sidebar-trigger", "sidebar-group-label"].includes(attributes["data-slot"])) {
+    } else if (["sidebar-menu-button", "sidebar-menu-action", "sidebar-trigger", "sidebar-group-label"].includes(attributes["data-slot"])) {
       delete attributes["data-slot"];
+    } else {
+      attributes["data-slot"] = attributes["data-slot"]
+        .replace(/-trigger$/, "")
+        .replace(
+          /^(alert-dialog|collapsible|dialog|dropdown-menu|hover-card|menubar|popover|select|sheet|tooltip|context-menu|combobox|navigation-menu)$/,
+          "button"
+        );
     }
-  }
-  if (typeof attributes["data-slot"] === "string") {
-    attributes["data-slot"] = attributes["data-slot"]
-      .replace(/-trigger$/, "")
-      .replace(
-        /^(alert-dialog|collapsible|dialog|dropdown-menu|hover-card|menubar|popover|select|sheet|tooltip|context-menu|combobox|navigation-menu)$/,
-        "button"
-      );
   }
   if (typeof attributes.id === "string" && attributes.id.endsWith("-hidden-input")) delete attributes.id;
   return { ...node, attributes, children: node.children.map(normalizeNode) };
@@ -459,6 +558,7 @@ const collectDiffs = (expected, actual, at, out) => {
     return;
   }
   for (const key of new Set([...Object.keys(expected.attributes), ...Object.keys(actual.attributes)])) {
+    if (out.length >= MAX_DIFFS_PER_COMPONENT) return;
     if (expected.attributes[key] !== actual.attributes[key]) {
       out.push(`${at}<${expected.tag}> ${key}: ${JSON.stringify(expected.attributes[key])} vs ${JSON.stringify(actual.attributes[key])}`);
     }
@@ -481,7 +581,7 @@ const createViteServer = () => {
   // vite-parity.config.ts aliases, minus `react` -> absolute path, which makes Vite inline React's
   // CJS build in SSR ("module is not defined"). Style trees (base-nova, base-rhea, ...) share one source.
   const alias = [
-    { find: /^@\/styles\/base-[a-z]+/, replacement: path.join(appRoot, "registry/bases/base") },
+    { find: /^@\/styles\/(base|aria)-[a-z]+/, replacement: (_m, kind) => path.join(appRoot, `registry/bases/${kind}`) },
     { find: "shadcn/tailwind.css", replacement: path.join(repoRoot, "app/tailwind.css") },
     { find: "shadcn/preset", replacement: path.join(repoRoot, "shadcn-ui/packages/shadcn/src/preset/index.ts") },
     { find: "@/app/(app)/create/components/icon-placeholder", replacement: path.join(harnessRoot, "icon-placeholder.tsx") },
@@ -500,20 +600,26 @@ const createViteServer = () => {
     esbuild: { jsx: "automatic" },
     css: { postcss: { plugins: [] } },
     optimizeDeps: { noDiscovery: true, include: [] },
-    resolve: { alias },
+    // Both sides must share one copy of every package this repo owns, React above all: a second
+    // React renders with a null hook dispatcher ("Cannot read properties of null (reading
+    // 'useContext')"). The upstream examples live under the submodule, so once `pnpm install` has
+    // run in there they resolve their deps from its own store instead of ours. `dedupe` pins them
+    // back to the root; an `alias` to an absolute path would instead inline React's CJS build.
+    resolve: { alias, dedupe: DEDUPED_PACKAGES },
   });
 };
 
 const firstLine = (error) => String(error?.message ?? error).split("\n")[0].replaceAll(`${repoRoot}/`, "").slice(0, 200);
 
-const withCapturedConsole = (run) => {
-  const messages = [];
+// `messages` is handed in rather than returned, so warnings survive a throwing `run` -- React's
+// explanation of a crash is logged just before it, and that is exactly when it is worth keeping.
+const withCapturedConsole = (messages, run) => {
   const original = { error: console.error, warn: console.warn };
   const capture = (...args) => messages.push(firstLine(args[0]));
   console.error = capture;
   console.warn = capture;
   try {
-    return { value: run(), messages };
+    return run();
   } finally {
     console.error = original.error;
     console.warn = original.warn;
@@ -529,57 +635,83 @@ const renderSide = async (server, modulePath, resolveComponent, id) => {
   }
   const Component = resolveComponent(mod, id);
   if (!Component) return { error: "resolve: no component export found" };
+  const warnings = [];
   try {
-    const { value: html, messages } = withCapturedConsole(() => renderToStaticMarkup(React.createElement(Component)));
-    return { html, warnings: messages };
+    const html = withCapturedConsole(warnings, () => renderToStaticMarkup(React.createElement(Component)));
+    return { html, warnings };
   } catch (error) {
-    return { error: `render: ${firstLine(error)}` };
+    return { error: `render: ${firstLine(error)}`, warnings };
   }
 };
 
-const { pattern, verbose, jsonPath } = parseCli(process.argv.slice(2));
+const { pattern, variantName, verbose, jsonPath } = parseCli(process.argv.slice(2));
+const variant = VARIANTS[variantName];
+const skipped = new Set([...SKIPPED.both, ...(SKIPPED[variantName] ?? [])]);
 const startedAt = performance.now();
-const upstreamIds = listUpstreamIds();
-const selectedIds = pattern ? upstreamIds.filter((id) => pattern.test(id)) : upstreamIds;
-if (selectedIds.length === 0) usageError(`No component id matches ${pattern}`);
-const unknownSkipped = SKIPPED.filter((id) => !upstreamIds.includes(id) || !hasRescriptEquivalent(id));
-if (unknownSkipped.length > 0) usageError(`Not a paired component, remove from SKIPPED: ${unknownSkipped.join(", ")}`);
-const missingIds = selectedIds.filter((id) => !hasRescriptEquivalent(id) && !id.endsWith("-rtl"));
-const pairedIds = selectedIds.filter((id) => hasRescriptEquivalent(id));
-const excludedIds = pairedIds.filter((id) => SKIPPED.includes(id));
-const comparedIds = pairedIds.filter((id) => !excludedIds.includes(id));
 
 const build = spawnSync(path.join(repoRoot, "node_modules/.bin/rescript"), [], {
-  cwd: path.join(repoRoot, "registry/base"),
+  cwd: path.join(repoRoot, `registry/${variantName}`),
   encoding: "utf8",
 });
+if (build.error) {
+  console.error(`could not run rescript: ${build.error.message}`);
+  process.exit(2);
+}
 if (build.status !== 0) {
   console.error(`rescript build failed (exit ${build.status})\n${build.stdout}${build.stderr}`);
   process.exit(2);
 }
 
-const results = { passed: [], failed: [], skipped: excludedIds, warnings: {} };
+const upstreamIds = listUpstreamIds(variant);
+const selectedIds = pattern ? upstreamIds.filter((id) => pattern.test(id)) : upstreamIds;
+if (selectedIds.length === 0) {
+  usageError(pattern ? `No component id matches ${pattern}` : `No components found in ${path.relative(repoRoot, variant.examplesDir)}`);
+}
+
+// A skipped id has to name a real paired component of this variant, or the list is rotting.
+const upstreamSet = new Set(upstreamIds);
+const straySkipped = [...skipped].filter((id) => !upstreamSet.has(id));
+if (straySkipped.length > 0) {
+  usageError(`Not a component of the ${variantName} variant, remove from SKIPPED: ${straySkipped.join(", ")}`);
+}
+const unportedSkipped = [...skipped].filter((id) => !hasRescriptEquivalent(variant, id));
+if (unportedSkipped.length > 0) {
+  usageError(`Not a paired component, remove from SKIPPED: ${unportedSkipped.join(", ")}`);
+}
+
+const missingIds = selectedIds.filter((id) => !hasRescriptEquivalent(variant, id) && !id.endsWith("-rtl"));
+const comparedIds = selectedIds.filter((id) => hasRescriptEquivalent(variant, id) && !EXCLUDED.includes(id));
+
+const results = { passed: [], failed: [], skipped: [], fixed: [], warnings: {} };
 const server = await createViteServer();
 try {
   for (const id of comparedIds) {
-    const tsx = await renderSide(server, tsxPath(id), resolveTsxComponent, id);
-    const rescript = await renderSide(server, rescriptPath(id), resolveRescriptComponent, id);
+    const tsx = await renderSide(server, tsxPath(variant, id), resolveTsxComponent, id);
+    const rescript = await renderSide(server, rescriptPath(variant, id), resolveRescriptComponent, id);
     const warnings = [...(tsx.warnings ?? []), ...(rescript.warnings ?? [])];
     if (warnings.length > 0) results.warnings[id] = warnings;
+
+    let reason = null;
     if (tsx.error || rescript.error) {
-      results.failed.push({ id, reason: `[${tsx.error ? "tsx" : "rescript"}] ${tsx.error ?? rescript.error}` });
-      continue;
-    }
-    try {
-      const expected = sortKeys(normalizeNode(parseStaticMarkup(tsx.html)));
-      const actual = sortKeys(normalizeNode(parseStaticMarkup(rescript.html)));
-      if (JSON.stringify(expected) === JSON.stringify(actual)) {
-        results.passed.push(id);
-      } else {
-        results.failed.push({ id, reason: firstDiffs(expected, actual).join("\n") });
+      reason = `[${tsx.error ? "tsx" : "rescript"}] ${tsx.error ?? rescript.error}`;
+    } else {
+      try {
+        const expected = sortKeys(normalizeNode(parseStaticMarkup(tsx.html)));
+        const actual = sortKeys(normalizeNode(parseStaticMarkup(rescript.html)));
+        if (JSON.stringify(expected) !== JSON.stringify(actual)) reason = firstDiffs(expected, actual).join("\n");
+      } catch (error) {
+        reason = `[parse] ${firstLine(error)}`;
       }
-    } catch (error) {
-      results.failed.push({ id, reason: `[parse] ${firstLine(error)}` });
+    }
+
+    // A known failure that starts passing is reported as loudly as a regression: the list must shrink.
+    if (skipped.has(id)) {
+      if (reason) results.skipped.push(id);
+      else results.fixed.push(id);
+    } else if (reason) {
+      results.failed.push({ id, reason });
+    } else {
+      results.passed.push(id);
     }
   }
 } finally {
@@ -587,16 +719,22 @@ try {
 }
 
 if (results.failed.length > 0) {
-  console.log(`== failed (tsx vs rescript, first ${MAX_DIFFS_PER_COMPONENT} diffs per component)`);
+  console.log(`== failed (tsx vs rescript, up to ${MAX_DIFFS_PER_COMPONENT} diffs per component)`);
   for (const { id, reason } of results.failed) console.log(`${id}\n  ${reason.replaceAll("\n", "\n  ")}`);
   console.log();
 }
+if (results.fixed.length > 0) {
+  console.log(`== no longer failing -- remove from SKIPPED (${results.fixed.length})`);
+  console.log(`${results.fixed.join(", ")}\n`);
+}
 if (verbose) {
-  console.log(`== passed\n${results.passed.join(", ")}\n`);
-  if (excludedIds.length > 0) console.log(`== skipped (SKIPPED)\n${excludedIds.join(", ")}\n`);
+  if (results.passed.length > 0) console.log(`== passed\n${results.passed.join(", ")}\n`);
+  if (results.skipped.length > 0) {
+    console.log(`== skipped\n${results.skipped.join(", ")}\n`);
+  }
   if (missingIds.length > 0) {
     console.log("== no ReScript port yet");
-    for (const id of missingIds) console.log(`${id} -> expected ${path.relative(repoRoot, `${rescriptBase(id)}.res`)}`);
+    for (const id of missingIds) console.log(`${id} -> expected ${path.relative(repoRoot, `${rescriptBase(variant, id)}.res`)}`);
     console.log();
   }
   const warned = Object.entries(results.warnings);
@@ -611,5 +749,8 @@ if (jsonPath) {
   console.log(`results written to ${jsonPath}\n`);
 }
 const seconds = ((performance.now() - startedAt) / 1000).toFixed(1);
-console.log(`visual-fast: passed ${results.passed.length} | failed ${results.failed.length} | skipped ${excludedIds.length} | ${seconds}s`);
-process.exit(results.failed.length > 0 ? 1 : 0);
+console.log(
+  `visual-fast (${variantName}): passed ${results.passed.length} | failed ${results.failed.length}` +
+  ` | skipped ${results.skipped.length} | ${seconds}s`
+);
+process.exit(results.failed.length > 0 || results.fixed.length > 0 ? 1 : 0);
