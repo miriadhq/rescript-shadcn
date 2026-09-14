@@ -52,10 +52,7 @@ module ScrollUpButton = {
       ?onClick
       ?onKeyDown
       dataSlot="select-scroll-up-button"
-      className={cn(
-        "cn-select-scroll-up-button top-0 w-full",
-        className,
-      )}
+      className={cn("cn-select-scroll-up-button top-0 w-full", className)}
     >
       <Icons.ChevronUp />
     </BaseUi.Select.ScrollUpArrow>
@@ -70,10 +67,7 @@ module ScrollDownButton = {
       ?onClick
       ?onKeyDown
       dataSlot="select-scroll-down-button"
-      className={cn(
-        "cn-select-scroll-down-button bottom-0 w-full",
-        className,
-      )}
+      className={cn("cn-select-scroll-down-button bottom-0 w-full", className)}
     >
       <Icons.ChevronDown />
     </BaseUi.Select.ScrollDownArrow>
@@ -107,44 +101,39 @@ module Trigger = {
 }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~side=Side.Bottom,
-    ~sideOffset=4.,
-    ~align=Align.Center,
-    ~alignOffset=0.,
-    ~dataAlignTrigger=true,
-  ) => {
-    let alignItemWithTrigger = dataAlignTrigger
+  type props = {
+    align?: Align.t,
+    alignOffset?: float,
+    side?: Side.t,
+    sideOffset?: float,
+    ...BaseUi.Types.BaseUIComponentProps.t,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({align, alignOffset, side, sideOffset, "data-align-trigger": dataAlignTrigger, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let alignItemWithTrigger = props.dataAlignTrigger->Option.getOr(true)
     <BaseUi.Select.Portal>
       <BaseUi.Select.Positioner
-        side
-        sideOffset={Const(sideOffset)}
-        align
-        alignOffset={Const(alignOffset)}
+        side={props.side->Option.getOr(Side.Bottom)}
+        sideOffset={Const(props.sideOffset->Option.getOr(4.))}
+        align={props.align->Option.getOr(Align.Center)}
+        alignOffset={Const(props.alignOffset->Option.getOr(0.))}
         alignItemWithTrigger
         className="isolate z-50"
       >
         <BaseUi.Select.Popup
-          ?id
-          ?style
-          ?onClick
-          ?onKeyDown
-          dataSlot="select-content"
+          {...toBaseUiProps(props)}
+          dataSlot={props.dataSlot->Option.getOr("select-content")}
           dataAlignTrigger={alignItemWithTrigger}
           className={cn(
             "cn-select-content-logical cn-select-content cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
-            className,
+            props.className,
           )}
         >
           <ScrollUpButton />
-          <BaseUi.Select.List ?children />
+          <BaseUi.Select.List children=?props.children />
           <ScrollDownButton />
         </BaseUi.Select.Popup>
       </BaseUi.Select.Positioner>
@@ -193,12 +182,10 @@ module Item = {
         className,
       )}
     >
-      <BaseUi.Select.ItemText className="cn-select-item-text shrink-0 whitespace-nowrap" ?children />
-      <BaseUi.Select.ItemIndicator
-        render={<span
-          className="cn-select-item-indicator"
-        />}
-      >
+      <BaseUi.Select.ItemText
+        className="cn-select-item-text shrink-0 whitespace-nowrap" ?children
+      />
+      <BaseUi.Select.ItemIndicator render={<span className="cn-select-item-indicator" />}>
         <Icons.Check className="cn-select-item-indicator-icon pointer-events-none" />
       </BaseUi.Select.ItemIndicator>
     </BaseUi.Select.Item>

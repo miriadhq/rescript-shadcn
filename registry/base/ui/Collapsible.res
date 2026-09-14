@@ -26,33 +26,10 @@ let make = (
   />
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaLabel=?,
-    ~render=?,
-    ~style=?,
-    ~type_=?,
-    ~nativeButton=?,
-  ) => {
+  @react.componentWithProps(BaseUi.Collapsible.Trigger.props)
+  let make = (props: BaseUi.Collapsible.Trigger.props) => {
     <BaseUi.Collapsible.Trigger
-      ?className
-      ?children
-      ?id
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      ?render
-      ?style
-      ?type_
-      ?nativeButton
-      dataSlot="collapsible-trigger"
+      {...props} dataSlot={props.dataSlot->Option.getOr("collapsible-trigger")}
     />
   }
 }

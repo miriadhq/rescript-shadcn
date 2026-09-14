@@ -53,6 +53,7 @@ module Root = {
     triggerId?: string,
     defaultTriggerId?: string,
     handle?: Handle.t<'payload>,
+    ...Types.ExtraDomProps.t,
   }
 
   @module("@base-ui/react/popover") @scope("Popover")

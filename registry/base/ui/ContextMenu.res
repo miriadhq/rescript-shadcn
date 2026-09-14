@@ -34,28 +34,12 @@ module Portal = {
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~dataSlot="context-menu-content",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~disabled=?,
-    ~render=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  @react.componentWithProps(BaseUi.ContextMenu.Trigger.props)
+  let make = (props: BaseUi.ContextMenu.Trigger.props) =>
     <BaseUi.ContextMenu.Trigger
-      ?id
-      ?style
-      ?disabled
-      ?render
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot
-      className={cn("cn-context-menu-trigger select-none", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("context-menu-content")}
+      className={cn("cn-context-menu-trigger select-none", props.className)}
     />
 }
 

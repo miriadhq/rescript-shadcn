@@ -31,23 +31,20 @@ module Text = {
       slot: string,
     }
   }
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~render=?) => {
-    let props: BaseUi.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      ?children,
+  let toDomProps: BaseUi.Types.BaseUIComponentProps.t => BaseUi.Types.DomProps.t = %raw(`({className, render, ...props}) => props`)
+
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let domProps: BaseUi.Types.DomProps.t = {
       className: cn(
         "cn-button-group-text flex items-center [&_svg]:pointer-events-none",
-        className,
+        props.className,
       ),
     }
     BaseUi.Render.use({
       defaultTagName: "div",
-      props,
-      ?render,
+      render: ?props.render,
+      props: BaseUi.Render.mergeProps(domProps, toDomProps(props)),
       state: {State.slot: "button-group-text"},
     })
   }

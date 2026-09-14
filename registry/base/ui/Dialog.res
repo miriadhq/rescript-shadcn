@@ -5,48 +5,20 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~children=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-  ~onOpenChangeComplete=?,
-  ~modal=?,
-) =>
-  <BaseUi.Dialog.Root
-    ?children ?open_ ?defaultOpen ?onOpenChange ?onOpenChangeComplete ?modal dataSlot="dialog"
-  />
+@react.componentWithProps(BaseUi.Dialog.Root.props)
+let make = (props: BaseUi.Dialog.Root.props<'payload>) =>
+  <BaseUi.Dialog.Root {...props} dataSlot={props.dataSlot->Option.getOr("dialog")} />
+
+module WithPayload = {
+  @react.componentWithProps(BaseUi.Dialog.Root.WithPayload.props)
+  let make = (props: BaseUi.Dialog.Root.WithPayload.props<'payload>) =>
+    <BaseUi.Dialog.Root.WithPayload {...props} dataSlot={props.dataSlot->Option.getOr("dialog")} />
+}
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <BaseUi.Dialog.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="dialog-trigger"
-      className
-    />
+  @react.componentWithProps(BaseUi.Dialog.Trigger.props)
+  let make = (props: BaseUi.Dialog.Trigger.props<'payload>) =>
+    <BaseUi.Dialog.Trigger {...props} dataSlot={props.dataSlot->Option.getOr("dialog-trigger")} />
 }
 
 module Portal = {
@@ -56,154 +28,110 @@ module Portal = {
 }
 
 module Close = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <BaseUi.Dialog.Close
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="dialog-close"
-      className
-    />
+  @react.componentWithProps(BaseUi.Dialog.Close.props)
+  let make = (props: BaseUi.Dialog.Close.props) =>
+    <BaseUi.Dialog.Close {...props} dataSlot={props.dataSlot->Option.getOr("dialog-close")} />
 }
 
 module Overlay = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Dialog.Backdrop
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="dialog-overlay"
-      className={cn(
-        "cn-dialog-overlay fixed inset-0 isolate z-50",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("dialog-overlay")}
+      className={cn("cn-dialog-overlay fixed inset-0 isolate z-50", props.className)}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~dir=?,
-    ~dataLang=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~showCloseButton=true,
-  ) =>
+  type props = {
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    showCloseButton?: bool,
+  }
+  let toBaseUIComponentProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({showCloseButton, ...props}) => props`)
+  @react.componentWithProps(props)
+  let make = (props: props) =>
     <Portal>
       <Overlay />
       <BaseUi.Dialog.Popup
-        ?id
-        ?dir
-        ?dataLang
-        ?style
-        ?onClick
-        ?onKeyDown
+        {...props->toBaseUIComponentProps}
         dataSlot="dialog-content"
         className={cn(
           "cn-dialog-content bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 duration-100 outline-none sm:max-w-sm",
-          className,
+          props.className,
         )}
       >
-        {children}
-        {showCloseButton
-          ? <BaseUi.Dialog.Close
-              dataSlot="dialog-close"
-              render={<Button
-                variant=Ghost size=IconSm className="cn-dialog-close" dataSlot="dialog-close"
-              />}
-            >
-              <Icons.X />
-              <span className="sr-only"> {"Close"->React.string} </span>
-            </BaseUi.Dialog.Close>
-          : React.null}
+        {props.children->Option.getOr(React.null)}
+        {switch props.showCloseButton {
+        | Some(false) => React.null
+        | None | Some(true) =>
+          <BaseUi.Dialog.Close
+            dataSlot="dialog-close"
+            render={<Button
+              variant=Ghost size=IconSm className="cn-dialog-close" dataSlot="dialog-close"
+            />}
+          >
+            <Icons.X />
+            <span className="sr-only"> {"Close"->React.string} </span>
+          </BaseUi.Dialog.Close>
+        }}
       </BaseUi.Dialog.Popup>
     </Portal>
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
-      dataSlot="dialog-header"
-      className={cn("cn-dialog-header flex flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("dialog-header")}
+      className={cn("cn-dialog-header flex flex-col", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  type props = {
+    ...BaseUi.Types.DomProps.t,
+    showCloseButton?: bool,
+  }
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({showCloseButton, ...props}) => props`)
+  @react.componentWithProps(props)
+  let make = (props: props) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
-      dataSlot="dialog-footer"
+      {...props->toDomProps}
+      dataSlot={props.dataSlot->Option.getOr("dialog-footer")}
       className={cn(
         "cn-dialog-header cn-dialog-footer flex flex-col-reverse sm:flex-row sm:justify-end",
-        className,
+        props.className,
       )}
-    />
+    >
+      {props.children->Option.getOr(React.null)}
+      {switch props.showCloseButton {
+      | Some(true) =>
+        <BaseUi.Dialog.Close render={<Button variant=Outline />}>
+          {"Close"->React.string}
+        </BaseUi.Dialog.Close>
+      | Some(false) | None => React.null
+      }}
+    </div>
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Dialog.Title
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="dialog-title"
-      className={cn("cn-dialog-title cn-font-heading", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("dialog-title")}
+      className={cn("cn-dialog-title cn-font-heading", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Dialog.Description
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="dialog-description"
-      className={cn(
-        "cn-dialog-description",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("dialog-description")}
+      className={cn("cn-dialog-description", props.className)}
     />
 }

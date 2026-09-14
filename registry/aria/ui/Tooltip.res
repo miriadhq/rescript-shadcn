@@ -12,9 +12,7 @@ module Trigger = {
     let triggerElement = children->Array.get(0)->Option.getOr(React.null)
     let tooltip = children->Array.get(1)->Option.getOr(React.null)
     <ReactAria.Tooltip.Trigger
-      {...props}
-      dataSlot="tooltip-trigger"
-      delay={props.delay->Option.getOr(0.)}
+      {...props} dataSlot="tooltip-trigger" delay={props.delay->Option.getOr(0.)}
     >
       <ReactAria.Focusable> {triggerElement} </ReactAria.Focusable>
       {tooltip}

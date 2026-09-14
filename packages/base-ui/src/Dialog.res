@@ -6,7 +6,15 @@ module Root = {
     }
   }
 
-  type handle<'payload>
+  module Handle = {
+    type t<'payload> = private {
+      isOpen: bool,
+      @as("open")
+      open_: (~triggerId: null<string>) => unit,
+      openWithPayload: 'payload => unit,
+      close: unit => unit,
+    }
+  }
 
   type changeEventDetails = Types.BaseUIChangeEventDetail.t<
     [
@@ -29,19 +37,37 @@ module Root = {
     onOpenChangeComplete?: bool => unit,
     disablePointerDismissal?: bool,
     actionsRef?: React.ref<Actions.t>,
-    handle?: handle<'payload>,
+    handle?: Handle.t<'payload>,
     triggerId?: string,
     defaultTriggerId?: string,
   }
   @module("@base-ui/react/dialog") @scope("Dialog")
   external make: React.component<props<'payload>> = "Root"
+
+  module WithPayload = {
+    type props<'payload> = {
+      ...Types.BaseUIComponentWithoutChildrenProps.t,
+      children?: 'payload => Jsx.element,
+      defaultOpen?: bool,
+      modal?: Types.Modal.t,
+      onOpenChange?: (bool, changeEventDetails) => unit,
+      onOpenChangeComplete?: bool => unit,
+      disablePointerDismissal?: bool,
+      actionsRef?: React.ref<Actions.t>,
+      handle?: Handle.t<'payload>,
+      triggerId?: string,
+      defaultTriggerId?: string,
+    }
+    @module("@base-ui/react/dialog") @scope("Dialog")
+    external make: React.component<props<'payload>> = "Root"
+  }
 }
 
 module Trigger = {
   type props<'payload> = {
     ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
-    handle?: Root.handle<'payload>,
+    handle?: Root.Handle.t<'payload>,
     payload?: 'payload,
   }
   @module("@base-ui/react/dialog") @scope("Dialog")
@@ -91,3 +117,6 @@ module Viewport = {
   @module("@base-ui/react/dialog") @scope("Dialog")
   external make: React.component<Types.BaseUIComponentProps.t> = "Viewport"
 }
+
+@module("@base-ui/react/dialog") @scope("Dialog")
+external createHandle: unit => Root.Handle.t<'payload> = "createHandle"

@@ -28,10 +28,7 @@ module List = {
       ?onClick
       ?onKeyDown
       dataSlot="breadcrumb-list"
-      className={cn(
-        "cn-breadcrumb-list flex flex-wrap items-center wrap-break-word",
-        className,
-      )}
+      className={cn("cn-breadcrumb-list flex flex-wrap items-center wrap-break-word", className)}
     />
 }
 
@@ -50,33 +47,19 @@ module Item = {
 }
 
 module Link = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~href=?,
-    ~target=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~render=?,
-  ) => {
+  type state = {slot: string}
+  let toDomProps: BaseUi.Types.BaseUIComponentProps.t => BaseUi.Types.DomProps.t = %raw(`({className, render, ...props}) => props`)
+
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
     BaseUi.Render.use({
       defaultTagName: "a",
-      ?render,
-      props: {
-        ?id,
-        ?style,
-        ?children,
-        ?onClick,
-        ?onKeyDown,
-        ?href,
-        ?target,
-        render: React.null,
-        dataSlot: "breadcrumb-link",
-        className: cn("cn-breadcrumb-link", className),
-      },
+      render: ?props.render,
+      props: BaseUi.Render.mergeProps(
+        {className: cn("cn-breadcrumb-link", props.className)},
+        toDomProps(props),
+      ),
+      state: {slot: "breadcrumb-link"},
     })
   }
 }

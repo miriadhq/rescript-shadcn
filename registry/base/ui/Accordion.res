@@ -90,34 +90,18 @@ module Item = {
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaLabel=?,
-    ~render=?,
-    ~style=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Accordion.Header className="flex">
       <BaseUi.Accordion.Trigger
-        ?id
-        ?disabled
-        ?onClick
-        ?onKeyDown
-        ?ariaLabel
-        ?render
-        ?style
-        dataSlot="accordion-trigger"
+        {...props}
+        dataSlot={props.dataSlot->Option.getOr("accordion-trigger")}
         className={cn(
           "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
-          className,
+          props.className,
         )}
       >
-        {children}
+        {props.children->Option.getOr(React.null)}
         <Icons.ChevronDown
           dataSlot="accordion-trigger-icon"
           className="cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"

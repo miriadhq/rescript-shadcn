@@ -31,28 +31,26 @@ let badgeVariantClass = (~variant: Variant.t) =>
 
 let base = "cn-badge group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~variant=Variant.Default,
-  ~id=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~style=?,
-  ~render=?,
-  ~dataIcon: option<dataIcon>=?,
-) => {
-  let props: BaseUi.Types.BaseUIComponentProps.t = {
-    ?id,
-    ?style,
-    ?onClick,
-    ?onKeyDown,
-    ?children,
-    dataIcon: ?{(dataIcon :> option<string>)},
-    dataSlot: "badge",
-    dataVariant: (variant :> string),
-    className: cn(base, badgeVariantClass(~variant), className),
-  }
-  BaseUi.Render.use({defaultTagName: "span", props, ?render})
+type state = {slot: string, variant: Variant.t}
+
+type props = {
+  ...BaseUi.Types.BaseUIComponentProps.t,
+  variant?: Variant.t,
+}
+
+let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({className, render, variant, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let variant = props.variant->Option.getOr(Variant.Default)
+
+  BaseUi.Render.use({
+    defaultTagName: "span",
+    props: BaseUi.Render.mergeProps(
+      {className: cn(base, badgeVariantClass(~variant), props.className)},
+      toDomProps(props),
+    ),
+    render: ?props.render,
+    state: {slot: "badge", variant},
+  })
 }

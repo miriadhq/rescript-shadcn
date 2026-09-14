@@ -42,29 +42,26 @@ type state = {
   size: Size.t,
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~variant=Variant.Default,
-  ~size=Size.Default,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~style=?,
-  ~onClick=?,
-  ~render=?,
-) => {
+type props = {
+  variant?: Variant.t,
+  size?: Size.t,
+  ...BaseUi.Types.BaseUIComponentProps.t,
+}
+
+let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({className, render, variant, size, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let variant = props.variant->Option.getOr(Variant.Default)
+  let size = props.size->Option.getOr(Size.Default)
+
   BaseUi.Render.use({
     defaultTagName: "div",
-    props: {
-      className: cn(itemVariants(~variant, ~size), className),
-      ?id,
-      ?dir,
-      ?style,
-      ?children,
-      ?onClick,
-    },
-    ?render,
+    render: ?props.render,
+    props: BaseUi.Render.mergeProps(
+      {className: cn(itemVariants(~variant, ~size), props.className)},
+      toDomProps(props),
+    ),
     state: {
       slot: "item",
       variant,

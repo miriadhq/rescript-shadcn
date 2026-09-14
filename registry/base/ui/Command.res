@@ -100,10 +100,7 @@ let make = (
     ?onValueChange
     ?dir
     dataSlot="command"
-    className={cn(
-      "cn-command flex size-full flex-col overflow-hidden",
-      className,
-    )}
+    className={cn("cn-command flex size-full flex-col overflow-hidden", className)}
     ?children
   />
 
@@ -151,9 +148,7 @@ module Input = {
     ~dir=?,
   ) => {
     <div dataSlot="command-input-wrapper" className="cn-command-input-wrapper">
-      <InputGroup
-        className="cn-command-input-group"
-      >
+      <InputGroup className="cn-command-input-group">
         <CommandPrimitive.Input
           ?id
           ?style
@@ -188,10 +183,7 @@ module List = {
       ?onClick
       ?onKeyDown
       dataSlot="command-list"
-      className={cn(
-        "cn-command-list overflow-x-hidden overflow-y-auto",
-        className,
-      )}
+      className={cn("cn-command-list overflow-x-hidden overflow-y-auto", className)}
       ?children
     />
 }
@@ -200,11 +192,7 @@ module Empty = {
   @react.component
   let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
     <CommandPrimitive.Empty
-      ?id
-      ?style
-      dataSlot="command-empty"
-      className={cn("cn-command-empty", className)}
-      ?children
+      ?id ?style dataSlot="command-empty" className={cn("cn-command-empty", className)} ?children
     />
 }
 
@@ -216,10 +204,7 @@ module Group = {
       ?style
       ?heading
       dataSlot="command-group"
-      className={cn(
-        "cn-command-group",
-        className,
-      )}
+      className={cn("cn-command-group", className)}
       ?children
     />
 }
@@ -280,9 +265,6 @@ module Shortcut = {
       ?onClick
       ?onKeyDown
       dataSlot="command-shortcut"
-      className={cn(
-        "cn-command-shortcut",
-        className,
-      )}
+      className={cn("cn-command-shortcut", className)}
     />
 }

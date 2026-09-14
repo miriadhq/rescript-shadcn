@@ -264,7 +264,6 @@ type dangerouslySetInnerHTML = {"__html": string}
 module BaseDomProps = {
   type t = {
     key?: string,
-    children?: Jsx.element,
     ref?: ReactDOM.domRef,
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#allow
     allow?: string,
@@ -759,6 +758,7 @@ module BaseDomProps = {
 
 module DomProps = {
   type t = {
+    children?: Jsx.element,
     size?: int,
     onChange?: JsxEvent.Form.t => unit,
     multiple?: bool,
@@ -773,9 +773,18 @@ module DomProps = {
   }
 }
 
+module BaseUIComponentWithoutChildrenProps = {
+  type t = {
+    render?: React.element,
+    ...BaseDomProps.t,
+    ...ExtraDomProps.t,
+  }
+}
+
 module BaseUIComponentProps = {
   type t = {
     render?: React.element,
+    children?: Jsx.element,
     ...BaseDomProps.t,
     ...ExtraDomProps.t,
   }

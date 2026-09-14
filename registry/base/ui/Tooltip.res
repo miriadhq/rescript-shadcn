@@ -37,85 +37,42 @@ module Provider = {
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaLabel=?,
-    ~render=?,
-    ~style=?,
-  ) =>
-    <BaseUi.Tooltip.Trigger
-      ?className
-      ?children
-      ?id
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      ?render
-      ?style
-      dataSlot="tooltip-trigger"
-    />
-}
-
-type contentProps = {
-  className?: string,
-  children: React.element,
-  id?: string,
-  dir?: BaseUi.Types.TextDirection.t,
-  style?: ReactDOM.style,
-  onClick?: ReactEvent.Mouse.t => unit,
-  onKeyDown?: ReactEvent.Keyboard.t => unit,
-  align?: Align.t,
-  alignOffset?: float,
-  side?: Side.t,
-  sideOffset?: float,
-  hidden?: bool,
+  @react.componentWithProps(BaseUi.Tooltip.Trigger.props)
+  let make = (props: BaseUi.Tooltip.Trigger.props) =>
+    <BaseUi.Tooltip.Trigger {...props} dataSlot={props.dataSlot->Option.getOr("tooltip-trigger")} />
 }
 
 module Content = {
-  @react.component(: contentProps)
-  let make = (
-    ~className=?,
-    ~children,
-    ~id=?,
-    ~dir=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~align=Align.Center,
-    ~alignOffset=0.,
-    ~side=Side.Top,
-    ~sideOffset=4.,
-    ~hidden=?,
-  ) =>
+  type props = {
+    ...BaseUi.Types.BaseUIComponentWithoutChildrenProps.t,
+    children: React.element,
+    align?: Align.t,
+    alignOffset?: float,
+    side?: Side.t,
+    sideOffset?: float,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({align, alignOffset, side, sideOffset, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
     <BaseUi.Tooltip.Portal>
       <BaseUi.Tooltip.Positioner
-        align
-        alignOffset={Const(alignOffset)}
-        side
-        sideOffset={Const(sideOffset)}
+        align={props.align->Option.getOr(Align.Center)}
+        alignOffset={Const(props.alignOffset->Option.getOr(0.))}
+        side={props.side->Option.getOr(Side.Top)}
+        sideOffset={Const(props.sideOffset->Option.getOr(4.))}
         className="isolate z-50"
       >
         <BaseUi.Tooltip.Popup
-          ?id
-          dir=?{(dir :> option<string>)}
-          ?style
-          ?onClick
-          ?onKeyDown
-          dataSlot="tooltip-content"
+          {...toBaseUiProps(props)}
+          dataSlot={props.dataSlot->Option.getOr("tooltip-content")}
           className={cn(
             "cn-tooltip-content cn-tooltip-content-logical data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bg-foreground text-background z-50 w-fit max-w-xs origin-(--transform-origin) rounded-md px-3 py-1.5 text-xs",
-            className,
+            props.className,
           )}
-          ?hidden
         >
-          {children}
+          {props.children}
           <BaseUi.Tooltip.Arrow
             className="cn-tooltip-arrow cn-tooltip-arrow-logical bg-foreground fill-foreground z-50 data-[side=bottom]:top-1 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
           />

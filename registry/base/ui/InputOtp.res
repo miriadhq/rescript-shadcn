@@ -9,6 +9,7 @@ module InputOtpPrimitive = {
   module Props = {
     type t = {
       size?: int,
+      children?: Jsx.element,
       ...BaseUi.Types.BaseDomProps.t,
       ...BaseUi.Types.ExtraDomProps.t,
       containerClassName?: string,
@@ -96,10 +97,7 @@ module Group = {
       ?onKeyDown
       ?children
       dataSlot="input-otp-group"
-      className={cn(
-        "cn-input-otp-group flex items-center",
-        className,
-      )}
+      className={cn("cn-input-otp-group flex items-center", className)}
     />
 }
 
@@ -139,7 +137,9 @@ module Slot = {
     >
       {char}
       {hasFakeCaret
-        ? <div className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center">
+        ? <div
+            className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
             <div className="cn-input-otp-caret-line" />
           </div>
         : React.null}
