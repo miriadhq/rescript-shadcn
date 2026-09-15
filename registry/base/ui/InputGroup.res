@@ -131,17 +131,13 @@ module Button = {
 }
 
 module Text = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <span
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props}
       className={cn(
         "cn-input-group-text flex items-center [&_svg]:pointer-events-none",
-        className,
+        props.className,
       )}
     />
 }
@@ -151,7 +147,7 @@ module Input = {
   let make = (props: BaseUi.Input.props) =>
     <Input
       {...props}
-      dataSlot="input-group-control"
+      dataSlot={props.dataSlot->Option.getOr("input-group-control")}
       className={cn(
         "cn-input-group-input flex-1",
         props.className,
@@ -160,43 +156,14 @@ module Input = {
 }
 
 module Textarea = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~name=?,
-    ~placeholder=?,
-    ~value=?,
-    ~defaultValue=?,
-    ~disabled=?,
-    ~readOnly=?,
-    ~required=?,
-    ~maxLength=?,
-    ~spellCheck=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <Textarea
-      ?id
-      ?children
-      ?style
-      ?name
-      ?placeholder
-      ?value
-      ?defaultValue
-      ?disabled
-      ?readOnly
-      ?required
-      ?maxLength
-      ?spellCheck
-      ?onClick
-      ?onKeyDown
-      dataSlot="input-group-control"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("input-group-control")}
       className={cn(
         "cn-input-group-textarea flex-1 resize-none",
-        className,
+        props.className,
       )}
     />
 }

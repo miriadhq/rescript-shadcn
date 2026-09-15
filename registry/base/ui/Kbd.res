@@ -3,33 +3,24 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~dataIcon=?) => {
+@react.componentWithProps(BaseUi.Types.DomProps.t)
+let make = (props: BaseUi.Types.DomProps.t) => {
   <kbd
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?children
-    ?dataIcon
-    dataSlot="kbd"
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("kbd")}
     className={cn(
       "cn-kbd pointer-events-none inline-flex items-center justify-center select-none",
-      className,
+      props.className,
     )}
   />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <kbd
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="kbd-group"
-      className={cn("cn-kbd-group inline-flex items-center", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("kbd-group")}
+      className={cn("cn-kbd-group inline-flex items-center", props.className)}
     />
 }

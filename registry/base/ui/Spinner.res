@@ -6,13 +6,20 @@ type dataIcon =
   | @as("inline-start") InlineStart
   | @as("inline-end") InlineEnd
 
-@react.component
-let make = (~className=?, ~dataIcon: option<dataIcon>=?, ~dataSlot=?) => {
-  <Icons.Loader2
-    dataIcon=?{(dataIcon :> option<string>)}
-    dataSlot={dataSlot->Option.getOr("spinner")}
-    role="status"
-    ariaLabel="Loading"
-    className={cn("size-4 animate-spin", className)}
-  />
+type props = {
+  ...JsxDOM.domProps,
+  @as("data-icon") dataIcon?: dataIcon,
+  @as("data-slot") dataSlot?: string,
 }
+
+external toIconProps: props => Icons.props = "%identity"
+
+@react.componentWithProps(props)
+let make = (props: props) =>
+  <Icons.Loader2
+    {...props->toIconProps}
+    dataSlot={props.dataSlot->Option.getOr("spinner")}
+    role={props.role->Option.getOr("status")}
+    ariaLabel={props.ariaLabel->Option.getOr("Loading")}
+    className={cn("size-4 animate-spin", props.className)}
+  />

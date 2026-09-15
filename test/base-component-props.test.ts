@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import * as AlertDialog from "../registry/base/ui/AlertDialog.res.mjs";
@@ -8,10 +8,79 @@ import * as Combobox from "../registry/base/ui/Combobox.res.mjs";
 import * as Drawer from "../registry/base/ui/Drawer.res.mjs";
 import * as InputGroup from "../registry/base/ui/InputGroup.res.mjs";
 import * as Label from "../registry/base/ui/Label.res.mjs";
+import * as Alert from "../registry/base/ui/Alert.res.mjs";
+import * as AspectRatio from "../registry/base/ui/AspectRatio.res.mjs";
+import * as Card from "../registry/base/ui/Card.res.mjs";
+import * as Empty from "../registry/base/ui/Empty.res.mjs";
+import * as Kbd from "../registry/base/ui/Kbd.res.mjs";
+import * as Skeleton from "../registry/base/ui/Skeleton.res.mjs";
+import * as Spinner from "../registry/base/ui/Spinner.res.mjs";
+import * as AriaSpinner from "../registry/aria/ui/Spinner.res.mjs";
+import * as Table from "../registry/base/ui/Table.res.mjs";
 
 const h = React.createElement;
 
 describe("Base component prop composition", () => {
+  it.each([
+    ["Alert", Alert.make, { variant: "destructive" }],
+    ["AspectRatio", AspectRatio.make, { ratio: 1.5 }],
+    ["Card", Card.make, { size: "sm" }],
+    ["Card.Header", Card.Header.make, {}],
+    ["Empty", Empty.make, {}],
+    ["Empty.Media", Empty.Media.make, { variant: "icon" }],
+    ["Kbd", Kbd.make, {}],
+    ["Skeleton", Skeleton.make, {}],
+    ["InputGroup.Text", InputGroup.Text.make, {}],
+    ["InputGroup.Textarea", InputGroup.Textarea.make, {}],
+    ["Table.Cell", Table.Cell.make, { colSpan: 2 }],
+  ])("%s forwards refs, events, and caller attributes without leaking its variants", (_, Component, extra) => {
+    const ref = React.createRef();
+    const onFocus = vi.fn();
+    const element = Component({
+      ...extra, ref, onFocus, "aria-label": "Custom label", "data-slot": "custom-slot",
+      title: "Help", className: "custom-class", children: "Content",
+    });
+    expect(element.props.ref).toBe(ref);
+    expect(element.props.onFocus).toBe(onFocus);
+    expect(element.props["aria-label"]).toBe("Custom label");
+    expect(element.props["data-slot"]).toBe("custom-slot");
+    expect(element.props.title).toBe("Help");
+    expect(element.props.className).toContain("custom-class");
+    expect(element.props.children).toBe("Content");
+    expect(element.props).not.toHaveProperty("variant");
+    expect(element.props).not.toHaveProperty("size");
+    expect(element.props).not.toHaveProperty("ratio");
+  });
+
+  it("puts table identity and event handlers on the table only", () => {
+    const onClick = vi.fn();
+    const ref = React.createRef();
+    const element = Table.make({ id: "invoices", onClick, ref, "aria-label": "Invoices" });
+    expect(element.props).not.toHaveProperty("id");
+    expect(element.props).not.toHaveProperty("onClick");
+    expect(element.props.children.type).toBe("table");
+    expect(element.props.children.props).toMatchObject({ id: "invoices", onClick, ref });
+    const html = renderToStaticMarkup(element);
+    expect(html.match(/id="invoices"/g)).toHaveLength(1);
+    expect(html).toContain('aria-label="Invoices"');
+  });
+
+  it.each([["Base", Spinner.make], ["Aria", AriaSpinner.make]])("%s Spinner forwards SVG and accessibility props", (_, Component) => {
+    const onFocus = vi.fn();
+    const ref = React.createRef();
+    const element = Component({
+      ref, onFocus, "aria-label": "Saving", "aria-hidden": true, role: "presentation",
+      "data-icon": "inline-end", strokeWidth: "3", "data-slot": "custom-spinner",
+    });
+    expect(element.props.ref).toBe(ref);
+    expect(element.props.onFocus).toBe(onFocus);
+    const html = renderToStaticMarkup(element);
+    for (const attr of ['aria-label="Saving"', 'aria-hidden="true"', 'role="presentation"',
+      'data-icon="inline-end"', 'data-slot="custom-spinner"', 'stroke-width="3"']) {
+      expect(html).toContain(attr);
+    }
+  });
+
   it.each([
     ["AlertDialog", AlertDialog.make, AlertDialog.Trigger.make],
     ["Combobox", Combobox.make, Combobox.Trigger.make],
