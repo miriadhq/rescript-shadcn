@@ -13,17 +13,15 @@ let items: array<ReactAria.Select.Item.t<string>> = [
 let make = ({}: Demo.Props.t) =>
   <Field className="w-full max-w-xs">
     <Field.Label> {"Department"->React.string} </Field.Label>
-    <Select items>
+    <Select placeholder="Choose department">
       <Select.Trigger>
-        <Select.Value placeholder="Choose department" />
+        <Select.Value />
       </Select.Trigger>
       <Select.Content>
         <Select.Group>
           {items
           ->Array.map(item =>
-            <Select.Item key={item.value} value={item.value}>
-              {item.label->React.string}
-            </Select.Item>
+            <Select.Item key={item.value} id={item.value}> {item.label->React.string} </Select.Item>
           )
           ->React.array}
         </Select.Group>

@@ -99,10 +99,7 @@ let make = (
 module Trigger = {
   @react.componentWithProps(DrawerPrimitive.chromeProps)
   let make = (props: DrawerPrimitive.chromeProps) =>
-    <DrawerPrimitive.Trigger
-      {...props}
-      dataSlot={props.dataSlot->Option.getOr("drawer-trigger")}
-    />
+    <DrawerPrimitive.Trigger {...props} dataSlot={props.dataSlot->Option.getOr("drawer-trigger")} />
 }
 
 module Portal = {
@@ -114,10 +111,7 @@ module Portal = {
 module Close = {
   @react.componentWithProps(DrawerPrimitive.chromeProps)
   let make = (props: DrawerPrimitive.chromeProps) =>
-    <DrawerPrimitive.Close
-      {...props}
-      dataSlot={props.dataSlot->Option.getOr("drawer-close")}
-    />
+    <DrawerPrimitive.Close {...props} dataSlot={props.dataSlot->Option.getOr("drawer-close")} />
 }
 
 module Overlay = {

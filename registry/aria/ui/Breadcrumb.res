@@ -33,9 +33,9 @@ module Item = {
     children?: 'children,
     ...ReactAria.Breadcrumbs.Item.componentProps,
   }
-  let itemProps: props<'children> => ReactAria.Breadcrumbs.Item.componentProps = %raw(
-    `({separatorClassName, children, ...props}) => props`
-  )
+  let itemProps: props<
+    'children,
+  > => ReactAria.Breadcrumbs.Item.componentProps = %raw(`({separatorClassName, children, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props<'children>) =>
@@ -43,9 +43,10 @@ module Item = {
       {...props->itemProps->ReactAria.Breadcrumbs.Item.toProps}
       dataSlot="breadcrumb-item"
       className={cn("cn-breadcrumb-item inline-flex items-center", props.className)}
-      children={ReactAria.Common.composeRenderProps(
-        props.children,
-        (children, {isCurrent}: ReactAria.Breadcrumbs.Item.renderProps) =>
+      children={ReactAria.Common.composeRenderProps(props.children, (
+        children,
+        {isCurrent}: ReactAria.Breadcrumbs.Item.renderProps,
+      ) =>
         <>
           {children}
           {isCurrent
@@ -58,7 +59,7 @@ module Item = {
               >
                 <Icons.ChevronRight className="cn-rtl-flip" />
               </span>}
-        </>,
+        </>
       )}
     />
 }
@@ -67,9 +68,7 @@ module Link = {
   @react.componentWithProps(ReactAria.Button.Link.props)
   let make = (props: ReactAria.Button.Link.props) =>
     <ReactAria.Button.Link
-      {...props}
-      dataSlot="breadcrumb-link"
-      className={cn("cn-breadcrumb-link", props.className)}
+      {...props} dataSlot="breadcrumb-link" className={cn("cn-breadcrumb-link", props.className)}
     />
 }
 
@@ -94,10 +93,7 @@ module Ellipsis = {
       dataSlot="breadcrumb-ellipsis"
       role="presentation"
       ariaHidden=true
-      className={cn(
-        "cn-breadcrumb-ellipsis flex items-center justify-center",
-        props.className,
-      )}
+      className={cn("cn-breadcrumb-ellipsis flex items-center justify-center", props.className)}
     >
       <Icons.MoreHorizontal />
       <span className="sr-only"> {"More"->React.string} </span>

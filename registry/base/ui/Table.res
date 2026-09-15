@@ -51,10 +51,7 @@ module Row = {
     <tr
       {...props}
       dataSlot={props.dataSlot->Option.getOr("table-row")}
-      className={cn(
-        "cn-table-row has-aria-expanded:bg-muted/50",
-        props.className,
-      )}
+      className={cn("cn-table-row has-aria-expanded:bg-muted/50", props.className)}
     />
 }
 
@@ -64,10 +61,7 @@ module Head = {
     <th
       {...props}
       dataSlot={props.dataSlot->Option.getOr("table-head")}
-      className={cn(
-        "cn-table-head",
-        props.className,
-      )}
+      className={cn("cn-table-head", props.className)}
     />
 }
 

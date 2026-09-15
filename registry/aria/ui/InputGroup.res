@@ -163,9 +163,6 @@ module Textarea = {
     <Textarea
       {...props}
       dataSlot="input-group-control"
-      className={cn(
-        "cn-input-group-textarea flex-1 resize-none",
-        props.className,
-      )}
+      className={cn("cn-input-group-textarea flex-1 resize-none", props.className)}
     />
 }

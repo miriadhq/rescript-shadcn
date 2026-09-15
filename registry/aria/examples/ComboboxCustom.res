@@ -31,7 +31,7 @@ let countries = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Combobox items={countries}>
+  <Combobox ariaLabel="Country" items={countries}>
     <Combobox.Input placeholder="Search countries..." />
     <Combobox.Content>
       <Combobox.List

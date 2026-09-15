@@ -7,7 +7,7 @@ let make = ({}: Demo.Props.t) => {
   let year = Date.make()->Date.getFullYear
   let start = IDate.calendarDate(year, 1, 12)
   let (dateRange, setDateRange) = React.useState(() => {
-    ReactAria.Calendar.Range.start: start,
+    ReactAria.Calendar.Range.start,
     end_: start->IDate.add({days: 30}),
   })
 

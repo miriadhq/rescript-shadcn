@@ -27,7 +27,10 @@ module Root = {
     actionsRef?: React.ref<Actions.t>,
     onOpenChange?: (bool, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
     onInputValueChange?: (string, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
-    onItemHighlighted?: ('item, Types.BaseUIChangeEventDetail.t<[#keyboard | #pointer | #none], unknown>) => unit,
+    onItemHighlighted?: (
+      'item,
+      Types.BaseUIChangeEventDetail.t<[#keyboard | #pointer | #none], unknown>,
+    ) => unit,
     onValueChange?: ('value, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
   }
   @module("@base-ui/react/combobox") @scope("Combobox")

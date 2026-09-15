@@ -12,9 +12,7 @@ let make = ({}: Demo.Props.t) =>
     </Empty.Header>
     <Empty.Content>
       <div className="flex gap-2">
-        <Button.LinkButton href="#">
-          {"Create project"->React.string}
-        </Button.LinkButton>
+        <Button.LinkButton href="#"> {"Create project"->React.string} </Button.LinkButton>
         <Button variant=Outline> {"Import project"->React.string} </Button>
       </div>
       <Button.LinkButton href="#" variant=Link className="text-muted-foreground">

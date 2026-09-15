@@ -176,8 +176,9 @@ module Error = {
         | Some(errors) =>
           let uniqueErrors =
             Map.fromArray(
-              errors
-              ->Array.filterMap(error => error.message->Option.map(message => (message, error))),
+              errors->Array.filterMap(error =>
+                error.message->Option.map(message => (message, error))
+              ),
             )
             ->Map.values
             ->Iterator.toArray
@@ -187,8 +188,8 @@ module Error = {
             <ul className="ml-4 flex list-disc flex-col gap-1">
               {errors
               ->Array.filterMapWithIndex((error, index) =>
-                error.message->Option.map(message =>
-                  <li key={index->Int.toString}> {message->React.string} </li>
+                error.message->Option.map(
+                  message => <li key={index->Int.toString}> {message->React.string} </li>,
                 )
               )
               ->React.array}

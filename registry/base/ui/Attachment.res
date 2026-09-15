@@ -175,47 +175,46 @@ module Actions = {
 }
 
 module Action = {
-  @react.component
-  let make = (~className=?, ~children=?, ~ariaLabel=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) =>
     <Button
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      dataSlot="attachment-action"
-      variant=Ghost
-      size=IconXs
-      className={cn("cn-attachment-action", className)}
-    >
-      {children->Option.getOr(React.null)}
-    </Button>
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("attachment-action")}
+      variant={props.variant->Option.getOr(Ghost)}
+      size={props.size->Option.getOr(IconXs)}
+      className={cn("cn-attachment-action", props.className)}
+    />
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~ariaLabel=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~type_="button",
-  ) =>
-    <button
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      type_
-      dataSlot="attachment-trigger"
-      className={cn("cn-attachment-trigger absolute inset-0 z-10 outline-none", className)}
-    >
-      {children->Option.getOr(React.null)}
-    </button>
+  type props = {
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    @as("type") type_?: BaseUi.Types.ButtonType.t,
+  }
+  type state = {slot: string}
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({className, render, type, ...props}) => props`)
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let type_ = switch props.render {
+    | Some(_) => props.type_
+    | None => Some(props.type_->Option.getOr(Button))
+    }
+    BaseUi.Render.use({
+      defaultTagName: "button",
+      props: BaseUi.Render.mergeProps(
+        {
+          type_: ?(type_->Option.map(value => (value :> string))),
+          className: cn(
+            "cn-attachment-trigger absolute inset-0 z-10 outline-none",
+            props.className,
+          ),
+        },
+        toDomProps(props),
+      ),
+      render: ?props.render,
+      state: {slot: "attachment-trigger"},
+    })
+  }
 }
 
 module Group = {

@@ -18,7 +18,6 @@ module Content = {
   @react.componentWithProps(ReactAria.Disclosure.Panel.props)
   let make = (props: ReactAria.Disclosure.Panel.props) =>
     <ReactAria.Disclosure.Panel
-      {...props}
-      dataSlot={props.dataSlot->Option.getOr("collapsible-content")}
+      {...props} dataSlot={props.dataSlot->Option.getOr("collapsible-content")}
     />
 }

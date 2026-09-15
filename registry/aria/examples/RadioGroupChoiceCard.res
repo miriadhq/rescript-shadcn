@@ -1,6 +1,6 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <RadioGroup defaultValue="plus" className="max-w-sm">
+  <RadioGroup ariaLabel="Plans" defaultValue="plus" className="max-w-sm">
     <Field.Label htmlFor="plus-plan">
       <Field orientation=Horizontal>
         <Field.Content>

@@ -15,12 +15,17 @@ let presets = [
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let today = IDate.today(IDate.getLocalTimeZone())
-  let (date, setDate) = React.useState(() => today)
-  let (focusedDate, setFocusedDate) = React.useState(() => today)
+  let (date, setDate) = React.useState(() =>
+    IDate.calendarDate(Date.make()->Date.getFullYear, 2, 12)
+  )
+  let (focusedDate, setFocusedDate) = React.useState(() =>
+    IDate.calendarDate(Date.make()->Date.getFullYear, Date.make()->Date.getMonth + 1, 1)
+  )
 
   <Card className="mx-auto w-fit max-w-[300px]" size=Sm>
     <Card.Content>
       <Calendar
+        weeksInMonth=6
         value=date
         onChange={date => setDate(_ => date)}
         focusedValue=focusedDate

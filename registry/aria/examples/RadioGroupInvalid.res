@@ -7,7 +7,7 @@ let make = ({}: Demo.Props.t) =>
     <Field.Description>
       {"Choose how you want to receive notifications."->React.string}
     </Field.Description>
-    <RadioGroup defaultValue="email">
+    <RadioGroup isInvalid=true ariaLabel="Notification Preferences" defaultValue="email">
       <Field orientation=Horizontal dataInvalid={true}>
         <RadioGroup.Item value="email" id="invalid-email" ariaInvalid={#"true"} />
         <Field.Label htmlFor="invalid-email" className="font-normal">

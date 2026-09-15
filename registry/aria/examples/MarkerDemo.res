@@ -1,19 +1,25 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <div className="flex w-full max-w-md flex-col gap-5">
-    <Marker>
-      <Marker.Content> {"A default marker"->React.string} </Marker.Content>
-    </Marker>
+  <div className="flex w-full max-w-sm flex-col gap-8 py-12">
     <Marker>
       <Marker.Icon>
-        <Icons.FileText />
+        <Icons.GitBranch />
       </Marker.Icon>
-      <Marker.Content> {"Opened implementation notes"->React.string} </Marker.Content>
+      <Marker.Content> {"Switched to a new branch"->React.string} </Marker.Content>
     </Marker>
     <Marker role="status">
       <Marker.Icon>
         <Spinner />
       </Marker.Icon>
-      <Marker.Content> {"Reading 4 files"->React.string} </Marker.Content>
+      <Marker.Content className="shimmer"> {"Thinking..."->React.string} </Marker.Content>
+    </Marker>
+    <Marker variant=Separator>
+      <Marker.Content> {"Conversation compacted"->React.string} </Marker.Content>
+    </Marker>
+    <Marker>
+      <Marker.Icon>
+        <Icons.Search />
+      </Marker.Icon>
+      <Marker.Content> {"Explored 4 files"->React.string} </Marker.Content>
     </Marker>
   </div>

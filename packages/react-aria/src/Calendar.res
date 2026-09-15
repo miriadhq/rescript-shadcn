@@ -29,6 +29,7 @@ type props<'date> = {
   autoFocus?: bool,
   selectionMode?: selectionMode,
   visibleDuration?: duration,
+  weeksInMonth?: int,
 }
 
 @module("react-aria-components")
@@ -53,6 +54,7 @@ module Range = {
     isInvalid?: bool,
     autoFocus?: bool,
     visibleDuration?: duration,
+    weeksInMonth?: int,
   }
 
   @module("react-aria-components")

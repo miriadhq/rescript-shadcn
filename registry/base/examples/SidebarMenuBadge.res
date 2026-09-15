@@ -29,7 +29,7 @@ let make = ({}: Demo.Props.t) =>
                 <Sidebar.MenuItem key={project.name}>
                   <Sidebar.MenuButton
                     render={<a href={project.url} />}
-                    className="group-has-data-[state=open]/menu-item:bg-sidebar-accent"
+                    className="group-has-[[data-state=open]]/menu-item:bg-sidebar-accent"
                   >
                     {project.icon}
                     <span> {project.name->React.string} </span>

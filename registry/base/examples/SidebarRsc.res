@@ -14,6 +14,13 @@ let projects: array<project> = [
   {name: "Feedback", url: "#", icon: <Icons.Send />},
 ]
 
+// The preview loader is client-side. Keep the request above the Suspense boundary
+// so retries reuse it, while matching the upstream server example's loading state.
+let fetchProjects = () =>
+  Promise.make((resolve, _) => {
+    let _ = setTimeout(~handler=() => resolve(projects), ~timeout=3000)
+  })
+
 module NavProjectsSkeleton = {
   @react.component
   let make = () =>
@@ -28,7 +35,8 @@ module NavProjectsSkeleton = {
 
 module NavProjects = {
   @react.component
-  let make = () =>
+  let make = (~projects: promise<array<project>>) => {
+    let projects = React.usePromise(projects)
     <Sidebar.Menu>
       {projects
       ->Array.map(project =>
@@ -41,10 +49,12 @@ module NavProjects = {
       )
       ->React.array}
     </Sidebar.Menu>
+  }
 }
 
 @react.componentWithProps(Demo.Props.t)
-let make = ({}: Demo.Props.t) =>
+let make = ({}: Demo.Props.t) => {
+  let (projects, _) = React.useState(fetchProjects)
   <Sidebar.Provider>
     <Sidebar>
       <Sidebar.Content>
@@ -52,10 +62,11 @@ let make = ({}: Demo.Props.t) =>
           <Sidebar.GroupLabel> {"Projects"->React.string} </Sidebar.GroupLabel>
           <Sidebar.GroupContent>
             <React.Suspense fallback={<NavProjectsSkeleton />}>
-              <NavProjects />
+              <NavProjects projects />
             </React.Suspense>
           </Sidebar.GroupContent>
         </Sidebar.Group>
       </Sidebar.Content>
     </Sidebar>
   </Sidebar.Provider>
+}

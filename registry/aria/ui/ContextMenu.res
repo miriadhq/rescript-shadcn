@@ -24,7 +24,11 @@ let anchorStyle: position => ReactDOM.Style.t = %raw(`position => ({
 @module("react-aria-components")
 external popoverContext: React.Context.t<JSON.t> = "PopoverContext"
 
-let withPosition: (JSON.t, option<position>, ReactDOM.domRef) => JSON.t = %raw(`(context, position, triggerRef) => ({
+let withPosition: (
+  JSON.t,
+  option<position>,
+  ReactDOM.domRef,
+) => JSON.t = %raw(`(context, position, triggerRef) => ({
   ...context,
   ...position,
   triggerRef,
@@ -49,14 +53,13 @@ type props<'item> = {
   ...ReactAria.Menu.props<'item>,
 }
 
-let menuProps: props<'item> => ReactAria.Menu.props<'item> = %raw(
-  `({placement, offset, crossOffset, className, children, ...props}) => props`
-)
+let menuProps: props<'item> => ReactAria.Menu.props<
+  'item,
+> = %raw(`({placement, offset, crossOffset, className, children, ...props}) => props`)
 
 let renderContent = (props: props<'item>, ~subContent=false) => {
-  let dataSlot = props.dataSlot->Option.getOr(
-    subContent ? "context-menu-sub-content" : "context-menu-content",
-  )
+  let dataSlot =
+    props.dataSlot->Option.getOr(subContent ? "context-menu-sub-content" : "context-menu-content")
   <ReactAria.Popover
     dataSlot
     placement={props.placement->Option.getOr(
@@ -84,9 +87,7 @@ let renderContent = (props: props<'item>, ~subContent=false) => {
 let make = (props: props<'item>) => renderContent(props)
 
 module Trigger = {
-  let triggerProps: ReactAria.Menu.Trigger.props => ReactAria.Menu.Trigger.props = %raw(
-    `({className, children, isOpen, defaultOpen, trigger, ...props}) => props`
-  )
+  let triggerProps: ReactAria.Menu.Trigger.props => ReactAria.Menu.Trigger.props = %raw(`({className, children, isOpen, defaultOpen, trigger, ...props}) => props`)
 
   @react.componentWithProps(ReactAria.Menu.Trigger.props)
   let make = (props: ReactAria.Menu.Trigger.props) => {
@@ -109,19 +110,12 @@ module Trigger = {
       }
     }
     <ReactAria.Menu.Trigger
-      {...props->triggerProps}
-      dataSlot="context-menu"
-      isOpen
-      onOpenChange=handleOpenChange
+      {...props->triggerProps} dataSlot="context-menu" isOpen onOpenChange=handleOpenChange
     >
       {switch position {
       | Some(position) =>
         createPortal(
-          <div
-            dataSlot="context-menu-anchor"
-            ref={positionRef}
-            style={anchorStyle(position)}
-          />,
+          <div dataSlot="context-menu-anchor" ref={positionRef} style={anchorStyle(position)} />,
           documentBody,
         )
       | None => React.null
@@ -172,22 +166,25 @@ let textValueFromChildren: option<React.element> => option<string> = %raw(`child
 
 module Item = {
   type props<'item> = {inset?: bool, variant?: Variant.t, ...ReactAria.Menu.Item.props<'item>}
-  let itemProps: props<'item> => ReactAria.Menu.Item.props<'item> = %raw(
-    `({inset, variant, className, children, ...props}) => props`
-  )
+  let itemProps: props<'item> => ReactAria.Menu.Item.props<
+    'item,
+  > = %raw(`({inset, variant, className, children, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props<'item>) => {
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
     let className = ReactAria.Common.itemRenderClassName(({selectionMode}) =>
       cn(
-        `group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 ${itemClass(selectionMode)}`,
+        `group/context-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 ${itemClass(
+            selectionMode,
+          )}`,
         props.className,
       )
     )
-    let children = ReactAria.Common.composeItemRenderProps(
-      props.children,
-      (children, {isSelected, selectionMode}) =>
+    let children = ReactAria.Common.composeItemRenderProps(props.children, (
+      children,
+      {isSelected, selectionMode},
+    ) =>
       <>
         {switch selectionMode {
         | ReactAria.Common.None => React.null
@@ -226,9 +223,9 @@ module Sub = {
 
 module SubTrigger = {
   type props<'item> = {inset?: bool, ...ReactAria.Menu.Item.props<'item>}
-  let itemProps: props<'item> => ReactAria.Menu.Item.props<'item> = %raw(
-    `({inset, className, children, ...props}) => props`
-  )
+  let itemProps: props<'item> => ReactAria.Menu.Item.props<
+    'item,
+  > = %raw(`({inset, className, children, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props<'item>) => {

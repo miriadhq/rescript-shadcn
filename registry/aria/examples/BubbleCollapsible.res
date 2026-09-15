@@ -25,9 +25,7 @@ let make = ({}: Demo.Props.t) => {
         <Collapsible isExpanded={open_} onExpandedChange={open_ => setOpen(_ => open_)}>
           <div> {(open_ || !isLong ? text : preview)->React.string} </div>
           {isLong
-            ? <Button
-                slot="trigger" variant=Link className="gap-1 p-0 text-muted-foreground"
-              >
+            ? <Button slot="trigger" variant=Link className="gap-1 p-0 text-muted-foreground">
                 {(open_ ? "Show less" : "Show more")->React.string}
                 <Icons.ChevronDown
                   dataIcon="inline-end" className="group-data-panel-open/button:rotate-180"

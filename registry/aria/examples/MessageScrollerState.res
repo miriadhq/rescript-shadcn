@@ -3,16 +3,20 @@
 let messages: array<MessageScrollerExample.message> = Array.fromInitializer(~length=12, index => {
   let number = index + 1
   let isUser = mod(index, 2) == 0
-  ({
-    id: `state-${number->Int.toString}`,
-    role: isUser ? User : Assistant,
-    text: isUser
-      ? `Check section ${number->Int.toString} of the transcript.`
-      : `Section ${number->Int.toString} is ready. Scroll state updates without rerendering the rows.`,
-  }: MessageScrollerExample.message)
+
+  (
+    {
+      id: `state-${number->Int.toString}`,
+      role: isUser ? User : Assistant,
+      text: isUser
+        ? `Check section ${number->Int.toString} of the transcript.`
+        : `Section ${number->Int.toString} is ready. Scroll state updates without rerendering the rows.`,
+    }: MessageScrollerExample.message
+  )
 })
 
 module StatusBar = {
+  type statusProps = {...JsxDOM.domProps, @as("data-on") dataOn: bool}
   @react.component
   let make = () => {
     let {start, end} = MessageScroller.useMessageScrollerScrollable()
@@ -24,16 +28,13 @@ module StatusBar = {
     ]
     <div className="pointer-events-none absolute inset-x-3 top-3 z-10 flex flex-wrap gap-1.5">
       {states
-      ->Array.map(((label, on_)) =>
-        <span
-          key=label
-          className={`rounded-full border px-2 py-0.5 text-xs ${on_
-              ? "border-transparent bg-primary text-primary-foreground"
-              : "bg-background text-muted-foreground"}`}
-        >
-          {label->React.string}
-        </span>
-      )
+      ->Array.map(((label, on_)) => {
+        let props: statusProps = {
+          dataOn: on_,
+          className: "rounded-full border bg-background px-2 py-0.5 text-xs text-muted-foreground data-[on=true]:border-transparent data-[on=true]:bg-primary data-[on=true]:text-primary-foreground",
+        }
+        <span {...(props :> JsxDOM.domProps)} key=label> {label->React.string} </span>
+      })
       ->React.array}
     </div>
   }
@@ -54,9 +55,21 @@ let make = ({}: Demo.Props.t) =>
           <StatusBar />
           <MessageScroller.Viewport>
             <MessageScroller.Content className="gap-4 p-4 pt-12">
-              <MessageScrollerExample.Transcript
-                messages assistantVariant=Bubble.Variant.Muted
-              />
+              {messages
+              ->Array.map(message =>
+                <MessageScroller.Item
+                  key=message.id messageId=message.id scrollAnchor={message.role == User}
+                >
+                  <Message align={message.role == User ? End : Start}>
+                    <Message.Content>
+                      <Bubble variant={message.role == User ? Default : Muted}>
+                        <Bubble.Content> {message.text->React.string} </Bubble.Content>
+                      </Bubble>
+                    </Message.Content>
+                  </Message>
+                </MessageScroller.Item>
+              )
+              ->React.array}
             </MessageScroller.Content>
           </MessageScroller.Viewport>
           <MessageScroller.Button />

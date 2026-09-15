@@ -65,7 +65,7 @@ let use = () =>
 
 let useIsMobile = () => {
   let (isMobile, setIsMobile) = React.useState(() => false)
-  React.useEffect0(() => {
+  React.useEffect(() => {
     let mediaQuery =
       browserWindow->windowMatchMedia(`(max-width: ${Int.toString(mobileBreakpoint - 1)}px)`)
     let onChange = () => {
@@ -77,7 +77,7 @@ let useIsMobile = () => {
     onChange()
 
     Some(() => mediaQuery->removeMediaQueryListener("change", onChange))
-  })
+  }, [])
   isMobile
 }
 
@@ -104,12 +104,8 @@ type props = {
   collapsible?: collapsible,
   ...ReactAria.Common.elementProps,
 }
-let contentDomProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({side, variant, collapsible, className, children, dir, ...props}) => props`
-)
-let mobileSheetProps: props => Sheet.props = %raw(
-  `({side, variant, collapsible, className, children, dir, style, ...props}) => props`
-)
+let contentDomProps: props => ReactAria.Types.DomProps.t = %raw(`({side, variant, collapsible, className, children, dir, ...props}) => props`)
+let mobileSheetProps: props => Sheet.props = %raw(`({side, variant, collapsible, className, children, dir, style, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props) => {
@@ -130,28 +126,31 @@ let make = (props: props) => {
       {props.children->Option.getOr(React.null)}
     </div>
   } else if isMobile {
-    let mobileStyle = props.style->Option.getOr(
-      ReactDOM.Style._dictToStyle(dict{"--sidebar-width": sidebarWidthMobile}),
-    )
+    let mobileStyle =
+      props.style->Option.getOr(
+        ReactDOM.Style._dictToStyle(dict{"--sidebar-width": sidebarWidthMobile}),
+      )
     <Sheet
-        {...props->mobileSheetProps}
-        isOpen={openMobile}
-        onOpenChange={nextOpen => setOpenMobile(nextOpen)}
-        dir=?props.dir
-        dataSidebar={props.dataSidebar->Option.getOr("sidebar")}
-        dataSlot={props.dataSlot->Option.getOr("sidebar")}
-        dataMobile={props.dataMobile->Option.getOr("true")}
-        className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
-        side={side == Right ? Sheet.Side.Right : Sheet.Side.Left}
-        style={mobileStyle}
-        showCloseButton={false}
-      >
-        <Sheet.Header className="sr-only">
-          <Sheet.Title> {"Sidebar"->React.string} </Sheet.Title>
-          <Sheet.Description> {"Displays the mobile sidebar."->React.string} </Sheet.Description>
-        </Sheet.Header>
-        <div className="flex h-full w-full flex-col"> {props.children->Option.getOr(React.null)} </div>
-      </Sheet>
+      {...props->mobileSheetProps}
+      isOpen={openMobile}
+      onOpenChange={nextOpen => setOpenMobile(nextOpen)}
+      dir=?props.dir
+      dataSidebar={props.dataSidebar->Option.getOr("sidebar")}
+      dataSlot={props.dataSlot->Option.getOr("sidebar")}
+      dataMobile={props.dataMobile->Option.getOr("true")}
+      className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+      side={side == Right ? Sheet.Side.Right : Sheet.Side.Left}
+      style={mobileStyle}
+      showCloseButton={false}
+    >
+      <Sheet.Header className="sr-only">
+        <Sheet.Title> {"Sidebar"->React.string} </Sheet.Title>
+        <Sheet.Description> {"Displays the mobile sidebar."->React.string} </Sheet.Description>
+      </Sheet.Header>
+      <div className="flex h-full w-full flex-col">
+        {props.children->Option.getOr(React.null)}
+      </div>
+    </Sheet>
   } else {
     let desktopGapClass = switch variant {
     | Floating
@@ -206,9 +205,7 @@ module Provider = {
     onOpenChange?: bool => unit,
     ...ReactAria.Common.elementProps,
   }
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(
-    `({defaultOpen, open, onOpenChange, ...props}) => props`
-  )
+  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({defaultOpen, open, onOpenChange, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props) => {
@@ -362,10 +359,7 @@ module Inset = {
     <main
       {...props}
       dataSlot={props.dataSlot->Option.getOr("sidebar-inset")}
-      className={cn(
-        "cn-sidebar-inset relative flex w-full flex-1 flex-col",
-        props.className,
-      )}
+      className={cn("cn-sidebar-inset relative flex w-full flex-1 flex-col", props.className)}
     />
 }
 
@@ -434,10 +428,7 @@ module Group = {
       {...props}
       dataSlot={props.dataSlot->Option.getOr("sidebar-group")}
       dataSidebar={props.dataSidebar->Option.getOr("group")}
-      className={cn(
-        "cn-sidebar-group relative flex w-full min-w-0 flex-col",
-        props.className,
-      )}
+      className={cn("cn-sidebar-group relative flex w-full min-w-0 flex-col", props.className)}
     />
 }
 
@@ -449,9 +440,7 @@ module GroupLabel = {
   ) => React.element = "createElement"
 
   type props = {elementType?: React.component<ReactAria.Button.props>, ...ReactAria.Button.props}
-  let buttonProps: props => ReactAria.Button.props = %raw(
-    `({elementType, ...props}) => props`
-  )
+  let buttonProps: props => ReactAria.Button.props = %raw(`({elementType, ...props}) => props`)
   let domProps: ReactAria.Button.props => ReactAria.Types.DomProps.t = %raw(`props => props`)
 
   @react.componentWithProps(props)
@@ -585,9 +574,7 @@ module MenuButton = {
     ...props
   }) => props`)
 
-  let tooltipProps: 'tooltip => Tooltip.contentProps = %raw(
-    `tooltip => typeof tooltip === "string" ? {children: tooltip} : tooltip`
-  )
+  let tooltipProps: 'tooltip => Tooltip.contentProps = %raw(`tooltip => typeof tooltip === "string" ? {children: tooltip} : tooltip`)
 
   @react.componentWithProps(props)
   let make = (props: props<'tooltip>) => {
@@ -622,10 +609,7 @@ module MenuButton = {
       let tooltip = tooltip->tooltipProps
       <Tooltip.Trigger isDisabled={state !== Collapsed || isMobile}>
         {comp}
-        <Tooltip
-          {...tooltip}
-          placement={tooltip.placement->Option.getOr(ReactAria.Common.Right)}
-        />
+        <Tooltip {...tooltip} placement={tooltip.placement->Option.getOr(ReactAria.Common.Right)} />
       </Tooltip.Trigger>
     }
   }
@@ -638,9 +622,10 @@ module MenuAction = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
-    let showOnHoverClass = props.showOnHover->Option.getOr(false)
-      ? "peer-data-active/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 aria-expanded:opacity-100 md:opacity-0"
-      : ""
+    let showOnHoverClass =
+      props.showOnHover->Option.getOr(false)
+        ? "peer-data-active/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 aria-expanded:opacity-100 md:opacity-0"
+        : ""
     <ReactAria.Button
       {...props->buttonProps}
       dataSlot="sidebar-menu-action"
@@ -707,10 +692,7 @@ module MenuSub = {
       {...props}
       dataSlot={props.dataSlot->Option.getOr("sidebar-menu-sub")}
       dataSidebar={props.dataSidebar->Option.getOr("menu-sub")}
-      className={cn(
-        "cn-sidebar-menu-sub flex min-w-0 flex-col",
-        props.className,
-      )}
+      className={cn("cn-sidebar-menu-sub flex min-w-0 flex-col", props.className)}
     />
 }
 

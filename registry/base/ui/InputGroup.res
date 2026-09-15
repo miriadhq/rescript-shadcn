@@ -148,10 +148,7 @@ module Input = {
     <Input
       {...props}
       dataSlot={props.dataSlot->Option.getOr("input-group-control")}
-      className={cn(
-        "cn-input-group-input flex-1",
-        props.className,
-      )}
+      className={cn("cn-input-group-input flex-1", props.className)}
     />
 }
 
@@ -161,9 +158,6 @@ module Textarea = {
     <Textarea
       {...props}
       dataSlot={props.dataSlot->Option.getOr("input-group-control")}
-      className={cn(
-        "cn-input-group-textarea flex-1 resize-none",
-        props.className,
-      )}
+      className={cn("cn-input-group-textarea flex-1 resize-none", props.className)}
     />
 }

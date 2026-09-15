@@ -14,7 +14,9 @@ module Size = {
 
 type props<'children> = {size?: Size.t, children?: 'children, ...ReactAria.Switch.componentProps}
 
-let switchProps: props<'children> => ReactAria.Switch.componentProps = %raw(`({size, children, ...props}) => props`)
+let switchProps: props<
+  'children,
+> => ReactAria.Switch.componentProps = %raw(`({size, children, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props<'children>) => {
@@ -28,7 +30,10 @@ let make = (props: props<'children>) => {
       props.className,
     )}
   >
-    {ReactAria.Common.composeRenderProps(props.children, (children, state: ReactAria.Switch.renderProps) =>
+    {ReactAria.Common.composeRenderProps(props.children, (
+      children,
+      state: ReactAria.Switch.renderProps,
+    ) =>
       <>
         <span
           dataSlot="switch-thumb"

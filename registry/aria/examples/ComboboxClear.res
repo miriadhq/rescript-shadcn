@@ -4,14 +4,13 @@ let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Combobox items={frameworks} defaultValue={"Next.js"}>
+  <Combobox ariaLabel="Framework" items={frameworks} defaultValue={"Next.js"}>
     <Combobox.Input placeholder="Select a framework" showClear={true} />
     <Combobox.Content>
       <Combobox.List
         renderEmptyState={_ => <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>}
       >
-        {item =>
-          <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
+        {item => <Combobox.Item key=item id=item value=item> {item->React.string} </Combobox.Item>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

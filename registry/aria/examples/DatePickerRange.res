@@ -2,20 +2,18 @@
 
 module IDate = ReactAria.InternationalizedDate
 
-let formatDate = date =>
-  date
-  ->IDate.toDate(IDate.getLocalTimeZone())
-  ->Date.toLocaleDateStringWithLocaleAndOptions(
-    "en-US",
-    {day: #"2-digit", month: #short, year: #numeric},
-  )
+type formatter
+type formatOptions = {dateStyle: string}
+@new @scope("Intl")
+external makeFormatter: (option<string>, formatOptions) => formatter = "DateTimeFormat"
+@send external formatRange: (formatter, Date.t, Date.t) => string = "formatRange"
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let year = Date.make()->Date.getFullYear
   let start = IDate.calendarDate(year, 1, 20)
   let (dateRange, setDateRange) = React.useState(() => {
-    ReactAria.Calendar.Range.start: start,
+    ReactAria.Calendar.Range.start,
     end_: start->IDate.add({days: 20}),
   })
 
@@ -24,15 +22,16 @@ let make = ({}: Demo.Props.t) => {
     <Popover.Trigger>
       <Button variant=Outline id="date-picker-range" className="justify-start px-2.5 font-normal">
         <Icons.Calendar dataIcon="inline-start" />
-        {dateRange.start->formatDate->React.string}
-        {" - "->React.string}
-        {dateRange.end_->formatDate->React.string}
+        {makeFormatter(None, {dateStyle: "long"})
+        ->formatRange(
+          dateRange.start->IDate.toDate(IDate.getLocalTimeZone()),
+          dateRange.end_->IDate.toDate(IDate.getLocalTimeZone()),
+        )
+        ->React.string}
       </Button>
       <Popover className="w-auto p-0" placement=ReactAria.Common.BottomStart>
         <Calendar.Range
-          value=dateRange
-          onChange={range => setDateRange(_ => range)}
-          numberOfMonths=2
+          value=dateRange onChange={range => setDateRange(_ => range)} numberOfMonths=2
         />
       </Popover>
     </Popover.Trigger>

@@ -4,7 +4,7 @@
 let make = ({}: Demo.Props.t) => {
   let (paymentMethod, setPaymentMethod) = React.useState(() => "card")
   <DropdownMenu.Trigger>
-    <Button variant=Outline className="w-fit"> {"Payment Method"->React.string} </Button>
+    <Button variant=Outline> {"Payment Method"->React.string} </Button>
     <DropdownMenu className="min-w-56">
       <DropdownMenu.Group
         selectionMode=Single
@@ -12,10 +12,11 @@ let make = ({}: Demo.Props.t) => {
         onSelectionChange={selection =>
           switch selection {
           | ReactAria.Common.Keys(keys) =>
-            setPaymentMethod(_ => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("card"))
+            setPaymentMethod(_ =>
+              keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("card")
+            )
           | ReactAria.Common.All => setPaymentMethod(_ => "card")
-          }
-        }
+          }}
       >
         <DropdownMenu.Label> {"Select Payment Method"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item id="card">

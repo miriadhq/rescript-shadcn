@@ -1,35 +1,28 @@
 type row = {
   label: string,
-  value: null<string>,
+  value: string,
   disabled: bool,
 }
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let rows = [
-    {label: "Select a fruit", value: Null.null, disabled: false},
-    {label: "Apple", value: Value("apple"), disabled: false},
-    {label: "Banana", value: Value("banana"), disabled: false},
-    {label: "Blueberry", value: Value("blueberry"), disabled: false},
-    {label: "Grapes", value: Value("grapes"), disabled: true},
-    {label: "Pineapple", value: Value("pineapple"), disabled: false},
+    {label: "Apple", value: "apple", disabled: false},
+    {label: "Banana", value: "banana", disabled: false},
+    {label: "Blueberry", value: "blueberry", disabled: false},
+    {label: "Grapes", value: "grapes", disabled: true},
+    {label: "Pineapple", value: "pineapple", disabled: false},
   ]
 
-  <Select
-    items={rows->Array.map((r: row): ReactAria.Select.Item.t<null<string>> => {
-      label: r.label,
-      value: r.value,
-    })}
-    isDisabled={true}
-  >
-    <Select.Trigger className="w-full max-w-48">
+  <Select className="w-full max-w-48" placeholder="Select a fruit" isDisabled={true}>
+    <Select.Trigger>
       <Select.Value />
     </Select.Trigger>
     <Select.Content>
       <Select.Group>
         {rows
         ->Array.map(row =>
-          <Select.Item key={row.label} value={row.value} isDisabled={row.disabled}>
+          <Select.Item key=row.value id=row.value isDisabled={row.disabled}>
             {row.label->React.string}
           </Select.Item>
         )

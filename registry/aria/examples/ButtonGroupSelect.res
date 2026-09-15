@@ -18,7 +18,7 @@ let make = ({}: Demo.Props.t) => {
           <Select.Group>
             {currencies
             ->Array.map(item =>
-              <Select.Item key={item.value} value={item.value}>
+              <Select.Item key={item.value} id={item.value}>
                 {item.value->React.string}
                 {" "->React.string}
                 <span className="text-muted-foreground"> {item.label->React.string} </span>

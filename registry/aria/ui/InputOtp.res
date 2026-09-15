@@ -112,7 +112,9 @@ module Slot = {
     >
       {char}
       {hasFakeCaret
-        ? <div className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center">
+        ? <div
+            className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
             <div className="cn-input-otp-caret-line" />
           </div>
         : React.null}

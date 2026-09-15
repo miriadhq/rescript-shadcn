@@ -6,7 +6,8 @@
       "dir": ".",
       "files": [
         "Demo.res",
-        "NextLink.res"
+        "NextLink.res",
+        "Markdown.res"
       ]
     },
     {

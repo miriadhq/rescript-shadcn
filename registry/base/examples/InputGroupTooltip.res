@@ -35,4 +35,17 @@ let make = ({}: Demo.Props.t) =>
         </Tooltip>
       </InputGroup.Addon>
     </InputGroup>
+    <InputGroup>
+      <InputGroup.Input placeholder="Enter API key" />
+      <Tooltip>
+        <Tooltip.Trigger render={<InputGroup.Addon />}>
+          <InputGroup.Button variant=Ghost ariaLabel="Help" size=IconXs>
+            <Icons.HelpCircle />
+          </InputGroup.Button>
+        </Tooltip.Trigger>
+        <Tooltip.Content side=Left>
+          <p> {"Click for help with API keys"->React.string} </p>
+        </Tooltip.Content>
+      </Tooltip>
+    </InputGroup>
   </div>

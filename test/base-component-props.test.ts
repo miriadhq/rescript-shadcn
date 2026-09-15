@@ -18,9 +18,37 @@ import * as Spinner from "../registry/base/ui/Spinner.res.mjs";
 import * as AriaSpinner from "../registry/aria/ui/Spinner.res.mjs";
 import * as Table from "../registry/base/ui/Table.res.mjs";
 
+import * as Attachment from "../registry/base/ui/Attachment.res.mjs";
+import * as Chart from "../registry/base/ui/Chart.res.mjs";
+
 const h = React.createElement;
 
 describe("Base component prop composition", () => {
+  it("forwards attachment action overrides and handlers", () => {
+    const onClick = vi.fn();
+    const action = Attachment.Action.make({ variant: "secondary", size: "icon-sm", type: "submit", title: "Download", onClick });
+    expect(action.props).toMatchObject({ variant: "secondary", size: "icon-sm", type: "submit", title: "Download", onClick });
+    expect(Attachment.Action.make({}).props).toMatchObject({ variant: "ghost", size: "icon-xs" });
+  });
+
+  it("defaults attachment buttons without putting a button type on a rendered link", () => {
+    const button = renderToStaticMarkup(h(Attachment.Trigger.make, { children: "Preview", "aria-label": "Preview file" }));
+    expect(button).toContain('type="button"');
+    expect(button).toContain('aria-label="Preview file"');
+    const link = renderToStaticMarkup(h(Attachment.Trigger.make, { render: h("a", { href: "/file" }), children: "Open", title: "File" }));
+    expect(link).toContain('<a');
+    expect(link).toContain('href="/file"');
+    expect(link).toContain('title="File"');
+    expect(link).toContain('data-slot="attachment-trigger"');
+    expect(link).not.toContain('type=');
+  });
+
+  it("uses chart IDs for its scoped data attribute", () => {
+    const html = renderToStaticMarkup(h(Chart.make, { id: "visitors", config: {} }, h("div")));
+    expect(html).toContain('data-chart="chart-visitors"');
+    expect(html).not.toContain(' id="visitors"');
+  });
+
   it.each([
     ["Alert", Alert.make, { variant: "destructive" }],
     ["AspectRatio", AspectRatio.make, { ratio: 1.5 }],

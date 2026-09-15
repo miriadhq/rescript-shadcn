@@ -154,10 +154,7 @@ module Group = {
       ?onKeyDown
       role="list"
       dataSlot="item-group"
-      className={cn(
-        "cn-item-group group/item-group flex w-full flex-col",
-        className,
-      )}
+      className={cn("cn-item-group group/item-group flex w-full flex-col", className)}
     />
 }
 
@@ -185,10 +182,7 @@ module Title = {
       ?onClick
       ?onKeyDown
       dataSlot="item-title"
-      className={cn(
-        "cn-item-title line-clamp-1 flex w-fit items-center",
-        className,
-      )}
+      className={cn("cn-item-title line-clamp-1 flex w-fit items-center", className)}
     />
 }
 

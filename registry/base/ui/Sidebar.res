@@ -74,7 +74,7 @@ let use = () =>
 
 let useIsMobile = () => {
   let (isMobile, setIsMobile) = React.useState(() => false)
-  React.useEffect0(() => {
+  React.useEffect(() => {
     let mediaQuery =
       browserWindow->windowMatchMedia(`(max-width: ${Int.toString(mobileBreakpoint - 1)}px)`)
     let onChange = () => {
@@ -86,7 +86,7 @@ let useIsMobile = () => {
     onChange()
 
     Some(() => mediaQuery->removeMediaQueryListener("change", onChange))
-  })
+  }, [])
   isMobile
 }
 

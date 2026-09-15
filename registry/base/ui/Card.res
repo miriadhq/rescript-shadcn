@@ -49,10 +49,7 @@ module Title = {
     <div
       {...props}
       dataSlot={props.dataSlot->Option.getOr("card-title")}
-      className={cn(
-        "cn-card-title cn-font-heading",
-        props.className,
-      )}
+      className={cn("cn-card-title cn-font-heading", props.className)}
     />
   }
 }
@@ -74,7 +71,10 @@ module Action = {
     <div
       {...props}
       dataSlot={props.dataSlot->Option.getOr("card-action")}
-      className={cn("cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end", props.className)}
+      className={cn(
+        "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        props.className,
+      )}
     />
   }
 }
@@ -96,10 +96,7 @@ module Footer = {
     <div
       {...props}
       dataSlot={props.dataSlot->Option.getOr("card-footer")}
-      className={cn(
-        "cn-card-footer flex items-center",
-        props.className,
-      )}
+      className={cn("cn-card-footer flex items-center", props.className)}
     />
   }
 }

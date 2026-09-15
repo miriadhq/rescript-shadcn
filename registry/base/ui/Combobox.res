@@ -136,10 +136,7 @@ module List = {
       ?style
       ?render
       dataSlot="combobox-list"
-      className={cn(
-        "cn-combobox-list overscroll-contain",
-        className,
-      )}
+      className={cn("cn-combobox-list overscroll-contain", className)}
     >
       {children}
     </BaseUi.Combobox.List>
@@ -157,11 +154,7 @@ module Item = {
       )}
     >
       {props.children->Option.getOr(React.null)}
-      <BaseUi.Combobox.ItemIndicator
-        render={<span
-          className="cn-combobox-item-indicator"
-        />}
-      >
+      <BaseUi.Combobox.ItemIndicator render={<span className="cn-combobox-item-indicator" />}>
         <Icons.Check className="cn-combobox-item-indicator-icon pointer-events-none" />
       </BaseUi.Combobox.ItemIndicator>
     </BaseUi.Combobox.Item>
@@ -171,11 +164,7 @@ module Group = {
   @react.component
   let make = (~children, ~items=?, ~className=?, ~style=?, ~render=?) =>
     <BaseUi.Combobox.Group
-      ?items
-      ?style
-      ?render
-      dataSlot="combobox-group"
-      className={cn("cn-combobox-group", className)}
+      ?items ?style ?render dataSlot="combobox-group" className={cn("cn-combobox-group", className)}
     >
       {children}
     </BaseUi.Combobox.Group>
@@ -207,14 +196,7 @@ module Empty = {
   @react.component
   let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
     <BaseUi.Combobox.Empty
-      ?id
-      ?style
-      ?children
-      dataSlot="combobox-empty"
-      className={cn(
-        "cn-combobox-empty",
-        className,
-      )}
+      ?id ?style ?children dataSlot="combobox-empty" className={cn("cn-combobox-empty", className)}
     />
 }
 
@@ -234,12 +216,7 @@ module Chips = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
   let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Combobox.Chips
-      {...props}
-      dataSlot="combobox-chips"
-      className={cn(
-        "cn-combobox-chips",
-        props.className,
-      )}
+      {...props} dataSlot="combobox-chips" className={cn("cn-combobox-chips", props.className)}
     />
 }
 

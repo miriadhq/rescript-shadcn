@@ -36,32 +36,22 @@ let tableData: array<row> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  <Table>
+  <Table ariaLabel="Users" selectionMode=Multiple>
     <Table.Header>
-      <Table.Row>
-        <Table.Head className="w-8">
-          <Checkbox id="select-all-checkbox" name="select-all-checkbox" isSelected={false} />
-        </Table.Head>
-        <Table.Head> {"Name"->React.string} </Table.Head>
-        <Table.Head> {"Email"->React.string} </Table.Head>
-        <Table.Head> {"Role"->React.string} </Table.Head>
-      </Table.Row>
+      <Table.Head className="w-8">
+        <Checkbox id="select-all-checkbox" name="select-all-checkbox" slot="selection" />
+      </Table.Head>
+      <Table.Head isRowHeader=true> {"Name"->React.string} </Table.Head>
+      <Table.Head> {"Email"->React.string} </Table.Head>
+      <Table.Head> {"Role"->React.string} </Table.Head>
     </Table.Header>
     <Table.Body>
       {tableData
       ->Array.map(row => {
-        let isSelected = row.id == "1"
-        <Table.Row
-          key=row.id
-          dataState=?{if isSelected {
-            Some("selected")
-          } else {
-            None
-          }}
-        >
+        <Table.Row key=row.id>
           <Table.Cell>
             <Checkbox
-              id={`row-${row.id}-checkbox`} name={`row-${row.id}-checkbox`} isSelected
+              id={`row-${row.id}-checkbox`} name={`row-${row.id}-checkbox`} slot="selection"
             />
           </Table.Cell>
           <Table.Cell className="font-medium"> {row.name->React.string} </Table.Cell>

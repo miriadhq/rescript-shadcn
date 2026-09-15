@@ -37,7 +37,10 @@ let make = (
     ?onKeyDown
     dataSlot="native-select-wrapper"
     dataSize={(size :> string)}
-    className={cn("cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50", className)}
+    className={cn(
+      "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
+      className,
+    )}
   >
     <select
       ?id
@@ -94,6 +97,11 @@ module OptGroup = {
   @react.component
   let make = (~className=?, ~children=?, ~id=?, ~label=?, ~style=?) =>
     <optgroup
-      ?id ?label ?style ?children dataSlot="native-select-optgroup" className={cn("bg-[Canvas] text-[CanvasText]", className)}
+      ?id
+      ?label
+      ?style
+      ?children
+      dataSlot="native-select-optgroup"
+      className={cn("bg-[Canvas] text-[CanvasText]", className)}
     />
 }

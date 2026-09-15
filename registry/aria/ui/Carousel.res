@@ -87,9 +87,7 @@ type props = {
   onKeyDownCapture?: JsxEvent.Keyboard.t => unit,
   ...ReactAria.Common.elementProps,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({orientation, opts, plugins, setApi, ...props}) => props`
-)
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({orientation, opts, plugins, setApi, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props) => {

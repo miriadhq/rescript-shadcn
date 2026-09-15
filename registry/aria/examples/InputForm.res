@@ -33,7 +33,7 @@ let make = ({}: Demo.Props.t) => {
               <Select.Group>
                 {countries
                 ->Array.map(c =>
-                  <Select.Item key={c.value} value={c.value}> {c.label->React.string} </Select.Item>
+                  <Select.Item key={c.value} id={c.value}> {c.label->React.string} </Select.Item>
                 )
                 ->React.array}
               </Select.Group>

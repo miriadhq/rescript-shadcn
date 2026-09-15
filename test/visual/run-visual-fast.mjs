@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 
 import React from "react";
+import { isValidElementType } from "react-is";
 import { renderToStaticMarkup } from "react-dom/server";
 import { twMerge } from "tailwind-merge";
 import { createServer } from "vite";
@@ -58,137 +59,25 @@ const EXCLUDED = [
 // compared, and the run fails if one of them starts passing. That way the lists can only ever shrink.
 const SKIPPED = {
   both: [
-    // DOM diffs
-    "attachment-demo",
-    "attachment-group",
-    "attachment-image",
-    "attachment-states",
-    "attachment-trigger",
-    "bubble-demo",
-    "bubble-group-demo",
-    "bubble-reactions",
-    "bubble-variants",
-    "calendar-hijri",
-    "chart-demo",
-    "chart-tooltip",
-    "drawer-demo",
-    "drawer-sides",
-    "input-group-button",
-    "input-group-custom",
-    "input-group-icon",
-    "input-group-textarea",
-    "input-group-textarea-examples",
-    "input-group-with-kbd",
-    "input-group-with-tooltip",
-    "marker-demo",
-    "marker-status",
-    "marker-variants",
-    "message-attachment",
-    "message-avatar",
-    "message-demo",
-    "message-group",
-    "message-header-footer",
-    "sidebar-menu-badge",
-    "sidebar-rsc",
-
-    // tsx render failures
-    "message-scroller-demo", // render: Cannot read properties of null (reading 'useRef')
-    "ui/chart", // render: Cannot convert undefined or null to object
-    "ui/message-scroller", // render: useMessageScroller must be used within a MessageScroller.
-    "ui/sidebar", // render: useSidebar must be used within a SidebarProvider.
+    "calendar-hijri", // Base RTL differences; Aria upstream ui-rtl module is unavailable.
+    "chart-demo", // Example still uses older chart/card markup and incomplete interactions.
+    "message-scroller-demo", // Upstream imports missing @ai-sdk/react.
   ],
   base: [
-    // DOM diffs
-    "breadcrumb-dropdown",
-    "button-render",
-    "input-group-tooltip",
+    "button-render", // Upstream example renders a plain link without the button slot.
     "progress-controlled", // Upstream Slider creates two thumbs for a scalar value; keep our single thumb.
-    "sidebar-menu-action",
     "tabs-vertical", // Upstream Tabs drops orientation; keep vertical keyboard navigation.
-
-    // tsx render failures
-    "ui/toast", // render: Cannot read properties of undefined (reading 'positionerProps')
-
-    // rescript resolve failures
-    "ui/direction", // resolve: no component export found
   ],
   aria: [
-    // DOM diffs
-    "bubble-link-button",
-    "button-group-select",
-    "calendar-custom-days",
-    "calendar-presets",
-    "calendar-time",
-    "checkbox-invalid",
-    "checkbox-table",
-    "combobox-basic",
-    "combobox-clear",
-    "combobox-custom",
-    "combobox-demo",
-    "combobox-disabled",
-    "combobox-groups",
-    "combobox-input-group",
-    "combobox-invalid",
-    "combobox-multiple",
-    "context-menu-basic",
-    "context-menu-checkboxes",
-    "context-menu-demo",
-    "context-menu-destructive",
-    "context-menu-groups",
-    "context-menu-icons",
-    "context-menu-radio",
-    "context-menu-shortcuts",
-    "context-menu-sides",
-    "context-menu-submenu",
-    "data-table-demo",
-    "date-picker-demo",
-    "date-picker-range",
-    "dialog-demo",
-    "dropdown-menu-checkboxes",
-    "dropdown-menu-checkboxes-icons",
-    "dropdown-menu-radio-group",
-    "dropdown-menu-radio-icons",
-    "field-demo",
-    "field-select",
-    "input-form",
-    "item-group",
-    "message-scroller-commands",
-    "message-scroller-load-history",
-    "message-scroller-state",
-    "message-scroller-visibility",
-    "pagination-icons-only",
-    "popover-basic",
-    "radio-fields",
-    "radio-group-choice-card",
-    "radio-group-demo",
-    "radio-group-description",
-    "radio-group-disabled",
-    "radio-group-fieldset",
-    "radio-group-invalid",
-    "select-disabled",
-    "select-groups",
-    "select-invalid",
-    "select-scrollable",
-    "sidebar-demo",
-    "slider-controlled",
-    "slider-demo",
-    "slider-disabled",
-    "slider-multiple",
-    "slider-range",
-    "slider-vertical",
-    "table-actions",
-    "table-demo",
-    "table-footer",
-    "ui/combobox",
-
-    // tsx render failures
-    "message-scroller-animation", // render: Cannot read properties of null (reading 'useRef')
-    "message-scroller-previous-context", // render: Cannot read properties of null (reading 'useRef')
-    "message-scroller-scrollable", // render: Cannot read properties of null (reading 'useState')
-    "message-scroller-streaming", // render: Cannot read properties of null (reading 'useRef')
-
-    // rescript render failures
-    "breadcrumb-link", // render: createElement is not defined
+    "bubble-link-button", // Keep explicit button type to avoid accidental form submission.
+    "message-scroller-animation", // Upstream imports missing @ai-sdk/react.
+    "message-scroller-commands", // Upstream imports missing @shadcn/helpers/ai-sdk.
+    "message-scroller-load-history", // Upstream imports missing @shadcn/helpers/ai-sdk.
+    "message-scroller-previous-context", // Upstream imports missing @ai-sdk/react.
+    "message-scroller-scrollable", // Upstream imports unsupported radix style modules.
+    "message-scroller-streaming", // Upstream imports missing @ai-sdk/react.
+    "message-scroller-visibility", // Upstream imports missing @shadcn/helpers/ai-sdk.
+    "sidebar-demo", // Keep React Aria's expanded selector rather than upstream's data-state selector.
   ],
 };
 
@@ -283,22 +172,54 @@ const rescriptBase = (variant, id) =>
 const hasRescriptEquivalent = (variant, id) => fs.existsSync(`${rescriptBase(variant, id)}.res`);
 const rescriptPath = (variant, id) => `${rescriptBase(variant, id)}.res.mjs`;
 
-// Same export resolution as vite-harness/main.tsx.
+const isComponent = (value) =>
+  (typeof value === "function" || (value !== null && typeof value === "object")) && isValidElementType(value);
+
+// Prefer the exact component export, including memo and forwardRef components.
 const resolveTsxComponent = (mod, id) => {
-  if (typeof mod.default === "function") return mod.default;
+  if (isComponent(mod.default)) return mod.default;
   if (id.startsWith("ui/")) {
-    if (id === "ui/resizable" && typeof mod.ResizablePanelGroup === "function") return mod.ResizablePanelGroup;
+    if (id === "ui/resizable" && isComponent(mod.ResizablePanelGroup)) return mod.ResizablePanelGroup;
     const name = toPascalCase(id.slice(3));
-    if (typeof mod[name] === "function") return mod[name];
-    const prefixed = Object.keys(mod).find((k) => k.startsWith(name) && typeof mod[k] === "function");
+    if (isComponent(mod[name])) return mod[name];
+    const prefixed = Object.keys(mod).find((k) => k.startsWith(name) && isComponent(mod[k]));
     if (prefixed) return mod[prefixed];
   }
-  const demo = Object.keys(mod).find((k) => k.endsWith("Demo") && typeof mod[k] === "function");
+  const demo = Object.keys(mod).find((k) => k.endsWith("Demo") && isComponent(mod[k]));
   if (demo) return mod[demo];
-  const first = Object.keys(mod).find((k) => typeof mod[k] === "function");
+  const first = Object.keys(mod).find((k) => isComponent(mod[k]));
   return first ? mod[first] : null;
 };
-const resolveRescriptComponent = (mod) => (mod && typeof mod.make === "function" ? mod.make : null);
+const resolveRescriptComponent = (mod, id) =>
+  isComponent(mod?.make) ? mod.make : (id === "ui/direction" ? mod.Provider?.make : null);
+
+// Bare compound components need the same minimal context and required props on both sides.
+const fixture = (mod, Component, id, rescript) => {
+  const part = (name) => rescript ? mod[name]?.make : mod[toPascalCase(id.slice(3)) + name];
+  const child = React.createElement("div", null, "Fixture");
+  switch (id) {
+    case "input-group-with-tooltip": {
+      const CountryExample = () => {
+        const [country, setCountry] = React.useState("+1");
+        return React.createElement(Component, { country, setCountry });
+      };
+      return React.createElement(CountryExample);
+    }
+    case "ui/chart":
+      return React.createElement(Component, { config: {}, id: "fixture" }, child);
+    case "ui/direction":
+      return React.createElement(Component, { direction: "ltr" }, child);
+    case "ui/sidebar":
+    case "ui/message-scroller":
+      return React.createElement(part("Provider"), null, React.createElement(Component, null, child));
+    case "ui/toast":
+      return React.createElement(part("Provider"), null,
+        React.createElement(part("Viewport"), null,
+          React.createElement(Component, { toast: { id: "fixture", title: "Fixture", type: "info" } }, child)));
+    default:
+      return React.createElement(Component);
+  }
+};
 
 // Strict tokenizer for react-dom/server output. An HTML parser would silently repair input and
 // insert elements (implicit <tbody>, ...) that React's client DOM, seen by the browser harness, lacks.
@@ -539,7 +460,7 @@ const renderSide = async (server, modulePath, resolveComponent, id) => {
   if (!Component) return { error: "resolve: no component export found" };
   const warnings = [];
   try {
-    const html = withCapturedConsole(warnings, () => renderToStaticMarkup(React.createElement(Component)));
+    const html = withCapturedConsole(warnings, () => renderToStaticMarkup(fixture(mod, Component, id, resolveComponent === resolveRescriptComponent)));
     return { html, warnings };
   } catch (error) {
     return { error: `render: ${firstLine(error)}`, warnings };

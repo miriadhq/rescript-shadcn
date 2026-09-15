@@ -58,7 +58,7 @@ let make = ({}: Demo.Props.t) => {
     setGloal(goal => Math.Int.max(200, Math.Int.min(400, goal + adjustment)))
   }
   <Drawer>
-    <Drawer.Trigger render={<Button variant=Outline />}>
+    <Drawer.Trigger render={<Button variant=Secondary />}>
       {"Open Drawer"->React.string}
     </Drawer.Trigger>
     <Drawer.Content>

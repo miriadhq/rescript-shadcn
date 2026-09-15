@@ -41,9 +41,7 @@ module Title = {
   @react.componentWithProps(ReactAria.Heading.props)
   let make = (props: ReactAria.Heading.props) =>
     <ReactAria.Heading
-      {...props}
-      dataSlot="popover-title"
-      className={cn("cn-popover-title", props.className)}
+      {...props} dataSlot="popover-title" className={cn("cn-popover-title", props.className)}
     />
 }
 

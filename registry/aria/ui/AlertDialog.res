@@ -24,17 +24,12 @@ module Overlay = {
     <ReactAria.Dialog.ModalOverlay
       {...props}
       dataSlot="alert-dialog-overlay"
-      className={cn(
-        "cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50",
-        props.className,
-      )}
+      className={cn("cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50", props.className)}
     />
 }
 
 type props = {size?: Size.t, ...ReactAria.Dialog.Modal.props}
-let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
-  `({size, className, children, ...props}) => props`
-)
+let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(`({size, className, children, ...props}) => props`)
 
 let render = (props: props) => {
   let size = props.size->Option.getOr(Size.Default)

@@ -59,7 +59,7 @@ let make = ({}: Demo.Props.t) => {
   }
   <Drawer>
     <Drawer.Trigger asChild={true}>
-      <Button variant=Outline> {"Open Drawer"->React.string} </Button>
+      <Button variant=Secondary> {"Open Drawer"->React.string} </Button>
     </Drawer.Trigger>
     <Drawer.Content>
       <div className="mx-auto w-full max-w-sm">

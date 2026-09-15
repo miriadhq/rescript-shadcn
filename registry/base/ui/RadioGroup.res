@@ -77,12 +77,8 @@ module Item = {
         className,
       )}
     >
-      <BaseUi.Radio.Indicator
-        dataSlot="radio-group-indicator" className="cn-radio-group-indicator"
-      >
-        <span
-          className="cn-radio-group-indicator-icon"
-        />
+      <BaseUi.Radio.Indicator dataSlot="radio-group-indicator" className="cn-radio-group-indicator">
+        <span className="cn-radio-group-indicator-icon" />
       </BaseUi.Radio.Indicator>
       {children}
     </BaseUi.Radio.Root>

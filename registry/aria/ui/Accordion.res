@@ -15,9 +15,7 @@ module Item = {
   @react.componentWithProps(ReactAria.Disclosure.props)
   let make = (props: ReactAria.Disclosure.props) =>
     <ReactAria.Disclosure
-      {...props}
-      dataSlot="accordion-item"
-      className={cn("cn-accordion-item", props.className)}
+      {...props} dataSlot="accordion-item" className={cn("cn-accordion-item", props.className)}
     />
 }
 

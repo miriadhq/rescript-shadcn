@@ -3,9 +3,7 @@
 @module("sonner") external toast: string => unit = "toast"
 
 let button = (message, props: ReactAria.Types.DomProps.t) =>
-  <button
-    {...(props :> JsxDOM.domProps)} type_="button" onClick={_ => toast(message)}
-  />
+  <button {...(props :> JsxDOM.domProps)} type_="button" onClick={_ => toast(message)} />
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>

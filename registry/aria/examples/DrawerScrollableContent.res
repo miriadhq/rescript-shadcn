@@ -18,9 +18,7 @@ let make = ({}: Demo.Props.t) =>
       </div>
       <Drawer.Footer>
         <Button> {"Submit"->React.string} </Button>
-        <Drawer.Close render={<Button variant=Outline />}>
-          {"Cancel"->React.string}
-        </Drawer.Close>
+        <Drawer.Close render={<Button variant=Outline />}> {"Cancel"->React.string} </Drawer.Close>
       </Drawer.Footer>
     </Drawer.Content>
   </Drawer>

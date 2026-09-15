@@ -8,7 +8,9 @@ let make = ({}: Demo.Props.t) =>
       </Card.Description>
     </Card.Header>
     <Card.Content className="-mb-(--card-spacing)">
-      <div className="-mx-(--card-spacing) max-h-48 space-y-4 overflow-y-scroll border-t bg-muted/50 px-(--card-spacing) py-4 text-sm leading-relaxed">
+      <div
+        className="-mx-(--card-spacing) max-h-48 space-y-4 overflow-y-scroll border-t bg-muted/50 px-(--card-spacing) py-4 text-sm leading-relaxed"
+      >
         <p>
           {"These terms govern your use of the workspace, including access to shared documents, project files, and collaboration tools."->React.string}
         </p>

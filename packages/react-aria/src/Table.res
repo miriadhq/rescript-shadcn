@@ -1,3 +1,9 @@
+module Sort = {
+  @unboxed
+  type direction = | @as("ascending") Ascending | @as("descending") Descending
+  type descriptor = {column: Common.key, direction: direction}
+}
+
 type props = {
   ...Common.elementProps,
   selectionMode?: Common.selectionMode,
@@ -9,8 +15,8 @@ type props = {
   disallowEmptySelection?: bool,
   disabledBehavior?: Common.disabledBehavior,
   onRowAction?: string => unit,
-  sortDescriptor?: JSON.t,
-  onSortChange?: JSON.t => unit,
+  sortDescriptor?: Sort.descriptor,
+  onSortChange?: Sort.descriptor => unit,
   expandedKeys?: array<string>,
   defaultExpandedKeys?: array<string>,
   onExpandedChange?: Set.t<string> => unit,

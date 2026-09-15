@@ -11,9 +11,7 @@ let paragraphs = text =>
   ->Array.map(String.trim)
   ->Array.filter(paragraph => paragraph != "")
   ->Array.mapWithIndex((paragraph, index) =>
-    <p key={index->Int.toString} className="whitespace-pre-wrap">
-      {paragraph->React.string}
-    </p>
+    <p key={index->Int.toString} className="whitespace-pre-wrap"> {paragraph->React.string} </p>
   )
   ->React.array
 
@@ -30,9 +28,7 @@ module Item = {
       <Message align={isUser ? Message.Align.End : Message.Align.Start}>
         <Message.Content>
           <Bubble variant={isUser ? userVariant : assistantVariant}>
-            <Bubble.Content className="space-y-2">
-              {message.text->paragraphs}
-            </Bubble.Content>
+            <Bubble.Content className="space-y-2"> {message.text->paragraphs} </Bubble.Content>
           </Bubble>
         </Message.Content>
       </Message>

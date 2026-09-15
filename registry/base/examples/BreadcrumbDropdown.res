@@ -14,7 +14,7 @@ let make = ({}: Demo.Props.t) =>
             render={<button className="flex items-center gap-1" type_="button" />}
           >
             {"Components"->React.string}
-            <Icons.ChevronDown dataIcon="inline-end" />
+            <Icons.ChevronDown dataIcon="inline-end" className="size-3.5" />
           </DropdownMenu.Trigger>
           <DropdownMenu.Content align=Start>
             <DropdownMenu.Group>

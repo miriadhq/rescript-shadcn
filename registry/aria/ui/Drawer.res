@@ -52,16 +52,12 @@ let make = (props: props) => {
   let modal = props.modal->Option.getOr(BaseUi.Types.Modal.True)
   let showSwipeHandle = props.showSwipeHandle->Option.getOr(false)
   let swipeDirection = props.swipeDirection->Option.getOr(SwipeDirection.Down)
-  let hasSnapPoints = props.snapPoints->Option.mapOr(false, snapPoints => snapPoints->Array.length > 0)
+  let hasSnapPoints =
+    props.snapPoints->Option.mapOr(false, snapPoints => snapPoints->Array.length > 0)
   let value = {hasSnapPoints, modal, showSwipeHandle, swipeDirection}
 
   <ContextProvider value={value->Nullable.make}>
-    <BaseUi.Drawer.Root
-      {...props->rootProps}
-      dataSlot="drawer"
-      modal
-      swipeDirection
-    />
+    <BaseUi.Drawer.Root {...props->rootProps} dataSlot="drawer" modal swipeDirection />
   </ContextProvider>
 }
 
@@ -172,10 +168,7 @@ module Footer = {
     <div
       {...props}
       dataSlot={props.dataSlot->Option.getOr("drawer-footer")}
-      className={cn(
-        "cn-drawer-footer-base mt-auto flex shrink-0 flex-col",
-        props.className,
-      )}
+      className={cn("cn-drawer-footer-base mt-auto flex shrink-0 flex-col", props.className)}
     />
 }
 

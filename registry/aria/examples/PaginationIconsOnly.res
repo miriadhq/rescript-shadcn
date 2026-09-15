@@ -9,10 +9,10 @@ let make = ({}: Demo.Props.t) =>
         </Select.Trigger>
         <Select.Content placement=ReactAria.Common.BottomStart>
           <Select.Group>
-            <Select.Item value="10"> {"10"->React.string} </Select.Item>
-            <Select.Item value="25"> {"25"->React.string} </Select.Item>
-            <Select.Item value="50"> {"50"->React.string} </Select.Item>
-            <Select.Item value="100"> {"100"->React.string} </Select.Item>
+            <Select.Item id="10"> {"10"->React.string} </Select.Item>
+            <Select.Item id="25"> {"25"->React.string} </Select.Item>
+            <Select.Item id="50"> {"50"->React.string} </Select.Item>
+            <Select.Item id="100"> {"100"->React.string} </Select.Item>
           </Select.Group>
         </Select.Content>
       </Select>

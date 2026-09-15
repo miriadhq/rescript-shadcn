@@ -236,7 +236,8 @@ module Previous = {
     <Button
       {...props}
       className={cn(
-        `cn-carousel-previous absolute touch-manipulation ${orientation == DataOrientation.Horizontal
+        `cn-carousel-previous absolute touch-manipulation ${orientation ==
+            DataOrientation.Horizontal
             ? "inset-y-0 -left-12 my-auto"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90"}`,
         props.className,

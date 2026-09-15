@@ -17,10 +17,10 @@ let make = ({}: Demo.Props.t) => {
     <ButtonGroup>
       <Button variant=Outline> {"Snooze"->React.string} </Button>
       <DropdownMenu.Trigger>
-<Button variant=Outline size=Icon ariaLabel="More Options">
+        <Button variant=Outline size=Icon ariaLabel="More Options">
           <Icons.MoreHorizontal />
         </Button>
-<DropdownMenu placement=ReactAria.Common.BottomEnd className="w-40">
+        <DropdownMenu placement=ReactAria.Common.BottomEnd className="w-40">
           <DropdownMenu.Group>
             <DropdownMenu.Item>
               <Icons.MailCheck />
@@ -57,20 +57,15 @@ let make = ({}: Demo.Props.t) => {
                   onSelectionChange={selection =>
                     switch selection {
                     | ReactAria.Common.Keys(keys) =>
-                      setLabel(_ => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(label))
+                      setLabel(_ =>
+                        keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(label)
+                      )
                     | ReactAria.Common.All => ()
-                    }
-                  }
+                    }}
                 >
-                  <DropdownMenu.Item id="personal">
-                    {"Personal"->React.string}
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item id="work">
-                    {"Work"->React.string}
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item id="other">
-                    {"Other"->React.string}
-                  </DropdownMenu.Item>
+                  <DropdownMenu.Item id="personal"> {"Personal"->React.string} </DropdownMenu.Item>
+                  <DropdownMenu.Item id="work"> {"Work"->React.string} </DropdownMenu.Item>
+                  <DropdownMenu.Item id="other"> {"Other"->React.string} </DropdownMenu.Item>
                 </DropdownMenu.Group>
               </DropdownMenu.SubContent>
             </DropdownMenu.Sub>
@@ -83,7 +78,7 @@ let make = ({}: Demo.Props.t) => {
             </DropdownMenu.Item>
           </DropdownMenu.Group>
         </DropdownMenu>
-</DropdownMenu.Trigger>
+      </DropdownMenu.Trigger>
     </ButtonGroup>
   </ButtonGroup>
 }

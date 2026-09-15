@@ -1,19 +1,23 @@
 @@directive("'use client'")
 
+type framework = {id: string, name: string}
+
 let frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let anchor = Combobox.useAnchor()
   <Combobox
+    ariaLabel="Frameworks"
     selectionMode=ReactAria.Combobox.Multiple
-    items={frameworks}
+    items={frameworks->Array.map(name => {id: name, name})}
     defaultValue={[frameworks->Array.getUnsafe(0)]}
     allowsEmptyCollection=true
+    className="w-[250px] max-w-full"
   >
-    <Combobox.Chips ref=anchor className="w-full max-w-xs">
+    <Combobox.Chips>
       <Combobox.ChipList>
-        {value => <Combobox.Chip key=value id=value> {value->React.string} </Combobox.Chip>}
+        {value =>
+          <Combobox.Chip key=value.name id=value.name> {value.name->React.string} </Combobox.Chip>}
       </Combobox.ChipList>
       <Combobox.ChipsInput />
     </Combobox.Chips>
@@ -22,7 +26,9 @@ let make = ({}: Demo.Props.t) => {
         renderEmptyState={_ => <Combobox.Empty> {"No items found."->React.string} </Combobox.Empty>}
       >
         {item =>
-          <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>}
+          <Combobox.Item key=item.name id=item.name value=item>
+            {item.name->React.string}
+          </Combobox.Item>}
       </Combobox.List>
     </Combobox.Content>
   </Combobox>

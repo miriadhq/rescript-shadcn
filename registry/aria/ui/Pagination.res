@@ -107,10 +107,7 @@ module Ellipsis = {
       {...props}
       dataSlot={props.dataSlot->Option.getOr("pagination-ellipsis")}
       ariaHidden={props.ariaHidden->Option.getOr(true)}
-      className={cn(
-        "cn-pagination-ellipsis flex items-center justify-center",
-        props.className,
-      )}
+      className={cn("cn-pagination-ellipsis flex items-center justify-center", props.className)}
     >
       <Icons.MoreHorizontal />
       <span className="sr-only"> {"More pages"->React.string} </span>

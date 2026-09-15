@@ -30,7 +30,9 @@ let make = (props: ReactAria.Tabs.props) =>
 module List = {
   type props<'item> = {variant?: Variant.t, ...ReactAria.Tabs.List.props<'item>}
 
-  let listProps: props<'item> => ReactAria.Tabs.List.props<'item> = %raw(`({variant, ...props}) => props`)
+  let listProps: props<'item> => ReactAria.Tabs.List.props<
+    'item,
+  > = %raw(`({variant, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props<'item>) => {

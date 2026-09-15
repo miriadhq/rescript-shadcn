@@ -366,7 +366,9 @@ module Props = {
   }
 }
 
-let toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<'selected> = %raw(`function({buttonVariant, ...rest}){ return rest; }`)
+let toDayPickerProps: Props.t<'selected> => DayPicker.Props.t<
+  'selected,
+> = %raw(`function({buttonVariant, ...rest}){ return rest; }`)
 
 @scope("Object") external merge: (~defaults: 'a, 'a) => 'a = "assign"
 

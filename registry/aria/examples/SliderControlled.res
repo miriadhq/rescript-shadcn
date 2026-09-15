@@ -12,6 +12,7 @@ let make = ({}: Demo.Props.t) => {
       </span>
     </div>
     <Slider
+      ariaLabel="Temperature"
       id="slider-demo-temperature"
       value
       onChange={v => setValue(_ => v)}

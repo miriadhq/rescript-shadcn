@@ -124,8 +124,7 @@ let make = ({}: Demo.Props.t) =>
       </NavigationMenu.Item>
       <NavigationMenu.Item>
         <NavigationMenu.Link
-          render={<NextLink href="/docs" />}
-          className={NavigationMenu.navigationMenuTriggerStyle()}
+          render={<NextLink href="/docs" />} className={NavigationMenu.navigationMenuTriggerStyle()}
         >
           {"Docs"->React.string}
         </NavigationMenu.Link>

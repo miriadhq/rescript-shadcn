@@ -24,9 +24,7 @@ let items: array<item> = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Accordion
-    allowsMultipleExpanded=true className="max-w-lg" defaultExpandedKeys=["notifications"]
-  >
+  <Accordion allowsMultipleExpanded=true className="max-w-lg" defaultExpandedKeys=["notifications"]>
     {items
     ->Array.map(item =>
       <Accordion.Item key={item.value} id={item.value}>

@@ -16,8 +16,7 @@ let make = ({}: Demo.Props.t) => {
       <Calendar
         value=date
         onChange={date => setDate(_ => date)}
-        isDateUnavailable={date =>
-          bookedDates->Array.some(booked => IDate.isSameDay(date, booked))}
+        isDateUnavailable={date => bookedDates->Array.some(booked => IDate.isSameDay(date, booked))}
       />
     </Card.Content>
   </Card>

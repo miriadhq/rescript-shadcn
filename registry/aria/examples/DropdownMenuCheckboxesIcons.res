@@ -4,7 +4,7 @@
 let make = ({}: Demo.Props.t) => {
   let (selectedKeys, setSelectedKeys) = React.useState(() => ["email", "push"])
   <DropdownMenu.Trigger>
-    <Button variant=Outline className="w-fit"> {"Notifications"->React.string} </Button>
+    <Button variant=Outline> {"Notifications"->React.string} </Button>
     <DropdownMenu className="min-w-56">
       <DropdownMenu.Group
         selectionMode=Multiple
@@ -13,8 +13,7 @@ let make = ({}: Demo.Props.t) => {
           switch selection {
           | ReactAria.Common.Keys(keys) => setSelectedKeys(_ => keys->Set.values->Iterator.toArray)
           | ReactAria.Common.All => ()
-          }
-        }
+          }}
       >
         <DropdownMenu.Label> {"Notification Preferences"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item id="email">

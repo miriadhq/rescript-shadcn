@@ -77,10 +77,7 @@ module Content = {
     <ShadcnReact.MessageScroller.Content
       {...props}
       dataSlot="message-scroller-content"
-      className={cn(
-        "cn-message-scroller-content flex h-max min-h-full flex-col",
-        props.className,
-      )}
+      className={cn("cn-message-scroller-content flex h-max min-h-full flex-col", props.className)}
     />
 }
 
@@ -104,9 +101,7 @@ module Button = {
     size?: UiButton.Size.t,
     ...ShadcnReact.MessageScroller.Button.props,
   }
-  let primitiveProps: props => ShadcnReact.MessageScroller.Button.props = %raw(
-    `({variant, size, ...props}) => props`
-  )
+  let primitiveProps: props => ShadcnReact.MessageScroller.Button.props = %raw(`({variant, size, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props) => {
@@ -131,12 +126,10 @@ module Button = {
         React.array([
           <Icons.ArrowDown key="icon" />,
           <span key="label" className="sr-only">
-            {(
-              switch direction {
-              | End => "Scroll to end"
-              | Start => "Scroll to start"
-              }
-            )->React.string}
+            {switch direction {
+            | End => "Scroll to end"
+            | Start => "Scroll to start"
+            }->React.string}
           </span>,
         ]),
       )}

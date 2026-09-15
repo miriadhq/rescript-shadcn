@@ -3,10 +3,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <DropdownMenu.Trigger>
-<Button variant=Outline>
-      {"Open"->React.string}
-    </Button>
-<DropdownMenu>
+    <Button variant=Outline> {"Open"->React.string} </Button>
+    <DropdownMenu>
       <DropdownMenu.Item>
         <Icons.User />
         {"Profile"->React.string}
@@ -25,4 +23,4 @@ let make = ({}: Demo.Props.t) =>
         {"Log out"->React.string}
       </DropdownMenu.Item>
     </DropdownMenu>
-</DropdownMenu.Trigger>
+  </DropdownMenu.Trigger>

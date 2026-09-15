@@ -19,9 +19,7 @@ let make = ({}: Demo.Props.t) =>
         <Select.Label> {"Fruits"->React.string} </Select.Label>
         {items
         ->Array.map(item =>
-          <Select.Item key={item.value} id={item.value}>
-            {item.label->React.string}
-          </Select.Item>
+          <Select.Item key={item.value} id={item.value}> {item.label->React.string} </Select.Item>
         )
         ->React.array}
       </Select.Group>

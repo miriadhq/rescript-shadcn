@@ -54,9 +54,7 @@ type props = {
   orientation?: Orientation.t,
   ...ReactAria.Common.elementProps,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({state, size, orientation, ...props}) => props`
-)
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({state, size, orientation, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props) => {
@@ -175,18 +173,11 @@ module Trigger = {
     let renderProps = {
       ...props->domProps,
       dataSlot: props.dataSlot->Option.getOr("attachment-trigger"),
-      className: cn(
-        "cn-attachment-trigger absolute inset-0 z-10 outline-none",
-        props.className,
-      ),
+      className: cn("cn-attachment-trigger absolute inset-0 z-10 outline-none", props.className),
     }
     switch props.render {
     | Some(render) => render(renderProps)
-    | None =>
-      <button
-        {...renderProps}
-        type_={props.type_->Option.getOr("button")}
-      />
+    | None => <button {...renderProps} type_={props.type_->Option.getOr("button")} />
     }
   }
 }

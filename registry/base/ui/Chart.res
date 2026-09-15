@@ -667,7 +667,6 @@ let make = (
   }
   <Provider value={Some({config: config})}>
     <div
-      ?id
       ?style
       ?onClick
       ?onKeyDown
@@ -766,10 +765,7 @@ module TooltipContent = {
         ?style
         ?onClick
         ?onKeyDown
-        className={cn(
-          "cn-chart-tooltip grid min-w-32 items-start",
-          className,
-        )}
+        className={cn("cn-chart-tooltip grid min-w-32 items-start", className)}
       >
         {switch (nestLabel, tooltipLabel) {
         | (false, Some(labelElement)) => labelElement
