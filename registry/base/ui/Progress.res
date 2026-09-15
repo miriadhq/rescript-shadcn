@@ -3,30 +3,13 @@
 @module("cn")
 external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=React.null,
-  ~id=?,
-  ~value=?,
-  ~max=?,
-  ~min=?,
-  ~dir=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) => {
+@react.componentWithProps(BaseUi.Progress.Root.props)
+let make = (props: BaseUi.Progress.Root.props) => {
+  let children = props.children->Option.getOr(React.null)
   <BaseUi.Progress.Root
-    ?id
-    ?value
-    ?max
-    ?min
-    ?dir
-    ?style
-    ?onClick
-    ?onKeyDown
-    dataSlot="progress"
-    className={cn("cn-progress-root flex flex-wrap gap-3", className)}
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("progress")}
+    className={cn("cn-progress-root flex flex-wrap gap-3", props.className)}
   >
     {children}
     <BaseUi.Progress.Track
@@ -41,60 +24,44 @@ let make = (
 }
 
 module Track = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Progress.Track
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="progress-track"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("progress-track")}
       className={cn(
         "cn-progress-track relative flex w-full items-center overflow-x-hidden",
-        className,
+        props.className,
       )}
-      ?children
     />
 }
 
 module Indicator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Progress.Indicator
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="progress-indicator"
-      className={cn("cn-progress-indicator h-full transition-all", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("progress-indicator")}
+      className={cn("cn-progress-indicator h-full transition-all", props.className)}
     />
 }
 
 module Label = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Progress.Label
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="progress-label"
-      className={cn("cn-progress-label", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("progress-label")}
+      className={cn("cn-progress-label", props.className)}
     />
 }
 
 module Value = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Progress.Value
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="progress-value"
-      className={cn("cn-progress-value", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("progress-value")}
+      className={cn("cn-progress-value", props.className)}
     />
 }

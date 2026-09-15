@@ -79,21 +79,24 @@ let useCarousel = () =>
   | None => JsError.throwWithMessage("useCarousel must be used within a <Carousel />")
   }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~style=?,
-  ~onClick=?,
-  ~onMouseEnter=?,
-  ~onMouseLeave=?,
-  ~orientation=DataOrientation.Horizontal,
-  ~opts: EmblaOptions.t={},
-  ~plugins=?,
-  ~setApi=?,
-) => {
+type props = {
+  ...BaseUi.Types.BaseDomWithoutOrientationProps.t,
+  ...BaseUi.Types.ExtraDomProps.t,
+  children?: React.element,
+  orientation?: DataOrientation.t,
+  opts?: EmblaOptions.t,
+  plugins?: array<emblaPlugin>,
+  setApi?: Api.t => unit,
+}
+
+let toBaseUiProps: props => BaseUi.Types.DomProps.t = %raw(`({orientation, opts, plugins, setApi, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let orientation = props.orientation->Option.getOr(DataOrientation.Horizontal)
+  let opts = props.opts->Option.getOr({})
+  let plugins = props.plugins
+  let setApi = props.setApi
   let (carouselRef, api) = useEmblaCarousel(
     ~options={
       ...opts,
@@ -170,36 +173,26 @@ let make = (
   }
   <Provider value={providerValue}>
     <div
-      ?id
-      ?dir
-      ?style
-      ?onClick
-      ?onMouseEnter
-      ?onMouseLeave
-      onKeyDownCapture={handleKeyDownCapture}
-      dataSlot="carousel"
-      className={cn("relative", className)}
-      role="region"
-      ariaRoledescription="carousel"
-      ?children
+      {...props->toBaseUiProps}
+      onKeyDownCapture={props.onKeyDownCapture->Option.getOr(handleKeyDownCapture)}
+      dataSlot={props.dataSlot->Option.getOr("carousel")}
+      className={cn("relative", props.className)}
+      role={props.role->Option.getOr("region")}
+      ariaRoledescription={props.ariaRoledescription->Option.getOr("carousel")}
     />
   </Provider>
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     let {carouselRef, orientation} = useCarousel()
     <div dataSlot="carousel-content" ref={carouselRef} className="overflow-hidden">
       <div
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
-        ?children
+        {...props}
         className={cn(
           `flex ${orientation == DataOrientation.Horizontal ? "-ml-4" : "-mt-4 flex-col"}`,
-          className,
+          props.className,
         )}
       />
     </div>
@@ -207,23 +200,19 @@ module Content = {
 }
 
 module Item = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     let {orientation} = useCarousel()
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      role="group"
-      ariaRoledescription="slide"
-      dataSlot="carousel-item"
+      {...props}
+      role={props.role->Option.getOr("group")}
+      ariaRoledescription={props.ariaRoledescription->Option.getOr("slide")}
+      dataSlot={props.dataSlot->Option.getOr("carousel-item")}
       className={cn(
         `min-w-0 shrink-0 grow-0 basis-full ${orientation == DataOrientation.Horizontal
             ? "pl-4"
             : "pt-4"}`,
-        className,
+        props.className,
       )}
     />
   }

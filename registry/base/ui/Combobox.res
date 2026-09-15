@@ -84,22 +84,24 @@ module Input = {
 }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~side=Side.Bottom,
-    ~sideOffset=6.,
-    ~align=Align.Start,
-    ~alignOffset=0.,
-    ~anchor=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dir=?,
-    ~dataLang=?,
-    ~children=?,
-  ) => {
+  type props = {
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    side?: Side.t,
+    sideOffset?: float,
+    align?: Align.t,
+    alignOffset?: float,
+    anchor?: ReactDOM.domRef,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({side, sideOffset, align, alignOffset, anchor, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let side = props.side->Option.getOr(Side.Bottom)
+    let sideOffset = props.sideOffset->Option.getOr(6.)
+    let align = props.align->Option.getOr(Align.Start)
+    let alignOffset = props.alignOffset->Option.getOr(0.)
+    let anchor = props.anchor
     <BaseUi.Combobox.Portal>
       <BaseUi.Combobox.Positioner
         side
@@ -110,19 +112,13 @@ module Content = {
         className="isolate z-50"
       >
         <BaseUi.Combobox.Popup
-          ?id
-          ?style
-          ?onClick
-          ?onKeyDown
-          ?dir
-          ?dataLang
-          dataSlot="combobox-content"
+          {...props->toBaseUiProps}
+          dataSlot={props.dataSlot->Option.getOr("combobox-content")}
           dataChips={anchor->Option.isSome}
           className={cn(
             "cn-combobox-content cn-combobox-content-logical cn-menu-target cn-menu-translucent group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) overflow-hidden rounded-lg bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[chips=true]:min-w-(--anchor-width) data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:border-input/30 *:data-[slot=input-group]:bg-input/30 *:data-[slot=input-group]:shadow-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
-            className,
+            props.className,
           )}
-          ?children
         />
       </BaseUi.Combobox.Positioner>
     </BaseUi.Combobox.Portal>
@@ -130,16 +126,17 @@ module Content = {
 }
 
 module List = {
-  @react.component
-  let make = (~className=?, ~children, ~style=?, ~render=?) =>
+  @react.componentWithProps(BaseUi.Combobox.List.props)
+  let make = (props: BaseUi.Combobox.List.props<'item>) => {
+    let children = props.children
     <BaseUi.Combobox.List
-      ?style
-      ?render
-      dataSlot="combobox-list"
-      className={cn("cn-combobox-list overscroll-contain", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("combobox-list")}
+      className={cn("cn-combobox-list overscroll-contain", props.className)}
     >
       {children}
     </BaseUi.Combobox.List>
+  }
 }
 
 module Item = {
@@ -161,54 +158,58 @@ module Item = {
 }
 
 module Group = {
-  @react.component
-  let make = (~children, ~items=?, ~className=?, ~style=?, ~render=?) =>
+  @react.componentWithProps(BaseUi.Combobox.Group.props)
+  let make = (props: BaseUi.Combobox.Group.props<'value>) => {
+    let children = props.children->Option.getOr(React.null)
     <BaseUi.Combobox.Group
-      ?items ?style ?render dataSlot="combobox-group" className={cn("cn-combobox-group", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("combobox-group")}
+      className={cn("cn-combobox-group", props.className)}
     >
       {children}
     </BaseUi.Combobox.Group>
+  }
 }
 
 module Label = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Combobox.GroupLabel
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="combobox-label"
-      className={cn("cn-combobox-label", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("combobox-label")}
+      className={cn("cn-combobox-label", props.className)}
     />
 }
 
 module Collection = {
-  @react.component
-  let make = (~children) =>
-    <BaseUi.Combobox.Collection dataSlot="combobox-collection">
+  @react.componentWithProps(BaseUi.Combobox.Collection.props)
+  let make = (props: BaseUi.Combobox.Collection.props<'item>) => {
+    let children = props.children
+    <BaseUi.Combobox.Collection
+      {...props} dataSlot={props.dataSlot->Option.getOr("combobox-collection")}
+    >
       {children}
     </BaseUi.Combobox.Collection>
+  }
 }
 
 module Empty = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Combobox.Empty
-      ?id ?style ?children dataSlot="combobox-empty" className={cn("cn-combobox-empty", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("combobox-empty")}
+      className={cn("cn-combobox-empty", props.className)}
     />
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Combobox.Separator
-      ?id
-      ?style
-      ?children
-      dataSlot="combobox-separator"
-      className={cn("cn-combobox-separator", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("combobox-separator")}
+      className={cn("cn-combobox-separator", props.className)}
     />
 }
 

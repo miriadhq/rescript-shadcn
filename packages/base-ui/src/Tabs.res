@@ -10,8 +10,13 @@ module Root = {
 }
 
 module List = {
+  type props = {
+    ...Types.BaseUIComponentProps.t,
+    activateOnFocus?: bool,
+    loopFocus?: bool,
+  }
   @module("@base-ui/react/tabs") @scope("Tabs")
-  external make: React.component<Types.BaseUIComponentProps.t> = "List"
+  external make: React.component<props> = "List"
 }
 
 module Tab = {

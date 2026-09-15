@@ -12,7 +12,7 @@
     },
     {
       "dir": "test/visual/vite-harness",
-      "files": ["DirectionParity.res"],
+      "files": ["DirectionParity.res", "PropSpreadingFixtures.res"],
       "type": "dev"
     }
   ],

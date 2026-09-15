@@ -40,8 +40,9 @@ module List = {
 }
 
 module Item = {
+  type props<'value> = {...Types.BaseUIComponentProps.t, value?: 'value}
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Item"
+  external make: React.component<props<'value>> = "Item"
 }
 
 module Content = {
@@ -94,7 +95,12 @@ module Arrow = {
 }
 
 module Link = {
-  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
+  type props = {
+    ...Types.BaseUIComponentProps.t,
+    @as("type") type_?: string,
+    active?: bool,
+    closeOnClick?: bool,
+  }
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
   external make: React.component<props> = "Link"
 }

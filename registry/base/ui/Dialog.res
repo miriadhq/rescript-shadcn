@@ -22,9 +22,9 @@ module Trigger = {
 }
 
 module Portal = {
-  @react.component
-  let make = (~children=?, ~container=?) =>
-    <BaseUi.Dialog.Portal ?children ?container dataSlot="dialog-portal" />
+  @react.componentWithProps(BaseUi.Dialog.Portal.props)
+  let make = (props: BaseUi.Dialog.Portal.props) =>
+    <BaseUi.Dialog.Portal {...props} dataSlot={props.dataSlot->Option.getOr("dialog-portal")} />
 }
 
 module Close = {

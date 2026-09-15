@@ -263,7 +263,8 @@ module ExtraDomProps = {
 
 type dangerouslySetInnerHTML = {"__html": string}
 
-module BaseDomProps = {
+// Common DOM fields shared by wrappers with specialized selection/orientation APIs.
+module BaseDomCoreProps = {
   type t = {
     key?: string,
     ref?: ReactDOM.domRef,
@@ -433,8 +434,6 @@ module BaseDomProps = {
     onMouseOut?: JsxEvent.Mouse.t => unit,
     onMouseOver?: JsxEvent.Mouse.t => unit,
     onMouseUp?: JsxEvent.Mouse.t => unit,
-    /* Selection events */
-    onSelect?: JsxEvent.Selection.t => unit,
     /* Touch events */
     onTouchCancel?: JsxEvent.Touch.t => unit,
     onTouchEnd?: JsxEvent.Touch.t => unit,
@@ -614,7 +613,6 @@ module BaseDomProps = {
     operator?: string,
     order?: string,
     orient?: string,
-    orientation?: Orientation.t,
     origin?: string,
     overflow?: string,
     overflowX?: string,
@@ -752,6 +750,20 @@ module BaseDomProps = {
     /* react-specific */
     dangerouslySetInnerHTML?: dangerouslySetInnerHTML,
     suppressContentEditableWarning?: bool,
+  }
+}
+
+module BaseDomWithoutOrientationProps = {
+  type t = {
+    ...BaseDomCoreProps.t,
+    onSelect?: JsxEvent.Selection.t => unit,
+  }
+}
+
+module BaseDomProps = {
+  type t = {
+    ...BaseDomWithoutOrientationProps.t,
+    orientation?: Orientation.t,
   }
 }
 

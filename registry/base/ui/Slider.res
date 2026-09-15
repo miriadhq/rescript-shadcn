@@ -5,54 +5,19 @@ external cn: (string, option<string>) => string = "cn"
 
 @get external unsafeArrayLength: 'a => int = "length"
 
-@react.component
-let make = (
-  ~className=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~min=0.0,
-  ~max=100.0,
-  ~step=?,
-  ~largeStep=?,
-  ~disabled=?,
-  ~required=?,
-  ~readOnly=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~dir=?,
-  ~style=?,
-  ~render=?,
-  ~orientation=?,
-) => {
+@react.componentWithProps(BaseUi.Slider.Root.props)
+let make = (props: BaseUi.Slider.Root.props<'value>) => {
+  let value = props.value
+  let defaultValue = props.defaultValue
+  let min = props.min->Option.getOr(0.0)
+  let max = props.max->Option.getOr(100.0)
   <BaseUi.Slider.Root
-    ?id
-    ?name
-    ?value
-    ?defaultValue
-    ?onValueChange
+    {...props}
     min
     max
-    ?step
-    ?largeStep
-    ?disabled
-    ?required
-    ?readOnly
-    ?onClick
-    ?onKeyDown
-    ?tabIndex
-    ?ariaLabel
-    ?dir
-    ?style
-    ?render
-    ?orientation
-    dataSlot="slider"
-    thumbAlignment=Edge
-    className={cn("data-horizontal:w-full data-vertical:h-full", className)}
+    dataSlot={props.dataSlot->Option.getOr("slider")}
+    thumbAlignment={props.thumbAlignment->Option.getOr(Edge)}
+    className={cn("data-horizontal:w-full data-vertical:h-full", props.className)}
   >
     <BaseUi.Slider.Control
       className="cn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col"

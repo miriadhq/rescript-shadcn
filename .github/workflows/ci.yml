@@ -75,6 +75,9 @@ jobs:
       - name: Compile ReScript
         run: yarn compile
 
+      - name: Check prop forwarding
+        run: yarn test:props
+
       - name: Run visual tests
         run: yarn test:visual --skip-build
 

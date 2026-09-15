@@ -3,89 +3,32 @@
 @module("cn")
 external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~disabled=?,
-  ~orientation=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~style=?,
-) =>
+@react.componentWithProps(BaseUi.Accordion.Root.props)
+let make = (props: BaseUi.Accordion.Root.props<'value>) =>
   <BaseUi.Accordion.Root
-    ?id
-    ?value
-    ?defaultValue
-    ?onValueChange
-    ?disabled
-    ?orientation
-    ?onClick
-    ?onKeyDown
-    ?style
-    ?children
-    dataSlot="accordion"
-    className={cn("cn-accordion flex w-full flex-col", className)}
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("accordion")}
+    className={cn("cn-accordion flex w-full flex-col", props.className)}
   />
 
 module Multiple = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~value=?,
-    ~defaultValue=?,
-    ~onValueChange=?,
-    ~disabled=?,
-    ~orientation=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~style=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Accordion.Root.props)
+  let make = (props: BaseUi.Accordion.Root.props<'value>) =>
     <BaseUi.Accordion.Root
-      ?id
-      ?value
-      ?defaultValue
-      ?onValueChange
-      ?disabled
+      {...props}
       multiple=true
-      ?orientation
-      ?onClick
-      ?onKeyDown
-      ?style
-      ?children
-      dataSlot="accordion"
-      className={cn("cn-accordion flex w-full flex-col", className)}
+      dataSlot={props.dataSlot->Option.getOr("accordion")}
+      className={cn("cn-accordion flex w-full flex-col", props.className)}
     />
 }
 
 module Item = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~value=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~style=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Accordion.Item.props)
+  let make = (props: BaseUi.Accordion.Item.props<'value>) =>
     <BaseUi.Accordion.Item
-      ?id
-      ?value
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      ?style
-      ?children
-      dataSlot="accordion-item"
-      className={cn("cn-accordion-item", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("accordion-item")}
+      className={cn("cn-accordion-item", props.className)}
     />
 }
 
@@ -115,22 +58,25 @@ module Trigger = {
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  type props = BaseUi.Types.BaseUIComponentProps.t
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({className, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let children = props.children
     <BaseUi.Accordion.Panel
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="accordion-content"
+      {...props->toBaseUiProps}
+      dataSlot={props.dataSlot->Option.getOr("accordion-content")}
       className="cn-accordion-content overflow-hidden"
     >
       <div
         className={cn(
           "cn-accordion-content-inner [&_a]:hover:text-foreground h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4",
-          className,
+          props.className,
         )}
         ?children
       />
     </BaseUi.Accordion.Panel>
+  }
 }

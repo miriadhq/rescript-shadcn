@@ -646,17 +646,20 @@ module Style = {
   }
 }
 
-@react.component
-let make = (
-  ~config: chartConfig,
-  ~initialDimension: Recharts.Dimensions.t={width: 320., height: 200.},
-  ~className=?,
-  ~children,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) => {
+type props = {
+  ...BaseUi.Types.DomProps.t,
+  config: chartConfig,
+  initialDimension?: Recharts.Dimensions.t,
+}
+
+let toBaseUiProps: props => BaseUi.Types.DomProps.t = %raw(`({config, initialDimension, id, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let config = props.config
+  let initialDimension = props.initialDimension->Option.getOr({width: 320., height: 200.})
+  let children = props.children->Option.getOr(React.null)
+  let id = props.id
   let uniqueId = React.useId()->String.replaceAll(":", "")
   let chartId = switch id {
   | Some(id) => `chart-${id}`
@@ -667,14 +670,12 @@ let make = (
   }
   <Provider value={Some({config: config})}>
     <div
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="chart"
+      {...props->toBaseUiProps}
+      dataSlot={props.dataSlot->Option.getOr("chart")}
       dataChart={chartId}
       className={cn(
         "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
-        className,
+        props.className,
       )}
     >
       <Style id={chartId} config={config} />
@@ -694,28 +695,48 @@ module Indicator = {
 }
 
 module TooltipContent = {
-  @react.component
-  let make = (
-    ~active=false,
-    ~payload: array<payloadItem<'value>>=[],
-    ~className=?,
-    ~indicator=Indicator.Dot,
-    ~hideLabel=false,
-    ~hideIndicator=false,
-    ~label=?,
-    ~labelFormatter: option<(option<React.element>, array<payloadItem<'value>>) => React.element>=?,
-    ~labelClassName=?,
-    ~formatter: option<('value, string, payloadItem<'value>, int, dict<string>) => React.element>=?,
-    ~color=?,
-    ~nameKey=?,
-    ~labelKey=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) => {
-    let {config} = use()
+  type props<'value> = {
+    ...BaseUi.Types.DomProps.t,
+    active?: bool,
+    payload?: array<payloadItem<'value>>,
+    indicator?: Indicator.t,
+    hideLabel?: bool,
+    hideIndicator?: bool,
+    labelFormatter?: (option<React.element>, array<payloadItem<'value>>) => React.element,
+    labelClassName?: string,
+    formatter?: ('value, string, payloadItem<'value>, int, dict<string>) => React.element,
+    color?: string,
+    nameKey?: string,
+    labelKey?: string,
+  }
 
+  // Recharts clones custom content with its own options; only DOM props belong on the container.
+  let toBaseUiProps: props<'value> => BaseUi.Types.DomProps.t = %raw(`({
+    active, payload, indicator, hideLabel, hideIndicator, label, labelFormatter,
+    labelClassName, formatter, color, nameKey, labelKey,
+    content, contentStyle, itemStyle, labelStyle, wrapperStyle, wrapperClassName,
+    separator, itemSorter, accessibilityLayer, activeIndex, coordinate, viewBox,
+    allowEscapeViewBox, animationDuration, animationEasing, axisId, cursor,
+    defaultIndex, filterNull, includeHidden, isAnimationActive, offset, payloadUniqBy,
+    portal, position, reverseDirection, shared, trigger, useTranslate3d,
+    ...props
+  }) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props<'value>) => {
+    let active = props.active->Option.getOr(false)
+    let payload = props.payload->Option.getOr([])
+    let indicator = props.indicator->Option.getOr(Indicator.Dot)
+    let hideLabel = props.hideLabel->Option.getOr(false)
+    let hideIndicator = props.hideIndicator->Option.getOr(false)
+    let label = props.label
+    let labelFormatter = props.labelFormatter
+    let labelClassName = props.labelClassName
+    let formatter = props.formatter
+    let color = props.color
+    let nameKey = props.nameKey
+    let labelKey = props.labelKey
+    let {config} = use()
     let tooltipLabel = if hideLabel || payload->Array.length == 0 {
       None
     } else {
@@ -748,7 +769,6 @@ module TooltipContent = {
         }
       }
     }
-
     switch (active, payload) {
     | (false, _) | (_, []) => React.null
     | _ =>
@@ -759,13 +779,9 @@ module TooltipContent = {
         | _ => true
         }
       )
-
       <div
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
-        className={cn("cn-chart-tooltip grid min-w-32 items-start", className)}
+        {...props->toBaseUiProps}
+        className={cn("cn-chart-tooltip grid min-w-32 items-start", props.className)}
       >
         {switch (nestLabel, tooltipLabel) {
         | (false, Some(labelElement)) => labelElement
@@ -779,7 +795,6 @@ module TooltipContent = {
             let itemConfig = getPayloadConfigFromPayload(~config, ~payload=item, ~key)
             let indicatorColor =
               color->Option.orElse(item.payload->Dict.get("fill"))->Option.orElse(item.color)
-
             let customContent = switch (formatter, item.value, item.name) {
             | (Some(customFormatter), Some(value), Some(name)) =>
               Some(customFormatter(value, name, item, index, item.payload))
@@ -796,7 +811,6 @@ module TooltipContent = {
               item.dataKey
               ->Option.orElse(item.name)
               ->Option.getOr(Int.toString(index))
-
             <div
               key={itemKey}
               className={`[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 ${indicator ==
@@ -877,31 +891,38 @@ module TooltipContent = {
 module Legend = Recharts.Legend
 
 module LegendContent = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~hideIcon=false,
-    ~payload: array<payloadItem<'value>>=[],
-    ~verticalAlign="bottom",
-    ~nameKey="",
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) => {
-    let {config} = use()
+  type props<'value> = {
+    ...BaseUi.Types.DomProps.t,
+    hideIcon?: bool,
+    payload?: array<payloadItem<'value>>,
+    verticalAlign?: string,
+    nameKey?: string,
+  }
 
+  // Recharts clones custom content with its own options; only DOM props belong on the container.
+  let toBaseUiProps: props<'value> => BaseUi.Types.DomProps.t = %raw(`({
+    hideIcon, payload, verticalAlign, nameKey,
+    content, iconSize, iconType, layout, align, inactiveColor, formatter, labelStyle,
+    wrapperStyle, width, height, payloadUniqBy, onBBoxUpdate, portal, itemSorter,
+    position, offset, margin, chartWidth, chartHeight,
+    ...props
+  }) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props<'value>) => {
+    let hideIcon = props.hideIcon->Option.getOr(false)
+    let payload = props.payload->Option.getOr([])
+    let verticalAlign = props.verticalAlign->Option.getOr("bottom")
+    let nameKey = props.nameKey->Option.getOr("")
+    let {config} = use()
     switch payload {
     | [] => React.null
     | _ =>
       <div
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
+        {...props->toBaseUiProps}
         className={cn(
           `flex items-center justify-center gap-4 ${verticalAlign == "top" ? "pb-3" : "pt-3"}`,
-          className,
+          props.className,
         )}
       >
         {payload
@@ -923,7 +944,6 @@ module LegendContent = {
             item.color->Option.map(color =>
               ReactDOM.Style._dictToStyle(dict{"backgroundColor": color})
             )
-
           <div
             key={itemKey}
             className="[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3"

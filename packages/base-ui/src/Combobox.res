@@ -122,12 +122,8 @@ module Trigger = {
 
 module List = {
   type props<'item> = {
+    ...Types.BaseUIComponentWithoutChildrenProps.t,
     children: ('item, int) => React.element,
-    render?: React.element,
-    style?: ReactDOM.Style.t,
-    className?: string,
-    ...Types.DataProps.t,
-    ...Types.AriaProps.t,
   }
   @module("@base-ui/react/combobox") @scope("Combobox")
   external make: React.component<props<'item>> = "List"
@@ -174,13 +170,8 @@ module Icon = {
 
 module Group = {
   type props<'value> = {
-    children?: React.element,
+    ...Types.BaseUIComponentProps.t,
     items?: array<'value>,
-    className?: string,
-    style?: ReactDOM.Style.t,
-    render?: React.element,
-    ...Types.DataProps.t,
-    ...Types.AriaProps.t,
   }
   @module("@base-ui/react/combobox") @scope("Combobox")
   external make: React.component<props<'value>> = "Group"

@@ -203,6 +203,14 @@ const fixture = (mod, Component, id, rescript) => {
     case "ui/chart":
       return React.createElement(Component, { config: {}, id: "fixture" }, child);
     case "ui/direction":
+      if (variantName === "base") {
+        if (rescript) return React.createElement(Component);
+        const DirectionText = () => {
+          const direction = mod.useDirection();
+          return React.createElement("span", {dir: direction}, direction);
+        };
+        return React.createElement(Component, {direction: "rtl"}, React.createElement(DirectionText));
+      }
       return React.createElement(Component, { direction: "ltr" }, child);
     case "ui/sidebar":
     case "ui/message-scroller":
@@ -448,6 +456,9 @@ const withCapturedConsole = (messages, run) => {
 const renderSide = async (server, modulePath, resolveComponent, id) => {
   let mod;
   try {
+    if (variantName === "base" && id === "ui/direction" && resolveComponent === resolveRescriptComponent) {
+      modulePath = path.join(harnessRoot, "DirectionParity.res.mjs");
+    }
     mod = await server.ssrLoadModule(modulePath);
   } catch (error) {
     return { error: `load: ${firstLine(error)}` };

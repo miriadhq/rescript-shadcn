@@ -102,90 +102,56 @@ external promise: (unit => promise<'success>, Promise.Options.t<'success, 'error
   "promise"
 
 module SonnerPrimitive = {
-  @module("sonner") @react.component
-  external make: (
-    ~id: string=?,
-    ~invert: bool=?,
-    ~theme: NextThemes.theme=?,
-    ~position: Position.t=?,
-    ~hotkey: array<string>=?,
-    ~richColors: bool=?,
-    ~expand: bool=?,
-    ~duration: int=?,
-    ~gap: int=?,
-    ~visibleToasts: int=?,
-    ~closeButton: bool=?,
-    ~toastOptions: ToastOptions.t=?,
-    ~className: string=?,
-    ~style: ReactDOM.Style.t=?,
-    ~offset: Offset.t=?,
-    ~mobileOffset: Offset.t=?,
-    ~dir: Dir.t=?,
-    ~swipeDirections: array<SwipeDirection.t>=?,
-    ~icons: ToasterIcons.t=?,
-    ~containerAriaLabel: string=?,
-  ) => React.element = "Toaster"
+  type props = {
+    id?: string,
+    invert?: bool,
+    theme?: NextThemes.theme,
+    position?: Position.t,
+    hotkey?: array<string>,
+    richColors?: bool,
+    expand?: bool,
+    duration?: int,
+    gap?: int,
+    visibleToasts?: int,
+    closeButton?: bool,
+    toastOptions?: ToastOptions.t,
+    className?: string,
+    style?: ReactDOM.Style.t,
+    offset?: Offset.t,
+    mobileOffset?: Offset.t,
+    dir?: Dir.t,
+    swipeDirections?: array<SwipeDirection.t>,
+    icons?: ToasterIcons.t,
+    containerAriaLabel?: string,
+  }
+  @module("sonner")
+  external make: React.component<props> = "Toaster"
 }
 
-@react.component
-let make = (
-  ~id=?,
-  ~invert=?,
-  ~theme=?,
-  ~position=?,
-  ~hotkey=?,
-  ~richColors=?,
-  ~expand=?,
-  ~duration=?,
-  ~gap=?,
-  ~visibleToasts=?,
-  ~closeButton=?,
-  ~toastOptions={ToastOptions.classNames: {toast: "cn-toast"}},
-  ~className="toaster group",
-  ~style=ReactDOM.Style._dictToStyle(
-    dict{
-      "--normal-bg": "var(--popover)",
-      "--normal-text": "var(--popover-foreground)",
-      "--normal-border": "var(--border)",
-      "--border-radius": "var(--radius)",
-    },
-  ),
-  ~offset=?,
-  ~mobileOffset=?,
-  ~dir=?,
-  ~swipeDirections=?,
-  ~icons={
+@react.componentWithProps(SonnerPrimitive.props)
+let make = (props: SonnerPrimitive.props) => {
+  let theme = props.theme
+  let toastOptions =
+    props.toastOptions->Option.getOr({ToastOptions.classNames: {toast: "cn-toast"}})
+  let className = props.className->Option.getOr("toaster group")
+  let style = props.style->Option.getOr(
+    ReactDOM.Style._dictToStyle(
+      dict{
+        "--normal-bg": "var(--popover)",
+        "--normal-text": "var(--popover-foreground)",
+        "--normal-border": "var(--border)",
+        "--border-radius": "var(--radius)",
+      },
+    ),
+  )
+  let icons = props.icons->Option.getOr({
     ToasterIcons.success: <Icons.CircleCheck className="size-4" />,
     info: <Icons.Info className="size-4" />,
     warning: <Icons.TriangleAlert className="size-4" />,
     error: <Icons.OctagonX className="size-4" />,
     loading: <Icons.Loader2 className="size-4 animate-spin" />,
-  },
-  ~containerAriaLabel=?,
-) => {
+  })
   let {theme: defaultTheme} = NextThemes.useTheme()
-  let theme = theme->Option.getOr(defaultTheme)->Option.getOr(System)
-
-  <SonnerPrimitive
-    ?id
-    ?invert
-    theme
-    ?position
-    ?hotkey
-    ?richColors
-    ?expand
-    ?duration
-    ?gap
-    ?visibleToasts
-    ?closeButton
-    toastOptions
-    className
-    style
-    ?offset
-    ?mobileOffset
-    ?dir
-    ?swipeDirections
-    icons
-    ?containerAriaLabel
-  />
+  let theme = theme->Option.orElse(defaultTheme)->Option.getOr(System)
+  <SonnerPrimitive {...props} theme toastOptions className style icons />
 }

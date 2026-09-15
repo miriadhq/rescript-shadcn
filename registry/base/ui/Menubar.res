@@ -19,41 +19,26 @@ let make = (props: BaseUi.Menubar.props) =>
   />
 
 module Menu = {
-  @react.component
-  let make = (
-    ~children=?,
-    ~open_=?,
-    ~defaultOpen=?,
-    ~onOpenChange=?,
-    ~onOpenChangeComplete=?,
-    ~modal=?,
-  ) =>
-    <DropdownMenu
-      ?children
-      ?open_
-      ?defaultOpen
-      ?onOpenChange
-      ?onOpenChangeComplete
-      ?modal
-      dataSlot="menubar-menu"
-    />
+  @react.componentWithProps(BaseUi.Menu.Root.props)
+  let make = (props: BaseUi.Menu.Root.props<'payload>) =>
+    <DropdownMenu {...props} dataSlot={props.dataSlot->Option.getOr("menubar-menu")} />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
-    <BaseUi.Menu.Group ?id ?style ?children dataSlot="menubar-group" ?className />
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+    <BaseUi.Menu.Group {...props} dataSlot={props.dataSlot->Option.getOr("menubar-group")} />
 }
 
 module Portal = {
-  @react.component
-  let make = (~children=?, ~container=?) =>
-    <BaseUi.Menu.Portal ?children ?container dataSlot="menubar-portal" />
+  @react.componentWithProps(BaseUi.Menu.Portal.props)
+  let make = (props: BaseUi.Menu.Portal.props) =>
+    <BaseUi.Menu.Portal {...props} dataSlot={props.dataSlot->Option.getOr("menubar-portal")} />
 }
 
 module Trigger = {
   @react.componentWithProps(BaseUi.Menu.Trigger.props)
-  let make = (props: BaseUi.Menu.Trigger.props) => {
+  let make = (props: BaseUi.Menu.Trigger.props) =>
     <DropdownMenu.Trigger
       {...props}
       dataSlot="menubar-trigger"
@@ -62,7 +47,6 @@ module Trigger = {
         props.className,
       )}
     />
-  }
 }
 
 module Content = {
@@ -192,11 +176,9 @@ module Shortcut = {
 }
 
 module Sub = {
-  @react.component
-  let make = (~className=?, ~children=?, ~open_=?, ~defaultOpen=?, ~onOpenChange=?) =>
-    <DropdownMenu.Sub
-      dataSlot="menubar-sub" ?className ?children ?open_ ?defaultOpen ?onOpenChange
-    />
+  @react.componentWithProps(BaseUi.Menu.SubmenuRoot.props)
+  let make = (props: BaseUi.Menu.SubmenuRoot.props<'payload>) =>
+    <DropdownMenu.Sub {...props} dataSlot={props.dataSlot->Option.getOr("menubar-sub")} />
 }
 
 module SubTrigger = {

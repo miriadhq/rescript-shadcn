@@ -8,9 +8,8 @@ open BaseUi.Types
 external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithProps(BaseUi.Dialog.Root.props)
-let make = (props: BaseUi.Dialog.Root.props<'payload>) => {
+let make = (props: BaseUi.Dialog.Root.props<'payload>) =>
   <BaseUi.Dialog.Root {...props} dataSlot={props.dataSlot->Option.getOr("sheet")} />
-}
 
 module Trigger = {
   @react.componentWithProps(BaseUi.Dialog.Trigger.props)
@@ -54,21 +53,22 @@ let sideToString = (side: Side.t) =>
   }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~dir: option<string>=?,
-    ~dataSidebar=?,
-    ~dataSlot="sheet-content",
-    ~dataMobile=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~side=Side.Right,
-    ~showCloseButton=true,
-  ) => {
+  type props = {
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    side?: Side.t,
+    showCloseButton?: bool,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({side, showCloseButton, dir, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let children = props.children->Option.getOr(React.null)
+    let style = props.style
+    let dir = props.dir
+    let dataSlot = props.dataSlot->Option.getOr("sheet-content")
+    let side = props.side->Option.getOr(Side.Right)
+    let showCloseButton = props.showCloseButton->Option.getOr(true)
     let style = switch (style, dir) {
     | (Some(style), Some(dir)) => Some(style->ReactDOM.Style.unsafeAddProp("direction", dir))
     | (None, Some(dir)) => Some(ReactDOM.Style._dictToStyle(dict{"direction": dir}))
@@ -78,17 +78,13 @@ module Content = {
     <Portal>
       <Overlay />
       <BaseUi.Dialog.Popup
-        ?id
+        {...props->toBaseUiProps}
         style=?style
-        ?onClick
-        ?onKeyDown
         dataSlot
-        ?dataSidebar
-        ?dataMobile
         dataSide={sideToString(side)}
         className={cn(
           "cn-sheet-content bg-background data-open:animate-in data-closed:animate-out data-[side=right]:data-closed:slide-out-to-right-10 data-[side=right]:data-open:slide-in-from-right-10 data-[side=left]:data-closed:slide-out-to-left-10 data-[side=left]:data-open:slide-in-from-left-10 data-[side=top]:data-closed:slide-out-to-top-10 data-[side=top]:data-open:slide-in-from-top-10 data-closed:fade-out-0 data-open:fade-in-0 data-[side=bottom]:data-closed:slide-out-to-bottom-10 data-[side=bottom]:data-open:slide-in-from-bottom-10 fixed z-50 flex flex-col gap-4 bg-clip-padding text-sm shadow-lg transition duration-200 ease-in-out data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm",
-          className,
+          props.className,
         )}
       >
         {children}

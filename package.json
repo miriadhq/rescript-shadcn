@@ -22,6 +22,7 @@
     "loader:generate": "node scripts/generate-demo-loader.mjs",
     "og:generate": "node scripts/generate-og-images.mjs",
     "test:docs": "vitest run test/mdx-links.test.ts",
+    "test:props": "yarn compile && vitest run test/*props.test.ts test/prop-forwarding.test.ts test/base-button-types.test.ts",
     "test:classnames": "vitest run test/classname-parity.test.ts",
     "test:registry": "vitest run test/lib-style-registry.test.ts",
     "test:bindings": "yarn workspace rescript-base-ui res:build && vitest run test/react-aria-bindings.test.ts test/base-ui-bindings.test.ts",
@@ -30,7 +31,7 @@
     "test:visual-fast:base": "node test/visual/run-visual-fast.mjs --variant base",
     "test:visual-fast:aria": "node test/visual/run-visual-fast.mjs --variant aria",
     "test:visual-fast": "yarn test:visual-fast:base && yarn test:visual-fast:aria",
-    "test": "yarn test:docs && yarn test:classnames && yarn test:registry && yarn test:bindings && yarn test:interactions && yarn test:visual",
+    "test": "yarn test:docs && yarn test:props && yarn test:classnames && yarn test:registry && yarn test:bindings && yarn test:interactions && yarn test:visual",
     "postInstall": "yarn loader:generate && fumadocs-mdx source.config.mjs .source"
   },
   "dependencies": {

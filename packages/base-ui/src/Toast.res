@@ -71,7 +71,7 @@ external useToastManager: unit => managerState = "useToastManager"
 module Root = {
   type props = {
     ...Types.BaseUIComponentProps.t,
-    toast?: toastObject,
+    toast: toastObject,
   }
   @module("@base-ui/react/toast") @scope("Toast")
   external make: React.component<props> = "Root"

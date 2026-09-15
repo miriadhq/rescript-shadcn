@@ -5,35 +5,16 @@ open BaseUi.Types
 @module("cn")
 external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-  ~delay=?,
-  ~closeDelay=?,
-  ~style=?,
-) =>
-  <BaseUi.Tooltip.Root
-    ?className
-    ?children
-    ?id
-    ?open_
-    ?defaultOpen
-    ?onOpenChange
-    ?delay
-    ?closeDelay
-    ?style
-    dataSlot="tooltip"
-  />
+@react.componentWithProps(BaseUi.Tooltip.Root.props)
+let make = (props: BaseUi.Tooltip.Root.props<'payload>) =>
+  <BaseUi.Tooltip.Root {...props} dataSlot={props.dataSlot->Option.getOr("tooltip")} />
 
 module Provider = {
-  @react.component
-  let make = (~children=?, ~delay=0., ~closeDelay=?, ~timeout=?) =>
-    <BaseUi.Tooltip.Provider ?children ?closeDelay ?timeout delay />
+  @react.componentWithProps(BaseUi.Tooltip.Provider.props)
+  let make = (props: BaseUi.Tooltip.Provider.props) => {
+    let delay = props.delay->Option.getOr(0.)
+    <BaseUi.Tooltip.Provider {...props} delay />
+  }
 }
 
 module Trigger = {
