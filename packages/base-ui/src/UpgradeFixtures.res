@@ -1,3 +1,10 @@
+module DirectionText = {
+  @react.component
+  let make = () => (DirectionProvider.useDirection() :> string)->React.string
+}
+
+let direction = <DirectionProvider direction=Rtl> <DirectionText /> </DirectionProvider>
+
 let avatar =
   <Avatar.Root>
     <Avatar.Image keepMounted=true src="/avatar.png" alt="Avatar" />

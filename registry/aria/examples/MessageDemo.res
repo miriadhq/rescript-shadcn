@@ -65,7 +65,7 @@ let make = ({}: Demo.Props.t) =>
     <Marker role="status">
       <Marker.Content className="shimmer">
         <span className="font-medium"> {"Oliver"->React.string} </span>
-        {"is typing..."->React.string}
+        {" is typing..."->React.string}
       </Marker.Content>
     </Marker>
   </div>

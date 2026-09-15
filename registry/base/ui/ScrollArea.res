@@ -33,8 +33,9 @@ let make = (
     <BaseUi.ScrollArea.Viewport
       dataSlot="scroll-area-viewport"
       className="cn-scroll-area-viewport focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
-      ?children
-    />
+    >
+      <BaseUi.ScrollArea.Content ?children />
+    </BaseUi.ScrollArea.Viewport>
     <BaseUi.ScrollArea.Scrollbar
       dataSlot="scroll-area-scrollbar"
       orientation={Orientation.Vertical}

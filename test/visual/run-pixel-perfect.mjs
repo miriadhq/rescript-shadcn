@@ -29,7 +29,7 @@ function printHelp() {
     "Run pixel parity tests with CLI parameters mapped to PARITY_* env vars.",
     "",
     "Usage:",
-    "  yarn test -- [options] [-- <extra vitest args>]",
+    "  yarn test:visual [options] [-- <extra vitest args>]",
     "",
     "Options:",
     "  --components, -c <csv>           -> PARITY_COMPONENTS",
@@ -49,8 +49,9 @@ function printHelp() {
     "  -h, --help                       Show this help message",
     "",
     "Examples:",
-    "  yarn test -- --components ui/calendar,ui/carousel --skip-build",
-    "  yarn test -- --base-url http://127.0.0.1:4173 -- --maxConcurrency=4",
+    "  yarn test:visual --components ui/calendar,ui/carousel --skip-build",
+    "  yarn test:visual -- --maxConcurrency=2  # Opt into parallel captures",
+    "  yarn test:visual --base-url http://127.0.0.1:4173 --skip-build",
   ]
 
   console.log(lines.join("\n"))
@@ -172,7 +173,6 @@ function run() {
       "--config",
       "test/visual/vitest.pixel.config.ts",
       "test/visual/pixel-perfect-vite.test.ts",
-      "--maxConcurrency=1",
       ...passthrough,
     ]
 

@@ -35,7 +35,8 @@ let make = ({}: Demo.Props.t) =>
             />
           </div>
           <figcaption className="text-muted-foreground pt-2 text-xs">
-            {"Photo by "->React.string}
+            {"Photo by"->React.string}
+            {" "->React.string}
             <span className="text-foreground font-semibold"> {artwork.artist->React.string} </span>
           </figcaption>
         </figure>

@@ -2,9 +2,12 @@ import { readFileSync, readdirSync } from "node:fs"
 import { join } from "node:path"
 import { renderToStaticMarkup } from "react-dom/server"
 import { describe, expect, it } from "vitest"
-import { avatar, progress, updateToast, combobox } from "../packages/base-ui/src/UpgradeFixtures.res.mjs"
+import { avatar, progress, updateToast, combobox, direction } from "../packages/base-ui/src/UpgradeFixtures.res.mjs"
 
 describe("Base UI bindings", () => {
+  it("provides the requested text direction", () => {
+    expect(renderToStaticMarkup(direction)).toBe("rtl")
+  })
   it("binds existing public exports", async () => {
     const directory = join(process.cwd(), "packages/base-ui/src")
     const missing: string[] = []

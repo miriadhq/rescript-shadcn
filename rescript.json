@@ -9,6 +9,11 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "test/visual/vite-harness",
+      "files": ["DirectionParity.res"],
+      "type": "dev"
     }
   ],
   "jsx": {

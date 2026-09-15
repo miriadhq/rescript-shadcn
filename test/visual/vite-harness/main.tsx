@@ -76,6 +76,9 @@ function getTsxModuleLoader(component: string) {
 }
 
 function getRescriptModuleLoader(component: string, impl: "rescript" | "aria") {
+  if (component === "ui/direction" && impl === "rescript") {
+    return () => import("./DirectionParity.res.mjs")
+  }
   const moduleName = component.startsWith("ui/")
     ? toPascalCase(component.replace(/^ui\//, ""))
     : component.startsWith("ui-rtl/")
@@ -182,6 +185,42 @@ function renderSpecialScenario(
   impl: Impl,
   state: LoadedState
 ): ScenarioResult | null {
+  if (component === "ui/direction") {
+    if (impl === "rescript" && state.rescriptComponent) {
+      return {node: React.createElement(state.rescriptComponent), error: null}
+    }
+    const Provider = resolveModuleComponent(state.tsxModule, "DirectionProvider")
+    const useDirection = state.tsxModule?.useDirection
+    if (!Provider || typeof useDirection !== "function") {
+      return {node: null, error: "Unable to resolve direction scenario components"}
+    }
+    const DirectionText = () => {
+      const direction = useDirection()
+      return React.createElement("span", {dir: direction}, direction)
+    }
+    return {node: React.createElement(Provider, {direction: "rtl"}, React.createElement(DirectionText)), error: null}
+  }
+  if (component === "ui/toast") {
+    const module = impl === "tsx" ? state.tsxModule : state.rescriptModule
+    const Provider = resolveModuleComponent(module, impl === "tsx" ? "ToastProvider" : "Provider")
+    const Viewport = resolveModuleComponent(module, impl === "tsx" ? "ToastViewport" : "Viewport")
+    const Root = resolveModuleComponent(module, impl === "tsx" ? "Toast" : "Root")
+    const Content = resolveModuleComponent(module, impl === "tsx" ? "ToastContent" : "Content")
+    const Title = resolveModuleComponent(module, impl === "tsx" ? "ToastTitle" : "Title")
+    if (!Provider || !Viewport || !Root || !Content || !Title) {
+      return {node: null, error: "Unable to resolve toast scenario components"}
+    }
+    return {
+      node: React.createElement(Provider, null,
+        React.createElement(Viewport, {style: {position: "relative", inset: "auto", margin: 0, width: 320, height: 120}},
+          React.createElement(Root, {toast: {id: "fixture", title: "Saved", type: "info"}},
+            React.createElement(Content, null, React.createElement(Title))
+          )
+        )
+      ),
+      error: null,
+    }
+  }
   if (
     component !== "ui/chart" &&
     component !== "ui/message-scroller" &&
@@ -343,7 +382,7 @@ function renderSpecialScenario(
               )
             )
           ),
-          React.createElement(MessageScrollerButton, { ariaLabel: "Scroll to latest" })
+          React.createElement(MessageScrollerButton, { "aria-label": "Scroll to latest" })
         )
       ),
       error: null,
@@ -395,7 +434,7 @@ function renderSpecialScenario(
       null,
       React.createElement(
         Sidebar,
-        { dataVariant: "sidebar" },
+        {},
         React.createElement(
           SidebarContent,
           null,
@@ -435,6 +474,7 @@ function App() {
   const impl = getImpl(searchParams.get("impl"))
 
   const [state, setState] = React.useState<LoadedState>(() => loadingState())
+  const [country, setCountry] = React.useState("+1")
 
   React.useEffect(() => {
     let cancelled = false
@@ -608,7 +648,9 @@ function App() {
         id="pixel-capture-root"
         className="mx-auto flex min-h-[740px] max-w-6xl items-start justify-center rounded-xl border bg-card p-10"
       >
-        {specialScenario ? specialScenario.node : React.createElement(ResolvedComponent)}
+        {specialScenario ? specialScenario.node : React.createElement(ResolvedComponent,
+          component === "input-group-with-tooltip" ? {country, setCountry} : {}
+        )}
       </div>
     </main>
   )

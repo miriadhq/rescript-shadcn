@@ -18,7 +18,7 @@ let make = ({}: Demo.Props.t) =>
         </Bubble>
         <Message.Footer>
           <div>
-            {"Read"->React.string}
+            {"Read "->React.string}
             <span className="font-normal"> {"Yesterday"->React.string} </span>
           </div>
         </Message.Footer>

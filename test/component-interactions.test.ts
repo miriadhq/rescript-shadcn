@@ -19,7 +19,7 @@ beforeAll(async () => {
       include: [
         "react", "react-dom/client", "react/jsx-runtime", "recharts",
         ...["checkbox", "switch", "tabs", "toggle", "toggle-group", "progress", "slider",
-          "button", "use-render", "merge-props", "input", "menu", "dialog", "drawer", "tooltip", "separator"].map(name => `@base-ui/react/${name}`),
+          "button", "use-render", "merge-props", "input", "menu", "dialog", "drawer", "tooltip", "separator", "scroll-area"].map(name => `@base-ui/react/${name}`),
         "react-aria-components", "sonner", "lucide-react", "cn",
         "@shadcn/react/questionnaire", "@shadcn/react/message-scroller", "@tanstack/react-table",
         "@shadcn/helpers/ai-sdk", "@shadcn/helpers/tanstack-ai", "@ai-sdk/react", "@tanstack/ai-react", "motion/react",
@@ -327,7 +327,7 @@ for (const variant of ["base", "aria"]) {
   }, 30000);
 }
 
-for (const name of ["AiSdkHelperDemo", "TanstackAiHelperDemo", "MessageScrollerStreaming"]) {
+for (const name of ["AiSdkHelperDemo", "TanstackAiHelperDemo", "MessageScrollerStreaming", "MessageScrollerDemo"]) {
   it(`Base ${name} streams its scripted reply and resets the conversation`, async () => {
     const page = await browser.newPage();
     try {
@@ -337,7 +337,7 @@ for (const name of ["AiSdkHelperDemo", "TanstackAiHelperDemo", "MessageScrollerS
       expect(await page.$eval('button[type="submit"]', button => (button as HTMLButtonElement).disabled)).toBe(true);
       await page.waitForFunction(() => document.querySelector('[data-slot="message-scroller-content"]')?.getAttribute("aria-busy") === "false", {timeout: 20000});
       expect(await page.$eval('[data-slot="message-scroller-content"]', el => el.textContent)).toContain("That's the classic streaming scroll problem.");
-      if (name !== "MessageScrollerStreaming") {
+      if (name === "AiSdkHelperDemo" || name === "TanstackAiHelperDemo") {
         expect(await page.$eval('[data-slot="message-scroller-content"]', el => el.textContent)).toContain("Reasoning");
       }
       await page.click('button[aria-label^="Reset"]');
@@ -346,6 +346,26 @@ for (const name of ["AiSdkHelperDemo", "TanstackAiHelperDemo", "MessageScrollerS
     } finally { await page.close(); }
   }, 40000);
 }
+
+it("Base scroll area updates its thumb when only content width changes", async () => {
+  const page = await browser.newPage();
+  try {
+    await mount(page, "registry/base/examples/ScrollAreaHorizontalDemo.res.mjs");
+    await page.addStyleTag({content: `
+      [data-slot="scroll-area"], [data-slot="scroll-area-viewport"] {width:384px;height:400px}
+      [data-slot="scroll-area-viewport"] > [role="presentation"] > div {width:960px;display:flex}
+      [data-slot="scroll-area-viewport"] figure {width:300px;flex-shrink:0;margin:0}
+    `});
+    const selector = '[data-orientation="horizontal"] [data-slot="scroll-area-thumb"]';
+    await page.waitForFunction(selector => (document.querySelector(selector)?.getBoundingClientRect().width ?? 0) > 0, {}, selector);
+    const before = await page.$eval(selector, el => el.getBoundingClientRect().width);
+    await page.$eval('[data-slot="scroll-area-viewport"] > [role="presentation"] > div', el => {
+      (el as HTMLElement).style.width = "1600px";
+    });
+    await page.waitForFunction((selector, before) => document.querySelector(selector)!.getBoundingClientRect().width < before, {}, selector, before);
+    expect(await page.$eval('[data-slot="scroll-area-viewport"]', el => el.clientWidth)).toBe(384);
+  } finally { await page.close(); }
+}, 30000);
 
 it("Base nested drawers open as a stack and close only the active drawer", async () => {
   const page = await browser.newPage();

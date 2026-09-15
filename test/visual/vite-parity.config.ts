@@ -2,7 +2,7 @@ import path from "node:path"
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 
-import { upstreamAliases, upstreamRtl } from "./upstream-resolver.mjs"
+import { upstreamAliases, upstreamRtl, upstreamParityFixes } from "./upstream-resolver.mjs"
 
 import tailwindcss from "@tailwindcss/postcss"
 import { type Plugin, defineConfig, transformWithEsbuild } from "vite"
@@ -24,8 +24,10 @@ function rescriptJsx(): Plugin {
 
 export default defineConfig({
   root: harnessRoot,
-  cacheDir: path.resolve(repoRoot, "test/artifacts/pixel-perfect/.vite"),
-  plugins: [upstreamRtl(), rescriptJsx()],
+  publicDir: path.join(appRoot, "public"),
+  // Preserve prebundles across runs without sharing writes with another parity server.
+  cacheDir: path.resolve(repoRoot, "node_modules/.vite/pixel-perfect", process.env.PARITY_TEST_PORT ?? "4173"),
+  plugins: [upstreamRtl(), upstreamParityFixes(), rescriptJsx()],
   esbuild: {
     jsx: "automatic",
   },
@@ -60,6 +62,9 @@ export default defineConfig({
   optimizeDeps: {
     noDiscovery: true,
     include: [
+      "lucide-react",
+      "@tabler/icons-react",
+      "recharts",
       "ai",
       "@ai-sdk/react",
       "@tanstack/ai-react",

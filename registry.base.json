@@ -4095,6 +4095,9 @@
     {
       "name": "DirectionDemo",
       "type": "registry:example",
+      "dependencies": [
+        "@base-ui/react"
+      ],
       "registryDependencies": [
         "@rescript-shadcn/Demo",
         "@rescript-shadcn/Direction"
@@ -6322,19 +6325,23 @@
       "name": "MessageScrollerDemo",
       "type": "registry:example",
       "dependencies": [
-        "lucide-react"
+        "@ai-sdk/react",
+        "@shadcn/helpers",
+        "lucide-react",
+        "rescript-base-ui"
       ],
       "registryDependencies": [
-        "@rescript-shadcn/Bubble",
+        "@rescript-shadcn/AiChat",
         "@rescript-shadcn/Button",
         "@rescript-shadcn/Card",
         "@rescript-shadcn/Demo",
+        "@rescript-shadcn/DropdownMenu",
+        "@rescript-shadcn/Empty",
         "@rescript-shadcn/Icons",
-        "@rescript-shadcn/Input",
-        "@rescript-shadcn/Marker",
-        "@rescript-shadcn/Message",
+        "@rescript-shadcn/InputGroup",
+        "@rescript-shadcn/MessageAnimated",
         "@rescript-shadcn/MessageScroller",
-        "@rescript-shadcn/Spinner"
+        "@rescript-shadcn/Tooltip"
       ],
       "files": [
         {

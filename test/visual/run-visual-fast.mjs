@@ -23,7 +23,7 @@ import { isValidElementType } from "react-is";
 import { renderToStaticMarkup } from "react-dom/server";
 import { cn } from "cn";
 import { createServer } from "vite";
-import { upstreamAliases, upstreamRtl } from "./upstream-resolver.mjs";
+import { upstreamAliases, upstreamRtl, upstreamParityFixes } from "./upstream-resolver.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
@@ -51,9 +51,10 @@ const VARIANTS = {
 
 // Unfinished example parity. Entries still run and must be removed when they pass.
 const SKIPPED = {
-  both: ["message-scroller-demo"],
+  both: [],
   base: [],
   aria: [
+    "message-scroller-demo",
     "calendar-hijri",
     "message-scroller-commands",
     "message-scroller-load-history",
@@ -67,12 +68,7 @@ const SKIPPED = {
 // Deliberate divergences, covered by component-interactions.test.ts where behavioral.
 // A load/render error remains a failure, even for one of these examples.
 const EXPECTED_DIFFERENCES = {
-  base: {
-    "button-render": "Keep button semantics on the custom render target; upstream renders a plain link.",
-    "chart-demo": "Use this variant's Card and Chart styles; upstream imports legacy New York components.",
-    "progress-controlled": "Keep one thumb for a scalar Slider value.",
-    "tabs-vertical": "Keep vertical orientation and keyboard navigation.",
-  },
+  base: {},
   aria: {
     "bubble-link-button": "Keep type=button to avoid submitting a containing form.",
     "context-menu-shortcuts": "Keep an accessible role on the Pressable trigger.",
@@ -415,7 +411,7 @@ const createViteServer = () => {
   ];
   return createServer({
     configFile: false,
-    plugins: [upstreamRtl()],
+    plugins: [upstreamRtl(), upstreamParityFixes()],
     root: harnessRoot,
     logLevel: "silent",
     appType: "custom",
