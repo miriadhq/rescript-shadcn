@@ -85,7 +85,8 @@ describe("registry prop forwarding", () => {
       children: h("span", null, "Child"),
     });
     expect(tree.props).toMatchObject(forwarded);
-    expect(tree.props.style).toBe(style);
+    expect(tree.props.style).toEqual({"--gap": 3, ...style});
+    expect(style).toEqual({padding: "8px"});
     expect(tree.props.className).toContain("custom-class");
     for (const prop of ["variant", "size", "spacing", "tabIndex"]) {
       expect(tree.props).not.toHaveProperty(prop);
@@ -99,6 +100,10 @@ describe("registry prop forwarding", () => {
     expect(defaults.props.orientation).toBe("horizontal");
     expect(defaults.props.style).toEqual({ "--gap": 2 });
     expect(defaults.props["data-spacing"]).toBe(2);
+    expect(ToggleGroup.make({spacing: 0, style}).props.style).toEqual({"--gap": 0, ...style});
+    expect(ToggleGroup.make({style}).props.style).toEqual({"--gap": 2, ...style});
+    expect(ToggleGroup.make({spacing: 3, style: {"--gap": 0, ...style}}).props.style)
+      .toEqual({"--gap": 0, ...style});
   });
 
   it.each([true, false])("Sidebar.Provider consumes controlled open=%s without forwarding it to the DOM", (open) => {

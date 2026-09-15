@@ -55,7 +55,10 @@ let make = (props: props<'value>) => {
     dataSize=?{props.dataSize->Option.orElse((size :> option<string>))}
     dataSpacing={props.dataSpacing->Option.getOr(spacing)}
     dataOrientation={props.dataOrientation->Option.getOr((orientation :> string))}
-    style={props.style->Option.getOr(ReactDOM.Style.unsafeAddStyle({}, {"--gap": spacing}))}
+    style={ReactDOM.Style.combine(
+      ReactDOM.Style.unsafeAddStyle({}, {"--gap": spacing}),
+      props.style->Option.getOr({}),
+    )}
     className={cn(
       "cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
       props.className,
