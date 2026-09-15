@@ -125,7 +125,6 @@ module Button = {
       {...props->toButtonProps}
       type_={props.type_->Option.getOr("button")}
       variant
-      size={(size :> Button.Size.t)}
       dataSize={(size :> string)}
       className={cn3(baseClass, sizeClass(~size), props.className)}
     />

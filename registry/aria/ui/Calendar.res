@@ -131,7 +131,7 @@ module Inner = {
     ~showWeekNumber=false,
     ~headerFormat: option<JSON.t>=?,
     ~renderCell=?,
-    ~isRange=false,
+    ~isRange: option<bool>=?,
   ) =>
     <div className="relative flex flex-col gap-4 md:flex-row">
       <header className="absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1">
@@ -187,13 +187,14 @@ module Inner = {
                 >
                   {state =>
                     <div
-                      dataSelectedSingle={state.isSelected && !isRange}
-                      dataRangeStart={state.isSelectionStart && isRange}
-                      dataRangeEnd={state.isSelectionEnd && isRange}
-                      dataRangeMiddle={state.isSelected &&
+                      dataSelectedSingle={state.isSelected && !(isRange->Option.getOr(false))}
+                      dataRangeStart=?{state.isSelectionStart ? isRange : Some(false)}
+                      dataRangeEnd=?{state.isSelectionEnd ? isRange : Some(false)}
+                      dataRangeMiddle=?{state.isSelected &&
                       !state.isSelectionStart &&
-                      !state.isSelectionEnd &&
-                      isRange}
+                      !state.isSelectionEnd
+                        ? isRange
+                        : Some(false)}
                       className=dayButtonClass
                     >
                       {switch renderCell {

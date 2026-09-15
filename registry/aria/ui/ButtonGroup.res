@@ -28,7 +28,7 @@ let make = (props: props) => {
     {...props->domProps}
     role={props.role->Option.getOr("group")}
     dataSlot={props.dataSlot->Option.getOr("button-group")}
-    dataOrientation={(orientation :> string)}
+    dataOrientation=?{props.dataOrientation->Option.orElse((props.orientation :> option<string>))}
     className={cn(buttonGroupVariants(~orientation), props.className)}
   />
 }

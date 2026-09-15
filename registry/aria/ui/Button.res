@@ -75,8 +75,8 @@ let make = (props: props) => {
   <ReactAria.Button
     {...props->toAriaProps}
     dataSlot
-    dataVariant={(variant :> string)}
-    dataSize={(size :> string)}
+    dataVariant={props.dataVariant->Option.getOr((variant :> string))}
+    dataSize={props.dataSize->Option.getOr((size :> string))}
     className
   />
 }
@@ -101,8 +101,8 @@ module LinkButton = {
     <ReactAria.Button.Link
       {...props->toAriaProps}
       dataSlot={props.dataSlot->Option.getOr("button")}
-      dataVariant={(variant :> string)}
-      dataSize={(size :> string)}
+      dataVariant={props.dataVariant->Option.getOr((variant :> string))}
+      dataSize={props.dataSize->Option.getOr((size :> string))}
       className={buttonVariants(~variant, ~size, ~className?)}
     />
   }
