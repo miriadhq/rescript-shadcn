@@ -481,17 +481,20 @@ const expectedDifferences = EXPECTED_DIFFERENCES[variantName];
 const exceptions = new Set([...skipped, ...Object.keys(expectedDifferences)]);
 const startedAt = performance.now();
 
-const build = spawnSync(path.join(repoRoot, "node_modules/.bin/rescript"), [], {
-  cwd: path.join(repoRoot, `registry/${variantName}`),
-  encoding: "utf8",
-});
-if (build.error) {
-  console.error(`could not run rescript: ${build.error.message}`);
-  process.exit(2);
-}
-if (build.status !== 0) {
-  console.error(`rescript build failed (exit ${build.status})\n${build.stdout}${build.stderr}`);
-  process.exit(2);
+// The root project owns the compiled harness fixtures and builds both registry dependencies.
+for (const [command, args] of [
+  [process.execPath, [path.join(repoRoot, "scripts/generate-demo-loader.mjs")]],
+  [path.join(repoRoot, "node_modules/.bin/rescript"), []],
+]) {
+  const build = spawnSync(command, args, { cwd: repoRoot, encoding: "utf8" });
+  if (build.error) {
+    console.error(`could not run ${command}: ${build.error.message}`);
+    process.exit(2);
+  }
+  if (build.status !== 0) {
+    console.error(`${command} failed (exit ${build.status})\n${build.stdout}${build.stderr}`);
+    process.exit(2);
+  }
 }
 
 const upstreamIds = listUpstreamIds(variant);
