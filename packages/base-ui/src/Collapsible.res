@@ -13,7 +13,6 @@ module Root = {
 
 module Trigger = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/collapsible") @scope("Collapsible")

@@ -18,19 +18,19 @@ module Group = {
 }
 
 module Increment = {
-  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
+  type props = {...Types.NativeButtonProps.t}
   @module("@base-ui/react/number-field") @scope("NumberField")
   external make: React.component<props> = "Increment"
 }
 
 module Decrement = {
-  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
+  type props = {...Types.NativeButtonProps.t}
   @module("@base-ui/react/number-field") @scope("NumberField")
   external make: React.component<props> = "Decrement"
 }
 
 module Input = {
-  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
+  type props = {...Types.BaseUIComponentProps.t}
   @module("@base-ui/react/number-field") @scope("NumberField")
   external make: React.component<props> = "Input"
 }

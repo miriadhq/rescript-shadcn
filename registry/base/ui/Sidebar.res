@@ -610,7 +610,8 @@ module MenuButton = {
 module MenuAction = {
   type props = {
     showOnHover?: bool,
-    ...BaseUi.Types.BaseUIComponentProps.t,
+    @as("type") type_?: BaseUi.Types.ButtonType.t,
+    ...BaseUi.Types.BaseUIComponentWithoutTypeProps.t,
   }
 
   let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({showOnHover, className, render, ...props}) => props`)
@@ -618,6 +619,11 @@ module MenuAction = {
   @react.componentWithProps(props)
   let make = (props: props) => {
     let showOnHover = props.showOnHover->Option.getOr(false)
+    let domProps = toDomProps(props)
+    let domProps = switch (props.render, props.type_) {
+    | (None, None) => {...domProps, type_: "button"}
+    | _ => domProps
+    }
     BaseUi.Render.use({
       defaultTagName: "button",
       props: BaseUi.Render.mergeProps(
@@ -630,7 +636,7 @@ module MenuAction = {
             props.className,
           ),
         },
-        toDomProps(props),
+        domProps,
       ),
       render: ?props.render,
       state: {RenderState.slot: "sidebar-menu-action", sidebar: "menu-action"},

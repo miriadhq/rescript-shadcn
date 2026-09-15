@@ -52,7 +52,6 @@ module Content = {
 
 module Trigger = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
@@ -97,7 +96,6 @@ module Arrow = {
 module Link = {
   type props = {
     ...Types.BaseUIComponentProps.t,
-    @as("type") type_?: string,
     active?: bool,
     closeOnClick?: bool,
   }

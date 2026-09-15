@@ -1,7 +1,6 @@
 type valueChangeDetails = Types.BaseUIChangeEventDetail.t<[#none], unknown>
 
 type props = {
-  @as("type") type_?: string,
   ...Types.BaseUIComponentProps.t,
   value?: string,
   onValueChange?: (string, valueChangeDetails) => unit,

@@ -170,7 +170,7 @@ module Action = {
 
 module Trigger = {
   type props = {
-    ...BaseUi.Types.BaseUIComponentProps.t,
+    ...BaseUi.Types.BaseUIComponentWithoutTypeProps.t,
     @as("type") type_?: BaseUi.Types.ButtonType.t,
   }
   type state = {slot: string}

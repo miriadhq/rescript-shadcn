@@ -27,7 +27,7 @@ module Error = {
 }
 
 module Control = {
-  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
+  type props = {...Types.BaseUIComponentProps.t}
   @module("@base-ui/react/field") @scope("Field")
   external make: React.component<props> = "Control"
 }

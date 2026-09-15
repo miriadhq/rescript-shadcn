@@ -111,7 +111,6 @@ module Button = {
   type props = {
     size?: Size.t,
     variant?: Variant.t,
-    ...BaseUi.Types.BaseUIComponentProps.t,
     ...BaseUi.Types.NativeButtonProps.t,
   }
   let toButtonProps: props => Button.props = %raw(`({variant, size, ...props}) => props`)

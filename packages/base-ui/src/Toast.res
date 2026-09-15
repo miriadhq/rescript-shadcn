@@ -109,13 +109,13 @@ module Title = {
 }
 
 module Close = {
-  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
+  type props = {...Types.NativeButtonProps.t}
   @module("@base-ui/react/toast") @scope("Toast")
   external make: React.component<props> = "Close"
 }
 
 module Action = {
-  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
+  type props = {...Types.NativeButtonProps.t}
   @module("@base-ui/react/toast") @scope("Toast")
   external make: React.component<props> = "Action"
 }

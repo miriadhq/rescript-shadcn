@@ -1,6 +1,5 @@
 module Root = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     checked?: bool,
     inputRef?: ReactDOM.domRef,

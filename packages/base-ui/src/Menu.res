@@ -49,7 +49,6 @@ module Root = {
 
 module Trigger = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/menu") @scope("Menu")
@@ -82,7 +81,6 @@ module Popup = {
 
 module Item = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     closeOnClick?: bool,
   }
@@ -102,7 +100,6 @@ module GroupLabel = {
 
 module CheckboxItem = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     checked?: bool,
     defaultChecked?: bool,
@@ -131,7 +128,6 @@ module RadioGroup = {
 
 module RadioItem = {
   type props<'value> = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     value: 'value,
     closeOnClick?: bool,

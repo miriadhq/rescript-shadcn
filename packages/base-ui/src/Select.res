@@ -4,7 +4,6 @@ module Item = {
     value: 'value,
   }
   type props<'value> = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     value?: 'value,
   }
@@ -82,7 +81,7 @@ module Root = {
 }
 
 module Trigger = {
-  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
+  type props = {...Types.NativeButtonProps.t}
   @module("@base-ui/react/select") @scope("Select")
   external make: React.component<props> = "Trigger"
 }

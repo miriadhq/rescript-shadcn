@@ -59,7 +59,6 @@ let buttonVariants = (~variant=Variant.Default, ~size=Size.Default, ~className=?
 type props = {
   variant?: Variant.t,
   size?: Size.t,
-  ...BaseUi.Types.BaseUIComponentProps.t,
   ...BaseUi.Types.NativeButtonProps.t,
   focusableWhenDisabled?: bool,
 }

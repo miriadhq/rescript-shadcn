@@ -65,7 +65,6 @@ module Root = {
 
 module Trigger = {
   type props<'payload> = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
     handle?: Root.Handle.t<'payload>,
     payload?: 'payload,
@@ -106,7 +105,6 @@ module Description = {
 
 module Close = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/dialog") @scope("Dialog")

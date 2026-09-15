@@ -263,7 +263,7 @@ module ExtraDomProps = {
 
 type dangerouslySetInnerHTML = {"__html": string}
 
-// Common DOM fields shared by wrappers with specialized selection/orientation APIs.
+// Common fields used to build full DOM props and explicit field exclusions below.
 module BaseDomCoreProps = {
   type t = {
     key?: string,
@@ -756,14 +756,31 @@ module BaseDomCoreProps = {
 module BaseDomWithoutOrientationProps = {
   type t = {
     ...BaseDomCoreProps.t,
+    @as("type") type_?: string,
     onSelect?: JsxEvent.Selection.t => unit,
+  }
+}
+
+module BaseDomWithoutOnSelectProps = {
+  type t = {
+    ...BaseDomCoreProps.t,
+    @as("type") type_?: string,
+    orientation?: Orientation.t,
+  }
+}
+
+module BaseDomWithoutTypeProps = {
+  type t = {
+    ...BaseDomCoreProps.t,
+    onSelect?: JsxEvent.Selection.t => unit,
+    orientation?: Orientation.t,
   }
 }
 
 module BaseDomProps = {
   type t = {
-    ...BaseDomWithoutOrientationProps.t,
-    orientation?: Orientation.t,
+    ...BaseDomWithoutTypeProps.t,
+    @as("type") type_?: string,
   }
 }
 
@@ -780,8 +797,6 @@ module DomProps = {
     defaultValue?: string,
     min?: string,
     max?: string,
-    @as("type")
-    type_?: string /* has a fixed but large-ish set of possible values */ /* use this one. Previous one is deprecated */,
     ...BaseDomProps.t,
     ...ExtraDomProps.t,
   }
@@ -804,6 +819,15 @@ module BaseUIComponentProps = {
   }
 }
 
+module BaseUIComponentWithoutTypeProps = {
+  type t = {
+    render?: React.element,
+    children?: Jsx.element,
+    ...BaseDomWithoutTypeProps.t,
+    ...ExtraDomProps.t,
+  }
+}
+
 module ButtonType = {
   @unboxed
   type t =
@@ -814,6 +838,7 @@ module ButtonType = {
 
 module NativeButtonProps = {
   type t = {
+    ...BaseUIComponentWithoutTypeProps.t,
     @as("type") type_?: ButtonType.t,
     nativeButton?: bool,
   }
@@ -821,6 +846,7 @@ module NativeButtonProps = {
 
 module NonNativeButtonProps = {
   type t = {
+    ...BaseUIComponentProps.t,
     nativeButton?: bool,
   }
 }

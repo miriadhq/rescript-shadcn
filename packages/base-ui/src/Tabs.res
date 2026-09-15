@@ -21,7 +21,6 @@ module List = {
 
 module Tab = {
   type props<'value> = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
     value: 'value,
   }

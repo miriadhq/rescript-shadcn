@@ -14,7 +14,6 @@ module Group = {
 
 module Button = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/toolbar") @scope("Toolbar")
@@ -22,13 +21,13 @@ module Button = {
 }
 
 module Link = {
-  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
+  type props = {...Types.BaseUIComponentProps.t}
   @module("@base-ui/react/toolbar") @scope("Toolbar")
   external make: React.component<props> = "Link"
 }
 
 module Input = {
-  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
+  type props = {...Types.BaseUIComponentProps.t}
   @module("@base-ui/react/toolbar") @scope("Toolbar")
   external make: React.component<props> = "Input"
 }

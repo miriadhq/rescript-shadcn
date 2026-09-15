@@ -59,10 +59,9 @@ module CommandPrimitive = {
 
   module Item = {
     type props = {
-      ...BaseUi.Types.BaseDomCoreProps.t,
+      ...BaseUi.Types.BaseDomWithoutOnSelectProps.t,
       ...BaseUi.Types.ExtraDomProps.t,
       children?: React.element,
-      orientation?: BaseUi.Types.Orientation.t,
       value?: string,
       onSelect?: string => unit,
       asChild?: bool,

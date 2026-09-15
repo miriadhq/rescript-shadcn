@@ -35,7 +35,7 @@ module Header = {
 }
 
 module Trigger = {
-  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
+  type props = {...Types.NativeButtonProps.t}
   @module("@base-ui/react/accordion") @scope("Accordion")
   external make: React.component<props> = "Trigger"
 }

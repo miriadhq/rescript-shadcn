@@ -48,7 +48,6 @@ module Root = {
 
 module Trigger = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
   @module("@base-ui/react/context-menu") @scope("ContextMenu")
@@ -101,7 +100,6 @@ module GroupLabel = {
 
 module Item = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     closeOnClick?: bool,
   }
