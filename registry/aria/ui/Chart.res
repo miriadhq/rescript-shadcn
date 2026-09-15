@@ -2,8 +2,8 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 type colorTheme = {
   light?: string,
@@ -610,7 +610,9 @@ module Style = {
     let colorConfig =
       config
       ->Dict.toArray
-      ->Array.filter(((_, itemConfig)) => itemConfig.theme->Option.isSome || itemConfig.color->Option.isSome)
+      ->Array.filter(((_, itemConfig)) =>
+        itemConfig.theme->Option.isSome || itemConfig.color->Option.isSome
+      )
     switch colorConfig {
     | [] => React.null
     | _ =>
@@ -646,9 +648,7 @@ type props = {
   initialDimension?: Recharts.Dimensions.t,
   ...ReactAria.Types.DomProps.t,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({config, initialDimension, id, children, ...props}) => props`
-)
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({config, initialDimension, id, children, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props) => {
@@ -690,9 +690,7 @@ module Indicator = {
 }
 
 module TooltipContent = {
-  let formatValue: 'value => string = %raw(
-    `value => typeof value === "number" ? value.toLocaleString() : String(value)`
-  )
+  let formatValue: 'value => string = %raw(`value => typeof value === "number" ? value.toLocaleString() : String(value)`)
 
   @react.component
   let make = (
@@ -765,10 +763,7 @@ module TooltipContent = {
         ?style
         ?onClick
         ?onKeyDown
-        className={cn(
-          "cn-chart-tooltip grid min-w-32 items-start",
-          className,
-        )}
+        className={cn("cn-chart-tooltip grid min-w-32 items-start", className)}
       >
         {switch (nestLabel, tooltipLabel) {
         | (false, Some(labelElement)) => labelElement

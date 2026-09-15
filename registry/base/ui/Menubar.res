@@ -2,8 +2,8 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Variant = {
   @unboxed
@@ -15,47 +15,30 @@ module Variant = {
 @react.componentWithProps(BaseUi.Menubar.props)
 let make = (props: BaseUi.Menubar.props) =>
   <BaseUi.Menubar
-    {...props}
-    dataSlot="menubar"
-    className={cn("cn-menubar flex items-center", props.className)}
+    {...props} dataSlot="menubar" className={cn("cn-menubar flex items-center", props.className)}
   />
 
 module Menu = {
-  @react.component
-  let make = (
-    ~children=?,
-    ~open_=?,
-    ~defaultOpen=?,
-    ~onOpenChange=?,
-    ~onOpenChangeComplete=?,
-    ~modal=?,
-  ) =>
-    <DropdownMenu
-      ?children
-      ?open_
-      ?defaultOpen
-      ?onOpenChange
-      ?onOpenChangeComplete
-      ?modal
-      dataSlot="menubar-menu"
-    />
+  @react.componentWithProps(BaseUi.Menu.Root.props)
+  let make = (props: BaseUi.Menu.Root.props<'payload>) =>
+    <DropdownMenu {...props} dataSlot={props.dataSlot->Option.getOr("menubar-menu")} />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
-    <BaseUi.Menu.Group ?id ?style ?children dataSlot="menubar-group" ?className />
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+    <BaseUi.Menu.Group {...props} dataSlot={props.dataSlot->Option.getOr("menubar-group")} />
 }
 
 module Portal = {
-  @react.component
-  let make = (~children=?, ~container=?) =>
-    <BaseUi.Menu.Portal ?children ?container dataSlot="menubar-portal" />
+  @react.componentWithProps(BaseUi.Menu.Portal.props)
+  let make = (props: BaseUi.Menu.Portal.props) =>
+    <BaseUi.Menu.Portal {...props} dataSlot={props.dataSlot->Option.getOr("menubar-portal")} />
 }
 
 module Trigger = {
   @react.componentWithProps(BaseUi.Menu.Trigger.props)
-  let make = (props: BaseUi.Menu.Trigger.props) => {
+  let make = (props: BaseUi.Menu.Trigger.props) =>
     <DropdownMenu.Trigger
       {...props}
       dataSlot="menubar-trigger"
@@ -64,12 +47,11 @@ module Trigger = {
         props.className,
       )}
     />
-  }
 }
 
 module Content = {
   @react.componentWithProps(DropdownMenu.Content.contentProps)
-  let make = (props: DropdownMenu.Content.contentProps) => {
+  let make = (props: DropdownMenu.Content.props) => {
     let align = props.align->Option.getOr(BaseUi.Types.Align.Start)
     let alignOffset = props.alignOffset->Option.getOr(-4.)
     let sideOffset = props.sideOffset->Option.getOr(8.)
@@ -88,69 +70,33 @@ module Content = {
 }
 
 module Item = {
-  @react.component
-  let make = (
-    ~inset=?,
-    ~variant=Variant.Default,
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~closeOnClick=?,
-  ) => {
+  @react.componentWithProps(DropdownMenu.Item.props)
+  let make = (props: DropdownMenu.Item.props) =>
     <DropdownMenu.Item
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?closeOnClick
-      ?children
-      dataSlot="menubar-item"
-      ?inset
-      variant={(variant :> DropdownMenu.Variant.t)}
-      className={cn(
-        "cn-menubar-item group/menubar-item",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("menubar-item")}
+      dataVariant={(props.variant->Option.getOr(Default) :> string)}
+      className={cn("cn-menubar-item group/menubar-item", props.className)}
     />
-  }
 }
 
 module CheckboxItem = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~checked=?,
-    ~defaultChecked=?,
-    ~onCheckedChange=?,
-    ~disabled=?,
-    ~closeOnClick=?,
-    ~dataInset=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  type props = {
+    ...BaseUi.Menu.CheckboxItem.props,
+    inset?: bool,
+  }
+  let toCheckboxItemProps: props => BaseUi.Menu.CheckboxItem.props = %raw(`({inset, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
     <BaseUi.Menu.CheckboxItem
-      ?id
-      ?style
-      ?checked
-      ?defaultChecked
-      ?onCheckedChange
-      ?disabled
-      ?closeOnClick
-      ?dataInset
-      ?onClick
-      ?onKeyDown
-      dataSlot="menubar-checkbox-item"
+      {...props->toCheckboxItemProps}
+      dataSlot={props.dataSlot->Option.getOr("menubar-checkbox-item")}
+      dataInset=?{props.dataInset->Option.orElse(props.inset)}
+      checked=?{props.checked}
       className={cn(
         "cn-menubar-checkbox-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className,
+        props.className,
       )}
     >
       <span
@@ -160,45 +106,32 @@ module CheckboxItem = {
           <Icons.Check />
         </BaseUi.Menu.CheckboxItemIndicator>
       </span>
-      {children}
+      {props.children->Option.getOr(React.null)}
     </BaseUi.Menu.CheckboxItem>
 }
 
 module RadioGroup = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~value=?, ~onValueChange=?) =>
-    <DropdownMenu.RadioGroup
-      dataSlot="menubar-radio-group" ?id ?style ?value ?onValueChange ?children ?className
-    />
+  @react.componentWithProps(BaseUi.Menu.RadioGroup.props)
+  let make = (props: BaseUi.Menu.RadioGroup.props<'value>) =>
+    <DropdownMenu.RadioGroup {...props} dataSlot="menubar-radio-group" />
 }
 
 module RadioItem = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~inset=?,
-    ~id=?,
-    ~style=?,
-    ~value,
-    ~disabled=?,
-    ~closeOnClick=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  type props<'value> = {inset?: bool, ...BaseUi.Menu.RadioItem.props<'value>}
+
+  let toBaseUiProps: props<'value> => BaseUi.Menu.RadioItem.props<
+    'value,
+  > = %raw(`({inset, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props<'value>) =>
     <BaseUi.Menu.RadioItem
-      ?id
-      ?style
-      value
-      ?disabled
-      ?closeOnClick
-      dataInset=?inset
-      ?onClick
-      ?onKeyDown
-      dataSlot="menubar-radio-item"
+      {...toBaseUiProps(props)}
+      dataSlot={props.dataSlot->Option.getOr("menubar-radio-item")}
+      dataInset=?{props.dataInset->Option.orElse(props.inset)}
       className={cn(
         "cn-menubar-radio-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className,
+        props.className,
       )}
     >
       <span
@@ -208,101 +141,62 @@ module RadioItem = {
           <Icons.Check />
         </BaseUi.Menu.RadioItemIndicator>
       </span>
-      {children}
+      {props.children->Option.getOr(React.null)}
     </BaseUi.Menu.RadioItem>
 }
 
 module Label = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~inset=?) =>
+  @react.componentWithProps(DropdownMenu.Label.props)
+  let make = (props: DropdownMenu.Label.props) =>
     <DropdownMenu.Label
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?inset
-      ?children
-      dataSlot="menubar-label"
-      className={cn("cn-menubar-label", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("menubar-label")}
+      className={cn("cn-menubar-label", props.className)}
     />
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <DropdownMenu.Separator
-      ?id
-      ?style
-      ?children
-      dataSlot="menubar-separator"
-      className={cn("cn-menubar-separator -mx-1 my-1 h-px", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("menubar-separator")}
+      className={cn("cn-menubar-separator -mx-1 my-1 h-px", props.className)}
     />
 }
 
 module Shortcut = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~dataSlot="menubar-shortcut",
-  ) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <DropdownMenu.Shortcut
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot
-      className={cn(
-        "cn-menubar-shortcut ml-auto",
-        className,
-      )}
-      ?children
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("menubar-shortcut")}
+      className={cn("cn-menubar-shortcut ml-auto", props.className)}
     />
 }
 
 module Sub = {
-  @react.component
-  let make = (~className=?, ~children=?, ~open_=?, ~defaultOpen=?, ~onOpenChange=?) =>
-    <DropdownMenu.Sub
-      dataSlot="menubar-sub" ?className ?children ?open_ ?defaultOpen ?onOpenChange
-    />
+  @react.componentWithProps(BaseUi.Menu.SubmenuRoot.props)
+  let make = (props: BaseUi.Menu.SubmenuRoot.props<'payload>) =>
+    <DropdownMenu.Sub {...props} dataSlot={props.dataSlot->Option.getOr("menubar-sub")} />
 }
 
 module SubTrigger = {
-  type subTriggerProps = {
-    inset?: bool,
-    ...BaseUi.Types.BaseUIComponentProps.t,
-  }
-  let toBaseUiProps: subTriggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({inset, ...props}) => props`)
-
-  @react.componentWithProps(subTriggerProps)
-  let make = (props: subTriggerProps) => {
-    let baseUiProps = toBaseUiProps(props)
+  @react.componentWithProps(DropdownMenu.SubTrigger.props)
+  let make = (props: DropdownMenu.SubTrigger.props) =>
     <DropdownMenu.SubTrigger
-      {...baseUiProps}
+      {...props}
       dataSlot="menubar-sub-trigger"
-      dataInset=?props.inset
-      className={cn(
-        "cn-menubar-sub-trigger",
-        props.className,
-      )}
+      className={cn("cn-menubar-sub-trigger", props.className)}
     />
-  }
 }
 
 module SubContent = {
-  @react.componentWithProps(DropdownMenu.Content.contentProps)
-  let make = (props: DropdownMenu.Content.contentProps) =>
+  @react.componentWithProps(DropdownMenu.Content.props)
+  let make = (props: DropdownMenu.Content.props) =>
     <DropdownMenu.SubContent
       {...props}
       dataSlot="menubar-sub-content"
-      className={cn(
-        "cn-menubar-sub-content cn-menu-target cn-menu-translucent",
-        props.className,
-      )}
+      className={cn("cn-menubar-sub-content cn-menu-target cn-menu-translucent", props.className)}
     />
 }

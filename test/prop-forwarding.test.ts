@@ -1,0 +1,297 @@
+import { describe, expect, it, vi } from "vitest";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { Menu } from "@base-ui/react/menu";
+import { Popover } from "@base-ui/react/popover";
+import { Select } from "@base-ui/react/select";
+import { Tooltip } from "@base-ui/react/tooltip";
+import * as Badge from "../registry/base/ui/Badge.res.mjs";
+import * as Breadcrumb from "../registry/base/ui/Breadcrumb.res.mjs";
+import * as ButtonGroup from "../registry/base/ui/ButtonGroup.res.mjs";
+import * as Item from "../registry/base/ui/Item.res.mjs";
+import * as Collapsible from "../registry/base/ui/Collapsible.res.mjs";
+import * as Accordion from "../registry/base/ui/Accordion.res.mjs";
+import * as ContextMenu from "../registry/base/ui/ContextMenu.res.mjs";
+import * as DropdownMenu from "../registry/base/ui/DropdownMenu.res.mjs";
+import * as Menubar from "../registry/base/ui/Menubar.res.mjs";
+import * as ToggleGroup from "../registry/base/ui/ToggleGroup.res.mjs";
+import * as Sidebar from "../registry/base/ui/Sidebar.res.mjs";
+import * as PopoverUi from "../registry/base/ui/Popover.res.mjs";
+import * as SelectUi from "../registry/base/ui/Select.res.mjs";
+import * as TooltipUi from "../registry/base/ui/Tooltip.res.mjs";
+
+import * as BaseQuestionnaire from "../registry/base/ui/Questionnaire.res.mjs";
+import * as AriaQuestionnaire from "../registry/aria/ui/Questionnaire.res.mjs";
+import * as BaseAvatar from "../registry/base/ui/Avatar.res.mjs";
+
+import * as BaseNativeSelect from "../registry/base/ui/NativeSelect.res.mjs";
+import * as AriaNativeSelect from "../registry/aria/ui/NativeSelect.res.mjs";
+
+const h = React.createElement;
+
+// Find a primitive in a wrapper's returned element tree without mounting portals.
+function findElement(tree: React.ReactNode, type: unknown): React.ReactElement<any> | undefined {
+  for (const child of React.Children.toArray(tree)) {
+    if (!React.isValidElement<any>(child)) continue;
+    if (child.type === type) return child;
+    const found = findElement(child.props.children, type);
+    if (found) return found;
+  }
+}
+
+describe("registry prop forwarding", () => {
+  for (const [variant, NativeSelect] of [["Base", BaseNativeSelect], ["Aria", AriaNativeSelect]] as const) {
+    it(`${variant} NativeSelect forwards native props to the select and keeps wrapper options out`, () => {
+      const ref = React.createRef();
+      const onChange = vi.fn();
+      const onPointerDown = vi.fn();
+      const forwarded = {
+        ref, onChange, onPointerDown, id: "country", name: "country", form: "profile",
+        autoFocus: true, multiple: true, required: true, dir: "rtl", style: {color: "red"},
+        "aria-describedby": "help", "aria-invalid": "true", "data-extra": "forwarded",
+        "data-slot": "custom-select", "data-size": "custom-size",
+      };
+      const tree = NativeSelect.make({...forwarded, className: "custom-wrapper", size: "sm"});
+      const select = findElement(tree, "select")!;
+      expect(select.props).toMatchObject(forwarded);
+      expect(select.props).not.toHaveProperty("size");
+      expect(select.props).not.toHaveProperty("invalid");
+      expect(tree.props.className).toContain("custom-wrapper");
+      expect(select.props.className).not.toContain("custom-wrapper");
+      for (const prop of Object.keys(forwarded).filter(prop => !prop.startsWith("data-"))) {
+        expect(tree.props).not.toHaveProperty(prop);
+      }
+      expect(tree.props["data-size"]).toBe("sm");
+      expect(NativeSelect.Option.make({value: "fr", title: "France", "data-extra": "option"}).props)
+        .toMatchObject({value: "fr", title: "France", "data-extra": "option"});
+      expect(NativeSelect.OptGroup.make({label: "Europe", disabled: true, "data-extra": "group"}).props)
+        .toMatchObject({label: "Europe", disabled: true, "data-extra": "group"});
+    });
+  }
+
+  it("ToggleGroup forwards primitive props and caller overrides without leaking wrapper options", () => {
+    const ref = React.createRef();
+    const onPointerDown = vi.fn();
+    const onValueChange = vi.fn();
+    const style = { padding: "8px" };
+    const forwarded = {
+      ref, onPointerDown, onValueChange, style,
+      render: h("section"), loopFocus: false, orientation: "vertical",
+      value: ["one"], title: "Forwarded", "aria-describedby": "help",
+      "data-slot": "custom", "data-spacing": 4, "data-variant": "custom", "data-size": "custom",
+    };
+    const tree = ToggleGroup.make({
+      ...forwarded, variant: "outline", size: "sm", spacing: 3, className: "custom-class",
+      children: h("span", null, "Child"),
+    });
+    expect(tree.props).toMatchObject(forwarded);
+    expect(tree.props.style).toEqual({"--gap": 3, ...style});
+    expect(style).toEqual({padding: "8px"});
+    expect(tree.props.className).toContain("custom-class");
+    for (const prop of ["variant", "size", "spacing", "tabIndex"]) {
+      expect(tree.props).not.toHaveProperty(prop);
+    }
+    expect(tree.props.children.props.value).toEqual({
+      variant: "outline", size: "sm", spacing: 3, orientation: "vertical",
+    });
+    expect(tree.props.children.props.children.props.children).toBe("Child");
+
+    const defaults = ToggleGroup.make({});
+    expect(defaults.props.orientation).toBe("horizontal");
+    expect(defaults.props.style).toEqual({ "--gap": 2 });
+    expect(defaults.props["data-spacing"]).toBe(2);
+    expect(ToggleGroup.make({spacing: 0, style}).props.style).toEqual({"--gap": 0, ...style});
+    expect(ToggleGroup.make({style}).props.style).toEqual({"--gap": 2, ...style});
+    expect(ToggleGroup.make({spacing: 3, style: {"--gap": 0, ...style}}).props.style)
+      .toEqual({"--gap": 0, ...style});
+  });
+
+  it.each([true, false])("Sidebar.Provider consumes controlled open=%s without forwarding it to the DOM", (open) => {
+    const State = () => h("span", { "data-state": Sidebar.use().state });
+    const html = renderToStaticMarkup(h(Sidebar.Provider.make, {
+      open, defaultOpen: !open, onOpenChange: vi.fn(), title: "Forwarded", children: h(State),
+    }));
+    expect(html).toContain(`data-state="${open ? "expanded" : "collapsed"}"`);
+    expect(html).toContain('title="Forwarded"');
+    expect(html).not.toMatch(/\sopen(?:=|\s|>)/);
+  });
+
+  it.each([
+    ["Badge", Badge.make],
+    ["Breadcrumb.Link", Breadcrumb.Link.make],
+    ["ButtonGroup.Text", ButtonGroup.Text.make],
+    ["Item", Item.make],
+  ])("%s preserves custom render props, refs, handlers and attributes", (_, Component) => {
+    let received: any;
+    const onFocus = vi.fn();
+    const ref = React.createRef<HTMLAnchorElement>();
+    const Capture = (props: any) => { received = props; return h("a", props); };
+    const html = renderToStaticMarkup(h(Component, {
+      render: h(Capture), ref, onFocus, href: "/target", rel: "help",
+      "aria-describedby": "description", "data-slot": "custom-slot",
+      className: "custom-class", children: "Content",
+    }));
+    expect(received.ref).toBe(ref);
+    received.onFocus({ nativeEvent: {}, defaultPrevented: false });
+    expect(onFocus).toHaveBeenCalledOnce();
+    expect(received.render).toBeUndefined();
+    expect(received.variant).toBeUndefined();
+    expect(received.size).toBeUndefined();
+    for (const fragment of ['href="/target"', 'rel="help"', 'aria-describedby="description"', 'data-slot="custom-slot"', "custom-class", ">Content</a>"]) {
+      expect(html).toContain(fragment);
+    }
+  });
+
+  it("Sidebar.MenuSubButton forwards direct anchor props", () => {
+    let received: any;
+    const onClick = vi.fn();
+    const ref = React.createRef<HTMLAnchorElement>();
+    const Capture = (props: any) => { received = props; return h("a", props); };
+    const html = renderToStaticMarkup(h(Sidebar.MenuSubButton.make, {
+      render: h(Capture), href: "/docs", target: "_blank", rel: "noreferrer", ref, onClick,
+      className: "direct-class", style: {color: "blue", padding: "4px"}, title: "Direct",
+      "aria-label": "Documentation", "data-extra": "forwarded", children: "Docs",
+    }));
+    expect(received).toMatchObject({
+      href: "/docs", target: "_blank", rel: "noreferrer", ref, title: "Direct",
+      style: {color: "blue", padding: "4px"}, "aria-label": "Documentation",
+      "data-extra": "forwarded", children: "Docs",
+    });
+    for (const className of ["cn-sidebar-menu-sub-button", "direct-class"]) {
+      expect(received.className).toContain(className);
+    }
+    expect(received).not.toHaveProperty("render");
+    received.onClick({nativeEvent: {}, defaultPrevented: false});
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(html).toContain('href="/docs"');
+    expect(renderToStaticMarkup(h(Sidebar.MenuSubButton.make, {href: "/direct", children: "Direct"})))
+      .toContain('href="/direct"');
+  });
+
+  it("preserves Collapsible state when a Badge is the trigger render", () => {
+    const html = renderToStaticMarkup(h(Collapsible.make, { defaultOpen: true },
+      h(Collapsible.Trigger.make, { render: h(Badge.make), "aria-describedby": "help", children: "Toggle" })));
+    expect(html).toContain('aria-expanded="true"');
+    expect(html).toContain('aria-describedby="help"');
+    expect(html).toContain('data-slot="collapsible-trigger"');
+    expect(html).toContain("cn-badge");
+  });
+
+  it.each([
+    ["Collapsible", Collapsible.Trigger.make],
+    ["Accordion", Accordion.Trigger.make],
+    ["ContextMenu", ContextMenu.Trigger.make],
+    ["DropdownMenu.Item", DropdownMenu.Item.make],
+    ["DropdownMenu.CheckboxItem", DropdownMenu.CheckboxItem.make],
+    ["DropdownMenu.RadioItem", DropdownMenu.RadioItem.make],
+    ["Menubar.Item", (props: any) => DropdownMenu.Item.make(Menubar.Item.make(props).props)],
+    ["Menubar.CheckboxItem", Menubar.CheckboxItem.make],
+    ["Menubar.RadioItem", Menubar.RadioItem.make],
+  ])("%s passes additional props to its primitive", (_, make) => {
+    const onPointerDown = vi.fn();
+    const ref = React.createRef();
+    const render = h("a", { href: "/custom" });
+    const props = { ref, render, onPointerDown, title: "Forwarded", "aria-describedby": "help", "data-slot": "custom", value: "choice" };
+    const tree = make(props);
+    const target = tree.props.render ? tree : React.Children.toArray(tree.props.children)[0] as React.ReactElement<any>;
+    expect(target.props).toMatchObject(props);
+    expect(target.props.inset).toBeUndefined();
+    expect(target.props.variant).toBeUndefined();
+  });
+
+  it("menu item shorthand props do not erase explicit data attributes", () => {
+    const item = DropdownMenu.Item.make({ "data-inset": true, variant: "destructive" });
+    expect(item.props["data-inset"]).toBe(true);
+    expect(item.props["data-variant"]).toBe("destructive");
+    expect(item.props.className).toContain("cn-dropdown-menu-item");
+    expect(item.props.variant).toBeUndefined();
+  });
+
+  it.each([
+    ["DropdownMenu.Item", DropdownMenu.Item.make],
+    ["DropdownMenu.Label", DropdownMenu.Label.make],
+    ["DropdownMenu.SubTrigger", DropdownMenu.SubTrigger.make],
+    ["Menubar.Item", (p: any) => DropdownMenu.Item.make(Menubar.Item.make(p).props)],
+    ["Menubar.CheckboxItem", Menubar.CheckboxItem.make],
+    ["Menubar.RadioItem", Menubar.RadioItem.make],
+    ["Menubar.Label", (p: any) => DropdownMenu.Label.make(Menubar.Label.make(p).props)],
+    ["Menubar.SubTrigger", (p: any) => DropdownMenu.SubTrigger.make(Menubar.SubTrigger.make(p).props)],
+  ])("%s prefers dataInset and falls back to inset when absent", (_, make) => {
+    for (const dataInset of [true, false]) {
+      expect(make({ value: "a", "data-inset": dataInset }).props["data-inset"]).toBe(dataInset);
+      expect(make({ value: "a", inset: !dataInset, "data-inset": dataInset }).props["data-inset"]).toBe(dataInset);
+    }
+    expect(make({ value: "a", inset: true }).props["data-inset"]).toBe(true);
+    expect(make({ value: "a", inset: false }).props["data-inset"]).toBe(false);
+    expect(make({ value: "a", inset: true, "data-inset": undefined }).props["data-inset"]).toBe(true);
+    expect(make({ value: "a", inset: false, "data-inset": undefined }).props["data-inset"]).toBe(false);
+    expect(make({ value: "a" }).props["data-inset"]).toBeUndefined();
+  });
+
+  it.each([
+    ["Group", Sidebar.Group.make], ["GroupContent", Sidebar.GroupContent.make],
+    ["Menu", Sidebar.Menu.make], ["MenuItem", Sidebar.MenuItem.make],
+    ["MenuBadge", Sidebar.MenuBadge.make], ["MenuSub", Sidebar.MenuSub.make],
+    ["MenuSubItem", Sidebar.MenuSubItem.make], ["MenuSkeleton", Sidebar.MenuSkeleton.make],
+  ])("Sidebar.%s forwards DOM attributes", (_, Component) => {
+    const html = renderToStaticMarkup(h(Component, { title: "Forwarded", "aria-describedby": "help", "data-slot": "custom", "data-sidebar": "custom-sidebar", children: "Content" }));
+    expect(html).toContain('title="Forwarded"');
+    expect(html).toContain('aria-describedby="help"');
+    expect(html).toContain('data-slot="custom"');
+    expect(html).toContain('data-sidebar="custom-sidebar"');
+    expect(html).toContain("Content");
+    expect(html).not.toContain("showIcon=");
+  });
+
+  it.each([
+    ["DropdownMenu", DropdownMenu.Content.make, Menu.Popup, Menu.Positioner],
+    ["DropdownMenu.SubContent", (p: any) => DropdownMenu.Content.make(DropdownMenu.SubContent.make(p).props), Menu.Popup, Menu.Positioner],
+    ["Menubar.SubContent", (p: any) => DropdownMenu.Content.make(DropdownMenu.SubContent.make(Menubar.SubContent.make(p).props).props), Menu.Popup, Menu.Positioner],
+    ["Popover", PopoverUi.Content.make, Popover.Popup, Popover.Positioner],
+    ["Select", SelectUi.Content.make, Select.Popup, Select.Positioner],
+    ["Tooltip", TooltipUi.Content.make, Tooltip.Popup, Tooltip.Positioner],
+  ])("%s keeps positioning props out of the popup", (_, make, Popup, Positioner) => {
+    const onFocus = vi.fn();
+    const ref = React.createRef();
+    const tree = make({ children: "Content", ref, onFocus, title: "Forwarded", align: "end", side: "left", alignOffset: 7, sideOffset: 12, "data-align-trigger": false });
+    const popup = findElement(tree, Popup)!;
+    expect(popup.props).toMatchObject({ ref, onFocus, title: "Forwarded" });
+    for (const key of ["align", "side", "alignOffset", "sideOffset", "dataAlignTrigger"]) {
+      expect(popup.props[key]).toBeUndefined();
+    }
+    const positioner = findElement(tree, Positioner)!;
+    expect(positioner.props).toMatchObject({ align: "end", side: "left", alignOffset: 7, sideOffset: 12 });
+    if (Popup === Select.Popup) expect(positioner.props.alignItemWithTrigger).toBe(false);
+  });
+
+  it("Popover.Content forwards primitive focus settings", () => {
+    const popup = findElement(PopoverUi.Content.make({ initialFocus: false, finalFocus: false }), Popover.Popup)!;
+    expect(popup.props).toMatchObject({ initialFocus: false, finalFocus: false });
+  });
+});
+
+for (const [variant, questionnaire] of [["base", BaseQuestionnaire], ["aria", AriaQuestionnaire]] as const) {
+  it(`${variant} Questionnaire preserves refs, callbacks, custom attributes and render functions`, () => {
+    const ref = React.createRef();
+    const onPointerDown = vi.fn();
+    const render = vi.fn();
+    const props = { ref, onPointerDown, "data-custom": "forwarded", "data-slot": "custom-slot", className: "custom-class" };
+    for (const make of [questionnaire.make, questionnaire.Item.make, questionnaire.Choice.make, questionnaire.Progress.make]) {
+      const tree = make({ ...props, name: "question", value: "answer" });
+      expect(tree.props).toMatchObject({ ref, onPointerDown, "data-custom": "forwarded", "data-slot": "custom-slot" });
+      expect(tree.props.className).toContain("custom-class");
+    }
+    const progress = questionnaire.Progress.WithRender.make({ ...props, render });
+    expect(progress.props.render).toBe(render);
+    const next = questionnaire.Next.make({ ...props, variant: "outline", size: "sm" });
+    expect(next.props).toMatchObject({ "data-variant": "outline", "data-size": "sm" });
+    expect(next.props).not.toHaveProperty("variant");
+    expect(next.props).not.toHaveProperty("size");
+  });
+}
+
+it("Avatar.Image forwards mounting and loading-status props", () => {
+  const onLoadingStatusChange = vi.fn();
+  const tree = BaseAvatar.Image.make({ keepMounted: true, onLoadingStatusChange, loading: "lazy", "data-custom": "image" });
+  expect(tree.props).toMatchObject({ keepMounted: true, onLoadingStatusChange, loading: "lazy", "data-custom": "image" });
+});

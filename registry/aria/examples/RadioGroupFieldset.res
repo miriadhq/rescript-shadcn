@@ -5,7 +5,7 @@ let make = ({}: Demo.Props.t) =>
     <Field.Description>
       {"Yearly and lifetime plans offer significant savings."->React.string}
     </Field.Description>
-    <RadioGroup defaultValue="monthly">
+    <RadioGroup ariaLabel="Subscription Plan" defaultValue="monthly">
       <Field orientation=Horizontal>
         <RadioGroup.Item value="monthly" id="plan-monthly" />
         <Field.Label htmlFor="plan-monthly" className="font-normal">

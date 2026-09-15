@@ -89,7 +89,7 @@ let make = ({}: Demo.Props.t) =>
     </Field.Group>
     <Field dataDisabled={true}>
       <Field.Label htmlFor="input-group-29">
-        {"Loading (data-disabled=\"true\")"->React.string}
+        {"Loading (\"data-disabled=\"true\")"->React.string}
       </Field.Label>
       <InputGroup>
         <InputGroup.Input id="input-group-29" disabled={true} defaultValue="shadcn" />

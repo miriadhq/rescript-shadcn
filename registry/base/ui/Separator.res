@@ -2,8 +2,8 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithComponents(BaseUIComponentProps.t)
 let make = (props: BaseUIComponentProps.t) =>
@@ -12,7 +12,7 @@ let make = (props: BaseUIComponentProps.t) =>
     dataSlot={props.dataSlot->Option.getOr("separator")}
     orientation={props.orientation->Option.getOr(Horizontal)}
     className={cn(
-      "cn-separator data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
+      "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
       props.className,
     )}
   />

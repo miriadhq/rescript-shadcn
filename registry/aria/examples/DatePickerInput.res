@@ -27,11 +27,13 @@ let make = ({}: Demo.Props.t) => {
         id="date-required"
         value
         placeholder="June 01, 2025"
-        onChange={value => {
+        onChange={event => {
+          let value = (event->JsxEvent.Form.target)["value"]
           let parsed = Date.fromString(value)
           setValue(_ => value)
           if parsed->isValidDate {
-            let calendarDate = parsed->IDate.fromDate(IDate.getLocalTimeZone())->IDate.toCalendarDate
+            let calendarDate =
+              parsed->IDate.fromDate(IDate.getLocalTimeZone())->IDate.toCalendarDate
             setDate(_ => Some(calendarDate))
             setMonth(_ => calendarDate)
           }
@@ -44,9 +46,7 @@ let make = ({}: Demo.Props.t) => {
       />
       <InputGroup.Addon align=InlineEnd>
         <Popover.Trigger isOpen={open_} onOpenChange={open_ => setOpen(_ => open_)}>
-          <InputGroup.Button
-            id="date-picker" variant=Ghost size=IconXs ariaLabel="Select date"
-          >
+          <InputGroup.Button id="date-picker" variant=Ghost size=IconXs ariaLabel="Select date">
             <Icons.Calendar />
             <span className="sr-only"> {"Select date"->React.string} </span>
           </InputGroup.Button>

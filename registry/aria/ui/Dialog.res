@@ -2,8 +2,8 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Trigger = {
   @react.componentWithProps(ReactAria.Dialog.Trigger.props)
@@ -38,18 +38,13 @@ module Overlay = {
 }
 
 type props = {showCloseButton?: bool, ...ReactAria.Dialog.Modal.props}
-let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
-  `({showCloseButton, className, children, ...props}) => props`
-)
+let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(`({showCloseButton, className, children, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props) => {
   let showCloseButton = props.showCloseButton->Option.getOr(true)
   let isDismissable = props.isDismissable->Option.getOr(true)
-  <Overlay
-    {...props->overlayProps}
-    isDismissable
-  >
+  <Overlay {...props->overlayProps} isDismissable>
     <ReactAria.Dialog.Modal
       dataSlot="dialog-content"
       className={cn(

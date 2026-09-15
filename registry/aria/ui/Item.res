@@ -2,8 +2,8 @@
 
 open ReactAria.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Variant = {
   @unboxed
@@ -74,13 +74,16 @@ let make = (props: props) => {
       className
     />
   | None =>
-    createElement("div", {
-      ...props->divProps,
-      dataSlot: "item",
-      dataVariant: (variant :> string),
-      dataSize: (size :> string),
-      className,
-    })
+    createElement(
+      "div",
+      {
+        ...props->divProps,
+        dataSlot: "item",
+        dataVariant: (variant :> string),
+        dataSize: (size :> string),
+        className,
+      },
+    )
   }
 }
 
@@ -148,10 +151,7 @@ module Group = {
       {...props}
       role="list"
       dataSlot="item-group"
-      className={cn(
-        "cn-item-group group/item-group flex w-full flex-col",
-        props.className,
-      )}
+      className={cn("cn-item-group group/item-group flex w-full flex-col", props.className)}
     />
 }
 
@@ -172,10 +172,7 @@ module Title = {
     <div
       {...props}
       dataSlot="item-title"
-      className={cn(
-        "cn-item-title line-clamp-1 flex w-fit items-center",
-        props.className,
-      )}
+      className={cn("cn-item-title line-clamp-1 flex w-fit items-center", props.className)}
     />
 }
 
@@ -198,10 +195,7 @@ module Header = {
     <div
       {...props}
       dataSlot="item-header"
-      className={cn(
-        "cn-item-header flex basis-full items-center justify-between",
-        props.className,
-      )}
+      className={cn("cn-item-header flex basis-full items-center justify-between", props.className)}
     />
 }
 
@@ -211,9 +205,6 @@ module Footer = {
     <div
       {...props}
       dataSlot="item-footer"
-      className={cn(
-        "cn-item-footer flex basis-full items-center justify-between",
-        props.className,
-      )}
+      className={cn("cn-item-footer flex basis-full items-center justify-between", props.className)}
     />
 }

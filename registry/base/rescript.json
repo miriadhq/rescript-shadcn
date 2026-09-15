@@ -6,7 +6,11 @@
       "dir": ".",
       "files": [
         "Demo.res",
-        "NextLink.res"
+        "NextLink.res",
+        "Markdown.res",
+        "MessageScrollerExample.res",
+        "AiChat.res",
+        "MessageAnimated.res"
       ]
     },
     {

@@ -8,11 +8,15 @@ let make = ({}: Demo.Props.t) =>
       let task = Promise.make((resolve, _reject) => {
         let _ = setTimeout(~handler=() => resolve({"name": "Event"}), ~timeout=2000)
       })
-      let _ = BaseUi.Toast.promise(Toast.toast, task, {
-        loading: "Creating event…",
-        success: BaseUi.Toast.Resolve(data => `${data["name"]} created.`),
-        error: "Could not create event.",
-      })
+      let _ = BaseUi.Toast.promise(
+        Toast.toast,
+        task,
+        {
+          loading: "Creating event…",
+          success: BaseUi.Toast.Resolve(data => `${data["name"]} created.`),
+          error: "Could not create event.",
+        },
+      )
     }}
   >
     {"Create Event"->React.string}

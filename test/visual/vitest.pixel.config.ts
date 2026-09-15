@@ -9,6 +9,8 @@ export default defineConfig({
       "**/templates/**",
     ],
     testTimeout: 8000,
+    // Async Markdown highlighting can race capture under parallel load.
+    maxConcurrency: 1,
   },
   plugins: [],
 })

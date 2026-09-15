@@ -1,5 +1,4 @@
 type props = {
-  ...Types.BaseUIComponentProps.t,
   ...Types.NativeButtonProps.t,
   focusableWhenDisabled?: bool,
 }

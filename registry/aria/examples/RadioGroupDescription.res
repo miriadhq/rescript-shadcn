@@ -1,6 +1,6 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <RadioGroup defaultValue="comfortable" className="w-fit">
+  <RadioGroup ariaLabel="Density" defaultValue="comfortable" className="w-fit">
     <Field orientation=Horizontal>
       <RadioGroup.Item value="default" id="desc-r1" />
       <Field.Content>

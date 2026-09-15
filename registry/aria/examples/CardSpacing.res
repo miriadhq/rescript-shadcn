@@ -50,9 +50,7 @@ let make = ({}: Demo.Props.t) => {
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="email-spacing"> {"Email"->React.string} </Label>
-              <Input
-                id="email-spacing" type_="email" placeholder="m@example.com" required={true}
-              />
+              <Input id="email-spacing" type_="email" placeholder="m@example.com" required={true} />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">

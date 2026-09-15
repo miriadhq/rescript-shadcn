@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Variant = {
   @unboxed
@@ -18,59 +18,46 @@ let variantClass = (~variant: Variant.t) =>
   | Border => "cn-marker-variant-border"
   }
 
-@react.component
-let make = (
-  ~className=?,
-  ~variant=Variant.Default,
-  ~children=?,
-  ~role=?,
-  ~ariaLabel=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) =>
-  <div
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?role
-    ?ariaLabel
-    ?children
-    dataSlot="marker"
-    dataVariant={(variant :> string)}
-    className={cn(
-      `cn-marker group/marker relative flex w-full items-center ${variantClass(~variant)}`,
-      className,
-    )}
-  />
+type props = {variant?: Variant.t, ...BaseUi.Types.BaseUIComponentProps.t}
+type renderState = {slot: string, variant: Variant.t}
+let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({variant, className, render, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let variant = props.variant->Option.getOr(Default)
+  BaseUi.Render.use({
+    defaultTagName: "div",
+    props: BaseUi.Render.mergeProps(
+      {
+        className: cn(
+          `cn-marker group/marker relative flex w-full items-center ${variantClass(~variant)}`,
+          props.className,
+        ),
+      },
+      toDomProps(props),
+    ),
+    render: ?props.render,
+    state: {slot: "marker", variant},
+  })
+}
 
 module Icon = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <span
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="marker-icon"
-      ariaHidden=true
-      className={cn("cn-marker-icon shrink-0", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("marker-icon")}
+      ariaHidden={props.ariaHidden->Option.getOr(true)}
+      className={cn("cn-marker-icon shrink-0", props.className)}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <span
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="marker-content"
-      className={cn("cn-marker-content min-w-0 wrap-break-word", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("marker-content")}
+      className={cn("cn-marker-content min-w-0 wrap-break-word", props.className)}
     />
 }

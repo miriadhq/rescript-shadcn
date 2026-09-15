@@ -16,7 +16,10 @@ module Root = {
     defaultValue?: string,
     onValueChange?: (
       string,
-      Types.BaseUIChangeEventDetail.t<[#"input-change" | #"input-clear" | #"input-paste" | #keyboard], unknown>,
+      Types.BaseUIChangeEventDetail.t<
+        [#"input-change" | #"input-clear" | #"input-paste" | #keyboard],
+        unknown,
+      >,
     ) => unit,
     onValueInvalid?: (
       string,
@@ -32,6 +35,7 @@ module Root = {
 }
 
 module Input = {
+  type props = {...Types.BaseUIComponentProps.t}
   @module("@base-ui/react/otp-field") @scope("OTPField")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Input"
+  external make: React.component<props> = "Input"
 }

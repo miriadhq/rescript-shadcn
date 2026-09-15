@@ -1,6 +1,5 @@
 module Root = {
   type props<'value> = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     value: 'value,
   }

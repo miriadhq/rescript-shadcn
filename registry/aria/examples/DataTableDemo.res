@@ -16,8 +16,11 @@ module RT = {
   type row<'data>
   type cell
   type hdr
-  type hdrGroup
   type rowModel<'data> = {rows: array<row<'data>>}
+  type feature
+  type filterFn
+  type sortFn
+  type features
   type rowModelGetter
   type colDef_
   type colFilter = {id: string, value: string}
@@ -48,10 +51,7 @@ module RT = {
   type options<'data> = {
     data: array<'data>,
     columns: array<colDef<'data>>,
-    getCoreRowModel: rowModelGetter,
-    getFilteredRowModel: rowModelGetter,
-    getPaginationRowModel: rowModelGetter,
-    getSortedRowModel: rowModelGetter,
+    features: features,
     onSortingChange: (sorting => sorting) => unit,
     onColumnFiltersChange: (colFilters => colFilters) => unit,
     onColumnVisibilityChange: (colVisibility => colVisibility) => unit,
@@ -60,17 +60,42 @@ module RT = {
   }
 
   @module("@tanstack/react-table") external flexRender: ('a, 'b) => React.element = "flexRender"
-  @module("@tanstack/react-table") external coreRowModel: unit => rowModelGetter = "getCoreRowModel"
+  type featuresOptions = {
+    columnFilteringFeature: feature,
+    columnVisibilityFeature: feature,
+    rowPaginationFeature: feature,
+    rowSelectionFeature: feature,
+    rowSortingFeature: feature,
+    filteredRowModel: rowModelGetter,
+    paginatedRowModel: rowModelGetter,
+    sortedRowModel: rowModelGetter,
+    filterFns: dict<filterFn>,
+    sortFns: dict<sortFn>,
+  }
   @module("@tanstack/react-table")
-  external filteredRowModelGetter: unit => rowModelGetter = "getFilteredRowModel"
+  external columnFilteringFeature: feature = "columnFilteringFeature"
   @module("@tanstack/react-table")
-  external paginationRowModelGetter: unit => rowModelGetter = "getPaginationRowModel"
+  external columnVisibilityFeature: feature = "columnVisibilityFeature"
+  @module("@tanstack/react-table") external rowPaginationFeature: feature = "rowPaginationFeature"
+  @module("@tanstack/react-table") external rowSelectionFeature: feature = "rowSelectionFeature"
+  @module("@tanstack/react-table") external rowSortingFeature: feature = "rowSortingFeature"
+  @module("@tanstack/react-table") external includesString: filterFn = "filterFn_includesString"
+  @module("@tanstack/react-table") external alphanumeric: sortFn = "sortFn_alphanumeric"
+  @module("@tanstack/react-table") external text: sortFn = "sortFn_text"
   @module("@tanstack/react-table")
-  external sortedRowModelGetter: unit => rowModelGetter = "getSortedRowModel"
+  external tableFeatures: featuresOptions => features = "tableFeatures"
   @module("@tanstack/react-table")
-  external useReactTable: options<'data> => t<'data> = "useReactTable"
+  external filteredRowModelGetter: unit => rowModelGetter = "createFilteredRowModel"
+  @module("@tanstack/react-table")
+  external paginationRowModelGetter: unit => rowModelGetter = "createPaginatedRowModel"
+  @module("@tanstack/react-table")
+  external sortedRowModelGetter: unit => rowModelGetter = "createSortedRowModel"
+  @module("@tanstack/react-table") external useTable: options<'data> => t<'data> = "useTable"
 
-  @send external getHeaderGroups: t<'data> => array<hdrGroup> = "getHeaderGroups"
+  @send external toggleAllRowsSelected: (t<'data>, bool) => unit = "toggleAllRowsSelected"
+  @send external getFlatHeaders: t<'data> => array<hdr> = "getFlatHeaders"
+  @get external hdrIndex: hdr => int = "index"
+  @send external colGetCanSort: col => bool = "getCanSort"
   @send external getRowModel: t<'data> => rowModel<'data> = "getRowModel"
   @send external getFilteredRowModel: t<'data> => rowModel<'data> = "getFilteredRowModel"
   @send
@@ -81,12 +106,6 @@ module RT = {
   @send external previousPage: t<'data> => unit = "previousPage"
   @send external nextPage: t<'data> => unit = "nextPage"
   @send external getColumn: (t<'data>, string) => nullable<col> = "getColumn"
-  @send external getIsAllPageRowsSelected: t<'data> => bool = "getIsAllPageRowsSelected"
-  @send external getIsSomePageRowsSelected: t<'data> => bool = "getIsSomePageRowsSelected"
-  @send external toggleAllPageRowsSelected: (t<'data>, bool) => unit = "toggleAllPageRowsSelected"
-
-  @get external hdrGroupId: hdrGroup => string = "id"
-  @get external hdrGroupHeaders: hdrGroup => array<hdr> = "headers"
 
   @get external hdrId: hdr => string = "id"
   @get external hdrIsPlaceholder: hdr => bool = "isPlaceholder"
@@ -101,14 +120,10 @@ module RT = {
   @send external colGetCanHide: col => bool = "getCanHide"
   @send external colGetIsVisible: col => bool = "getIsVisible"
   @send external colToggleVisibility: (col, bool) => unit = "toggleVisibility"
-  @send external colGetIsSorted: col => string = "getIsSorted"
-  @send external colToggleSorting: (col, bool) => unit = "toggleSorting"
   @send external colGetFilterValue: col => nullable<string> = "getFilterValue"
   @send external colSetFilterValue: (col, string) => unit = "setFilterValue"
 
   @get external rowId: row<'data> => string = "id"
-  @send external rowGetIsSelected: row<'data> => bool = "getIsSelected"
-  @send external rowToggleSelected: (row<'data>, bool) => unit = "toggleSelected"
   @send external rowGetVisibleCells: row<'data> => array<cell> = "getVisibleCells"
   @get external rowOriginal: row<'data> => 'data = "original"
   @send external rowGetValue: (row<'data>, string) => 'a = "getValue"
@@ -119,7 +134,6 @@ module RT = {
 
   @get external ctxRow: cellCtx<'data> => row<'data> = "row"
   @get external ctxCol: hdrCtx<'data> => col = "column"
-  @get external ctxTable: hdrCtx<'data> => t<'data> = "table"
 }
 
 type numberFormat
@@ -131,25 +145,24 @@ external makeNumberFormat: (string, numberFormatOpts) => numberFormat = "NumberF
 @scope(("navigator", "clipboard")) @val
 external writeText: string => promise<unit> = "writeText"
 
+let features = RT.tableFeatures({
+  columnFilteringFeature: RT.columnFilteringFeature,
+  columnVisibilityFeature: RT.columnVisibilityFeature,
+  rowPaginationFeature: RT.rowPaginationFeature,
+  rowSelectionFeature: RT.rowSelectionFeature,
+  rowSortingFeature: RT.rowSortingFeature,
+  filteredRowModel: RT.filteredRowModelGetter(),
+  paginatedRowModel: RT.paginationRowModelGetter(),
+  sortedRowModel: RT.sortedRowModelGetter(),
+  filterFns: dict{"includesString": RT.includesString},
+  sortFns: dict{"alphanumeric": RT.alphanumeric, "text": RT.text},
+})
+
 let columns: array<RT.colDef<payment>> = [
   {
     id: "select",
-    header: ctx => {
-      let table = ctx->RT.ctxTable
-      <Checkbox
-        isSelected={table->RT.getIsAllPageRowsSelected || table->RT.getIsSomePageRowsSelected}
-        onChange={v => table->RT.toggleAllPageRowsSelected(v)}
-        ariaLabel="Select all"
-      />
-    },
-    cell: ctx => {
-      let row = ctx->RT.ctxRow
-      <Checkbox
-        isSelected={row->RT.rowGetIsSelected}
-        onChange={v => row->RT.rowToggleSelected(v)}
-        ariaLabel="Select row"
-      />
-    },
+    header: _ => <Checkbox slot="selection" />,
+    cell: _ => <Checkbox slot="selection" />,
     enableSorting: false,
     enableHiding: false,
   },
@@ -163,15 +176,11 @@ let columns: array<RT.colDef<payment>> = [
   },
   {
     accessorKey: "email",
-    header: ctx => {
-      let col = ctx->RT.ctxCol
-      <Button
-        variant=Ghost onClick={_ => col->RT.colToggleSorting(col->RT.colGetIsSorted == "asc")}
-      >
+    header: _ =>
+      <div className={Button.buttonVariants(~variant=Ghost)}>
         {"Email"->React.string}
         <Icons.SortAsc />
-      </Button>
-    },
+      </div>,
     cell: ctx => {
       let row = ctx->RT.ctxRow
       <div className="lowercase"> {(row->RT.rowGetValue("email"): string)->React.string} </div>
@@ -197,15 +206,15 @@ let columns: array<RT.colDef<payment>> = [
     cell: ctx => {
       let payment = ctx->RT.ctxRow->RT.rowOriginal
       <DropdownMenu.Trigger>
-<Button variant=Ghost size=IconXs>
+        <Button variant=Ghost size=IconXs>
           <span className="sr-only"> {"Open menu"->React.string} </span>
           <Icons.MoreHorizontal />
         </Button>
-<DropdownMenu placement=ReactAria.Common.BottomEnd className="w-44">
+        <DropdownMenu placement=ReactAria.Common.BottomEnd className="w-44">
           <DropdownMenu.Group>
             <DropdownMenu.Label> {"Actions"->React.string} </DropdownMenu.Label>
             <DropdownMenu.Item
-          onAction={() => {
+              onAction={() => {
                 let _ = writeText(payment.id)
               }}
             >
@@ -218,7 +227,7 @@ let columns: array<RT.colDef<payment>> = [
             <DropdownMenu.Item> {"View payment details"->React.string} </DropdownMenu.Item>
           </DropdownMenu.Group>
         </DropdownMenu>
-</DropdownMenu.Trigger>
+      </DropdownMenu.Trigger>
     },
   },
 ]
@@ -230,13 +239,10 @@ let make = ({}: Demo.Props.t) => {
   let (colVisibility, setColVisibility) = React.useState(() => dict{})
   let (rowSelection, setRowSelection) = React.useState(() => dict{})
 
-  let table = RT.useReactTable({
+  let table = RT.useTable({
     data: tableData,
     columns,
-    getCoreRowModel: RT.coreRowModel(),
-    getFilteredRowModel: RT.filteredRowModelGetter(),
-    getPaginationRowModel: RT.paginationRowModelGetter(),
-    getSortedRowModel: RT.sortedRowModelGetter(),
+    features,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColFilters,
     onColumnVisibilityChange: setColVisibility,
@@ -261,19 +267,19 @@ let make = ({}: Demo.Props.t) => {
       <Input
         placeholder="Filter emails..."
         value={emailFilterValue}
-        onChange={value =>
+        onChange={event =>
           table
           ->RT.getColumn("email")
           ->Nullable.toOption
-          ->Option.forEach(col => col->RT.colSetFilterValue(value))}
+          ->Option.forEach(col => col->RT.colSetFilterValue((event->JsxEvent.Form.target)["value"]))}
         className="max-w-sm"
       />
       <DropdownMenu.Trigger>
-<Button variant=Outline className="ml-auto">
+        <Button variant=Outline className="ml-auto">
           {"Columns"->React.string}
           <Icons.ChevronDown />
         </Button>
-<DropdownMenu placement=ReactAria.Common.BottomEnd className="w-44">
+        <DropdownMenu placement=ReactAria.Common.BottomEnd className="w-44">
           <DropdownMenu.Group
             selectionMode=Multiple
             selectedKeys={table
@@ -288,75 +294,80 @@ let make = ({}: Demo.Props.t) => {
                 ->Array.filter(RT.colGetCanHide)
                 ->Array.forEach(col => col->RT.colToggleVisibility(keys->Set.has(col->RT.colId)))
               | ReactAria.Common.All => ()
-              }
-            }
+              }}
           >
             {table
             ->RT.getAllColumns
             ->Array.filter(RT.colGetCanHide)
             ->Array.map(col =>
-              <DropdownMenu.Item
-                key={col->RT.colId}
-                id={col->RT.colId}
-                className="capitalize"
-              >
+              <DropdownMenu.Item key={col->RT.colId} id={col->RT.colId} className="capitalize">
                 {col->RT.colId->React.string}
               </DropdownMenu.Item>
             )
             ->React.array}
           </DropdownMenu.Group>
         </DropdownMenu>
-</DropdownMenu.Trigger>
+      </DropdownMenu.Trigger>
     </div>
     <div className="overflow-hidden rounded-md border">
-      <Table>
+      <Table
+        ariaLabel="Tasks"
+        selectionMode=Multiple
+        sortDescriptor=?{sorting
+        ->Array.get(0)
+        ->Option.map(sort => {
+          ReactAria.Table.Sort.column: sort.id,
+          direction: sort.desc ? Descending : Ascending,
+        })}
+        onSortChange={sort =>
+          setSorting(_ => [{RT.id: sort.column, desc: sort.direction == Descending}])}
+        selectedKeys={rowSelection
+        ->Dict.toArray
+        ->Array.filterMap(((key, selected)) => selected ? Some(key) : None)}
+        onSelectionChange={selection =>
+          switch selection {
+          | ReactAria.Common.All => table->RT.toggleAllRowsSelected(true)
+          | Keys(keys) =>
+            setRowSelection(_ =>
+              keys->Set.values->Iterator.toArray->Array.map(key => (key, true))->Dict.fromArray
+            )
+          }}
+      >
         <Table.Header>
           {table
-          ->RT.getHeaderGroups
-          ->Array.map(hdrGroup =>
-            <Table.Row key={hdrGroup->RT.hdrGroupId}>
-              {hdrGroup
-              ->RT.hdrGroupHeaders
-              ->Array.map(hdr =>
-                <Table.Head key={hdr->RT.hdrId}>
-                  {hdr->RT.hdrIsPlaceholder
-                    ? React.null
-                    : RT.flexRender(hdr->RT.hdrCol->RT.colColDef->RT.colDefHdr, hdr->RT.getHdrCtx)}
-                </Table.Head>
+          ->RT.getFlatHeaders
+          ->Array.map(hdr =>
+            <Table.Head
+              key={hdr->RT.hdrId}
+              id={hdr->RT.hdrId}
+              isRowHeader={hdr->RT.hdrIndex == 1}
+              allowsSorting={hdr->RT.hdrCol->RT.colGetCanSort}
+            >
+              {hdr->RT.hdrIsPlaceholder
+                ? React.null
+                : RT.flexRender(hdr->RT.hdrCol->RT.colColDef->RT.colDefHdr, hdr->RT.getHdrCtx)}
+            </Table.Head>
+          )
+          ->React.array}
+        </Table.Header>
+        <Table.Body renderEmptyState={_ => "No results."->React.string}>
+          {(table->RT.getRowModel).rows
+          ->Array.map(row =>
+            <Table.Row key={row->RT.rowId} id={row->RT.rowId}>
+              {row
+              ->RT.rowGetVisibleCells
+              ->Array.map(cell =>
+                <Table.Cell key={cell->RT.cellId}>
+                  {RT.flexRender(
+                    cell->RT.cellCol->RT.colColDef->RT.colDefCell,
+                    cell->RT.getCellCtx,
+                  )}
+                </Table.Cell>
               )
               ->React.array}
             </Table.Row>
           )
           ->React.array}
-        </Table.Header>
-        <Table.Body>
-          {if (table->RT.getRowModel).rows->Array.length > 0 {
-            (table->RT.getRowModel).rows
-            ->Array.map(row =>
-              <Table.Row
-                key={row->RT.rowId} dataState=?{row->RT.rowGetIsSelected ? Some("selected") : None}
-              >
-                {row
-                ->RT.rowGetVisibleCells
-                ->Array.map(cell =>
-                  <Table.Cell key={cell->RT.cellId}>
-                    {RT.flexRender(
-                      cell->RT.cellCol->RT.colColDef->RT.colDefCell,
-                      cell->RT.getCellCtx,
-                    )}
-                  </Table.Cell>
-                )
-                ->React.array}
-              </Table.Row>
-            )
-            ->React.array
-          } else {
-            <Table.Row>
-              <Table.Cell colSpan={columns->Array.length} className="h-24 text-center">
-                {"No results."->React.string}
-              </Table.Cell>
-            </Table.Row>
-          }}
         </Table.Body>
       </Table>
     </div>

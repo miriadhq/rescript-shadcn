@@ -106,7 +106,6 @@ module Style = {
     }
 
   let fromString = (value: string) => value->fromStringOpt->Option.getOr(default)
-
 }
 
 module LibStyle = {
@@ -121,8 +120,7 @@ module LibStyle = {
   let paramName = "style"
   let libStorageKey = "lib"
 
-  let toString = libStyle =>
-    `${libStyle.lib->Lib.toString}-${libStyle.style->Style.toString}`
+  let toString = libStyle => `${libStyle.lib->Lib.toString}-${libStyle.style->Style.toString}`
 
   let interpolate = (template, libStyle) =>
     template->String.replaceAll("{{libStyle}}", libStyle->toString)
@@ -168,9 +166,7 @@ module LibStyle = {
     Style.all->Array.forEach(style =>
       classList->WebAPI.DOMTokenList.remove(`style-${style->Style.toString}`)
     )
-    Lib.all->Array.forEach(lib =>
-      classList->WebAPI.DOMTokenList.remove(`lib-${lib->Lib.toString}`)
-    )
+    Lib.all->Array.forEach(lib => classList->WebAPI.DOMTokenList.remove(`lib-${lib->Lib.toString}`))
     classList->WebAPI.DOMTokenList.add(`style-${libStyle.style->Style.toString}`)
     classList->WebAPI.DOMTokenList.add(`lib-${libStyle.lib->Lib.toString}`)
   }
@@ -195,9 +191,7 @@ module LibStyle = {
     let queryLibStyle = searchParams->getParam->Option.flatMap(fromStringOpt)
     let libStyle = queryLibStyle->Option.getOr(storedLibStyle)
     let syncsLibStyle =
-      pathname === "/" ||
-      pathname === "/installation" ||
-      pathname->String.startsWith("/components")
+      pathname === "/" || pathname === "/installation" || pathname->String.startsWith("/components")
 
     let navigate = nextLibStyle =>
       if syncsLibStyle && libHydrated && styleHydrated {

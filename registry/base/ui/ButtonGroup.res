@@ -2,8 +2,8 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 let buttonGroupVariants = (~orientation=BaseUi.Types.Orientation.Horizontal) => {
   let base = "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1"
@@ -14,12 +14,14 @@ let buttonGroupVariants = (~orientation=BaseUi.Types.Orientation.Horizontal) => 
   cn(base, Some(orientationClass))
 }
 
+let toDomProps: BaseUi.Types.DomProps.t => BaseUi.Types.DomProps.t = %raw(`({orientation, ...props}) => props`)
+
 @react.componentWithProps(BaseUi.Types.DomProps.t)
 let make = ({?role, ?orientation, ?dataSlot, ?className} as props: BaseUi.Types.DomProps.t) => {
   <div
-    {...props}
+    {...props->toDomProps}
     role={role->Option.getOr("group")}
-    dataOrientation=?{(orientation :> option<string>)}
+    dataOrientation=?{props.dataOrientation->Option.orElse((orientation :> option<string>))}
     dataSlot={dataSlot->Option.getOr("button-group")}
     className={cn(buttonGroupVariants(~orientation?), className)}
   />
@@ -31,23 +33,20 @@ module Text = {
       slot: string,
     }
   }
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~render=?) => {
-    let props: BaseUi.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      ?children,
+  let toDomProps: BaseUi.Types.BaseUIComponentProps.t => BaseUi.Types.DomProps.t = %raw(`({className, render, ...props}) => props`)
+
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let domProps: BaseUi.Types.DomProps.t = {
       className: cn(
         "cn-button-group-text flex items-center [&_svg]:pointer-events-none",
-        className,
+        props.className,
       ),
     }
     BaseUi.Render.use({
       defaultTagName: "div",
-      props,
-      ?render,
+      render: ?props.render,
+      props: BaseUi.Render.mergeProps(domProps, toDomProps(props)),
       state: {State.slot: "button-group-text"},
     })
   }

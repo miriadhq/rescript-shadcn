@@ -2,8 +2,8 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Orientation = ReactAria.Types.Orientation
 
@@ -87,9 +87,7 @@ type props = {
   onKeyDownCapture?: JsxEvent.Keyboard.t => unit,
   ...ReactAria.Common.elementProps,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({orientation, opts, plugins, setApi, ...props}) => props`
-)
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({orientation, opts, plugins, setApi, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props) => {

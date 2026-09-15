@@ -68,19 +68,25 @@ module Offset = {
     | Fn(data => float)
 }
 
-module SharedParameters = {
+module SharedParametersWithoutOffsets = {
   type t = {
     anchor?: ReactDOM.domRef,
     positionMethod?: Types.PositionMethod.t,
     side?: Types.Side.t,
-    sideOffset?: Offset.t,
     align?: Types.Align.t,
-    alignOffset?: Offset.t,
     collisionBoundary?: Boundary.t,
     collisionPadding?: Padding.t,
     sticky?: bool,
     arrowPadding?: float,
     disableAnchorTracking?: bool,
     collisionAvoidance?: CollisionAvoidance.t,
+  }
+}
+
+module SharedParameters = {
+  type t = {
+    ...SharedParametersWithoutOffsets.t,
+    sideOffset?: Offset.t,
+    alignOffset?: Offset.t,
   }
 }

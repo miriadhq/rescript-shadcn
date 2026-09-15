@@ -2,8 +2,8 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Size = {
   @unboxed
@@ -22,9 +22,7 @@ module Group = {
   @react.componentWithProps(ReactAria.Select.Group.props)
   let make = (props: ReactAria.Select.Group.props<'item, 'children>) =>
     <ReactAria.Select.Group
-      {...props}
-      dataSlot="select-group"
-      className={cn("cn-select-group", props.className)}
+      {...props} dataSlot="select-group" className={cn("cn-select-group", props.className)}
     />
 }
 
@@ -137,9 +135,7 @@ module Label = {
   @react.componentWithProps(ReactAria.Header.props)
   let make = (props: ReactAria.Header.props) =>
     <ReactAria.Header
-      {...props}
-      dataSlot="select-label"
-      className={cn("cn-select-label", props.className)}
+      {...props} dataSlot="select-label" className={cn("cn-select-label", props.className)}
     />
 }
 
@@ -151,11 +147,12 @@ module Item = {
   @react.componentWithProps(ReactAria.Select.Item.props)
   let make = (props: ReactAria.Select.Item.props<'item, 'key>) => {
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
-    let children = ReactAria.Common.composeItemRenderProps(props.children, (children, {isSelected}) =>
+    let children = ReactAria.Common.composeItemRenderProps(props.children, (
+      children,
+      {isSelected},
+    ) =>
       <>
-        <span className="cn-select-item-text shrink-0 whitespace-nowrap">
-          {children}
-        </span>
+        <span className="cn-select-item-text shrink-0 whitespace-nowrap"> {children} </span>
         <span className="cn-select-item-indicator">
           {isSelected
             ? <Icons.Check className="cn-select-item-indicator-icon pointer-events-none" />
@@ -190,8 +187,6 @@ module Empty = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
   let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      {...props}
-      dataSlot="select-empty"
-      className={cn("cn-select-empty-aria", props.className)}
+      {...props} dataSlot="select-empty" className={cn("cn-select-empty-aria", props.className)}
     />
 }

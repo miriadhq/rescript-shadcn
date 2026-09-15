@@ -2,7 +2,8 @@
 
 let firstKey = (selection, fallback) =>
   switch selection {
-  | ReactAria.Common.Keys(keys) => keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(fallback)
+  | ReactAria.Common.Keys(keys) =>
+    keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(fallback)
   | ReactAria.Common.All => fallback
   }
 
@@ -11,12 +12,19 @@ let make = ({}: Demo.Props.t) => {
   let (user, setUser) = React.useState(() => "pedro")
   let (theme, setTheme) = React.useState(() => "light")
   <ContextMenu.Trigger>
-    <div
-      role="button"
-      className="flex aspect-[2/0.5] w-full items-center justify-center rounded-lg border text-sm"
-    >
-      {"Right click here"->React.string}
-    </div>
+    <ReactAria.Pressable>
+      <div
+        role="button"
+        className="flex aspect-video w-full max-w-xs items-center justify-center rounded-xl border border-dashed text-sm"
+      >
+        <span className="hidden pointer-fine:inline-block">
+          {"Right click here"->React.string}
+        </span>
+        <span className="hidden pointer-coarse:inline-block">
+          {"Long press here"->React.string}
+        </span>
+      </div>
+    </ReactAria.Pressable>
     <ContextMenu>
       <ContextMenu.Group>
         <ContextMenu.Label> {"People"->React.string} </ContextMenu.Label>

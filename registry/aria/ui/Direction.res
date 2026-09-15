@@ -28,10 +28,12 @@ let make = (props: props) => {
     Some(
       makeLocale(
         currentLocale,
-        {script: switch direction {
-        | Direction.Rtl => "Arab"
-        | Ltr => "Latn"
-        }},
+        {
+          script: switch direction {
+          | Direction.Rtl => "Arab"
+          | Ltr => "Latn"
+          },
+        },
       )->localeToString,
     )
   | (None, None) => None

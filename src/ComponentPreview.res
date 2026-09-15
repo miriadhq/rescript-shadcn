@@ -60,7 +60,9 @@ let make = async (
             ComponentPreviewTabs.StyleSource.lib,
             style,
             source: <ComponentSource name collapsible=false kind=Example lib style />,
-            sourcePreview: <ComponentSource name collapsible=false maxLines=3 kind=Example lib style />,
+            sourcePreview: <ComponentSource
+              name collapsible=false maxLines=3 kind=Example lib style
+            />,
           }
         })
       )

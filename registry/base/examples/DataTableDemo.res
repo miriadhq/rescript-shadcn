@@ -18,6 +18,10 @@ module RT = {
   type hdr
   type hdrGroup
   type rowModel<'data> = {rows: array<row<'data>>}
+  type feature
+  type filterFn
+  type sortFn
+  type features
   type rowModelGetter
   type colDef_
   type colFilter = {id: string, value: string}
@@ -48,10 +52,7 @@ module RT = {
   type options<'data> = {
     data: array<'data>,
     columns: array<colDef<'data>>,
-    getCoreRowModel: rowModelGetter,
-    getFilteredRowModel: rowModelGetter,
-    getPaginationRowModel: rowModelGetter,
-    getSortedRowModel: rowModelGetter,
+    features: features,
     onSortingChange: (sorting => sorting) => unit,
     onColumnFiltersChange: (colFilters => colFilters) => unit,
     onColumnVisibilityChange: (colVisibility => colVisibility) => unit,
@@ -60,15 +61,37 @@ module RT = {
   }
 
   @module("@tanstack/react-table") external flexRender: ('a, 'b) => React.element = "flexRender"
-  @module("@tanstack/react-table") external coreRowModel: unit => rowModelGetter = "getCoreRowModel"
+  type featuresOptions = {
+    columnFilteringFeature: feature,
+    columnVisibilityFeature: feature,
+    rowPaginationFeature: feature,
+    rowSelectionFeature: feature,
+    rowSortingFeature: feature,
+    filteredRowModel: rowModelGetter,
+    paginatedRowModel: rowModelGetter,
+    sortedRowModel: rowModelGetter,
+    filterFns: dict<filterFn>,
+    sortFns: dict<sortFn>,
+  }
   @module("@tanstack/react-table")
-  external filteredRowModelGetter: unit => rowModelGetter = "getFilteredRowModel"
+  external columnFilteringFeature: feature = "columnFilteringFeature"
   @module("@tanstack/react-table")
-  external paginationRowModelGetter: unit => rowModelGetter = "getPaginationRowModel"
+  external columnVisibilityFeature: feature = "columnVisibilityFeature"
+  @module("@tanstack/react-table") external rowPaginationFeature: feature = "rowPaginationFeature"
+  @module("@tanstack/react-table") external rowSelectionFeature: feature = "rowSelectionFeature"
+  @module("@tanstack/react-table") external rowSortingFeature: feature = "rowSortingFeature"
+  @module("@tanstack/react-table") external includesString: filterFn = "filterFn_includesString"
+  @module("@tanstack/react-table") external alphanumeric: sortFn = "sortFn_alphanumeric"
+  @module("@tanstack/react-table") external text: sortFn = "sortFn_text"
   @module("@tanstack/react-table")
-  external sortedRowModelGetter: unit => rowModelGetter = "getSortedRowModel"
+  external tableFeatures: featuresOptions => features = "tableFeatures"
   @module("@tanstack/react-table")
-  external useReactTable: options<'data> => t<'data> = "useReactTable"
+  external filteredRowModelGetter: unit => rowModelGetter = "createFilteredRowModel"
+  @module("@tanstack/react-table")
+  external paginationRowModelGetter: unit => rowModelGetter = "createPaginatedRowModel"
+  @module("@tanstack/react-table")
+  external sortedRowModelGetter: unit => rowModelGetter = "createSortedRowModel"
+  @module("@tanstack/react-table") external useTable: options<'data> => t<'data> = "useTable"
 
   @send external getHeaderGroups: t<'data> => array<hdrGroup> = "getHeaderGroups"
   @send external getRowModel: t<'data> => rowModel<'data> = "getRowModel"
@@ -131,13 +154,27 @@ external makeNumberFormat: (string, numberFormatOpts) => numberFormat = "NumberF
 @scope(("navigator", "clipboard")) @val
 external writeText: string => promise<unit> = "writeText"
 
+let features = RT.tableFeatures({
+  columnFilteringFeature: RT.columnFilteringFeature,
+  columnVisibilityFeature: RT.columnVisibilityFeature,
+  rowPaginationFeature: RT.rowPaginationFeature,
+  rowSelectionFeature: RT.rowSelectionFeature,
+  rowSortingFeature: RT.rowSortingFeature,
+  filteredRowModel: RT.filteredRowModelGetter(),
+  paginatedRowModel: RT.paginationRowModelGetter(),
+  sortedRowModel: RT.sortedRowModelGetter(),
+  filterFns: dict{"includesString": RT.includesString},
+  sortFns: dict{"alphanumeric": RT.alphanumeric, "text": RT.text},
+})
+
 let columns: array<RT.colDef<payment>> = [
   {
     id: "select",
     header: ctx => {
       let table = ctx->RT.ctxTable
       <Checkbox
-        checked={table->RT.getIsAllPageRowsSelected || table->RT.getIsSomePageRowsSelected}
+        checked={table->RT.getIsAllPageRowsSelected}
+        indeterminate={table->RT.getIsSomePageRowsSelected && !(table->RT.getIsAllPageRowsSelected)}
         onCheckedChange={(v, _) => table->RT.toggleAllPageRowsSelected(v)}
         ariaLabel="Select all"
       />
@@ -230,13 +267,10 @@ let make = ({}: Demo.Props.t) => {
   let (colVisibility, setColVisibility) = React.useState(() => dict{})
   let (rowSelection, setRowSelection) = React.useState(() => dict{})
 
-  let table = RT.useReactTable({
+  let table = RT.useTable({
     data: tableData,
     columns,
-    getCoreRowModel: RT.coreRowModel(),
-    getFilteredRowModel: RT.filteredRowModelGetter(),
-    getPaginationRowModel: RT.paginationRowModelGetter(),
-    getSortedRowModel: RT.sortedRowModelGetter(),
+    features,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColFilters,
     onColumnVisibilityChange: setColVisibility,

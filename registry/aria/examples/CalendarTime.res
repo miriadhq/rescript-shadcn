@@ -5,7 +5,9 @@ module IDate = ReactAria.InternationalizedDate
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
   let year = Date.make()->Date.getFullYear
-  let (date, setDate) = React.useState(() => IDate.calendarDate(year, 1, 12))
+  let (date, setDate) = React.useState(() =>
+    IDate.calendarDate(year, Date.make()->Date.getMonth + 1, 12)
+  )
 
   <Card size=Sm className="mx-auto w-fit">
     <Card.Content>

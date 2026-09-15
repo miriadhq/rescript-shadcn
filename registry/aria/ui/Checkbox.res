@@ -2,12 +2,14 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 type props<'children> = {children?: 'children, ...ReactAria.Checkbox.componentProps}
 
-let checkboxProps: props<'children> => ReactAria.Checkbox.componentProps = %raw(`({children, ...props}) => props`)
+let checkboxProps: props<
+  'children,
+> => ReactAria.Checkbox.componentProps = %raw(`({children, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props<'children>) =>
@@ -19,17 +21,18 @@ let make = (props: props<'children>) =>
       props.className,
     )}
   >
-    {ReactAria.Common.composeRenderProps(
-      props.children,
-      (children, state: ReactAria.Checkbox.renderProps) =>
-        <>
-          <span
-            dataSlot="checkbox-indicator"
-            className="cn-checkbox-indicator grid place-content-center text-current transition-none"
-          >
-            {state.isSelected || state.isIndeterminate ? <Icons.Check /> : React.null}
-          </span>
-          {children}
-        </>,
+    {ReactAria.Common.composeRenderProps(props.children, (
+      children,
+      state: ReactAria.Checkbox.renderProps,
+    ) =>
+      <>
+        <span
+          dataSlot="checkbox-indicator"
+          className="cn-checkbox-indicator grid place-content-center text-current transition-none"
+        >
+          {state.isSelected || state.isIndeterminate ? <Icons.Check /> : React.null}
+        </span>
+        {children}
+      </>
     )}
   </ReactAria.Checkbox>

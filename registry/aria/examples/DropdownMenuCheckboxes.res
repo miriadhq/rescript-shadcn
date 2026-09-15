@@ -4,7 +4,7 @@
 let make = ({}: Demo.Props.t) => {
   let (selectedKeys, setSelectedKeys) = React.useState(() => ["status-bar"])
   <DropdownMenu.Trigger>
-    <Button variant=Outline className="w-fit"> {"Checkboxes"->React.string} </Button>
+    <Button variant=Outline> {"Open"->React.string} </Button>
     <DropdownMenu className="min-w-40">
       <DropdownMenu.Group
         selectionMode=Multiple
@@ -13,8 +13,7 @@ let make = ({}: Demo.Props.t) => {
           switch selection {
           | ReactAria.Common.Keys(keys) => setSelectedKeys(_ => keys->Set.values->Iterator.toArray)
           | ReactAria.Common.All => ()
-          }
-        }
+          }}
       >
         <DropdownMenu.Label> {"Appearance"->React.string} </DropdownMenu.Label>
         <DropdownMenu.Item id="status-bar">

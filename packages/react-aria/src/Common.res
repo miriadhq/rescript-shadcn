@@ -1,5 +1,4 @@
-/** Shared React Aria component types, grounded in react-aria-components 1.19.0. */
-
+/** Shared React Aria component types, grounded in react-aria-components 1.21.1. */
 @unboxed
 type orientation =
   | @as("horizontal") Horizontal
@@ -153,10 +152,12 @@ type baseProps = {
   @as("aria-disabled") ariaDisabled?: bool,
   @as("aria-expanded") ariaExpanded?: bool,
   @as("aria-controls") ariaControls?: string,
-  @as("aria-haspopup") ariaHaspopup?: [#dialog | #grid | #listbox | #menu | #tree | #"false" | #"true"],
+  @as("aria-haspopup")
+  ariaHaspopup?: [#dialog | #grid | #listbox | #menu | #tree | #"false" | #"true"],
   @as("aria-invalid") ariaInvalid?: [#grammar | #"false" | #spelling | #"true"],
   @as("aria-pressed") ariaPressed?: [#"false" | #mixed | #"true"],
-  @as("aria-current") ariaCurrent?: [#date | #location | #page | #step | #time | #"false" | #"true"],
+  @as("aria-current")
+  ariaCurrent?: [#date | #location | #page | #step | #time | #"false" | #"true"],
   @as("data-slot") dataSlot?: string,
   @as("data-size") dataSize?: string,
   @as("data-variant") dataVariant?: string,
@@ -214,7 +215,7 @@ type inputProps = {
   disabled?: bool,
   required?: bool,
   readOnly?: bool,
-  onChange?: string => unit,
+  onChange?: JsxEvent.Form.t => unit,
 }
 
 external pressEventToMouseEvent: pressEvent => JsxEvent.Mouse.t = "%identity"

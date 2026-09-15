@@ -20,9 +20,7 @@ let make = ({}: Demo.Props.t) =>
       <Select.Group>
         {items
         ->Array.map(item =>
-          <Select.Item
-            key={item.value} value={item.value} isDisabled={item.disabled}
-          >
+          <Select.Item key={item.value} value={item.value} isDisabled={item.disabled}>
             {item.label->React.string}
           </Select.Item>
         )

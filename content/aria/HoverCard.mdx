@@ -1,0 +1,35 @@
+---
+title: Hover Card
+description: Preview content on hover, focus, or long press.
+base: aria
+component: true
+---
+
+<ComponentPreview name="HoverCardDemo" previewClassName="h-80" />
+
+## Installation
+
+```bash
+npx shadcn@latest add @rescript-shadcn/HoverCard
+```
+
+Requires `react-aria-components@^1.21.1`, `rescript-react-aria`, and `cn`.
+
+<ComponentSource name="HoverCard" title="components/ui/HoverCard.res" />
+
+## Usage
+
+```res
+<HoverCard.Trigger delay=100 closeDelay=100>
+  <Button variant=Link> {React.string("Preview")} </Button>
+  <HoverCard placement=Bottom>
+    {React.string("Additional details")}
+  </HoverCard>
+</HoverCard.Trigger>
+```
+
+The trigger uses React Aria's `PreviewTrigger`. Place the trigger and the hover card together inside it; the card supports the Popover positioning props.
+
+## Sides
+
+<ComponentPreview name="HoverCardSides" previewClassName="h-80" />

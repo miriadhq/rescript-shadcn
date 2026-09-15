@@ -3,10 +3,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <DropdownMenu.Trigger>
-<Button variant=Outline>
-      {"Actions"->React.string}
-    </Button>
-<DropdownMenu>
+    <Button variant=Outline> {"Actions"->React.string} </Button>
+    <DropdownMenu>
       <DropdownMenu.Group>
         <DropdownMenu.Item>
           <Icons.Pencil />
@@ -25,4 +23,4 @@ let make = ({}: Demo.Props.t) =>
         </DropdownMenu.Item>
       </DropdownMenu.Group>
     </DropdownMenu>
-</DropdownMenu.Trigger>
+  </DropdownMenu.Trigger>

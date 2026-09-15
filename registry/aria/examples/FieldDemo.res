@@ -1,5 +1,4 @@
 let months: array<ReactAria.Select.Item.t<string>> = [
-  {label: "MM", value: ""},
   {label: "01", value: "01"},
   {label: "02", value: "02"},
   {label: "03", value: "03"},
@@ -15,7 +14,6 @@ let months: array<ReactAria.Select.Item.t<string>> = [
 ]
 
 let years: array<ReactAria.Select.Item.t<string>> = [
-  {label: "YYYY", value: ""},
   {label: "2024", value: "2024"},
   {label: "2025", value: "2025"},
   {label: "2026", value: "2026"},
@@ -61,7 +59,7 @@ let make = ({}: Demo.Props.t) =>
                 <Field.Label htmlFor="checkout-exp-month-ts6">
                   {"Month"->React.string}
                 </Field.Label>
-                <Select items={months}>
+                <Select placeholder="MM">
                   <Select.Trigger id="checkout-exp-month-ts6">
                     <Select.Value> {"MM"->React.string} </Select.Value>
                   </Select.Trigger>
@@ -69,7 +67,7 @@ let make = ({}: Demo.Props.t) =>
                     <Select.Group>
                       {months
                       ->Array.map(item =>
-                        <Select.Item key={item.value} value={item.value}>
+                        <Select.Item key={item.value} id={item.value}>
                           {item.label->React.string}
                         </Select.Item>
                       )
@@ -82,7 +80,7 @@ let make = ({}: Demo.Props.t) =>
                 <Field.Label htmlFor="checkout-7j9-exp-year-f59">
                   {"Year"->React.string}
                 </Field.Label>
-                <Select items={years}>
+                <Select placeholder="YYYY">
                   <Select.Trigger id="checkout-7j9-exp-year-f59">
                     <Select.Value> {"YYYY"->React.string} </Select.Value>
                   </Select.Trigger>
@@ -90,7 +88,7 @@ let make = ({}: Demo.Props.t) =>
                     <Select.Group>
                       {years
                       ->Array.map(item =>
-                        <Select.Item key={item.value} value={item.value}>
+                        <Select.Item key={item.value} id={item.value}>
                           {item.label->React.string}
                         </Select.Item>
                       )

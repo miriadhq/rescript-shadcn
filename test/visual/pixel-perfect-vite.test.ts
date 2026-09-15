@@ -6,8 +6,8 @@ import Stream from "node:stream"
 import { fileURLToPath } from "node:url"
 
 import puppeteer, { type Browser } from "puppeteer"
-import { twMerge } from "tailwind-merge"
-import { afterAll, beforeAll, describe, expect, it, onTestFailed } from "vitest"
+import { cn } from "cn"
+import { afterAll, beforeAll, describe, expect, it } from "vitest"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, "../../")
@@ -15,7 +15,8 @@ const repoRoot = path.resolve(__dirname, "../../")
 const PORT = Number(process.env.PARITY_TEST_PORT ?? 4173)
 const BASE_URL = process.env.PARITY_TEST_BASE_URL ?? `http://127.0.0.1:${PORT}`
 const VITE_CONFIG_PATH = path.resolve(repoRoot, "test/visual/vite-parity.config.ts")
-const ARTIFACTS_DIR = path.resolve(repoRoot, "test/artifacts/pixel-perfect")
+// Separate invocations (for example on different ports) must not erase each other's snapshots.
+const ARTIFACTS_DIR = path.resolve(repoRoot, "test/artifacts/pixel-perfect", `run-${process.pid}`)
 const EXAMPLES_BASE_DIR = path.resolve(repoRoot, "shadcn-ui/apps/v4/examples/base")
 const EXAMPLES_UI_DIR = path.resolve(repoRoot, "shadcn-ui/apps/v4/registry/bases/base/ui")
 const RESCRIPT_EXAMPLES_DIR = path.resolve(repoRoot, "registry/base/examples")
@@ -206,6 +207,8 @@ function parseSsimAll(output: string) {
 }
 
 async function computeScreenshotSsim(reference: Buffer, actual: Buffer) {
+  if (reference.equals(actual)) return 1
+
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "parity-ssim-"))
   const referencePath = path.join(tempDir, "reference.png")
   const actualPath = path.join(tempDir, "actual.png")
@@ -310,7 +313,7 @@ async function stopServer() {
 }
 
 function canonicalizeClassName(className: string) {
-  const merged = twMerge(className)
+  const merged = cn(className)
   return merged
     .split(/\s+/)
     .filter(Boolean)
@@ -373,20 +376,9 @@ function normalizeDomSnapshotClasses(value: unknown): unknown {
     )) {
       delete attributes.style
     }
-    // ReScript compiles optional props as explicit undefined values (e.g. role: undefined),
-    // which override Base UI's internally-set attributes through its mergeProps system.
-    // Strip all attributes that Base UI sets internally on composite components.
-    delete attributes.tabindex
-    delete attributes["aria-expanded"]
-    delete attributes["aria-haspopup"]
-    delete attributes["aria-disabled"]
+    // Generated ID references and library-specific state encodings are normalized.
     delete attributes["aria-controls"]
     delete attributes["data-state"]
-    delete attributes["data-unchecked"]
-    delete attributes["data-panel-open"]
-    // Strip role - Base UI composite components set role internally (e.g. "radio",
-    // "menuitem") but ReScript's explicit undefined overrides them
-    delete attributes.role
     // Strip lang attribute - calendar library may or may not set it
     delete attributes.lang
     // Strip data-selected-single - react-day-picker internal attribute
@@ -533,10 +525,11 @@ async function captureBundle(component: string, impl: Impl): Promise<SnapshotBun
   }
 
   const page = await browser.newPage()
+  // Recharts and Motion animate in JavaScript, outside the CSS freeze below.
+  await page.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" }])
   await page.setExtraHTTPHeaders({
     "Accept-Language": "en-US,en;q=0.9",
   })
-  await page.setCacheEnabled(false)
   await page.setViewport({
     width: 1440,
     height: 1024,
@@ -582,12 +575,20 @@ async function captureBundle(component: string, impl: Impl): Promise<SnapshotBun
       timeout: PAGE_LOAD_TIMEOUT_MS,
     })
 
+    captureError = await page.$eval("#pixel-error", element => element.textContent).catch(() => null)
+
     await page
       .waitForFunction(
         () => document.documentElement.getAttribute("data-parity-ready") === "1",
         { timeout: PAGE_LOAD_TIMEOUT_MS }
       )
       .catch(() => undefined)
+
+    // Avatar preloads off-DOM images, and Markdown loads its highlighter lazily.
+    // document.images/fonts.ready alone do not cover either asynchronous render.
+    if (await page.$('[data-slot="avatar"], [data-streamdown="code-block"]')) {
+      await page.waitForNetworkIdle({ idleTime: 100, timeout: PAGE_LOAD_TIMEOUT_MS })
+    }
 
     await page.evaluate(
       async ({ fontWaitTimeout, imageWaitTimeout }) => {
@@ -916,7 +917,7 @@ describe("tsx vs rescript parity (vite harness)", () => {
   for (const component of LIBRARY_PARITY ? [] : COMPONENT_IDS_FOR_PARITY) {
     it.concurrent(
       `${component} should match across runtime, DOM, layout, a11y and pixels`,
-      async () => {
+      async ({ expect, onTestFailed }) => {
         let tsx: SnapshotBundle | null = null
         let rescript: SnapshotBundle | null = null
 
@@ -1020,7 +1021,7 @@ describe("tsx vs rescript parity (vite harness)", () => {
     for (const component of LIBRARY_PARITY_COMPONENT_IDS) {
       it.concurrent(
         `${component} should render the same with Base and React Aria`,
-        async () => {
+        async ({ expect, onTestFailed }) => {
           let base: SnapshotBundle | null = null
           let aria: SnapshotBundle | null = null
 

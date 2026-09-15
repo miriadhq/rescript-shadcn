@@ -2,13 +2,14 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module InputOtpPrimitive = {
   module Props = {
     type t = {
       size?: int,
+      children?: Jsx.element,
       ...BaseUi.Types.BaseDomProps.t,
       ...BaseUi.Types.ExtraDomProps.t,
       containerClassName?: string,
@@ -36,85 +37,43 @@ module InputOtpPrimitive = {
   external context: React.Context.t<renderProps> = "OTPInputContext"
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~containerClassName=?,
-  ~children=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~maxLength=?,
-  ~disabled=?,
-  ~required=?,
-  ~readOnly=?,
-  ~onChange=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~style=?,
-  ~pattern=?,
-  ~dir=?,
-) => {
+@react.componentWithProps(InputOtpPrimitive.Props.t)
+let make = (props: InputOtpPrimitive.Props.t) => {
+  let containerClassName = props.containerClassName
   <InputOtpPrimitive
-    ?id
-    ?name
-    ?value
-    ?defaultValue
-    ?maxLength
-    ?disabled
-    ?required
-    ?readOnly
-    ?onClick
-    ?onChange
-    ?onKeyDown
-    ?tabIndex
-    ?ariaLabel
-    ?style
-    ?pattern
-    ?dir
-    ?children
-    dataSlot="input-otp"
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("input-otp")}
     containerClassName={cn(
       "cn-input-otp flex items-center has-disabled:opacity-50",
       containerClassName,
     )}
-    spellCheck={false}
-    className={cn("cn-input-otp-input disabled:cursor-not-allowed", className)}
+    spellCheck={props.spellCheck->Option.getOr(false)}
+    className={cn("cn-input-otp-input disabled:cursor-not-allowed", props.className)}
   />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="input-otp-group"
-      className={cn(
-        "cn-input-otp-group flex items-center",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("input-otp-group")}
+      className={cn("cn-input-otp-group flex items-center", props.className)}
     />
 }
 
 module Slot = {
-  @react.component
-  let make = (
-    ~index,
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaInvalid=?,
-  ) => {
+  type props = {
+    ...BaseUi.Types.DomProps.t,
+    index: int,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.DomProps.t = %raw(`({index, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let index = props.index
+    let children = props.children->Option.getOr(React.null)
     let inputOtpContext = React.useContext(InputOtpPrimitive.context)
     let (char, hasFakeCaret, isActive) = switch inputOtpContext.slots[index] {
     | Some(slot) => (
@@ -125,22 +84,21 @@ module Slot = {
     | None => (React.null, false, false)
     }
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?ariaInvalid
-      dataSlot="input-otp-slot"
+      {...props->toBaseUiProps}
+      dataSlot={props.dataSlot->Option.getOr("input-otp-slot")}
       dataActive={isActive}
       className={cn(
         "cn-input-otp-slot relative flex items-center justify-center data-[active=true]:z-10",
-        className,
+        props.className,
       )}
     >
       {char}
       {hasFakeCaret
-        ? <div className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="cn-input-otp-caret-line" />
+        ? <div
+            {...props->toBaseUiProps}
+            className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
+            <div {...props->toBaseUiProps} className="cn-input-otp-caret-line" />
           </div>
         : React.null}
       {children}
@@ -149,19 +107,16 @@ module Slot = {
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=React.null, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props}
       role="separator"
       dataSlot="input-otp-separator"
-      className={cn("cn-input-otp-separator flex items-center", className)}
+      className={props.className->Option.getOr("cn-input-otp-separator flex items-center")}
     >
       <Icons.Minus />
-      {children}
+      {props.children->Option.getOr(React.null)}
     </div>
 }
 

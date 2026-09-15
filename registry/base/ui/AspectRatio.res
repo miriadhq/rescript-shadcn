@@ -1,25 +1,16 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (
-  ~ratio,
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=ReactDOM.Style.unsafeAddStyle({}, {"--ratio": ratio}),
-  ~onClick=?,
-  ~onKeyDown=?,
-) => {
+type props = {ratio: float, ...BaseUi.Types.DomProps.t}
+let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({ratio, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) =>
   <div
-    ?id
-    style
-    ?children
-    ?onClick
-    ?onKeyDown
-    dataSlot="aspect-ratio"
-    className={cn("relative aspect-(--ratio)", className)}
+    {...props->toDomProps}
+    style={props.style->Option.getOr(ReactDOM.Style.unsafeAddStyle({}, {"--ratio": props.ratio}))}
+    dataSlot={props.dataSlot->Option.getOr("aspect-ratio")}
+    className={cn("relative aspect-(--ratio)", props.className)}
   />
-}

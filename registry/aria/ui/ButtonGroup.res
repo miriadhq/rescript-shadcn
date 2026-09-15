@@ -1,16 +1,14 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Orientation = ReactAria.Types.Orientation
 
 let buttonGroupVariants = (~orientation=Orientation.Horizontal) => {
   let orientationClass = switch orientation {
-  | Horizontal =>
-    "cn-button-group-orientation-horizontal **:data-slot:rounded-r-none [&_[data-slot]~[data-slot]]:rounded-l-none [&_[data-slot]~[data-slot]]:border-l-0"
-  | Vertical =>
-    "cn-button-group-orientation-vertical flex-col **:data-slot:rounded-b-none [&_[data-slot]~[data-slot]]:rounded-t-none [&_[data-slot]~[data-slot]]:border-t-0"
+  | Horizontal => "cn-button-group-orientation-horizontal **:data-slot:rounded-r-none [&_[data-slot]~[data-slot]]:rounded-l-none [&_[data-slot]~[data-slot]]:border-l-0"
+  | Vertical => "cn-button-group-orientation-vertical flex-col **:data-slot:rounded-b-none [&_[data-slot]~[data-slot]]:rounded-t-none [&_[data-slot]~[data-slot]]:border-t-0"
   }
   cn(
     "cn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
@@ -28,7 +26,7 @@ let make = (props: props) => {
     {...props->domProps}
     role={props.role->Option.getOr("group")}
     dataSlot={props.dataSlot->Option.getOr("button-group")}
-    dataOrientation={(orientation :> string)}
+    dataOrientation=?{props.dataOrientation->Option.orElse((props.orientation :> option<string>))}
     className={cn(buttonGroupVariants(~orientation), props.className)}
   />
 }
@@ -50,10 +48,7 @@ module Text = {
     }
     switch props.render {
     | Some(render) => render(renderProps)
-    | None =>
-      <div
-        {...renderProps}
-      />
+    | None => <div {...renderProps} />
     }
   }
 }

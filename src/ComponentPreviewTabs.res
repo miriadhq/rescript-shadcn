@@ -107,7 +107,7 @@ let make = (
                 }}
               />
               <Button
-                type_="button"
+                type_=Button
                 size=Sm
                 variant=Outline
                 className="relative z-10 rounded-lg bg-background text-foreground shadow-none hover:bg-muted dark:bg-background dark:text-foreground dark:hover:bg-muted"

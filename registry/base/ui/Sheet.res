@@ -4,119 +4,40 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (
-  ~className="",
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-  ~onOpenChangeComplete=?,
-  ~modal=?,
-) => {
-  <BaseUi.Dialog.Root
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?children
-    ?open_
-    ?defaultOpen
-    ?onOpenChange
-    ?onOpenChangeComplete
-    ?modal
-    dataSlot="sheet"
-    className
-  />
-}
+@react.componentWithProps(BaseUi.Dialog.Root.props)
+let make = (props: BaseUi.Dialog.Root.props<'payload>) =>
+  <BaseUi.Dialog.Root {...props} dataSlot={props.dataSlot->Option.getOr("sheet")} />
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <BaseUi.Dialog.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="sheet-trigger"
-      className
-    />
+  @react.componentWithProps(BaseUi.Dialog.Trigger.props)
+  let make = (props: BaseUi.Dialog.Trigger.props<'payload>) =>
+    <BaseUi.Dialog.Trigger {...props} dataSlot={props.dataSlot->Option.getOr("sheet-trigger")} />
 }
 
 module Close = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
-    <BaseUi.Dialog.Close
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="sheet-close"
-      className
-    />
+  @react.componentWithProps(BaseUi.Dialog.Close.props)
+  let make = (props: BaseUi.Dialog.Close.props) =>
+    <BaseUi.Dialog.Close {...props} dataSlot={props.dataSlot->Option.getOr("sheet-close")} />
 }
 
 module Portal = {
-  @react.component
-  let make = (~children=?, ~container=?) =>
-    <BaseUi.Dialog.Portal ?children ?container dataSlot="sheet-portal" />
+  @react.componentWithProps(BaseUi.Dialog.Portal.props)
+  let make = (props: BaseUi.Dialog.Portal.props) =>
+    <BaseUi.Dialog.Portal {...props} dataSlot={props.dataSlot->Option.getOr("sheet-portal")} />
 }
 
 module Overlay = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Dialog.Backdrop
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="sheet-overlay"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sheet-overlay")}
       className={cn(
         "cn-sheet-overlay data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 z-50 duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0",
-        className,
+        props.className,
       )}
     />
 }
@@ -132,21 +53,22 @@ let sideToString = (side: Side.t) =>
   }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~dir: option<string>=?,
-    ~dataSidebar=?,
-    ~dataSlot="sheet-content",
-    ~dataMobile=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~side=Side.Right,
-    ~showCloseButton=true,
-  ) => {
+  type props = {
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    side?: Side.t,
+    showCloseButton?: bool,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({side, showCloseButton, dir, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let children = props.children->Option.getOr(React.null)
+    let style = props.style
+    let dir = props.dir
+    let dataSlot = props.dataSlot->Option.getOr("sheet-content")
+    let side = props.side->Option.getOr(Side.Right)
+    let showCloseButton = props.showCloseButton->Option.getOr(true)
     let style = switch (style, dir) {
     | (Some(style), Some(dir)) => Some(style->ReactDOM.Style.unsafeAddProp("direction", dir))
     | (None, Some(dir)) => Some(ReactDOM.Style._dictToStyle(dict{"direction": dir}))
@@ -156,17 +78,13 @@ module Content = {
     <Portal>
       <Overlay />
       <BaseUi.Dialog.Popup
-        ?id
+        {...props->toBaseUiProps}
         style=?style
-        ?onClick
-        ?onKeyDown
         dataSlot
-        ?dataSidebar
-        ?dataMobile
         dataSide={sideToString(side)}
         className={cn(
           "cn-sheet-content bg-background data-open:animate-in data-closed:animate-out data-[side=right]:data-closed:slide-out-to-right-10 data-[side=right]:data-open:slide-in-from-right-10 data-[side=left]:data-closed:slide-out-to-left-10 data-[side=left]:data-open:slide-in-from-left-10 data-[side=top]:data-closed:slide-out-to-top-10 data-[side=top]:data-open:slide-in-from-top-10 data-closed:fade-out-0 data-open:fade-in-0 data-[side=bottom]:data-closed:slide-out-to-bottom-10 data-[side=bottom]:data-open:slide-in-from-bottom-10 fixed z-50 flex flex-col gap-4 bg-clip-padding text-sm shadow-lg transition duration-200 ease-in-out data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm",
-          className,
+          props.className,
         )}
       >
         {children}
@@ -187,57 +105,41 @@ module Content = {
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
-      dataSlot="sheet-header"
-      className={cn("cn-sheet-header flex flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sheet-header")}
+      className={cn("cn-sheet-header flex flex-col", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
-      dataSlot="sheet-footer"
-      className={cn("cn-sheet-footer mt-auto flex flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sheet-footer")}
+      className={cn("cn-sheet-footer mt-auto flex flex-col", props.className)}
     />
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Dialog.Title
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sheet-title"
-      className={cn("cn-sheet-title cn-font-heading", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sheet-title")}
+      className={cn("cn-sheet-title cn-font-heading", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Dialog.Description
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sheet-description"
-      className={cn("cn-sheet-description", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sheet-description")}
+      className={cn("cn-sheet-description", props.className)}
     />
 }

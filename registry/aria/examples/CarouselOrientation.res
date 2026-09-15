@@ -1,9 +1,7 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <Carousel
-    opts={align: "start"}
-    orientation=Carousel.Orientation.Vertical
-    className="w-full max-w-xs"
+    opts={align: "start"} orientation=Carousel.Orientation.Vertical className="w-full max-w-xs"
   >
     <Carousel.Content className="-mt-1 h-[270px]">
       {Array.fromInitializer(~length=5, index =>

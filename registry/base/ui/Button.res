@@ -1,7 +1,9 @@
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, string, string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, string, string, option<string>) => string = "cn"
+
+module Type = BaseUi.Types.ButtonType
 
 module Variant = {
   @unboxed
@@ -57,7 +59,6 @@ let buttonVariants = (~variant=Variant.Default, ~size=Size.Default, ~className=?
 type props = {
   variant?: Variant.t,
   size?: Size.t,
-  ...BaseUi.Types.BaseUIComponentProps.t,
   ...BaseUi.Types.NativeButtonProps.t,
   focusableWhenDisabled?: bool,
 }

@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Variant = {
   @unboxed
@@ -36,42 +36,19 @@ let toggleVariants = (~variant=Variant.Default, ~size=Size.Default) => {
   `${base} ${toggleVariantClass(~variant)} ${toggleSizeClass(~size)}`
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~name=?,
-  ~dir=?,
-  ~disabled=?,
-  ~pressed=?,
-  ~defaultPressed=?,
-  ~onPressedChange=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=0,
-  ~ariaLabel=?,
-  ~type_=?,
-  ~render=?,
-  ~variant=Variant.Default,
-  ~size=Size.Default,
-) => {
+type props<'value> = {...BaseUi.Toggle.props<'value>, variant?: Variant.t, size?: Size.t}
+
+let toBaseUiProps: props<'value> => BaseUi.Toggle.props<
+  'value,
+> = %raw(`({className, variant, size, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props<'value>) => {
+  let variant = props.variant->Option.getOr(Variant.Default)
+  let size = props.size->Option.getOr(Size.Default)
   <BaseUi.Toggle
-    ?id
-    ?name
-    ?dir
-    ?disabled
-    ?pressed
-    ?defaultPressed
-    ?onPressedChange
-    ?onClick
-    ?onKeyDown
-    tabIndex
-    ?ariaLabel
-    ?type_
-    ?render
-    ?children
+    {...toBaseUiProps(props)}
     dataSlot="toggle"
-    className={cn(toggleVariants(~variant, ~size), className)}
+    className={cn(toggleVariants(~variant, ~size), props.className)}
   />
 }

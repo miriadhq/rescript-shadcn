@@ -6,7 +6,7 @@ module Root = {
     onOpenChange?: (bool, changeEventDetails) => unit,
     onOpenChangeComplete?: bool => unit,
     actionsRef?: React.ref<Dialog.Root.Actions.t>,
-    handle?: Dialog.Root.handle<'payload>,
+    handle?: Dialog.Root.Handle.t<'payload>,
     triggerId?: string,
     defaultTriggerId?: string,
   }

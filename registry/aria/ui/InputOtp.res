@@ -2,8 +2,8 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module InputOtpPrimitive = {
   type slot = {
@@ -112,7 +112,9 @@ module Slot = {
     >
       {char}
       {hasFakeCaret
-        ? <div className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center">
+        ? <div
+            className="cn-input-otp-caret pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
             <div className="cn-input-otp-caret-line" />
           </div>
         : React.null}

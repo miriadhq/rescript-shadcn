@@ -32,7 +32,7 @@ let make = ({}: Demo.Props.t) =>
     <Item.Group className="gap-4">
       {music
       ->Array.map(song =>
-        <Item key={song.title} variant=Item.Variant.Outline render={<a href="#" />}>
+        <Item role="listitem" key={song.title} variant=Item.Variant.Outline render={<a href="#" />}>
           <Item.Media variant=Item.Media.Variant.Image>
             <img
               src={`https://avatar.vercel.sh/${song.title}`}
@@ -45,7 +45,8 @@ let make = ({}: Demo.Props.t) =>
           <Item.Content>
             <Item.Title className="line-clamp-1">
               {song.title->React.string}
-              {" - "->React.string}
+              {" -"->React.string}
+              {" "->React.string}
               <span className="text-muted-foreground"> {song.album->React.string} </span>
             </Item.Title>
             <Item.Description> {song.artist->React.string} </Item.Description>

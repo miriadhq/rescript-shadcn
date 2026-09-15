@@ -2,8 +2,8 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module CaptionLayout = {
   @unboxed
@@ -37,30 +37,32 @@ let calendarProps: props<'date> => ReactAria.Calendar.props<'date> = %raw(`({
 }) => props`)
 
 let cellClass = (~showWeekNumber, state: ReactAria.Calendar.Cell.renderProps) => {
-  let variants = [
-    showWeekNumber
-      ? "[&:is(:nth-child(2)>[data-selected=true])>div]:rounded-l-(--cell-radius)"
-      : "[&:is(:first-child>[data-selected=true])>div]:rounded-l-(--cell-radius)",
-    state.isToday
-      ? "rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none"
-      : "",
-    state.isSelectionStart
-      ? "relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted"
-      : "",
-    state.isSelectionEnd
-      ? "relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted"
-      : "",
-    state.isUnavailable ? "text-muted-foreground opacity-50 [&>div]:line-through" : "",
-    state.isDisabled ? "text-muted-foreground opacity-50" : "",
-    state.isOutsideMonth
-      ? "text-muted-foreground aria-selected:text-muted-foreground"
-      : "",
-  ]->Array.join(" ")
+  let variants =
+    [
+      showWeekNumber
+        ? "[&:is(:nth-child(2)>[data-selected=true])>div]:rounded-l-(--cell-radius)"
+        : "[&:is(:first-child>[data-selected=true])>div]:rounded-l-(--cell-radius)",
+      state.isToday
+        ? "rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none"
+        : "",
+      state.isSelectionStart
+        ? "relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted"
+        : "",
+      state.isSelectionEnd
+        ? "relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted"
+        : "",
+      state.isUnavailable ? "text-muted-foreground opacity-50 [&>div]:line-through" : "",
+      state.isDisabled ? "text-muted-foreground opacity-50" : "",
+      state.isOutsideMonth ? "text-muted-foreground aria-selected:text-muted-foreground" : "",
+    ]->Array.join(" ")
   `group/day relative mt-2 aspect-square h-full w-full cursor-default rounded-(--cell-radius) p-0 text-center select-none [&:is(:last-child>[data-selected=true])>div]:rounded-r-(--cell-radius) ${variants}`
 }
 
-let dayButtonClass = Button.buttonVariants(~variant=Ghost, ~size=Icon) ++
-  " cn-calendar-day-button relative isolate z-10 flex aspect-square h-full w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70"
+let dayButtonClass =
+  Button.buttonVariants(
+    ~variant=Ghost,
+    ~size=Icon,
+  ) ++ " cn-calendar-day-button relative isolate z-10 flex aspect-square h-full w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70"
 
 module MonthDropdown = {
   @react.component
@@ -131,7 +133,7 @@ module Inner = {
     ~showWeekNumber=false,
     ~headerFormat: option<JSON.t>=?,
     ~renderCell=?,
-    ~isRange=false,
+    ~isRange: option<bool>=?,
   ) =>
     <div className="relative flex flex-col gap-4 md:flex-row">
       <header className="absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1">
@@ -152,12 +154,13 @@ module Inner = {
       </header>
       {Array.fromInitializer(~length=numberOfMonths, index =>
         <div key={index->Int.toString} className="flex w-full flex-col gap-4">
-          <div className="flex h-(--cell-size) w-full items-center justify-center gap-1 px-(--cell-size)">
+          <div
+            className="flex h-(--cell-size) w-full items-center justify-center gap-1 px-(--cell-size)"
+          >
             {switch captionLayout {
             | Dropdown =>
-              let monthFormat = headerFormat->Option.flatMap(format =>
-                format->getMonthFormat->Nullable.toOption
-              )
+              let monthFormat =
+                headerFormat->Option.flatMap(format => format->getMonthFormat->Nullable.toOption)
               <>
                 <MonthDropdown format=?monthFormat />
                 <YearDropdown format=?headerFormat />
@@ -173,7 +176,9 @@ module Inner = {
           <ReactAria.Calendar.Grid className="w-full border-collapse" offset={{months: index}}>
             <ReactAria.Calendar.GridHeader>
               {day =>
-                <ReactAria.Calendar.HeaderCell className="rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none">
+                <ReactAria.Calendar.HeaderCell
+                  className="rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none"
+                >
                   {day->React.string}
                 </ReactAria.Calendar.HeaderCell>}
             </ReactAria.Calendar.GridHeader>
@@ -187,13 +192,14 @@ module Inner = {
                 >
                   {state =>
                     <div
-                      dataSelectedSingle={state.isSelected && !isRange}
-                      dataRangeStart={state.isSelectionStart && isRange}
-                      dataRangeEnd={state.isSelectionEnd && isRange}
-                      dataRangeMiddle={state.isSelected &&
+                      dataSelectedSingle={state.isSelected && !(isRange->Option.getOr(false))}
+                      dataRangeStart=?{state.isSelectionStart ? isRange : Some(false)}
+                      dataRangeEnd=?{state.isSelectionEnd ? isRange : Some(false)}
+                      dataRangeMiddle=?{state.isSelected &&
                       !state.isSelectionStart &&
-                      !state.isSelectionEnd &&
-                      isRange}
+                      !state.isSelectionEnd
+                        ? isRange
+                        : Some(false)}
                       className=dayButtonClass
                     >
                       {switch renderCell {

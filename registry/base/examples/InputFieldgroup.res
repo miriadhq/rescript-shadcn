@@ -11,7 +11,7 @@ let make = ({}: Demo.Props.t) =>
       <Field.Description> {"We'll send updates to this address."->React.string} </Field.Description>
     </Field>
     <Field orientation=Horizontal>
-      <Button type_="reset" variant=Outline> {"Reset"->React.string} </Button>
-      <Button type_="submit"> {"Submit"->React.string} </Button>
+      <Button type_=Reset variant=Outline> {"Reset"->React.string} </Button>
+      <Button type_=Submit> {"Submit"->React.string} </Button>
     </Field>
   </Field.Group>

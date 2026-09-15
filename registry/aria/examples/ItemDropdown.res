@@ -23,11 +23,11 @@ let people = [
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
   <DropdownMenu.Trigger>
-<Button variant=Outline>
+    <Button variant=Outline>
       {"Select "->React.string}
       <Icons.ChevronDown />
     </Button>
-<DropdownMenu className="w-48" placement=ReactAria.Common.BottomEnd>
+    <DropdownMenu className="w-48" placement=ReactAria.Common.BottomEnd>
       <DropdownMenu.Group>
         {people
         ->Array.map(person =>
@@ -53,4 +53,4 @@ let make = ({}: Demo.Props.t) =>
         ->React.array}
       </DropdownMenu.Group>
     </DropdownMenu>
-</DropdownMenu.Trigger>
+  </DropdownMenu.Trigger>

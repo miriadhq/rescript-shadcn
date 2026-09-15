@@ -19,7 +19,9 @@ let make = ({}: Demo.Props.t) =>
     <Field dataInvalid={true}>
       <Field.Label htmlFor="textarea-header-footer-14"> {"Invalid"->React.string} </Field.Label>
       <InputGroup>
-        <InputGroup.Textarea id="textarea-header-footer-14" placeholder="Enter your text here..." />
+        <InputGroup.Textarea
+          ariaInvalid={#"true"} id="textarea-header-footer-14" placeholder="Enter your text here..."
+        />
       </InputGroup>
       <Field.Description>
         {"This is a description of the input group."->React.string}

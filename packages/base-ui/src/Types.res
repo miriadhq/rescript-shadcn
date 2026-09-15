@@ -103,6 +103,8 @@ module OnlyFalse = {
 
 module DataProps = {
   type t = {
+    @as("data-status") dataStatus?: string,
+    @as("data-current") dataCurrent?: bool,
     @as("data-slot") dataSlot?: string,
     @as("data-sidebar") dataSidebar?: string,
     @as("data-side") dataSide?: string,
@@ -261,10 +263,10 @@ module ExtraDomProps = {
 
 type dangerouslySetInnerHTML = {"__html": string}
 
-module BaseDomProps = {
+// Common fields used to build full DOM props and explicit field exclusions below.
+module BaseDomCoreProps = {
   type t = {
     key?: string,
-    children?: Jsx.element,
     ref?: ReactDOM.domRef,
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#allow
     allow?: string,
@@ -389,8 +391,6 @@ module BaseDomProps = {
     step?: float,
     summary?: string /* deprecated */,
     target?: string,
-    @as("type")
-    type_?: string /* has a fixed but large-ish set of possible values */ /* use this one. Previous one is deprecated */,
     useMap?: string,
     width?: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
     wrap?: string /* "hard" or "soft" */,
@@ -434,8 +434,6 @@ module BaseDomProps = {
     onMouseOut?: JsxEvent.Mouse.t => unit,
     onMouseOver?: JsxEvent.Mouse.t => unit,
     onMouseUp?: JsxEvent.Mouse.t => unit,
-    /* Selection events */
-    onSelect?: JsxEvent.Selection.t => unit,
     /* Touch events */
     onTouchCancel?: JsxEvent.Touch.t => unit,
     onTouchEnd?: JsxEvent.Touch.t => unit,
@@ -615,7 +613,6 @@ module BaseDomProps = {
     operator?: string,
     order?: string,
     orient?: string,
-    orientation?: Orientation.t,
     origin?: string,
     overflow?: string,
     overflowX?: string,
@@ -657,7 +654,6 @@ module BaseDomProps = {
     shapeRendering?: string,
     slope?: string,
     slot?: string,
-    spacing?: string,
     specularConstant?: string,
     specularExponent?: string,
     speed?: string,
@@ -757,8 +753,41 @@ module BaseDomProps = {
   }
 }
 
+module BaseDomWithoutOrientationProps = {
+  type t = {
+    ...BaseDomCoreProps.t,
+    @as("type") type_?: string,
+    onSelect?: JsxEvent.Selection.t => unit,
+  }
+}
+
+module BaseDomWithoutOnSelectProps = {
+  type t = {
+    ...BaseDomCoreProps.t,
+    @as("type") type_?: string,
+    orientation?: Orientation.t,
+  }
+}
+
+module BaseDomWithoutTypeProps = {
+  type t = {
+    ...BaseDomCoreProps.t,
+    onSelect?: JsxEvent.Selection.t => unit,
+    orientation?: Orientation.t,
+  }
+}
+
+module BaseDomProps = {
+  type t = {
+    ...BaseDomWithoutTypeProps.t,
+    @as("type") type_?: string,
+  }
+}
+
 module DomProps = {
   type t = {
+    spacing?: string,
+    children?: Jsx.element,
     size?: int,
     onChange?: JsxEvent.Form.t => unit,
     multiple?: bool,
@@ -773,7 +802,7 @@ module DomProps = {
   }
 }
 
-module BaseUIComponentProps = {
+module BaseUIComponentWithoutChildrenProps = {
   type t = {
     render?: React.element,
     ...BaseDomProps.t,
@@ -781,14 +810,43 @@ module BaseUIComponentProps = {
   }
 }
 
+module BaseUIComponentProps = {
+  type t = {
+    render?: React.element,
+    children?: Jsx.element,
+    ...BaseDomProps.t,
+    ...ExtraDomProps.t,
+  }
+}
+
+module BaseUIComponentWithoutTypeProps = {
+  type t = {
+    render?: React.element,
+    children?: Jsx.element,
+    ...BaseDomWithoutTypeProps.t,
+    ...ExtraDomProps.t,
+  }
+}
+
+module ButtonType = {
+  @unboxed
+  type t =
+    | @as("button") Button
+    | @as("submit") Submit
+    | @as("reset") Reset
+}
+
 module NativeButtonProps = {
   type t = {
+    ...BaseUIComponentWithoutTypeProps.t,
+    @as("type") type_?: ButtonType.t,
     nativeButton?: bool,
   }
 }
 
 module NonNativeButtonProps = {
   type t = {
+    ...BaseUIComponentProps.t,
     nativeButton?: bool,
   }
 }

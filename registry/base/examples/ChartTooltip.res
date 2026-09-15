@@ -52,7 +52,7 @@ module TooltipDemo = {
               {hideIndicator
                 ? React.null
                 : <div
-                    className={`shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg] ${indicatorClass}`}
+                    className={`shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg) ${indicatorClass}`}
                     style={ReactDOM.Style._dictToStyle(
                       dict{
                         "--color-bg": item.fill,
@@ -155,7 +155,7 @@ let make = ({}: Demo.Props.t) =>
         className="w-[8rem]"
       />
     </div>
-    <div className="!hidden md:!flex">
+    <div className="!hidden md:flex!">
       <TooltipDemo
         label="Page Views"
         payload=[{name: "Desktop", value: 12486, fill: "var(--chart-3)"}]

@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Size = {
   @unboxed
@@ -10,90 +10,63 @@ module Size = {
     | @as("sm") Sm
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~disabled=?,
-  ~required=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~invalid=false,
-  ~dir=?,
-  ~style=?,
-  ~size=Size.Default,
-) => {
+type props = {
+  ...BaseUi.Types.BaseDomProps.t,
+  ...BaseUi.Types.ExtraDomProps.t,
+  children?: React.element,
+  onChange?: JsxEvent.Form.t => unit,
+  multiple?: bool,
+  value?: string,
+  defaultValue?: string,
+  size?: Size.t,
+  invalid?: bool,
+}
+let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({className, size, invalid, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let size = props.size->Stdlib.Option.getOr(Default)
   <div
-    ?id
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
     dataSlot="native-select-wrapper"
     dataSize={(size :> string)}
-    className={cn("cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50", className)}
+    className={cn(
+      "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
+      props.className,
+    )}
   >
     <select
-      ?id
-      ?name
-      ?value
-      ?defaultValue
-      ?disabled
-      ?required
-      ?onClick
-      ?onKeyDown
-      ?tabIndex
-      ?ariaLabel
-      ariaInvalid=?{invalid ? Some(#"true") : None}
-      ?style
-      ?children
-      dataSlot="native-select"
-      dataSize={(size :> string)}
+      {...toDomProps(props)}
+      dataSlot={props.dataSlot->Stdlib.Option.getOr("native-select")}
+      dataSize={props.dataSize->Stdlib.Option.getOr((size :> string))}
+      ariaInvalid=?{props.ariaInvalid->Stdlib.Option.orElse(
+        props.invalid == Some(true) ? Some(#"true") : None,
+      )}
       className="cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed"
     />
     <Icons.ChevronDown
       className="cn-native-select-icon pointer-events-none absolute select-none"
-      ariaHidden={true}
+      ariaHidden=true
       dataSlot="native-select-icon"
     />
   </div>
 }
 
 module Option = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~value=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~style=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <option
-      ?id
-      ?value
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      ?style
-      ?children
-      ?className
-      dataSlot="native-select-option"
+      {...props}
+      dataSlot={props.dataSlot->Stdlib.Option.getOr("native-select-option")}
+      className={cn("bg-[Canvas] text-[CanvasText]", props.className)}
     />
 }
 
 module OptGroup = {
-  @react.component
-  let make = (~className="", ~children=?, ~id=?, ~label=?, ~style=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <optgroup
-      ?id ?label ?style ?children dataSlot="native-select-optgroup" className={`${className}`}
+      {...props}
+      dataSlot={props.dataSlot->Stdlib.Option.getOr("native-select-optgroup")}
+      className={cn("bg-[Canvas] text-[CanvasText]", props.className)}
     />
 }

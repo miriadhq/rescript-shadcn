@@ -28,7 +28,9 @@ let countries: array<country> = [
 let make = ({}: Demo.Props.t) => {
   let contains = ReactAria.Autocomplete.useFilter({sensitivity: "base"}).contains
   <Select placeholder="Select country" className="w-full max-w-48">
-    <Select.Trigger> <Select.Value /> </Select.Trigger>
+    <Select.Trigger>
+      <Select.Value />
+    </Select.Trigger>
     <ReactAria.Autocomplete filter=contains>
       <Select.Popover>
         <Select.Input />

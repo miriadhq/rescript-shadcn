@@ -2,26 +2,20 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithProps(ReactAria.Table.props)
 let make = (props: ReactAria.Table.props) =>
   <div dataSlot="table-container" className="cn-table-container">
-    <ReactAria.Table
-      {...props}
-      dataSlot="table"
-      className={cn("cn-table", props.className)}
-    />
+    <ReactAria.Table {...props} dataSlot="table" className={cn("cn-table", props.className)} />
   </div>
 
 module Header = {
   @react.componentWithProps(ReactAria.Table.Header.props)
   let make = (props: ReactAria.Table.Header.props<'item>) =>
     <ReactAria.Table.Header
-      {...props}
-      dataSlot="table-header"
-      className={cn("cn-table-header", props.className)}
+      {...props} dataSlot="table-header" className={cn("cn-table-header", props.className)}
     />
 }
 
@@ -39,9 +33,7 @@ module Footer = {
   @react.componentWithProps(ReactAria.Table.Footer.props)
   let make = (props: ReactAria.Table.Footer.props<'item>) =>
     <ReactAria.Table.Footer
-      {...props}
-      dataSlot="table-footer"
-      className={cn("cn-table-footer", props.className)}
+      {...props} dataSlot="table-footer" className={cn("cn-table-footer", props.className)}
     />
 }
 

@@ -2,8 +2,8 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Side = {
   @unboxed
@@ -42,9 +42,7 @@ type props = {
   ...ReactAria.Dialog.Modal.props,
 }
 
-let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(
-  `({side, showCloseButton, className, children, ...props}) => props`
-)
+let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(`({side, showCloseButton, className, children, ...props}) => props`)
 
 let renderSheet = (props: props) => {
   let side = props.side->Option.getOr(Side.Right)

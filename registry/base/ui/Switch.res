@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Size = {
   @unboxed
@@ -10,49 +10,20 @@ module Size = {
     | @as("sm") Sm
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~id=?,
-  ~name=?,
-  ~checked=?,
-  ~defaultChecked=?,
-  ~onCheckedChange=?,
-  ~disabled=?,
-  ~required=?,
-  ~readOnly=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=0,
-  ~ariaLabel=?,
-  ~ariaInvalid=?,
-  ~dir=?,
-  ~style=?,
-  ~render=?,
-  ~size=Size.Default,
-) => {
+type props = {...BaseUi.Switch.Root.props, size?: Size.t}
+
+let toBaseUiProps: props => BaseUi.Switch.Root.props = %raw(`({className, size, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let size = props.size->Option.getOr(Size.Default)
   <BaseUi.Switch.Root
-    ?id
-    ?name
-    ?checked
-    ?defaultChecked
-    ?onCheckedChange
-    ?disabled
-    ?required
-    ?readOnly
-    ?onClick
-    ?onKeyDown
-    tabIndex
-    ?ariaLabel
-    ?ariaInvalid
-    ?dir
-    ?style
-    ?render
+    {...toBaseUiProps(props)}
     dataSlot="switch"
     dataSize={(size :> string)}
     className={cn(
       "cn-switch peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
-      className,
+      props.className,
     )}
   >
     <BaseUi.Switch.Thumb

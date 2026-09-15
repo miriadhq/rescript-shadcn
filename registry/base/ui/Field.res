@@ -2,8 +2,8 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Orientation = {
   @unboxed
@@ -33,45 +33,31 @@ let fieldVariants = (~orientation=Orientation.Vertical) => {
 }
 
 module Set = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <fieldset
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="field-set"
-      className={cn(
-        "cn-field-set flex flex-col",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("field-set")}
+      className={cn("cn-field-set flex flex-col", props.className)}
     />
 }
 
 module Legend = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~variant=Variant.Legend,
-  ) => {
+  type props = {
+    ...BaseUi.Types.DomProps.t,
+    variant?: Variant.t,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.DomProps.t = %raw(`({variant, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let variant = props.variant->Option.getOr(Variant.Legend)
     <legend
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="field-legend"
-      dataVariant={(variant :> string)}
-      className={cn(
-        "cn-field-legend",
-        className,
-      )}
+      {...props->toBaseUiProps}
+      dataSlot={props.dataSlot->Option.getOr("field-legend")}
+      dataVariant={props.dataVariant->Option.getOr((variant :> string))}
+      className={cn("cn-field-legend", props.className)}
     />
   }
 }
@@ -81,7 +67,7 @@ module Group = {
   let make = (props: BaseUi.Types.DomProps.t) =>
     <div
       {...props}
-      dataSlot="field-group"
+      dataSlot={props.dataSlot->Option.getOr("field-group")}
       className={cn(
         "cn-field-group group/field-group @container/field-group flex w-full flex-col",
         props.className,
@@ -89,129 +75,86 @@ module Group = {
     />
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~orientation=Orientation.Vertical,
-  ~disabled=?,
-  ~dataDisabled=?,
-  ~dataInvalid=?,
-  ~dir=?,
-) => {
+type props = {
+  ...BaseUi.Types.BaseDomWithoutOrientationProps.t,
+  ...BaseUi.Types.ExtraDomProps.t,
+  children?: React.element,
+  orientation?: Orientation.t,
+}
+
+let toBaseUiProps: props => BaseUi.Types.DomProps.t = %raw(`({orientation, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let orientation = props.orientation->Option.getOr(Orientation.Vertical)
   <div
-    ?id
-    ?children
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?disabled
-    ?dataDisabled
-    ?dataInvalid
-    ?dir
+    {...props->toBaseUiProps}
     role="group"
-    dataSlot="field"
-    dataOrientation={(orientation :> string)}
-    className={cn(fieldVariants(~orientation), className)}
+    dataSlot={props.dataSlot->Option.getOr("field")}
+    dataOrientation={props.dataOrientation->Option.getOr((orientation :> string))}
+    className={cn(fieldVariants(~orientation), props.className)}
   />
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="field-content"
-      className={cn("cn-field-content group/field-content flex flex-1 flex-col leading-snug", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("field-content")}
+      className={cn(
+        "cn-field-content group/field-content flex flex-1 flex-col leading-snug",
+        props.className,
+      )}
     />
 }
 
 module Label = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~htmlFor=?,
-    ~dir=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~style=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <Label
-      ?id
-      ?htmlFor
-      ?dir
-      ?onClick
-      ?onKeyDown
-      ?style
-      dataSlot="field-label"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("field-label")}
       className={cn(
         "cn-field-label group/field-label peer/field-label flex w-fit has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
-        className,
+        props.className,
       )}
-      ?children
     />
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="field-label"
-      className={cn(
-        "cn-field-title flex w-fit items-center",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("field-label")}
+      className={cn("cn-field-title flex w-fit items-center", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~dir=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <p
-      ?id
-      ?children
-      ?style
-      ?dir
-      ?onClick
-      ?onKeyDown
-      dataSlot="field-description"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("field-description")}
       className={cn(
         "cn-field-description leading-normal font-normal group-has-data-horizontal/field:text-balance last:mt-0 nth-last-2:-mt-1 [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
-        className,
+        props.className,
       )}
     />
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
+    let children = props.children
     let hasContent = children->Option.isSome
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="field-separator"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("field-separator")}
       dataContent={hasContent}
-      className={cn(
-        "cn-field-separator relative",
-        className,
-      )}
+      className={cn("cn-field-separator relative", props.className)}
     >
       <BaseUi.Separator
         orientation=Horizontal
@@ -236,8 +179,17 @@ module Error = {
   type t = {
     message: string,
   }
-  @react.component
-  let make = (~className=?, ~children=?, ~errors=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  type props = {
+    ...BaseUi.Types.DomProps.t,
+    errors?: array<t>,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.DomProps.t = %raw(`({errors, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let children = props.children
+    let errors = props.errors
     let content = React.useMemo(() => {
       children->Option.getOr(
         switch errors {
@@ -261,15 +213,11 @@ module Error = {
         },
       )
     }, (children, errors))
-
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props->toBaseUiProps}
       role="alert"
-      dataSlot="field-error"
-      className={cn("cn-field-error font-normal", className)}
+      dataSlot={props.dataSlot->Option.getOr("field-error")}
+      className={cn("cn-field-error font-normal", props.className)}
     >
       {content}
     </div>

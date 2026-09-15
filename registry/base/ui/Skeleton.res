@@ -1,26 +1,13 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~dataSidebar=?,
-) => {
+@react.componentWithProps(BaseUi.Types.DomProps.t)
+let make = (props: BaseUi.Types.DomProps.t) => {
   <div
-    ?id
-    ?children
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?dataSidebar
-    dataSlot="skeleton"
-    className={cn("cn-skeleton animate-pulse", className)}
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("skeleton")}
+    className={cn("cn-skeleton animate-pulse", props.className)}
   />
 }

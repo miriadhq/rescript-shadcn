@@ -52,7 +52,8 @@ module Root = {
 
 module Trigger = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
+    @as("type") type_?: Types.ButtonType.t,
+    ...Types.BaseUIComponentWithoutTypeProps.t,
     closeOnClick?: bool,
   }
   @module("@base-ui/react/tooltip") @scope("Tooltip")

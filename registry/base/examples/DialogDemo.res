@@ -26,7 +26,7 @@ let make = ({}: Demo.Props.t) =>
           <Dialog.Close render={<Button variant=Outline />}>
             {"Cancel"->React.string}
           </Dialog.Close>
-          <Button type_="submit"> {"Save changes"->React.string} </Button>
+          <Button type_=Submit> {"Save changes"->React.string} </Button>
         </Dialog.Footer>
       </Dialog.Content>
     </form>

@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Variant = {
   @unboxed
@@ -39,10 +39,7 @@ let make = (props: props) => {
   }
   switch props.render {
   | Some(render) => render(renderProps)
-  | None =>
-    <div
-      {...renderProps}
-    />
+  | None => <div {...renderProps} />
   }
 }
 

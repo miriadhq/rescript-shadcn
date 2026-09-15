@@ -2,135 +2,85 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (~className=?, ~children=?, ~id=?, ~style=?, ~dir=?, ~onClick=?, ~onKeyDown=?) => {
-  <div
-    ?id
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
-    dataSlot="table-container"
-    className="cn-table-container"
-  >
+@react.componentWithProps(BaseUi.Types.DomProps.t)
+let make = (props: BaseUi.Types.DomProps.t) =>
+  <div dataSlot="table-container" className="cn-table-container">
     <table
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="table"
-      className={cn("cn-table", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("table")}
+      className={cn("cn-table", props.className)}
     />
   </div>
-}
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <thead
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="table-header"
-      className={cn("cn-table-header", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("table-header")}
+      className={cn("cn-table-header", props.className)}
     />
 }
 
 module Body = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <tbody
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="table-body"
-      className={cn("cn-table-body", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("table-body")}
+      className={cn("cn-table-body", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <tfoot
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="table-footer"
-      className={cn("cn-table-footer", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("table-footer")}
+      className={cn("cn-table-footer", props.className)}
     />
 }
 
 module Row = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~dataState=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <tr
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?dataState
-      dataSlot="table-row"
-      className={cn(
-        "cn-table-row",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("table-row")}
+      className={cn("cn-table-row has-aria-expanded:bg-muted/50", props.className)}
     />
 }
 
 module Head = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~colSpan=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <th
-      ?id
-      ?children
-      ?style
-      ?colSpan
-      ?onClick
-      ?onKeyDown
-      dataSlot="table-head"
-      className={cn(
-        "cn-table-head",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("table-head")}
+      className={cn("cn-table-head", props.className)}
     />
 }
 
 module Cell = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~colSpan=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <td
-      ?id
-      ?children
-      ?style
-      ?colSpan
-      ?onClick
-      ?onKeyDown
-      dataSlot="table-cell"
-      className={cn("cn-table-cell", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("table-cell")}
+      className={cn("cn-table-cell", props.className)}
     />
 }
 
 module Caption = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <caption
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="table-caption"
-      className={cn("cn-table-caption", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("table-caption")}
+      className={cn("cn-table-caption", props.className)}
     />
 }

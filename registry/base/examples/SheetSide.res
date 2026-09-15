@@ -1,5 +1,5 @@
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 let sheetSides = [
   (BaseUi.Types.Side.Top, "top"),
@@ -41,7 +41,7 @@ let make = ({}: Demo.Props.t) =>
             )->React.array}
           </div>
           <Sheet.Footer>
-            <Button type_="submit"> {"Save changes"->React.string} </Button>
+            <Button type_=Submit> {"Save changes"->React.string} </Button>
             <Sheet.Close render={<Button variant=Outline />}>
               {"Cancel"->React.string}
             </Sheet.Close>

@@ -4,8 +4,11 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
+
+@module("cn")
+external cn3: (string, option<string>, option<string>) => string = "cn"
 
 @unboxed
 type state =
@@ -15,9 +18,9 @@ type state =
 type sidebar = {
   state: state,
   @as("open") open_: bool,
-  setOpen: bool => unit,
+  setOpen: (bool => bool) => unit,
   openMobile: bool,
-  setOpenMobile: bool => unit,
+  setOpenMobile: (bool => bool) => unit,
   isMobile: bool,
   toggleSidebar: unit => unit,
 }
@@ -47,11 +50,10 @@ external removeWindowListener: (browserWindow, string, windowKeyboardEvent => un
 @send external preventDefaultKeyboardEvent: windowKeyboardEvent => unit = "preventDefault"
 @set external setDocumentCookie: (Dom.document, string) => unit = "cookie"
 @val external mathRandom: unit => float = "Math.random"
-@module("@base-ui/react/merge-props")
-external mergeProps: (
-  BaseUi.Types.BaseUIComponentProps.t,
-  BaseUi.Types.BaseUIComponentProps.t,
-) => BaseUi.Types.BaseUIComponentProps.t = "mergeProps"
+
+module RenderState = {
+  type t = {slot: string, sidebar: string}
+}
 
 let sidebarCookieName = "sidebar_state"
 let sidebarCookieMaxAge = 60 * 60 * 24 * 7
@@ -72,7 +74,7 @@ let use = () =>
 
 let useIsMobile = () => {
   let (isMobile, setIsMobile) = React.useState(() => false)
-  React.useEffect0(() => {
+  React.useEffect(() => {
     let mediaQuery =
       browserWindow->windowMatchMedia(`(max-width: ${Int.toString(mobileBreakpoint - 1)}px)`)
     let onChange = () => {
@@ -84,7 +86,7 @@ let useIsMobile = () => {
     onChange()
 
     Some(() => mediaQuery->removeMediaQueryListener("change", onChange))
-  })
+  }, [])
   isMobile
 }
 
@@ -105,32 +107,32 @@ type collapsible =
   | @as("icon") Icon
   | @as("none") NotCollapsible
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~side=Left,
-  ~variant=Sidebar,
-  ~collapsible=Offcanvas,
-  ~dir: option<string>=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-) => {
+type props = {
+  ...BaseUi.Types.DomProps.t,
+  side?: side,
+  variant?: variant,
+  collapsible?: collapsible,
+}
+
+let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({side, variant, collapsible, ...props}) => props`)
+external toSheetProps: BaseUi.Types.DomProps.t => BaseUi.Dialog.Root.props<'payload> = "%identity"
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let side = props.side->Option.getOr(Left)
+  let variant = props.variant->Option.getOr(Sidebar)
+  let collapsible = props.collapsible->Option.getOr(Offcanvas)
+  let domProps = toDomProps(props)
+
   let {isMobile, state, openMobile, setOpenMobile} = use()
 
   if collapsible == NotCollapsible {
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar"
+      {...domProps}
+      dataSlot={props.dataSlot->Option.getOr("sidebar")}
       className={cn(
         "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col",
-        className,
+        props.className,
       )}
     />
   } else if isMobile {
@@ -140,15 +142,12 @@ let make = (
       },
     )
     <Sheet
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...domProps->toSheetProps}
       open_={openMobile}
-      onOpenChange={(nextOpen, _) => setOpenMobile(nextOpen)}
+      onOpenChange={(nextOpen, _) => setOpenMobile(_ => nextOpen)}
     >
       <Sheet.Content
-        ?dir
+        dir=?{props.dir}
         dataSidebar="sidebar"
         dataSlot="sidebar"
         dataMobile="true"
@@ -161,7 +160,7 @@ let make = (
           <Sheet.Title> {"Sidebar"->React.string} </Sheet.Title>
           <Sheet.Description> {"Displays the mobile sidebar."->React.string} </Sheet.Description>
         </Sheet.Header>
-        <div className="flex h-full w-full flex-col" ?children />
+        <div className="flex h-full w-full flex-col" children=?{props.children} />
       </Sheet.Content>
     </Sheet>
   } else {
@@ -189,25 +188,26 @@ let make = (
     >
       <div
         dataSlot="sidebar-gap"
-        className={`cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180 ${desktopGapClass}`}
+        className={cn(
+          "cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180",
+          desktopGapClass->Some,
+        )}
       />
       <div
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
-        dataSlot="sidebar-container"
+        {...domProps}
+        dataSlot={props.dataSlot->Option.getOr("sidebar-container")}
         dataSide={(side :> string)}
-        className={cn(
-          `fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex ${desktopContainerClass}`,
-          className,
+        className={cn3(
+          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
+          desktopContainerClass->Some,
+          props.className,
         )}
       >
         <div
           dataSidebar="sidebar"
           dataSlot="sidebar-inner"
           className="cn-sidebar-inner flex size-full flex-col"
-          ?children
+          children=?{props.children}
         />
       </div>
     </div>
@@ -215,60 +215,41 @@ let make = (
 }
 
 module Provider = {
-  @react.component
-  let make = (
-    ~defaultOpen=true,
-    ~open_: option<bool>=?,
-    ~onOpenChange: option<bool => unit>=?,
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~style: option<ReactDOM.Style.t>=?,
-  ) => {
+  type props = {
+    defaultOpen?: bool,
+    onOpenChange?: bool => unit,
+    ...BaseUi.Types.DomProps.t,
+  }
+
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({defaultOpen, open, onOpenChange, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let defaultOpen = props.defaultOpen->Option.getOr(true)
+
     let isMobile = useIsMobile()
-    let (openMobile, setOpenMobileState) = React.useState(() => false)
-    let (internalOpen, setInternalOpenState) = React.useState(() => defaultOpen)
-    let isOpen = open_->Option.getOr(internalOpen)
-    let setSidebarCookie = (nextOpen: bool) =>
+    let (openMobile, setOpenMobile) = React.useState(() => false)
+    let (open_, setOpen) = React.useState(() => defaultOpen)
+    let open_ = props.open_->Option.getOr(open_)
+    let setOpen = React.useCallback(u => {
+      let nextOpen = u(open_)
+      switch props.onOpenChange {
+      | Some(setOpenProp) => setOpenProp(nextOpen)
+      | None => setOpen(_ => nextOpen)
+      }
+
+      // This sets the cookie to keep the sidebar state.
       browserDocument->setDocumentCookie(
         `${sidebarCookieName}=${nextOpen ? "true" : "false"}; path=/; max-age=${Int.toString(
             sidebarCookieMaxAge,
           )}`,
       )
-    let setOpenMobile = (nextOpen: bool) => setOpenMobileState(_ => nextOpen)
-    let setOpen = (nextOpen: bool) => {
-      switch onOpenChange {
-      | Some(setOpenProp) => setOpenProp(nextOpen)
-      | None => setInternalOpenState(_ => nextOpen)
-      }
-      setSidebarCookie(nextOpen)
-    }
-    let toggleSidebar = () =>
-      if isMobile {
-        setOpenMobileState(previousOpen => !previousOpen)
-      } else {
-        switch open_ {
-        | Some(currentOpen) =>
-          let nextOpen = !currentOpen
-          switch onOpenChange {
-          | Some(setOpenProp) => setOpenProp(nextOpen)
-          | None => ()
-          }
-          setSidebarCookie(nextOpen)
-        | None =>
-          setInternalOpenState(previousOpen => {
-            let nextOpen = !previousOpen
-            switch onOpenChange {
-            | Some(setOpenProp) => setOpenProp(nextOpen)
-            | None => ()
-            }
-            setSidebarCookie(nextOpen)
-            nextOpen
-          })
-        }
-      }
+    }, (props.onOpenChange, setOpen, open_))
+
+    // Helper to toggle the sidebar.
+    let toggleSidebar = React.useCallback(() => {
+      isMobile ? setOpenMobile(open_ => !open_) : setOpen(open_ => !open_)
+    }, (isMobile, setOpen, setOpenMobile))
 
     React.useEffect(() => {
       let handleKeyDown = (event: windowKeyboardEvent) => {
@@ -283,17 +264,17 @@ module Provider = {
 
       browserWindow->addWindowListener("keydown", handleKeyDown)
       Some(() => browserWindow->removeWindowListener("keydown", handleKeyDown))
-    }, [isMobile, isOpen, openMobile])
+    }, [toggleSidebar])
 
-    let contextValue = Some({
-      state: isOpen ? Expanded : Collapsed,
-      open_: isOpen,
+    let contextValue = React.useMemo(() => Some({
+      state: open_ ? Expanded : Collapsed,
+      open_,
       setOpen,
       openMobile,
       setOpenMobile,
       isMobile,
       toggleSidebar,
-    })
+    }), (open_, setOpen, openMobile, setOpenMobile, isMobile, toggleSidebar))
 
     let baseStyle = ReactDOM.Style._dictToStyle(
       dict{
@@ -301,25 +282,23 @@ module Provider = {
         "--sidebar-width-icon": sidebarWidthIcon,
       },
     )
-    let resolvedStyle = switch style {
+    let style = switch props.style {
     | Some(style) => ReactDOM.Style.combine(baseStyle, style)
     | None => baseStyle
     }
     module ContextProvider = {
       let make = React.Context.provider(context)
     }
+    let props = toDomProps(props)
 
     <ContextProvider value={contextValue}>
       <div
-        ?id
-        ?onClick
-        ?onKeyDown
-        ?children
-        style={resolvedStyle}
-        dataSlot="sidebar-wrapper"
+        {...props}
+        style
+        dataSlot={props.dataSlot->Option.getOr("sidebar-wrapper")}
         className={cn(
           "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
-          className,
+          props.className,
         )}
       />
     </ContextProvider>
@@ -327,34 +306,18 @@ module Provider = {
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~variant=Button.Variant.Ghost,
-    ~size=Button.Size.IconSm,
-    ~nativeButton=?,
-    ~disabled=?,
-    ~style=?,
-    ~onClick=_ => (),
-    ~type_=?,
-    ~ariaLabel=?,
-    ~render=?,
-  ) => {
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) => {
     let {toggleSidebar} = use()
     <Button
-      className={cn("cn-sidebar-trigger", Some(className))}
-      variant
-      size
-      ?nativeButton
-      ?disabled
-      ?style
-      ?type_
-      ?render
-      ?ariaLabel
-      dataSidebar="trigger"
-      dataSlot="sidebar-trigger"
+      {...props}
+      dataSidebar={props.dataSidebar->Option.getOr("trigger")}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-trigger")}
+      variant={props.variant->Option.getOr(Button.Variant.Ghost)}
+      size={props.size->Option.getOr(Button.Size.IconSm)}
+      className={cn("cn-sidebar-trigger", props.className)}
       onClick={event => {
-        onClick(event)
+        props.onClick->Option.forEach(onClick => onClick(event))
         toggleSidebar()
       }}
     >
@@ -365,277 +328,182 @@ module Trigger = {
 }
 
 module Rail = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     let {toggleSidebar} = use()
-    let onClick = switch onClick {
-    | Some(onClick) => onClick
-    | None => _ => toggleSidebar()
-    }
+
     <button
-      ?id
-      ?style
-      onClick
-      ?onKeyDown
-      ?children
-      ariaLabel="Toggle Sidebar"
-      tabIndex={-1}
-      dataSidebar="rail"
-      dataSlot="sidebar-rail"
+      {...props}
+      dataSidebar={props.dataSidebar->Option.getOr("rail")}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-rail")}
+      ariaLabel={props.ariaLabel->Option.getOr("Toggle Sidebar")}
+      tabIndex={props.tabIndex->Option.getOr(-1)}
+      onClick={switch props.onClick {
+      | Some(onClick) => onClick
+      | None => _ => toggleSidebar()
+      }}
+      title={props.title->Option.getOr("Toggle Sidebar")}
       className={cn(
         "cn-sidebar-rail absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
-        className,
+        props.className,
       )}
-      title="Toggle Sidebar"
     />
   }
 }
 
 module Inset = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <main
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-inset"
-      className={cn(
-        "cn-sidebar-inset relative flex w-full flex-1 flex-col",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-inset")}
+      className={cn("cn-sidebar-inset relative flex w-full flex-1 flex-col", props.className)}
     />
 }
 
 module Input = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~name=?,
-    ~placeholder=?,
-    ~value=?,
-    ~defaultValue=?,
-    ~onValueChange=?,
-    ~disabled=?,
-    ~readOnly=?,
-    ~required=?,
-    ~type_=?,
-    ~maxLength=?,
-    ~spellCheck=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaLabel=?,
-    ~ariaRoledescription=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Input.props)
+  let make = (props: BaseUi.Input.props) =>
     <BaseUi.Input
-      ?id
-      ?style
-      ?name
-      ?placeholder
-      ?value
-      ?defaultValue
-      ?onValueChange
-      ?disabled
-      ?readOnly
-      ?required
-      ?type_
-      ?maxLength
-      ?spellCheck
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      ?ariaRoledescription
-      ?children
-      dataSlot="sidebar-input"
-      dataSidebar="input"
-      className={cn("cn-sidebar-input", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-input")}
+      dataSidebar={props.dataSidebar->Option.getOr("input")}
+      className={cn("cn-sidebar-input", props.className)}
     />
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-header"
-      dataSidebar="header"
-      className={cn("cn-sidebar-header flex flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-header")}
+      dataSidebar={props.dataSidebar->Option.getOr("header")}
+      className={cn("cn-sidebar-header flex flex-col", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-footer"
-      dataSidebar="footer"
-      className={cn("cn-sidebar-footer flex flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-footer")}
+      dataSidebar={props.dataSidebar->Option.getOr("footer")}
+      className={cn("cn-sidebar-footer flex flex-col", props.className)}
     />
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Separator
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-separator"
-      dataSidebar="separator"
-      className={cn("cn-sidebar-separator w-auto", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-separator")}
+      dataSidebar={props.dataSidebar->Option.getOr("separator")}
+      className={cn("cn-sidebar-separator w-auto", props.className)}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
+      {...props}
       dataSlot="sidebar-content"
       dataSidebar="content"
       className={cn(
         "cn-sidebar-content flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden",
-        className,
+        props.className,
       )}
     />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-group"
-      dataSidebar="group"
-      className={cn("cn-sidebar-group relative flex w-full min-w-0 flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-group")}
+      dataSidebar={props.dataSidebar->Option.getOr("group")}
+      className={cn("cn-sidebar-group relative flex w-full min-w-0 flex-col", props.className)}
     />
 }
 
 module GroupLabel = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~render=?,
-  ) => {
-    let props: BaseUi.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      render: React.null,
-      children,
-      dataSlot: "sidebar-group-label",
-      dataSidebar: "group-label",
-      className: cn(
-        "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
-        className,
+  let toDomProps: BaseUi.Types.BaseUIComponentProps.t => BaseUi.Types.DomProps.t = %raw(`({className, render, ...props}) => props`)
+
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    BaseUi.Render.use({
+      defaultTagName: "div",
+      props: BaseUi.Render.mergeProps(
+        {
+          className: cn(
+            "cn-sidebar-group-label flex shrink-0 items-center outline-hidden [&>svg]:shrink-0",
+            props.className,
+          ),
+        },
+        toDomProps(props),
       ),
-    }
-    BaseUi.Render.use({defaultTagName: "div", props, ?render})
+      render: ?props.render,
+      state: {RenderState.slot: "sidebar-group-label", sidebar: "group-label"},
+    })
   }
 }
 
 module GroupAction = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~render=?,
-    ~title=?,
-  ) => {
-    let props: BaseUi.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      ?title,
-      render: React.null,
-      children,
-      dataSlot: "sidebar-group-action",
-      dataSidebar: "group-action",
-      className: cn(
-        "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform [&>svg]:shrink-0 after:absolute after:-inset-2 md:after:hidden group-data-[collapsible=icon]:hidden",
-        className,
+  let toDomProps: BaseUi.Types.BaseUIComponentProps.t => BaseUi.Types.DomProps.t = %raw(`({className, render, ...props}) => props`)
+
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    BaseUi.Render.use({
+      defaultTagName: "button",
+      props: BaseUi.Render.mergeProps(
+        {
+          className: cn(
+            "cn-sidebar-group-action flex aspect-square items-center justify-center outline-hidden transition-transform [&>svg]:shrink-0 after:absolute after:-inset-2 md:after:hidden group-data-[collapsible=icon]:hidden",
+            props.className,
+          ),
+        },
+        toDomProps(props),
       ),
-    }
-    BaseUi.Render.use({defaultTagName: "button", props, ?render})
+      render: ?props.render,
+      state: {RenderState.slot: "sidebar-group-action", sidebar: "group-action"},
+    })
   }
 }
 
 module GroupContent = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-group-content"
-      dataSidebar="group-content"
-      className={cn("cn-sidebar-group-content w-full", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-group-content")}
+      dataSidebar={props.dataSidebar->Option.getOr("group-content")}
+      className={cn("cn-sidebar-group-content w-full", props.className)}
     />
 }
 
 module Menu = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <ul
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu"
-      dataSidebar="menu"
-      className={cn("cn-sidebar-menu flex w-full min-w-0 flex-col", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu")}
+      className={cn("cn-sidebar-menu flex w-full min-w-0 flex-col", props.className)}
     />
 }
 
 module MenuItem = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <li
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu-item"
-      dataSidebar="menu-item"
-      className={cn("group/menu-item relative", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-item")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-item")}
+      className={cn("group/menu-item relative", props.className)}
     />
 }
 
@@ -688,39 +556,32 @@ module MenuButton = {
     active: bool,
   }
 
-  @react.component
-  let make = (
-    ~className=?,
-    ~variant=Variant.Default,
-    ~size=Size.Default,
-    ~isActive=false,
-    ~tooltip: option<Tooltip.contentProps>=?,
-    ~render=?,
-    ~children=React.null,
-    ~ariaDisabled=?,
-    ~ariaExpanded=?,
-    ~ariaHaspopup=?,
-    ~ariaControls=?,
-    ~tabIndex=?,
-    ~dataSlot=?,
-  ) => {
+  type props = {
+    variant?: Variant.t,
+    size?: Size.t,
+    isActive?: bool,
+    tooltip?: Tooltip.Content.props,
+    ...BaseUi.Types.BaseUIComponentProps.t,
+  }
+
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({variant, size, isActive, tooltip, className, render, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let variant = props.variant->Option.getOr(Variant.Default)
+    let size = props.size->Option.getOr(Size.Default)
+    let isActive = props.isActive->Option.getOr(false)
     let {isMobile, state} = use()
     let comp = BaseUi.Render.use({
       defaultTagName: "button",
-      props: {
-        children,
-        ?ariaDisabled,
-        ?ariaExpanded,
-        ?ariaHaspopup,
-        ?ariaControls,
-        ?tabIndex,
-        ?dataSlot,
-        className: cn(sidebarMenuButtonVariants(~variant, ~size), className),
-      },
+      props: BaseUi.Render.mergeProps(
+        {className: cn(sidebarMenuButtonVariants(~variant, ~size), props.className)},
+        toDomProps(props),
+      ),
       render: ?{
-        switch tooltip {
-        | Some(_) => Some(<Tooltip.Trigger />)
-        | None => render
+        switch props.tooltip {
+        | Some(_) => Some(<Tooltip.Trigger render=?props.render />)
+        | None => props.render
         }
       },
       state: {
@@ -730,7 +591,7 @@ module MenuButton = {
         active: isActive,
       },
     })
-    switch tooltip {
+    switch props.tooltip {
     | None => comp
     | Some(tooltip) =>
       <Tooltip>
@@ -747,94 +608,65 @@ module MenuButton = {
 }
 
 module MenuAction = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~render=?,
-    ~actionProps: option<BaseUi.Types.BaseUIComponentProps.t>=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~ariaDisabled=?,
-    ~showOnHover=false,
-    ~dataSlot=?,
-    ~ariaExpanded=?,
-    ~ariaHaspopup=?,
-    ~tabIndex=?,
-  ) => {
-    let showOnHoverClass = showOnHover
-      ? "peer-data-active/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 aria-expanded:opacity-100 md:opacity-0"
-      : ""
-    let baseProps: BaseUi.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      ?type_,
-      ?ariaLabel,
-      ?ariaDisabled,
-      ariaExpanded: ariaExpanded->Option.getOr(false),
-      ariaHaspopup: ariaHaspopup->Option.getOr(#menu),
-      tabIndex: tabIndex->Option.getOr(0),
-      render: React.null,
-      children,
-      dataSlot: dataSlot->Option.getOr("sidebar-menu-action"),
-      dataSidebar: "menu-action",
-      className: cn(
-        `cn-sidebar-menu-action text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4 flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0 ${showOnHoverClass}`,
-        className,
-      ),
-    }
-    let mergedProps = switch actionProps {
-    | Some(actionProps) => mergeProps(baseProps, actionProps)
-    | None => baseProps
-    }
-    let props = switch (render, mergedProps.type_) {
-    | (Some(_), _) => mergedProps
-    | (None, Some(_)) => mergedProps
-    | (None, None) => {...mergedProps, type_: "button"}
+  type props = {
+    showOnHover?: bool,
+    @as("type") type_?: BaseUi.Types.ButtonType.t,
+    ...BaseUi.Types.BaseUIComponentWithoutTypeProps.t,
+  }
+
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({showOnHover, className, render, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let showOnHover = props.showOnHover->Option.getOr(false)
+    let domProps = toDomProps(props)
+    let domProps = switch (props.render, props.type_) {
+    | (None, None) => {...domProps, type_: "button"}
+    | _ => domProps
     }
     BaseUi.Render.use({
       defaultTagName: "button",
-      props,
-      ?render,
+      props: BaseUi.Render.mergeProps(
+        {
+          className: cn3(
+            "cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
+            showOnHover
+              ? "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0"->Some
+              : None,
+            props.className,
+          ),
+        },
+        domProps,
+      ),
+      render: ?props.render,
+      state: {RenderState.slot: "sidebar-menu-action", sidebar: "menu-action"},
     })
   }
 }
 
 module MenuBadge = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu-badge"
-      dataSidebar="menu-badge"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-badge")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-badge")}
       className={cn(
         "cn-sidebar-menu-badge flex items-center justify-center tabular-nums select-none group-data-[collapsible=icon]:hidden",
-        className,
+        props.className,
       )}
     />
 }
 
 module MenuSkeleton = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~showIcon=false,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) => {
+  type props = {showIcon?: bool, ...BaseUi.Types.DomProps.t}
+
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({showIcon, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let showIcon = props.showIcon->Option.getOr(false)
+
     let (width, _setWidth) = React.useState(() => `${Float.toString(mathRandom() *. 40. +. 50.)}%`)
     let textStyle = ReactDOM.Style._dictToStyle(
       dict{
@@ -842,13 +674,10 @@ module MenuSkeleton = {
       },
     )
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="sidebar-menu-skeleton"
-      dataSidebar="menu-skeleton"
-      className={cn("cn-sidebar-menu-skeleton flex items-center", className)}
+      {...toDomProps(props)}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-skeleton")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-skeleton")}
+      className={cn("cn-sidebar-menu-skeleton flex items-center", props.className)}
     >
       {showIcon
         ? <Skeleton className="cn-sidebar-menu-skeleton-icon" dataSidebar="menu-skeleton-icon" />
@@ -858,41 +687,30 @@ module MenuSkeleton = {
         dataSidebar="menu-skeleton-text"
         style={textStyle}
       />
-      {children}
+      {props.children->Option.getOr(React.null)}
     </div>
   }
 }
 
 module MenuSub = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <ul
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu-sub"
-      dataSidebar="menu-sub"
-      className={cn(
-        "cn-sidebar-menu-sub flex min-w-0 flex-col",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-sub")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-sub")}
+      className={cn("cn-sidebar-menu-sub flex min-w-0 flex-col", props.className)}
     />
 }
 
 module MenuSubItem = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <li
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="sidebar-menu-sub-item"
-      dataSidebar="menu-sub-item"
-      className={cn("group/menu-sub-item relative", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("sidebar-menu-sub-item")}
+      dataSidebar={props.dataSidebar->Option.getOr("menu-sub-item")}
+      className={cn("group/menu-sub-item relative", props.className)}
     />
 }
 
@@ -904,50 +722,44 @@ module MenuSubButton = {
       | @as("md") Md
   }
 
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~href=?,
-    ~target=?,
-    ~render=?,
-    ~disabled=?,
-    ~size=Size.Md,
-    ~isActive=false,
-    ~dataActive: option<bool>=?,
-    ~linkProps: option<BaseUi.Types.BaseUIComponentProps.t>=?,
-  ) => {
-    let dataActive = dataActive->Option.getOr(isActive)
-    let baseWithoutDataActive: BaseUi.Types.BaseUIComponentProps.t = {
-      ?id,
-      ?style,
-      ?onClick,
-      ?onKeyDown,
-      ?href,
-      ?target,
-      render: React.null,
-      ?disabled,
-      ?children,
-      dataSlot: "sidebar-menu-sub-button",
-      dataSidebar: "menu-sub-button",
-      dataSize: (size :> string),
-      className: cn(
-        "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
-        className,
+  type state = {
+    slot: string,
+    sidebar: string,
+    size: Size.t,
+    active: bool,
+  }
+
+  type props = {
+    size?: Size.t,
+    isActive?: bool,
+    ...BaseUi.Types.BaseUIComponentProps.t,
+  }
+
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({size, isActive, className, render, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let size = props.size->Option.getOr(Size.Md)
+    let isActive = props.isActive->Option.getOr(false)
+
+    BaseUi.Render.use({
+      defaultTagName: "a",
+      props: BaseUi.Render.mergeProps(
+        {
+          className: cn(
+            "cn-sidebar-menu-sub-button flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
+            props.className,
+          ),
+        },
+        toDomProps(props),
       ),
-    }
-    let dataActiveOverlay: BaseUi.Types.BaseUIComponentProps.t = dataActive
-      ? {dataActive: true}
-      : {}
-    let baseProps = mergeProps(baseWithoutDataActive, dataActiveOverlay)
-    let props = switch linkProps {
-    | Some(linkProps) => mergeProps(baseProps, linkProps)
-    | None => baseProps
-    }
-    BaseUi.Render.use({defaultTagName: "a", props, ?render})
+      render: ?props.render,
+      state: {
+        slot: "sidebar-menu-sub-button",
+        sidebar: "menu-sub-button",
+        size,
+        active: isActive,
+      },
+    })
   }
 }

@@ -5,65 +5,36 @@
 module Variant = Button.Variant
 module Size = Button.Size
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (~children=?, ~open_=?, ~defaultOpen=?, ~onOpenChange=?, ~onOpenChangeComplete=?) =>
-  <BaseUi.AlertDialog.Root
-    ?children ?open_ ?defaultOpen ?onOpenChange ?onOpenChangeComplete dataSlot="alert-dialog"
-  />
+@react.componentWithProps(BaseUi.AlertDialog.Root.props)
+let make = (props: BaseUi.AlertDialog.Root.props<'payload>) =>
+  <BaseUi.AlertDialog.Root {...props} dataSlot={props.dataSlot->Option.getOr("alert-dialog")} />
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Dialog.Trigger.props)
+  let make = (props: BaseUi.Dialog.Trigger.props<'payload>) =>
     <BaseUi.AlertDialog.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="alert-dialog-trigger"
-      className
+      {...props} dataSlot={props.dataSlot->Option.getOr("alert-dialog-trigger")}
     />
 }
 
 module Portal = {
-  @react.component
-  let make = (~children=?, ~container=?) =>
-    <BaseUi.AlertDialog.Portal ?children ?container dataSlot="alert-dialog-portal" />
+  @react.componentWithProps(BaseUi.Dialog.Portal.props)
+  let make = (props: BaseUi.Dialog.Portal.props) =>
+    <BaseUi.AlertDialog.Portal
+      {...props} dataSlot={props.dataSlot->Option.getOr("alert-dialog-portal")}
+    />
 }
 
 module Overlay = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.AlertDialog.Backdrop
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="alert-dialog-overlay"
-      className={cn(
-        "cn-alert-dialog-overlay fixed inset-0 isolate z-50",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-overlay")}
+      className={cn("cn-alert-dialog-overlay fixed inset-0 isolate z-50", props.className)}
     />
 }
 
@@ -74,29 +45,25 @@ module Content = {
       | @as("default") Default
       | @as("sm") Sm
   }
-  @react.component
-  let make = (
-    ~className=?,
-    ~size=Size.Default,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) => {
+  type props = {
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    size?: Size.t,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({size, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let size = props.size->Option.getOr(Size.Default)
     <Portal>
       <Overlay />
       <BaseUi.AlertDialog.Popup
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
-        ?children
-        dataSlot="alert-dialog-content"
-        dataSize={(size :> string)}
+        {...props->toBaseUiProps}
+        dataSlot={props.dataSlot->Option.getOr("alert-dialog-content")}
+        dataSize={props.dataSize->Option.getOr((size :> string))}
         className={cn(
           "cn-alert-dialog-content data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-background ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm",
-          className,
+          props.className,
         )}
       />
     </Portal>
@@ -104,147 +71,95 @@ module Content = {
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
-      dataSlot="alert-dialog-header"
-      className={cn(
-        "cn-alert-dialog-header",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-header")}
+      className={cn("cn-alert-dialog-header", props.className)}
     />
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
-      dataSlot="alert-dialog-footer"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-footer")}
       className={cn(
         "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
-        className,
+        props.className,
       )}
     />
 }
 
 module Media = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
-      dataSlot="alert-dialog-media"
-      className={cn(
-        "cn-alert-dialog-media",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-media")}
+      className={cn("cn-alert-dialog-media", props.className)}
     />
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.AlertDialog.Title
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="alert-dialog-title"
-      className={cn(
-        "cn-alert-dialog-title cn-font-heading",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-title")}
+      className={cn("cn-alert-dialog-title cn-font-heading", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.AlertDialog.Description
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="alert-dialog-description"
-      className={cn(
-        "cn-alert-dialog-description",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-description")}
+      className={cn("cn-alert-dialog-description", props.className)}
     />
 }
 
 module Action = {
-  @react.component
-  let make = (
-    ~className="",
-    ~variant=Variant.Default,
-    ~size=Size.Default,
-    ~nativeButton=?,
-    ~disabled=?,
-    ~children=?,
-    ~onClick=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~render=?,
-  ) =>
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) => {
+    let className = props.className->Option.getOr("")
+    let variant = props.variant->Option.getOr(Variant.Default)
+    let size = props.size->Option.getOr(Size.Default)
     <Button
+      {...props}
       className={cn("cn-alert-dialog-action", Some(className))}
       variant
       size
-      ?nativeButton
-      ?disabled
-      ?children
-      ?onClick
-      ?type_
-      ?ariaLabel
-      ?render
-      dataSlot="alert-dialog-action"
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-action")}
     />
+  }
 }
 
 module Cancel = {
-  @react.component
-  let make = (
-    ~className="",
-    ~variant=Variant.Outline,
-    ~size=Size.Default,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=<Button variant size className={cn("cn-alert-dialog-cancel", Some(className))} />,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) => {
+  type props = {
+    ...BaseUi.Dialog.Close.props,
+    variant?: Variant.t,
+    size?: Size.t,
+  }
+
+  let toBaseUiProps: props => BaseUi.Dialog.Close.props = %raw(`({variant, size, className, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let className = props.className->Option.getOr("")
+    let variant = props.variant->Option.getOr(Variant.Outline)
+    let size = props.size->Option.getOr(Size.Default)
+    let render =
+      props.render->Option.getOr(
+        <Button variant size className={cn("cn-alert-dialog-cancel", Some(className))} />,
+      )
     <BaseUi.AlertDialog.Close
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="alert-dialog-cancel"
+      {...props->toBaseUiProps}
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-cancel")}
       render
     />
   }

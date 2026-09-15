@@ -2,8 +2,8 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 type props = ReactAria.Autocomplete.props
 
@@ -32,26 +32,19 @@ let make = (props: props) => {
 
 module Dialog = {
   type props = {title?: string, description?: string, open_?: bool, ...Dialog.props}
-  let dialogProps: props => Dialog.props = %raw(
-    `({title, description, open, className, children, ...props}) => props`
-  )
+  let dialogProps: props => Dialog.props = %raw(`({title, description, open, className, children, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props) =>
     <Dialog
       {...props->dialogProps}
       isOpen=?{props.open_}
-      className={cn(
-        "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
-        props.className,
-      )}
+      className={cn("cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0", props.className)}
       showCloseButton={props.showCloseButton->Option.getOr(false)}
       isDismissable=true
     >
       <Dialog.Header className="sr-only">
-        <Dialog.Title>
-          {props.title->Option.getOr("Command Palette")->React.string}
-        </Dialog.Title>
+        <Dialog.Title> {props.title->Option.getOr("Command Palette")->React.string} </Dialog.Title>
         <Dialog.Description>
           {props.description->Option.getOr("Search for a command to run...")->React.string}
         </Dialog.Description>
@@ -98,11 +91,7 @@ module List = {
 module Empty = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
   let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="command-empty"
-      className={cn("cn-command-empty", props.className)}
-    />
+    <div {...props} dataSlot="command-empty" className={cn("cn-command-empty", props.className)} />
 }
 
 module Group = {
@@ -111,9 +100,9 @@ module Group = {
     children?: 'children,
     ...ReactAria.Menu.Section.componentProps<'item>,
   }
-  let sectionProps: props<'item, 'children> => ReactAria.Menu.Section.componentProps<'item> = %raw(
-    `({heading, children, items, ...props}) => props`
-  )
+  let sectionProps: props<'item, 'children> => ReactAria.Menu.Section.componentProps<
+    'item,
+  > = %raw(`({heading, children, items, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props<'item, 'children>) =>
@@ -127,10 +116,7 @@ module Group = {
         <ReactAria.Header cmdkGroupHeading=""> {heading->React.string} </ReactAria.Header>
       | None => React.null
       }}
-      <ReactAria.Combobox.Collection.Flexible
-        items=?{props.items}
-        children=?{props.children}
-      />
+      <ReactAria.Combobox.Collection.Flexible items=?{props.items} children=?{props.children} />
     </ReactAria.Menu.Section>
 }
 

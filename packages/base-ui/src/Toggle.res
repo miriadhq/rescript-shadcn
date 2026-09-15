@@ -1,5 +1,4 @@
 type props<'value> = {
-  ...Types.BaseUIComponentProps.t,
   ...Types.NativeButtonProps.t,
   pressed?: bool,
   defaultPressed?: bool,

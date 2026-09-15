@@ -60,7 +60,6 @@ const IMPLICIT_PACKAGES = new Set([
   "react-dom/client",
   "@rescript/runtime",
   "@rescript/react",
-  "tailwind-merge",
 ])
 
 /** ReScript namespaces erased by externals still need package deps in registry */
@@ -135,6 +134,7 @@ function listResFiles(dir) {
     .sort()
 }
 
+const libraryModules = listResFiles(baseDir)
 const uiModules = listResFiles(path.join(baseDir, "ui"))
 const exampleModules = listResFiles(path.join(baseDir, "examples"))
 const styleModules = existsSync(path.join(packageRoot, "registry", "styles"))
@@ -148,6 +148,9 @@ const styleModules = existsSync(path.join(packageRoot, "registry", "styles"))
 // e.g. "ui/Accordion.res" → "accordion"
 const base = `registry/${registryLib}`
 const pathToName = new Map()
+for (const mod of libraryModules) {
+  pathToName.set(`${base}/${mod}.res`, mod)
+}
 for (const mod of uiModules) {
   pathToName.set(`${base}/ui/${mod}.res`, mod)
 }
@@ -165,7 +168,7 @@ const IGNORED_AST_DEPS = new Set([
 ])
 
 /** Build a set of all known registry module names for matching .ast deps */
-const registryModules = new Set([...uiModules, ...exampleModules])
+const registryModules = new Set([...libraryModules, ...uiModules, ...exampleModules])
 
 /** Parse compile-time dependencies from a .ast file in lib/ocaml/.
  *  Format: 4-byte header, then \n-separated module names, then \n followed
@@ -297,6 +300,9 @@ function buildStyleItem(style) {
 // Build all items
 const items = [
   ...styleModules.map(buildStyleItem),
+  ...libraryModules.map((mod) => buildItem(mod, base, "registry:lib", {
+    fileType: "registry:file", target: `@ui/${mod}.res`,
+  })),
   ...uiModules.map((mod) => buildUiItem(mod, `${base}/ui`)),
   ...exampleModules.map((mod) =>
     buildItem(mod, `${base}/examples`, "registry:example")

@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Align = {
   @unboxed
@@ -69,10 +69,7 @@ module Header = {
     <div
       {...props}
       dataSlot={props.dataSlot->Option.getOr("message-header")}
-      className={cn(
-        "cn-message-header flex max-w-full min-w-0 items-center",
-        props.className,
-      )}
+      className={cn("cn-message-header flex max-w-full min-w-0 items-center", props.className)}
     />
 }
 

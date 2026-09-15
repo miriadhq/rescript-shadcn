@@ -4,6 +4,7 @@ module Root = {
     min?: float,
     max?: float,
     value?: float,
+    getAriaValueText?: (string, nullable<float>) => string,
   }
   @module("@base-ui/react/progress") @scope("Progress")
   external make: React.component<props> = "Root"

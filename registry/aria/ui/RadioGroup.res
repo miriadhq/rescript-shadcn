@@ -2,21 +2,21 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithProps(props)
 let make = (props: ReactAria.RadioGroup.props) =>
   <ReactAria.RadioGroup
-    {...props}
-    dataSlot="radio-group"
-    className={cn("cn-radio-group w-full", props.className)}
+    {...props} dataSlot="radio-group" className={cn("cn-radio-group w-full", props.className)}
   />
 
 module Item = {
   type props<'children> = {children?: 'children, ...ReactAria.Radio.componentProps}
 
-  let radioProps: props<'children> => ReactAria.Radio.componentProps = %raw(`({children, ...props}) => props`)
+  let radioProps: props<
+    'children,
+  > => ReactAria.Radio.componentProps = %raw(`({children, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props<'children>) =>
@@ -28,7 +28,10 @@ module Item = {
         props.className,
       )}
     >
-      {ReactAria.Common.composeRenderProps(props.children, (children, state: ReactAria.Radio.renderProps) =>
+      {ReactAria.Common.composeRenderProps(props.children, (
+        children,
+        state: ReactAria.Radio.renderProps,
+      ) =>
         <>
           <span dataSlot="radio-group-indicator" className="cn-radio-group-indicator">
             {state.isSelected ? <span className="cn-radio-group-indicator-icon" /> : React.null}

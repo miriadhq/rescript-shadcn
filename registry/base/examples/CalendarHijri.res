@@ -3,8 +3,8 @@
 
 @send external focusElement: Dom.element => unit = "focus"
 
-@module("tailwind-merge")
-external cn: (string, option<string>, ~additional: option<string>=?) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>, ~additional: option<string>=?) => string = "cn"
 
 %%raw(`
 import { Vazirmatn } from "next/font/google"
@@ -18,6 +18,7 @@ external vazirmatnClassName: string = "vazirmatnClassName"
 module PersianDayPicker = {
   @react.component @module("react-day-picker/persian")
   external make: (
+    ~dir: string=?,
     ~showOutsideDays: bool=?,
     ~className: string=?,
     ~captionLayout: Calendar.CaptionLayout.t=?,
@@ -132,9 +133,10 @@ module HijriCalendar = {
     }
 
     <PersianDayPicker
+      dir="rtl"
       showOutsideDays
       className={cn(
-        "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
+        "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent rtl:**:[.rdp-button\\_next>svg]:rotate-180 rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
         className,
       )}
       captionLayout
@@ -182,7 +184,7 @@ module HijriCalendar = {
             captionLabelClassName->Some,
             ~additional=defaultClassNames.captionLabel,
           ),
-          monthGrid: "w-full border-collapse",
+          monthGrid: cn("w-full border-collapse", defaultClassNames.monthGrid),
           weekdays: cn("flex", defaultClassNames.weekdays),
           weekday: cn(
             "text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none",
@@ -216,31 +218,8 @@ module HijriCalendar = {
       )}
       components={merge(
         ~defaults={
-          Calendar.DayPickerComponents.root: ({
-            ?className,
-            ?children,
-            ?rootRef,
-            ?id,
-            ?style,
-            ?onClick,
-            ?onKeyDown,
-            ?dataMode,
-            ?dataWeekNumbers,
-            ?dataMultipleMonths,
-          }) =>
-            <div
-              dataSlot="calendar"
-              ref=?rootRef
-              ?className
-              ?children
-              ?id
-              ?style
-              ?onClick
-              ?onKeyDown
-              ?dataMode
-              ?dataWeekNumbers
-              ?dataMultipleMonths
-            />,
+          Calendar.DayPickerComponents.root: props =>
+            <div {...Calendar.RootProps.toDomProps(props)} dataSlot="calendar" />,
           chevron: (props: Calendar.ChevronProps.t) => {
             let className = props.className->Option.getOr("")
             let orientation = props.orientation

@@ -1,6 +1,5 @@
 module Root = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NonNativeButtonProps.t,
     checked?: bool,
     onCheckedChange?: (bool, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,

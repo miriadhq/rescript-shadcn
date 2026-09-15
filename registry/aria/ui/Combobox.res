@@ -2,8 +2,8 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 type rootProps<'item, 'value> = ReactAria.Combobox.props<'item, 'value>
 
@@ -20,9 +20,7 @@ module Trigger = {
   @react.componentWithProps(ReactAria.Button.props)
   let make = (props: ReactAria.Button.props) =>
     <ReactAria.Button
-      {...props}
-      dataSlot="combobox-trigger"
-      className={cn("cn-combobox-trigger", props.className)}
+      {...props} dataSlot="combobox-trigger" className={cn("cn-combobox-trigger", props.className)}
     >
       {props.children->Option.getOr(React.null)}
       <Icons.ChevronDown className="cn-combobox-trigger-icon pointer-events-none" />
@@ -131,7 +129,10 @@ module Item = {
   @react.componentWithProps(ReactAria.Combobox.Item.props)
   let make = (props: ReactAria.Combobox.Item.props<'item, 'key>) => {
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
-    let children = ReactAria.Common.composeItemRenderProps(props.children, (children, {isSelected}) =>
+    let children = ReactAria.Common.composeItemRenderProps(props.children, (
+      children,
+      {isSelected},
+    ) =>
       <>
         {children}
         <span className="cn-combobox-item-indicator">
@@ -158,9 +159,7 @@ module Group = {
   @react.componentWithProps(ReactAria.Combobox.Group.props)
   let make = (props: ReactAria.Combobox.Group.props<'item, 'children>) =>
     <ReactAria.Combobox.Group
-      {...props}
-      dataSlot="combobox-group"
-      className={cn("cn-combobox-group", props.className)}
+      {...props} dataSlot="combobox-group" className={cn("cn-combobox-group", props.className)}
     />
 }
 
@@ -168,9 +167,7 @@ module Label = {
   @react.componentWithProps(ReactAria.Header.props)
   let make = (props: ReactAria.Header.props) =>
     <ReactAria.Header
-      {...props}
-      dataSlot="combobox-label"
-      className={cn("cn-combobox-label", props.className)}
+      {...props} dataSlot="combobox-label" className={cn("cn-combobox-label", props.className)}
     />
 }
 
@@ -184,9 +181,7 @@ module Empty = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
   let make = (props: ReactAria.Types.DomProps.t) =>
     <div
-      {...props}
-      dataSlot="combobox-empty"
-      className={cn("cn-combobox-empty", props.className)}
+      {...props} dataSlot="combobox-empty" className={cn("cn-combobox-empty", props.className)}
     />
 }
 
@@ -204,9 +199,7 @@ module Chips = {
   @react.componentWithProps(ReactAria.Group.props)
   let make = (props: ReactAria.Group.props) =>
     <ReactAria.Group
-      {...props}
-      dataSlot="combobox-chips"
-      className={cn("cn-combobox-chips", props.className)}
+      {...props} dataSlot="combobox-chips" className={cn("cn-combobox-chips", props.className)}
     />
 }
 
@@ -225,11 +218,7 @@ module ChipList = {
             state.state.setValue(value->Nullable.make)
           }}
         >
-          <ReactAria.TagGroup.List
-            {...props}
-            className="contents"
-            items={selectedItems}
-          />
+          <ReactAria.TagGroup.List {...props} className="contents" items={selectedItems} />
         </ReactAria.TagGroup>
       }}
     />
@@ -275,16 +264,16 @@ module ChipsInput = {
       ReactAria.Combobox.stateContext,
     )
     let onKeyDown = props.onKeyDown->Option.getOr(event => {
-        if event->keyboardKey == "Backspace" && event->currentTargetValue == "" {
-          switch state {
-          | Value(state) if state.value->Array.length > 0 => {
-              event->preventDefault
-              state.setValue(state.value->Array.slice(~start=0, ~end=-1)->Nullable.make)
-            }
-          | _ => ()
+      if event->keyboardKey == "Backspace" && event->currentTargetValue == "" {
+        switch state {
+        | Value(state) if state.value->Array.length > 0 => {
+            event->preventDefault
+            state.setValue(state.value->Array.slice(~start=0, ~end=-1)->Nullable.make)
           }
+        | _ => ()
         }
-      })
+      }
+    })
     <ReactAria.Input
       {...props}
       dataSlot="combobox-chip-input"

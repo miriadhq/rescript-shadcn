@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Variant = {
   @unboxed
@@ -21,105 +21,76 @@ let emptyMediaVariants = (~variant=Variant.Default) => {
   `${base} ${emptyMediaVariantClass(~variant)}`
 }
 
-@react.component
-let make = (~className=?, ~children=?, ~id=?, ~dir=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+@react.componentWithProps(BaseUi.Types.DomProps.t)
+let make = (props: BaseUi.Types.DomProps.t) => {
   <div
-    ?id
-    ?children
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
-    dataSlot="empty"
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("empty")}
     className={cn(
       "cn-empty flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
-      className,
+      props.className,
     )}
   />
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="empty-header"
-      className={cn("cn-empty-header flex max-w-sm flex-col items-center", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("empty-header")}
+      className={cn("cn-empty-header flex max-w-sm flex-col items-center", props.className)}
     />
 }
 
 module Media = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~variant=Variant.Default,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) => {
+  type props = {variant?: Variant.t, ...BaseUi.Types.DomProps.t}
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({variant, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let variant = props.variant->Option.getOr(Default)
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="empty-icon"
-      dataVariant={(variant :> string)}
-      className={cn(emptyMediaVariants(~variant), className)}
+      {...props->toDomProps}
+      dataSlot={props.dataSlot->Option.getOr("empty-icon")}
+      dataVariant={props.dataVariant->Option.getOr((variant :> string))}
+      className={cn(emptyMediaVariants(~variant), props.className)}
     />
   }
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="empty-title"
-      className={cn("cn-empty-title cn-font-heading", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("empty-title")}
+      className={cn("cn-empty-title cn-font-heading", props.className)}
     />
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="empty-description"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("empty-description")}
       className={cn(
         "cn-empty-description text-muted-foreground [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
-        className,
+        props.className,
       )}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="empty-content"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("empty-content")}
       className={cn(
         "cn-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
-        className,
+        props.className,
       )}
     />
 }

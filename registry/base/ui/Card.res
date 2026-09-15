@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Size = {
   @unboxed
@@ -10,128 +10,93 @@ module Size = {
     | @as("sm") Sm
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~size=Size.Default,
-) => {
+type props = {
+  size?: Size.t,
+  children?: React.element,
+  ...BaseUi.Types.BaseDomProps.t,
+  ...BaseUi.Types.ExtraDomProps.t,
+}
+let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({size, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let size = props.size->Option.getOr(Default)
   <div
-    ?id
-    ?children
-    ?style
-    ?dir
-    ?onClick
-    ?onKeyDown
-    dataSlot="card"
-    dataSize={(size :> string)}
-    className={cn(
-      "cn-card group/card flex flex-col",
-      className,
-    )}
+    {...props->toDomProps}
+    dataSlot={props.dataSlot->Option.getOr("card")}
+    dataSize={props.dataSize->Option.getOr((size :> string))}
+    className={cn("cn-card group/card flex flex-col", props.className)}
   />
 }
 
 module Header = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="card-header"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("card-header")}
       className={cn(
         "cn-card-header group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
-        className,
+        props.className,
       )}
     />
   }
 }
 
 module Title = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="card-title"
-      className={cn(
-        "cn-card-title cn-font-heading",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("card-title")}
+      className={cn("cn-card-title cn-font-heading", props.className)}
     />
   }
 }
 
 module Description = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="card-description"
-      className={cn("cn-card-description", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("card-description")}
+      className={cn("cn-card-description", props.className)}
     />
   }
 }
 
 module Action = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="card-action"
-      className={cn("cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("card-action")}
+      className={cn(
+        "cn-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        props.className,
+      )}
     />
   }
 }
 
 module Content = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="card-content"
-      className={cn("cn-card-content", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("card-content")}
+      className={cn("cn-card-content", props.className)}
     />
   }
 }
 
 module Footer = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) => {
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) => {
     <div
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="card-footer"
-      className={cn(
-        "cn-card-footer flex items-center",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("card-footer")}
+      className={cn("cn-card-footer flex items-center", props.className)}
     />
   }
 }

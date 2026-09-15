@@ -2,82 +2,38 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-  ~onOpenChangeComplete=?,
-  ~delay=?,
-  ~closeDelay=?,
-  ~style=?,
-) =>
-  <BaseUi.PreviewCard.Root
-    ?className
-    ?children
-    ?id
-    ?open_
-    ?defaultOpen
-    ?onOpenChange
-    ?onOpenChangeComplete
-    ?delay
-    ?closeDelay
-    ?style
-    dataSlot="hover-card"
-  />
+@react.componentWithProps(BaseUi.PreviewCard.Root.props)
+let make = (props: BaseUi.PreviewCard.Root.props<'payload>) =>
+  <BaseUi.PreviewCard.Root {...props} dataSlot={props.dataSlot->Option.getOr("hover-card")} />
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaLabel=?,
-    ~delay=?,
-    ~closeDelay=?,
-    ~render=?,
-    ~style=?,
-  ) =>
+  @react.componentWithProps(BaseUi.PreviewCard.Trigger.props)
+  let make = (props: BaseUi.PreviewCard.Trigger.props<'payload>) =>
     <BaseUi.PreviewCard.Trigger
-      ?className
-      ?children
-      ?id
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      ?delay
-      ?closeDelay
-      ?render
-      ?style
-      dataSlot="hover-card-trigger"
+      {...props} dataSlot={props.dataSlot->Option.getOr("hover-card-trigger")}
     />
 }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~dir=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~align=Align.Center,
-    ~alignOffset=4.,
-    ~side=Side.Bottom,
-    ~sideOffset=4.,
-  ) =>
+  type props = {
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    align?: Align.t,
+    alignOffset?: float,
+    side?: Side.t,
+    sideOffset?: float,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({align, alignOffset, side, sideOffset, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let align = props.align->Option.getOr(Align.Center)
+    let alignOffset = props.alignOffset->Option.getOr(4.)
+    let side = props.side->Option.getOr(Side.Bottom)
+    let sideOffset = props.sideOffset->Option.getOr(4.)
     <BaseUi.PreviewCard.Portal dataSlot="hover-card-portal">
       <BaseUi.PreviewCard.Positioner
         align
@@ -87,18 +43,14 @@ module Content = {
         className="isolate z-50"
       >
         <BaseUi.PreviewCard.Popup
-          ?id
-          ?dir
-          ?style
-          ?onClick
-          ?onKeyDown
-          ?children
-          dataSlot="hover-card-content"
+          {...props->toBaseUiProps}
+          dataSlot={props.dataSlot->Option.getOr("hover-card-content")}
           className={cn(
             "cn-hover-card-content-logical cn-hover-card-content z-50 origin-(--transform-origin) outline-hidden",
-            className,
+            props.className,
           )}
         />
       </BaseUi.PreviewCard.Positioner>
     </BaseUi.PreviewCard.Portal>
+  }
 }

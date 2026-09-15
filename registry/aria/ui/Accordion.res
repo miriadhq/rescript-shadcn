@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithProps(ReactAria.DisclosureGroup.props)
 let make = (props: ReactAria.DisclosureGroup.props) =>
@@ -15,9 +15,7 @@ module Item = {
   @react.componentWithProps(ReactAria.Disclosure.props)
   let make = (props: ReactAria.Disclosure.props) =>
     <ReactAria.Disclosure
-      {...props}
-      dataSlot="accordion-item"
-      className={cn("cn-accordion-item", props.className)}
+      {...props} dataSlot="accordion-item" className={cn("cn-accordion-item", props.className)}
     />
 }
 

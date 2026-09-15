@@ -1,76 +1,25 @@
 @@directive("'use client'")
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~dir=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-  ~disabled=?,
-  ~style=?,
-) =>
-  <BaseUi.Collapsible.Root
-    ?className
-    ?children
-    ?id
-    ?dir
-    ?open_
-    ?defaultOpen
-    ?onOpenChange
-    ?disabled
-    ?style
-    dataSlot="collapsible"
-  />
+@react.componentWithProps(BaseUi.Collapsible.Root.props)
+let make = (props: BaseUi.Collapsible.Root.props) =>
+  <BaseUi.Collapsible.Root {...props} dataSlot={props.dataSlot->Option.getOr("collapsible")} />
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~ariaLabel=?,
-    ~render=?,
-    ~style=?,
-    ~type_=?,
-    ~nativeButton=?,
-  ) => {
+  @react.componentWithProps(BaseUi.Collapsible.Trigger.props)
+  let make = (props: BaseUi.Collapsible.Trigger.props) =>
     <BaseUi.Collapsible.Trigger
-      ?className
-      ?children
-      ?id
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      ?ariaLabel
-      ?render
-      ?style
-      ?type_
-      ?nativeButton
-      dataSlot="collapsible-trigger"
+      {...props} dataSlot={props.dataSlot->Option.getOr("collapsible-trigger")}
     />
-  }
 }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children,
-    ~id=?,
-    ~style=?,
-    ~render=?,
-    ~hiddenUntilFound=?,
-    ~keepMounted=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Collapsible.Panel.props)
+  let make = (props: BaseUi.Collapsible.Panel.props) => {
+    let children = props.children->Option.getOr(React.null)
     <BaseUi.Collapsible.Panel
-      ?className ?id ?style ?hiddenUntilFound ?keepMounted ?render dataSlot="collapsible-content"
+      {...props} dataSlot={props.dataSlot->Option.getOr("collapsible-content")}
     >
       {children}
     </BaseUi.Collapsible.Panel>
+  }
 }

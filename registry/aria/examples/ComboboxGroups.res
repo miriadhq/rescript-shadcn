@@ -43,7 +43,7 @@ let timezones = [
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Combobox items={timezones} allowsEmptyCollection=true>
+  <Combobox ariaLabel="Timezone" items={timezones} allowsEmptyCollection=true>
     <Combobox.Input placeholder="Select a timezone" />
     <Combobox.Content>
       <Combobox.List
@@ -55,7 +55,7 @@ let make = ({}: Demo.Props.t) =>
             <Combobox.Label> {group.value->React.string} </Combobox.Label>
             {group.items
             ->Array.map(item =>
-              <Combobox.Item key=item value=item> {item->React.string} </Combobox.Item>
+              <Combobox.Item key=item id=item value=item> {item->React.string} </Combobox.Item>
             )
             ->React.array}
             <Combobox.Separator />

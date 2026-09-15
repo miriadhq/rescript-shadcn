@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, string, option<string>) => string = "cn"
 
 @module("react")
 external createElement: (string, ReactAria.Common.elementProps) => React.element = "createElement"

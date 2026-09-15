@@ -3,7 +3,7 @@ let make = ({}: Demo.Props.t) =>
   <Field.Group>
     <Field.Set>
       <Field.Legend variant=Field.Variant.Label> {"Subscription Plan"->React.string} </Field.Legend>
-      <RadioGroup defaultValue="free">
+      <RadioGroup ariaLabel="Subscription Plan" defaultValue="free">
         <Field orientation=Horizontal>
           <RadioGroup.Item value="free" id="radio-free" />
           <Field.Label htmlFor="radio-free" className="font-normal">
@@ -29,7 +29,7 @@ let make = ({}: Demo.Props.t) =>
       <Field.Description>
         {"Choose your preferred battery level."->React.string}
       </Field.Description>
-      <RadioGroup>
+      <RadioGroup ariaLabel="Battery Level">
         <Field orientation=Horizontal>
           <RadioGroup.Item value="high" id="battery-high" />
           <Field.Label htmlFor="battery-high"> {"High"->React.string} </Field.Label>
@@ -44,7 +44,7 @@ let make = ({}: Demo.Props.t) =>
         </Field>
       </RadioGroup>
     </Field.Set>
-    <RadioGroup className="gap-6">
+    <RadioGroup ariaLabel="Security" className="gap-6">
       <Field orientation=Horizontal>
         <RadioGroup.Item value="option1" id="radio-content-1" />
         <Field.Content>
@@ -66,7 +66,7 @@ let make = ({}: Demo.Props.t) =>
         </Field.Content>
       </Field>
     </RadioGroup>
-    <RadioGroup className="gap-3">
+    <RadioGroup ariaLabel="Security" className="gap-3">
       <Field.Label htmlFor="radio-title-1">
         <Field orientation=Horizontal>
           <RadioGroup.Item value="title1" id="radio-title-1" />
@@ -96,7 +96,7 @@ let make = ({}: Demo.Props.t) =>
       <Field.Legend variant=Field.Variant.Label>
         {"Invalid Radio Group"->React.string}
       </Field.Legend>
-      <RadioGroup>
+      <RadioGroup isInvalid=true ariaLabel="Invalid Radio Group">
         <Field dataInvalid={true} orientation=Horizontal>
           <RadioGroup.Item value="invalid1" id="radio-invalid-1" ariaInvalid={#"true"} />
           <Field.Label htmlFor="radio-invalid-1"> {"Invalid Option 1"->React.string} </Field.Label>
@@ -111,7 +111,7 @@ let make = ({}: Demo.Props.t) =>
       <Field.Legend variant=Field.Variant.Label>
         {"Disabled Radio Group"->React.string}
       </Field.Legend>
-      <RadioGroup isDisabled={true}>
+      <RadioGroup ariaLabel="Disabled Radio Group" isDisabled={true}>
         <Field dataDisabled={true} orientation=Horizontal>
           <RadioGroup.Item value="disabled1" id="radio-disabled-1" isDisabled={true} />
           <Field.Label htmlFor="radio-disabled-1">

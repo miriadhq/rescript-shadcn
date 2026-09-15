@@ -2,8 +2,8 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Size = {
   @unboxed
@@ -31,49 +31,34 @@ module Group = {
 }
 
 module Value = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~placeholder=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Select.Value
-      ?id
-      ?style
-      ?placeholder
-      ?children
-      dataSlot="select-value"
-      className={cn("cn-select-value", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("select-value")}
+      className={cn("cn-select-value", props.className)}
     />
 }
 
 module ScrollUpButton = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Select.ScrollUpArrow
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="select-scroll-up-button"
-      className={cn(
-        "cn-select-scroll-up-button top-0 w-full",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("select-scroll-up-button")}
+      className={cn("cn-select-scroll-up-button top-0 w-full", props.className)}
     >
       <Icons.ChevronUp />
     </BaseUi.Select.ScrollUpArrow>
 }
 
 module ScrollDownButton = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Select.ScrollDownArrow
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="select-scroll-down-button"
-      className={cn(
-        "cn-select-scroll-down-button bottom-0 w-full",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("select-scroll-down-button")}
+      className={cn("cn-select-scroll-down-button bottom-0 w-full", props.className)}
     >
       <Icons.ChevronDown />
     </BaseUi.Select.ScrollDownArrow>
@@ -82,9 +67,9 @@ module ScrollDownButton = {
 module Trigger = {
   type triggerProps = {
     size?: Size.t,
-    ...BaseUi.Types.BaseUIComponentProps.t,
+    ...BaseUi.Select.Trigger.props,
   }
-  let toBaseUiProps: triggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({size, ...rest}) => rest`)
+  let toBaseUiProps: triggerProps => BaseUi.Select.Trigger.props = %raw(`({size, ...rest}) => rest`)
   @react.componentWithProps(triggerProps)
   let make = (props: triggerProps) => {
     let size = props.size->Option.getOr(Default)
@@ -92,9 +77,9 @@ module Trigger = {
     <BaseUi.Select.Trigger
       {...baseUiProps}
       dataSlot={props.dataSlot->Option.getOr("select-trigger")}
-      dataSize={(size :> string)}
+      dataSize={props.dataSize->Option.getOr((size :> string))}
       className={cn(
-        "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
       )}
     >
@@ -107,44 +92,39 @@ module Trigger = {
 }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~side=Side.Bottom,
-    ~sideOffset=4.,
-    ~align=Align.Center,
-    ~alignOffset=0.,
-    ~dataAlignTrigger=true,
-  ) => {
-    let alignItemWithTrigger = dataAlignTrigger
+  type props = {
+    align?: Align.t,
+    alignOffset?: float,
+    side?: Side.t,
+    sideOffset?: float,
+    ...BaseUi.Types.BaseUIComponentProps.t,
+  }
+
+  let toBaseUiProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({align, alignOffset, side, sideOffset, "data-align-trigger": dataAlignTrigger, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let alignItemWithTrigger = props.dataAlignTrigger->Option.getOr(true)
     <BaseUi.Select.Portal>
       <BaseUi.Select.Positioner
-        side
-        sideOffset={Const(sideOffset)}
-        align
-        alignOffset={Const(alignOffset)}
+        side={props.side->Option.getOr(Side.Bottom)}
+        sideOffset={Const(props.sideOffset->Option.getOr(4.))}
+        align={props.align->Option.getOr(Align.Center)}
+        alignOffset={Const(props.alignOffset->Option.getOr(0.))}
         alignItemWithTrigger
         className="isolate z-50"
       >
         <BaseUi.Select.Popup
-          ?id
-          ?style
-          ?onClick
-          ?onKeyDown
-          dataSlot="select-content"
+          {...toBaseUiProps(props)}
+          dataSlot={props.dataSlot->Option.getOr("select-content")}
           dataAlignTrigger={alignItemWithTrigger}
           className={cn(
             "cn-select-content-logical cn-select-content cn-menu-target cn-menu-translucent relative isolate z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none",
-            className,
+            props.className,
           )}
         >
           <ScrollUpButton />
-          <BaseUi.Select.List ?children />
+          <BaseUi.Select.List children=?props.children />
           <ScrollDownButton />
         </BaseUi.Select.Popup>
       </BaseUi.Select.Positioner>
@@ -153,66 +133,43 @@ module Content = {
 }
 
 module Label = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Select.GroupLabel
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="select-label"
-      className={cn("cn-select-label", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("select-label")}
+      className={cn("cn-select-label", props.className)}
     />
 }
 
 module Item = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~value=?,
-    ~label=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Select.Item.props)
+  let make = (props: BaseUi.Select.Item.props<'value>) => {
+    let children = props.children
     <BaseUi.Select.Item
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?value
-      ?label
-      dataSlot="select-item"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("select-item")}
       className={cn(
         "cn-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className,
+        props.className,
       )}
     >
-      <BaseUi.Select.ItemText className="cn-select-item-text shrink-0 whitespace-nowrap" ?children />
-      <BaseUi.Select.ItemIndicator
-        render={<span
-          className="cn-select-item-indicator"
-        />}
-      >
+      <BaseUi.Select.ItemText
+        className="cn-select-item-text shrink-0 whitespace-nowrap" ?children
+      />
+      <BaseUi.Select.ItemIndicator render={<span className="cn-select-item-indicator" />}>
         <Icons.Check className="cn-select-item-indicator-icon pointer-events-none" />
       </BaseUi.Select.ItemIndicator>
     </BaseUi.Select.Item>
+  }
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <BaseUi.Select.Separator
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="select-separator"
-      className={cn("cn-select-separator pointer-events-none", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("select-separator")}
+      className={cn("cn-select-separator pointer-events-none", props.className)}
     />
 }

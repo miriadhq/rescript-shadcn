@@ -19,9 +19,11 @@ import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 
 import React from "react";
+import { isValidElementType } from "react-is";
 import { renderToStaticMarkup } from "react-dom/server";
-import { twMerge } from "tailwind-merge";
+import { cn } from "cn";
 import { createServer } from "vite";
+import { upstreamAliases, upstreamRtl, upstreamParityFixes } from "./upstream-resolver.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
@@ -30,7 +32,7 @@ const harnessRoot = path.join(__dirname, "vite-harness");
 const MAX_DIFFS_PER_COMPONENT = 5;
 
 const rootPackageJson = JSON.parse(fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"));
-const DEDUPED_PACKAGES = Object.keys(rootPackageJson.dependencies ?? {});
+const DEDUPED_PACKAGES = Object.keys({ ...rootPackageJson.dependencies, ...rootPackageJson.devDependencies });
 
 const VARIANTS = {
   base: {
@@ -47,247 +49,31 @@ const VARIANTS = {
   },
 };
 
-// Not rendered at all, unlike SKIPPED.
-const EXCLUDED = [
-  "message-scroller-anchoring" // depends on MessageAnimated, which itself depends on "radix", which we don't support
-];
-
-// Components known to fail DOM parity, keyed by the variant(s) they fail in. Goal is zero.
-//
-// Skipped means "not counted as a failure", not "not run": every entry is still rendered and
-// compared, and the run fails if one of them starts passing. That way the lists can only ever shrink.
+// Unfinished example parity. Entries still run and must be removed when they pass.
 const SKIPPED = {
-  both: [
-    // DOM diffs
-    "attachment-demo",
-    "attachment-group",
-    "attachment-image",
-    "attachment-states",
-    "attachment-trigger",
-    "bubble-demo",
-    "bubble-group-demo",
-    "bubble-reactions",
-    "bubble-variants",
-    "button-group-nested",
-    "button-group-select",
-    "button-group-separator",
-    "button-group-split",
-    "calendar-custom-days",
-    "calendar-hijri",
-    "chart-demo",
-    "chart-tooltip",
-    "checkbox-table",
-    "combobox-basic",
-    "combobox-clear",
-    "combobox-custom",
-    "combobox-demo",
-    "combobox-disabled",
-    "combobox-groups",
-    "combobox-input-group",
-    "combobox-invalid",
-    "context-menu-basic",
-    "context-menu-checkboxes",
-    "context-menu-demo",
-    "context-menu-destructive",
-    "context-menu-groups",
-    "context-menu-icons",
-    "context-menu-radio",
-    "context-menu-shortcuts",
-    "context-menu-sides",
-    "context-menu-submenu",
-    "data-table-demo",
-    "dialog-demo",
-    "drawer-demo",
-    "drawer-sides",
-    "field-demo",
-    "field-select",
-    "input-form",
-    "input-group-button",
-    "input-group-button-group",
-    "input-group-custom",
-    "input-group-icon",
-    "input-group-textarea",
-    "input-group-textarea-examples",
-    "input-group-tooltip",
-    "input-group-with-kbd",
-    "input-group-with-tooltip",
-    "marker-demo",
-    "marker-status",
-    "marker-variants",
-    "message-attachment",
-    "message-avatar",
-    "message-demo",
-    "message-group",
-    "message-header-footer",
-    "pagination-icons-only",
-    "select-disabled",
-    "select-groups",
-    "select-invalid",
-    "select-scrollable",
-    "sidebar-demo",
-    "sidebar-group-collapsible",
-    "sidebar-menu-badge",
-    "sidebar-rsc",
-    "spinner-input-group",
-    "table-actions",
-    "table-demo",
-    "table-footer",
-
-    // tsx render failures
-    "message-scroller-demo", // render: Cannot read properties of null (reading 'useRef')
-    "ui/chart", // render: Cannot convert undefined or null to object
-    "ui/message-scroller", // render: useMessageScroller must be used within a MessageScroller.
-    "ui/sidebar", // render: useSidebar must be used within a SidebarProvider.
-  ],
-  base: [
-    // DOM diffs
-    "alert-dialog-basic",
-    "alert-dialog-demo",
-    "alert-dialog-destructive",
-    "alert-dialog-media",
-    "alert-dialog-small",
-    "alert-dialog-small-media",
-    "avatar-badge",
-    "avatar-badge-icon",
-    "avatar-demo",
-    "badge-spinner",
-    "breadcrumb-dropdown",
-    "button-group-orientation",
-    "button-render",
-    "button-spinner",
-    "carousel-api",
-    "carousel-demo",
-    "carousel-multiple",
-    "carousel-orientation",
-    "carousel-plugin",
-    "carousel-size",
-    "carousel-spacing",
-    "chart-example",
-    "chart-example-axis",
-    "chart-example-grid",
-    "chart-example-legend",
-    "chart-example-tooltip",
-    "collapsible-basic",
-    "collapsible-demo",
-    "collapsible-file-tree",
-    "collapsible-settings",
-    "combobox-auto-highlight",
-    "combobox-popup",
-    "command-demo",
-    "dialog-close-button",
-    "dialog-no-close-button",
-    "dialog-scrollable-content",
-    "dialog-sticky-footer",
-    "drawer-dialog",
-    "field-group",
-    "input-group-spinner",
-    "input-otp-form",
-    "native-select-demo",
-    "native-select-disabled",
-    "native-select-groups",
-    "native-select-invalid",
-    "navigation-menu-demo",
-    "pagination-demo",
-    "progress-controlled",
-    "scroll-area-demo",
-    "select-align-item",
-    "select-demo",
-    "separator-demo",
-    "separator-list",
-    "separator-menu",
-    "separator-vertical",
-    "sheet-demo",
-    "sheet-no-close-button",
-    "sheet-side",
-    "sidebar-footer",
-    "sidebar-header",
-    "sidebar-menu-action",
-    "sidebar-menu-collapsible",
-    "spinner-badge",
-    "spinner-button",
-    "spinner-demo",
-    "spinner-empty",
-    "spinner-size",
-    "tabs-vertical",
-    "toggle-group-demo",
-    "toggle-group-disabled",
-    "toggle-group-font-weight-selector",
-    "toggle-group-outline",
-    "toggle-group-sizes",
-    "toggle-group-spacing",
-    "toggle-group-vertical",
-    "ui/navigation-menu",
-    "ui/separator",
-    "ui/spinner",
-
-    // tsx render failures
-    "ui/toast", // render: Cannot read properties of undefined (reading 'positionerProps')
-
-    // rescript resolve failures
-    "ui/direction", // resolve: no component export found
-  ],
+  both: [],
+  base: [],
   aria: [
-    // DOM diffs
-    "bubble-link-button",
-    "button-group-demo",
-    "button-group-dropdown",
-    "button-group-input",
-    "button-group-input-group",
-    "button-group-popover",
-    "button-group-size",
-    "calendar-booked-dates",
-    "calendar-demo",
-    "calendar-presets",
-    "calendar-time",
-    "checkbox-invalid",
-    "combobox-multiple",
-    "date-picker-demo",
-    "date-picker-input",
-    "date-picker-natural-language",
-    "date-picker-range",
-    "dropdown-menu-checkboxes",
-    "dropdown-menu-checkboxes-icons",
-    "dropdown-menu-radio-group",
-    "dropdown-menu-radio-icons",
-    "input-button-group",
-    "input-group-block-end",
-    "input-group-block-start",
-    "input-group-dropdown",
-    "input-group-label",
-    "input-group-with-addons",
-    "input-group-with-buttons",
-    "item-group",
-    "kbd-tooltip",
+    "message-scroller-demo",
+    "calendar-hijri",
     "message-scroller-commands",
     "message-scroller-load-history",
-    "message-scroller-state",
+    "message-scroller-previous-context",
+    "message-scroller-scrollable",
+    "message-scroller-streaming",
     "message-scroller-visibility",
-    "popover-basic",
-    "radio-fields",
-    "radio-group-choice-card",
-    "radio-group-demo",
-    "radio-group-description",
-    "radio-group-disabled",
-    "radio-group-fieldset",
-    "radio-group-invalid",
-    "slider-controlled",
-    "slider-demo",
-    "slider-disabled",
-    "slider-multiple",
-    "slider-range",
-    "slider-vertical",
-    "ui/button-group",
-    "ui/combobox",
-
-    // tsx render failures
-    "message-scroller-animation", // render: Cannot read properties of null (reading 'useRef')
-    "message-scroller-previous-context", // render: Cannot read properties of null (reading 'useRef')
-    "message-scroller-scrollable", // render: Cannot read properties of null (reading 'useState')
-    "message-scroller-streaming", // render: Cannot read properties of null (reading 'useRef')
-
-    // rescript render failures
-    "breadcrumb-link", // render: createElement is not defined
   ],
+};
+
+// Deliberate divergences, covered by component-interactions.test.ts where behavioral.
+// A load/render error remains a failure, even for one of these examples.
+const EXPECTED_DIFFERENCES = {
+  base: {},
+  aria: {
+    "bubble-link-button": "Keep type=button to avoid submitting a containing form.",
+    "context-menu-shortcuts": "Keep an accessible role on the Pressable trigger.",
+    "sidebar-demo": "React Aria exposes data-expanded, not data-state=open.",
+  },
 };
 
 const printHelp = () => {
@@ -381,22 +167,62 @@ const rescriptBase = (variant, id) =>
 const hasRescriptEquivalent = (variant, id) => fs.existsSync(`${rescriptBase(variant, id)}.res`);
 const rescriptPath = (variant, id) => `${rescriptBase(variant, id)}.res.mjs`;
 
-// Same export resolution as vite-harness/main.tsx.
+const isComponent = (value) =>
+  (typeof value === "function" || (value !== null && typeof value === "object")) && isValidElementType(value);
+
+// Prefer the exact component export, including memo and forwardRef components.
 const resolveTsxComponent = (mod, id) => {
-  if (typeof mod.default === "function") return mod.default;
+  if (isComponent(mod.default)) return mod.default;
   if (id.startsWith("ui/")) {
-    if (id === "ui/resizable" && typeof mod.ResizablePanelGroup === "function") return mod.ResizablePanelGroup;
+    if (id === "ui/resizable" && isComponent(mod.ResizablePanelGroup)) return mod.ResizablePanelGroup;
     const name = toPascalCase(id.slice(3));
-    if (typeof mod[name] === "function") return mod[name];
-    const prefixed = Object.keys(mod).find((k) => k.startsWith(name) && typeof mod[k] === "function");
+    if (isComponent(mod[name])) return mod[name];
+    const prefixed = Object.keys(mod).find((k) => k.startsWith(name) && isComponent(mod[k]));
     if (prefixed) return mod[prefixed];
   }
-  const demo = Object.keys(mod).find((k) => k.endsWith("Demo") && typeof mod[k] === "function");
+  const demo = Object.keys(mod).find((k) => k.endsWith("Demo") && isComponent(mod[k]));
   if (demo) return mod[demo];
-  const first = Object.keys(mod).find((k) => typeof mod[k] === "function");
+  const first = Object.keys(mod).find((k) => isComponent(mod[k]));
   return first ? mod[first] : null;
 };
-const resolveRescriptComponent = (mod) => (mod && typeof mod.make === "function" ? mod.make : null);
+const resolveRescriptComponent = (mod, id) =>
+  isComponent(mod?.make) ? mod.make : (id === "ui/direction" ? mod.Provider?.make : null);
+
+// Bare compound components need the same minimal context and required props on both sides.
+const fixture = (mod, Component, id, rescript) => {
+  const part = (name) => rescript ? mod[name]?.make : mod[toPascalCase(id.slice(3)) + name];
+  const child = React.createElement("div", null, "Fixture");
+  switch (id) {
+    case "input-group-with-tooltip": {
+      const CountryExample = () => {
+        const [country, setCountry] = React.useState("+1");
+        return React.createElement(Component, { country, setCountry });
+      };
+      return React.createElement(CountryExample);
+    }
+    case "ui/chart":
+      return React.createElement(Component, { config: {}, id: "fixture" }, child);
+    case "ui/direction":
+      if (variantName === "base") {
+        if (rescript) return React.createElement(Component);
+        const DirectionText = () => {
+          const direction = mod.useDirection();
+          return React.createElement("span", {dir: direction}, direction);
+        };
+        return React.createElement(Component, {direction: "rtl"}, React.createElement(DirectionText));
+      }
+      return React.createElement(Component, { direction: "ltr" }, child);
+    case "ui/sidebar":
+    case "ui/message-scroller":
+      return React.createElement(part("Provider"), null, React.createElement(Component, null, child));
+    case "ui/toast":
+      return React.createElement(part("Provider"), null,
+        React.createElement(part("Viewport"), null,
+          React.createElement(Component, { toast: { id: "fixture", title: "Fixture", type: "info" } }, child)));
+    default:
+      return React.createElement(Component);
+  }
+};
 
 // Strict tokenizer for react-dom/server output. An HTML parser would silently repair input and
 // insert elements (implicit <tbody>, ...) that React's client DOM, seen by the browser harness, lacks.
@@ -466,7 +292,7 @@ const parseStaticMarkup = (html) => {
 
 // Port of the normalization in pixel-perfect-vite.test.ts; keep in sync.
 const canonicalizeClassName = (className) =>
-  twMerge(className)
+  cn(className)
     .split(/\s+/)
     .filter(Boolean)
     .map((token) => {
@@ -478,10 +304,10 @@ const canonicalizeClassName = (className) =>
     .sort()
     .join(" ");
 
-// Set internally by Base UI or react-day-picker; ReScript's explicit `undefined` props override them.
+// Keep focus, roles, expanded/disabled state and panel flags visible.
+// Remaining legacy exclusions include generated IDs and differing library state encodings.
 const STRIPPED_ATTRIBUTES = [
-  "tabindex", "aria-expanded", "aria-haspopup", "aria-disabled", "aria-controls",
-  "data-state", "data-unchecked", "data-panel-open", "role",
+  "aria-controls", "data-state",
   "lang", "data-selected-single", "week",
   "aria-autocomplete", "autocapitalize", "autocomplete", "autocorrect", "spellcheck",
   "data-size", "data-variant",
@@ -581,7 +407,7 @@ const createViteServer = () => {
   // vite-parity.config.ts aliases, minus `react` -> absolute path, which makes Vite inline React's
   // CJS build in SSR ("module is not defined"). Style trees (base-nova, base-rhea, ...) share one source.
   const alias = [
-    { find: /^@\/styles\/(base|aria)-[a-z]+/, replacement: (_m, kind) => path.join(appRoot, `registry/bases/${kind}`) },
+    ...upstreamAliases,
     { find: "shadcn/tailwind.css", replacement: path.join(repoRoot, "app/tailwind.css") },
     { find: "shadcn/preset", replacement: path.join(repoRoot, "shadcn-ui/packages/shadcn/src/preset/index.ts") },
     { find: "@/app/(app)/create/components/icon-placeholder", replacement: path.join(harnessRoot, "icon-placeholder.tsx") },
@@ -593,6 +419,7 @@ const createViteServer = () => {
   ];
   return createServer({
     configFile: false,
+    plugins: [upstreamRtl(), upstreamParityFixes()],
     root: harnessRoot,
     logLevel: "silent",
     appType: "custom",
@@ -629,6 +456,9 @@ const withCapturedConsole = (messages, run) => {
 const renderSide = async (server, modulePath, resolveComponent, id) => {
   let mod;
   try {
+    if (variantName === "base" && id === "ui/direction" && resolveComponent === resolveRescriptComponent) {
+      modulePath = path.join(harnessRoot, "DirectionParity.res.mjs");
+    }
     mod = await server.ssrLoadModule(modulePath);
   } catch (error) {
     return { error: `load: ${firstLine(error)}` };
@@ -637,7 +467,7 @@ const renderSide = async (server, modulePath, resolveComponent, id) => {
   if (!Component) return { error: "resolve: no component export found" };
   const warnings = [];
   try {
-    const html = withCapturedConsole(warnings, () => renderToStaticMarkup(React.createElement(Component)));
+    const html = withCapturedConsole(warnings, () => renderToStaticMarkup(fixture(mod, Component, id, resolveComponent === resolveRescriptComponent)));
     return { html, warnings };
   } catch (error) {
     return { error: `render: ${firstLine(error)}`, warnings };
@@ -647,19 +477,24 @@ const renderSide = async (server, modulePath, resolveComponent, id) => {
 const { pattern, variantName, verbose, jsonPath } = parseCli(process.argv.slice(2));
 const variant = VARIANTS[variantName];
 const skipped = new Set([...SKIPPED.both, ...(SKIPPED[variantName] ?? [])]);
+const expectedDifferences = EXPECTED_DIFFERENCES[variantName];
+const exceptions = new Set([...skipped, ...Object.keys(expectedDifferences)]);
 const startedAt = performance.now();
 
-const build = spawnSync(path.join(repoRoot, "node_modules/.bin/rescript"), [], {
-  cwd: path.join(repoRoot, `registry/${variantName}`),
-  encoding: "utf8",
-});
-if (build.error) {
-  console.error(`could not run rescript: ${build.error.message}`);
-  process.exit(2);
-}
-if (build.status !== 0) {
-  console.error(`rescript build failed (exit ${build.status})\n${build.stdout}${build.stderr}`);
-  process.exit(2);
+// The root project owns the compiled harness fixtures and builds both registry dependencies.
+for (const [command, args] of [
+  [process.execPath, [path.join(repoRoot, "scripts/generate-demo-loader.mjs")]],
+  [path.join(repoRoot, "node_modules/.bin/rescript"), []],
+]) {
+  const build = spawnSync(command, args, { cwd: repoRoot, encoding: "utf8" });
+  if (build.error) {
+    console.error(`could not run ${command}: ${build.error.message}`);
+    process.exit(2);
+  }
+  if (build.status !== 0) {
+    console.error(`${command} failed (exit ${build.status})\n${build.stdout}${build.stderr}`);
+    process.exit(2);
+  }
 }
 
 const upstreamIds = listUpstreamIds(variant);
@@ -670,19 +505,19 @@ if (selectedIds.length === 0) {
 
 // A skipped id has to name a real paired component of this variant, or the list is rotting.
 const upstreamSet = new Set(upstreamIds);
-const straySkipped = [...skipped].filter((id) => !upstreamSet.has(id));
+const straySkipped = [...exceptions].filter((id) => !upstreamSet.has(id));
 if (straySkipped.length > 0) {
-  usageError(`Not a component of the ${variantName} variant, remove from SKIPPED: ${straySkipped.join(", ")}`);
+  usageError(`Not a component of the ${variantName} variant, remove from exceptions: ${straySkipped.join(", ")}`);
 }
-const unportedSkipped = [...skipped].filter((id) => !hasRescriptEquivalent(variant, id));
+const unportedSkipped = [...exceptions].filter((id) => !hasRescriptEquivalent(variant, id));
 if (unportedSkipped.length > 0) {
-  usageError(`Not a paired component, remove from SKIPPED: ${unportedSkipped.join(", ")}`);
+  usageError(`Not a paired component, remove from exceptions: ${unportedSkipped.join(", ")}`);
 }
 
 const missingIds = selectedIds.filter((id) => !hasRescriptEquivalent(variant, id) && !id.endsWith("-rtl"));
-const comparedIds = selectedIds.filter((id) => hasRescriptEquivalent(variant, id) && !EXCLUDED.includes(id));
+const comparedIds = selectedIds.filter((id) => hasRescriptEquivalent(variant, id));
 
-const results = { passed: [], failed: [], skipped: [], fixed: [], warnings: {} };
+const results = { passed: [], failed: [], skipped: [], fixed: [], warnings: {}, skipReasons: {}, expectedDifferences: [] };
 const server = await createViteServer();
 try {
   for (const id of comparedIds) {
@@ -705,8 +540,12 @@ try {
     }
 
     // A known failure that starts passing is reported as loudly as a regression: the list must shrink.
-    if (skipped.has(id)) {
-      if (reason) results.skipped.push(id);
+    if (id in expectedDifferences) {
+      if (tsx.error || rescript.error) results.failed.push({ id, reason });
+      else if (reason) results.expectedDifferences.push({ id, explanation: expectedDifferences[id], reason });
+      else results.fixed.push(id);
+    } else if (skipped.has(id)) {
+      if (reason) { results.skipped.push(id); results.skipReasons[id] = reason; }
       else results.fixed.push(id);
     } else if (reason) {
       results.failed.push({ id, reason });
@@ -724,18 +563,23 @@ if (results.failed.length > 0) {
   console.log();
 }
 if (results.fixed.length > 0) {
-  console.log(`== no longer failing -- remove from SKIPPED (${results.fixed.length})`);
+  console.log(`== no longer failing -- remove from exceptions (${results.fixed.length})`);
   console.log(`${results.fixed.join(", ")}\n`);
 }
 if (verbose) {
   if (results.passed.length > 0) console.log(`== passed\n${results.passed.join(", ")}\n`);
   if (results.skipped.length > 0) {
-    console.log(`== skipped\n${results.skipped.join(", ")}\n`);
+    console.log("== skipped (unresolved differences)");
+    for (const id of results.skipped) console.log(`${id}\n  ${results.skipReasons[id].replaceAll("\n", "\n  ")}`);
   }
   if (missingIds.length > 0) {
     console.log("== no ReScript port yet");
     for (const id of missingIds) console.log(`${id} -> expected ${path.relative(repoRoot, `${rescriptBase(variant, id)}.res`)}`);
     console.log();
+  }
+  if (results.expectedDifferences.length > 0) {
+    console.log("== expected differences");
+    for (const { id, explanation } of results.expectedDifferences) console.log(`${id}: ${explanation}`);
   }
   const warned = Object.entries(results.warnings);
   if (warned.length > 0) {
@@ -751,6 +595,6 @@ if (jsonPath) {
 const seconds = ((performance.now() - startedAt) / 1000).toFixed(1);
 console.log(
   `visual-fast (${variantName}): passed ${results.passed.length} | failed ${results.failed.length}` +
-  ` | skipped ${results.skipped.length} | ${seconds}s`
+  ` | skipped ${results.skipped.length} | expected differences ${results.expectedDifferences.length} | ${seconds}s`
 );
 process.exit(results.failed.length > 0 || results.fixed.length > 0 ? 1 : 0);

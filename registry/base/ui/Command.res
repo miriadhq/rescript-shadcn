@@ -4,8 +4,8 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module CommandPrimitive = {
   type props = {
@@ -59,116 +59,74 @@ module CommandPrimitive = {
 
   module Item = {
     type props = {
+      ...BaseUi.Types.BaseDomWithoutOnSelectProps.t,
+      ...BaseUi.Types.ExtraDomProps.t,
       children?: React.element,
-      className?: string,
-      id?: string,
-      style?: ReactDOM.Style.t,
       value?: string,
       onSelect?: string => unit,
-      disabled?: bool,
-      onClick?: JsxEvent.Mouse.t => unit,
-      onKeyDown?: JsxEvent.Keyboard.t => unit,
-      dataSlot?: string,
-      ref?: ReactDOM.domRef,
       asChild?: bool,
+      keywords?: array<string>,
+      forceMount?: bool,
     }
     @module("cmdk") @scope("Command")
     external make: React.component<props> = "Item"
   }
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~style=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~onValueChange=?,
-  ~dir=?,
-) =>
+@react.componentWithProps(CommandPrimitive.props)
+let make = (props: CommandPrimitive.props) =>
   <CommandPrimitive
-    ?id
-    ?style
-    ?onClick
-    ?onKeyDown
-    ?value
-    ?defaultValue
-    ?onValueChange
-    ?dir
-    dataSlot="command"
-    className={cn(
-      "cn-command flex size-full flex-col overflow-hidden",
-      className,
-    )}
-    ?children
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("command")}
+    className={cn("cn-command flex size-full flex-col overflow-hidden", props.className)}
   />
 
 module Dialog = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~open_=?,
-    ~defaultOpen=?,
-    ~onOpenChange=?,
-    ~onOpenChangeComplete=?,
-    ~modal=?,
-    ~title="Command Palette",
-    ~description="Search for a command to run...",
-    ~showCloseButton=false,
-  ) =>
-    <Dialog ?open_ ?defaultOpen ?onOpenChange ?onOpenChangeComplete ?modal>
+  type props<'payload> = {
+    ...BaseUi.Dialog.Root.props<'payload>,
+    description?: string,
+    showCloseButton?: bool,
+  }
+
+  let toBaseUiProps: props<'payload> => BaseUi.Dialog.Root.props<
+    'payload,
+  > = %raw(`({className, title, description, showCloseButton, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props<'payload>) => {
+    let children = props.children->Option.getOr(React.null)
+    let title = props.title->Option.getOr("Command Palette")
+    let description = props.description->Option.getOr("Search for a command to run...")
+    let showCloseButton = props.showCloseButton->Option.getOr(false)
+    <Dialog {...props->toBaseUiProps}>
       <Dialog.Header className="sr-only">
         <Dialog.Title> {title->React.string} </Dialog.Title>
         <Dialog.Description> {description->React.string} </Dialog.Description>
       </Dialog.Header>
       <Dialog.Content
-        className={cn("cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0", className)}
+        className={cn(
+          "cn-command-dialog top-1/3 translate-y-0 overflow-hidden p-0",
+          props.className,
+        )}
         showCloseButton
       >
         {children}
       </Dialog.Content>
     </Dialog>
+  }
 }
 
 module Input = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~value=?,
-    ~defaultValue=?,
-    ~onValueChange=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~placeholder=?,
-    ~dir=?,
-  ) => {
+  @react.componentWithProps(CommandPrimitive.Input.props)
+  let make = (props: CommandPrimitive.Input.props) =>
     <div dataSlot="command-input-wrapper" className="cn-command-input-wrapper">
-      <InputGroup
-        className="cn-command-input-group"
-      >
+      <InputGroup className="cn-command-input-group">
         <CommandPrimitive.Input
-          ?id
-          ?style
-          ?value
-          ?defaultValue
-          ?onValueChange
-          ?onClick
-          ?onKeyDown
-          ?placeholder
-          ?dir
-          ?children
-          dataSlot="command-input"
+          {...props}
+          dataSlot={props.dataSlot->Option.getOr("command-input")}
           className={cn(
             "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
-            className,
+            props.className,
           )}
         />
         <InputGroup.Addon>
@@ -176,91 +134,58 @@ module Input = {
         </InputGroup.Addon>
       </InputGroup>
     </div>
-  }
 }
 
 module List = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <CommandPrimitive.List
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      dataSlot="command-list"
-      className={cn(
-        "cn-command-list overflow-x-hidden overflow-y-auto",
-        className,
-      )}
-      ?children
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("command-list")}
+      className={cn("cn-command-list overflow-x-hidden overflow-y-auto", props.className)}
     />
 }
 
 module Empty = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
+  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
     <CommandPrimitive.Empty
-      ?id
-      ?style
-      dataSlot="command-empty"
-      className={cn("cn-command-empty", className)}
-      ?children
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("command-empty")}
+      className={cn("cn-command-empty", props.className)}
     />
 }
 
 module Group = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~heading=?) =>
+  @react.componentWithProps(CommandPrimitive.Group.props)
+  let make = (props: CommandPrimitive.Group.props) =>
     <CommandPrimitive.Group
-      ?id
-      ?style
-      ?heading
-      dataSlot="command-group"
-      className={cn(
-        "cn-command-group",
-        className,
-      )}
-      ?children
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("command-group")}
+      className={cn("cn-command-group", props.className)}
     />
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?) =>
+  @react.componentWithProps(CommandPrimitive.Separator.props)
+  let make = (props: CommandPrimitive.Separator.props) =>
     <CommandPrimitive.Separator
-      ?id
-      ?style
-      ?children
-      dataSlot="command-separator"
-      className={cn("cn-command-separator", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("command-separator")}
+      className={cn("cn-command-separator", props.className)}
     />
 }
 
 module Item = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~value=?,
-    ~onSelect=?,
-    ~disabled=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  @react.componentWithProps(CommandPrimitive.Item.props)
+  let make = (props: CommandPrimitive.Item.props) => {
+    let children = props.children->Option.getOr(React.null)
     <CommandPrimitive.Item
-      ?id
-      ?style
-      ?value
-      ?onSelect
-      ?disabled
-      ?onClick
-      ?onKeyDown
-      dataSlot="command-item"
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("command-item")}
       className={cn(
         "cn-command-item group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className,
+        props.className,
       )}
     >
       {children}
@@ -268,21 +193,15 @@ module Item = {
         className="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
       />
     </CommandPrimitive.Item>
+  }
 }
 
 module Shortcut = {
-  @react.component
-  let make = (~className=?, ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <span
-      ?id
-      ?style
-      ?children
-      ?onClick
-      ?onKeyDown
-      dataSlot="command-shortcut"
-      className={cn(
-        "cn-command-shortcut",
-        className,
-      )}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("command-shortcut")}
+      className={cn("cn-command-shortcut", props.className)}
     />
 }

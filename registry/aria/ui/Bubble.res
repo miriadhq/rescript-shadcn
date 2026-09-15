@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Variant = {
   @unboxed
@@ -45,9 +45,7 @@ type props = {
   align?: Align.t,
   ...ReactAria.Common.elementProps,
 }
-let domProps: props => ReactAria.Types.DomProps.t = %raw(
-  `({variant, align, ...props}) => props`
-)
+let domProps: props => ReactAria.Types.DomProps.t = %raw(`({variant, align, ...props}) => props`)
 
 @react.componentWithProps(props)
 let make = (props: props) => {
@@ -91,10 +89,7 @@ module Content = {
     }
     switch props.render {
     | Some(render) => render(renderProps)
-    | None =>
-      <div
-        {...renderProps}
-      />
+    | None => <div {...renderProps} />
     }
   }
 }
@@ -113,9 +108,7 @@ module Reactions = {
     }
 
   type props = {side?: Side.t, align?: Align.t, ...ReactAria.Common.elementProps}
-  let domProps: props => ReactAria.Types.DomProps.t = %raw(
-    `({side, align, ...props}) => props`
-  )
+  let domProps: props => ReactAria.Types.DomProps.t = %raw(`({side, align, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props) => {

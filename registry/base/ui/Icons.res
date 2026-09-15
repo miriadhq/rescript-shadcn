@@ -656,3 +656,48 @@ module PanelLeftOpen = {
   @module("lucide-react")
   external make: React.component<props> = "PanelLeftOpenIcon"
 }
+
+module BookOpenCheck = {
+  @module("lucide-react")
+  external make: React.component<props> = "BookOpenCheckIcon"
+}
+
+module Brain = {
+  @module("lucide-react")
+  external make: React.component<props> = "BrainIcon"
+}
+
+module GitBranch = {
+  @module("lucide-react")
+  external make: React.component<props> = "GitBranchIcon"
+}
+
+module MessageCircleDashed = {
+  @module("lucide-react")
+  external make: React.component<props> = "MessageCircleDashedIcon"
+}
+
+module Paperclip = {
+  @module("lucide-react")
+  external make: React.component<props> = "PaperclipIcon"
+}
+
+module RotateCcw = {
+  @module("lucide-react")
+  external make: React.component<props> = "RotateCcwIcon"
+}
+
+module Telescope = {
+  @module("lucide-react")
+  external make: React.component<props> = "TelescopeIcon"
+}
+
+module ThumbsDown = {
+  @module("lucide-react")
+  external make: React.component<props> = "ThumbsDownIcon"
+}
+
+module ThumbsUp = {
+  @module("lucide-react")
+  external make: React.component<props> = "ThumbsUpIcon"
+}

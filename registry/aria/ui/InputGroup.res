@@ -2,11 +2,11 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@module("tailwind-merge")
-external cn3: (string, string, option<string>) => string = "twMerge"
+@module("cn")
+external cn3: (string, string, option<string>) => string = "cn"
 
 module Align = {
   @unboxed
@@ -125,7 +125,6 @@ module Button = {
       {...props->toButtonProps}
       type_={props.type_->Option.getOr("button")}
       variant
-      size={(size :> Button.Size.t)}
       dataSize={(size :> string)}
       className={cn3(baseClass, sizeClass(~size), props.className)}
     />
@@ -164,9 +163,6 @@ module Textarea = {
     <Textarea
       {...props}
       dataSlot="input-group-control"
-      className={cn(
-        "cn-input-group-textarea flex-1 resize-none",
-        props.className,
-      )}
+      className={cn("cn-input-group-textarea flex-1 resize-none", props.className)}
     />
 }

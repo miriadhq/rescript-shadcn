@@ -128,9 +128,7 @@ module TeamSwitcher = {
             </Sidebar.MenuButton>
             <DropdownMenu
               className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-              placement={isMobile
-                ? ReactAria.Common.BottomStart
-                : ReactAria.Common.RightTop}
+              placement={isMobile ? ReactAria.Common.BottomStart : ReactAria.Common.RightTop}
               offset={4.}
             >
               <DropdownMenu.Group>
@@ -182,7 +180,9 @@ module NavMainSection = {
       <Sidebar.Menu>
         {items
         ->Array.map(item =>
-          <Collapsible key={item.title} defaultExpanded={item.isActive} className="group/collapsible">
+          <Collapsible
+            key={item.title} defaultExpanded={item.isActive} className="group/collapsible"
+          >
             <Sidebar.MenuItem>
               <Sidebar.MenuButton slot="trigger">
                 {item.icon}

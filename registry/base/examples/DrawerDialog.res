@@ -12,8 +12,8 @@ external addMediaQueryListener: (mediaQueryList, string, unit => unit) => unit =
 external removeMediaQueryListener: (mediaQueryList, string, unit => unit) => unit =
   "removeEventListener"
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 let useMediaQuery = (query: string) => {
   let (matches, setMatches) = React.useState(() => false)
@@ -43,7 +43,7 @@ module ProfileForm = {
         <Label htmlFor="username"> {"Username"->React.string} </Label>
         <Input id="username" defaultValue="@shadcn" />
       </div>
-      <Button type_="submit"> {"Save changes"->React.string} </Button>
+      <Button type_=Submit> {"Save changes"->React.string} </Button>
     </form>
   }
 }
@@ -69,9 +69,9 @@ let make = ({}: Demo.Props.t) => {
       </Dialog.Content>
     </Dialog>
   } else {
-    <Drawer open_ onOpenChange={nextOpen => setOpen(_ => nextOpen)}>
-      <Drawer.Trigger asChild={true}>
-        <Button variant=Outline> {"Edit Profile"->React.string} </Button>
+    <Drawer open_ onOpenChange={(nextOpen, _) => setOpen(_ => nextOpen)}>
+      <Drawer.Trigger render={<Button variant=Outline />}>
+        {"Edit Profile"->React.string}
       </Drawer.Trigger>
       <Drawer.Content>
         <Drawer.Header className="text-left">
@@ -82,8 +82,8 @@ let make = ({}: Demo.Props.t) => {
         </Drawer.Header>
         <ProfileForm className="px-4" />
         <Drawer.Footer className="pt-2">
-          <Drawer.Close asChild=true>
-            <Button variant=Outline> {"Cancel"->React.string} </Button>
+          <Drawer.Close render={<Button variant=Outline />}>
+            {"Cancel"->React.string}
           </Drawer.Close>
         </Drawer.Footer>
       </Drawer.Content>

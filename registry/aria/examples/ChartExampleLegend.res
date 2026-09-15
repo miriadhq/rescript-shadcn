@@ -56,8 +56,8 @@ let chartData = [
 ]
 
 let chartConfig: Chart.chartConfig = Dict.fromArray([
-  ("desktop", ({color: "#2563eb"}: Chart.chartConfigItem)),
-  ("mobile", ({color: "#60a5fa"}: Chart.chartConfigItem)),
+  ("desktop", {Chart.label: React.string("Desktop"), color: "#2563eb"}),
+  ("mobile", {label: React.string("Mobile"), color: "#60a5fa"}),
 ])
 
 @react.componentWithProps(Demo.Props.t)

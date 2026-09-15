@@ -33,12 +33,29 @@ describe("library registries", () => {
 
       const registry = JSON.parse(readFileSync(registryPath, "utf8"));
       const button = registry.items.find((item: { name: string }) => item.name === "Button");
+      expect(button.dependencies).toContain("cn");
+      const questionnaire = registry.items.find((item: { name: string }) => item.name === "Questionnaire");
+      expect(questionnaire.dependencies).toEqual(expect.arrayContaining(["cn", "@shadcn/react", "rescript-shadcn-react"]));
       expect(button.files[0].path).toMatch(new RegExp(`^registry/${lib}/ui/`));
       expect(button.dependencies).toContain(
         lib === "base" ? "rescript-base-ui" : "rescript-react-aria",
       );
     });
   }
+
+  it("publishes the shared helpers needed to install the chat examples", () => {
+    const registry = JSON.parse(readFileSync(join(root, "registry.base.json"), "utf8"));
+    const example = registry.items.find((item: {name: string}) => item.name === "AiSdkHelperDemo");
+    expect(example.registryDependencies).toEqual(expect.arrayContaining([
+      "@rescript-shadcn/AiChat", "@rescript-shadcn/MessageAnimated", "@rescript-shadcn/Demo",
+    ]));
+    for (const name of ["AiChat", "MessageAnimated", "MessageScrollerExample", "Demo"]) {
+      const helper = registry.items.find((item: {name: string}) => item.name === name);
+      expect(helper.type).toBe("registry:lib");
+      expect(helper.files[0].target).toBe(`@ui/${name}.res`);
+      expect(existsSync(join(root, helper.files[0].path))).toBe(true);
+    }
+  });
 
   it("uses a combined default style in components.json", () => {
     const config = JSON.parse(readFileSync(join(root, "components.json"), "utf8"));

@@ -4,19 +4,12 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@react.component
-let make = (
-  ~children=?,
-  ~open_=?,
-  ~defaultOpen=?,
-  ~onOpenChange=?,
-  ~onOpenChangeComplete=?,
-  ~modal=?,
-) =>
-  <BaseUi.Popover.Root ?children ?open_ ?defaultOpen ?onOpenChange ?onOpenChangeComplete ?modal />
+@react.componentWithProps(BaseUi.Popover.Root.props)
+let make = (props: BaseUi.Popover.Root.props<'payload>) =>
+  <BaseUi.Popover.Root {...props} dataSlot={props.dataSlot->Option.getOr("popover")} />
 
 module Trigger = {
   @react.componentWithProps(BaseUi.Popover.Trigger.props)
@@ -25,39 +18,32 @@ module Trigger = {
 }
 
 module Content = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~align=Align.Center,
-    ~alignOffset=0.,
-    ~side=Side.Bottom,
-    ~sideOffset=4.,
-    ~children=?,
-    ~id=?,
-    ~dir=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  type props = {
+    align?: Align.t,
+    alignOffset?: float,
+    side?: Side.t,
+    sideOffset?: float,
+    ...BaseUi.Popover.Popup.props,
+  }
+
+  let toBaseUiProps: props => BaseUi.Popover.Popup.props = %raw(`({align, alignOffset, side, sideOffset, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
     <BaseUi.Popover.Portal>
       <BaseUi.Popover.Positioner
-        align
-        alignOffset={Const(alignOffset)}
-        side
-        sideOffset={Const(sideOffset)}
+        align={props.align->Option.getOr(Align.Center)}
+        alignOffset={Const(props.alignOffset->Option.getOr(0.))}
+        side={props.side->Option.getOr(Side.Bottom)}
+        sideOffset={Const(props.sideOffset->Option.getOr(4.))}
         className="isolate z-50"
       >
         <BaseUi.Popover.Popup
-          ?id
-          ?dir
-          ?style
-          ?onClick
-          ?onKeyDown
-          ?children
-          dataSlot="popover-content"
+          {...toBaseUiProps(props)}
+          dataSlot={props.dataSlot->Option.getOr("popover-content")}
           className={cn(
             "cn-popover-content-logical cn-popover-content z-50 w-72 origin-(--transform-origin) outline-hidden",
-            className,
+            props.className,
           )}
         />
       </BaseUi.Popover.Positioner>

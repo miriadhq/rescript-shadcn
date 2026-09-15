@@ -53,20 +53,6 @@ module Recharts = {
     @module("recharts")
     external make: React.component<xAxisProps> = "XAxis"
   }
-
-  type tooltipProps = {content: React.element}
-
-  module Tooltip = {
-    @module("recharts")
-    external make: React.component<tooltipProps> = "Tooltip"
-  }
-
-  type responsiveContainerProps = {children: React.element}
-
-  module ResponsiveContainer = {
-    @module("recharts")
-    external make: React.component<responsiveContainerProps> = "ResponsiveContainer"
-  }
 }
 
 let chartData: array<chartDatum> = [
@@ -102,90 +88,88 @@ let chartData: array<chartDatum> = [
   {date: "2024-04-30", desktop: 454, mobile: 380},
 ]
 
-let chartStyleText = chartId =>
-  `[data-chart=${chartId}] {\n  --color-desktop: var(--chart-2);\n  --color-mobile: var(--chart-1);\n}\n\n.dark [data-chart=${chartId}] {\n  --color-desktop: var(--chart-2);\n  --color-mobile: var(--chart-1);\n}`
-
-module TooltipContent = {
-  @react.component
-  let make = () => React.null
+let chartConfig: Chart.chartConfig = dict{
+  "views": {label: React.string("Page Views")},
+  "desktop": {label: React.string("Desktop"), color: "var(--chart-2)"},
+  "mobile": {label: React.string("Mobile"), color: "var(--chart-1)"},
 }
+
+let desktopTotal = chartData->Array.reduce(0, (total, datum) => total + datum.desktop)
+let mobileTotal = chartData->Array.reduce(0, (total, datum) => total + datum.mobile)
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) => {
-  let chartId = `chart-${React.useId()->String.replaceAll(":", "")}`
-  let activeChart = "desktop"
-  let desktopTotal = 7324
-  let mobileTotal = 7250
+  let (activeChart, setActiveChart) = React.useState(() => "desktop")
 
-  <Card
-    className="bg-card border flex flex-col gap-6 py-0 pb-4 rounded-xl shadow-sm text-card-foreground"
-  >
-    <div
-      className="!p-0 @container/card-header [.border-b]:pb-6 auto-rows-min border-b flex flex-col gap-2 grid-rows-[auto_auto] has-data-[slot=card-action]:grid-cols-[1fr_auto] items-stretch px-6 sm:flex-row"
-    >
-      <div className="flex flex-1 flex-col gap-1 justify-center pb-3 pt-4 px-6 sm:!py-0">
-        <div className="font-semibold leading-none">
-          {"Bar Chart - Interactive"->React.string}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {"Showing total visitors for the last 3 months"->React.string}
-        </div>
+  <Card className="py-0 pb-4">
+    <Card.Header className="flex flex-col items-stretch border-b p-0! sm:flex-row">
+      <div className="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:py-0!">
+        <Card.Title> {React.string("Bar Chart - Interactive")} </Card.Title>
+        <Card.Description>
+          {React.string("Showing total visitors for the last 3 months")}
+        </Card.Description>
       </div>
       <div className="flex">
-        <button
-          dataActive={true}
-          className="data-[active=true]:bg-muted/50 relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
-        >
-          <span className="text-muted-foreground text-xs"> {"Desktop"->React.string} </span>
-          <span className="text-lg leading-none font-bold sm:text-3xl">
-            {desktopTotal->Int.toLocaleString->React.string}
-          </span>
-        </button>
-        <button
-          dataActive={false}
-          className="data-[active=true]:bg-muted/50 relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
-        >
-          <span className="text-muted-foreground text-xs"> {"Mobile"->React.string} </span>
-          <span className="text-lg leading-none font-bold sm:text-3xl">
-            {mobileTotal->Int.toLocaleString->React.string}
-          </span>
-        </button>
-      </div>
-    </div>
-    <div className="px-2 sm:p-6">
-      <div
-        dataSlot="chart"
-        dataChart={chartId}
-        className="[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border flex aspect-video justify-center text-xs [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden aspect-auto h-[250px] w-full"
-      >
-        <style> {chartStyleText(chartId)->React.string} </style>
-        <Recharts.ResponsiveContainer>
-          <Recharts.BarChart
-            accessibilityLayer={true} data={chartData} margin={{left: 12, right: 12}}
+        {["desktop", "mobile"]
+        ->Array.map(chart =>
+          <button
+            key=chart
+            dataActive={activeChart == chart}
+            className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
+            onClick={_ => setActiveChart(_ => chart)}
           >
-            <Recharts.CartesianGrid vertical={false} />
-            <Recharts.XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              minTickGap={32}
-              tickFormatter={value => {
-                let date = Date.fromString(value)
-                date->Date.toLocaleDateStringWithLocaleAndOptions(
-                  "en-US",
-                  {
-                    month: #short,
-                    day: #numeric,
-                  },
-                )
-              }}
-            />
-            <Recharts.Tooltip content={<TooltipContent />} />
-            <Recharts.Bar dataKey={activeChart} fill={`var(--color-${activeChart})`} />
-          </Recharts.BarChart>
-        </Recharts.ResponsiveContainer>
+            <span className="text-xs text-muted-foreground">
+              {React.string(chart == "desktop" ? "Desktop" : "Mobile")}
+            </span>
+            <span className="text-lg leading-none font-bold sm:text-3xl">
+              {(chart == "desktop" ? desktopTotal : mobileTotal)->Int.toLocaleString->React.string}
+            </span>
+          </button>
+        )
+        ->React.array}
       </div>
-    </div>
+    </Card.Header>
+    <Card.Content className="px-2 sm:p-6">
+      <Chart config=chartConfig className="aspect-auto h-[250px] w-full">
+        <Recharts.BarChart accessibilityLayer=true data=chartData margin={{left: 12, right: 12}}>
+          <Recharts.CartesianGrid vertical=false />
+          <Recharts.XAxis
+            dataKey="date"
+            tickLine=false
+            axisLine=false
+            tickMargin=8
+            minTickGap=32
+            tickFormatter={value =>
+              value
+              ->Date.fromString
+              ->Date.toLocaleDateStringWithLocaleAndOptions(
+                "en-US",
+                {month: #short, day: #numeric},
+              )}
+          />
+          <Chart.Tooltip
+            content={<Chart.TooltipContent
+              className="w-[150px]"
+              nameKey="views"
+              labelFormatter={(_, payload) =>
+                payload
+                ->Array.get(0)
+                ->Option.flatMap(item => item.Chart.payload->Dict.get("date"))
+                ->Option.map(value =>
+                  value
+                  ->Date.fromString
+                  ->Date.toLocaleDateStringWithLocaleAndOptions(
+                    "en-US",
+                    {month: #short, day: #numeric, year: #numeric},
+                  )
+                  ->React.string
+                )
+                ->Option.getOr(React.null)}
+            />}
+          />
+          <Recharts.Bar dataKey=activeChart fill={`var(--color-${activeChart})`} />
+        </Recharts.BarChart>
+      </Chart>
+    </Card.Content>
   </Card>
 }

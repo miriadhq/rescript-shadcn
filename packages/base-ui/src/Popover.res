@@ -53,6 +53,7 @@ module Root = {
     triggerId?: string,
     defaultTriggerId?: string,
     handle?: Handle.t<'payload>,
+    ...Types.ExtraDomProps.t,
   }
 
   @module("@base-ui/react/popover") @scope("Popover")
@@ -61,7 +62,6 @@ module Root = {
 
 module Trigger = {
   type props<'payload> = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
     handle?: Handle.t<'payload>,
     payload?: 'payload,
@@ -136,7 +136,6 @@ module Description = {
 
 module Close = {
   type props = {
-    ...Types.BaseUIComponentProps.t,
     ...Types.NativeButtonProps.t,
   }
 

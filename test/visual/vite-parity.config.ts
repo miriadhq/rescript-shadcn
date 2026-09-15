@@ -1,5 +1,8 @@
 import path from "node:path"
+import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
+
+import { upstreamAliases, upstreamRtl, upstreamParityFixes } from "./upstream-resolver.mjs"
 
 import tailwindcss from "@tailwindcss/postcss"
 import { type Plugin, defineConfig, transformWithEsbuild } from "vite"
@@ -21,38 +24,35 @@ function rescriptJsx(): Plugin {
 
 export default defineConfig({
   root: harnessRoot,
-  cacheDir: path.resolve(repoRoot, "test/artifacts/pixel-perfect/.vite"),
-  plugins: [rescriptJsx()],
+  publicDir: path.join(appRoot, "public"),
+  // Preserve prebundles across runs without sharing writes with another parity server.
+  cacheDir: path.resolve(repoRoot, "node_modules/.vite/pixel-perfect", process.env.PARITY_TEST_PORT ?? "4173"),
+  plugins: [upstreamRtl(), upstreamParityFixes(), rescriptJsx()],
   esbuild: {
     jsx: "automatic",
   },
   resolve: {
-    alias: {
-      // Upstream examples import the generated base-nova style tree. The parity
-      // harness compares the source Base implementation, so resolve that
-      // virtual/generated path directly to the checked-in Base registry.
-      "@/styles/base-nova": path.resolve(
-        repoRoot,
-        "shadcn-ui/apps/v4/registry/bases/base"
-      ),
+    dedupe: Object.keys(JSON.parse(readFileSync(path.join(repoRoot, "package.json"), "utf8")).dependencies),
+    alias: [
+      ...upstreamAliases,
       // shadcn-ui v4 globals import `shadcn/tailwind.css`; the `shadcn` npm package
       // (CLI v3) no longer exports that path — map to the app's theme file (same role as app/globals.css).
-      "shadcn/tailwind.css": path.resolve(repoRoot, "app/tailwind.css"),
-      "shadcn/preset": path.resolve(repoRoot, "shadcn-ui/packages/shadcn/src/preset/index.ts"),
-      "@/app/(app)/create/components/icon-placeholder": path.resolve(
+      { find: "shadcn/tailwind.css", replacement: path.resolve(repoRoot, "app/tailwind.css") },
+      { find: "shadcn/preset", replacement: path.resolve(repoRoot, "shadcn-ui/packages/shadcn/src/preset/index.ts") },
+      { find: "@/app/(app)/create/components/icon-placeholder", replacement: path.resolve(
         harnessRoot,
         "icon-placeholder.tsx"
-      ),
-      "@/app/(create)/components/icon-placeholder": path.resolve(
+      ) },
+      { find: "@/app/(create)/components/icon-placeholder", replacement: path.resolve(
         harnessRoot,
         "icon-placeholder.tsx"
-      ),
-      "@": appRoot,
-      "next/image": path.resolve(harnessRoot, "next-image.tsx"),
-      "next/link": path.resolve(harnessRoot, "next-link.tsx"),
-      "next/font/google": path.resolve(harnessRoot, "next-font-google.ts"),
-      react: path.resolve(repoRoot, "node_modules/react"),
-    },
+      ) },
+      { find: "@", replacement: appRoot },
+      { find: "next/image", replacement: path.resolve(harnessRoot, "next-image.tsx") },
+      { find: "next/link", replacement: path.resolve(harnessRoot, "next-link.tsx") },
+      { find: "next/font/google", replacement: path.resolve(harnessRoot, "next-font-google.ts") },
+      { find: "react", replacement: path.resolve(repoRoot, "node_modules/react") },
+    ],
   },
   css: {
     postcss: {
@@ -62,6 +62,14 @@ export default defineConfig({
   optimizeDeps: {
     noDiscovery: true,
     include: [
+      "lucide-react",
+      "@tabler/icons-react",
+      "recharts",
+      "ai",
+      "@ai-sdk/react",
+      "@tanstack/ai-react",
+      "streamdown",
+      "@streamdown/code",
       "react",
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
