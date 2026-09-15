@@ -67,6 +67,29 @@ async function mount(page: Page, file: string, props = {}, form = false) {
   });
 }
 
+it.each([375, 1280])("Base sidebar toggles repeatedly at viewport width %i", async width => {
+  const page = await browser.newPage();
+  try {
+    await page.setViewport({width, height: 900});
+    await mount(page, "registry/base/examples/SidebarDemo.res.mjs");
+    const mobile = width < 768;
+    await page.waitForFunction(mobile =>
+      Boolean(document.querySelector('[data-slot="sidebar"][data-state]')) !== mobile,
+      {}, mobile);
+    for (const toggled of [true, false, true, false]) {
+      await page.keyboard.down("Control");
+      await page.keyboard.press("b");
+      await page.keyboard.up("Control");
+      await page.waitForFunction((mobile, toggled) => mobile
+        ? Boolean(document.querySelector('[data-mobile="true"]')) === toggled
+        : document.querySelector('[data-slot="sidebar"][data-state]')?.getAttribute("data-state") === (toggled ? "collapsed" : "expanded"),
+      {}, mobile, toggled);
+    }
+  } finally {
+    await page.close();
+  }
+}, 30000);
+
 for (const variant of ["base", "aria"]) {
   it(`${variant} chart switches series with click and keyboard and displays a tooltip`, async () => {
     const page = await browser.newPage();

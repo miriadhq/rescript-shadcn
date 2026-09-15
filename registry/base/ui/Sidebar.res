@@ -248,7 +248,7 @@ module Provider = {
 
     // Helper to toggle the sidebar.
     let toggleSidebar = React.useCallback(() => {
-      isMobile ? setOpenMobile(_ => !openMobile) : setOpen(_ => !open_)
+      isMobile ? setOpenMobile(open_ => !open_) : setOpen(open_ => !open_)
     }, (isMobile, setOpen, setOpenMobile))
 
     React.useEffect(() => {
