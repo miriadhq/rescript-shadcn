@@ -32,6 +32,16 @@ function findElement(tree: React.ReactNode, type: unknown): React.ReactElement<a
 }
 
 describe("registry prop forwarding", () => {
+  it.each([true, false])("Sidebar.Provider consumes controlled open=%s without forwarding it to the DOM", (open) => {
+    const State = () => h("span", { "data-state": Sidebar.use().state });
+    const html = renderToStaticMarkup(h(Sidebar.Provider.make, {
+      open, defaultOpen: !open, onOpenChange: vi.fn(), title: "Forwarded", children: h(State),
+    }));
+    expect(html).toContain(`data-state="${open ? "expanded" : "collapsed"}"`);
+    expect(html).toContain('title="Forwarded"');
+    expect(html).not.toMatch(/\sopen(?:=|\s|>)/);
+  });
+
   it.each([
     ["Badge", Badge.make],
     ["Breadcrumb.Link", Breadcrumb.Link.make],

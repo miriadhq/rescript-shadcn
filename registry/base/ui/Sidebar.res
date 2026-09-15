@@ -221,7 +221,7 @@ module Provider = {
     ...BaseUi.Types.DomProps.t,
   }
 
-  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({defaultOpen, open_, onOpenChange, ...props}) => props`)
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({defaultOpen, open, onOpenChange, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props) => {
