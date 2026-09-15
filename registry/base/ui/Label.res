@@ -2,8 +2,8 @@
 
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithProps(BaseUi.Types.DomProps.t)
 let make = (props: BaseUi.Types.DomProps.t) =>

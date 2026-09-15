@@ -1,3 +1,11 @@
+# @shadcn/react 0.3.1 update
+
+Questionnaire bindings were written against the installed `dist/questionnaire/index.d.ts`. The existing MessageScroller API remains compatible; its runtime now exposes the pending initial scroll through `data-pending-scroll`.
+
+Questionnaire supports element renders and a separate `Progress.WithRender` binding for typed progress callbacks. Registry components preserve rest props. The validation example uses ReScript checks for the same two enums and cross-field rule as upstream’s Zod schema.
+
+## Previous bindgen audit
+
 # @shadcn/react bindgen notes
 
 Bindings were checked against `@shadcn/react@0.2.0` with the workspace dev dependency `@juspay/rescript-bindgen@1.2.4`.

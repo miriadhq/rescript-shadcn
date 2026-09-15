@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 @react.component
 let make = (~className="", ~children=?, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?, ~dir=?) => {

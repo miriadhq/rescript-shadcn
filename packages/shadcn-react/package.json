@@ -22,7 +22,7 @@
     "bindings"
   ],
   "dependencies": {
-    "@shadcn/react": "0.2.0",
+    "@shadcn/react": "0.3.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "rescript": "^12.3.0"
@@ -33,7 +33,7 @@
   },
   "peerDependencies": {
     "@rescript/react": "^0.15.0",
-    "@shadcn/react": "^0.2.0"
+    "@shadcn/react": "^0.3.1"
   },
   "scripts": {
     "res:build": "rescript",

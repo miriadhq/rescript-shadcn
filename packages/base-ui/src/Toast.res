@@ -15,8 +15,7 @@ type actionProps = {
   onClick?: unit => unit,
 }
 
-type addOptions = {
-  id?: string,
+type updateOptions = {
   title?: string,
   @as("type") type_?: string,
   description?: string,
@@ -25,18 +24,29 @@ type addOptions = {
   actionProps?: actionProps,
 }
 
+type addOptions = {
+  ...updateOptions,
+  id?: string,
+}
+
 type manager = {
   add: addOptions => string,
   close: option<string> => unit,
-  update: (string, addOptions) => unit,
+  update: (string, updateOptions) => unit,
 }
 
 type managerState = {
   toasts: array<toastObject>,
   add: addOptions => string,
   close: option<string> => unit,
-  update: (string, addOptions) => unit,
+  update: (string, updateOptions) => unit,
 }
+
+@send
+external updateWith: (manager, string, toastObject => updateOptions) => unit = "update"
+
+@send
+external updateStateWith: (managerState, string, toastObject => updateOptions) => unit = "update"
 
 @unboxed
 type promiseMessage<'value> =

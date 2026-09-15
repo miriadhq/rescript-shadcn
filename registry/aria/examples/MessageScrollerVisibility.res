@@ -41,7 +41,7 @@ module Outline = {
     let {scrollToMessage} = MessageScroller.useMessageScroller()
     let {currentAnchorId} = MessageScroller.useMessageScrollerVisibility()
     let currentAnchorId = currentAnchorId->Nullable.toOption
-    <Popover.Trigger>
+    <HoverCard.Trigger>
       <ReactAria.Button
         ariaLabel="Open transcript outline"
         className="flex h-9 w-9 flex-col items-center justify-center gap-1 rounded-md transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
@@ -57,7 +57,7 @@ module Outline = {
         )
         ->React.array}
       </ReactAria.Button>
-      <Popover
+      <HoverCard
         placement=ReactAria.Common.Left
         offset={-28.}
         className="flex w-64 flex-col gap-1 rounded-2xl p-1"
@@ -76,8 +76,8 @@ module Outline = {
           </button>
         )
         ->React.array}
-      </Popover>
-    </Popover.Trigger>
+      </HoverCard>
+    </HoverCard.Trigger>
   }
 }
 

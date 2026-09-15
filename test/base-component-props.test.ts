@@ -122,9 +122,9 @@ describe("Base component prop composition", () => {
     expect(link).not.toMatch(/\stype=/);
   });
 
-  it("preserves Drawer's native trigger type through an asChild Button", () => {
+  it("preserves Drawer's native trigger type through a rendered Button", () => {
     const render = (props = {}) => renderToStaticMarkup(h(Drawer.make, {},
-      h(Drawer.Trigger.make, { asChild: true, ...props }, h(Button.make, {}, "Open"))));
+      h(Drawer.Trigger.make, { render: h(Button.make), ...props }, "Open")));
     expect(render()).toContain('type="button"');
     expect(render({ type: "submit" })).toContain('type="submit"');
   });

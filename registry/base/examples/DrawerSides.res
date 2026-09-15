@@ -1,8 +1,8 @@
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>
-  <Drawer direction=Left>
-    <Drawer.Trigger asChild=true>
-      <Button variant=Secondary> {"Open Left Drawer"->React.string} </Button>
+  <Drawer swipeDirection=Left>
+    <Drawer.Trigger render={<Button variant=Secondary />}>
+      {"Open Left Drawer"->React.string}
     </Drawer.Trigger>
     <Drawer.Content>
       <Drawer.Header>
@@ -13,9 +13,7 @@ let make = ({}: Demo.Props.t) =>
         <div className="size-full rounded-2xl bg-muted" />
       </div>
       <Drawer.Footer>
-        <Drawer.Close asChild=true>
-          <Button> {"Close"->React.string} </Button>
-        </Drawer.Close>
+        <Drawer.Close render={<Button />}> {"Close"->React.string} </Drawer.Close>
       </Drawer.Footer>
     </Drawer.Content>
   </Drawer>

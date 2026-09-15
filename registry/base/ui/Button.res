@@ -1,7 +1,7 @@
 @@directive("'use client'")
 
-@module("tailwind-merge")
-external cn: (string, string, string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, string, string, option<string>) => string = "cn"
 
 module Type = BaseUi.Types.ButtonType
 

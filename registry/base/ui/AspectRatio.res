@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 type props = {ratio: float, ...BaseUi.Types.DomProps.t}
 let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({ratio, ...props}) => props`)

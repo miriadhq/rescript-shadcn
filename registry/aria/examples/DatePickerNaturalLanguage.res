@@ -31,7 +31,8 @@ let make = ({}: Demo.Props.t) => {
         id="date-optional"
         value
         placeholder="Tomorrow or next week"
-        onChange={value => {
+        onChange={event => {
+          let value = (event->JsxEvent.Form.target)["value"]
           setValue(_ => value)
           switch value->parseDate {
           | Some(date) => setDate(_ => Some(date))

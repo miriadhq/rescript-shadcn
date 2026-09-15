@@ -12,8 +12,8 @@ external addMediaQueryListener: (mediaQueryList, string, unit => unit) => unit =
 external removeMediaQueryListener: (mediaQueryList, string, unit => unit) => unit =
   "removeEventListener"
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 let useMediaQuery = (query: string) => {
   let (matches, setMatches) = React.useState(() => false)

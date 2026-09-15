@@ -4,11 +4,11 @@
 
 open BaseUi.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@module("tailwind-merge")
-external cn3: (string, option<string>, option<string>) => string = "twMerge"
+@module("cn")
+external cn3: (string, option<string>, option<string>) => string = "cn"
 
 @unboxed
 type state =

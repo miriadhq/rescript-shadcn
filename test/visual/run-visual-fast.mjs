@@ -21,7 +21,7 @@ import { parseArgs } from "node:util";
 import React from "react";
 import { isValidElementType } from "react-is";
 import { renderToStaticMarkup } from "react-dom/server";
-import { twMerge } from "tailwind-merge";
+import { cn } from "cn";
 import { createServer } from "vite";
 import { upstreamAliases, upstreamRtl } from "./upstream-resolver.mjs";
 
@@ -288,7 +288,7 @@ const parseStaticMarkup = (html) => {
 
 // Port of the normalization in pixel-perfect-vite.test.ts; keep in sync.
 const canonicalizeClassName = (className) =>
-  twMerge(className)
+  cn(className)
     .split(/\s+/)
     .filter(Boolean)
     .map((token) => {

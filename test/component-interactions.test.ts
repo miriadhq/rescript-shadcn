@@ -10,6 +10,7 @@ beforeAll(async () => {
   server = await createServer({
     configFile: false,
     root: process.cwd(),
+    cacheDir: "test/artifacts/interactions/.vite",
     logLevel: "error",
     server: { host: "127.0.0.1", port: 0 },
     resolve: { dedupe: ["react", "react-dom", "@base-ui/react", "@shadcn/react"] },
@@ -18,8 +19,10 @@ beforeAll(async () => {
       include: [
         "react", "react-dom/client", "react/jsx-runtime", "recharts",
         ...["checkbox", "switch", "tabs", "toggle", "toggle-group", "progress", "slider",
-          "button", "use-render", "merge-props"].map(name => `@base-ui/react/${name}`),
-        "react-aria-components", "sonner", "lucide-react",
+          "button", "use-render", "merge-props", "input", "menu", "dialog", "drawer", "tooltip", "separator"].map(name => `@base-ui/react/${name}`),
+        "react-aria-components", "sonner", "lucide-react", "cn",
+        "@shadcn/react/questionnaire", "@shadcn/react/message-scroller", "@tanstack/react-table",
+        "@shadcn/helpers/ai-sdk", "@shadcn/helpers/tanstack-ai", "@ai-sdk/react", "@tanstack/ai-react", "motion/react",
       ],
     },
     plugins: [{
@@ -28,7 +31,11 @@ beforeAll(async () => {
         server.middlewares.use("/__interactions", (_req, res) => {
           res.setHeader("Content-Type", "text/html");
           res.end(`<html><body>
-            <style>[data-slot="chart"]{width:800px;height:250px}</style>
+            <style>
+              [data-slot="chart"]{width:800px;height:250px}
+              /* Keep the popup above Base UI's fixed inert backdrop without loading Tailwind. */
+              [data-slot="dialog-content"],[data-slot="drawer-popup"]{position:relative;z-index:50}
+            </style>
             <div id="root"></div>
             <script type="module" src="/test/visual/vite-harness/interactions.tsx"></script>
           </body></html>`);
@@ -52,8 +59,12 @@ afterAll(async () => {
 async function mount(page: Page, file: string, props = {}, form = false) {
   page.setDefaultTimeout(10000);
   const fixture = encodeURIComponent(JSON.stringify({ file, props, form }));
+  const errors: string[] = [];
+  page.on("pageerror", error => errors.push(error.stack || String(error)));
   await page.goto(`${origin}__interactions?fixture=${fixture}`);
-  await page.waitForFunction(() => document.querySelector("#root")!.childElementCount > 0);
+  await page.waitForFunction(() => document.querySelector("#root")!.childElementCount > 0).catch(error => {
+    throw new Error(errors.join("\n") || String(error));
+  });
 }
 
 for (const variant of ["base", "aria"]) {
@@ -71,7 +82,7 @@ for (const variant of ["base", "aria"]) {
       await buttons[0].focus();
       await page.keyboard.press("Enter");
       await page.waitForFunction(() => document.querySelector('.recharts-bar-rectangle path')?.getAttribute("fill") === "var(--color-desktop)");
-      await page.hover(".recharts-bar-rectangle path");
+      await page.locator(".recharts-bar-rectangle path").hover();
       await page.waitForFunction(() => document.querySelector(".recharts-tooltip-wrapper")?.textContent?.includes("Page Views"));
       const tooltip = await page.$eval(".recharts-tooltip-wrapper", el => el.textContent);
       expect(tooltip).toMatch(/Apr \d+, 2024/);
@@ -187,4 +198,165 @@ it("Aria context-menu trigger exposes a role and opens its menu", async () => {
   } finally {
     await page.close();
   }
+}, 30000);
+
+for (const variant of ["base", "aria"]) {
+  it(`${variant} Questionnaire validates required steps and follows controlled navigation`, async () => {
+    const page = await browser.newPage();
+    try {
+      await mount(page, `registry/${variant}/examples/QuestionnaireControlled.res.mjs`);
+      await page.click('[data-slot="questionnaire-next"]');
+      await page.waitForSelector('fieldset:has(input[name="scope"])[data-invalid]');
+      await page.click('input[name="scope"][value="component"]');
+      await page.click('[data-slot="questionnaire-next"]');
+      await page.waitForSelector('fieldset:has(input[name="checks"])[data-active]');
+      expect(await page.$eval('p[role="status"]', el => el.textContent)).toContain("Verification");
+      await page.click('[data-slot="questionnaire-previous"]');
+      await page.waitForSelector('fieldset:has(input[name="scope"])[data-active]');
+      expect(await page.$eval('input[name="scope"][value="component"]', el => (el as HTMLInputElement).checked)).toBe(true);
+    } finally { await page.close(); }
+  }, 30000);
+
+  it(`${variant} Questionnaire skips disabled steps and includes newly enabled steps`, async () => {
+    const page = await browser.newPage();
+    try {
+      await mount(page, `registry/${variant}/examples/QuestionnaireConditional.res.mjs`);
+      await page.click('[data-slot="questionnaire-next"]');
+      await page.waitForSelector('fieldset:has(input[name="approval"])[data-active]');
+      await page.click('[data-slot="questionnaire-previous"]');
+      await page.click('input[name="runtime"][value="cloud"]');
+      await page.click('[data-slot="questionnaire-next"]');
+      await page.waitForSelector('fieldset:has(input[name="environment"])[data-active]');
+    } finally { await page.close(); }
+  }, 30000);
+
+  it(`${variant} Questionnaire applies shortcuts and lets freeform answers replace choices`, async () => {
+    const page = await browser.newPage();
+    try {
+      await mount(page, `registry/${variant}/examples/QuestionnaireFreeform.res.mjs`);
+      await page.focus('input[value="incremental"]');
+      await page.keyboard.press("b");
+      await page.waitForFunction(() => document.querySelector<HTMLInputElement>('input[value="module"]')?.checked);
+      await page.type('input[aria-label="Another refactoring approach"]', "Keep the API stable");
+      const answer = await page.$eval('form', form => new FormData(form).getAll("approach"));
+      expect(answer).toEqual(["Keep the API stable"]);
+      await mount(page, `registry/${variant}/examples/QuestionnaireShortcuts.res.mjs`);
+      await page.select('select[aria-label="Shortcut style"]', "numbers");
+      await page.focus('input[value="inspect"]');
+      await page.keyboard.press("2");
+      await page.waitForFunction(() => document.querySelector<HTMLInputElement>('input[value="tests"]')?.checked);
+    } finally { await page.close(); }
+  }, 30000);
+
+  it(`${variant} Questionnaire preserves saved answers and restores them on reset`, async () => {
+    const page = await browser.newPage();
+    try {
+      await mount(page, `registry/${variant}/examples/QuestionnaireResume.res.mjs`);
+      await page.waitForSelector('fieldset:has(input[name="verification"])[data-active]');
+      expect(await page.$eval('form', form => new FormData(form).getAll("verification"))).toEqual(["tests", "typecheck"]);
+      await page.click('input[value="manual"]');
+      expect(await page.$eval('form', form => new FormData(form).getAll("verification"))).toEqual(["tests", "typecheck", "manual"]);
+      await page.click('button[type="reset"]');
+      await page.waitForFunction(() => !document.querySelector<HTMLInputElement>('input[value="manual"]')?.checked);
+      expect(await page.$eval('form', form => new FormData(form).getAll("verification"))).toEqual(["tests", "typecheck"]);
+    } finally { await page.close(); }
+  }, 30000);
+
+  it(`${variant} Questionnaire returns to a cross-field validation error and clears it`, async () => {
+    const page = await browser.newPage();
+    try {
+      await mount(page, `registry/${variant}/examples/QuestionnaireValidation.res.mjs`);
+      await page.click('input[value="summary"]');
+      await page.click('[data-slot="questionnaire-next"]');
+      await page.click('input[value="public"]');
+      await page.click('[data-slot="questionnaire-submit"]');
+      await page.waitForSelector('fieldset:has(input[name="detail"])[data-active][data-invalid]');
+      expect(await page.$eval('[role="alert"]', el => el.textContent)).toBe("Public answers need enough context. Choose a complete answer.");
+      await page.click('input[value="complete"]');
+      await page.waitForSelector('fieldset:has(input[name="detail"])[data-invalid]', { hidden: true });
+      await page.click('[data-slot="questionnaire-next"]');
+      await page.click('[data-slot="questionnaire-submit"]');
+      expect(await page.$$('fieldset[data-invalid]')).toHaveLength(0);
+    } finally { await page.close(); }
+  }, 30000);
+
+  it(`${variant} Table v9 filters rows and clears the filter`, async () => {
+    const page = await browser.newPage();
+    try {
+      await mount(page, `registry/${variant}/examples/DataTableDemo.res.mjs`);
+      await page.type('input[placeholder="Filter emails..."]', "ken99");
+      await page.waitForFunction(() => document.querySelectorAll('tbody tr').length === 1);
+      expect(await page.$eval('tbody', el => el.textContent)).toContain("ken99@example.com");
+      await page.$eval('input[placeholder="Filter emails..."]', el => {
+        const input = el as HTMLInputElement;
+        Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, "");
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+      await page.waitForFunction(() => document.querySelectorAll('tbody tr').length === 5);
+    } finally { await page.close(); }
+  }, 30000);
+}
+
+it("Aria HoverCard opens from its preview trigger and closes with Escape", async () => {
+  const page = await browser.newPage();
+  try {
+    await mount(page, "registry/aria/examples/HoverCardDemo.res.mjs");
+    await page.mouse.move(400, 400);
+    await page.hover('button');
+    await page.waitForSelector('[data-slot="hover-card-content"]', { visible: true });
+    expect(await page.$eval('[data-slot="hover-card-content"]', el => el.textContent)).toContain("@nextjs");
+    await page.focus("button");
+    await page.keyboard.press("Escape");
+    await page.waitForSelector('[data-slot="hover-card-content"]', { hidden: true });
+  } finally { await page.close(); }
+}, 30000);
+
+for (const variant of ["base", "aria"]) {
+  it(`${variant} Questionnaire submits its dialog form and closes the dialog`, async () => {
+    const page = await browser.newPage();
+    try {
+      await mount(page, `registry/${variant}/examples/QuestionnaireDialog.res.mjs`);
+      await page.click('button');
+      await page.waitForSelector('[role="dialog"]', { visible: true });
+      await page.click('input[name="scope"][value="feature"]');
+      await page.click('[data-slot="questionnaire-next"]');
+      await page.click('input[name="tests"][value="full"]');
+      await page.click('[data-slot="questionnaire-submit"]');
+      await page.waitForSelector('[role="dialog"]', { hidden: true });
+    } finally { await page.close(); }
+  }, 30000);
+}
+
+for (const name of ["AiSdkHelperDemo", "TanstackAiHelperDemo", "MessageScrollerStreaming"]) {
+  it(`Base ${name} streams its scripted reply and resets the conversation`, async () => {
+    const page = await browser.newPage();
+    try {
+      await mount(page, `registry/base/examples/${name}.res.mjs`);
+      await page.click('button[type="submit"]');
+      await page.waitForFunction(() => document.querySelectorAll('[data-slot="message-scroller-item"]').length >= 2);
+      expect(await page.$eval('button[type="submit"]', button => (button as HTMLButtonElement).disabled)).toBe(true);
+      await page.waitForFunction(() => document.querySelector('[data-slot="message-scroller-content"]')?.getAttribute("aria-busy") === "false", {timeout: 20000});
+      expect(await page.$eval('[data-slot="message-scroller-content"]', el => el.textContent)).toContain("That's the classic streaming scroll problem.");
+      if (name !== "MessageScrollerStreaming") {
+        expect(await page.$eval('[data-slot="message-scroller-content"]', el => el.textContent)).toContain("Reasoning");
+      }
+      await page.click('button[aria-label^="Reset"]');
+      await page.waitForSelector('[data-slot="empty"]');
+      expect(await page.$$('[data-slot="message-scroller-item"]')).toHaveLength(0);
+    } finally { await page.close(); }
+  }, 40000);
+}
+
+it("Base nested drawers open as a stack and close only the active drawer", async () => {
+  const page = await browser.newPage();
+  try {
+    await mount(page, "registry/base/examples/DrawerNested.res.mjs");
+    await page.click('[data-slot="drawer-trigger"]');
+    await page.waitForSelector('[data-slot="drawer-popup"]');
+    await page.click('[data-slot="drawer-popup"] [data-slot="drawer-trigger"]');
+    await page.waitForFunction(() => document.querySelectorAll('[data-slot="drawer-popup"]').length === 2);
+    expect(await page.$eval('[data-nested-drawer-open]', el => el.getAttribute("data-slot"))).toBe("drawer-popup");
+    await page.keyboard.press("Escape");
+    await page.waitForFunction(() => document.querySelectorAll('[data-slot="drawer-popup"]').length === 1);
+  } finally { await page.close(); }
 }, 30000);

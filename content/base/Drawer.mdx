@@ -4,14 +4,14 @@ description: A drawer component for React.
 base: base
 component: true
 links:
-  doc: https://vaul.emilkowal.ski/getting-started
+  doc: https://base-ui.com/react/components/drawer
 ---
 
 <ComponentPreview name="DrawerDemo" />
 
 ## About
 
-Drawer is built on top of [Vaul](https://github.com/emilkowalski/vaul) by [emilkowalski](https://twitter.com/emilkowalski).
+Drawer uses Base UI for swipe gestures, nested drawers, and snap points.
 
 ## Installation
 
@@ -36,7 +36,7 @@ npx shadcn@latest add @rescript-shadcn/Drawer
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install vaul
+npm install @base-ui/react rescript-base-ui cn
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
@@ -56,8 +56,8 @@ npm install vaul
 
 ```res showLineNumbers
 <Drawer>
-  <Drawer.Trigger asChild=true>
-    <Button variant=Outline> {"Open Drawer"->React.string} </Button>
+  <Drawer.Trigger render={<Button variant=Outline />}>
+    {"Open Drawer"->React.string}
   </Drawer.Trigger>
   <Drawer.Content>
     <Drawer.Header>
@@ -66,8 +66,8 @@ npm install vaul
     </Drawer.Header>
     <Drawer.Footer>
       <Button> {"Submit"->React.string} </Button>
-      <Drawer.Close asChild=true>
-        <Button variant=Outline> {"Cancel"->React.string} </Button>
+      <Drawer.Close render={<Button variant=Outline />}>
+        {"Cancel"->React.string}
       </Drawer.Close>
     </Drawer.Footer>
   </Drawer.Content>
@@ -84,9 +84,25 @@ Keep actions visible while the content scrolls.
 
 ### Sides
 
-Use the `direction` prop to set the side of the drawer. Available options are `top`, `right`, `bottom`, and `left`.
+Use `swipeDirection` to set the drawer’s dismissal direction: `Up`, `Right`, `Down` (the default), or `Left`.
 
 <ComponentPreview name="DrawerSides" />
+
+### Nested drawers
+
+<ComponentPreview name="DrawerNested" />
+
+### Non-modal
+
+<ComponentPreview name="DrawerNonModal" />
+
+### Snap points
+
+<ComponentPreview name="DrawerSnapPoints" />
+
+### Swipe handle
+
+<ComponentPreview name="DrawerSwipeHandle" />
 
 ### Responsive Dialog
 
@@ -97,4 +113,4 @@ You can combine the `Dialog` and `Drawer` components to create a responsive dial
 
 ## API Reference
 
-See the [Vaul documentation](https://vaul.emilkowal.ski/getting-started) for the full API reference.
+See the [Base UI documentation](https://base-ui.com/react/components/drawer) for the full API reference.

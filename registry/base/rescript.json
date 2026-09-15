@@ -7,7 +7,10 @@
       "files": [
         "Demo.res",
         "NextLink.res",
-        "Markdown.res"
+        "Markdown.res",
+        "MessageScrollerExample.res",
+        "AiChat.res",
+        "MessageAnimated.res"
       ]
     },
     {

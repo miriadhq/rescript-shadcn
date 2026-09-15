@@ -6,7 +6,7 @@ import Stream from "node:stream"
 import { fileURLToPath } from "node:url"
 
 import puppeteer, { type Browser } from "puppeteer"
-import { twMerge } from "tailwind-merge"
+import { cn } from "cn"
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from "vitest"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -310,7 +310,7 @@ async function stopServer() {
 }
 
 function canonicalizeClassName(className: string) {
-  const merged = twMerge(className)
+  const merged = cn(className)
   return merged
     .split(/\s+/)
     .filter(Boolean)
@@ -570,6 +570,8 @@ async function captureBundle(component: string, impl: Impl): Promise<SnapshotBun
     await page.waitForSelector("#pixel-capture-root, #pixel-error", {
       timeout: PAGE_LOAD_TIMEOUT_MS,
     })
+
+    captureError = await page.$eval("#pixel-error", element => element.textContent).catch(() => null)
 
     await page
       .waitForFunction(

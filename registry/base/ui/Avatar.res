@@ -2,11 +2,11 @@
 
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@module("tailwind-merge")
-external cn5: (string, string, string, string, option<string>) => string = "twMerge"
+@module("cn")
+external cn5: (string, string, string, string, option<string>) => string = "cn"
 
 module Size = {
   @unboxed
@@ -42,27 +42,16 @@ let make = (
 }
 
 module Image = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~src=?,
-    ~alt=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-  ) =>
+  type props = BaseUi.Avatar.Image.props
+
+  let toBaseUiProps: props => props = %raw(`({className, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) =>
     <BaseUi.Avatar.Image
-      ?id
-      ?src
-      ?alt
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?children
-      dataSlot="avatar-image"
-      className={cn("cn-avatar-image aspect-square size-full object-cover", className)}
+      {...toBaseUiProps(props)}
+      dataSlot={props.dataSlot->Option.getOr("avatar-image")}
+      className={cn("cn-avatar-image aspect-square size-full object-cover", props.className)}
     />
 }
 

@@ -1,4 +1,4 @@
-/** Shared React Aria component types, grounded in react-aria-components 1.19.0. */
+/** Shared React Aria component types, grounded in react-aria-components 1.21.1. */
 @unboxed
 type orientation =
   | @as("horizontal") Horizontal
@@ -215,7 +215,7 @@ type inputProps = {
   disabled?: bool,
   required?: bool,
   readOnly?: bool,
-  onChange?: string => unit,
+  onChange?: JsxEvent.Form.t => unit,
 }
 
 external pressEventToMouseEvent: pressEvent => JsxEvent.Mouse.t = "%identity"

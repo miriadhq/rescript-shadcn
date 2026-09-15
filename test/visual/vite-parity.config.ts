@@ -1,4 +1,5 @@
 import path from "node:path"
+import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 
 import { upstreamAliases, upstreamRtl } from "./upstream-resolver.mjs"
@@ -29,6 +30,7 @@ export default defineConfig({
     jsx: "automatic",
   },
   resolve: {
+    dedupe: Object.keys(JSON.parse(readFileSync(path.join(repoRoot, "package.json"), "utf8")).dependencies),
     alias: [
       ...upstreamAliases,
       // shadcn-ui v4 globals import `shadcn/tailwind.css`; the `shadcn` npm package
@@ -58,6 +60,11 @@ export default defineConfig({
   optimizeDeps: {
     noDiscovery: true,
     include: [
+      "ai",
+      "@ai-sdk/react",
+      "@tanstack/ai-react",
+      "streamdown",
+      "@streamdown/code",
       "react",
       "react/jsx-runtime",
       "react/jsx-dev-runtime",

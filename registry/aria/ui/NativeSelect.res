@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Size = {
   @unboxed
@@ -10,61 +10,37 @@ module Size = {
     | @as("sm") Sm
 }
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~name=?,
-  ~value=?,
-  ~defaultValue=?,
-  ~disabled=?,
-  ~required=?,
-  ~multiple=?,
-  ~autoComplete=?,
-  ~onChange=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~ariaInvalid=?,
-  ~dir=?,
-  ~style=?,
-  ~size=Size.Default,
-) => {
+type props = {
+  ...ReactAria.Common.inputProps,
+  multiple?: bool,
+  autoComplete?: string,
+  autoFocus?: bool,
+  form?: string,
+  onPointerDown?: JsxEvent.Pointer.t => unit,
+  size?: Size.t,
+}
+let toDomProps: props => ReactAria.Types.DomProps.t = %raw(`({className, size, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
+  let size = props.size->Stdlib.Option.getOr(Default)
   <div
     dataSlot="native-select-wrapper"
     dataSize={(size :> string)}
     className={cn(
       "cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50",
-      className,
+      props.className,
     )}
   >
     <select
-      ?id
-      ?name
-      ?value
-      ?defaultValue
-      ?disabled
-      ?required
-      ?multiple
-      ?autoComplete
-      ?onChange
-      ?onClick
-      ?onKeyDown
-      ?tabIndex
-      ?ariaLabel
-      ?ariaInvalid
-      ?style
-      ?dir
-      ?children
-      dataSlot="native-select"
-      dataSize={(size :> string)}
+      {...toDomProps(props)}
+      dataSlot={props.dataSlot->Stdlib.Option.getOr("native-select")}
+      dataSize={props.dataSize->Stdlib.Option.getOr((size :> string))}
       className="cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed"
     />
     <Icons.ChevronDown
       className="cn-native-select-icon pointer-events-none absolute select-none"
-      ariaHidden={true}
+      ariaHidden=true
       dataSlot="native-select-icon"
     />
   </div>
@@ -75,7 +51,7 @@ module Option = {
   let make = (props: ReactAria.Types.DomProps.t) =>
     <option
       {...props}
-      dataSlot={props.dataSlot->Option.getOr("native-select-option")}
+      dataSlot={props.dataSlot->Stdlib.Option.getOr("native-select-option")}
       className={cn("bg-[Canvas] text-[CanvasText]", props.className)}
     />
 }
@@ -85,10 +61,7 @@ module OptGroup = {
   let make = (props: ReactAria.Types.DomProps.t) =>
     <optgroup
       {...props}
-      dataSlot={switch props.dataSlot {
-      | Some(dataSlot) => dataSlot
-      | None => "native-select-optgroup"
-      }}
+      dataSlot={props.dataSlot->Stdlib.Option.getOr("native-select-optgroup")}
       className={cn("bg-[Canvas] text-[CanvasText]", props.className)}
     />
 }

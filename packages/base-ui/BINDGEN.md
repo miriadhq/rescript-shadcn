@@ -1,3 +1,13 @@
+# Base UI 1.8 update
+
+The 1.8.0 update was checked against the installed `.d.ts` files. It adds Avatar image mounting/status props, functional toast updates, Combobox item collections, and the progress value-text callback. Existing bindings retain their element render API.
+
+`Combobox.Items` represents primitive selection values with an unboxed variant. `Root.WithItems` and its `Multiple` module distinguish source items from those derived values. As in the JavaScript API, source items must not have an `items` array field, and derived values must be unique; those data constraints are checked by the library at runtime.
+
+`test/base-ui-bindings.test.ts` checks public exports and executes compiled ReScript fixtures. Browser and SSR parity tests check the registry against the same installed Base UI version.
+
+## Previous bindgen audit
+
 # Base UI bindgen notes
 
 Bindings were checked against `@base-ui/react@1.6.0` with the workspace dev dependency `@juspay/rescript-bindgen@1.2.4`.

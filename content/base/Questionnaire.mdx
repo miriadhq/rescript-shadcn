@@ -1,0 +1,96 @@
+---
+title: Questionnaire
+description: A multi-step questionnaire with single-choice, multiple-choice, freeform, and skippable questions.
+base: base
+component: true
+---
+
+<ComponentPreview name="QuestionnaireDemo" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+## Installation
+
+```bash
+npx shadcn@latest add @rescript-shadcn/Questionnaire
+```
+
+For manual installation, install `@shadcn/react@^0.3.1`, `rescript-shadcn-react`, and `cn`, then copy the component and its Button and Icons dependencies.
+
+<ComponentSource name="Questionnaire" title="components/ui/Questionnaire.res" />
+
+## Usage
+
+```res
+<Questionnaire items=[{name: "task", required: true}] shortcuts=#letters>
+  <Questionnaire.Progress />
+  <Questionnaire.Item name="task" required=true>
+    <Questionnaire.Title> {React.string("What should the agent do?")} </Questionnaire.Title>
+    <Questionnaire.Choices>
+      <Questionnaire.Choice value="inspect"> {React.string("Inspect the code")} </Questionnaire.Choice>
+      <Questionnaire.Choice value="test"> {React.string("Run the tests")} </Questionnaire.Choice>
+    </Questionnaire.Choices>
+    <Questionnaire.Error />
+  </Questionnaire.Item>
+  <Questionnaire.Actions>
+    <Questionnaire.Submit />
+  </Questionnaire.Actions>
+</Questionnaire>
+```
+
+The root renders a form. Read submitted answers with `FormData` using each item's `name`. Multiple-choice items produce multiple entries under that name. `item` and `onItemChange` control the active question; `defaultItem` selects its initial value. Omit `required` to allow skipping.
+
+Use `Questionnaire.Progress.WithRender` for a callback receiving the primitive's DOM props and `current`, `total`, `first`, and `last` state. Forward those DOM props so accessibility attributes are preserved.
+
+## Examples
+
+### Multiple choice
+
+<ComponentPreview name="QuestionnaireMultiple" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Freeform answers
+
+<ComponentPreview name="QuestionnaireFreeform" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Controlled navigation
+
+<ComponentPreview name="QuestionnaireControlled" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Conditional questions
+
+<ComponentPreview name="QuestionnaireConditional" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Optional questions
+
+<ComponentPreview name="QuestionnaireSkip" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Keyboard shortcuts
+
+<ComponentPreview name="QuestionnaireShortcuts" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Custom progress
+
+<ComponentPreview name="QuestionnaireProgress" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Navigation state
+
+<ComponentPreview name="QuestionnaireNavigationState" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Resume saved answers
+
+<ComponentPreview name="QuestionnaireResume" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Validation
+
+<ComponentPreview name="QuestionnaireValidation" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Animated steps
+
+<ComponentPreview name="QuestionnaireAnimated" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Card layout
+
+<ComponentPreview name="QuestionnaireCard" previewClassName="min-h-[560px] p-4 sm:p-8" />
+
+### Dialog
+
+<ComponentPreview name="QuestionnaireDialog" previewClassName="min-h-[560px] p-4 sm:p-8" />
+

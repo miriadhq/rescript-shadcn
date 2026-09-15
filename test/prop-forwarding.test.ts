@@ -20,6 +20,13 @@ import * as PopoverUi from "../registry/base/ui/Popover.res.mjs";
 import * as SelectUi from "../registry/base/ui/Select.res.mjs";
 import * as TooltipUi from "../registry/base/ui/Tooltip.res.mjs";
 
+import * as BaseQuestionnaire from "../registry/base/ui/Questionnaire.res.mjs";
+import * as AriaQuestionnaire from "../registry/aria/ui/Questionnaire.res.mjs";
+import * as BaseAvatar from "../registry/base/ui/Avatar.res.mjs";
+
+import * as BaseNativeSelect from "../registry/base/ui/NativeSelect.res.mjs";
+import * as AriaNativeSelect from "../registry/aria/ui/NativeSelect.res.mjs";
+
 const h = React.createElement;
 
 // Find a primitive in a wrapper's returned element tree without mounting portals.
@@ -33,6 +40,35 @@ function findElement(tree: React.ReactNode, type: unknown): React.ReactElement<a
 }
 
 describe("registry prop forwarding", () => {
+  for (const [variant, NativeSelect] of [["Base", BaseNativeSelect], ["Aria", AriaNativeSelect]] as const) {
+    it(`${variant} NativeSelect forwards native props to the select and keeps wrapper options out`, () => {
+      const ref = React.createRef();
+      const onChange = vi.fn();
+      const onPointerDown = vi.fn();
+      const forwarded = {
+        ref, onChange, onPointerDown, id: "country", name: "country", form: "profile",
+        autoFocus: true, multiple: true, required: true, dir: "rtl", style: {color: "red"},
+        "aria-describedby": "help", "aria-invalid": "true", "data-extra": "forwarded",
+        "data-slot": "custom-select", "data-size": "custom-size",
+      };
+      const tree = NativeSelect.make({...forwarded, className: "custom-wrapper", size: "sm"});
+      const select = findElement(tree, "select")!;
+      expect(select.props).toMatchObject(forwarded);
+      expect(select.props).not.toHaveProperty("size");
+      expect(select.props).not.toHaveProperty("invalid");
+      expect(tree.props.className).toContain("custom-wrapper");
+      expect(select.props.className).not.toContain("custom-wrapper");
+      for (const prop of Object.keys(forwarded).filter(prop => !prop.startsWith("data-"))) {
+        expect(tree.props).not.toHaveProperty(prop);
+      }
+      expect(tree.props["data-size"]).toBe("sm");
+      expect(NativeSelect.Option.make({value: "fr", title: "France", "data-extra": "option"}).props)
+        .toMatchObject({value: "fr", title: "France", "data-extra": "option"});
+      expect(NativeSelect.OptGroup.make({label: "Europe", disabled: true, "data-extra": "group"}).props)
+        .toMatchObject({label: "Europe", disabled: true, "data-extra": "group"});
+    });
+  }
+
   it("ToggleGroup forwards primitive props and caller overrides without leaking wrapper options", () => {
     const ref = React.createRef();
     const onPointerDown = vi.fn();
@@ -201,4 +237,30 @@ describe("registry prop forwarding", () => {
     const popup = findElement(PopoverUi.Content.make({ initialFocus: false, finalFocus: false }), Popover.Popup)!;
     expect(popup.props).toMatchObject({ initialFocus: false, finalFocus: false });
   });
+});
+
+for (const [variant, questionnaire] of [["base", BaseQuestionnaire], ["aria", AriaQuestionnaire]] as const) {
+  it(`${variant} Questionnaire preserves refs, callbacks, custom attributes and render functions`, () => {
+    const ref = React.createRef();
+    const onPointerDown = vi.fn();
+    const render = vi.fn();
+    const props = { ref, onPointerDown, "data-custom": "forwarded", "data-slot": "custom-slot", className: "custom-class" };
+    for (const make of [questionnaire.make, questionnaire.Item.make, questionnaire.Choice.make, questionnaire.Progress.make]) {
+      const tree = make({ ...props, name: "question", value: "answer" });
+      expect(tree.props).toMatchObject({ ref, onPointerDown, "data-custom": "forwarded", "data-slot": "custom-slot" });
+      expect(tree.props.className).toContain("custom-class");
+    }
+    const progress = questionnaire.Progress.WithRender.make({ ...props, render });
+    expect(progress.props.render).toBe(render);
+    const next = questionnaire.Next.make({ ...props, variant: "outline", size: "sm" });
+    expect(next.props).toMatchObject({ "data-variant": "outline", "data-size": "sm" });
+    expect(next.props).not.toHaveProperty("variant");
+    expect(next.props).not.toHaveProperty("size");
+  });
+}
+
+it("Avatar.Image forwards mounting and loading-status props", () => {
+  const onLoadingStatusChange = vi.fn();
+  const tree = BaseAvatar.Image.make({ keepMounted: true, onLoadingStatusChange, loading: "lazy", "data-custom": "image" });
+  expect(tree.props).toMatchObject({ keepMounted: true, onLoadingStatusChange, loading: "lazy", "data-custom": "image" });
 });

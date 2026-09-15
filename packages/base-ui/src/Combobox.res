@@ -1,3 +1,18 @@
+module Items = {
+  @unboxed
+  type value = String(string) | Number(float) | BigInt(bigint) | Bool(bool)
+  type t<'item>
+  type options<'item> = {getValue: 'item => value, getLabel: 'item => string}
+  type group<'item> = {items: array<'item>}
+
+  /** Items must have unique primitive values and must not have an `items` array field. */
+  @module("@base-ui/react/combobox") @scope("Combobox")
+  external create: (option<array<'item>>, options<'item>) => t<'item> = "createItems"
+
+  @module("@base-ui/react/combobox") @scope("Combobox")
+  external createGrouped: (option<array<group<'item>>>, options<'item>) => t<'item> = "createItems"
+}
+
 module Root = {
   module Actions = {
     type t = {
@@ -5,9 +20,9 @@ module Root = {
     }
   }
 
-  type props<'item, 'value> = {
+  type sharedProps<'item, 'value, 'selection, 'items> = {
     ...Types.BaseUIComponentProps.t,
-    items?: array<'item>,
+    items?: 'items,
     inputValue?: string,
     defaultInputValue?: string,
     openOnInputClick?: bool,
@@ -19,26 +34,43 @@ module Root = {
     locale?: string,
     autoHighlight?: bool,
     highlightItemOnHover?: bool,
-    itemToStringLabel?: 'item => string,
-    itemToStringValue?: 'item => string,
-    isItemEqualToValue?: ('item, 'item) => bool,
-    defaultValue?: 'value,
-    value?: 'value,
+    itemToStringLabel?: 'value => string,
+    itemToStringValue?: 'value => string,
+    isItemEqualToValue?: ('value, 'value) => bool,
+    defaultValue?: 'selection,
+    value?: 'selection,
     actionsRef?: React.ref<Actions.t>,
     onOpenChange?: (bool, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
     onInputValueChange?: (string, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
     onItemHighlighted?: (
-      'item,
+      option<'value>,
       Types.BaseUIChangeEventDetail.t<[#keyboard | #pointer | #none], unknown>,
     ) => unit,
-    onValueChange?: ('value, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
+    onValueChange?: ('selection, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
   }
+  type props<'item, 'value> = {...sharedProps<'item, 'item, 'value, array<'item>>}
+
+  module WithItems = {
+    type props<'item> = {...sharedProps<'item, Items.value, nullable<Items.value>, Items.t<'item>>}
+    @module("@base-ui/react/combobox") @scope("Combobox")
+    external make: React.component<props<'item>> = "Root"
+
+    module Multiple = {
+      type props<'item> = {
+        ...sharedProps<'item, Items.value, array<Items.value>, Items.t<'item>>,
+        multiple?: Types.OnlyTrue.t,
+      }
+      @module("@base-ui/react/combobox") @scope("Combobox")
+      external make: React.component<props<'item>> = "Root"
+    }
+  }
+
   @module("@base-ui/react/combobox") @scope("Combobox")
   external make: React.component<props<'item, 'value>> = "Root"
 
   module Multiple = {
     type props<'item> = {
-      ...props<'item, array<'item>>,
+      ...sharedProps<'item, 'item, array<'item>, array<'item>>,
       multiple?: Types.OnlyTrue.t,
     }
     @module("@base-ui/react/combobox") @scope("Combobox")

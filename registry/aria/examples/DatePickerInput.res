@@ -27,7 +27,8 @@ let make = ({}: Demo.Props.t) => {
         id="date-required"
         value
         placeholder="June 01, 2025"
-        onChange={value => {
+        onChange={event => {
+          let value = (event->JsxEvent.Form.target)["value"]
           let parsed = Date.fromString(value)
           setValue(_ => value)
           if parsed->isValidDate {

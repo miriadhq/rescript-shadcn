@@ -119,16 +119,16 @@ module DayPickerClassNames = {
 @module("react-day-picker")
 external getDefaultClassNames: unit => DayPickerClassNames.t = "getDefaultClassNames"
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
-@module("tailwind-merge")
+@module("cn")
 external cn4: (
   string,
   string,
   ~additional: option<string>=?,
   ~additional2: option<string>=?,
-) => string = "twMerge"
+) => string = "cn"
 
 module DayButton = {
   let toButtonProps: DayButtonProps.t => Button.props = %raw(`({day, modifiers, locale, ...rest}) => rest`)

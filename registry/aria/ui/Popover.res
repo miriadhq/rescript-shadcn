@@ -4,8 +4,8 @@
 
 open ReactAria.Types
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 module Trigger = {
   @react.componentWithProps(ReactAria.Dialog.Trigger.props)

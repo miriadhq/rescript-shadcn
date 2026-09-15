@@ -103,6 +103,8 @@ module OnlyFalse = {
 
 module DataProps = {
   type t = {
+    @as("data-status") dataStatus?: string,
+    @as("data-current") dataCurrent?: bool,
     @as("data-slot") dataSlot?: string,
     @as("data-sidebar") dataSidebar?: string,
     @as("data-side") dataSide?: string,

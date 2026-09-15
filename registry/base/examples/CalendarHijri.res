@@ -3,8 +3,8 @@
 
 @send external focusElement: Dom.element => unit = "focus"
 
-@module("tailwind-merge")
-external cn: (string, option<string>, ~additional: option<string>=?) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>, ~additional: option<string>=?) => string = "cn"
 
 %%raw(`
 import { Vazirmatn } from "next/font/google"

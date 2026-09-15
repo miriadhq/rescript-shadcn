@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "BaseUi.BaseUiJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, string, option<string>) => string = "cn"
 
 @unboxed
 type dataIcon =

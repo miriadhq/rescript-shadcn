@@ -1,7 +1,7 @@
 @@jsxConfig({version: 4, mode: "automatic", module_: "ReactAria.ReactAriaJsxDOM"})
 
-@module("tailwind-merge")
-external cn: (string, option<string>) => string = "twMerge"
+@module("cn")
+external cn: (string, option<string>) => string = "cn"
 
 type props = {ratio: float, ...ReactAria.Types.DomProps.t}
 let domProps: props => ReactAria.Types.DomProps.t = %raw(`({ratio, ...props}) => props`)
