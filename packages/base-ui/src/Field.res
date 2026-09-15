@@ -27,8 +27,9 @@ module Error = {
 }
 
 module Control = {
+  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
   @module("@base-ui/react/field") @scope("Field")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Control"
+  external make: React.component<props> = "Control"
 }
 
 module Validity = {

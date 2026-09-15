@@ -10,7 +10,7 @@ type dataIcon =
 let make = (~className=?, ~dataIcon: option<dataIcon>=?, ~dataSlot=?) => {
   <Icons.Loader2
     dataIcon=?{(dataIcon :> option<string>)}
-    ?dataSlot
+    dataSlot={dataSlot->Option.getOr("spinner")}
     role="status"
     ariaLabel="Loading"
     className={cn("size-4 animate-spin", className)}

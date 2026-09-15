@@ -49,6 +49,7 @@ module Root = {
 
 module Trigger = {
   type props<'payload> = {
+    @as("type") type_?: string,
     ...Types.BaseUIComponentProps.t,
     handle?: Root.Handle.t<'payload>,
     payload?: 'payload,

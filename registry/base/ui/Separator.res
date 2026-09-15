@@ -12,7 +12,7 @@ let make = (props: BaseUIComponentProps.t) =>
     dataSlot={props.dataSlot->Option.getOr("separator")}
     orientation={props.orientation->Option.getOr(Horizontal)}
     className={cn(
-      "cn-separator data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
+      "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
       props.className,
     )}
   />

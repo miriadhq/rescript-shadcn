@@ -3,6 +3,8 @@
 @module("tailwind-merge")
 external cn: (string, string, string, option<string>) => string = "twMerge"
 
+module Type = BaseUi.Types.ButtonType
+
 module Variant = {
   @unboxed
   type t =

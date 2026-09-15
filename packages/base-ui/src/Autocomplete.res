@@ -49,6 +49,7 @@ module Value = {
 
 module Input = {
   type props = {
+    @as("type") type_?: string,
     ...Types.BaseUIComponentProps.t,
     value?: string,
     onValueChange?: (string, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
@@ -175,8 +176,9 @@ module Empty = {
 }
 
 module Clear = {
+  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
   @module("@base-ui/react/autocomplete") @scope("Autocomplete")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Clear"
+  external make: React.component<props> = "Clear"
 }
 
 module Separator = {

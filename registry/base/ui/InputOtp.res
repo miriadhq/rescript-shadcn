@@ -149,19 +149,16 @@ module Slot = {
 }
 
 module Separator = {
-  @react.component
-  let make = (~className=?, ~children=React.null, ~id=?, ~style=?, ~onClick=?, ~onKeyDown=?) =>
+  @react.componentWithProps(BaseUi.Types.DomProps.t)
+  let make = (props: BaseUi.Types.DomProps.t) =>
     <div
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
+      {...props}
       role="separator"
       dataSlot="input-otp-separator"
-      className={cn("cn-input-otp-separator flex items-center", className)}
+      className={props.className->Option.getOr("cn-input-otp-separator flex items-center")}
     >
       <Icons.Minus />
-      {children}
+      {props.children->Option.getOr(React.null)}
     </div>
 }
 

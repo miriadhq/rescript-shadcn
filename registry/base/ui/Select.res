@@ -76,9 +76,9 @@ module ScrollDownButton = {
 module Trigger = {
   type triggerProps = {
     size?: Size.t,
-    ...BaseUi.Types.BaseUIComponentProps.t,
+    ...BaseUi.Select.Trigger.props,
   }
-  let toBaseUiProps: triggerProps => BaseUi.Types.BaseUIComponentProps.t = %raw(`({size, ...rest}) => rest`)
+  let toBaseUiProps: triggerProps => BaseUi.Select.Trigger.props = %raw(`({size, ...rest}) => rest`)
   @react.componentWithProps(triggerProps)
   let make = (props: triggerProps) => {
     let size = props.size->Option.getOr(Default)
@@ -88,7 +88,7 @@ module Trigger = {
       dataSlot={props.dataSlot->Option.getOr("select-trigger")}
       dataSize={(size :> string)}
       className={cn(
-        "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "cn-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
       )}
     >

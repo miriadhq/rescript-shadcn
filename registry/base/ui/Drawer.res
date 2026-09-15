@@ -97,31 +97,11 @@ let make = (
   />
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~asChild=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
+  @react.componentWithProps(DrawerPrimitive.chromeProps)
+  let make = (props: DrawerPrimitive.chromeProps) =>
     <DrawerPrimitive.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?asChild
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="drawer-trigger"
-      className
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("drawer-trigger")}
     />
 }
 
@@ -132,31 +112,11 @@ module Portal = {
 }
 
 module Close = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~asChild=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
+  @react.componentWithProps(DrawerPrimitive.chromeProps)
+  let make = (props: DrawerPrimitive.chromeProps) =>
     <DrawerPrimitive.Close
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?asChild
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="drawer-close"
-      className
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("drawer-close")}
     />
 }
 

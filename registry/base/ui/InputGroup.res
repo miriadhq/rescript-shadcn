@@ -67,20 +67,15 @@ module Addon = {
     | BlockEnd => "cn-input-group-addon-align-block-end order-last w-full justify-start"
     }
 
-  @react.component
-  let make = (
-    ~align=Align.InlineStart,
-    ~className=?,
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onKeyDown=?,
-  ) => {
+  type props = {align?: Align.t, ...BaseUi.Types.DomProps.t}
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({align, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let align = props.align->Option.getOr(InlineStart)
     <div
-      ?id
-      ?children
-      ?style
-      onClick={event => {
+      {...props->toDomProps}
+      onClick={props.onClick->Option.getOr(event => {
         let target = event->mouseEventTarget
         switch target->closest("button") {
         | Value(_) => ()
@@ -91,21 +86,17 @@ module Addon = {
           ->Nullable.flatMap(parent => parent->querySelector("input"))
           ->Nullable.forEach(focusElement)
         }
-      }}
-      ?onKeyDown
-      dataSlot="input-group-addon"
-      dataAlign={(align :> string)}
-      role="group"
-      className={cn3(baseClass, alignClass(~align), className)}
+      })}
+      dataSlot={props.dataSlot->Option.getOr("input-group-addon")}
+      dataAlign={props.dataAlign->Option.getOr((align :> string))}
+      role={props.role->Option.getOr("group")}
+      className={cn3(baseClass, alignClass(~align), props.className)}
     />
   }
 }
 
 module Button = {
-  type type_ =
-    | @as("button") Button
-    | @as("submit") Submit
-    | @as("reset") Reset
+  module Type = BaseUi.Types.ButtonType
 
   let sizeClass = (~size: Size.t) =>
     switch size {
@@ -117,42 +108,24 @@ module Button = {
 
   let baseClass = "cn-input-group-button flex items-center shadow-none"
 
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=?,
-    ~type_=Button,
-    ~dataSlot="button",
-    ~size=Size.Xs,
-    ~variant=Variant.Ghost,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~dataActive=?,
-    ~ariaPressed=?,
-    ~ariaLabel=?,
-    ~render=?,
-    ~nativeButton=?,
-  ) => {
+  type props = {
+    size?: Size.t,
+    variant?: Variant.t,
+    ...BaseUi.Types.BaseUIComponentProps.t,
+    ...BaseUi.Types.NativeButtonProps.t,
+  }
+  let toButtonProps: props => Button.props = %raw(`({variant, size, ...props}) => props`)
+
+  @react.componentWithProps(props)
+  let make = (props: props) => {
+    let size = props.size->Option.getOr(Xs)
+    let variant = props.variant->Option.getOr(Ghost)
     <Button
-      ?id
-      ?children
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?dataActive
-      ?ariaPressed
-      ?ariaLabel
-      ?render
-      ?nativeButton
-      type_={(type_ :> string)}
+      {...props->toButtonProps}
+      type_={props.type_->Option.getOr(Button)}
       variant={(variant :> Button.Variant.t)}
-      dataSlot
-      dataSize={(size :> string)}
-      className={cn3(baseClass, sizeClass(~size), className)}
+      dataSize={props.dataSize->Option.getOr((size :> string))}
+      className={cn3(baseClass, sizeClass(~size), props.className)}
     />
   }
 }

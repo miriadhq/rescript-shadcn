@@ -79,8 +79,8 @@ module Description = {
 }
 
 module Action = {
-  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  @react.componentWithProps(BaseUi.Toast.Action.props)
+  let make = (props: BaseUi.Toast.Action.props) =>
     <BaseUi.Toast.Action
       {...props}
       render={props.render->Option.getOr(<Button variant=Outline size=Sm />)}
@@ -90,8 +90,8 @@ module Action = {
 }
 
 module Close = {
-  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  @react.componentWithProps(BaseUi.Toast.Close.props)
+  let make = (props: BaseUi.Toast.Close.props) =>
     <BaseUi.Toast.Close
       {...props}
       render={props.render->Option.getOr(<Button variant=Ghost size=IconSm />)}

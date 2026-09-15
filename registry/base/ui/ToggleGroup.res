@@ -56,7 +56,6 @@ let make = (
   ~tabIndex=?,
   ~ariaLabel=?,
   ~dir=?,
-  ~type_=?,
 ) => {
   <BaseUi.ToggleGroup
     dataSlot="toggle-group"
@@ -83,7 +82,6 @@ let make = (
     ?tabIndex
     ?ariaLabel
     ?dir
-    ?type_
   >
     <ContextProvider value={{?variant, ?size, spacing, orientation}}> {children} </ContextProvider>
   </BaseUi.ToggleGroup>
@@ -122,7 +120,7 @@ module Item = {
       dataSize={(size :> string)}
       dataSpacing=?context.spacing
       className={cn3(
-        "cn-toggle-group-item shrink-0 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        "cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
         Toggle.toggleVariants(~variant, ~size),
         className,
       )}

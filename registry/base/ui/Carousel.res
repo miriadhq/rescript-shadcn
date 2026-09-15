@@ -230,38 +230,22 @@ module Item = {
 }
 
 module Previous = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~style=?,
-    ~variant=Button.Variant.Outline,
-    ~size=Button.Size.IconSm,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~onClick: option<JsxEvent.Mouse.t => unit>=?,
-  ) => {
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) => {
     let {orientation, scrollPrev, canScrollPrev} = useCarousel()
-    let onClick = switch onClick {
-    | Some(handler) => handler
-    | None => _ => scrollPrev()
-    }
     <Button
+      {...props}
       className={cn(
-        `cn-carousel-previous absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
-            ? "top-1/2 -left-12 -translate-y-1/2"
+        `cn-carousel-previous absolute touch-manipulation ${orientation == DataOrientation.Horizontal
+            ? "inset-y-0 -left-12 my-auto"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90"}`,
-        className,
+        props.className,
       )}
-      variant
-      size
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      dataSlot="carousel-previous"
-      disabled={!canScrollPrev}
-      ?style
-      onClick
+      variant={props.variant->Option.getOr(Outline)}
+      size={props.size->Option.getOr(IconSm)}
+      dataSlot={props.dataSlot->Option.getOr("carousel-previous")}
+      disabled={props.disabled->Option.getOr(!canScrollPrev)}
+      onClick={props.onClick->Option.getOr(_ => scrollPrev())}
     >
       <Icons.ChevronLeft className="cn-rtl-flip" />
       <span className="sr-only"> {"Previous slide"->React.string} </span>
@@ -270,38 +254,22 @@ module Previous = {
 }
 
 module Next = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~style=?,
-    ~variant=Button.Variant.Outline,
-    ~size=Button.Size.IconSm,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~onClick: option<JsxEvent.Mouse.t => unit>=?,
-  ) => {
+  @react.componentWithProps(Button.props)
+  let make = (props: Button.props) => {
     let {orientation, scrollNext, canScrollNext} = useCarousel()
-    let onClick = switch onClick {
-    | Some(handler) => handler
-    | None => _ => scrollNext()
-    }
     <Button
+      {...props}
       className={cn(
-        `cn-carousel-next absolute touch-manipulation rounded-full ${orientation == DataOrientation.Horizontal
-            ? "top-1/2 -right-12 -translate-y-1/2"
+        `cn-carousel-next absolute touch-manipulation ${orientation == DataOrientation.Horizontal
+            ? "inset-y-0 -right-12 my-auto"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"}`,
-        className,
+        props.className,
       )}
-      variant
-      size
-      ?style
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      dataSlot="carousel-next"
-      disabled={!canScrollNext}
-      onClick
+      variant={props.variant->Option.getOr(Outline)}
+      size={props.size->Option.getOr(IconSm)}
+      dataSlot={props.dataSlot->Option.getOr("carousel-next")}
+      disabled={props.disabled->Option.getOr(!canScrollNext)}
+      onClick={props.onClick->Option.getOr(_ => scrollNext())}
     >
       <Icons.ChevronRight className="cn-rtl-flip" />
       <span className="sr-only"> {"Next slide"->React.string} </span>

@@ -14,12 +14,14 @@ let buttonGroupVariants = (~orientation=BaseUi.Types.Orientation.Horizontal) => 
   cn(base, Some(orientationClass))
 }
 
+let toDomProps: BaseUi.Types.DomProps.t => BaseUi.Types.DomProps.t = %raw(`({orientation, ...props}) => props`)
+
 @react.componentWithProps(BaseUi.Types.DomProps.t)
 let make = ({?role, ?orientation, ?dataSlot, ?className} as props: BaseUi.Types.DomProps.t) => {
   <div
-    {...props}
+    {...props->toDomProps}
     role={role->Option.getOr("group")}
-    dataOrientation=?{(orientation :> option<string>)}
+    dataOrientation=?{props.dataOrientation->Option.orElse((orientation :> option<string>))}
     dataSlot={dataSlot->Option.getOr("button-group")}
     className={cn(buttonGroupVariants(~orientation?), className)}
   />

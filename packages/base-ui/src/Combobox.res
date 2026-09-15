@@ -56,6 +56,7 @@ module Value = {
 
 module Input = {
   type props = {
+    @as("type") type_?: string,
     ...Types.BaseUIComponentProps.t,
     value?: string,
     onValueChange?: (string, Types.BaseUIChangeEventDetail.t<[#none], unknown>) => unit,
@@ -182,8 +183,9 @@ module Chip = {
 }
 
 module ChipRemove = {
+  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
   @module("@base-ui/react/combobox") @scope("Combobox")
-  external make: React.component<Types.BaseUIComponentProps.t> = "ChipRemove"
+  external make: React.component<props> = "ChipRemove"
 }
 
 module Row = {
@@ -207,8 +209,9 @@ module Empty = {
 }
 
 module Clear = {
+  type props = {...Types.BaseUIComponentProps.t, ...Types.NativeButtonProps.t}
   @module("@base-ui/react/combobox") @scope("Combobox")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Clear"
+  external make: React.component<props> = "Clear"
 }
 
 module Separator = {

@@ -4,7 +4,7 @@ open BaseUi.Types
 external cn: (string, option<string>) => string = "twMerge"
 
 let navigationMenuTriggerStyle = () =>
-  "cn-navigation-menu-trigger bg-background group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center disabled:pointer-events-none outline-none"
+  "cn-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center disabled:pointer-events-none outline-none"
 
 @react.component
 let make = (
@@ -31,7 +31,7 @@ let make = (
     ?onValueChange
     dataSlot="navigation-menu"
     className={cn(
-      "cn-navigation-menu group/navigation-menu relative flex flex-1 items-center justify-center",
+      "cn-navigation-menu group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
       className,
     )}
   >
@@ -119,7 +119,7 @@ module Trigger = {
         ?disabled
         ?render
         ?nativeButton
-        type_="button"
+        type_=Button
         ?ariaLabel
         dataSlot="navigation-menu-trigger"
         className={cn(`${navigationMenuTriggerStyle()} group`, className)}

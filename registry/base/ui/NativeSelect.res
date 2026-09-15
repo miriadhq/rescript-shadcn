@@ -85,15 +85,15 @@ module Option = {
       ?onKeyDown
       ?style
       ?children
-      ?className
+      className={cn("bg-[Canvas] text-[CanvasText]", className)}
       dataSlot="native-select-option"
     />
 }
 
 module OptGroup = {
   @react.component
-  let make = (~className="", ~children=?, ~id=?, ~label=?, ~style=?) =>
+  let make = (~className=?, ~children=?, ~id=?, ~label=?, ~style=?) =>
     <optgroup
-      ?id ?label ?style ?children dataSlot="native-select-optgroup" className={`${className}`}
+      ?id ?label ?style ?children dataSlot="native-select-optgroup" className={cn("bg-[Canvas] text-[CanvasText]", className)}
     />
 }

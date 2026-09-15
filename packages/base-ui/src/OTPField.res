@@ -32,6 +32,7 @@ module Root = {
 }
 
 module Input = {
+  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
   @module("@base-ui/react/otp-field") @scope("OTPField")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Input"
+  external make: React.component<props> = "Input"
 }

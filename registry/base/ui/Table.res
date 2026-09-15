@@ -82,7 +82,7 @@ module Row = {
       ?dataState
       dataSlot="table-row"
       className={cn(
-        "cn-table-row",
+        "cn-table-row has-aria-expanded:bg-muted/50",
         className,
       )}
     />

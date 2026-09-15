@@ -34,7 +34,7 @@ let make = ({}: Demo.Props.t) =>
       </form>
     </Card.Content>
     <Card.Footer className="flex-col gap-2">
-      <Button type_="submit" className="w-full"> {"Login"->React.string} </Button>
+      <Button type_=Submit className="w-full"> {"Login"->React.string} </Button>
       <Button variant=Outline className="w-full"> {"Login with Google"->React.string} </Button>
     </Card.Footer>
   </Card>

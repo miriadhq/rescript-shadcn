@@ -129,7 +129,7 @@ module Ellipsis = {
       ?style
       ariaHidden={true}
       className={cn(
-        "cn-pagination-ellipsis flex",
+        "cn-pagination-ellipsis flex items-center justify-center",
         className,
       )}
     >

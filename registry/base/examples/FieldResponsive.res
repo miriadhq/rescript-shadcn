@@ -16,8 +16,8 @@ let make = ({}: Demo.Props.t) =>
             <Input id="name" placeholder="Evil Rabbit" required={true} />
           </Field>
           <Field orientation=Responsive>
-            <Button type_="submit"> {"Submit"->React.string} </Button>
-            <Button type_="button" variant=Outline> {"Cancel"->React.string} </Button>
+            <Button type_=Submit> {"Submit"->React.string} </Button>
+            <Button type_=Button variant=Outline> {"Cancel"->React.string} </Button>
           </Field>
         </Field.Group>
       </Field.Set>

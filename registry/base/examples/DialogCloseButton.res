@@ -16,7 +16,7 @@ let make = ({}: Demo.Props.t) =>
         </div>
       </div>
       <Dialog.Footer className="sm:justify-start">
-        <Dialog.Close render={<Button type_="button" />}> {"Close"->React.string} </Dialog.Close>
+        <Dialog.Close render={<Button type_=Button />}> {"Close"->React.string} </Dialog.Close>
       </Dialog.Footer>
     </Dialog.Content>
   </Dialog>

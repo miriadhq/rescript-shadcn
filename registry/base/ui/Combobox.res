@@ -22,67 +22,28 @@ module Value = {
 }
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className=?,
-    ~children=React.null,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-    ~tabIndex=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Combobox.Trigger.props)
+  let make = (props: BaseUi.Combobox.Trigger.props) =>
     <BaseUi.Combobox.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?tabIndex
-      dataSlot="combobox-trigger"
-      className={cn("cn-combobox-trigger", className)}
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("combobox-trigger")}
+      className={cn("cn-combobox-trigger", props.className)}
     >
-      {children}
+      {props.children->Option.getOr(React.null)}
       <Icons.ChevronDown className="cn-combobox-trigger-icon pointer-events-none" />
     </BaseUi.Combobox.Trigger>
 }
 
 module Clear = {
-  @react.component
-  let make = (
-    ~className="",
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
+  @react.componentWithProps(InputGroup.Button.props)
+  let make = (props: InputGroup.Button.props) =>
     <BaseUi.Combobox.Clear
       dataSlot="combobox-clear"
       render={<InputGroup.Button
-        variant=Ghost
-        size=IconXs
-        className={cn("cn-combobox-clear", Some(className))}
-        ?id
-        ?style
-        ?onClick
-        ?onKeyDown
-        ?disabled
-        ?nativeButton
-        ?type_
-        ?ariaLabel
+        {...props}
+        variant={props.variant->Option.getOr(Ghost)}
+        size={props.size->Option.getOr(IconXs)}
+        className={cn("cn-combobox-clear", props.className)}
       />}
     >
       <Icons.X className="cn-combobox-clear-icon pointer-events-none" />

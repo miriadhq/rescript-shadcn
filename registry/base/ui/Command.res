@@ -68,7 +68,7 @@ module CommandPrimitive = {
       disabled?: bool,
       onClick?: JsxEvent.Mouse.t => unit,
       onKeyDown?: JsxEvent.Keyboard.t => unit,
-      dataSlot?: string,
+      @as("data-slot") dataSlot?: string,
       ref?: ReactDOM.domRef,
       asChild?: bool,
     }

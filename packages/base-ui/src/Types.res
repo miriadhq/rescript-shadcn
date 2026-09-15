@@ -388,8 +388,6 @@ module BaseDomProps = {
     step?: float,
     summary?: string /* deprecated */,
     target?: string,
-    @as("type")
-    type_?: string /* has a fixed but large-ish set of possible values */ /* use this one. Previous one is deprecated */,
     useMap?: string,
     width?: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
     wrap?: string /* "hard" or "soft" */,
@@ -768,6 +766,8 @@ module DomProps = {
     defaultValue?: string,
     min?: string,
     max?: string,
+    @as("type")
+    type_?: string /* has a fixed but large-ish set of possible values */ /* use this one. Previous one is deprecated */,
     ...BaseDomProps.t,
     ...ExtraDomProps.t,
   }
@@ -790,8 +790,17 @@ module BaseUIComponentProps = {
   }
 }
 
+module ButtonType = {
+  @unboxed
+  type t =
+    | @as("button") Button
+    | @as("submit") Submit
+    | @as("reset") Reset
+}
+
 module NativeButtonProps = {
   type t = {
+    @as("type") type_?: ButtonType.t,
     nativeButton?: bool,
   }
 }

@@ -44,7 +44,7 @@ let make = ({}: Demo.Props.t) =>
     </Card.Content>
     <Card.Footer>
       <Field>
-        <Button type_="submit" className="w-full"> {"Verify"->React.string} </Button>
+        <Button type_=Submit className="w-full"> {"Verify"->React.string} </Button>
         <div className="text-muted-foreground text-sm">
           {"Having trouble signing in? "->React.string}
           <a href="#" className="hover:text-primary underline underline-offset-4 transition-colors">

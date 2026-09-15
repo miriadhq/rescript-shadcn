@@ -5,30 +5,13 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~className=?,
-  ~children=?,
-  ~id=?,
-  ~dataSlot="label",
-  ~htmlFor=?,
-  ~dir=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~style=?,
-) => {
+@react.componentWithProps(BaseUi.Types.DomProps.t)
+let make = (props: BaseUi.Types.DomProps.t) =>
   <label
-    ?id
-    ?children
-    ?htmlFor
-    ?dir
-    ?onClick
-    ?onKeyDown
-    ?style
-    dataSlot
+    {...props}
+    dataSlot={props.dataSlot->Option.getOr("label")}
     className={cn(
       "cn-label flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed",
-      className,
+      props.className,
     )}
   />
-}

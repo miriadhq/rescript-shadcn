@@ -22,13 +22,15 @@ module Button = {
 }
 
 module Link = {
+  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
   @module("@base-ui/react/toolbar") @scope("Toolbar")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Link"
+  external make: React.component<props> = "Link"
 }
 
 module Input = {
+  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
   @module("@base-ui/react/toolbar") @scope("Toolbar")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Input"
+  external make: React.component<props> = "Input"
 }
 
 module Separator = {

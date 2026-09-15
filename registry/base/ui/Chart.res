@@ -649,6 +649,7 @@ module Style = {
 @react.component
 let make = (
   ~config: chartConfig,
+  ~initialDimension: Recharts.Dimensions.t={width: 320., height: 200.},
   ~className=?,
   ~children,
   ~id=?,
@@ -678,7 +679,7 @@ let make = (
       )}
     >
       <Style id={chartId} config={config} />
-      <Recharts.ResponsiveContainer children />
+      <Recharts.ResponsiveContainer initialDimension children />
     </div>
   </Provider>
 }

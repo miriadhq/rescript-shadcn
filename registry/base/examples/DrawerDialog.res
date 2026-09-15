@@ -43,7 +43,7 @@ module ProfileForm = {
         <Label htmlFor="username"> {"Username"->React.string} </Label>
         <Input id="username" defaultValue="@shadcn" />
       </div>
-      <Button type_="submit"> {"Save changes"->React.string} </Button>
+      <Button type_=Submit> {"Save changes"->React.string} </Button>
     </form>
   }
 }

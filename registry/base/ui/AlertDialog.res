@@ -15,33 +15,11 @@ let make = (~children=?, ~open_=?, ~defaultOpen=?, ~onOpenChange=?, ~onOpenChang
   />
 
 module Trigger = {
-  @react.component
-  let make = (
-    ~className="",
-    ~children=?,
-    ~id=?,
-    ~style=?,
-    ~onClick=?,
-    ~onKeyDown=?,
-    ~disabled=?,
-    ~render=?,
-    ~nativeButton=?,
-    ~type_=?,
-    ~ariaLabel=?,
-  ) =>
+  @react.componentWithProps(BaseUi.Dialog.Trigger.props)
+  let make = (props: BaseUi.Dialog.Trigger.props<'payload>) =>
     <BaseUi.AlertDialog.Trigger
-      ?id
-      ?style
-      ?onClick
-      ?onKeyDown
-      ?disabled
-      ?render
-      ?nativeButton
-      ?type_
-      ?ariaLabel
-      ?children
-      dataSlot="alert-dialog-trigger"
-      className
+      {...props}
+      dataSlot={props.dataSlot->Option.getOr("alert-dialog-trigger")}
     />
 }
 

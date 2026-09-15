@@ -52,6 +52,7 @@ module Root = {
 
 module Trigger = {
   type props = {
+    @as("type") type_?: Types.ButtonType.t,
     ...Types.BaseUIComponentProps.t,
     closeOnClick?: bool,
   }

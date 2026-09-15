@@ -5,6 +5,9 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
+@module("tailwind-merge")
+external cn5: (string, string, string, string, option<string>) => string = "twMerge"
+
 module Size = {
   @unboxed
   type t =
@@ -123,8 +126,11 @@ module Badge = {
       ?onClick
       ?onKeyDown
       dataSlot="avatar-badge"
-      className={cn(
-        "cn-avatar-image cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center bg-blend-color ring-2 select-none group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2 group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
+      className={cn5(
+        "cn-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none",
+        "group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden",
+        "group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2",
+        "group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
         className,
       )}
       ?children

@@ -94,8 +94,9 @@ module Arrow = {
 }
 
 module Link = {
+  type props = {...Types.BaseUIComponentProps.t, @as("type") type_?: string}
   @module("@base-ui/react/navigation-menu") @scope("NavigationMenu")
-  external make: React.component<Types.BaseUIComponentProps.t> = "Link"
+  external make: React.component<props> = "Link"
 }
 
 module Icon = {

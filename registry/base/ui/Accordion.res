@@ -90,8 +90,8 @@ module Item = {
 }
 
 module Trigger = {
-  @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  @react.componentWithProps(BaseUi.Accordion.Trigger.props)
+  let make = (props: BaseUi.Accordion.Trigger.props) =>
     <BaseUi.Accordion.Header className="flex">
       <BaseUi.Accordion.Trigger
         {...props}

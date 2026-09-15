@@ -38,7 +38,7 @@ module Trigger = {
   let make = (props: BaseUi.ContextMenu.Trigger.props) =>
     <BaseUi.ContextMenu.Trigger
       {...props}
-      dataSlot={props.dataSlot->Option.getOr("context-menu-content")}
+      dataSlot={props.dataSlot->Option.getOr("context-menu-trigger")}
       className={cn("cn-context-menu-trigger select-none", props.className)}
     />
 }

@@ -20,7 +20,7 @@ let make = ({}: Demo.Props.t) =>
         </div>
       </div>
       <Sheet.Footer>
-        <Button type_="submit"> {"Save changes"->React.string} </Button>
+        <Button type_=Submit> {"Save changes"->React.string} </Button>
         <Sheet.Close render={<Button variant=Outline />}> {"Close"->React.string} </Sheet.Close>
       </Sheet.Footer>
     </Sheet.Content>

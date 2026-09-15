@@ -81,7 +81,7 @@ module Group = {
   let make = (props: BaseUi.Types.DomProps.t) =>
     <div
       {...props}
-      dataSlot="field-group"
+      dataSlot={props.dataSlot->Option.getOr("field-group")}
       className={cn(
         "cn-field-group group/field-group @container/field-group flex w-full flex-col",
         props.className,
