@@ -25,11 +25,12 @@
     "test:classnames": "vitest run test/classname-parity.test.ts",
     "test:registry": "vitest run test/lib-style-registry.test.ts",
     "test:bindings": "vitest run test/react-aria-bindings.test.ts",
+    "test:interactions": "yarn compile && vitest run test/component-interactions.test.ts",
     "test:visual": "node test/visual/run-pixel-perfect.mjs",
     "test:visual-fast:base": "node test/visual/run-visual-fast.mjs --variant base",
     "test:visual-fast:aria": "node test/visual/run-visual-fast.mjs --variant aria",
     "test:visual-fast": "yarn test:visual-fast:base && yarn test:visual-fast:aria",
-    "test": "yarn test:docs && yarn test:classnames && yarn test:registry && yarn test:bindings && yarn test:visual",
+    "test": "yarn test:docs && yarn test:classnames && yarn test:registry && yarn test:bindings && yarn test:interactions && yarn test:visual",
     "postInstall": "yarn loader:generate && fumadocs-mdx source.config.mjs .source"
   },
   "dependencies": {
@@ -86,13 +87,19 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@ai-sdk/react": "4.0.0-canary.162",
     "@sparticuz/chromium": "^143.0.4",
     "@tailwindcss/postcss": "^4.2.1",
+    "ai": "7.0.0-canary.159",
+    "class-variance-authority": "^0.7.1",
+    "motion": "^12.12.1",
     "puppeteer": "^24.40.0",
     "puppeteer-core": "^24.40.0",
+    "radix-ui": "^1.4.3",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.1",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "zod": "^3.25.76"
   },
   "packageManager": "yarn@4.13.0"
 }

@@ -41,18 +41,9 @@ module ChevronProps = {
 }
 
 module RootProps = {
-  type t = {
-    className?: string,
-    children?: React.element,
-    rootRef?: JsxDOM.domRef,
-    id?: string,
-    style?: ReactDOM.Style.t,
-    onClick?: JsxEvent.Mouse.t => unit,
-    onKeyDown?: JsxEvent.Keyboard.t => unit,
-    @as("data-mode") dataMode?: string,
-    @as("data-week-numbers") dataWeekNumbers?: bool,
-    @as("data-multiple-months") dataMultipleMonths?: bool,
-  }
+  type t = {...BaseUi.Types.DomProps.t, rootRef?: JsxDOM.domRef}
+
+  let toDomProps: t => BaseUi.Types.DomProps.t = %raw(`({rootRef, ...props}) => ({...props, ref: rootRef})`)
 }
 
 module WeekNumberProps = {
@@ -490,31 +481,8 @@ let make = props => {
     )}
     components={merge(
       ~defaults={
-        DayPickerComponents.root: ({
-          ?className,
-          ?children,
-          ?rootRef,
-          ?id,
-          ?style,
-          ?onClick,
-          ?onKeyDown,
-          ?dataMode,
-          ?dataWeekNumbers,
-          ?dataMultipleMonths,
-        }) =>
-          <div
-            dataSlot="calendar"
-            ref=?rootRef
-            ?className
-            ?children
-            ?id
-            ?style
-            ?onClick
-            ?onKeyDown
-            ?dataMode
-            ?dataWeekNumbers
-            ?dataMultipleMonths
-          />,
+        DayPickerComponents.root: props =>
+          <div {...RootProps.toDomProps(props)} dataSlot="calendar" />,
         chevron: (props: ChevronProps.t) => {
           let className = props.className
           let orientation = props.orientation

@@ -373,20 +373,9 @@ function normalizeDomSnapshotClasses(value: unknown): unknown {
     )) {
       delete attributes.style
     }
-    // ReScript compiles optional props as explicit undefined values (e.g. role: undefined),
-    // which override Base UI's internally-set attributes through its mergeProps system.
-    // Strip all attributes that Base UI sets internally on composite components.
-    delete attributes.tabindex
-    delete attributes["aria-expanded"]
-    delete attributes["aria-haspopup"]
-    delete attributes["aria-disabled"]
+    // Generated ID references and library-specific state encodings are normalized.
     delete attributes["aria-controls"]
     delete attributes["data-state"]
-    delete attributes["data-unchecked"]
-    delete attributes["data-panel-open"]
-    // Strip role - Base UI composite components set role internally (e.g. "radio",
-    // "menuitem") but ReScript's explicit undefined overrides them
-    delete attributes.role
     // Strip lang attribute - calendar library may or may not set it
     delete attributes.lang
     // Strip data-selected-single - react-day-picker internal attribute

@@ -14,6 +14,7 @@ import * as Accordion from "../registry/base/ui/Accordion.res.mjs";
 import * as ContextMenu from "../registry/base/ui/ContextMenu.res.mjs";
 import * as DropdownMenu from "../registry/base/ui/DropdownMenu.res.mjs";
 import * as Menubar from "../registry/base/ui/Menubar.res.mjs";
+import * as ToggleGroup from "../registry/base/ui/ToggleGroup.res.mjs";
 import * as Sidebar from "../registry/base/ui/Sidebar.res.mjs";
 import * as PopoverUi from "../registry/base/ui/Popover.res.mjs";
 import * as SelectUi from "../registry/base/ui/Select.res.mjs";
@@ -32,6 +33,38 @@ function findElement(tree: React.ReactNode, type: unknown): React.ReactElement<a
 }
 
 describe("registry prop forwarding", () => {
+  it("ToggleGroup forwards primitive props and caller overrides without leaking wrapper options", () => {
+    const ref = React.createRef();
+    const onPointerDown = vi.fn();
+    const onValueChange = vi.fn();
+    const style = { padding: "8px" };
+    const forwarded = {
+      ref, onPointerDown, onValueChange, style,
+      render: h("section"), loopFocus: false, orientation: "vertical",
+      value: ["one"], title: "Forwarded", "aria-describedby": "help",
+      "data-slot": "custom", "data-spacing": 4, "data-variant": "custom", "data-size": "custom",
+    };
+    const tree = ToggleGroup.make({
+      ...forwarded, variant: "outline", size: "sm", spacing: 3, className: "custom-class",
+      children: h("span", null, "Child"),
+    });
+    expect(tree.props).toMatchObject(forwarded);
+    expect(tree.props.style).toBe(style);
+    expect(tree.props.className).toContain("custom-class");
+    for (const prop of ["variant", "size", "spacing", "tabIndex"]) {
+      expect(tree.props).not.toHaveProperty(prop);
+    }
+    expect(tree.props.children.props.value).toEqual({
+      variant: "outline", size: "sm", spacing: 3, orientation: "vertical",
+    });
+    expect(tree.props.children.props.children.props.children).toBe("Child");
+
+    const defaults = ToggleGroup.make({});
+    expect(defaults.props.orientation).toBe("horizontal");
+    expect(defaults.props.style).toEqual({ "--gap": 2 });
+    expect(defaults.props["data-spacing"]).toBe(2);
+  });
+
   it.each([true, false])("Sidebar.Provider consumes controlled open=%s without forwarding it to the DOM", (open) => {
     const State = () => h("span", { "data-state": Sidebar.use().state });
     const html = renderToStaticMarkup(h(Sidebar.Provider.make, {

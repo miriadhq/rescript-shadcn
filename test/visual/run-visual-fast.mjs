@@ -23,6 +23,7 @@ import { isValidElementType } from "react-is";
 import { renderToStaticMarkup } from "react-dom/server";
 import { twMerge } from "tailwind-merge";
 import { createServer } from "vite";
+import { upstreamAliases, upstreamRtl } from "./upstream-resolver.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
@@ -31,7 +32,7 @@ const harnessRoot = path.join(__dirname, "vite-harness");
 const MAX_DIFFS_PER_COMPONENT = 5;
 
 const rootPackageJson = JSON.parse(fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"));
-const DEDUPED_PACKAGES = Object.keys(rootPackageJson.dependencies ?? {});
+const DEDUPED_PACKAGES = Object.keys({ ...rootPackageJson.dependencies, ...rootPackageJson.devDependencies });
 
 const VARIANTS = {
   base: {
@@ -48,37 +49,35 @@ const VARIANTS = {
   },
 };
 
-// Not rendered at all, unlike SKIPPED.
-const EXCLUDED = [
-  "message-scroller-anchoring" // depends on MessageAnimated, which itself depends on "radix", which we don't support
-];
-
-// Components known to fail DOM parity, keyed by the variant(s) they fail in. Goal is zero.
-//
-// Skipped means "not counted as a failure", not "not run": every entry is still rendered and
-// compared, and the run fails if one of them starts passing. That way the lists can only ever shrink.
+// Unfinished example parity. Entries still run and must be removed when they pass.
 const SKIPPED = {
-  both: [
-    "calendar-hijri", // Base RTL differences; Aria upstream ui-rtl module is unavailable.
-    "chart-demo", // Example still uses older chart/card markup and incomplete interactions.
-    "message-scroller-demo", // Upstream imports missing @ai-sdk/react.
-  ],
-  base: [
-    "button-render", // Upstream example renders a plain link without the button slot.
-    "progress-controlled", // Upstream Slider creates two thumbs for a scalar value; keep our single thumb.
-    "tabs-vertical", // Upstream Tabs drops orientation; keep vertical keyboard navigation.
-  ],
+  both: ["message-scroller-demo"],
+  base: [],
   aria: [
-    "bubble-link-button", // Keep explicit button type to avoid accidental form submission.
-    "message-scroller-animation", // Upstream imports missing @ai-sdk/react.
-    "message-scroller-commands", // Upstream imports missing @shadcn/helpers/ai-sdk.
-    "message-scroller-load-history", // Upstream imports missing @shadcn/helpers/ai-sdk.
-    "message-scroller-previous-context", // Upstream imports missing @ai-sdk/react.
-    "message-scroller-scrollable", // Upstream imports unsupported radix style modules.
-    "message-scroller-streaming", // Upstream imports missing @ai-sdk/react.
-    "message-scroller-visibility", // Upstream imports missing @shadcn/helpers/ai-sdk.
-    "sidebar-demo", // Keep React Aria's expanded selector rather than upstream's data-state selector.
+    "calendar-hijri",
+    "message-scroller-commands",
+    "message-scroller-load-history",
+    "message-scroller-previous-context",
+    "message-scroller-scrollable",
+    "message-scroller-streaming",
+    "message-scroller-visibility",
   ],
+};
+
+// Deliberate divergences, covered by component-interactions.test.ts where behavioral.
+// A load/render error remains a failure, even for one of these examples.
+const EXPECTED_DIFFERENCES = {
+  base: {
+    "button-render": "Keep button semantics on the custom render target; upstream renders a plain link.",
+    "chart-demo": "Use this variant's Card and Chart styles; upstream imports legacy New York components.",
+    "progress-controlled": "Keep one thumb for a scalar Slider value.",
+    "tabs-vertical": "Keep vertical orientation and keyboard navigation.",
+  },
+  aria: {
+    "bubble-link-button": "Keep type=button to avoid submitting a containing form.",
+    "context-menu-shortcuts": "Keep an accessible role on the Pressable trigger.",
+    "sidebar-demo": "React Aria exposes data-expanded, not data-state=open.",
+  },
 };
 
 const printHelp = () => {
@@ -301,10 +300,10 @@ const canonicalizeClassName = (className) =>
     .sort()
     .join(" ");
 
-// Set internally by Base UI or react-day-picker; ReScript's explicit `undefined` props override them.
+// Keep focus, roles, expanded/disabled state and panel flags visible.
+// Remaining legacy exclusions include generated IDs and differing library state encodings.
 const STRIPPED_ATTRIBUTES = [
-  "tabindex", "aria-expanded", "aria-haspopup", "aria-disabled", "aria-controls",
-  "data-state", "data-unchecked", "data-panel-open", "role",
+  "aria-controls", "data-state",
   "lang", "data-selected-single", "week",
   "aria-autocomplete", "autocapitalize", "autocomplete", "autocorrect", "spellcheck",
   "data-size", "data-variant",
@@ -404,7 +403,7 @@ const createViteServer = () => {
   // vite-parity.config.ts aliases, minus `react` -> absolute path, which makes Vite inline React's
   // CJS build in SSR ("module is not defined"). Style trees (base-nova, base-rhea, ...) share one source.
   const alias = [
-    { find: /^@\/styles\/(base|aria)-[a-z]+/, replacement: (_m, kind) => path.join(appRoot, `registry/bases/${kind}`) },
+    ...upstreamAliases,
     { find: "shadcn/tailwind.css", replacement: path.join(repoRoot, "app/tailwind.css") },
     { find: "shadcn/preset", replacement: path.join(repoRoot, "shadcn-ui/packages/shadcn/src/preset/index.ts") },
     { find: "@/app/(app)/create/components/icon-placeholder", replacement: path.join(harnessRoot, "icon-placeholder.tsx") },
@@ -416,6 +415,7 @@ const createViteServer = () => {
   ];
   return createServer({
     configFile: false,
+    plugins: [upstreamRtl()],
     root: harnessRoot,
     logLevel: "silent",
     appType: "custom",
@@ -470,6 +470,8 @@ const renderSide = async (server, modulePath, resolveComponent, id) => {
 const { pattern, variantName, verbose, jsonPath } = parseCli(process.argv.slice(2));
 const variant = VARIANTS[variantName];
 const skipped = new Set([...SKIPPED.both, ...(SKIPPED[variantName] ?? [])]);
+const expectedDifferences = EXPECTED_DIFFERENCES[variantName];
+const exceptions = new Set([...skipped, ...Object.keys(expectedDifferences)]);
 const startedAt = performance.now();
 
 const build = spawnSync(path.join(repoRoot, "node_modules/.bin/rescript"), [], {
@@ -493,19 +495,19 @@ if (selectedIds.length === 0) {
 
 // A skipped id has to name a real paired component of this variant, or the list is rotting.
 const upstreamSet = new Set(upstreamIds);
-const straySkipped = [...skipped].filter((id) => !upstreamSet.has(id));
+const straySkipped = [...exceptions].filter((id) => !upstreamSet.has(id));
 if (straySkipped.length > 0) {
-  usageError(`Not a component of the ${variantName} variant, remove from SKIPPED: ${straySkipped.join(", ")}`);
+  usageError(`Not a component of the ${variantName} variant, remove from exceptions: ${straySkipped.join(", ")}`);
 }
-const unportedSkipped = [...skipped].filter((id) => !hasRescriptEquivalent(variant, id));
+const unportedSkipped = [...exceptions].filter((id) => !hasRescriptEquivalent(variant, id));
 if (unportedSkipped.length > 0) {
-  usageError(`Not a paired component, remove from SKIPPED: ${unportedSkipped.join(", ")}`);
+  usageError(`Not a paired component, remove from exceptions: ${unportedSkipped.join(", ")}`);
 }
 
 const missingIds = selectedIds.filter((id) => !hasRescriptEquivalent(variant, id) && !id.endsWith("-rtl"));
-const comparedIds = selectedIds.filter((id) => hasRescriptEquivalent(variant, id) && !EXCLUDED.includes(id));
+const comparedIds = selectedIds.filter((id) => hasRescriptEquivalent(variant, id));
 
-const results = { passed: [], failed: [], skipped: [], fixed: [], warnings: {} };
+const results = { passed: [], failed: [], skipped: [], fixed: [], warnings: {}, skipReasons: {}, expectedDifferences: [] };
 const server = await createViteServer();
 try {
   for (const id of comparedIds) {
@@ -528,8 +530,12 @@ try {
     }
 
     // A known failure that starts passing is reported as loudly as a regression: the list must shrink.
-    if (skipped.has(id)) {
-      if (reason) results.skipped.push(id);
+    if (id in expectedDifferences) {
+      if (tsx.error || rescript.error) results.failed.push({ id, reason });
+      else if (reason) results.expectedDifferences.push({ id, explanation: expectedDifferences[id], reason });
+      else results.fixed.push(id);
+    } else if (skipped.has(id)) {
+      if (reason) { results.skipped.push(id); results.skipReasons[id] = reason; }
       else results.fixed.push(id);
     } else if (reason) {
       results.failed.push({ id, reason });
@@ -547,18 +553,23 @@ if (results.failed.length > 0) {
   console.log();
 }
 if (results.fixed.length > 0) {
-  console.log(`== no longer failing -- remove from SKIPPED (${results.fixed.length})`);
+  console.log(`== no longer failing -- remove from exceptions (${results.fixed.length})`);
   console.log(`${results.fixed.join(", ")}\n`);
 }
 if (verbose) {
   if (results.passed.length > 0) console.log(`== passed\n${results.passed.join(", ")}\n`);
   if (results.skipped.length > 0) {
-    console.log(`== skipped\n${results.skipped.join(", ")}\n`);
+    console.log("== skipped (unresolved differences)");
+    for (const id of results.skipped) console.log(`${id}\n  ${results.skipReasons[id].replaceAll("\n", "\n  ")}`);
   }
   if (missingIds.length > 0) {
     console.log("== no ReScript port yet");
     for (const id of missingIds) console.log(`${id} -> expected ${path.relative(repoRoot, `${rescriptBase(variant, id)}.res`)}`);
     console.log();
+  }
+  if (results.expectedDifferences.length > 0) {
+    console.log("== expected differences");
+    for (const { id, explanation } of results.expectedDifferences) console.log(`${id}: ${explanation}`);
   }
   const warned = Object.entries(results.warnings);
   if (warned.length > 0) {
@@ -574,6 +585,6 @@ if (jsonPath) {
 const seconds = ((performance.now() - startedAt) / 1000).toFixed(1);
 console.log(
   `visual-fast (${variantName}): passed ${results.passed.length} | failed ${results.failed.length}` +
-  ` | skipped ${results.skipped.length} | ${seconds}s`
+  ` | skipped ${results.skipped.length} | expected differences ${results.expectedDifferences.length} | ${seconds}s`
 );
 process.exit(results.failed.length > 0 || results.fixed.length > 0 ? 1 : 0);

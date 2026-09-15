@@ -654,7 +654,6 @@ module BaseDomProps = {
     shapeRendering?: string,
     slope?: string,
     slot?: string,
-    spacing?: string,
     specularConstant?: string,
     specularExponent?: string,
     speed?: string,
@@ -756,6 +755,7 @@ module BaseDomProps = {
 
 module DomProps = {
   type t = {
+    spacing?: string,
     children?: Jsx.element,
     size?: int,
     onChange?: JsxEvent.Form.t => unit,

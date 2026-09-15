@@ -3,47 +3,18 @@
 @module("tailwind-merge")
 external cn: (string, option<string>) => string = "twMerge"
 
-@react.component
-let make = (
-  ~className=?,
-  ~id=?,
-  ~name=?,
-  ~checked=?,
-  ~defaultChecked=?,
-  ~onCheckedChange=?,
-  ~disabled=?,
-  ~required=?,
-  ~readOnly=?,
-  ~onClick=?,
-  ~onKeyDown=?,
-  ~tabIndex=?,
-  ~ariaLabel=?,
-  ~ariaInvalid=?,
-  ~dir=?,
-  ~style=?,
-  ~render=?,
-) => {
+type props = BaseUi.Checkbox.Root.props
+
+let toBaseUiProps: props => BaseUi.Checkbox.Root.props = %raw(`({className, ...props}) => props`)
+
+@react.componentWithProps(props)
+let make = (props: props) => {
   <BaseUi.Checkbox.Root
-    ?id
-    ?name
-    ?checked
-    ?defaultChecked
-    ?onCheckedChange
-    ?disabled
-    ?required
-    ?readOnly
-    ?onClick
-    ?onKeyDown
-    ?tabIndex
-    ?ariaLabel
-    ?ariaInvalid
-    ?dir
-    ?style
-    ?render
+    {...toBaseUiProps(props)}
     dataSlot="checkbox"
     className={cn(
       "cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
-      className,
+      props.className,
     )}
   >
     <BaseUi.Checkbox.Indicator
