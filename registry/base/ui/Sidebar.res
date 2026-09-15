@@ -726,11 +726,10 @@ module MenuSubButton = {
   type props = {
     size?: Size.t,
     isActive?: bool,
-    linkProps?: BaseUi.Types.BaseUIComponentProps.t,
     ...BaseUi.Types.BaseUIComponentProps.t,
   }
 
-  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({size, isActive, linkProps, className, render, ...props}) => props`)
+  let toDomProps: props => BaseUi.Types.DomProps.t = %raw(`({size, isActive, className, render, ...props}) => props`)
 
   @react.componentWithProps(props)
   let make = (props: props) => {

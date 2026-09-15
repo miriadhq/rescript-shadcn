@@ -137,6 +137,32 @@ describe("registry prop forwarding", () => {
     }
   });
 
+  it("Sidebar.MenuSubButton forwards direct anchor props", () => {
+    let received: any;
+    const onClick = vi.fn();
+    const ref = React.createRef<HTMLAnchorElement>();
+    const Capture = (props: any) => { received = props; return h("a", props); };
+    const html = renderToStaticMarkup(h(Sidebar.MenuSubButton.make, {
+      render: h(Capture), href: "/docs", target: "_blank", rel: "noreferrer", ref, onClick,
+      className: "direct-class", style: {color: "blue", padding: "4px"}, title: "Direct",
+      "aria-label": "Documentation", "data-extra": "forwarded", children: "Docs",
+    }));
+    expect(received).toMatchObject({
+      href: "/docs", target: "_blank", rel: "noreferrer", ref, title: "Direct",
+      style: {color: "blue", padding: "4px"}, "aria-label": "Documentation",
+      "data-extra": "forwarded", children: "Docs",
+    });
+    for (const className of ["cn-sidebar-menu-sub-button", "direct-class"]) {
+      expect(received.className).toContain(className);
+    }
+    expect(received).not.toHaveProperty("render");
+    received.onClick({nativeEvent: {}, defaultPrevented: false});
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(html).toContain('href="/docs"');
+    expect(renderToStaticMarkup(h(Sidebar.MenuSubButton.make, {href: "/direct", children: "Direct"})))
+      .toContain('href="/direct"');
+  });
+
   it("preserves Collapsible state when a Badge is the trigger render", () => {
     const html = renderToStaticMarkup(h(Collapsible.make, { defaultOpen: true },
       h(Collapsible.Trigger.make, { render: h(Badge.make), "aria-describedby": "help", children: "Toggle" })));
