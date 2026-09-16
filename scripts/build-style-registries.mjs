@@ -147,8 +147,14 @@ async function writeTransformedTree(selectionName, styleName, styleMap, registry
 
     const source = readFileSync(sourcePath, "utf8")
     const ext = path.extname(filePath)
-    const content =
-      ext === ".res" ? await transformRescriptSource(source, styleMap) : source
+    let content = source
+    if (ext === ".res") {
+      try {
+        content = await transformRescriptSource(source, styleMap)
+      } catch (error) {
+        throw new Error(`${selectionName}: ${filePath}: ${error.message}`, { cause: error })
+      }
+    }
 
     const outPath = path.join(styleBuildDir, filePath)
     mkdirSync(path.dirname(outPath), { recursive: true })

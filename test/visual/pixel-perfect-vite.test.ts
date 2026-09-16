@@ -7,7 +7,9 @@ import { fileURLToPath } from "node:url"
 
 import puppeteer, { type Browser } from "puppeteer"
 import { cn } from "cn"
+import { compile } from "tailwindcss"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
+import { getStyleMap, transformRescriptSource } from "../../src/lib/format-code.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, "../../")
@@ -913,6 +915,45 @@ describe("tsx vs rescript parity (vite harness)", () => {
 
     expect(MISSING_RESCRIPT_COMPONENT_IDS, message).toEqual([])
   })
+
+  if (COMPONENT_IDS.some(component => component === "ui/sheet" || component.startsWith("sheet-"))) {
+    it.each(["base", "aria"])("%s published Sheet.Title renders the configured heading font", async lib => {
+      if (!browser) throw new Error("Browser was not initialized")
+      const source = await fs.readFile(path.join(repoRoot, `registry/${lib}/ui/Sheet.res`), "utf8")
+      const transformed = await transformRescriptSource(source, getStyleMap("nova"))
+      const titleClasses = (code: string) => {
+        const title = code.match(/module Title = \{([\s\S]*?)\n\}/)?.[1]
+        const classes = title?.match(/cn\("([^"]*)"/)?.[1]
+        if (!classes) throw new Error("Could not read Sheet.Title classes")
+        return classes
+      }
+      const publishedClasses = titleClasses(transformed)
+      const theme = await fs.readFile(path.join(repoRoot, "node_modules/tailwindcss/theme.css"), "utf8")
+      const compiler = await compile(`
+        ${theme}
+        @theme { --font-heading: monospace; --color-foreground: black; }
+        @tailwind utilities;
+        .cn-sheet-title { @apply ${getStyleMap("nova")["cn-sheet-title"]}; }
+        .cn-font-heading { @apply font-heading; }
+        body { font-family: serif; }
+        h2 { margin: 0; }
+      `)
+      const css = compiler.build(publishedClasses.split(/\s+/))
+      const page = await browser.newPage()
+      try {
+        await page.setContent(`<style>${css}</style><h2>Heading typography WWW iii 123</h2>`)
+        const title = await page.$("h2")
+        if (!title) throw new Error("Missing title fixture")
+        await title.evaluate((element, classes) => { element.className = classes }, titleClasses(source))
+        const reference = await title.screenshot()
+        await title.evaluate((element, classes) => { element.className = classes }, publishedClasses)
+        expect(await title.evaluate(element => getComputedStyle(element).fontFamily)).toBe("monospace")
+        expect(Buffer.from(await title.screenshot()).equals(Buffer.from(reference))).toBe(true)
+      } finally {
+        await page.close()
+      }
+    }, 30_000)
+  }
 
   for (const component of LIBRARY_PARITY ? [] : COMPONENT_IDS_FOR_PARITY) {
     it.concurrent(

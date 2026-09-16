@@ -3,6 +3,7 @@ import { basename, join } from "node:path";
 import { describe, expect, test } from "vitest";
 
 import {
+  formatCode,
   getStyleMap,
   transformRescriptSource,
 } from "../src/lib/format-code.mjs";
@@ -13,6 +14,9 @@ const upstreamDir = join(
 );
 const rescriptDir = join(process.cwd(), "registry/base/ui");
 const stylesDir = join(process.cwd(), "registry/styles");
+const styles = readdirSync(stylesDir)
+  .filter(file => file.endsWith(".css"))
+  .map(file => file.slice("style-".length, -".css".length));
 const classHookPattern = /\bcn-[a-z0-9-]+\b/g;
 
 const sharedUtilityHooks = new Set(["cn-menu-target", "cn-rtl-flip"]);
@@ -174,4 +178,60 @@ describe("React Aria UI parity", () => {
       expect(classHooks(transformed)).toEqual(new Set());
     },
   );
+});
+
+describe("published style transforms", () => {
+  test.each([
+    '<div className="cn-unknown" />',
+    'let title = cn("cn-unknown", className)',
+    'let helper = "cn-unknown"',
+    'let helper = `cn-unknown ${extra}`',
+  ])("rejects unknown hooks before they can disappear: %s", async source => {
+    await expect(transformRescriptSource(source, getStyleMap("nova")))
+      .rejects.toThrow("Unresolved style hook: cn-unknown");
+  });
+
+  test("rejects missing mappings and propagates errors through docs formatting", async () => {
+    const map = {...getStyleMap("nova")};
+    delete map["cn-sheet-title"];
+    await expect(transformRescriptSource('let title = cn("cn-sheet-title cn-font-heading", className)', map))
+      .rejects.toThrow("Unresolved style hook: cn-sheet-title");
+    await expect(formatCode('let title = "cn-unknown"', "nova"))
+      .rejects.toThrow("Unresolved style hook: cn-unknown");
+    expect(() => getStyleMap("missing")).toThrow();
+  });
+
+  test("permits explicit no-ops only in the styles that declare them", async () => {
+    expect(getStyleMap("lyra")["cn-dialog-footer"]).toBe("");
+    expect(getStyleMap("nova")["cn-dialog-footer"]).not.toBe("");
+    expect(await transformRescriptSource('let helper = "cn-dialog-footer flex"', getStyleMap("lyra")))
+      .toBe('let helper = " flex"');
+  });
+
+  for (const lib of ["base", "aria"]) {
+    test.each(styles)(`${lib} Sheet.Title preserves heading typography in %s`, async style => {
+      const source = readFileSync(join(process.cwd(), `registry/${lib}/ui/Sheet.res`), "utf8");
+      const title = moduleSource(await transformRescriptSource(source, getStyleMap(style)), "Title");
+      expect(title).toContain("font-heading");
+      expect(title).not.toContain("cn-");
+      for (const utility of getStyleMap(style)["cn-sheet-title"].split(/\s+/)) {
+        expect(title).toContain(utility);
+      }
+    });
+
+    const registry = JSON.parse(readFileSync(join(process.cwd(), `registry.${lib}.json`), "utf8"));
+    const paths = new Set<string>(registry.items.flatMap(item =>
+      item.files.map(file => file.path).filter(file => file.endsWith(".res"))
+    ));
+    const sources = [...paths].map(path => [path, readFileSync(join(process.cwd(), path), "utf8")]);
+    test.each(styles)(`${lib} registry resolves every published hook in %s`, async style => {
+      for (const [path, source] of sources) {
+        const transformed = await transformRescriptSource(source, getStyleMap(style));
+        expect(classHooks(transformed), path).toEqual(new Set());
+        // Count replacements, not just disappearance: every heading must survive.
+        expect(transformed.match(/\bfont-heading\b/g)?.length ?? 0, path)
+          .toBe(source.match(/\b(?:cn-)?font-heading\b/g)?.length ?? 0);
+      }
+    }, 30_000);
+  }
 });
