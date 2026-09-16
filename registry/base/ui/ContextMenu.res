@@ -166,7 +166,7 @@ module RadioItem = {
       )}
     >
       <span
-        className="cn-context-menu-item-indicator pointer-events-none flex items-center justify-center"
+        className="cn-context-menu-item-indicator pointer-events-none"
       >
         <BaseUi.ContextMenu.RadioItemIndicator>
           <Icons.Check />
@@ -219,7 +219,7 @@ module SubContent = {
       side
       sideOffset
       dataSlot={props.dataSlot->Option.getOr("context-menu-sub-content")}
-      className={cn("cn-context-menu-subcontent", props.className)}
+      className={cn("cn-context-menu-subcontent cn-menu-target cn-menu-translucent", props.className)}
     />
   }
 }

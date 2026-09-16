@@ -156,11 +156,7 @@ module Separator = {
       dataContent={hasContent}
       className={cn("cn-field-separator relative", props.className)}
     >
-      <BaseUi.Separator
-        orientation=Horizontal
-        dataSlot="separator"
-        className="absolute inset-0 top-1/2 bg-border shrink-0 data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
-      />
+      <Separator className="absolute inset-0 top-1/2" />
       {switch children {
       | Some(value) =>
         <span

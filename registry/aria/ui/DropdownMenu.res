@@ -25,38 +25,36 @@ type props<'item> = {
   ...ReactAria.Menu.props<'item>,
 }
 
-let menuProps: props<'item> => ReactAria.Menu.props<
+let toMenuProps: props<'item> => ReactAria.Menu.props<
   'item,
 > = %raw(`({placement, offset, crossOffset, className, children, ...props}) => props`)
 
-let renderContent = (props: props<'item>, ~subContent=false) => {
-  let dataSlot =
-    props.dataSlot->Option.getOr(subContent ? "dropdown-menu-sub-content" : "dropdown-menu-content")
-  <ReactAria.Popover
-    dataSlot
-    placement={props.placement->Option.getOr(
-      subContent ? ReactAria.Common.EndTop : ReactAria.Common.BottomStart,
-    )}
-    offset={props.offset->Option.getOr(subContent ? 0. : 4.)}
-    crossOffset={props.crossOffset->Option.getOr(subContent ? -3. : 0.)}
-    className={cn(
-      subContent
-        ? "cn-dropdown-menu-content-aria cn-menu-target cn-menu-translucent cn-menu-translucent-aria z-50 w-(--trigger-width) origin-(--trigger-anchor-point) overflow-x-hidden overflow-y-auto outline-none data-exiting:overflow-hidden cn-dropdown-menu-sub-content-aria cn-menu-target cn-menu-translucent w-auto"
-        : "cn-dropdown-menu-content-aria cn-menu-target cn-menu-translucent cn-menu-translucent-aria z-50 w-(--trigger-width) origin-(--trigger-anchor-point) overflow-x-hidden overflow-y-auto outline-none data-exiting:overflow-hidden",
-      props.className,
-    )}
-  >
-    <ReactAria.Menu
-      {...props->menuProps}
-      className="max-h-[inherit] overflow-x-hidden overflow-y-auto outline-hidden"
+module Base = {
+  @react.componentWithProps(props)
+  let make = (props: props<'item>) => {
+    let dataSlot = props.dataSlot->Option.getOr("dropdown-menu-content")
+    let placement = props.placement->Option.getOr(BottomStart)
+    let offset = props.offset->Option.getOr(4.)
+    let crossOffset = props.crossOffset->Option.getOr(0.)
+    <ReactAria.Popover
+      dataSlot
+      placement
+      offset
+      crossOffset
+      className={cn(
+        "cn-dropdown-menu-content-aria cn-menu-target cn-menu-translucent cn-menu-translucent-aria z-50 w-(--trigger-width) origin-(--trigger-anchor-point) overflow-x-hidden overflow-y-auto outline-none data-exiting:overflow-hidden",
+        props.className,
+      )}
     >
-      {props.children->Option.getOr(React.null)}
-    </ReactAria.Menu>
-  </ReactAria.Popover>
+      <ReactAria.Menu
+        {...props->toMenuProps}
+        className="max-h-[inherit] overflow-x-hidden overflow-y-auto outline-hidden"
+      >
+        {props.children->Option.getOr(React.null)}
+      </ReactAria.Menu>
+    </ReactAria.Popover>
+  }
 }
-
-@react.componentWithProps(props)
-let make = (props: props<'item>) => renderContent(props)
 
 module Group = {
   @react.componentWithProps(ReactAria.Menu.Section.props)
@@ -133,7 +131,7 @@ module Item = {
       ?textValue
       dataSlot="dropdown-menu-item"
       dataInset=?{props.inset}
-      dataVariant={(props.variant->Option.getOr(Variant.Default) :> string)}
+      dataVariant={(props.variant->Option.getOr(Default) :> string)}
       className
       children
     />
@@ -177,7 +175,22 @@ module SubTrigger = {
 
 module SubContent = {
   @react.componentWithProps(props)
-  let make = (props: props<'item>) => renderContent(props, ~subContent=true)
+  let make = (props: props<'item>) => {
+    let placement = props.placement->Option.getOr(EndTop)
+    let crossOffset = props.crossOffset->Option.getOr(-3.)
+    let offset = props.offset->Option.getOr(0.)
+    <Base
+      {...props}
+      dataSlot="dropdown-menu-sub-content"
+      className={cn(
+        "cn-dropdown-menu-sub-content-aria cn-menu-target cn-menu-translucent w-auto",
+        props.className,
+      )}
+      placement
+      crossOffset
+      offset
+    />
+  }
 }
 
 module Separator = {
@@ -199,3 +212,5 @@ module Shortcut = {
       className={cn("cn-dropdown-menu-shortcut", props.className)}
     />
 }
+
+include Base

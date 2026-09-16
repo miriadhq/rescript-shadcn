@@ -8,7 +8,10 @@ open BaseUi.Types
 external cn: (string, option<string>) => string = "cn"
 
 @module("cn")
-external cn3: (string, option<string>, option<string>) => string = "cn"
+external cn3: (string, string, option<string>) => string = "cn"
+
+@module("cn")
+external cn4: (string, string, string, string) => string = "cn"
 
 @unboxed
 type state =
@@ -164,17 +167,6 @@ let make = (props: props) => {
       </Sheet.Content>
     </Sheet>
   } else {
-    let desktopGapClass = switch variant {
-    | Floating
-    | Inset => "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
-    | Sidebar => "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
-    }
-    let desktopContainerClass = switch variant {
-    | Floating
-    | Inset => "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
-    | Sidebar => "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l"
-    }
-
     <div
       dataState={(state :> string)}
       dataCollapsible={switch state {
@@ -188,9 +180,15 @@ let make = (props: props) => {
     >
       <div
         dataSlot="sidebar-gap"
-        className={cn(
-          "cn-sidebar-gap relative w-(--sidebar-width) bg-transparent group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180",
-          desktopGapClass->Some,
+        className={cn4(
+          "cn-sidebar-gap relative w-(--sidebar-width) bg-transparent",
+          "group-data-[collapsible=offcanvas]:w-0",
+          "group-data-[side=right]:rotate-180",
+          switch variant {
+          | Floating
+          | Inset => "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
+          | Sidebar => "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
+          },
         )}
       />
       <div
@@ -199,7 +197,12 @@ let make = (props: props) => {
         dataSide={(side :> string)}
         className={cn3(
           "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
-          desktopContainerClass->Some,
+          // Adjust the padding for floating and inset variants.
+          switch variant {
+          | Floating
+          | Inset => "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
+          | Sidebar => "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l"
+          },
           props.className,
         )}
       >
@@ -631,8 +634,8 @@ module MenuAction = {
           className: cn3(
             "cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0",
             showOnHover
-              ? "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0"->Some
-              : None,
+              ? "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0"
+              : "",
             props.className,
           ),
         },

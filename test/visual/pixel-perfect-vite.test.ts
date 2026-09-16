@@ -521,7 +521,7 @@ function normalizeA11ySnapshot(value: unknown): unknown {
   )
 }
 
-async function captureBundle(component: string, impl: Impl): Promise<SnapshotBundle> {
+async function captureBundle(component: string, impl: Impl, params: Record<string, string> = {}): Promise<SnapshotBundle> {
   if (!browser) {
     throw new Error("Browser is not initialized")
   }
@@ -538,7 +538,9 @@ async function captureBundle(component: string, impl: Impl): Promise<SnapshotBun
     deviceScaleFactor: 1,
   })
 
-  const url = `${BASE_URL}/?component=${encodeURIComponent(component)}&impl=${impl}`
+  const url = `${BASE_URL}/?${new URLSearchParams({component, impl, ...params})}`
+  const isSheet = component === "ui/sheet" || component.startsWith("sheet-")
+  const captureSelector = isSheet ? '[data-slot="sheet-content"]' : "#pixel-capture-root"
 
   const pageErrors: string[] = []
   const consoleErrors: string[] = []
@@ -585,6 +587,13 @@ async function captureBundle(component: string, impl: Impl): Promise<SnapshotBun
         { timeout: PAGE_LOAD_TIMEOUT_MS }
       )
       .catch(() => undefined)
+
+    if (isSheet) {
+      if (component !== "ui/sheet") {
+        await page.click("#pixel-capture-root button")
+      }
+      await page.waitForSelector(captureSelector, {visible: true, timeout: PAGE_LOAD_TIMEOUT_MS})
+    }
 
     // Avatar preloads off-DOM images, and Markdown loads its highlighter lazily.
     // document.images/fonts.ready alone do not cover either asynchronous render.
@@ -661,11 +670,11 @@ async function captureBundle(component: string, impl: Impl): Promise<SnapshotBun
       }
     )
 
-    const captureHandle = await page.$("#pixel-capture-root")
+    const captureHandle = await page.$(captureSelector)
     hasCaptureRoot = Boolean(captureHandle)
 
-    domSnapshot = await page.evaluate(() => {
-      const root = document.querySelector("#pixel-capture-root")
+    domSnapshot = await page.evaluate(selector => {
+      const root = document.querySelector(selector)
       if (!root) {
         return null
       }
@@ -704,10 +713,10 @@ async function captureBundle(component: string, impl: Impl): Promise<SnapshotBun
       }
 
       return serializeNode(root)
-    })
+    }, captureSelector)
 
-    layoutSnapshot = await page.evaluate(() => {
-      const root = document.querySelector("#pixel-capture-root")
+    layoutSnapshot = await page.evaluate(selector => {
+      const root = document.querySelector(selector)
       if (!(root instanceof HTMLElement)) {
         return null
       }
@@ -729,11 +738,11 @@ async function captureBundle(component: string, impl: Impl): Promise<SnapshotBun
           }
         })
         .filter((node) => node.width > 0 || node.height > 0)
-    })
+    }, captureSelector)
 
     if (captureHandle) {
       a11ySnapshot = await page.accessibility.snapshot({ root: captureHandle })
-      screenshot = Buffer.from(await captureHandle.screenshot({ type: "png" }))
+      screenshot = Buffer.from(await (isSheet ? page : captureHandle).screenshot({ type: "png" }))
     } else {
       screenshot = Buffer.from(await page.screenshot({ type: "png" }))
     }
@@ -917,6 +926,26 @@ describe("tsx vs rescript parity (vite harness)", () => {
   })
 
   if (COMPONENT_IDS.some(component => component === "ui/sheet" || component.startsWith("sheet-"))) {
+    if (!LIBRARY_PARITY) {
+      for (const side of ["top", "right", "bottom", "left"]) {
+        for (const dir of ["ltr", "rtl"]) {
+          it(`open Sheet matches upstream on the ${side} side with dir=${dir}`, async ({onTestFailed}) => {
+            // An explicit CSS direction must remain independent of the HTML dir.
+            const params = {side, dir, styleDirection: dir === "rtl" ? "ltr" : "rtl"}
+            const tsx = await captureBundle("ui/sheet", "tsx", params)
+            const rescript = await captureBundle("ui/sheet", "rescript", params)
+            onTestFailed(() => writeArtifacts(`sheet-${side}-${dir}`, tsx, rescript))
+            expect(smokeIssues(tsx)).toEqual([])
+            expect(smokeIssues(rescript)).toEqual([])
+            expect(normalizeDomSnapshotClasses(rescript.domSnapshot)).toEqual(normalizeDomSnapshotClasses(tsx.domSnapshot))
+            expect(normalizeLayoutSnapshot(rescript.layoutSnapshot)).toEqual(normalizeLayoutSnapshot(tsx.layoutSnapshot))
+            const ssim = await computeScreenshotSsim(tsx.screenshot, rescript.screenshot)
+            if (ssim === null) expect(rescript.screenshot.equals(tsx.screenshot)).toBe(true)
+            else expect(ssim).toBeGreaterThanOrEqual(SCREENSHOT_SSIM_MIN)
+          }, COMPONENT_TEST_TIMEOUT_MS)
+        }
+      }
+    }
     it.each(["base", "aria"])("%s published Sheet.Title renders the configured heading font", async lib => {
       if (!browser) throw new Error("Browser was not initialized")
       const source = await fs.readFile(path.join(repoRoot, `registry/${lib}/ui/Sheet.res`), "utf8")

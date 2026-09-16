@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { basename, join } from "node:path";
 import { describe, expect, test } from "vitest";
+import ts from "typescript";
 
 import {
   formatCode,
@@ -36,6 +37,89 @@ const toPascalCase = (name: string) =>
 const classHooks = (source: string) =>
   new Set(source.match(classHookPattern) ?? []);
 
+// Compare complete static cn() arguments, not just the string containing the
+// hook: upstream often splits layout and state utilities across arguments.
+const normalizeClasses = (value: string) => value.trim().split(/\s+/).sort().join(" ");
+const upstreamClassLists = (source: string) => {
+  const ast = ts.createSourceFile(
+    "component.tsx", source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX,
+  );
+  const consumed = new Set<ts.Node>();
+  const hooks: string[] = [];
+  const plain: string[] = [];
+  const literal = (node: ts.Node): string | undefined => {
+    if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) return node.text;
+    if (ts.isTaggedTemplateExpression(node)
+      && node.tag.getText(ast) === "String.raw"
+      && ts.isNoSubstitutionTemplateLiteral(node.template)) {
+      return node.template.getText(ast).slice(1, -1);
+    }
+  };
+  const add = (value: string) => {
+    if (!value.trim()) return;
+    (/\bcn-[\w-]+\b/.test(value) ? hooks : plain).push(normalizeClasses(value));
+  };
+  const visit = (node: ts.Node) => {
+    if (ts.isCallExpression(node) && node.expression.getText(ast) === "cn") {
+      const args = node.arguments.filter(arg => literal(arg) !== undefined);
+      args.forEach(arg => {
+        consumed.add(arg);
+        if (ts.isTaggedTemplateExpression(arg)) consumed.add(arg.template);
+      });
+      add(args.map(arg => literal(arg)).join(" "));
+    }
+    if ((ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) && !consumed.has(node)) {
+      const parent = node.parent;
+      const isClassName = (ts.isJsxAttribute(parent) || ts.isPropertyAssignment(parent))
+        && parent.name.getText(ast) === "className";
+      if (isClassName || /\bcn-[\w-]+\b/.test(node.text)) add(node.text);
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(ast);
+  return {hooks: [...new Set(hooks)].sort(), plain: [...new Set(plain)].sort()};
+};
+
+// ReScript keeps variants in helpers and utilities around interpolations.
+// Collect static fragments without evaluating ReScript expressions.
+const staticClassFragments = (source: string) => [
+  ...[...source.matchAll(/"((?:[^"\\]|\\.)*)"/g)].map(match => JSON.parse(`"${match[1]}"`)),
+  ...[...source.matchAll(/(?:className\s*=\s*\{?\s*|cn\d?\(\s*)`([^`]*)`/g)].flatMap(match => match[1].split(/\$\{[^}]*\}/)),
+].map(normalizeClasses);
+const classLists = (source: string) => {
+  const combined = source.replace(
+    /\bcn\d?\(\s*((?:"(?:[^"\\]|\\.)*"\s*,\s*){2,})/g,
+    (_match, args: string) => {
+      const classes = [...args.matchAll(/"((?:[^"\\]|\\.)*)"/g)]
+        .map(match => JSON.parse(`"${match[1]}"`)).join(" ");
+      return `cn(${JSON.stringify(classes)}, `;
+    },
+  );
+  return [...new Set(staticClassFragments(combined)
+    .filter(value => /\bcn-[\w-]+\b/.test(value)))].sort();
+};
+
+describe("complete classname extraction", () => {
+  test("combines all static cn arguments in both languages", () => {
+    const upstream = upstreamClassLists(`cn("cn-example fixed", "data-open:opacity-100", className)`);
+    expect(upstream.hooks).toEqual(["cn-example data-open:opacity-100 fixed"]);
+    expect(classLists(`cn3("cn-example fixed", "data-open:opacity-100", props.className)`))
+      .toEqual(upstream.hooks);
+    expect(classLists(`cn("cn-example fixed", props.className)`)).not.toEqual(upstream.hooks);
+    expect(classLists(`cn("cn-example fixed data-open:opacity-100 p-4", props.className)`))
+      .not.toEqual(upstream.hooks);
+  });
+
+  test("preserves raw utility escapes and reads template prefixes", () => {
+    const upstream = upstreamClassLists('cn("cn-example", String.raw`after:content-["a_b"]`, className)');
+    expect(upstream.hooks).toEqual(['after:content-["a_b"] cn-example']);
+    expect(classLists('className={`cn-example fixed ${variant}`}'))
+      .toEqual(["cn-example fixed"]);
+    expect(upstreamClassLists('<div className="fixed inset-0" />').plain)
+      .toEqual(["fixed inset-0"]);
+  });
+});
+
 const sorted = (values: Iterable<string>) => [...values].sort();
 const difference = (left: Set<string>, right: Set<string>) =>
   new Set([...left].filter((value) => !right.has(value)));
@@ -61,6 +145,14 @@ const components = readdirSync(upstreamDir)
   });
 
 describe("base ui className parity", () => {
+  test.each(components)("$componentName matches complete upstream class lists", ({upstreamPath, rescriptPath}) => {
+    const source = readFileSync(rescriptPath, "utf8");
+    const upstream = readFileSync(upstreamPath, "utf8");
+    expect(classLists(source)).toEqual(upstreamClassLists(upstream).hooks);
+    for (const classes of upstreamClassLists(upstream).plain) {
+      expect(staticClassFragments(source), classes).toContain(classes);
+    }
+  });
   test("has a ReScript file for every upstream TSX component", () => {
     const missingFiles = components
       .filter(({ rescriptPath }) => !existsSync(rescriptPath))
@@ -143,6 +235,22 @@ const ariaComponents = readdirSync(ariaUpstreamDir)
   });
 
 describe("React Aria UI parity", () => {
+  test.each(ariaComponents)("$componentName matches complete upstream class lists", ({upstreamPath, rescriptPath}) => {
+    const source = readFileSync(rescriptPath, "utf8");
+    const upstream = readFileSync(upstreamPath, "utf8");
+    const expected = upstreamClassLists(upstream);
+    // InputGroup.Input inlines Input's styles to preserve React Aria's control
+    // slot; upstream composes Input. Compare the complete inherited class list.
+    if (basename(rescriptPath) === "InputGroup.res") {
+      const input = upstreamClassLists(readFileSync(join(ariaUpstreamDir, "input.tsx"), "utf8"));
+      expected.hooks = expected.hooks.map(classes => classes.includes("cn-input-group-input")
+        ? normalizeClasses(`${input.hooks[0]} ${classes}`) : classes).sort();
+    }
+    expect(classLists(source)).toEqual(expected.hooks);
+    for (const classes of upstreamClassLists(upstream).plain) {
+      expect(staticClassFragments(source), classes).toContain(classes);
+    }
+  });
   test("has a ReScript file for every upstream React Aria component", () => {
     expect(
       ariaComponents
