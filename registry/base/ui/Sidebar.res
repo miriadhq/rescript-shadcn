@@ -152,7 +152,7 @@ let make = (props: props) => {
         dataSlot="sidebar"
         dataMobile="true"
         className="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
-        side={side == Right ? Side.Right : Side.Left}
+        side={side == Right ? Sheet.Side.Right : Left}
         style={mobileStyle}
         showCloseButton={false}
       >
