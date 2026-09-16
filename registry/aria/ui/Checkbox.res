@@ -12,10 +12,11 @@ let checkboxProps: props<
 > => ReactAria.Checkbox.componentProps = %raw(`({children, ...props}) => props`)
 
 @react.componentWithProps(props)
-let make = (props: props<'children>) =>
+let make = (props: props<'children>) => {
+  let dataSlot = props.dataSlot->Option.getOr("checkbox")
   <ReactAria.Checkbox
     {...props->checkboxProps->ReactAria.Checkbox.toProps}
-    dataSlot="checkbox"
+    dataSlot
     className={cn(
       "cn-checkbox cn-checkbox-aria peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
       props.className,
@@ -36,3 +37,4 @@ let make = (props: props<'children>) =>
       </>
     )}
   </ReactAria.Checkbox>
+}

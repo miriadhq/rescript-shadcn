@@ -57,20 +57,26 @@ module Link = {
 
 module Page = {
   @react.componentWithProps(BaseUi.Types.DomProps.t)
-  let make = (props: BaseUi.Types.DomProps.t) =>
+  let make = (props: BaseUi.Types.DomProps.t) => {
+    let ariaCurrent = props.ariaCurrent->Option.getOr(#page)
+    let ariaDisabled = props.ariaDisabled->Option.getOr(true)
+    let role = props.role->Option.getOr("link")
     <span
       {...props}
-      ariaCurrent=#page
-      ariaDisabled=true
-      role="link"
+      ariaCurrent
+      ariaDisabled
+      role
       dataSlot={props.dataSlot->Option.getOr("breadcrumb-page")}
       className={cn("cn-breadcrumb-page", props.className)}
     />
+  }
 }
 
 module Separator = {
   @react.componentWithProps(BaseUi.Types.DomProps.t)
   let make = (props: BaseUi.Types.DomProps.t) => {
+    let ariaHidden = props.ariaHidden->Option.getOr(true)
+    let role = props.role->Option.getOr("presentation")
     let children = props.children
     let content = switch children {
     | Some(content) => content
@@ -78,8 +84,8 @@ module Separator = {
     }
     <li
       {...props}
-      ariaHidden=true
-      role="presentation"
+      ariaHidden
+      role
       dataSlot={props.dataSlot->Option.getOr("breadcrumb-separator")}
       className={cn("cn-breadcrumb-separator", props.className)}
     >
@@ -90,15 +96,18 @@ module Separator = {
 
 module Ellipsis = {
   @react.componentWithProps(BaseUi.Types.DomProps.t)
-  let make = (props: BaseUi.Types.DomProps.t) =>
+  let make = (props: BaseUi.Types.DomProps.t) => {
+    let ariaHidden = props.ariaHidden->Option.getOr(true)
+    let role = props.role->Option.getOr("presentation")
     <span
       {...props}
-      ariaHidden=true
-      role="presentation"
+      ariaHidden
+      role
       dataSlot={props.dataSlot->Option.getOr("breadcrumb-ellipsis")}
       className={cn("cn-breadcrumb-ellipsis flex items-center justify-center", props.className)}
     >
       <Icons.MoreHorizontal />
       <span className="sr-only"> {"More"->React.string} </span>
     </span>
+  }
 }

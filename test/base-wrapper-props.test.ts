@@ -92,7 +92,7 @@ for (const [file, members] of Object.entries(wrappers)) {
     const make = member === "make" ? module.make : (module[member] ?? module[`$$${member}`]).make;
     const forwarded = {
       ref: React.createRef(), onPointerDown: vi.fn(), title: "Forwarded",
-      "aria-describedby": "description", "data-extra": "forwarded",
+      "aria-describedby": "description", "data-extra": "forwarded", "data-slot": "custom-slot",
     };
     const tree = make({...forwarded, value: "one", children: "Content", toast: {id: "fixture"}});
     const targets = findForwarded(tree);

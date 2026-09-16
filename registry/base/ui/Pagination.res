@@ -11,14 +11,16 @@ module Size = {
 }
 
 @react.componentWithProps(BaseUi.Types.DomProps.t)
-let make = (props: BaseUi.Types.DomProps.t) =>
+let make = (props: BaseUi.Types.DomProps.t) => {
+  let role = props.role->Option.getOr("navigation")
   <nav
     {...props}
     dataSlot={props.dataSlot->Option.getOr("pagination")}
-    role="navigation"
+    role
     ariaLabel={props.ariaLabel->Option.getOr("pagination")}
     className={cn("cn-pagination mx-auto flex w-full justify-center", props.className)}
   />
+}
 
 module Content = {
   @react.componentWithProps(BaseUi.Types.DomProps.t)
@@ -116,14 +118,16 @@ module Next = {
 
 module Ellipsis = {
   @react.componentWithProps(BaseUi.Types.DomProps.t)
-  let make = (props: BaseUi.Types.DomProps.t) =>
+  let make = (props: BaseUi.Types.DomProps.t) => {
+    let ariaHidden = props.ariaHidden->Option.getOr(true)
     <span
       {...props}
       dataSlot={props.dataSlot->Option.getOr("pagination-ellipsis")}
-      ariaHidden={true}
+      ariaHidden
       className={cn("cn-pagination-ellipsis flex items-center justify-center", props.className)}
     >
       <Icons.MoreHorizontal />
       <span className="sr-only"> {"More pages"->React.string} </span>
     </span>
+  }
 }

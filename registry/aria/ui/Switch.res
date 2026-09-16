@@ -20,10 +20,11 @@ let switchProps: props<
 
 @react.componentWithProps(props)
 let make = (props: props<'children>) => {
+  let dataSlot = props.dataSlot->Option.getOr("switch")
   let size = props.size->Option.getOr(Default)
   <ReactAria.Switch
     {...props->switchProps->ReactAria.Switch.toProps}
-    dataSlot="switch"
+    dataSlot
     dataSize={(size :> string)}
     className={cn(
       "cn-switch cn-switch-aria peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",

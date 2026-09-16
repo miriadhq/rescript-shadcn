@@ -45,9 +45,10 @@ module Variant = {
 
 @react.componentWithProps(ReactAria.Group.props)
 let make = (props: ReactAria.Group.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("input-group")
   <ReactAria.Group
     {...props}
-    dataSlot="input-group"
+    dataSlot
     className={cn(
       "group/input-group cn-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
       props.className,
@@ -71,6 +72,8 @@ module Addon = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let role = props.role->Option.getOr("group")
+    let dataSlot = props.dataSlot->Option.getOr("input-group-addon")
     let align = props.align->Option.getOr(Align.InlineStart)
     let onClick = props.onClick->Option.getOr(event => {
       let target = event->mouseEventTarget
@@ -87,9 +90,9 @@ module Addon = {
     <div
       {...props->domProps}
       onClick
-      dataSlot="input-group-addon"
+      dataSlot
       dataAlign={(align :> string)}
-      role="group"
+      role
       className={cn3(baseClass, alignClass(~align), props.className)}
     />
   }
@@ -145,24 +148,28 @@ module Text = {
 
 module Input = {
   @react.componentWithProps(ReactAria.Input.props)
-  let make = (props: ReactAria.Input.props) =>
+  let make = (props: ReactAria.Input.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("input-group-control")
     <ReactAria.Input
       {...props}
-      dataSlot="input-group-control"
+      dataSlot
       className={cn3(
         "cn-input w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
         "cn-input-group-input flex-1",
         props.className,
       )}
     />
+  }
 }
 
 module Textarea = {
   @react.componentWithProps(ReactAria.Input.props)
-  let make = (props: ReactAria.Input.props) =>
+  let make = (props: ReactAria.Input.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("input-group-control")
     <Textarea
       {...props}
-      dataSlot="input-group-control"
+      dataSlot
       className={cn("cn-input-group-textarea flex-1 resize-none", props.className)}
     />
+  }
 }

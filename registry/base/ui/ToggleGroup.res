@@ -75,6 +75,7 @@ module Item = {
 
   @react.componentWithProps(props)
   let make = (props: props<'value>) => {
+    let dataSlot = props.dataSlot->Option.getOr("toggle-group-item")
     let variant = props.variant->Option.getOr(Variant.Default)
     let size = props.size->Option.getOr(Size.Default)
     let context = React.useContext(toggleGroupContext)
@@ -83,7 +84,7 @@ module Item = {
 
     <BaseUi.Toggle
       {...Toggle.toBaseUiProps(props)}
-      dataSlot="toggle-group-item"
+      dataSlot
       dataVariant={(variant :> string)}
       dataSize={(size :> string)}
       dataSpacing=?context.spacing

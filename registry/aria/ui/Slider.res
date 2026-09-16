@@ -4,10 +4,11 @@
 external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithProps(props)
-let make = (props: ReactAria.Slider.componentProps<'value>) =>
+let make = (props: ReactAria.Slider.componentProps<'value>) => {
+  let dataSlot = props.dataSlot->Option.getOr("slider")
   <ReactAria.Slider
     {...props->ReactAria.Slider.toProps}
-    dataSlot="slider"
+    dataSlot
     className={cn(
       "cn-slider group relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:w-auto data-vertical:flex-col",
       props.className,
@@ -35,3 +36,4 @@ let make = (props: ReactAria.Slider.componentProps<'value>) =>
       ->React.array}
     </>}
   </ReactAria.Slider>
+}

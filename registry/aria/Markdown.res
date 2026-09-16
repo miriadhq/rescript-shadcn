@@ -24,11 +24,13 @@ module Streamdown = {
 }
 
 @react.componentWithProps(Streamdown.props)
-let make = (props: Streamdown.props) =>
+let make = (props: Streamdown.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("markdown")
   <Streamdown
     {...props}
-    dataSlot="markdown"
+    dataSlot
     plugins={props.plugins->Option.getOr({code: code})}
     controls={props.controls->Option.getOr(false)}
     className={cn("cn-markdown w-full min-w-0 overflow-hidden", props.className)}
   />
+}

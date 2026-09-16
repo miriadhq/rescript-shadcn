@@ -86,10 +86,11 @@ let toBaseUiProps: props => BaseUi.Types.DomProps.t = %raw(`({orientation, ...pr
 
 @react.componentWithProps(props)
 let make = (props: props) => {
+  let role = props.role->Option.getOr("group")
   let orientation = props.orientation->Option.getOr(Orientation.Vertical)
   <div
     {...props->toBaseUiProps}
-    role="group"
+    role
     dataSlot={props.dataSlot->Option.getOr("field")}
     dataOrientation={props.dataOrientation->Option.getOr((orientation :> string))}
     className={cn(fieldVariants(~orientation), props.className)}
@@ -184,6 +185,7 @@ module Error = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let role = props.role->Option.getOr("alert")
     let children = props.children
     let errors = props.errors
     let content = React.useMemo(() => {
@@ -211,7 +213,7 @@ module Error = {
     }, (children, errors))
     <div
       {...props->toBaseUiProps}
-      role="alert"
+      role
       dataSlot={props.dataSlot->Option.getOr("field-error")}
       className={cn("cn-field-error font-normal", props.className)}
     >

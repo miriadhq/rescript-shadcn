@@ -7,34 +7,32 @@ external cn: (string, option<string>) => string = "cn"
 
 module Trigger = {
   @react.componentWithProps(ReactAria.Dialog.Trigger.props)
-  let make = (props: ReactAria.Dialog.Trigger.props) =>
-    <ReactAria.Dialog.Trigger {...props} dataSlot="dialog-trigger" />
+  let make = (props: ReactAria.Dialog.Trigger.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-trigger")
+    <ReactAria.Dialog.Trigger {...props} dataSlot />
+  }
 }
 
 module Close = {
   @react.componentWithProps(Button.props)
   let make = (props: Button.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-close")
     let variant = props.variant->Option.getOr(Outline)
     let size = props.size->Option.getOr(Default)
-    <Button
-      {...props}
-      variant
-      size
-      slot="close"
-      dataSlot="dialog-close"
-      className={cn("", props.className)}
-    />
+    <Button {...props} variant size slot="close" dataSlot className={cn("", props.className)} />
   }
 }
 
 module Overlay = {
   @react.componentWithProps(ReactAria.Dialog.Modal.props)
-  let make = (props: ReactAria.Dialog.Modal.props) =>
+  let make = (props: ReactAria.Dialog.Modal.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-overlay")
     <ReactAria.Dialog.ModalOverlay
       {...props}
-      dataSlot="dialog-overlay"
+      dataSlot
       className={cn("cn-dialog-overlay-aria fixed inset-0 isolate z-50", props.className)}
     />
+  }
 }
 
 type props = {showCloseButton?: bool, ...ReactAria.Dialog.Modal.props}
@@ -67,12 +65,10 @@ let make = (props: props) => {
 
 module Header = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="dialog-header"
-      className={cn("cn-dialog-header flex flex-col", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-header")
+    <div {...props} dataSlot className={cn("cn-dialog-header flex flex-col", props.className)} />
+  }
 }
 
 module Footer = {
@@ -80,10 +76,11 @@ module Footer = {
   let divProps: props => ReactAria.Types.DomProps.t = %raw(`({showCloseButton, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) =>
+  let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-footer")
     <div
       {...props->divProps}
-      dataSlot="dialog-footer"
+      dataSlot
       className={cn(
         "cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
         props.className,
@@ -94,25 +91,26 @@ module Footer = {
         ? <Close variant=Outline> {"Close"->React.string} </Close>
         : React.null}
     </div>
+  }
 }
 
 module Title = {
   @react.componentWithProps(ReactAria.Heading.props)
-  let make = (props: ReactAria.Heading.props) =>
+  let make = (props: ReactAria.Heading.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-title")
     <ReactAria.Heading
       {...props}
       slot="title"
-      dataSlot="dialog-title"
+      dataSlot
       className={cn("cn-dialog-title cn-font-heading", props.className)}
     />
+  }
 }
 
 module Description = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="dialog-description"
-      className={cn("cn-dialog-description", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-description")
+    <div {...props} dataSlot className={cn("cn-dialog-description", props.className)} />
+  }
 }

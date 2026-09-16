@@ -15,21 +15,25 @@ module Provider = {
 
 module Portal = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
-    <BaseUi.Toast.Portal {...props} dataSlot="toast-portal" />
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("toast-portal")
+    <BaseUi.Toast.Portal {...props} dataSlot />
+  }
 }
 
 module Viewport = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("toast-viewport")
     <BaseUi.Toast.Viewport
       {...props}
-      dataSlot="toast-viewport"
+      dataSlot
       className={cn(
         "pointer-events-none fixed inset-x-4 bottom-4 z-50 mx-auto w-auto max-w-sm outline-none sm:right-4 sm:left-auto sm:mx-0 sm:w-full",
         props.className,
       )}
     />
+  }
 }
 
 module Root = {
@@ -53,54 +57,62 @@ module Root = {
 
 module Content = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("toast-content")
     <BaseUi.Toast.Content
       {...props}
-      dataSlot="toast-content"
+      dataSlot
       className={cn(
         "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100",
         props.className,
       )}
     />
+  }
 }
 
 module Title = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("toast-title")
     <BaseUi.Toast.Title
-      {...props} dataSlot="toast-title" className={cn("text-sm font-medium", props.className)}
+      {...props} dataSlot className={cn("text-sm font-medium", props.className)}
     />
+  }
 }
 
 module Description = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("toast-description")
     <BaseUi.Toast.Description
-      {...props}
-      dataSlot="toast-description"
-      className={cn("text-muted-foreground text-sm", props.className)}
+      {...props} dataSlot className={cn("text-muted-foreground text-sm", props.className)}
     />
+  }
 }
 
 module Action = {
   @react.componentWithProps(BaseUi.Toast.Action.props)
-  let make = (props: BaseUi.Toast.Action.props) =>
+  let make = (props: BaseUi.Toast.Action.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("toast-action")
     <BaseUi.Toast.Action
       {...props}
       render={props.render->Option.getOr(<Button variant=Outline size=Sm />)}
-      dataSlot="toast-action"
+      dataSlot
       className={cn("shrink-0", props.className)}
     />
+  }
 }
 
 module Close = {
   @react.componentWithProps(BaseUi.Toast.Close.props)
-  let make = (props: BaseUi.Toast.Close.props) =>
+  let make = (props: BaseUi.Toast.Close.props) => {
+    let ariaLabel = props.ariaLabel->Option.getOr("Close toast")
+    let dataSlot = props.dataSlot->Option.getOr("toast-close")
     <BaseUi.Toast.Close
       {...props}
       render={props.render->Option.getOr(<Button variant=Ghost size=IconSm />)}
-      dataSlot="toast-close"
-      ariaLabel="Close toast"
+      dataSlot
+      ariaLabel
       className={cn(
         "text-muted-foreground hover:text-foreground relative shrink-0 after:absolute after:-inset-2 after:content-['']",
         props.className,
@@ -108,6 +120,7 @@ module Close = {
     >
       {props.children->Option.getOr(<Icons.X ariaHidden=true />)}
     </BaseUi.Toast.Close>
+  }
 }
 
 module Icon = {

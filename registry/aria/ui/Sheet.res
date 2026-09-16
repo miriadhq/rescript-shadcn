@@ -16,23 +16,19 @@ module Side = {
 
 module Trigger = {
   @react.componentWithProps(ReactAria.Dialog.Trigger.props)
-  let make = (props: ReactAria.Dialog.Trigger.props) =>
-    <ReactAria.Dialog.Trigger {...props} dataSlot="sheet-trigger" />
+  let make = (props: ReactAria.Dialog.Trigger.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("sheet-trigger")
+    <ReactAria.Dialog.Trigger {...props} dataSlot />
+  }
 }
 
 module Close = {
   @react.componentWithProps(Button.props)
   let make = (props: Button.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("sheet-close")
     let variant = props.variant->Option.getOr(Outline)
     let size = props.size->Option.getOr(Default)
-    <Button
-      {...props}
-      slot="close"
-      dataSlot="sheet-close"
-      variant
-      size
-      className={cn("", props.className)}
-    />
+    <Button {...props} slot="close" dataSlot variant size className={cn("", props.className)} />
   }
 }
 
@@ -45,13 +41,14 @@ type props = {
 let overlayProps: props => ReactAria.Dialog.Modal.props = %raw(`({side, showCloseButton, className, children, ...props}) => props`)
 
 let renderSheet = (props: props) => {
+  let dataSlot = props.dataSlot->Option.getOr("sheet-overlay")
   let side = props.side->Option.getOr(Side.Right)
   let showCloseButton = props.showCloseButton->Option.getOr(true)
   let isDismissable = props.isDismissable->Option.getOr(true)
   <ReactAria.Dialog.ModalOverlay
     {...props->overlayProps}
     isDismissable
-    dataSlot="sheet-overlay"
+    dataSlot
     className="cn-sheet-overlay fixed inset-0 z-50 transition-opacity duration-150 data-entering:opacity-0 data-exiting:opacity-0"
   >
     <ReactAria.Dialog.Modal
@@ -88,41 +85,39 @@ module Content = {
 
 module Header = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="sheet-header"
-      className={cn("cn-sheet-header flex flex-col", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("sheet-header")
+    <div {...props} dataSlot className={cn("cn-sheet-header flex flex-col", props.className)} />
+  }
 }
 
 module Footer = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("sheet-footer")
     <div
-      {...props}
-      dataSlot="sheet-footer"
-      className={cn("cn-sheet-footer mt-auto flex flex-col", props.className)}
+      {...props} dataSlot className={cn("cn-sheet-footer mt-auto flex flex-col", props.className)}
     />
+  }
 }
 
 module Title = {
   @react.componentWithProps(ReactAria.Heading.props)
-  let make = (props: ReactAria.Heading.props) =>
+  let make = (props: ReactAria.Heading.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("sheet-title")
     <ReactAria.Heading
       {...props}
       slot="title"
-      dataSlot="sheet-title"
+      dataSlot
       className={cn("cn-sheet-title cn-font-heading", props.className)}
     />
+  }
 }
 
 module Description = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="sheet-description"
-      className={cn("cn-sheet-description", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("sheet-description")
+    <div {...props} dataSlot className={cn("cn-sheet-description", props.className)} />
+  }
 }

@@ -5,9 +5,10 @@ external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithProps(props)
 let make = (props: ReactAria.Keyboard.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("kbd")
   <ReactAria.Keyboard
     {...props}
-    dataSlot="kbd"
+    dataSlot
     className={cn(
       "cn-kbd pointer-events-none inline-flex items-center justify-center select-none",
       props.className,
@@ -17,10 +18,10 @@ let make = (props: ReactAria.Keyboard.props) => {
 
 module Group = {
   @react.componentWithProps(props)
-  let make = (props: ReactAria.Keyboard.props) =>
+  let make = (props: ReactAria.Keyboard.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("kbd-group")
     <ReactAria.Keyboard
-      {...props}
-      dataSlot="kbd-group"
-      className={cn("cn-kbd-group inline-flex items-center", props.className)}
+      {...props} dataSlot className={cn("cn-kbd-group inline-flex items-center", props.className)}
     />
+  }
 }

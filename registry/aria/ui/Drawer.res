@@ -49,6 +49,7 @@ let rootProps: props => BaseUi.Drawer.Root.props = %raw(`({showSwipeHandle, ...p
 
 @react.componentWithProps(props)
 let make = (props: props) => {
+  let dataSlot = props.dataSlot->Option.getOr("drawer")
   let modal = props.modal->Option.getOr(BaseUi.Types.Modal.True)
   let showSwipeHandle = props.showSwipeHandle->Option.getOr(false)
   let swipeDirection = props.swipeDirection->Option.getOr(SwipeDirection.Down)
@@ -57,39 +58,47 @@ let make = (props: props) => {
   let value = {hasSnapPoints, modal, showSwipeHandle, swipeDirection}
 
   <ContextProvider value={value->Nullable.make}>
-    <BaseUi.Drawer.Root {...props->rootProps} dataSlot="drawer" modal swipeDirection />
+    <BaseUi.Drawer.Root {...props->rootProps} dataSlot modal swipeDirection />
   </ContextProvider>
 }
 
 module Trigger = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
-    <BaseUi.Drawer.Trigger {...props} dataSlot="drawer-trigger" />
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("drawer-trigger")
+    <BaseUi.Drawer.Trigger {...props} dataSlot />
+  }
 }
 
 module Portal = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
-    <BaseUi.Drawer.Portal {...props} dataSlot="drawer-portal" />
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("drawer-portal")
+    <BaseUi.Drawer.Portal {...props} dataSlot />
+  }
 }
 
 module Close = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
-    <BaseUi.Drawer.Close {...props} dataSlot="drawer-close" />
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("drawer-close")
+    <BaseUi.Drawer.Close {...props} dataSlot />
+  }
 }
 
 module Overlay = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("drawer-overlay")
     <BaseUi.Drawer.Backdrop
       {...props}
-      dataSlot="drawer-overlay"
+      dataSlot
       className={cn(
         "cn-drawer-overlay fixed inset-0 z-50 min-h-dvh opacity-[max(var(--drawer-overlay-min-opacity,0),calc(1-var(--drawer-swipe-progress)))] transition-opacity duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] select-none data-ending-style:pointer-events-none data-ending-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-snap-points:[--drawer-overlay-min-opacity:0.5] data-starting-style:opacity-0 data-swiping:duration-0 supports-[-webkit-touch-callout:none]:absolute",
         props.className,
       )}
     />
+  }
 }
 
 module SwipeHandle = {
@@ -111,6 +120,7 @@ let popupClass = "cn-drawer-popup group/drawer-popup pointer-events-auto fixed z
 module Content = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
   let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("drawer-popup")
     let drawer = use()
     let swipeAxis = switch drawer.swipeDirection {
     | Down | Up => "y"
@@ -131,7 +141,7 @@ module Content = {
       >
         <BaseUi.Drawer.Popup
           {...props}
-          dataSlot="drawer-popup"
+          dataSlot
           dataSwipeAxis=swipeAxis
           dataSnapPoints=?dataSnapPoints
           className={cn(popupClass, props.className)}
@@ -174,20 +184,20 @@ module Footer = {
 
 module Title = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("drawer-title")
     <BaseUi.Drawer.Title
-      {...props}
-      dataSlot="drawer-title"
-      className={cn("cn-drawer-title cn-font-heading", props.className)}
+      {...props} dataSlot className={cn("cn-drawer-title cn-font-heading", props.className)}
     />
+  }
 }
 
 module Description = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("drawer-description")
     <BaseUi.Drawer.Description
-      {...props}
-      dataSlot="drawer-description"
-      className={cn("cn-drawer-description text-balance", props.className)}
+      {...props} dataSlot className={cn("cn-drawer-description text-balance", props.className)}
     />
+  }
 }

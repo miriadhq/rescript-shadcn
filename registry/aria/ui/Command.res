@@ -55,7 +55,8 @@ module Dialog = {
 
 module Input = {
   @react.componentWithProps(ReactAria.Input.props)
-  let make = (props: ReactAria.Input.props) =>
+  let make = (props: ReactAria.Input.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("command-input")
     <ReactAria.SearchField
       autoFocus=true
       ariaLabel={props.placeholder->Option.getOr("Search")}
@@ -65,7 +66,7 @@ module Input = {
       <InputGroup className="cn-command-input-group">
         <ReactAria.Input
           {...props}
-          dataSlot="command-input"
+          dataSlot
           className={cn(
             "cn-command-input outline-hidden disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-search-cancel-button]:hidden",
             props.className,
@@ -76,22 +77,27 @@ module Input = {
         </InputGroup.Addon>
       </InputGroup>
     </ReactAria.SearchField>
+  }
 }
 
 module List = {
   @react.componentWithProps(ReactAria.Menu.props)
-  let make = (props: ReactAria.Menu.props<'item>) =>
+  let make = (props: ReactAria.Menu.props<'item>) => {
+    let dataSlot = props.dataSlot->Option.getOr("command-list")
     <ReactAria.Menu
       {...props}
-      dataSlot="command-list"
+      dataSlot
       className={cn("cn-command-list overflow-x-hidden overflow-y-auto", props.className)}
     />
+  }
 }
 
 module Empty = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div {...props} dataSlot="command-empty" className={cn("cn-command-empty", props.className)} />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("command-empty")
+    <div {...props} dataSlot className={cn("cn-command-empty", props.className)} />
+  }
 }
 
 module Group = {
@@ -105,10 +111,11 @@ module Group = {
   > = %raw(`({heading, children, items, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props<'item, 'children>) =>
+  let make = (props: props<'item, 'children>) => {
+    let dataSlot = props.dataSlot->Option.getOr("command-group")
     <ReactAria.Menu.Section
       {...props->sectionProps->ReactAria.Menu.Section.toProps}
-      dataSlot="command-group"
+      dataSlot
       className={cn("cn-command-group", props.className)}
     >
       {switch props.heading {
@@ -118,16 +125,17 @@ module Group = {
       }}
       <ReactAria.Combobox.Collection.Flexible items=?{props.items} children=?{props.children} />
     </ReactAria.Menu.Section>
+  }
 }
 
 module Separator = {
   @react.componentWithProps(ReactAria.Separator.props)
-  let make = (props: ReactAria.Separator.props) =>
+  let make = (props: ReactAria.Separator.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("command-separator")
     <ReactAria.Separator
-      {...props}
-      dataSlot="command-separator"
-      className={cn("cn-command-separator", props.className)}
+      {...props} dataSlot className={cn("cn-command-separator", props.className)}
     />
+  }
 }
 
 let textValueFromChildren: option<React.element> => option<string> = %raw(`children =>
@@ -137,6 +145,7 @@ let textValueFromChildren: option<React.element> => option<string> = %raw(`child
 module Item = {
   @react.componentWithProps(ReactAria.Menu.Item.props)
   let make = (props: ReactAria.Menu.Item.props<'item>) => {
+    let dataSlot = props.dataSlot->Option.getOr("command-item")
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
     let children = ReactAria.Common.composeItemRenderProps(props.children, (children, _) =>
       <>
@@ -149,7 +158,7 @@ module Item = {
     <ReactAria.Menu.Item
       {...props}
       ?textValue
-      dataSlot="command-item"
+      dataSlot
       className={cn(
         "cn-command-item cn-command-item-aria group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
@@ -161,10 +170,12 @@ module Item = {
 
 module Shortcut = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("command-shortcut")
     <span
       {...props}
-      dataSlot="command-shortcut"
+      dataSlot
       className={cn("cn-command-shortcut cn-command-shortcut-aria", props.className)}
     />
+  }
 }

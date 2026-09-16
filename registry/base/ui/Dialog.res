@@ -50,12 +50,13 @@ module Content = {
   }
   let toBaseUIComponentProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({showCloseButton, ...props}) => props`)
   @react.componentWithProps(props)
-  let make = (props: props) =>
+  let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-content")
     <Portal>
       <Overlay />
       <BaseUi.Dialog.Popup
         {...props->toBaseUIComponentProps}
-        dataSlot="dialog-content"
+        dataSlot
         className={cn(
           "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
           props.className,
@@ -77,6 +78,7 @@ module Content = {
         }}
       </BaseUi.Dialog.Popup>
     </Portal>
+  }
 }
 
 module Header = {

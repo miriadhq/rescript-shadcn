@@ -17,8 +17,10 @@ module Multiple = {
 
 module Value = {
   @react.componentWithProps(BaseUi.Combobox.Value.props)
-  let make = (props: BaseUi.Combobox.Value.props<'value>) =>
-    <BaseUi.Combobox.Value {...props} dataSlot="combobox-value" />
+  let make = (props: BaseUi.Combobox.Value.props<'value>) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-value")
+    <BaseUi.Combobox.Value {...props} dataSlot />
+  }
 }
 
 module Trigger = {
@@ -141,10 +143,11 @@ module List = {
 
 module Item = {
   @react.componentWithProps(BaseUi.Combobox.Item.props)
-  let make = (props: BaseUi.Combobox.Item.props<'value>) =>
+  let make = (props: BaseUi.Combobox.Item.props<'value>) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-item")
     <BaseUi.Combobox.Item
       {...props}
-      dataSlot="combobox-item"
+      dataSlot
       className={cn(
         "cn-combobox-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
@@ -155,6 +158,7 @@ module Item = {
         <Icons.Check className="cn-combobox-item-indicator-icon pointer-events-none" />
       </BaseUi.Combobox.ItemIndicator>
     </BaseUi.Combobox.Item>
+  }
 }
 
 module Group = {
@@ -215,10 +219,12 @@ module Separator = {
 
 module Chips = {
   @react.componentWithProps(BaseUi.Types.BaseUIComponentProps.t)
-  let make = (props: BaseUi.Types.BaseUIComponentProps.t) =>
+  let make = (props: BaseUi.Types.BaseUIComponentProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-chips")
     <BaseUi.Combobox.Chips
-      {...props} dataSlot="combobox-chips" className={cn("cn-combobox-chips", props.className)}
+      {...props} dataSlot className={cn("cn-combobox-chips", props.className)}
     />
+  }
 }
 
 type chipProps = {
@@ -231,10 +237,11 @@ let comboboxChipToBase: chipProps => BaseUi.Types.BaseUIComponentProps.t = %raw(
 module Chip = {
   @react.componentWithProps(chipProps)
   let make = (props: chipProps) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-chip")
     let showRemove = props.showRemove->Option.getOr(true)
     <BaseUi.Combobox.Chip
       {...props->comboboxChipToBase}
-      dataSlot="combobox-chip"
+      dataSlot
       className={cn(
         "cn-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50",
         props.className,
@@ -256,12 +263,14 @@ module Chip = {
 
 module ChipsInput = {
   @react.componentWithProps(BaseUi.Combobox.Input.props)
-  let make = (props: BaseUi.Combobox.Input.props) =>
+  let make = (props: BaseUi.Combobox.Input.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-chip-input")
     <BaseUi.Combobox.Input
       {...props}
-      dataSlot="combobox-chip-input"
+      dataSlot
       className={cn("cn-combobox-chip-input min-w-16 flex-1 outline-none", props.className)}
     />
+  }
 }
 
 let useAnchor = () => React.useRef(null)->ReactDOM.Ref.domRef

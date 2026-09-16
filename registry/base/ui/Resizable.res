@@ -58,20 +58,23 @@ module ResizablePrimitive = {
 }
 
 @react.componentWithProps(ResizablePrimitive.Group.props)
-let make = (props: ResizablePrimitive.Group.props) =>
+let make = (props: ResizablePrimitive.Group.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("resizable-panel-group")
   <ResizablePrimitive.Group
     {...props}
-    dataSlot="resizable-panel-group"
+    dataSlot
     className={cn(
       "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",
       props.className,
     )}
   />
-
+}
 module Panel = {
   @react.componentWithProps(ResizablePrimitive.Panel.props)
-  let make = (props: ResizablePrimitive.Panel.props) =>
-    <ResizablePrimitive.Panel {...props} dataSlot="resizable-panel" />
+  let make = (props: ResizablePrimitive.Panel.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("resizable-panel")
+    <ResizablePrimitive.Panel {...props} dataSlot />
+  }
 }
 
 module Handle = {

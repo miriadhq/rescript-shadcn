@@ -12,19 +12,21 @@ let make = (props: rootProps<'item, 'value>) => <ReactAria.Combobox {...props} /
 
 module Value = {
   @react.componentWithProps(ReactAria.Combobox.Value.props)
-  let make = (props: ReactAria.Combobox.Value.props<'item, 'value>) =>
-    <ReactAria.Combobox.Value {...props} dataSlot="combobox-value" />
+  let make = (props: ReactAria.Combobox.Value.props<'item, 'value>) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-value")
+    <ReactAria.Combobox.Value {...props} dataSlot />
+  }
 }
 
 module Trigger = {
   @react.componentWithProps(ReactAria.Button.props)
-  let make = (props: ReactAria.Button.props) =>
-    <ReactAria.Button
-      {...props} dataSlot="combobox-trigger" className={cn("cn-combobox-trigger", props.className)}
-    >
+  let make = (props: ReactAria.Button.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-trigger")
+    <ReactAria.Button {...props} dataSlot className={cn("cn-combobox-trigger", props.className)}>
       {props.children->Option.getOr(React.null)}
       <Icons.ChevronDown className="cn-combobox-trigger-icon pointer-events-none" />
     </ReactAria.Button>
+  }
 }
 
 module Clear = {
@@ -32,6 +34,7 @@ module Clear = {
 
   @react.componentWithProps(InputGroup.Button.props)
   let make = (props: InputGroup.Button.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-clear")
     let state = React.useContext(ReactAria.Combobox.stateContext)
     switch state {
     | Null | Undefined => React.null
@@ -39,7 +42,7 @@ module Clear = {
     | Value(state) =>
       <InputGroup.Button
         {...props}
-        dataSlot="combobox-clear"
+        dataSlot
         variant={props.variant->Option.getOr(Ghost)}
         size={props.size->Option.getOr(IconXs)}
         ariaLabel={props.ariaLabel->Option.getOr("Clear")}
@@ -93,10 +96,11 @@ module Content = {
   let popoverProps: props => ReactAria.Popover.props = %raw(`({anchor, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) =>
+  let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-content")
     <ReactAria.Popover
       {...props->popoverProps}
-      dataSlot="combobox-content"
+      dataSlot
       triggerRef=?{props.anchor}
       placement={props.placement->Option.getOr(ReactAria.Common.Bottom)}
       offset={props.offset->Option.getOr(6.)}
@@ -106,19 +110,22 @@ module Content = {
         props.className,
       )}
     />
+  }
 }
 
 module List = {
   @react.componentWithProps(ReactAria.Combobox.List.props)
-  let make = (props: ReactAria.Combobox.List.props<'item>) =>
+  let make = (props: ReactAria.Combobox.List.props<'item>) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-list")
     <ReactAria.Combobox.List
       {...props}
-      dataSlot="combobox-list"
+      dataSlot
       className={cn(
         "cn-combobox-list group/combobox-content max-h-[inherit] overflow-y-auto overscroll-contain",
         props.className,
       )}
     />
+  }
 }
 
 let textValueFromChildren: option<React.element> => option<string> = %raw(`children =>
@@ -128,6 +135,7 @@ let textValueFromChildren: option<React.element> => option<string> = %raw(`child
 module Item = {
   @react.componentWithProps(ReactAria.Combobox.Item.props)
   let make = (props: ReactAria.Combobox.Item.props<'item, 'key>) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-item")
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
     let children = ReactAria.Common.composeItemRenderProps(props.children, (
       children,
@@ -145,7 +153,7 @@ module Item = {
     <ReactAria.Combobox.Item
       {...props}
       ?textValue
-      dataSlot="combobox-item"
+      dataSlot
       className={cn(
         "cn-combobox-item cn-combobox-item-aria relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
@@ -157,18 +165,20 @@ module Item = {
 
 module Group = {
   @react.componentWithProps(ReactAria.Combobox.Group.props)
-  let make = (props: ReactAria.Combobox.Group.props<'item, 'children>) =>
+  let make = (props: ReactAria.Combobox.Group.props<'item, 'children>) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-group")
     <ReactAria.Combobox.Group
-      {...props} dataSlot="combobox-group" className={cn("cn-combobox-group", props.className)}
+      {...props} dataSlot className={cn("cn-combobox-group", props.className)}
     />
+  }
 }
 
 module Label = {
   @react.componentWithProps(ReactAria.Header.props)
-  let make = (props: ReactAria.Header.props) =>
-    <ReactAria.Header
-      {...props} dataSlot="combobox-label" className={cn("cn-combobox-label", props.className)}
-    />
+  let make = (props: ReactAria.Header.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-label")
+    <ReactAria.Header {...props} dataSlot className={cn("cn-combobox-label", props.className)} />
+  }
 }
 
 module Collection = {
@@ -179,28 +189,28 @@ module Collection = {
 
 module Empty = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props} dataSlot="combobox-empty" className={cn("cn-combobox-empty", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-empty")
+    <div {...props} dataSlot className={cn("cn-combobox-empty", props.className)} />
+  }
 }
 
 module Separator = {
   @react.componentWithProps(ReactAria.Separator.props)
-  let make = (props: ReactAria.Separator.props) =>
+  let make = (props: ReactAria.Separator.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-separator")
     <ReactAria.Separator
-      {...props}
-      dataSlot="combobox-separator"
-      className={cn("cn-combobox-separator", props.className)}
+      {...props} dataSlot className={cn("cn-combobox-separator", props.className)}
     />
+  }
 }
 
 module Chips = {
   @react.componentWithProps(ReactAria.Group.props)
-  let make = (props: ReactAria.Group.props) =>
-    <ReactAria.Group
-      {...props} dataSlot="combobox-chips" className={cn("cn-combobox-chips", props.className)}
-    />
+  let make = (props: ReactAria.Group.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-chips")
+    <ReactAria.Group {...props} dataSlot className={cn("cn-combobox-chips", props.className)} />
+  }
 }
 
 module ChipList = {
@@ -229,10 +239,11 @@ module Chip = {
   let itemProps: props => ReactAria.TagGroup.Item.props = %raw(`({showRemove, ...props}) => props`)
 
   @react.componentWithProps(props)
-  let make = (props: props) =>
+  let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-chip")
     <ReactAria.TagGroup.Item
       {...props->itemProps}
-      dataSlot="combobox-chip"
+      dataSlot
       className={cn(
         "cn-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50",
         props.className,
@@ -251,6 +262,7 @@ module Chip = {
           </Button>
         : React.null}
     </ReactAria.TagGroup.Item>
+  }
 }
 
 @get external keyboardKey: JsxEvent.Keyboard.t => string = "key"
@@ -260,6 +272,7 @@ let currentTargetValue: JsxEvent.Keyboard.t => string = %raw(`event => event.cur
 module ChipsInput = {
   @react.componentWithProps(ReactAria.Input.props)
   let make = (props: ReactAria.Input.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("combobox-chip-input")
     let state: nullable<ReactAria.Combobox.state<array<string>>> = React.useContext(
       ReactAria.Combobox.stateContext,
     )
@@ -276,7 +289,7 @@ module ChipsInput = {
     })
     <ReactAria.Input
       {...props}
-      dataSlot="combobox-chip-input"
+      dataSlot
       className={cn("cn-combobox-chip-input min-w-16 flex-1 outline-none", props.className)}
       onKeyDown
     />

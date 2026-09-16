@@ -20,13 +20,14 @@ let tabsListVariants = (~variant=Variant.Default) => {
 }
 
 @react.componentWithProps(props)
-let make = (props: ReactAria.Tabs.props) =>
+let make = (props: ReactAria.Tabs.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("tabs")
   <ReactAria.Tabs
     {...props}
-    dataSlot="tabs"
+    dataSlot
     className={cn("cn-tabs group/tabs flex data-horizontal:flex-col", props.className)}
   />
-
+}
 module List = {
   type props<'item> = {variant?: Variant.t, ...ReactAria.Tabs.List.props<'item>}
 
@@ -36,10 +37,11 @@ module List = {
 
   @react.componentWithProps(props)
   let make = (props: props<'item>) => {
+    let dataSlot = props.dataSlot->Option.getOr("tabs-list")
     let variant = props.variant->Option.getOr(Default)
     <ReactAria.Tabs.List
       {...props->listProps}
-      dataSlot="tabs-list"
+      dataSlot
       dataVariant={(variant :> string)}
       className={cn(tabsListVariants(~variant), props.className)}
     />
@@ -48,23 +50,25 @@ module List = {
 
 module Trigger = {
   @react.componentWithProps(props)
-  let make = (props: ReactAria.Tabs.Tab.props) =>
+  let make = (props: ReactAria.Tabs.Tab.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("tabs-trigger")
     <ReactAria.Tabs.Tab
       {...props}
-      dataSlot="tabs-trigger"
+      dataSlot
       className={cn(
         "cn-tabs-trigger cn-tabs-trigger-aria relative inline-flex h-[calc(100%-1px)] flex-1 cursor-default items-center justify-center whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-selected:bg-transparent dark:group-data-[variant=line]/tabs-list:data-selected:border-transparent dark:group-data-[variant=line]/tabs-list:data-selected:bg-transparent data-selected:bg-background data-selected:text-foreground dark:data-selected:border-input dark:data-selected:bg-input/30 dark:data-selected:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-selected:after:opacity-100",
         props.className,
       )}
     />
+  }
 }
 
 module Content = {
   @react.componentWithProps(props)
-  let make = (props: ReactAria.Tabs.Panel.props) =>
+  let make = (props: ReactAria.Tabs.Panel.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("tabs-content")
     <ReactAria.Tabs.Panel
-      {...props}
-      dataSlot="tabs-content"
-      className={cn("cn-tabs-content flex-1 outline-none", props.className)}
+      {...props} dataSlot className={cn("cn-tabs-content flex-1 outline-none", props.className)}
     />
+  }
 }

@@ -39,10 +39,11 @@ let domProps: props => ReactAria.Common.elementProps = %raw(`({variant, render, 
 
 @react.componentWithProps(props)
 let make = (props: props) => {
+  let dataSlot = props.dataSlot->Option.getOr("badge")
   let variant = props.variant->Option.getOr(Variant.Default)
   let domProps = {
     ...props->domProps,
-    dataSlot: "badge",
+    dataSlot,
     dataVariant: (variant :> string),
     className: cn(badgeClass, variant->variantClass, props.className),
   }

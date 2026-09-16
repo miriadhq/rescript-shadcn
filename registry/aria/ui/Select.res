@@ -15,15 +15,18 @@ module Size = {
 type rootProps<'item, 'value> = ReactAria.Select.props<'item, 'value>
 
 @react.componentWithProps(rootProps)
-let make = (props: rootProps<'item, 'value>) =>
-  <ReactAria.Select {...props} dataSlot="select" className={cn("w-fit", props.className)} />
-
+let make = (props: rootProps<'item, 'value>) => {
+  let dataSlot = props.dataSlot->Option.getOr("select")
+  <ReactAria.Select {...props} dataSlot className={cn("w-fit", props.className)} />
+}
 module Group = {
   @react.componentWithProps(ReactAria.Select.Group.props)
-  let make = (props: ReactAria.Select.Group.props<'item, 'children>) =>
+  let make = (props: ReactAria.Select.Group.props<'item, 'children>) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-group")
     <ReactAria.Select.Group
-      {...props} dataSlot="select-group" className={cn("cn-select-group", props.className)}
+      {...props} dataSlot className={cn("cn-select-group", props.className)}
     />
+  }
 }
 
 let selectValueChildren: option<React.element> => React.element = %raw(`children =>
@@ -35,13 +38,15 @@ let selectValueChildren: option<React.element> => React.element = %raw(`children
 
 module Value = {
   @react.componentWithProps(ReactAria.Select.Value.props)
-  let make = (props: ReactAria.Select.Value.props<'item>) =>
+  let make = (props: ReactAria.Select.Value.props<'item>) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-value")
     <ReactAria.Select.Value
       {...props}
-      dataSlot="select-value"
+      dataSlot
       className={cn("cn-select-value cn-select-value-aria", props.className)}
       children={selectValueChildren(props.children)}
     />
+  }
 }
 
 module Trigger = {
@@ -51,10 +56,11 @@ module Trigger = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-trigger")
     let size = props.size->Option.getOr(Size.Default)
     <ReactAria.Button
       {...props->toButtonProps}
-      dataSlot="select-trigger"
+      dataSlot
       dataSize={(size :> string)}
       className={cn(
         "cn-select-trigger flex w-full items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
@@ -69,10 +75,11 @@ module Trigger = {
 
 module Popover = {
   @react.componentWithProps(ReactAria.Popover.props)
-  let make = (props: ReactAria.Popover.props) =>
+  let make = (props: ReactAria.Popover.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-content")
     <ReactAria.Popover
       {...props}
-      dataSlot="select-content"
+      dataSlot
       placement={props.placement->Option.getOr(ReactAria.Common.BottomStart)}
       offset={props.offset->Option.getOr(4.)}
       crossOffset={props.crossOffset->Option.getOr(0.)}
@@ -81,19 +88,22 @@ module Popover = {
         props.className,
       )}
     />
+  }
 }
 
 module List = {
   @react.componentWithProps(ReactAria.Select.List.props)
-  let make = (props: ReactAria.Select.List.props<'item>) =>
+  let make = (props: ReactAria.Select.List.props<'item>) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-list")
     <ReactAria.Select.List
       {...props}
-      dataSlot="select-list"
+      dataSlot
       className={cn(
         "group/select-list max-h-[inherit] overflow-x-hidden overflow-y-auto p-0 outline-hidden",
         props.className,
       )}
     />
+  }
 }
 
 module Content = {
@@ -111,12 +121,10 @@ module Content = {
 
 module Input = {
   @react.componentWithProps(ReactAria.SearchField.props)
-  let make = (props: ReactAria.SearchField.props) =>
+  let make = (props: ReactAria.SearchField.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-input-wrapper")
     <ReactAria.SearchField
-      {...props}
-      autoFocus=true
-      dataSlot="select-input-wrapper"
-      className={cn("p-1 pb-0", props.className)}
+      {...props} autoFocus=true dataSlot className={cn("p-1 pb-0", props.className)}
     >
       <InputGroup>
         <InputGroup.Input
@@ -129,14 +137,15 @@ module Input = {
         </InputGroup.Addon>
       </InputGroup>
     </ReactAria.SearchField>
+  }
 }
 
 module Label = {
   @react.componentWithProps(ReactAria.Header.props)
-  let make = (props: ReactAria.Header.props) =>
-    <ReactAria.Header
-      {...props} dataSlot="select-label" className={cn("cn-select-label", props.className)}
-    />
+  let make = (props: ReactAria.Header.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-label")
+    <ReactAria.Header {...props} dataSlot className={cn("cn-select-label", props.className)} />
+  }
 }
 
 let textValueFromChildren: option<React.element> => option<string> = %raw(`children =>
@@ -146,6 +155,7 @@ let textValueFromChildren: option<React.element> => option<string> = %raw(`child
 module Item = {
   @react.componentWithProps(ReactAria.Select.Item.props)
   let make = (props: ReactAria.Select.Item.props<'item, 'key>) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-item")
     let textValue = props.textValue->Option.orElse(textValueFromChildren(props.children))
     let children = ReactAria.Common.composeItemRenderProps(props.children, (
       children,
@@ -163,7 +173,7 @@ module Item = {
     <ReactAria.Select.Item
       {...props}
       ?textValue
-      dataSlot="select-item"
+      dataSlot
       className={cn(
         "cn-select-item cn-select-item-aria relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         props.className,
@@ -175,18 +185,18 @@ module Item = {
 
 module Separator = {
   @react.componentWithProps(ReactAria.Separator.props)
-  let make = (props: ReactAria.Separator.props) =>
+  let make = (props: ReactAria.Separator.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-separator")
     <ReactAria.Separator
-      {...props}
-      dataSlot="select-separator"
-      className={cn("cn-select-separator pointer-events-none", props.className)}
+      {...props} dataSlot className={cn("cn-select-separator pointer-events-none", props.className)}
     />
+  }
 }
 
 module Empty = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props} dataSlot="select-empty" className={cn("cn-select-empty-aria", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("select-empty")
+    <div {...props} dataSlot className={cn("cn-select-empty-aria", props.className)} />
+  }
 }

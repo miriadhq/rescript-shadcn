@@ -61,6 +61,7 @@ external createElement: (string, ReactAria.Common.elementProps) => React.element
 
 @react.componentWithProps(props)
 let make = (props: props) => {
+  let dataSlot = props.dataSlot->Option.getOr("item")
   let variant = props.variant->Option.getOr(Variant.Default)
   let size = props.size->Option.getOr(Size.Default)
   let className = cn(itemVariants(~variant, ~size), props.className)
@@ -68,7 +69,7 @@ let make = (props: props) => {
   | Some(_) =>
     <ReactAria.Button.Link
       {...props->linkProps}
-      dataSlot="item"
+      dataSlot
       dataVariant={(variant :> string)}
       dataSize={(size :> string)}
       className
@@ -78,7 +79,7 @@ let make = (props: props) => {
       "div",
       {
         ...props->divProps,
-        dataSlot: "item",
+        dataSlot,
         dataVariant: (variant :> string),
         dataSize: (size :> string),
         className,
@@ -111,10 +112,11 @@ module Media = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("item-media")
     let variant = props.variant->Option.getOr(Variant.Default)
     <div
       {...props->domProps}
-      dataSlot="item-media"
+      dataSlot
       dataVariant={(variant :> string)}
       className={cn(itemMediaVariants(~variant), props.className)}
     />
@@ -123,88 +125,101 @@ module Media = {
 
 module Content = {
   @react.componentWithProps(DomProps.t)
-  let make = (props: DomProps.t) =>
+  let make = (props: DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("item-content")
     <div
       {...props}
-      dataSlot="item-content"
+      dataSlot
       className={cn(
         "cn-item-content flex flex-1 flex-col [&+[data-slot=item-content]]:flex-none",
         props.className,
       )}
     />
+  }
 }
 
 module Actions = {
   @react.componentWithProps(DomProps.t)
-  let make = (props: DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="item-actions"
-      className={cn("cn-item-actions flex items-center", props.className)}
-    />
+  let make = (props: DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("item-actions")
+    <div {...props} dataSlot className={cn("cn-item-actions flex items-center", props.className)} />
+  }
 }
 
 module Group = {
   @react.componentWithProps(DomProps.t)
-  let make = (props: DomProps.t) =>
+  let make = (props: DomProps.t) => {
+    let role = props.role->Option.getOr("list")
+    let dataSlot = props.dataSlot->Option.getOr("item-group")
     <div
       {...props}
-      role="list"
-      dataSlot="item-group"
+      role
+      dataSlot
       className={cn("cn-item-group group/item-group flex w-full flex-col", props.className)}
     />
+  }
 }
 
 module Separator = {
   @react.componentWithProps(ReactAria.Separator.props)
-  let make = (props: ReactAria.Separator.props) =>
+  let make = (props: ReactAria.Separator.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("item-separator")
     <ReactAria.Separator
       {...props}
-      dataSlot="item-separator"
+      dataSlot
       orientation={Orientation.Horizontal}
       className={cn("cn-item-separator", props.className)}
     />
+  }
 }
 
 module Title = {
   @react.componentWithProps(DomProps.t)
-  let make = (props: DomProps.t) =>
+  let make = (props: DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("item-title")
     <div
       {...props}
-      dataSlot="item-title"
+      dataSlot
       className={cn("cn-item-title line-clamp-1 flex w-fit items-center", props.className)}
     />
+  }
 }
 
 module Description = {
   @react.componentWithProps(DomProps.t)
-  let make = (props: DomProps.t) =>
+  let make = (props: DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("item-description")
     <p
       {...props}
-      dataSlot="item-description"
+      dataSlot
       className={cn(
         "cn-item-description [&>a:hover]:text-primary line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4",
         props.className,
       )}
     />
+  }
 }
 
 module Header = {
   @react.componentWithProps(DomProps.t)
-  let make = (props: DomProps.t) =>
+  let make = (props: DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("item-header")
     <div
       {...props}
-      dataSlot="item-header"
+      dataSlot
       className={cn("cn-item-header flex basis-full items-center justify-between", props.className)}
     />
+  }
 }
 
 module Footer = {
   @react.componentWithProps(DomProps.t)
-  let make = (props: DomProps.t) =>
+  let make = (props: DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("item-footer")
     <div
       {...props}
-      dataSlot="item-footer"
+      dataSlot
       className={cn("cn-item-footer flex basis-full items-center justify-between", props.className)}
     />
+  }
 }
