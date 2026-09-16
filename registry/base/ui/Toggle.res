@@ -44,11 +44,12 @@ let toBaseUiProps: props<'value> => BaseUi.Toggle.props<
 
 @react.componentWithProps(props)
 let make = (props: props<'value>) => {
+  let dataSlot = props.dataSlot->Option.getOr("toggle")
   let variant = props.variant->Option.getOr(Variant.Default)
   let size = props.size->Option.getOr(Size.Default)
   <BaseUi.Toggle
     {...toBaseUiProps(props)}
-    dataSlot="toggle"
+    dataSlot
     className={cn(toggleVariants(~variant, ~size), props.className)}
   />
 }

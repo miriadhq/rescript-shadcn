@@ -25,20 +25,23 @@ let use = () =>
 
 module Track = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("progress-track")
     <span
       {...props}
-      dataSlot="progress-track"
+      dataSlot
       className={cn(
         "cn-progress-track relative flex w-full items-center overflow-x-hidden",
         props.className,
       )}
     />
+  }
 }
 
 module Indicator = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
   let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("progress-indicator")
     let {percentage, isIndeterminate} = use()
     let percentage = isIndeterminate ? 100. : percentage->Option.getOr(0.)
     let width = percentage->Float.toString ++ "%"
@@ -49,7 +52,7 @@ module Indicator = {
     <span
       {...props}
       style
-      dataSlot="progress-indicator"
+      dataSlot
       className={cn("cn-progress-indicator h-full transition-all", props.className)}
     />
   }
@@ -60,10 +63,11 @@ type props = {children?: React.element, ...ReactAria.ProgressBar.componentProps}
 let progressProps: props => ReactAria.ProgressBar.componentProps = %raw(`({children, ...props}) => props`)
 
 @react.componentWithProps(props)
-let make = (props: props) =>
+let make = (props: props) => {
+  let dataSlot = props.dataSlot->Option.getOr("progress")
   <ReactAria.ProgressBar
     {...props->progressProps->ReactAria.ProgressBar.toProps}
-    dataSlot="progress"
+    dataSlot
     className={cn("cn-progress-root flex flex-wrap gap-3", props.className)}
   >
     {({percentage, valueText, isIndeterminate}) =>
@@ -80,13 +84,13 @@ let make = (props: props) =>
         </Track>
       </Context>}
   </ReactAria.ProgressBar>
-
+}
 module Label = {
   @react.componentWithProps(ReactAria.Label.props)
-  let make = (props: ReactAria.Label.props) =>
-    <ReactAria.Label
-      {...props} dataSlot="progress-label" className={cn("cn-progress-label", props.className)}
-    />
+  let make = (props: ReactAria.Label.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("progress-label")
+    <ReactAria.Label {...props} dataSlot className={cn("cn-progress-label", props.className)} />
+  }
 }
 
 module Value = {
@@ -95,17 +99,14 @@ module Value = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("progress-value")
     let {valueText} = use()
     let content = switch (props.children, valueText) {
     | (Some(render), Some(value)) => render(value)
     | (_, Some(value)) => value->React.string
     | _ => React.null
     }
-    <span
-      {...props->spanProps}
-      dataSlot="progress-value"
-      className={cn("cn-progress-value", props.className)}
-    >
+    <span {...props->spanProps} dataSlot className={cn("cn-progress-value", props.className)}>
       {content}
     </span>
   }

@@ -86,10 +86,11 @@ let toBaseUiProps: props => BaseUi.Types.DomProps.t = %raw(`({orientation, ...pr
 
 @react.componentWithProps(props)
 let make = (props: props) => {
+  let role = props.role->Option.getOr("group")
   let orientation = props.orientation->Option.getOr(Orientation.Vertical)
   <div
     {...props->toBaseUiProps}
-    role="group"
+    role
     dataSlot={props.dataSlot->Option.getOr("field")}
     dataOrientation={props.dataOrientation->Option.getOr((orientation :> string))}
     className={cn(fieldVariants(~orientation), props.className)}
@@ -156,11 +157,7 @@ module Separator = {
       dataContent={hasContent}
       className={cn("cn-field-separator relative", props.className)}
     >
-      <BaseUi.Separator
-        orientation=Horizontal
-        dataSlot="separator"
-        className="absolute inset-0 top-1/2 bg-border shrink-0 data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
-      />
+      <Separator className="absolute inset-0 top-1/2" />
       {switch children {
       | Some(value) =>
         <span
@@ -188,6 +185,7 @@ module Error = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let role = props.role->Option.getOr("alert")
     let children = props.children
     let errors = props.errors
     let content = React.useMemo(() => {
@@ -215,7 +213,7 @@ module Error = {
     }, (children, errors))
     <div
       {...props->toBaseUiProps}
-      role="alert"
+      role
       dataSlot={props.dataSlot->Option.getOr("field-error")}
       className={cn("cn-field-error font-normal", props.className)}
     >

@@ -9,9 +9,10 @@ let toBaseUiProps: props => BaseUi.Checkbox.Root.props = %raw(`({className, ...p
 
 @react.componentWithProps(props)
 let make = (props: props) => {
+  let dataSlot = props.dataSlot->Option.getOr("checkbox")
   <BaseUi.Checkbox.Root
     {...toBaseUiProps(props)}
-    dataSlot="checkbox"
+    dataSlot
     className={cn(
       "cn-checkbox peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
       props.className,

@@ -14,18 +14,22 @@ module Size = {
 
 module Trigger = {
   @react.componentWithProps(ReactAria.Dialog.Trigger.props)
-  let make = (props: ReactAria.Dialog.Trigger.props) =>
-    <ReactAria.Dialog.Trigger {...props} dataSlot="alert-dialog-trigger" />
+  let make = (props: ReactAria.Dialog.Trigger.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-trigger")
+    <ReactAria.Dialog.Trigger {...props} dataSlot />
+  }
 }
 
 module Overlay = {
   @react.componentWithProps(ReactAria.Dialog.Modal.props)
-  let make = (props: ReactAria.Dialog.Modal.props) =>
+  let make = (props: ReactAria.Dialog.Modal.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-overlay")
     <ReactAria.Dialog.ModalOverlay
       {...props}
-      dataSlot="alert-dialog-overlay"
+      dataSlot
       className={cn("cn-alert-dialog-overlay-aria fixed inset-0 isolate z-50", props.className)}
     />
+  }
 }
 
 type props = {size?: Size.t, ...ReactAria.Dialog.Modal.props}
@@ -63,72 +67,70 @@ module Content = {
 
 module Header = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="alert-dialog-header"
-      className={cn("cn-alert-dialog-header", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-header")
+    <div {...props} dataSlot className={cn("cn-alert-dialog-header", props.className)} />
+  }
 }
 
 module Footer = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-footer")
     <div
       {...props}
-      dataSlot="alert-dialog-footer"
+      dataSlot
       className={cn(
         "cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
         props.className,
       )}
     />
+  }
 }
 
 module Media = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="alert-dialog-media"
-      className={cn("cn-alert-dialog-media", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-media")
+    <div {...props} dataSlot className={cn("cn-alert-dialog-media", props.className)} />
+  }
 }
 
 module Title = {
   @react.componentWithProps(ReactAria.Heading.props)
-  let make = (props: ReactAria.Heading.props) =>
+  let make = (props: ReactAria.Heading.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-title")
     <ReactAria.Heading
       {...props}
       slot="title"
-      dataSlot="alert-dialog-title"
+      dataSlot
       className={cn("cn-alert-dialog-title cn-font-heading", props.className)}
     />
+  }
 }
 
 module Description = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
-  let make = (props: ReactAria.Types.DomProps.t) =>
-    <div
-      {...props}
-      dataSlot="alert-dialog-description"
-      className={cn("cn-alert-dialog-description", props.className)}
-    />
+  let make = (props: ReactAria.Types.DomProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-description")
+    <div {...props} dataSlot className={cn("cn-alert-dialog-description", props.className)} />
+  }
 }
 
 module Action = {
   @react.componentWithProps(Button.props)
-  let make = (props: Button.props) =>
+  let make = (props: Button.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-action")
     <Button
-      {...props}
-      slot="close"
-      dataSlot="alert-dialog-action"
-      className={cn("cn-alert-dialog-action", props.className)}
+      {...props} slot="close" dataSlot className={cn("cn-alert-dialog-action", props.className)}
     />
+  }
 }
 
 module Cancel = {
   @react.componentWithProps(Button.props)
   let make = (props: Button.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("alert-dialog-cancel")
     let variant = props.variant->Option.getOr(Outline)
     let size = props.size->Option.getOr(Default)
     <Button
@@ -136,7 +138,7 @@ module Cancel = {
       variant
       size
       slot="close"
-      dataSlot="alert-dialog-cancel"
+      dataSlot
       className={cn("cn-alert-dialog-cancel", props.className)}
     />
   }

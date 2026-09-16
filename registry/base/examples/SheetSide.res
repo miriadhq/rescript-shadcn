@@ -1,12 +1,7 @@
 @module("cn")
 external cn: (string, option<string>) => string = "cn"
 
-let sheetSides = [
-  (BaseUi.Types.Side.Top, "top"),
-  (BaseUi.Types.Side.Right, "right"),
-  (BaseUi.Types.Side.Bottom, "bottom"),
-  (BaseUi.Types.Side.Left, "left"),
-]
+let sheetSides = [(Sheet.Side.Top, "top"), (Right, "right"), (Bottom, "bottom"), (Left, "left")]
 
 @react.componentWithProps(Demo.Props.t)
 let make = ({}: Demo.Props.t) =>

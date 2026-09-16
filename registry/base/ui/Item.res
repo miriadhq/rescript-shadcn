@@ -133,13 +133,15 @@ module Actions = {
 
 module Group = {
   @react.componentWithProps(BaseUi.Types.DomProps.t)
-  let make = (props: BaseUi.Types.DomProps.t) =>
+  let make = (props: BaseUi.Types.DomProps.t) => {
+    let role = props.role->Option.getOr("list")
     <div
       {...props}
-      role="list"
+      role
       dataSlot={props.dataSlot->Option.getOr("item-group")}
       className={cn("cn-item-group group/item-group flex w-full flex-col", props.className)}
     />
+  }
 }
 
 module Separator = {

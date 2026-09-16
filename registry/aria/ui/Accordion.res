@@ -4,29 +4,31 @@
 external cn: (string, option<string>) => string = "cn"
 
 @react.componentWithProps(ReactAria.DisclosureGroup.props)
-let make = (props: ReactAria.DisclosureGroup.props) =>
+let make = (props: ReactAria.DisclosureGroup.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("accordion")
   <ReactAria.DisclosureGroup
-    {...props}
-    dataSlot="accordion"
-    className={cn("cn-accordion flex w-full flex-col", props.className)}
+    {...props} dataSlot className={cn("cn-accordion flex w-full flex-col", props.className)}
   />
-
+}
 module Item = {
   @react.componentWithProps(ReactAria.Disclosure.props)
-  let make = (props: ReactAria.Disclosure.props) =>
+  let make = (props: ReactAria.Disclosure.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("accordion-item")
     <ReactAria.Disclosure
-      {...props} dataSlot="accordion-item" className={cn("cn-accordion-item", props.className)}
+      {...props} dataSlot className={cn("cn-accordion-item", props.className)}
     />
+  }
 }
 
 module Trigger = {
   @react.componentWithProps(ReactAria.Button.props)
-  let make = (props: ReactAria.Button.props) =>
+  let make = (props: ReactAria.Button.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("accordion-trigger")
     <ReactAria.Heading className="flex">
       <ReactAria.Button
         {...props}
         slot="trigger"
-        dataSlot="accordion-trigger"
+        dataSlot
         className={cn(
           "cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none disabled:pointer-events-none disabled:opacity-50",
           props.className,
@@ -43,16 +45,18 @@ module Trigger = {
         />
       </ReactAria.Button>
     </ReactAria.Heading>
+  }
 }
 
 module Content = {
   let panelProps: ReactAria.Disclosure.Panel.props => ReactAria.Disclosure.Panel.props = %raw(`({className, children, ...props}) => props`)
 
   @react.componentWithProps(ReactAria.Disclosure.Panel.props)
-  let make = (props: ReactAria.Disclosure.Panel.props) =>
+  let make = (props: ReactAria.Disclosure.Panel.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("accordion-content")
     <ReactAria.Disclosure.Panel
       {...props->panelProps}
-      dataSlot="accordion-content"
+      dataSlot
       className="cn-accordion-content h-(--disclosure-panel-height) overflow-clip transition-[height]"
     >
       <div
@@ -63,4 +67,5 @@ module Content = {
         children=?props.children
       />
     </ReactAria.Disclosure.Panel>
+  }
 }

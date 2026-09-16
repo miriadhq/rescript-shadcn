@@ -48,51 +48,58 @@ module Provider = {
 }
 
 @react.componentWithProps(ShadcnReact.MessageScroller.Root.props)
-let make = (props: ShadcnReact.MessageScroller.Root.props) =>
+let make = (props: ShadcnReact.MessageScroller.Root.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("message-scroller")
   <ShadcnReact.MessageScroller.Root
     {...props}
-    dataSlot="message-scroller"
+    dataSlot
     className={cn(
       "cn-message-scroller group/message-scroller relative flex size-full min-h-0 flex-col overflow-hidden",
       props.className,
     )}
   />
-
+}
 module Viewport = {
   @react.componentWithProps(ShadcnReact.MessageScroller.Viewport.props)
-  let make = (props: ShadcnReact.MessageScroller.Viewport.props) =>
+  let make = (props: ShadcnReact.MessageScroller.Viewport.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("message-scroller-viewport")
     <ShadcnReact.MessageScroller.Viewport
       {...props}
-      dataSlot="message-scroller-viewport"
+      dataSlot
       className={cn(
         "cn-message-scroller-viewport size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent data-pending-scroll:invisible",
         props.className,
       )}
     />
+  }
 }
 
 module Content = {
   @react.componentWithProps(ShadcnReact.MessageScroller.Content.props)
-  let make = (props: ShadcnReact.MessageScroller.Content.props) =>
+  let make = (props: ShadcnReact.MessageScroller.Content.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("message-scroller-content")
     <ShadcnReact.MessageScroller.Content
       {...props}
-      dataSlot="message-scroller-content"
+      dataSlot
       className={cn("cn-message-scroller-content flex h-max min-h-full flex-col", props.className)}
     />
+  }
 }
 
 module Item = {
   @react.componentWithProps(ShadcnReact.MessageScroller.Item.props)
-  let make = (props: ShadcnReact.MessageScroller.Item.props) =>
+  let make = (props: ShadcnReact.MessageScroller.Item.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("message-scroller-item")
     <ShadcnReact.MessageScroller.Item
       {...props}
       scrollAnchor={props.scrollAnchor->Option.getOr(false)}
-      dataSlot="message-scroller-item"
+      dataSlot
       className={cn(
         "cn-message-scroller-item min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]",
         props.className,
       )}
     />
+  }
 }
 
 module Button = {

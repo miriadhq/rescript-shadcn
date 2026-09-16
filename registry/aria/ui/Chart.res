@@ -652,6 +652,7 @@ let domProps: props => ReactAria.Types.DomProps.t = %raw(`({config, initialDimen
 
 @react.componentWithProps(props)
 let make = (props: props) => {
+  let dataSlot = props.dataSlot->Option.getOr("chart")
   let uniqueId = React.useId()->String.replaceAll(":", "")
   let chartId = switch props.id {
   | Some(id) => `chart-${id}`
@@ -663,7 +664,7 @@ let make = (props: props) => {
   <Provider value={Some({config: props.config})}>
     <div
       {...props->domProps}
-      dataSlot="chart"
+      dataSlot
       dataChart={chartId}
       className={cn(
         "cn-chart flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",

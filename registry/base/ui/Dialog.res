@@ -50,14 +50,15 @@ module Content = {
   }
   let toBaseUIComponentProps: props => BaseUi.Types.BaseUIComponentProps.t = %raw(`({showCloseButton, ...props}) => props`)
   @react.componentWithProps(props)
-  let make = (props: props) =>
+  let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("dialog-content")
     <Portal>
       <Overlay />
       <BaseUi.Dialog.Popup
         {...props->toBaseUIComponentProps}
-        dataSlot="dialog-content"
+        dataSlot
         className={cn(
-          "cn-dialog-content bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 duration-100 outline-none sm:max-w-sm",
+          "cn-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
           props.className,
         )}
       >
@@ -77,6 +78,7 @@ module Content = {
         }}
       </BaseUi.Dialog.Popup>
     </Portal>
+  }
 }
 
 module Header = {
@@ -101,7 +103,7 @@ module Footer = {
       {...props->toDomProps}
       dataSlot={props.dataSlot->Option.getOr("dialog-footer")}
       className={cn(
-        "cn-dialog-header cn-dialog-footer flex flex-col-reverse sm:flex-row sm:justify-end",
+        "cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
         props.className,
       )}
     >

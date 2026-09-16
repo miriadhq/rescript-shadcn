@@ -67,6 +67,7 @@ module Modifiers = {
 
 module DayButtonProps = {
   type t = {
+    @as("data-slot") dataSlot?: string,
     className?: string,
     children: React.element,
     day: Day.t,
@@ -135,6 +136,7 @@ module DayButton = {
 
   @react.componentWithProps(DayButtonProps.t)
   let make = (props: DayButtonProps.t) => {
+    let dataSlot = props.dataSlot->Option.getOr("button")
     let className = props.className
     let day = props.day
     let modifiers = props.modifiers
@@ -157,7 +159,7 @@ module DayButton = {
       variant=Ghost
       size=Icon
       ref={buttonRef->ReactDOM.Ref.domRef}
-      dataSlot="button"
+      dataSlot
       suppressHydrationWarning=true
       dataDay={switch locale {
       | Some({code}) => Date.toLocaleDateStringWithLocale(day.Day.date, code)
@@ -481,8 +483,10 @@ let make = props => {
     )}
     components={merge(
       ~defaults={
-        DayPickerComponents.root: props =>
-          <div {...RootProps.toDomProps(props)} dataSlot="calendar" />,
+        DayPickerComponents.root: (props: RootProps.t) => {
+          let dataSlot = props.dataSlot->Option.getOr("calendar")
+          <div {...RootProps.toDomProps(props)} dataSlot />
+        },
         chevron: (props: ChevronProps.t) => {
           let className = props.className
           let orientation = props.orientation

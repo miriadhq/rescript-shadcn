@@ -70,20 +70,23 @@ module ResizablePrimitive = {
 }
 
 @react.componentWithProps(ResizablePrimitive.Group.props)
-let make = (props: ResizablePrimitive.Group.props) =>
+let make = (props: ResizablePrimitive.Group.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("resizable-panel-group")
   <ResizablePrimitive.Group
     {...props}
-    dataSlot="resizable-panel-group"
+    dataSlot
     className={cn(
       "cn-resizable-panel-group flex h-full w-full aria-[orientation=vertical]:flex-col",
       props.className,
     )}
   />
-
+}
 module Panel = {
   @react.componentWithProps(ResizablePrimitive.Panel.props)
-  let make = (props: ResizablePrimitive.Panel.props) =>
-    <ResizablePrimitive.Panel {...props} dataSlot="resizable-panel" />
+  let make = (props: ResizablePrimitive.Panel.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("resizable-panel")
+    <ResizablePrimitive.Panel {...props} dataSlot />
+  }
 }
 
 module Handle = {
@@ -93,9 +96,10 @@ module Handle = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("resizable-handle")
     <ResizablePrimitive.Separator
       {...props->separatorProps}
-      dataSlot="resizable-handle"
+      dataSlot
       className={cn(
         "cn-resizable-handle relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90",
         props.className,

@@ -41,6 +41,19 @@ function findForwarded(tree: React.ReactNode): React.ReactElement<any>[] {
   });
 }
 
+it.each([
+  {dir: "rtl"},
+  {style: {direction: "ltr", color: "red"}},
+  {dir: "rtl", style: {direction: "ltr", color: "red"}},
+])("Sheet.Content preserves dir and style independently: %j", async props => {
+  const {Content} = await import("../registry/base/ui/Sheet.res.mjs");
+  const before = structuredClone(props);
+  const [popup] = findForwarded(Content.make({...props, "data-extra": "forwarded"}));
+  expect(popup.props.dir).toBe(props.dir);
+  expect(popup.props.style).toBe(props.style);
+  expect(props).toEqual(before);
+});
+
 const wrappers: Record<string, string[]> = {
   Accordion: ["make", "Multiple", "Item", "Content"],
   AlertDialog: ["make", "Portal", "Overlay", "Content", "Header", "Footer", "Media", "Title", "Description", "Action", "Cancel"],
@@ -79,7 +92,7 @@ for (const [file, members] of Object.entries(wrappers)) {
     const make = member === "make" ? module.make : (module[member] ?? module[`$$${member}`]).make;
     const forwarded = {
       ref: React.createRef(), onPointerDown: vi.fn(), title: "Forwarded",
-      "aria-describedby": "description", "data-extra": "forwarded",
+      "aria-describedby": "description", "data-extra": "forwarded", "data-slot": "custom-slot",
     };
     const tree = make({...forwarded, value: "one", children: "Content", toast: {id: "fixture"}});
     const targets = findForwarded(tree);

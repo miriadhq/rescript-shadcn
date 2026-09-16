@@ -49,13 +49,14 @@ module Link = {
   @react.componentWithProps(props)
   let make = (props: props) => {
     let isActive = props.isActive->Option.getOr(false)
+    let ariaCurrent = props.ariaCurrent->Option.orElse(isActive ? Some(#page) : None)
     let size = props.size->Option.getOr(Icon)
     <Button.LinkButton
       {...props->buttonProps}
       variant={isActive ? Outline : Ghost}
       size={(size :> Button.Size.t)}
       className={cn("cn-pagination-link", props.className)}
-      ariaCurrent=?{isActive ? Some(#page) : None}
+      ?ariaCurrent
       dataSlot={props.dataSlot->Option.getOr("pagination-link")}
       dataActive=?{isActive ? Some(true) : None}
     />

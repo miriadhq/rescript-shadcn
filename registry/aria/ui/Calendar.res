@@ -217,10 +217,11 @@ module Inner = {
 
 @react.componentWithProps(props)
 let make = (props: props<'date>) => {
+  let dataSlot = props.dataSlot->Option.getOr("calendar")
   let numberOfMonths = props.numberOfMonths->Option.getOr(1)
   <ReactAria.Calendar
     {...props->calendarProps}
-    dataSlot="calendar"
+    dataSlot
     visibleDuration={{months: numberOfMonths}}
     className={cn(
       "cn-calendar group/calendar w-fit bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
@@ -256,10 +257,11 @@ module Range = {
 
   @react.componentWithProps(props)
   let make = (props: props<'date>) => {
+    let dataSlot = props.dataSlot->Option.getOr("calendar")
     let numberOfMonths = props.numberOfMonths->Option.getOr(1)
     <ReactAria.Calendar.Range
       {...props->calendarProps}
-      dataSlot="calendar"
+      dataSlot
       visibleDuration={{months: numberOfMonths}}
       className={cn(
         "cn-calendar group/calendar w-fit bg-background in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",

@@ -185,6 +185,32 @@ function renderSpecialScenario(
   impl: Impl,
   state: LoadedState
 ): ScenarioResult | null {
+  if (component === "ui/sheet") {
+    const module = impl === "tsx" ? state.tsxModule : state.rescriptModule
+    const get = (name: string) => resolveModuleComponent(module, impl === "tsx" ? `Sheet${name}` : name || "make")
+    const Root = get("")
+    const Content = get("Content")
+    const Header = get("Header")
+    const Title = get("Title")
+    const Description = get("Description")
+    if (!Root || !Content || !Header || !Title || !Description) {
+      return {node: null, error: "Unable to resolve Sheet scenario components"}
+    }
+    const query = new URLSearchParams(location.search)
+    return {
+      node: React.createElement(Root, {defaultOpen: true},
+        React.createElement(Content, {
+          side: query.get("side") ?? "right",
+          dir: query.get("dir") ?? "ltr",
+          style: {direction: query.get("styleDirection") ?? "ltr"},
+        }, React.createElement(Header, null,
+          React.createElement(Title, {id: "sheet-title"}, "Sheet parity"),
+          React.createElement(Description, {id: "sheet-description"}, "Open, portaled content")
+        ))
+      ),
+      error: null,
+    }
+  }
   if (component === "ui/direction") {
     if (impl === "rescript" && state.rescriptComponent) {
       return {node: React.createElement(state.rescriptComponent), error: null}

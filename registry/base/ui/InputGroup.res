@@ -45,10 +45,12 @@ module Variant = {
 
 @react.componentWithProps(BaseUi.Types.DomProps.t)
 let make = (props: BaseUi.Types.DomProps.t) => {
+  let role = props.role->Option.getOr("group")
+  let dataSlot = props.dataSlot->Option.getOr("input-group")
   <div
     {...props}
-    dataSlot="input-group"
-    role="group"
+    dataSlot
+    role
     className={cn(
       "cn-input-group group/input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto",
       props.className,

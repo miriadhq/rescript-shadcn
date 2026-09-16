@@ -628,12 +628,12 @@
       "name": "Field",
       "type": "registry:ui",
       "dependencies": [
-        "@base-ui/react",
         "cn",
         "rescript-base-ui"
       ],
       "registryDependencies": [
-        "@rescript-shadcn/Label"
+        "@rescript-shadcn/Label",
+        "@rescript-shadcn/Separator"
       ],
       "files": [
         {

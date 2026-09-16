@@ -8,12 +8,11 @@ type contentProps = ReactAria.Tooltip.props
 module Trigger = {
   @react.componentWithProps(ReactAria.Tooltip.Trigger.props)
   let make = (props: ReactAria.Tooltip.Trigger.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("tooltip-trigger")
     let children = props.children->Option.getOr(React.null)->React.Children.toArray
     let triggerElement = children->Array.get(0)->Option.getOr(React.null)
     let tooltip = children->Array.get(1)->Option.getOr(React.null)
-    <ReactAria.Tooltip.Trigger
-      {...props} dataSlot="tooltip-trigger" delay={props.delay->Option.getOr(0.)}
-    >
+    <ReactAria.Tooltip.Trigger {...props} dataSlot delay={props.delay->Option.getOr(0.)}>
       <ReactAria.Focusable> {triggerElement} </ReactAria.Focusable>
       {tooltip}
     </ReactAria.Tooltip.Trigger>
@@ -22,6 +21,7 @@ module Trigger = {
 
 @react.componentWithProps(ReactAria.Tooltip.props)
 let make = (props: ReactAria.Tooltip.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("tooltip-content")
   let arrowStyle = ReactAria.Tooltip.Arrow.renderStyle(({placement, defaultStyle}) => {
     let transform = switch placement {
     | "bottom" => "translate(-50%, calc(50% + 2px)) rotate(45deg)"
@@ -40,7 +40,7 @@ let make = (props: ReactAria.Tooltip.props) => {
     placement={props.placement->Option.getOr(ReactAria.Common.Top)}
     offset={props.offset->Option.getOr(4.)}
     crossOffset={props.crossOffset->Option.getOr(0.)}
-    dataSlot="tooltip-content"
+    dataSlot
     className={cn(
       "cn-tooltip-content-aria z-50 w-fit max-w-xs origin-(--trigger-anchor-point) bg-foreground text-background",
       props.className,

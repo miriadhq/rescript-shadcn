@@ -13,11 +13,12 @@ module Variant = {
 }
 
 @react.componentWithProps(BaseUi.Menubar.props)
-let make = (props: BaseUi.Menubar.props) =>
+let make = (props: BaseUi.Menubar.props) => {
+  let dataSlot = props.dataSlot->Option.getOr("menubar")
   <BaseUi.Menubar
-    {...props} dataSlot="menubar" className={cn("cn-menubar flex items-center", props.className)}
+    {...props} dataSlot className={cn("cn-menubar flex items-center", props.className)}
   />
-
+}
 module Menu = {
   @react.componentWithProps(BaseUi.Menu.Root.props)
   let make = (props: BaseUi.Menu.Root.props<'payload>) =>
@@ -38,26 +39,29 @@ module Portal = {
 
 module Trigger = {
   @react.componentWithProps(BaseUi.Menu.Trigger.props)
-  let make = (props: BaseUi.Menu.Trigger.props) =>
+  let make = (props: BaseUi.Menu.Trigger.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("menubar-trigger")
     <DropdownMenu.Trigger
       {...props}
-      dataSlot="menubar-trigger"
+      dataSlot
       className={cn(
         "cn-menubar-trigger flex items-center outline-hidden select-none",
         props.className,
       )}
     />
+  }
 }
 
 module Content = {
   @react.componentWithProps(DropdownMenu.Content.contentProps)
   let make = (props: DropdownMenu.Content.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("menubar-content")
     let align = props.align->Option.getOr(BaseUi.Types.Align.Start)
     let alignOffset = props.alignOffset->Option.getOr(-4.)
     let sideOffset = props.sideOffset->Option.getOr(8.)
     <DropdownMenu.Content
       {...props}
-      dataSlot="menubar-content"
+      dataSlot
       align
       alignOffset
       sideOffset
@@ -112,8 +116,10 @@ module CheckboxItem = {
 
 module RadioGroup = {
   @react.componentWithProps(BaseUi.Menu.RadioGroup.props)
-  let make = (props: BaseUi.Menu.RadioGroup.props<'value>) =>
-    <DropdownMenu.RadioGroup {...props} dataSlot="menubar-radio-group" />
+  let make = (props: BaseUi.Menu.RadioGroup.props<'value>) => {
+    let dataSlot = props.dataSlot->Option.getOr("menubar-radio-group")
+    <DropdownMenu.RadioGroup {...props} dataSlot />
+  }
 }
 
 module RadioItem = {
@@ -183,20 +189,22 @@ module Sub = {
 
 module SubTrigger = {
   @react.componentWithProps(DropdownMenu.SubTrigger.props)
-  let make = (props: DropdownMenu.SubTrigger.props) =>
+  let make = (props: DropdownMenu.SubTrigger.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("menubar-sub-trigger")
     <DropdownMenu.SubTrigger
-      {...props}
-      dataSlot="menubar-sub-trigger"
-      className={cn("cn-menubar-sub-trigger", props.className)}
+      {...props} dataSlot className={cn("cn-menubar-sub-trigger", props.className)}
     />
+  }
 }
 
 module SubContent = {
   @react.componentWithProps(DropdownMenu.Content.props)
-  let make = (props: DropdownMenu.Content.props) =>
+  let make = (props: DropdownMenu.Content.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("menubar-sub-content")
     <DropdownMenu.SubContent
       {...props}
-      dataSlot="menubar-sub-content"
+      dataSlot
       className={cn("cn-menubar-sub-content cn-menu-target cn-menu-translucent", props.className)}
     />
+  }
 }

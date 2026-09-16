@@ -309,6 +309,7 @@ module Provider = {
 module Trigger = {
   @react.componentWithProps(Button.props)
   let make = (props: Button.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("sidebar-trigger")
     let {toggleSidebar} = use()
     let onPress = event => {
       props.onPress->Option.forEach(onPress => onPress(event))
@@ -320,7 +321,7 @@ module Trigger = {
       variant={props.variant->Option.getOr(Ghost)}
       size={props.size->Option.getOr(IconSm)}
       dataSidebar="trigger"
-      dataSlot="sidebar-trigger"
+      dataSlot
       onPress
     >
       <Icons.PanelLeft className="cn-rtl-flip" />
@@ -332,6 +333,10 @@ module Trigger = {
 module Rail = {
   @react.componentWithProps(ReactAria.Types.DomProps.t)
   let make = (props: ReactAria.Types.DomProps.t) => {
+    let ariaLabel = props.ariaLabel->Option.getOr("Toggle Sidebar")
+    let tabIndex = props.tabIndex->Option.getOr(-1)
+    let title = props.title->Option.getOr("Toggle Sidebar")
+    let dataSlot = props.dataSlot->Option.getOr("sidebar-rail")
     let {toggleSidebar} = use()
     let onClick = switch props.onClick {
     | Some(onClick) => onClick
@@ -340,15 +345,15 @@ module Rail = {
     <button
       {...props}
       onClick
-      ariaLabel="Toggle Sidebar"
-      tabIndex={-1}
+      ariaLabel
+      tabIndex
       dataSidebar="rail"
-      dataSlot="sidebar-rail"
+      dataSlot
       className={cn(
         "cn-sidebar-rail absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
         props.className,
       )}
-      title="Toggle Sidebar"
+      title
     />
   }
 }
@@ -365,13 +370,12 @@ module Inset = {
 
 module Input = {
   @react.componentWithProps(ReactAria.Input.props)
-  let make = (props: ReactAria.Input.props) =>
+  let make = (props: ReactAria.Input.props) => {
+    let dataSlot = props.dataSlot->Option.getOr("sidebar-input")
     <Aria.Input
-      {...props}
-      dataSlot="sidebar-input"
-      dataSidebar="input"
-      className={cn("cn-sidebar-input", props.className)}
+      {...props} dataSlot dataSidebar="input" className={cn("cn-sidebar-input", props.className)}
     />
+  }
 }
 
 module Header = {
@@ -578,6 +582,7 @@ module MenuButton = {
 
   @react.componentWithProps(props)
   let make = (props: props<'tooltip>) => {
+    let dataSlot = props.dataSlot->Option.getOr("sidebar-menu-button")
     let {isMobile, state} = use()
     let variant = props.variant->Option.getOr(Variant.Default)
     let size = props.size->Option.getOr(Size.Default)
@@ -587,7 +592,7 @@ module MenuButton = {
     | Some(_) =>
       <ReactAria.Button.Link
         {...props->linkProps}
-        dataSlot="sidebar-menu-button"
+        dataSlot
         dataSidebar="menu-button"
         dataSize={(size :> string)}
         dataActive={isActive}
@@ -596,7 +601,7 @@ module MenuButton = {
     | None =>
       <ReactAria.Button
         {...props->buttonProps}
-        dataSlot="sidebar-menu-button"
+        dataSlot
         dataSidebar="menu-button"
         dataSize={(size :> string)}
         dataActive={isActive}
@@ -622,13 +627,14 @@ module MenuAction = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("sidebar-menu-action")
     let showOnHoverClass =
       props.showOnHover->Option.getOr(false)
         ? "peer-data-active/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 aria-expanded:opacity-100 md:opacity-0"
         : ""
     <ReactAria.Button
       {...props->buttonProps}
-      dataSlot="sidebar-menu-action"
+      dataSlot
       dataSidebar="menu-action"
       className={cn(
         `cn-sidebar-menu-action flex items-center justify-center outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 md:after:hidden [&>svg]:shrink-0 ${showOnHoverClass}`,
@@ -748,6 +754,7 @@ module MenuSubButton = {
 
   @react.componentWithProps(props)
   let make = (props: props) => {
+    let dataSlot = props.dataSlot->Option.getOr("sidebar-menu-sub-button")
     let size = props.size->Option.getOr(Size.Md)
     let isActive = props.isActive->Option.getOr(false)
     let className = cn(
@@ -758,7 +765,7 @@ module MenuSubButton = {
     | Some(_) =>
       <ReactAria.Button.Link
         {...props->linkProps}
-        dataSlot="sidebar-menu-sub-button"
+        dataSlot
         dataSidebar="menu-sub-button"
         dataSize={(size :> string)}
         dataActive={isActive}
@@ -767,7 +774,7 @@ module MenuSubButton = {
     | None =>
       <ReactAria.Button
         {...props->buttonProps}
-        dataSlot="sidebar-menu-sub-button"
+        dataSlot
         dataSidebar="menu-sub-button"
         dataSize={(size :> string)}
         dataActive={isActive}

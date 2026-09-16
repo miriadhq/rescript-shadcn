@@ -108,16 +108,19 @@ module Slot = {
 
 module Separator = {
   @react.componentWithProps(BaseUi.Types.DomProps.t)
-  let make = (props: BaseUi.Types.DomProps.t) =>
+  let make = (props: BaseUi.Types.DomProps.t) => {
+    let role = props.role->Option.getOr("separator")
+    let dataSlot = props.dataSlot->Option.getOr("input-otp-separator")
     <div
       {...props}
-      role="separator"
-      dataSlot="input-otp-separator"
+      role
+      dataSlot
       className={props.className->Option.getOr("cn-input-otp-separator flex items-center")}
     >
       <Icons.Minus />
       {props.children->Option.getOr(React.null)}
     </div>
+  }
 }
 
 @module("input-otp") external regexpOnlyDigits: string = "REGEXP_ONLY_DIGITS"
