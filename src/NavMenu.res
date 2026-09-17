@@ -55,11 +55,11 @@ let make = () => {
             {pages
             ->Array.map(slug => {
               let href = `/components/${slug}`
-              let isActive = pathname === href
+              let isActive = Config.LibStyle.componentSlug(pathname) === Some(slug)
               <Sidebar.MenuItem key={slug}>
                 <Sidebar.MenuButton
                   render={<Next.Link
-                    href={`${href}?style=${libStyleParam}`}
+                    href={`${href}/${libStyleParam}`}
                     className={`rounded-md px-3 py-1.5 text-sm transition-colors ${isActive
                         ? "bg-accent text-accent-foreground font-medium"
                         : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"}`}

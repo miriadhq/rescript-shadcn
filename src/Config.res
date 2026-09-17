@@ -127,32 +127,59 @@ module LibStyle = {
 
   let fromStringOpt = value => {
     let parts = value->String.split("-")
-    switch (parts->Array.get(0), parts->Array.get(1)) {
-    | (Some(lib), Some(style)) =>
+    switch parts {
+    | [lib, style] =>
       switch (lib->Lib.fromStringOpt, style->Style.fromStringOpt) {
       | (Some(lib), Some(style)) => Some({lib, style})
       | _ => None
       }
-    | (Some(style), None) => style->Style.fromStringOpt->Option.map(style => {lib: Lib.Base, style})
+    | [style] => style->Style.fromStringOpt->Option.map(style => {lib: Lib.Base, style})
     | _ => None
     }
   }
 
   let fromString = value => value->fromStringOpt->Option.getOr(default)
 
+  let fromPathname = pathname =>
+    switch pathname->String.split("/") {
+    | ["", "components", _, libStyle] => fromStringOpt(libStyle)
+    | _ => None
+    }
+
+  let componentSlug = pathname =>
+    switch pathname->String.split("/") {
+    | ["", "components", slug] | ["", "components", slug, _] if slug !== "" => Some(slug)
+    | _ => None
+    }
+
   let getParam = (searchParams: Next.Navigation.searchParams) =>
     searchParams->WebAPI.URLSearchParams.get(paramName)->Null.toOption
 
-  let getCurrentParam = () =>
-    WebAPI.Global.window.location.search
-    ->WebAPI.URLSearchParams.fromString
-    ->getParam
-    ->Option.flatMap(fromStringOpt)
+  let getCurrentParam = () => {
+    let location = WebAPI.Global.window.location
+    location.pathname
+    ->fromPathname
+    ->Option.orElse(
+      location.search
+      ->WebAPI.URLSearchParams.fromString
+      ->getParam
+      ->Option.flatMap(fromStringOpt),
+    )
+  }
 
   let hrefFor = (pathname, libStyle) => {
     let location = WebAPI.Global.window.location
     let params = WebAPI.URLSearchParams.fromString(location.search)
-    params->WebAPI.URLSearchParams.set(~name=paramName, ~value=toString(libStyle))
+    let pathname = switch componentSlug(pathname) {
+    | Some(slug) => {
+        params->WebAPI.URLSearchParams.delete(~name=paramName)
+        `/components/${slug}/${toString(libStyle)}`
+      }
+    | None => {
+        params->WebAPI.URLSearchParams.set(~name=paramName, ~value=toString(libStyle))
+        pathname
+      }
+    }
 
     let query = params->WebAPI.URLSearchParams.toString
     switch query {
@@ -185,10 +212,11 @@ module LibStyle = {
       ~valueToString=Style.toString,
     )
     let pathname = Next.Navigation.usePathname()
-    let searchParams = Next.Navigation.useSearchParams()
+    let querySelection = QuerySelection.use()
     let router = Next.Navigation.useRouter()
     let storedLibStyle = {lib, style}
-    let queryLibStyle = searchParams->getParam->Option.flatMap(fromStringOpt)
+    let queryLibStyle =
+      pathname->fromPathname->Option.orElse(querySelection->Option.flatMap(fromStringOpt))
     let libStyle = queryLibStyle->Option.getOr(storedLibStyle)
     let syncsLibStyle =
       pathname === "/" || pathname === "/installation" || pathname->String.startsWith("/components")
