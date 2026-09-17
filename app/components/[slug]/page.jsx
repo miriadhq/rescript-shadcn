@@ -1,12 +1,22 @@
 import baseMeta from "@/content/base/meta.json"
 import ariaMeta from "@/content/aria/meta.json"
+import { notFound } from "next/navigation";
 import MdxComponents from "@/src/MdxComponents.res.mjs";
-import { getOgImagePath, getSelection, getSelectionName } from "@/src/OgStyles.js";
+import { getOgImagePath, parseSelection } from "@/src/OgStyles.js";
 export const generateStaticParams = () => [...new Set([...baseMeta.pages, ...ariaMeta.pages])].map(slug => ({ "slug": slug }))
 import { make as ComponentTitle } from "@/src/ComponentTitle.res.mjs";
 export const dynamicParams = false;
 
 const PRODUCTION_URL = "https://rescript-shadcn.miriad.studio";
+
+async function getDocs(slug, selection) {
+  const { lib } = selection
+  const pages = lib === "aria" ? ariaMeta.pages : baseMeta.pages
+  if (!pages.includes(slug)) notFound()
+  return lib === "aria"
+    ? import(`@/content/aria/${slug}.mdx`)
+    : import(`@/content/base/${slug}.mdx`)
+}
 
 function getMetadataBase() {
   return new URL(
@@ -19,13 +29,10 @@ function getMetadataBase() {
 export const generateMetadata = async (props) => {
   const { slug } = await props.params
   const searchParams = await props.searchParams
-  const selection = getSelection(searchParams)
-  const lib = selection.lib === "aria" && ariaMeta.pages.includes(slug) ? "aria" : "base"
-  const { frontmatter: doc } = lib === "aria"
-    ? await import(`@/content/aria/${slug}.mdx`)
-    : await import(`@/content/base/${slug}.mdx`)
+  const selection = parseSelection(searchParams) ?? notFound()
+  const { frontmatter: doc } = await getDocs(slug, selection)
   const title = `ReScript-Shadcn – ${doc.title}`
-  const url = `/components/${slug}?style=${getSelectionName(searchParams)}`
+  const url = `/components/${slug}?style=${selection.lib}-${selection.style}`
   const images = [
     {
       url: getOgImagePath(slug, selection.style),
@@ -59,11 +66,8 @@ export const generateMetadata = async (props) => {
 
 export default async function Page({ params, searchParams }) {
   const { slug } = await params
-  const selection = getSelection(await searchParams)
-  const lib = selection.lib === "aria" && ariaMeta.pages.includes(slug) ? "aria" : "base"
-  const { default: ComponentDocs, frontmatter: doc } = lib === "aria"
-    ? await import(`@/content/aria/${slug}.mdx`)
-    : await import(`@/content/base/${slug}.mdx`)
+  const selection = parseSelection(await searchParams) ?? notFound()
+  const { default: ComponentDocs, frontmatter: doc } = await getDocs(slug, selection)
   return <>
     <ComponentTitle title={doc.title} />
     {doc.description && (
