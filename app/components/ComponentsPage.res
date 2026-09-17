@@ -22,7 +22,7 @@ let make = () => {
       ->Array.map(slug => {
         <Next.Link
           key={slug}
-          href={`/components/${slug}?style=${libStyle->Config.LibStyle.toString}`}
+          href={`/components/${slug}/${libStyle->Config.LibStyle.toString}`}
           className="flex items-center rounded-lg border px-4 py-3 text-sm line-clamp-1
             font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
         >

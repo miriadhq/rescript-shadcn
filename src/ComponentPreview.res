@@ -20,6 +20,7 @@ let make = async (
   ~chromeLessOnMobile=false,
   ~direction=BaseUi.Types.TextDirection.Ltr,
   ~caption=?,
+  ~selection: option<Config.LibStyle.t>=?,
 ) => {
   switch name {
   | None => React.null
@@ -54,18 +55,23 @@ let make = async (
       // with nested submodule access like Accordion.Item.make)
       let componentElement = <DemoLoader name />
 
-      let sources = Config.Lib.all->Array.flatMap(lib =>
-        Config.Style.all->Array.map(style => {
-          {
-            ComponentPreviewTabs.StyleSource.lib,
-            style,
-            source: <ComponentSource name collapsible=false kind=Example lib style />,
-            sourcePreview: <ComponentSource
-              name collapsible=false maxLines=3 kind=Example lib style
-            />,
-          }
-        })
-      )
+      let selections = switch selection {
+      | Some(selection) => [selection]
+      | None =>
+        Config.Lib.all->Array.flatMap(lib =>
+          Config.Style.all->Array.map(style => {Config.LibStyle.lib, style})
+        )
+      }
+      let sources = selections->Array.map(({lib, style}) => {
+        {
+          ComponentPreviewTabs.StyleSource.lib,
+          style,
+          source: <ComponentSource name collapsible=false kind=Example lib style />,
+          sourcePreview: <ComponentSource
+            name collapsible=false maxLines=3 kind=Example lib style
+          />,
+        }
+      })
 
       let content =
         <ComponentPreviewTabs

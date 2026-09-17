@@ -7,11 +7,13 @@ export const DEFAULT_SELECTION = `${DEFAULT_LIB}-${DEFAULT_STYLE}`;
 const STYLE_SET = new Set(STYLES);
 const LIB_SET = new Set(LIBS);
 
-export function getSelection(value) {
+export function parseSelection(value) {
   const raw = typeof value === "string" ? value : value?.style;
-  const [candidateLib, candidateStyle] = String(raw ?? "").split("-");
+  if (raw === undefined) return { lib: DEFAULT_LIB, style: DEFAULT_STYLE };
+  if (typeof raw !== "string") return null;
+  const [candidateLib, candidateStyle, extra] = raw.split("-");
 
-  if (LIB_SET.has(candidateLib) && STYLE_SET.has(candidateStyle)) {
+  if (extra === undefined && LIB_SET.has(candidateLib) && STYLE_SET.has(candidateStyle)) {
     return { lib: candidateLib, style: candidateStyle };
   }
 
@@ -19,7 +21,11 @@ export function getSelection(value) {
     return { lib: DEFAULT_LIB, style: raw };
   }
 
-  return { lib: DEFAULT_LIB, style: DEFAULT_STYLE };
+  return null;
+}
+
+export function getSelection(value) {
+  return parseSelection(value) ?? { lib: DEFAULT_LIB, style: DEFAULT_STYLE };
 }
 
 export function getSelectionName(value) {

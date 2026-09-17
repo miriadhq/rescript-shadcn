@@ -15,4 +15,5 @@ let make: (
   ~chromeLessOnMobile: bool=?,
   ~direction: BaseUi.Types.TextDirection.t=?,
   ~caption: string=?,
+  ~selection: Config.LibStyle.t=?,
 ) => Jsx.element
