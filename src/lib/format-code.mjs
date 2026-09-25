@@ -3,13 +3,33 @@
  * Mirrors upstream apps/v4/lib/format-code.ts (style map + transformStyle).
  */
 
+import { execFile } from "node:child_process"
 import { readFileSync } from "node:fs"
+import { createRequire } from "node:module"
 import path from "node:path"
 import { createStyleMap, transformStyle } from "shadcn/utils"
 
 const stylesDir = path.join(process.cwd(), "registry", "styles")
 
 const styleMapCache = new Map()
+
+const require = createRequire(import.meta.url)
+const formatterPath = path.join(
+  path.dirname(require.resolve(`@rescript/${process.platform}-${process.arch}`)),
+  "bin",
+  "rescript.exe",
+)
+
+function formatRescript(source) {
+  return new Promise((resolve, reject) => {
+    const child = execFile(formatterPath, ["format", "--stdin", ".res"],
+      { encoding: "utf8", maxBuffer: 10 * 1024 * 1024 },
+      (error, stdout) => error ? reject(error) : resolve(stdout),
+    )
+    child.stdin.on("error", reject)
+    child.stdin.end(source)
+  })
+}
 
 // These upstream hooks add no utilities in any of our styles. Keep this list
 // explicit: deriving it from component sources would also bless misspellings.
@@ -136,11 +156,11 @@ export async function transformRescriptSource(source, styleMap) {
     return styleMap[cnClass]
   })
 
-  return result
+  return formatRescript(result)
 }
 
 /**
- * Format ReScript source for a given style (inline cn-* → Tailwind utilities).
+ * Inline cn-* → Tailwind utilities, then format the resulting ReScript source.
  */
 export async function formatCode(code, styleName) {
   return transformRescriptSource(code, getStyleMap(styleName))

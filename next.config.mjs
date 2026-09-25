@@ -6,6 +6,12 @@ const nextConfig = {
   outputFileTracingExcludes: {
     "*": ["./shadcn-ui/**"],
   },
+  // Source previews invoke the platform-specific ReScript formatter at runtime.
+  outputFileTracingIncludes: {
+    "/*": [
+      `./node_modules/@rescript/${process.platform}-${process.arch}/{package.json,bin.js,bin/rescript.exe,bin/bsc.exe}`,
+    ],
+  },
   images: {
     remotePatterns: [
       {

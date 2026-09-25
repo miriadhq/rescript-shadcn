@@ -16,6 +16,7 @@
     "build:next": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
+    "format:check": "rescript format --check",
     "registry:sync": "yarn registry:generate && rm -rf public/r .registry-build && yarn registry:build",
     "registry:build": "node scripts/build-style-registries.mjs",
     "registry:generate": "node scripts/generate-registry.mjs",

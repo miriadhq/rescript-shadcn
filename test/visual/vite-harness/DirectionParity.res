@@ -9,4 +9,6 @@ module DirectionText = {
 
 @react.component
 let make = () =>
-  <Base.Direction.Provider direction=Rtl> <DirectionText /> </Base.Direction.Provider>
+  <Base.Direction.Provider direction=Rtl>
+    <DirectionText />
+  </Base.Direction.Provider>

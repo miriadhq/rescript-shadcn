@@ -41,7 +41,10 @@ let make = ({}: Demo.Props.t) => {
           )->React.array}
         </div>
         <span>
-          {React.string("Checkpoint ")} {React.int(state.current)} {React.string(" of ")} {React.int(state.total)}
+          {React.string("Checkpoint ")}
+          {React.int(state.current)}
+          {React.string(" of ")}
+          {React.int(state.total)}
         </span>
       </>,
     )
