@@ -3,7 +3,10 @@ module DirectionText = {
   let make = () => (DirectionProvider.useDirection() :> string)->React.string
 }
 
-let direction = <DirectionProvider direction=Rtl> <DirectionText /> </DirectionProvider>
+let direction =
+  <DirectionProvider direction=Rtl>
+    <DirectionText />
+  </DirectionProvider>
 
 let avatar =
   <Avatar.Root>

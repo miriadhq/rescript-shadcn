@@ -271,7 +271,9 @@ let make = ({}: Demo.Props.t) => {
           table
           ->RT.getColumn("email")
           ->Nullable.toOption
-          ->Option.forEach(col => col->RT.colSetFilterValue((event->JsxEvent.Form.target)["value"]))}
+          ->Option.forEach(col =>
+            col->RT.colSetFilterValue((event->JsxEvent.Form.target)["value"])
+          )}
         className="max-w-sm"
       />
       <DropdownMenu.Trigger>

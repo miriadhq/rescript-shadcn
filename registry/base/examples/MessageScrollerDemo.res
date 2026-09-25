@@ -19,9 +19,7 @@ let make = ({}: Demo.Props.t) => {
       <Card className="mx-auto h-140 w-full max-w-sm gap-0">
         <Card.Header className="gap-1 border-b">
           <Card.Title> {"New Chat"->React.string} </Card.Title>
-          <Card.Description>
-            {"How can I help you today?"->React.string}
-          </Card.Description>
+          <Card.Description> {"How can I help you today?"->React.string} </Card.Description>
           <Card.Action>
             <Tooltip>
               <Tooltip.Trigger

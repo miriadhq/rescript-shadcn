@@ -289,6 +289,25 @@ describe("React Aria UI parity", () => {
 });
 
 describe("published style transforms", () => {
+  test("formats JSX after expanding class names", async () => {
+    const utilities = "flex items-center justify-between rounded-lg border border-muted bg-background px-4 py-2 text-sm font-medium";
+    const source = 'let view = <div className="cn-example" />';
+    const formatted = await transformRescriptSource(source, {"cn-example": utilities});
+    expect(formatted).toBe(`let view =\n  <div\n    className="${utilities}"\n  />\n`);
+    expect(await transformRescriptSource(formatted, {})).toBe(formatted);
+  });
+
+  test("docs previews use the same formatted source as registry files", async () => {
+    const source = 'let view=<div className="cn-sheet-title"/>';
+    expect(await formatCode(source, "nova"))
+      .toBe(await transformRescriptSource(source, getStyleMap("nova")));
+    expect(await formatCode("let value=1", "nova")).toBe("let value = 1\n");
+  });
+
+  test("rejects invalid ReScript instead of publishing unformatted output", async () => {
+    await expect(transformRescriptSource("let value =", {})).rejects.toThrow();
+  });
+
   test.each([
     '<div className="cn-unknown" />',
     'let title = cn("cn-unknown", className)',
@@ -313,7 +332,7 @@ describe("published style transforms", () => {
     expect(getStyleMap("lyra")["cn-dialog-footer"]).toBe("");
     expect(getStyleMap("nova")["cn-dialog-footer"]).not.toBe("");
     expect(await transformRescriptSource('let helper = "cn-dialog-footer flex"', getStyleMap("lyra")))
-      .toBe('let helper = " flex"');
+      .toBe('let helper = " flex"\n');
   });
 
   for (const lib of ["base", "aria"]) {
