@@ -18,7 +18,7 @@ let projects: array<project> = [
 // so retries reuse it, while matching the upstream server example's loading state.
 let fetchProjects = () =>
   Promise.make((resolve, _) => {
-    let _ = setTimeout(~handler=() => resolve(projects), ~timeout=3000)
+    let _ = setTimeout(() => resolve(projects), 3000)
   })
 
 module NavProjectsSkeleton = {

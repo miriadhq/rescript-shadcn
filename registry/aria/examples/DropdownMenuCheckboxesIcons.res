@@ -11,7 +11,7 @@ let make = ({}: Demo.Props.t) => {
         selectedKeys
         onSelectionChange={selection =>
           switch selection {
-          | ReactAria.Common.Keys(keys) => setSelectedKeys(_ => keys->Set.values->Iterator.toArray)
+          | ReactAria.Common.Keys(keys) => setSelectedKeys(_ => keys->Set.toArray)
           | ReactAria.Common.All => ()
           }}
       >

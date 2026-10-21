@@ -58,7 +58,7 @@ let make = ({}: Demo.Props.t) => {
                     switch selection {
                     | ReactAria.Common.Keys(keys) =>
                       setLabel(_ =>
-                        keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(label)
+                        keys->Set.toArray->Array.get(0)->Option.getOr(label)
                       )
                     | ReactAria.Common.All => ()
                     }}

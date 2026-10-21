@@ -12,7 +12,7 @@ module Type = {
 @react.component
 let make = async (
   ~name,
-  @as("type") ~type_: option<Type.t>=?,
+  ~\"type" as type_: option<Type.t>=?,
   ~className=?,
   ~previewClassName=?,
   ~align=ComponentPreviewTabs.Align.Center,

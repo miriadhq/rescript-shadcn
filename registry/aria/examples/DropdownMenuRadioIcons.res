@@ -13,7 +13,7 @@ let make = ({}: Demo.Props.t) => {
           switch selection {
           | ReactAria.Common.Keys(keys) =>
             setPaymentMethod(_ =>
-              keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("card")
+              keys->Set.toArray->Array.get(0)->Option.getOr("card")
             )
           | ReactAria.Common.All => setPaymentMethod(_ => "card")
           }}

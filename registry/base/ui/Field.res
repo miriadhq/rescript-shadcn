@@ -56,7 +56,7 @@ module Legend = {
     <legend
       {...props->toBaseUiProps}
       dataSlot={props.dataSlot->Option.getOr("field-legend")}
-      dataVariant={props.dataVariant->Option.getOr((variant :> string))}
+      dataVariant={props.dataVariant->Option.getOr(variant :> string)}
       className={cn("cn-field-legend", props.className)}
     />
   }
@@ -92,7 +92,7 @@ let make = (props: props) => {
     {...props->toBaseUiProps}
     role
     dataSlot={props.dataSlot->Option.getOr("field")}
-    dataOrientation={props.dataOrientation->Option.getOr((orientation :> string))}
+    dataOrientation={props.dataOrientation->Option.getOr(orientation :> string)}
     className={cn(fieldVariants(~orientation), props.className)}
   />
 }
@@ -193,10 +193,11 @@ module Error = {
         switch errors {
         | None | Some([]) => React.null
         | Some(errors) =>
-          let uniqueErrors =
-            Map.fromArray(errors->Array.map(error => (error.message, error)))
-            ->Map.values
-            ->Iterator.toArray
+          let uniqueErrors = Array.fromIterable(
+            Map.fromArray(
+              errors->Array.map(error => (error.message, error)),
+            )->Map.values :> iterable<t>,
+          )
           switch uniqueErrors {
           | [{message}] => message->React.string
           | errors =>

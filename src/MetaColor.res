@@ -24,7 +24,8 @@ let use = () => {
   }, [resolvedTheme])
 
   let setMetaColor = React.useCallback(color => {
-    document
+    WebAPI.DOM.window
+    ->WebAPI.Window.document
     ->WebAPI.Document.querySelector(`meta[name="theme-color"]`)
     ->Null.forEach(element =>
       element->WebAPI.Element.setAttribute(~qualifiedName="content", ~value=color)

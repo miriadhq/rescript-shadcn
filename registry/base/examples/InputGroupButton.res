@@ -22,7 +22,7 @@ let make = ({}: Demo.Props.t) => {
   let (isCopied, setIsCopied) = React.useState(() => false)
   React.useEffect(() => {
     if isCopied {
-      let timer = setTimeout(~handler=() => setIsCopied(_ => false), ~timeout=2000)
+      let timer = setTimeout(() => setIsCopied(_ => false), 2000)
       Some(() => clearTimeout(timer))
     } else {
       None

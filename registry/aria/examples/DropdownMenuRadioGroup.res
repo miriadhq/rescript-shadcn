@@ -13,7 +13,7 @@ let make = ({}: Demo.Props.t) => {
           switch selection {
           | ReactAria.Common.Keys(keys) =>
             setPosition(_ =>
-              keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("bottom")
+              keys->Set.toArray->Array.get(0)->Option.getOr("bottom")
             )
           | ReactAria.Common.All => setPosition(_ => "bottom")
           }}

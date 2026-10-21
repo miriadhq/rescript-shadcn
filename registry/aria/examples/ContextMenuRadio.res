@@ -3,7 +3,7 @@
 let firstKey = (selection, fallback) =>
   switch selection {
   | ReactAria.Common.Keys(keys) =>
-    keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr(fallback)
+    keys->Set.toArray->Array.get(0)->Option.getOr(fallback)
   | ReactAria.Common.All => fallback
   }
 

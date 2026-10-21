@@ -19,8 +19,7 @@ let make = ({}: Demo.Props.t) => {
       selectedKeys={[spacing]}
       onSelectionChange={keys =>
         keys
-        ->Set.values
-        ->Iterator.toArray
+        ->Set.toArray
         ->Array.get(0)
         ->Option.forEach(spacing => setSpacing(_ => spacing))}
       variant=Outline

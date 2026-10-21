@@ -127,7 +127,7 @@ let make = ({}: Demo.Props.t) => {
                 switch selection {
                 | ReactAria.Common.Keys(keys) =>
                   setTheme(_ =>
-                    keys->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("system")
+                    keys->Set.toArray->Array.get(0)->Option.getOr("system")
                   )
                 | ReactAria.Common.All => setTheme(_ => "system")
                 }}

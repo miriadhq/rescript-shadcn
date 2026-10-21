@@ -6,7 +6,7 @@ let make = ({}: Demo.Props.t) =>
     variant=Outline
     onClick={_ => {
       let task = Promise.make((resolve, _reject) => {
-        let _ = setTimeout(~handler=() => resolve({"name": "Event"}), ~timeout=2000)
+        let _ = setTimeout(() => resolve({"name": "Event"}), 2000)
       })
       let _ = BaseUi.Toast.promise(
         Toast.toast,

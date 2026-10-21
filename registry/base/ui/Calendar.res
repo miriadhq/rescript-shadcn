@@ -349,7 +349,7 @@ module DayPicker = {
   }
 
   @module("react-day-picker")
-  external make: Props.t<'selected> => React.element = "DayPicker"
+  external make: React.component<Props.t<'selected>> = "DayPicker"
 }
 
 module Props = {

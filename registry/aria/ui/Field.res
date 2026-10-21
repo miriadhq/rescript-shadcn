@@ -52,7 +52,7 @@ module Legend = {
     <legend
       {...props->domProps}
       dataSlot={props.dataSlot->Option.getOr("field-legend")}
-      dataVariant={(variant :> string)}
+      dataVariant={variant :> string}
       className={cn("cn-field-legend", props.className)}
     />
   }
@@ -81,7 +81,7 @@ let make = (props: props) => {
     {...props->domProps}
     role={props.role->Option.getOr("group")}
     dataSlot={props.dataSlot->Option.getOr("field")}
-    dataOrientation={(orientation :> string)}
+    dataOrientation={orientation :> string}
     className={cn(fieldVariants(~orientation), props.className)}
   />
 }
@@ -174,14 +174,13 @@ module Error = {
         switch props.errors {
         | None | Some([]) => React.null
         | Some(errors) =>
-          let uniqueErrors =
+          let uniqueErrors = Array.fromIterable(
             Map.fromArray(
               errors->Array.filterMap(error =>
                 error.message->Option.map(message => (message, error))
               ),
-            )
-            ->Map.values
-            ->Iterator.toArray
+            )->Map.values :> iterable<t>,
+          )
           switch uniqueErrors {
           | [{message}] => message->React.string
           | errors =>

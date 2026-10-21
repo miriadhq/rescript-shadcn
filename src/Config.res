@@ -156,7 +156,7 @@ module LibStyle = {
     searchParams->WebAPI.URLSearchParams.get(paramName)->Null.toOption
 
   let getCurrentParam = () => {
-    let location = WebAPI.Global.window.location
+    let location = WebAPI.DOM.window->WebAPI.Window.location
     location.pathname
     ->fromPathname
     ->Option.orElse(
@@ -168,7 +168,7 @@ module LibStyle = {
   }
 
   let hrefFor = (pathname, libStyle) => {
-    let location = WebAPI.Global.window.location
+    let location = WebAPI.DOM.window->WebAPI.Window.location
     let params = WebAPI.URLSearchParams.fromString(location.search)
     let pathname = switch componentSlug(pathname) {
     | Some(slug) => {
@@ -188,8 +188,10 @@ module LibStyle = {
     }
   }
 
+  @get external documentBody: WebAPI.DOM.document => WebAPI.HTMLElement.t = "body"
+
   let syncBodyClasses = libStyle => {
-    let classList = WebAPI.Global.document.body.classList
+    let classList = (WebAPI.DOM.window->WebAPI.Window.document->documentBody).classList
     Style.all->Array.forEach(style =>
       classList->WebAPI.DOMTokenList.remove(`style-${style->Style.toString}`)
     )

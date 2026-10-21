@@ -331,7 +331,7 @@ let make = ({}: Demo.Props.t) => {
           | ReactAria.Common.All => table->RT.toggleAllRowsSelected(true)
           | Keys(keys) =>
             setRowSelection(_ =>
-              keys->Set.values->Iterator.toArray->Array.map(key => (key, true))->Dict.fromArray
+              keys->Set.toArray->Array.map(key => (key, true))->Dict.fromArray
             )
           }}
       >

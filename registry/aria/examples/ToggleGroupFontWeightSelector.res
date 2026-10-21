@@ -10,7 +10,7 @@ let make = ({}: Demo.Props.t) => {
       selectedKeys={[fontWeight]}
       onSelectionChange={value =>
         setFontWeight(_ =>
-          value->Set.values->Iterator.toArray->Array.get(0)->Option.getOr("normal")
+          value->Set.toArray->Array.get(0)->Option.getOr("normal")
         )}
       variant=Outline
       spacing=2.

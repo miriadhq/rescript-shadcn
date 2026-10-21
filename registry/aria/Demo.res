@@ -3,5 +3,5 @@ module Props = {
 }
 
 module type Component = {
-  let make: Props.t => React.element
+  let make: React.component<Props.t>
 }

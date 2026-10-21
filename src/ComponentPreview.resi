@@ -7,7 +7,7 @@ module Type: {
 @react.component
 let make: (
   ~name: option<string>,
-  @as("type") ~type_: Type.t=?,
+  ~\"type": Type.t=?,
   ~className: string=?,
   ~previewClassName: string=?,
   ~align: RescriptShadcn.ComponentPreviewTabs.Align.t=?,

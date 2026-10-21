@@ -5,7 +5,7 @@ open BaseUi.Types
 @module("cn")
 external cn: (string, option<string>) => string = "cn"
 
-@react.componentWithComponents(BaseUIComponentProps.t)
+@react.componentWithProps(BaseUIComponentProps.t)
 let make = (props: BaseUIComponentProps.t) =>
   <BaseUi.Separator
     {...props}

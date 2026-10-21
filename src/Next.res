@@ -29,7 +29,7 @@ module Layout = {
 }
 
 module Navigation = {
-  type searchParams = WebAPI.URLAPI.urlSearchParams
+  type searchParams = WebAPI.URLSearchParams.t
   type router
 
   @module("next/navigation") external usePathname: unit => string = "usePathname"
@@ -70,7 +70,7 @@ module Fetch = {
   }
 }
 
-external fetch: (string, ~init: Fetch.requestInit=?) => promise<WebAPI.FetchAPI.response> = "fetch"
+external fetch: (string, ~init: Fetch.requestInit=?) => promise<WebAPI.Response.t> = "fetch"
 
 module Themes = {
   @unboxed

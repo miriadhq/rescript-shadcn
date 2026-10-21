@@ -38,6 +38,5 @@
     "rescript-signals"
   ],
   "compiler-flags": [
-    "-open WebAPI.Global"
   ]
 }
